@@ -1,8 +1,3 @@
-<h2>Template starting code to use the engine:</h2>
-
-<h3>main.cpp</h3>
-
-```
 #include "Engine.h"
 #include "MyBehavior.h"
 
@@ -28,37 +23,3 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	engine.loop();
 }
-```
-
-<h3>MyBehavior.h</h3>
-
-```
-#pragma once
-
-#include "ObjectBehavior.h"
-
-class MyBehavior : public ObjectBehavior {
-public:
-	MyBehavior(Object &object);
-
-	void tick() override;
-};
-```
-
-<h3>MyBehavior.cpp</h3>
-
-```
-#include "MyBehavior.h"
-
-MyBehavior::MyBehavior(Object &object) : ObjectBehavior() {
-	this->object = &object;
-	this->name = "MyBehavior";
-}
-
-void MyBehavior::tick() {
-	object->transform.rotation.x += 0.01f;
-	object->transform.rotation.y -= 0.01f;
-	object->transform.rotation.z += 0.01f;
-}
-
-```
