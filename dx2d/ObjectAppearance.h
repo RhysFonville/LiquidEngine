@@ -3,9 +3,30 @@
 #include <string>
 #include <vector>
 #include <Windows.h>
+#include "Material.h"
 
 struct Color {
 	UCHAR r = 255, g = 255, b = 255, a = 255;
+};
+
+struct FVector2 {
+	float x = 0;
+	float y = 0;
+
+	FVector2() : x(0), y(0) {}
+	FVector2(float x, float y) : x(x), y(y) {}
+
+	FVector2 operator+(FVector2 vector) {
+		FVector2 ret = vector;
+		ret.x += x;
+		ret.y += y;
+		return ret;
+	}
+
+	void operator+=(FVector2 vector) {
+		x += vector.x;
+		y += vector.y;
+	}
 };
 
 struct FVector3 {
@@ -20,27 +41,30 @@ struct FVector3 {
 		FVector3 ret = vector;
 		ret.x += x;
 		ret.y += y;
+		ret.z += z;
 		return ret;
 	}
 
 	void operator+=(FVector3 vector) {
 		x += vector.x;
 		y += vector.y;
+		z += vector.z;
 	}
 };
 
 using FPosition = FVector3;
+using FPosition3 = FVector3;
+using FPosition2 = FVector2;
 
 struct Vertex {
-	FPosition position = FPosition();
-	Color color = Color();
+	FPosition3 position = FPosition3();
+	FPosition2 tex_coord = FPosition2();
 
-	Vertex(float x, float y, float z)
-		: position({ x, y, z }), color({ 255, 255, 255, 255 }) {
+	Vertex(float x, float y, float z) : position({ x, y, z }) {
 	}
 
-	Vertex(float x, float y, float z, UCHAR r, UCHAR g, UCHAR b, UCHAR a)
-		: position({ x, y, z }), color({ r, g, b, a }) { }
+	Vertex(float x, float y, float z, float u, float v)
+		: position({ x, y, z }), tex_coord({ u, v }) { }
 };
 
 struct Mesh {
@@ -53,26 +77,78 @@ public:
 	ObjectAppearance();
 	ObjectAppearance(std::string pixel, std::string vertex);
 
-	std::string pixel_shader = "PixelShader.cso";
-	std::string vertex_shader = "VertexShader.cso";
+	Material material;
+
 	Mesh mesh = {
 		 {
-			{ -1.0f, -1.0f, -1.0f, 255, 0, 0, 255 },
+			/*{-1.0f, -1.0f, -1.0f, 255, 0, 0, 255},
 			{ 1.0f, -1.0f, -1.0f, 0, 255, 0, 255 },
 			{ -1.0f, 1.0f, -1.0f, 0, 0, 255, 255 },
 			{ 1.0f, 1.0f, -1.0f, 255, 0, 255, 255 },
 			{ -1.0f, -1.0f, 1.0f, 255, 255, 0, 255 },
 			{ 1.0f, -1.0f, 1.0f, 0, 255, 255, 255 },
 			{ -1.0f, 1.0f, 1.0f, 255, 0, 0, 255 },
-			{ 1.0f, 1.0f, 1.0f, 0, 255, 0, 255 },
+			{ 1.0f, 1.0f, 1.0f, 0, 255, 0, 255 }*/
+			// Front Face
+			Vertex(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f),
+			Vertex(-1.0f,  1.0f, -1.0f, 0.0f, 0.0f),
+			Vertex( 1.0f,  1.0f, -1.0f, 1.0f, 0.0f),
+			Vertex( 1.0f, -1.0f, -1.0f, 1.0f, 1.0f),
+
+			// Back Face
+			Vertex(-1.0f, -1.0f, 1.0f, 1.0f, 1.0f),
+			Vertex( 1.0f, -1.0f, 1.0f, 0.0f, 1.0f),
+			Vertex( 1.0f,  1.0f, 1.0f, 0.0f, 0.0f),
+			Vertex(-1.0f,  1.0f, 1.0f, 1.0f, 0.0f),
+
+			// Top Face
+			Vertex(-1.0f, 1.0f, -1.0f, 0.0f, 1.0f),
+			Vertex(-1.0f, 1.0f,  1.0f, 0.0f, 0.0f),
+			Vertex( 1.0f, 1.0f,  1.0f, 1.0f, 0.0f),
+			Vertex( 1.0f, 1.0f, -1.0f, 1.0f, 1.0f),
+
+			// Bottom Face
+			Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 1.0f),
+			Vertex( 1.0f, -1.0f, -1.0f, 0.0f, 1.0f),
+			Vertex( 1.0f, -1.0f,  1.0f, 0.0f, 0.0f),
+			Vertex(-1.0f, -1.0f,  1.0f, 1.0f, 0.0f),
+
+			// Left Face
+			Vertex(-1.0f, -1.0f,  1.0f, 0.0f, 1.0f),
+			Vertex(-1.0f,  1.0f,  1.0f, 0.0f, 0.0f),
+			Vertex(-1.0f,  1.0f, -1.0f, 1.0f, 0.0f),
+			Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 1.0f),
+
+			// Right Face
+			Vertex( 1.0f, -1.0f, -1.0f, 0.0f, 1.0f),
+			Vertex( 1.0f,  1.0f, -1.0f, 0.0f, 0.0f),
+			Vertex( 1.0f,  1.0f,  1.0f, 1.0f, 0.0f),
+			Vertex( 1.0f, -1.0f,  1.0f, 1.0f, 1.0f),
 		},
 		{
-			0, 2, 1, 2, 3, 1,
-			1, 3, 5, 3, 7, 5,
-			2, 6, 3, 3, 6, 7,
-			4, 5, 7, 4, 7, 6,
-			0, 4, 2, 2, 4, 6,
-			0, 1, 4, 1, 5, 4,
+			// Front Face
+			0,  1,  2,
+			0,  2,  3,
+
+			// Back Face
+			4,  5,  6,
+			4,  6,  7,
+
+			// Top Face
+			8,  9, 10,
+			8, 10, 11,
+
+			// Bottom Face
+			12, 13, 14,
+			12, 14, 15,
+
+			// Left Face
+			16, 17, 18,
+			16, 18, 19,
+
+			// Right Face
+			20, 21, 22,
+			20, 22, 23
 		}
 	};
 };

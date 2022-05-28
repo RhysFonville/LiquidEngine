@@ -14,17 +14,20 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 						L"Exit",
 						MB_YESNO | MB_ICONWARNING, 0
 					) == IDYES) {
+
+					//GRAPHICS_SCENE->clean_up();
+
+					// Don't clean anything up after this, graphics_scene is being destroyed lol
 					DestroyWindow(*this_window_wndproc->get_window());
-
 					this_window_wndproc->running = false;
-
 					this_window_wndproc = NULL;
-
 					return 0;
 				}
 				return 1;
 			case WM_DESTROY:
 				PostQuitMessage(WM_QUIT);
+				break;
+			case WM_QUIT:
 				break;
 			case WM_SIZE:
 				RECT rect;

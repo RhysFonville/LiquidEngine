@@ -21,5 +21,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	engine.scene.behavior_manager.behaviors.emplace_back(
 		std::shared_ptr<ObjectBehavior>(new MyBehavior((*engine.scene.objects)[1])));
 
+	engine.scene.graphics_scene.compile();
+
 	engine.loop();
 }

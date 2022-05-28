@@ -52,7 +52,7 @@ GraphicsScene::GraphicsScene(HWND window, const std::shared_ptr<std::vector<Obje
 	D3D11_DEPTH_STENCIL_DESC depth_stencil_description = {};
 	depth_stencil_description.DepthEnable = true;
 	depth_stencil_description.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	depth_stencil_description.DepthFunc = D3D11_COMPARISON_LESS;
+	depth_stencil_description.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depth_stencil_state;
 	device->CreateDepthStencilState(&depth_stencil_description, &depth_stencil_state);
 
@@ -113,9 +113,7 @@ GraphicsScene::GraphicsScene(HWND window, const std::shared_ptr<std::vector<Obje
 	viewport.TopLeftY = 0;
 	context->RSSetViewports(1u, &viewport);
 
-	Microsoft::WRL::ComPtr<ID3D11BlendState> blend_state = nullptr;
 	D3D11_BLEND_DESC blend_description = { };
-	ZeroMemory(&blend_description, sizeof(D3D11_BLEND_DESC));
 	blend_description.RenderTarget[0].BlendEnable = true;
 	blend_description.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_SRC_ALPHA;
 	blend_description.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
@@ -133,6 +131,104 @@ GraphicsScene::GraphicsScene(HWND window, const std::shared_ptr<std::vector<Obje
 
 	context->OMSetRenderTargets(1u, target.GetAddressOf(), depth_stencil_view.Get());
 }
+
+void GraphicsScene::compile() {
+	for (Object &object : *objects) {
+		Material &material = object.appearance.material;
+
+		// +---------------- Texture ----------------+
+		HANDLE_POSSIBLE_EXCEPTION(DirectX::CreateWICTextureFromFile(
+			device.Get(),
+			string_to_wstring(material.texture.file_name).c_str(),
+			material.texture.texture.GetAddressOf(),
+			material.texture.texture_view.GetAddressOf()
+		));
+
+		D3D11_SAMPLER_DESC sampler_description = { };
+		sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		sampler_description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_description.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		sampler_description.MinLOD = 0;
+		sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
+
+		HANDLE_POSSIBLE_EXCEPTION(device->CreateSamplerState(&sampler_description, material.texture.sampler_state.GetAddressOf()));
+
+		// +---------------- Shaders ----------------+
+		// Create Pixel Shader
+		HANDLE_POSSIBLE_EXCEPTION(device->CreatePixelShader(material.pixel_blob->GetBufferPointer(), material.pixel_blob->GetBufferSize(), nullptr, &material.pixel_shader));
+
+		// Set Pixel Shader
+		context->PSSetShader(material.pixel_shader.Get(), nullptr, 0u);
+
+		// Create Vertex Shader
+		HANDLE_POSSIBLE_EXCEPTION(device->CreateVertexShader(material.vertex_blob->GetBufferPointer(), material.vertex_blob->GetBufferSize(), nullptr, &material.vertex_shader));
+
+		// Set Vertex Shader
+		context->VSSetShader(material.vertex_shader.Get(), nullptr, 0u);
+
+		// Input layout are the parameters for the shaders
+		const D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
+			{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },  
+		};
+
+		// Create Input Layout
+		HANDLE_POSSIBLE_EXCEPTION(device->CreateInputLayout(input_element_description,
+			(UINT)std::size(input_element_description),
+			material.vertex_blob->GetBufferPointer(), 
+			material.vertex_blob->GetBufferSize(),
+			&material.input_layout
+		));
+	}
+}
+
+/*void GraphicsScene::clean_up() {
+	device.Get()->Release();
+	device->Release();
+
+	swap_chain.Get()->Release();
+	swap_chain->Release();
+
+	context.Get()->Release();
+	context->Release();
+
+	target.Get()->Release();
+	target->Release();
+
+	depth_stencil_view.Get()->Release();
+	depth_stencil_view->Release();
+
+	blend_state.Get()->Release();
+	blend_state->Release();
+
+	for (Object &object : *objects) {
+		object.appearance.material.input_layout.Get()->Release();
+		object.appearance.material.input_layout->Release();
+
+		object.appearance.material.pixel_blob.Get()->Release();
+		object.appearance.material.pixel_blob->Release();
+
+		object.appearance.material.pixel_shader.Get()->Release();
+		object.appearance.material.pixel_shader->Release();
+
+		object.appearance.material.texture.sampler_state.Get()->Release();
+		object.appearance.material.texture.sampler_state->Release();
+
+		object.appearance.material.texture.texture.Get()->Release();
+		object.appearance.material.texture.texture->Release();
+
+		object.appearance.material.texture.texture_view.Get()->Release();
+		object.appearance.material.texture.texture_view->Release();
+
+		object.appearance.material.vertex_blob.Get()->Release();
+		object.appearance.material.vertex_blob->Release();
+
+		object.appearance.material.vertex_shader.Get()->Release();
+		object.appearance.material.vertex_shader->Release();
+	}
+}*/
 
 void GraphicsScene::draw() {
 	for (Object object : *objects) {
@@ -155,35 +251,11 @@ void GraphicsScene::draw() {
 		// Set constant buffer
 		context->VSSetConstantBuffers(0u, 1u, constant_buffer_pointer.GetAddressOf());
 
-		// Create Pixel Shader
-		Microsoft::WRL::ComPtr<ID3DBlob> blob;
-		Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader;
-		HANDLE_POSSIBLE_EXCEPTION(D3DReadFileToBlob(string_to_wstring(object.appearance.pixel_shader).c_str(), &blob));
-		HANDLE_POSSIBLE_EXCEPTION(device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &pixel_shader));
-
-		// Set Pixel Shader
-		context->PSSetShader(pixel_shader.Get(), nullptr, 0u);
-
-		// Create Vertex Shader
-		Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader;
-		HANDLE_POSSIBLE_EXCEPTION(D3DReadFileToBlob(string_to_wstring(object.appearance.vertex_shader).c_str(), &blob));
-		HANDLE_POSSIBLE_EXCEPTION(device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &vertex_shader));
-
-		// Set Vertex Shader
-		context->VSSetShader(vertex_shader.Get(), nullptr, 0u);
-
-		// Input layout are the parameters for the shaders
-		Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
-		const D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
-			{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-		};
-
-		// Create Input Layout
-		HANDLE_POSSIBLE_EXCEPTION(device->CreateInputLayout(input_element_description, (UINT)std::size(input_element_description), blob->GetBufferPointer(), blob->GetBufferSize(), &input_layout));
-
 		// Bind Input Layout
-		context->IASetInputLayout(input_layout.Get());
+		context->IASetInputLayout(object.appearance.material.input_layout.Get());
+
+		context->PSSetShaderResources(0, 1, object.appearance.material.texture.texture_view.GetAddressOf());
+		context->PSSetSamplers(0, 1, object.appearance.material.texture.sampler_state.GetAddressOf());
 
 		// Draw it
 		context->DrawIndexed((UINT)object.appearance.mesh.indices.size(), 0u, 0u);

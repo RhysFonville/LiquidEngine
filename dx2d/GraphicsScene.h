@@ -1,11 +1,7 @@
 #pragma once
 
-#include <d3d11.h>
-#include <exception>
-#include <wrl.h>
 #include <DirectXMath.h>
-#include <d3dcompiler.h>
-#include "Throw.h"
+#include <filesystem>
 #include "Object.h"
 
 #define D3D11_DOUBLE_SIDED D3D11_CULL_NONE
@@ -18,6 +14,9 @@ public:
 	GraphicsScene() {}
 	GraphicsScene(HWND window,
 		const std::shared_ptr<std::vector<Object>> &objects);
+
+	void compile();
+	//void clean_up();
 
 	void draw();
 	void present();
@@ -37,6 +36,7 @@ public:
 
 private:
 	friend class Window;
+	friend class Texture;
 
 	void set_vertex_buffer(Object object);
 	void set_index_buffer(Object object);
@@ -46,6 +46,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11BlendState> blend_state = nullptr;
 
 	D3D11_VIEWPORT viewport = { };
 
