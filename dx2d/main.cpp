@@ -1,27 +1,46 @@
 #include "Engine.h"
 #include "MyBehavior.h"
+#include "CameraController.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
+	try {
+		Object camera("Camera");
+		camera.components.push_back(std::make_shared<CameraComponent>());
+		/*camera.components.push_back(std::make_shared<PointLightComponent>());
+		camera.get_component<PointLightComponent>()->range = 100.0f;
+		camera.get_component<PointLightComponent>()->attenuation = FVector3(0.1f, 0.05f, 0.0f);
+		camera.get_component<PointLightComponent>()->ambient = FVector4(0.0f, 0.0f, 0.0f, 0.0f);
+		camera.get_component<PointLightComponent>()->diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);*/
+		engine.scene.objects->push_back(std::make_shared<Object>(camera));
 
-	Object obj;
-	obj.transform.position = { 0.0f, 0.0f, 5.0f };
-	obj.transform.rotation = { 70.0f, 70.0f, 70.0f };
-	obj.transform.scale = { 1, 1, 1 };
-	engine.scene.objects.get()->push_back(obj);
+		camera.translate(FVector3(0.0f, 0.0f, -5.0f));
 
-	Object obj1;
-	obj1.transform.position = { 3.0f, 1.0f, 7.0f };
-	obj1.transform.rotation = { 0.0f, 0.0f, 0.0f };
-	obj1.transform.scale = { 1, 1, 1 };
-	engine.scene.objects.get()->push_back(obj1);
+		Object sun("Sun");
+		sun.components.push_back(std::make_shared<DirectionalLightComponent>());
+		engine.scene.objects->push_back(std::make_shared<Object>(sun));
 
-	engine.scene.behavior_manager.behaviors.emplace_back(
-		std::shared_ptr<ObjectBehavior>(new MyBehavior((*engine.scene.objects)[0])));
-	engine.scene.behavior_manager.behaviors.emplace_back(
-		std::shared_ptr<ObjectBehavior>(new MyBehavior((*engine.scene.objects)[1])));
+		engine.scene.read_obj_file("map.obj");
 
-	engine.scene.graphics_scene.compile();
+		engine.scene.behavior_manager.behaviors.push_back(
+			std::unique_ptr<ObjectBehavior>(
+				new CameraController(engine.scene.objects, engine.scene.objects->at(0))
+			)
+		);
 
-	engine.loop();
+		engine.scene.behavior_manager.behaviors.push_back(
+		std::unique_ptr<ObjectBehavior>(
+				new MyBehavior(engine.scene.objects, engine.scene.objects->at(2))
+			)
+		);
+
+		engine.scene.graphics_scene->compile();
+
+		engine.loop();
+	} catch (const std::exception &e) {
+		if (YESNO_MESSAGE(L"Do you want to append this error message to the output file?") == true) {
+			engine.clean_up();
+			append_to_file("out.txt", e.what());
+		}
+	}
 }

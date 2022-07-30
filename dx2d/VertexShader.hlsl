@@ -1,32 +1,25 @@
-cbuffer position_cbuffer {
+cbuffer per_object : register(b1) {
+	matrix WVP;
 	matrix transform;
-	float4x4 WVP;
-};
+}
 
-/*struct VS_OUT {
-	float4 color : Color;
-	float4 position : SV_Position;
-};
-
-VS_OUT main(float3 pos : Position, float4 color : Color) {
-	VS_OUT ret;
-
-	ret.color = color;
-	ret.position = mul(float4(pos, 1.0f), transform);
-	return ret;
-}*/
-
-struct VS_OUTPUT
-{
+struct VS_OUTPUT {
 	float4 position : SV_POSITION;
+	float3 transform_position : POSITION;
 	float2 texcoord : TEXCOORD;
+	float3 normal : NORMAL;
+	//float3 tangent : TANGENT;
 };
 
-VS_OUTPUT main(float3 position : Position, float2 texcoord : TEXCOORD) {
+VS_OUTPUT main(float3 position : POSITION, float2 texcoord : TEXCOORD, float3 normal : NORMAL, float3 tangent : TANGENT) {
 	VS_OUTPUT output;
 
-	output.position = mul(float4(position, 1.0f), transform);
+	output.transform_position = mul(float4(position, 1.0f), transform);
+	output.position = float4(output.transform_position, 1.0f);
+	output.position = mul(output.position, WVP);
 	output.texcoord = texcoord;
+	output.normal = mul(normal, transform);
+	//output.tangent = output.normal;
 
 	return output;
 }

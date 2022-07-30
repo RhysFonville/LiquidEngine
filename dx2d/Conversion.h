@@ -29,5 +29,9 @@ static std::string wstring_to_string(const std::wstring& wstring) {
     return str;
 }
 
+static std::wstring BSTR_to_wstring(BSTR bstr) {
+    return std::wstring(bstr, SysStringLen(bstr));
+}
+
 #endif
 

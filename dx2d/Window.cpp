@@ -8,22 +8,10 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
 		switch (uMsg) {
 			case WM_CLOSE:
-				if (MessageBoxExW(
-						*this_window_wndproc->get_window(),
-						L"Are you sure you want to quit?",
-						L"Exit",
-						MB_YESNO | MB_ICONWARNING, 0
-					) == IDYES) {
-
-					//GRAPHICS_SCENE->clean_up();
-
-					// Don't clean anything up after this, graphics_scene is being destroyed lol
-					DestroyWindow(*this_window_wndproc->get_window());
+				if (YESNO_MESSAGE(L"Are you sure you want to exit?", false) == true)
 					this_window_wndproc->running = false;
-					this_window_wndproc = NULL;
-					return 0;
-				}
-				return 1;
+				return 0;
+				break;
 			case WM_DESTROY:
 				PostQuitMessage(WM_QUIT);
 				break;
@@ -34,49 +22,64 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 				if (GetWindowRect(hwnd, &rect)) {
 					UINT width = rect.right - rect.left;
 					UINT height = rect.bottom - rect.top;
-					this_window_wndproc->size = Size(width, height);
+					this_window_wndproc->size = Size2(width, height);
 				}
 
-				/*if (GRAPHICS_SCENE) {
-					GRAPHICS_SCENE->context->OMSetRenderTargets(0, 0, 0);
+				/*if (!this_window_wndproc->first_size) {
+					if (GRAPHICS_SCENE) {
+						GRAPHICS_SCENE->context->OMSetRenderTargets(0, 0, 0);
 
-					// Release all outstanding references to the swap chain's buffers.
-					HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->target->Release());
+						// Release all outstanding references to the swap chain's buffers.
+						GRAPHICS_SCENE->clean_up(false, false, false);
 
-					// Preserve the existing buffer count and format.
-					// Automatically choose the width and height to match the client rect for HWNDs.
-					HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->ResizeBuffers(
-						0u,
-						this_window_wndproc->size.width,
-						this_window_wndproc->size.height,
-						DXGI_FORMAT::DXGI_FORMAT_UNKNOWN, 0u));
+						// Preserve the existing buffer count and format.
+						// Automatically choose the width and height to match the client rect for HWNDs.
+						HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->ResizeBuffers(0, this_window_wndproc->size.x,
+							this_window_wndproc->size.y, DXGI_FORMAT_UNKNOWN, 0));
+											
+						// Perform error handling here!
 
-					// Perform error handling here!
+						// Get buffer and create a render-target-view.
+						ID3D11Texture2D* pBuffer;
+						HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->GetBuffer(
+							0, 
+							__uuidof(ID3D11Texture2D),
+							(void**)&pBuffer)
+						);
+						// Perform error handling here!
 
-					// Get buffer and create a render-target-view.
-					ID3D11Texture2D* pBuffer = nullptr;
-					HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D),
-						(void**)&pBuffer));
-					// Perform error handling here!
+						Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
+						if (pBuffer != NULL) {
+							HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->device->CreateRenderTargetView(
+								pBuffer,
+								NULL,
+								&target
+							));
+						} else {
+							ERROR_MESSAGE(L"Swap chain render target resource ID3D11Resource is null when attempting to resize window.");
+						}
 
-					HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->device->CreateRenderTargetView(pBuffer, NULL,
-						&GRAPHICS_SCENE->target));
-					// Perform error handling here!
-					pBuffer->Release();
+						target.CopyTo(GRAPHICS_SCENE->target.GetAddressOf());
+						target.Detach();
+						GRAPHICS_SCENE->context->OMSetRenderTargets(1u, GRAPHICS_SCENE->target.GetAddressOf(), NULL);
 
-					GRAPHICS_SCENE->context->OMSetRenderTargets(1, &GRAPHICS_SCENE->target, NULL);
+						GRAPHICS_SCENE->create_unessentials();
+					
+						for (std::shared_ptr<Object> &object : *GRAPHICS_SCENE->objects) {
+							std::shared_ptr<MeshComponent> mesh = GRAPHICS_SCENE->obj_mesh(*object);
+							if (mesh != nullptr) {
+								Material &material = mesh->material;
+								material.compile(false);
+							}
+						}
 
-					// Set up the viewport.
-					D3D11_VIEWPORT vp;
-					vp.Width = this_window_wndproc->size.width;
-					vp.Height = this_window_wndproc->size.width;
-					vp.MinDepth = 0.0f;
-					vp.MaxDepth = 1.0f;
-					vp.TopLeftX = 0;
-					vp.TopLeftY = 0;
-					GRAPHICS_SCENE->context->RSSetViewports(1, &vp);
-				}
-				*/
+						GRAPHICS_SCENE->compile();
+
+						GRAPHICS_SCENE->context->IASetPrimitiveTopology(GRAPHICS_SCENE->primitive_topology);
+					}
+				}*/
+				
+				this_window_wndproc->first_size = false;
 				break;
 		}
 	}
@@ -117,18 +120,16 @@ Window::Window(HINSTANCE hInstance, std::shared_ptr<GraphicsScene> graphics_scen
 	RegisterClassW(&window_class);
 }
 
-void Window::set_up_window(const Position &position, const Size &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
-	HWND hwnd = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
+void Window::set_up_window(const Position2 &position, const Size2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
+	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
 		style, position.x, position.y,
-		800, 600, parent, menu, hInstance, lpParam);
-
-	window = std::make_shared<HWND>(hwnd);
-	dc = GetDC(*window);
+		size.x, size.y, parent, menu, hInstance, lpParam);
+	dc = GetDC(window);
 }
 
 void Window::check_input() {
 	MSG message = { };
-	while (PeekMessageW(&message, *window, 0, 0, PM_REMOVE)) {
+	while (PeekMessageW(&message, window, 0, 0, PM_REMOVE)) {
 		this_window_wndproc = this;
 
 		TranslateMessage(&message);
@@ -136,29 +137,44 @@ void Window::check_input() {
 	}
 }
 
-std::shared_ptr<HWND> Window::get_window() {
+void Window::clean_up() {
+	if (ReleaseDC(window, dc) == 0) {
+		dc = GetDC(window);
+		ERROR_MESSAGE(L"Failed to release the device context.");
+		ReleaseDC(window, dc);
+	}
+	if (DestroyWindow(this_window_wndproc->get_window()) == 0) {
+		dc = GetDC(window);
+		ERROR_MESSAGE(L"Failed to destroy window.");
+		ReleaseDC(window, dc);
+	}
+	this_window_wndproc = NULL;
+	graphics_scene = nullptr;
+}
+
+HWND & Window::get_window() noexcept {
 	return window;
 }
 
-HDC & Window::get_dc() {
+HDC & Window::get_dc() noexcept {
 	return dc;
 }
 
-HINSTANCE Window::get_hInstance() {
+HINSTANCE & Window::get_hInstance() noexcept {
 	return hInstance;
 }
 
-WNDCLASS & Window::get_class() {
+WNDCLASS & Window::get_class() noexcept {
 	return window_class;
 }
 
-Size Window::get_size() const noexcept {
+Size2 Window::get_size() const noexcept {
 	return size;
 }
 
-void Window::set_size(const Size &size) noexcept {
+void Window::set_size(const Size2 &size) noexcept {
 	this->size = size;
-	SetWindowPos(*window, 0, 0, 0, size.width, size.height, SWP_SHOWWINDOW | SWP_NOMOVE);
+	SetWindowPos(window, 0, 0, 0, size.x, size.y, SWP_SHOWWINDOW | SWP_NOMOVE);
 }
 
 bool Window::is_running() const noexcept {

@@ -6,17 +6,22 @@
 #include "Object.h"
 #include "BehaviorManager.h"
 #include "Window.h"
+#include "Storage.h"
 
 class Scene {
 public:
-	Scene(const std::shared_ptr<Window> &window);
-	Scene() { };
+	Scene(Window &window);
+	Scene() { }
 
 	void tick();
 
-	GraphicsScene graphics_scene;
+	void clean_up();
+
+	void read_obj_file(std::string obj_file_path) noexcept;
+
+	std::shared_ptr<GraphicsScene> graphics_scene;
 	PhysicsScene physics_scene;
-	std::shared_ptr<std::vector<Object>> objects;
+	ObjectVector objects;
 	BehaviorManager behavior_manager;
 };
 

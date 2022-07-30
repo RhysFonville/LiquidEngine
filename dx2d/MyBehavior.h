@@ -4,7 +4,7 @@
 
 class MyBehavior : public ObjectBehavior {
 public:
-	MyBehavior(Object &object);
+	MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object);
 
 	void tick() override;
 };

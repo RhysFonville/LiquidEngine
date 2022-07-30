@@ -8,6 +8,8 @@ public:
 
 	void tick();
 
-	std::vector<std::shared_ptr<ObjectBehavior>> behaviors;
+	void clean_up() noexcept;
+
+	std::vector<std::unique_ptr<ObjectBehavior>> behaviors;
 };
 

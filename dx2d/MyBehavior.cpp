@@ -1,18 +1,8 @@
 #include "MyBehavior.h"
 
-//MyBehavior::MyBehavior(const std::shared_ptr<Object> &object) : ObjectBehavior()
-//{
-//	this->object = object.get();
-//	this->name = "MyBehavior";
-//}
-
-MyBehavior::MyBehavior(Object &object) : ObjectBehavior() {
-	this->object = &object;
-	this->name = "MyBehavior";
-}
+MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object)
+	: ObjectBehavior(objects, object, "MyBehavior") { }
 
 void MyBehavior::tick() {
-	object->transform.rotation.x += 0.01f;
-	object->transform.rotation.y -= 0.01f;
-	object->transform.rotation.z += 0.01f;
+	object->rotate({ 0.01f, 0.01f, 0.01f });
 }

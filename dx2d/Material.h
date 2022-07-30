@@ -1,14 +1,46 @@
 #pragma once
 
 #include <d3dcompiler.h>
+#include <fstream>
 #include "Texture.h"
 #include "Throw.h"
 
 class Material {
 public:
-	Material();
+	__declspec(align(16))
+	struct ConstantBufferStruct {
+		BOOL has_texture;
+		BOOL has_normal_map;
+		XMFLOAT2 pad;
+		XMFLOAT4 diffuse;
+	};
+
+public:
+	Material(std::string name = "");
+
+	void compile(bool compile_texture = true);
+
+	void clean_up();
+
+	void read_mtl_file(std::vector<std::string> contents) noexcept;
+
+	bool operator==(const Material &material) const noexcept;
+	operator ConstantBufferStruct() const noexcept;
 
 	Texture texture;
+	Texture normal_map;
+	Color diffuse;
+
+	//float metallic;
+	//float specular;
+	//float roughness;
+	//float anisotropy;
+	//float emissive_color;
+
+	std::string pixel_shader_name = "PixelShader.cso";
+	std::string vertex_shader_name = "VertexShader.cso";
+
+	std::string name = "Material";
 
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout = nullptr;
 
@@ -17,8 +49,4 @@ public:
 
 	Microsoft::WRL::ComPtr<ID3DBlob> vertex_blob = nullptr;
 	Microsoft::WRL::ComPtr<ID3DBlob> pixel_blob = nullptr;
-
-	std::string pixel_shader_name = "PixelShader.cso";
-	std::string vertex_shader_name = "VertexShader.cso";
 };
-
