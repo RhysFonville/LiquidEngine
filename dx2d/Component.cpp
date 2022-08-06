@@ -27,15 +27,15 @@ void Component::size(FSize3 size) noexcept {
 	set_size(size + transform.size);
 }
 
-FPosition3 Component::get_position() const noexcept {
+GET FPosition3 Component::get_position() const noexcept {
 	return transform.position;
 }
 
-FRotation3 Component::get_rotation() const noexcept {
+GET FRotation3 Component::get_rotation() const noexcept {
 	return transform.rotation;
 }
 
-FSize3 Component::get_size() const noexcept {
+GET FSize3 Component::get_size() const noexcept {
 	return transform.size;
 }
 

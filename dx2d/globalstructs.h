@@ -215,6 +215,10 @@ struct TVector4 {
 		return TVector4<T>(x*n, y*n, z*n, w*n);
 	}
 
+	TVector4<T> operator-(T n) const noexcept {
+		return TVector4<T>(x/n, y/n, z/n, w/n);
+	}
+
 	void operator+=(const TVector4<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;

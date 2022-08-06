@@ -4,6 +4,8 @@ Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
 SamplerState texture_sampler_state;
 
+const uint falloff = 2;
+
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;
 	float3 transform_position : POSITION;
@@ -46,6 +48,8 @@ cbuffer per_frame : register(b0) {
 	uint directional_light_count;
 	uint point_light_count;
 	uint spotlight_count;
+
+	float3 camera_position;
 };
 
 cbuffer per_object : register(b2) {
@@ -72,6 +76,10 @@ bool spotlight_is_zero(Spotlight light) {
 		light.diffuse.g == 0 &&
 		light.diffuse.b == 0 &&
 		light.diffuse.a == 0) || light.diffuse.a == 0);
+}
+
+float4 falloff_equation(float obj_pos) {
+	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 
 float4 main(VS_OUTPUT input) : SV_TARGET {
@@ -108,9 +116,12 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		if (!directional_light_is_zero(directional_lights[i])) {
 			light_final_color = diffuse * directional_lights[i].ambient;
 
+			float3 V = normalize(input.transform_position - camera_position);
+			float3 R = reflect(normalize(directional_lights[i].direction), normalize(input.normal));
+
 			light_final_color += saturate(dot(directional_lights[i].direction, normal) *
-				directional_lights[i].diffuse * diffuse);
-		
+				directional_lights[i].diffuse * diffuse/* * saturate(dot(R, V))*/);
+
 			final_color += light_final_color;
 		}
 	}

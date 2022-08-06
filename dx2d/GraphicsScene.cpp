@@ -307,6 +307,8 @@ void GraphicsScene::create_per_frame_constant_buffer() {
 	std::copy(cbsls.begin(), cbsls.end(), cb.spotlights);
 	cb.spotlight_count = (uint)cbsls.size();
 
+	cb.camera_position = camera()->get_position();
+
 	Microsoft::WRL::ComPtr<ID3D11Buffer> constant_buffer_pointer;
 	D3D11_BUFFER_DESC constant_buffer_description;
 	constant_buffer_description.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;

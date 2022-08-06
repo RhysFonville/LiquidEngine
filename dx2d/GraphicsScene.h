@@ -34,6 +34,8 @@ struct PerFrameConstantBuffer {
 	uint directional_light_count = 0;
 	uint point_light_count = 0;
 	uint spotlight_count = 0;
+
+	XMFLOAT3 camera_position;
 };
 
 __declspec(align(16))

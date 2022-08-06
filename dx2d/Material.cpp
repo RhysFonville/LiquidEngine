@@ -59,7 +59,7 @@ Material::operator ConstantBufferStruct() const noexcept {
 	ConstantBufferStruct cbs;
 	cbs.has_texture = texture == Texture() ? false : true;
 	cbs.has_normal_map = normal_map == Texture() ? false : true;
-	cbs.diffuse = XMFLOAT4(diffuse.r, diffuse.g, diffuse.b, diffuse.a);
+	cbs.diffuse = XMFLOAT4(diffuse.r / 255.0f, diffuse.g / 255.0f, diffuse.b / 255.0f, diffuse.a / 255.0f);
 
 	return cbs;
 }

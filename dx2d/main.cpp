@@ -14,13 +14,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		camera.get_component<PointLightComponent>()->diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);*/
 		engine.scene.objects->push_back(std::make_shared<Object>(camera));
 
-		camera.translate(FVector3(0.0f, 0.0f, -5.0f));
-
 		Object sun("Sun");
 		sun.components.push_back(std::make_shared<DirectionalLightComponent>());
 		engine.scene.objects->push_back(std::make_shared<Object>(sun));
 
-		engine.scene.read_obj_file("map.obj");
+		sun.get_component<DirectionalLightComponent>()->diffuse = FVector4(255, 255, 255, 255);
+
+		engine.scene.read_obj_file("untitled.obj");
 
 		engine.scene.behavior_manager.behaviors.push_back(
 			std::unique_ptr<ObjectBehavior>(
