@@ -62,127 +62,133 @@ static float normalize(float f) {
 	return 1.0f / f;
 }
 
-namespace Transformations {
-	static FVector3 rotate(FVector3 rx,
-		FVector3 ry, FVector3 rz,
-		FVector3 rotation, const FVector3 &point) noexcept {
-		// Rotation x = Target y & z
-		// Rotation y = Target x & z
-		// Rotation z = Up
-
-		float xpt = rx.matrix_multiplication(point);
-		float ypt = ry.matrix_multiplication(point);
-		float zpt = rz.matrix_multiplication(point);
-
-		FVector3 ret;
-		ret.x = xpt;
-		ret.y = ypt;
-		ret.z = zpt;
-
-		return ret;
-	}
-
-	static FVector3 rotate(FVector3 rotation, const FVector3 &point) noexcept {
-		FVector3 rx = {
-			cosf(0.0f)*cosf(rotation.y),
-			cosf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)-sinf(rotation.x)*cosf(rotation.z),
-			cosf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)+sinf(rotation.x)*sinf(rotation.z)
-		};
-		FVector3 ry = {
-			sinf(rotation.x)*cosf(rotation.y),
-			sinf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)+cosf(rotation.x)*cosf(rotation.z),
-			sinf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)-cosf(rotation.x)*sinf(rotation.z)
-		};
-		FVector3 rz = {
-			-sinf(rotation.y),
-			cosf(rotation.y)*sinf(rotation.z),
-			cosf(rotation.y)*cosf(rotation.z)
-		};
-
-		rotation.x = degrees_to_theta(rotation.x);
-		rotation.y = degrees_to_theta(rotation.y);
-		rotation.z = degrees_to_theta(rotation.z);
-
-		// Rotation x = Target y & z
-		// Rotation y = Target x & z
-		// Rotation z = Up
-
-		float xpt = rx.matrix_multiplication(point);
-		float ypt = ry.matrix_multiplication(point);
-		float zpt = rz.matrix_multiplication(point);
-
-		FVector3 ret;
-		ret.x = xpt;
-		ret.y = ypt;
-		ret.z = zpt;
-
-		return ret;
-	}
-
-	static FVector3 rotate_origin(FVector3 rx,
-		FVector3 ry, FVector3 rz,
-		FVector3 rotation, FVector3 &from_origin) noexcept {
-		// Rotation x = Target y & z
-		// Rotation y = Target x & z
-		// Rotation z = Up
-
-		float xpt = rx.matrix_multiplication(from_origin);
-		float ypt = ry.matrix_multiplication(from_origin);
-		float zpt = rz.matrix_multiplication(from_origin);
-
-		from_origin.x = xpt;
-		from_origin.y = ypt;
-		from_origin.z = zpt;
-
-		FVector3 ret;
-		ret.x = xpt;
-		ret.y = ypt;
-		ret.z = zpt;
-
-		return ret;
-	}
-
-	static FVector3 rotate_origin(FVector3 rotation, FVector3 &from_origin) noexcept {
-		rotation.x = degrees_to_theta(rotation.x);
-		rotation.y = degrees_to_theta(rotation.y);
-		rotation.z = degrees_to_theta(rotation.z);
-
-		FVector3 rx = {
-			cosf(0.0f)*cosf(rotation.y),
-			cosf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)-sinf(rotation.x)*cosf(rotation.z),
-			cosf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)+sinf(rotation.x)*sinf(rotation.z)
-		};
-		FVector3 ry = {
-			sinf(rotation.x)*cosf(rotation.y),
-			sinf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)+cosf(rotation.x)*cosf(rotation.z),
-			sinf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)-cosf(rotation.x)*sinf(rotation.z)
-		};
-		FVector3 rz = {
-			-sinf(rotation.y),
-			cosf(rotation.y)*sinf(rotation.z),
-			cosf(rotation.y)*cosf(rotation.z)
-		};
-
-		// Rotation x = Target y & z
-		// Rotation y = Target x & z
-		// Rotation z = Up
-
-		float xpt = rx.matrix_multiplication(from_origin);
-		float ypt = ry.matrix_multiplication(from_origin);
-		float zpt = rz.matrix_multiplication(from_origin);
-
-		from_origin.x = xpt;
-		from_origin.y = ypt;
-		from_origin.z = zpt;
-
-		FVector3 ret;
-		ret.x = xpt;
-		ret.y = ypt;
-		ret.z = zpt;
-
-		return ret;
-	}
+static bool compf(float x, float y, float epsilon = 0.01f) {
+	if(fabs(x - y) < epsilon)
+		return true; //they are same
+	return false; //they are not same
 }
+
+//namespace Transformations {
+//	static FVector3 rotate(FVector3 rx,
+//		FVector3 ry, FVector3 rz,
+//		FVector3 rotation, const FVector3 &point) noexcept {
+//		// Rotation x = Target y & z
+//		// Rotation y = Target x & z
+//		// Rotation z = Up
+//
+//		float xpt = rx.matrix_multiplication(point);
+//		float ypt = ry.matrix_multiplication(point);
+//		float zpt = rz.matrix_multiplication(point);
+//
+//		FVector3 ret;
+//		ret.x = xpt;
+//		ret.y = ypt;
+//		ret.z = zpt;
+//
+//		return ret;
+//	}
+//
+//	static FVector3 rotate(FVector3 rotation, const FVector3 &point) noexcept {
+//		FVector3 rx = {
+//			cosf(0.0f)*cosf(rotation.y),
+//			cosf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)-sinf(rotation.x)*cosf(rotation.z),
+//			cosf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)+sinf(rotation.x)*sinf(rotation.z)
+//		};
+//		FVector3 ry = {
+//			sinf(rotation.x)*cosf(rotation.y),
+//			sinf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)+cosf(rotation.x)*cosf(rotation.z),
+//			sinf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)-cosf(rotation.x)*sinf(rotation.z)
+//		};
+//		FVector3 rz = {
+//			-sinf(rotation.y),
+//			cosf(rotation.y)*sinf(rotation.z),
+//			cosf(rotation.y)*cosf(rotation.z)
+//		};
+//
+//		rotation.x = degrees_to_theta(rotation.x);
+//		rotation.y = degrees_to_theta(rotation.y);
+//		rotation.z = degrees_to_theta(rotation.z);
+//
+//		// Rotation x = Target y & z
+//		// Rotation y = Target x & z
+//		// Rotation z = Up
+//
+//		float xpt = rx.matrix_multiplication(point);
+//		float ypt = ry.matrix_multiplication(point);
+//		float zpt = rz.matrix_multiplication(point);
+//
+//		FVector3 ret;
+//		ret.x = xpt;
+//		ret.y = ypt;
+//		ret.z = zpt;
+//
+//		return ret;
+//	}
+//
+//	static FVector3 rotate_origin(FVector3 rx,
+//		FVector3 ry, FVector3 rz,
+//		FVector3 rotation, FVector3 &from_origin) noexcept {
+//		// Rotation x = Target y & z
+//		// Rotation y = Target x & z
+//		// Rotation z = Up
+//
+//		float xpt = rx.matrix_multiplication(from_origin);
+//		float ypt = ry.matrix_multiplication(from_origin);
+//		float zpt = rz.matrix_multiplication(from_origin);
+//
+//		from_origin.x = xpt;
+//		from_origin.y = ypt;
+//		from_origin.z = zpt;
+//
+//		FVector3 ret;
+//		ret.x = xpt;
+//		ret.y = ypt;
+//		ret.z = zpt;
+//
+//		return ret;
+//	}
+//
+//	static FVector3 rotate_origin(FVector3 rotation, FVector3 &from_origin) noexcept {
+//		rotation.x = degrees_to_theta(rotation.x);
+//		rotation.y = degrees_to_theta(rotation.y);
+//		rotation.z = degrees_to_theta(rotation.z);
+//
+//		FVector3 rx = {
+//			cosf(0.0f)*cosf(rotation.y),
+//			cosf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)-sinf(rotation.x)*cosf(rotation.z),
+//			cosf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)+sinf(rotation.x)*sinf(rotation.z)
+//		};
+//		FVector3 ry = {
+//			sinf(rotation.x)*cosf(rotation.y),
+//			sinf(rotation.x)*sinf(rotation.y)*sinf(rotation.z)+cosf(rotation.x)*cosf(rotation.z),
+//			sinf(rotation.x)*sinf(rotation.y)*cosf(rotation.z)-cosf(rotation.x)*sinf(rotation.z)
+//		};
+//		FVector3 rz = {
+//			-sinf(rotation.y),
+//			cosf(rotation.y)*sinf(rotation.z),
+//			cosf(rotation.y)*cosf(rotation.z)
+//		};
+//
+//		// Rotation x = Target y & z
+//		// Rotation y = Target x & z
+//		// Rotation z = Up
+//
+//		float xpt = rx.matrix_multiplication(from_origin);
+//		float ypt = ry.matrix_multiplication(from_origin);
+//		float zpt = rz.matrix_multiplication(from_origin);
+//
+//		from_origin.x = xpt;
+//		from_origin.y = ypt;
+//		from_origin.z = zpt;
+//
+//		FVector3 ret;
+//		ret.x = xpt;
+//		ret.y = ypt;
+//		ret.z = zpt;
+//
+//		return ret;
+//	}
+//}
 
 static constexpr FPosition3 global_forward { 0.0f,  0.0f,  1.0f};
 static constexpr FPosition3 global_backward{ 0.0f,  0.0f, -1.0f};

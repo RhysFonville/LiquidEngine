@@ -5,7 +5,7 @@ cbuffer per_object : register(b1) {
 
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;
-	float3 transform_position : POSITION;
+	float3 transform_position : POSITION; // World Position
 	float2 texcoord : TEXCOORD;
 	float3 normal : NORMAL;
 	//float3 tangent : TANGENT;

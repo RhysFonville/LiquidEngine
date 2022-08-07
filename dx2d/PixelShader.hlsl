@@ -8,7 +8,7 @@ const uint falloff = 2;
 
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;
-	float3 transform_position : POSITION;
+	float3 transform_position : POSITION; // World Position
 	float2 texcoord : TEXCOORD;
 	float3 normal : NORMAL;
 	//float3 tangent : TANGENT;
@@ -38,6 +38,8 @@ struct Material {
 	bool has_texture;
 	bool has_normal_map;
 	float4 diffuse;
+	float specular;
+	float shininess;
 };
 
 cbuffer per_frame : register(b0) {
@@ -78,6 +80,10 @@ bool spotlight_is_zero(Spotlight light) {
 		light.diffuse.a == 0) || light.diffuse.a == 0);
 }
 
+float4 invert(float4 color) {
+	return float4(1-color.r, 1-color.g, 1-color.b, color.a);
+}
+
 float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
@@ -114,13 +120,14 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_light_is_zero(directional_lights[i])) {
-			light_final_color = diffuse * directional_lights[i].ambient;
-
-			float3 V = normalize(input.transform_position - camera_position);
+			float3 V = normalize(camera_position - input.transform_position);
 			float3 R = reflect(normalize(directional_lights[i].direction), normalize(input.normal));
+			float specular = material.shininess * (directional_lights[i].diffuse * invert(pow( saturate( max(0, dot(R, V)) ), material.specular )));
 
-			light_final_color += saturate(dot(directional_lights[i].direction, normal) *
-				directional_lights[i].diffuse * diffuse/* * saturate(dot(R, V))*/);
+			light_final_color = directional_lights[i].ambient;
+			light_final_color += saturate(dot(directional_lights[i].direction, input.normal))
+				* directional_lights[i].diffuse * material.diffuse;
+			light_final_color += specular;
 
 			final_color += light_final_color;
 		}

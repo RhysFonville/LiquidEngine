@@ -7,4 +7,7 @@ public:
 	MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object);
 
 	void tick() override;
+
+private:
+	bool going_up = true;
 };
