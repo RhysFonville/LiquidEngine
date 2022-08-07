@@ -1,4 +1,4 @@
-<h2>Template starting code to use the engine:</h2>
+<h2>Template Behavior Class:</h2>
 
 <h3>main.cpp</h3>
 
@@ -39,10 +39,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 class MyBehavior : public ObjectBehavior {
 public:
-	MyBehavior(Object &object);
+	MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object);
 
 	void tick() override;
-};
 ```
 
 <h3>MyBehavior.cpp</h3>
@@ -50,15 +49,14 @@ public:
 ```
 #include "MyBehavior.h"
 
-MyBehavior::MyBehavior(Object &object) : ObjectBehavior() {
-	this->object = &object;
-	this->name = "MyBehavior";
-}
+MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object)
+	: ObjectBehavior(objects, object, "MyBehavior") { }
 
 void MyBehavior::tick() {
-	object->transform.rotation.x += 0.01f;
-	object->transform.rotation.y -= 0.01f;
-	object->transform.rotation.z += 0.01f;
+	object->rotate({ 0.01f, 0.01f, 0.01f });
 }
+
+};
+
 
 ```
