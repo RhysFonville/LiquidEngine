@@ -57,6 +57,7 @@ public:
 	MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object);
 
 	void tick() override;
+	
 ```
 
 <h3>MyBehavior.cpp</h3>
@@ -70,8 +71,5 @@ MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &obj
 void MyBehavior::tick() {
 	object->rotate({ 0.01f, 0.01f, 0.01f });
 }
-
-};
-
 
 ```
