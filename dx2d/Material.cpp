@@ -30,14 +30,14 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 		if (line.substr(0, 8) == "map_Bump") {
 			normal_map = Texture(line.substr(9));
 		}
-		if (line.substr(0, 2) == "Kd") {
+		/*if (line.substr(0, 2) == "Kd") {
 			std::vector<std::string> colors = split(line, ' ');
 
 			diffuse = Color({ (UCHAR)(std::stof(colors[1]) * 255.0f),
 							  (UCHAR)(std::stof(colors[2]) * 255.0f),
 							  (UCHAR)(std::stof(colors[3]) * 255.0f),
 							  (UCHAR)255 });
-		}
+		}*/
 	}
 }
 
@@ -60,9 +60,14 @@ Material::operator ConstantBufferStruct() const noexcept {
 	cbs.has_texture = texture == Texture() ? false : true;
 	cbs.has_normal_map = normal_map == Texture() ? false : true;
 	
-	cbs.diffuse = XMFLOAT4(diffuse.r / 255.0f, diffuse.g / 255.0f, diffuse.b / 255.0f, diffuse.a / 255.0f);
-	cbs.specular = specular;
-	cbs.shininess = shininess;
+	//cbs.diffuse = XMFLOAT4(diffuse.r / 255.0f, diffuse.g / 255.0f, diffuse.b / 255.0f, diffuse.a / 255.0f);
+	//cbs.specular = specular;
+	//cbs.shininess = shininess;
+
+	cbs.ks = ks;
+	cbs.kd = kd;
+	cbs.ka = ka;
+	cbs.a = a;
 
 	return cbs;
 }

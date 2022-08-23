@@ -7,18 +7,25 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	try {
 		Object camera("Camera");
 		camera.components.push_back(std::make_shared<CameraComponent>());
-		/*camera.components.push_back(std::make_shared<PointLightComponent>());
+		camera.components.push_back(std::make_shared<PointLightComponent>());
 		camera.get_component<PointLightComponent>()->range = 100.0f;
 		camera.get_component<PointLightComponent>()->attenuation = FVector3(0.1f, 0.05f, 0.0f);
-		camera.get_component<PointLightComponent>()->ambient = FVector4(0.0f, 0.0f, 0.0f, 0.0f);
-		camera.get_component<PointLightComponent>()->diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);*/
+		camera.get_component<PointLightComponent>()->diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
+		camera.get_component<PointLightComponent>()->specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
 		engine.scene.objects->push_back(std::make_shared<Object>(camera));
 
-		Object sun("Sun");
+		/*Object sun("Sun");
 		sun.components.push_back(std::make_shared<DirectionalLightComponent>());
-		engine.scene.objects->push_back(std::make_shared<Object>(sun));
+		sun.get_component<DirectionalLightComponent>()->direction = FVector3(0.0f, 0.0f, 1.0f);
+		sun.get_component<DirectionalLightComponent>()->diffuse = FVector4(255.0f, 0.0f, 0.0f, 255.0f);
+		sun.get_component<DirectionalLightComponent>()->specular = FVector4(0.0f, 255.0f, 0.0f, 255.0f);
+		engine.scene.objects->push_back(std::make_shared<Object>(sun));*/
 
-		sun.get_component<DirectionalLightComponent>()->diffuse = FVector4(255, 255, 255, 255);
+		/*Object sun("Sun");
+		sun.components.push_back(std::make_shared<PointLightComponent>());
+		sun.get_component<PointLightComponent>()->diffuse = FVector4(255.0f, 0.0f, 0.0f, 255.0f);
+		sun.get_component<PointLightComponent>()->specular = FVector4(0.0f, 255.0f, 0.0f, 255.0f);
+		engine.scene.objects->push_back(std::make_shared<Object>(sun));*/
 
 		engine.scene.read_obj_file("untitled.obj");
 
@@ -30,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 		engine.scene.behavior_manager.behaviors.push_back(
 		std::unique_ptr<ObjectBehavior>(
-				new MyBehavior(engine.scene.objects, engine.scene.objects->at(2))
+				new MyBehavior(engine.scene.objects, engine.scene.objects->at(1))
 			)
 		);
 
@@ -38,7 +45,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 		engine.loop();
 	} catch (const std::exception &e) {
-		if (YESNO_MESSAGE(L"Do you want to append this error message to the output file?") == true) {
+		if (YESNO_MESSAGE(L"Do you want to append the error message to the output file?") == true) {
 			engine.clean_up();
 			append_to_file("out.txt", e.what());
 		}

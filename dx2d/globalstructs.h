@@ -181,6 +181,7 @@ struct TVector4 {
 
 	TVector4() {}
 	constexpr TVector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) { }
+	constexpr TVector4(TVector3<T> vector, T w) : x(vector.x), y(vector.y), z(vector.z), w(w) { }
 
 	bool is_zero() const noexcept {
 		return (x == 0 && y == 0 && z == 0 && w == 0);
@@ -265,7 +266,6 @@ using Vector = Vector3;
 using FVector4 = TVector4<float>;
 using FVector3 = TVector3<float>;
 using FVector2 = TVector2<float>;
-using FVector = FVector3;
 
 using FPosition3 = FVector3;
 using FPosition2 = FVector2;

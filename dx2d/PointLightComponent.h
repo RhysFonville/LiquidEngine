@@ -9,17 +9,17 @@ public:
 		XMFLOAT3 position;
         float range;
 		XMFLOAT3 attenuation; // Falloff: x - Constant, y - Linear, z - Exponential
-		XMFLOAT4 ambient;
 		XMFLOAT4 diffuse;
+		XMFLOAT4 specular;
 
 		ConstantBufferStruct()
 			: position(XMFLOAT3()), range(0.0f), attenuation(XMFLOAT3()),
-			ambient(XMFLOAT4()), diffuse(diffuse) { }
+			diffuse(XMFLOAT4()), specular(XMFLOAT4()) { }
 
 		ConstantBufferStruct(XMFLOAT3 pos, float range, XMFLOAT3 att,
-			XMFLOAT4 amb, XMFLOAT4 diff)
+			XMFLOAT4 diff, XMFLOAT4 spec)
 			: position(pos), range(range), attenuation(att),
-			ambient(amb), diffuse(diff) { }
+			diffuse(diff), specular(spec) { }
 	};
 
 public:
@@ -29,13 +29,13 @@ public:
 
 	operator ConstantBufferStruct() const noexcept {
 		return ConstantBufferStruct(transform.position, range, attenuation,
-			255.0f / ambient, 255.0f / diffuse);
+			255.0f / diffuse, 255.0f / specular);
 	}
 
 	FVector3 attenuation;
 	float range;
-	FVector4 ambient;
 	FVector4 diffuse;
+	FVector4 specular;
 
 	static const Type component_type = Type::PointLightComponent;
 };

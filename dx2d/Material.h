@@ -11,12 +11,15 @@ public:
 	struct ConstantBufferStruct {
 		BOOL has_texture;
 		BOOL has_normal_map;
-		
-		XMFLOAT2 pad;
 
-		XMFLOAT4 diffuse;
-		float specular;
-		float shininess;
+		//XMFLOAT4 diffuse;
+		//float specular;
+		//float shininess;
+
+		float ks;
+		float kd;
+		float ka;
+		float a;
 	};
 
 public:
@@ -33,11 +36,16 @@ public:
 
 	Texture texture;
 	Texture normal_map;
-	Color diffuse;
+	//Color diffuse;
+
+	float ks;
+	float kd;
+	float ka;
+	float a;
 
 	//float metallic;
-	float specular = 0.0f;
-	float shininess = 0.0f;
+	//float specular = 0.0f;
+	//float shininess = 0.0f;
 	//float roughness;
 	//float anisotropy;
 	//float emissive_color;

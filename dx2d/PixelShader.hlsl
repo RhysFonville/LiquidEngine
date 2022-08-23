@@ -4,42 +4,47 @@ Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
 SamplerState texture_sampler_state;
 
-const uint falloff = 2;
+static const uint falloff = 2;
+static const float4 ia = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;
-	float3 transform_position : POSITION; // World Position
 	float2 texcoord : TEXCOORD;
 	float3 normal : NORMAL;
 	//float3 tangent : TANGENT;
+	float3 world_position : POSITION;
 };
 
 struct DirectionalLight {
 	float3 direction;
-	float4 ambient;
 	float4 diffuse;
+	float4 specular;
 };
 
 struct PointLight {
 	float3 position;
 	float range;
 	float3 attenuation;
-	float4 ambient;
 	float4 diffuse;
+	float4 specular;
 };
 
 struct Spotlight {
 	float3 direction;
-	float4 ambient;
 	float4 diffuse;
+	float4 specular;
 };
 
 struct Material {
 	bool has_texture;
 	bool has_normal_map;
-	float4 diffuse;
-	float specular;
-	float shininess;
+	//float4 diffuse;
+	//float specular;
+	//float shininess;
+	float ks;
+	float kd;
+	float ka;
+	float a;
 };
 
 cbuffer per_frame : register(b0) {
@@ -80,6 +85,10 @@ bool spotlight_is_zero(Spotlight light) {
 		light.diffuse.a == 0) || light.diffuse.a == 0);
 }
 
+float3 invert(float3 color) {
+	return float3(1-color.r, 1-color.g, 1-color.b);
+}
+
 float4 invert(float4 color) {
 	return float4(1-color.r, 1-color.g, 1-color.b, color.a);
 }
@@ -89,12 +98,10 @@ float4 falloff_equation(float obj_pos) {
 }
 
 float4 main(VS_OUTPUT input) : SV_TARGET {
-	float4 diffuse = material.diffuse;
+	//if (material.has_texture)
+	//	diffuse += object_texture.Sample(texture_sampler_state, input.texcoord);
 
-	if (material.has_texture)
-		diffuse += object_texture.Sample(texture_sampler_state, input.texcoord);
-
-	float3 normal = normalize(input.normal);
+	float3 normal = input.normal;
 
 	/*if (material.has_normal_map) {
 		float3 normal_map_result = normal_map.Sample(texture_sampler_state, input.texcoord);
@@ -115,27 +122,40 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		normal = normalize(mul(normal_map_result, texSpace));
 	}*/
 
-	float4 final_color;
-	float4 light_final_color;
+	float4 final_color = material.ka*ia;
+	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	float ka = material.ka;
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_light_is_zero(directional_lights[i])) {
-			float3 V = normalize(camera_position - input.transform_position);
-			float3 R = reflect(normalize(directional_lights[i].direction), normalize(input.normal));
-			float specular = material.shininess * (directional_lights[i].diffuse * invert(pow( saturate( max(0, dot(R, V)) ), material.specular )));
+			float4 is = directional_lights[i].specular;
+			float4 id = directional_lights[i].diffuse;
 
-			light_final_color = directional_lights[i].ambient;
-			light_final_color += saturate(dot(directional_lights[i].direction, input.normal))
-				* directional_lights[i].diffuse * material.diffuse;
-			light_final_color += specular;
+			float ks = material.ks;
+			float kd = material.kd;
+			float a = material.a;
+
+			float3 lm = normalize(directional_lights[i].direction);
+			float3 n = normal;
+			//float3 rm = reflect(lm, n);
+			float3 rm = 2*(lm*n)*n-lm;
+			float3 v = normalize(camera_position - input.world_position);
+
+			if (dot(lm, n) > 0.0f) {
+				light_final_color += saturate(kd*dot(lm, n)*id) +
+					saturate(ks * pow(dot(rm, v), a) * is);
+			}
 
 			final_color += light_final_color;
+
+			//light_final_color += ia;
 		}
 	}
 
 	for (uint i = 0; i < point_light_count; i++) {
 		if (!point_light_is_zero(point_lights[i])) {
-			float3 lightToPixelVec = point_lights[i].position - input.transform_position;
+			/*float3 lightToPixelVec = point_lights[i].position - input.transform_position;
 
 			float d = length(lightToPixelVec);
 
@@ -157,11 +177,32 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 			}
 			light_final_color = float4(saturate(light_final_color + finalAmbient), 1.0f);
 			
+			final_color += light_final_color;*/
+
+			float4 is = point_lights[i].specular;
+			float4 id = point_lights[i].diffuse;
+
+			float ks = material.ks;
+			float kd = material.kd;
+			float a = material.a;
+
+			float3 lm = normalize(point_lights[i].position - input.world_position);
+			float3 n = normal;
+			//float3 rm = reflect(lm, n);
+			//float3 rm = 2*(lm*n)*n-lm;
+			float3 rm = 2.0f * n * dot(n, lm);
+			float3 v = normalize(camera_position - input.world_position);
+
+			if (dot(lm, n) > 0.0f) {
+				light_final_color += saturate(kd*dot(lm, n) * id) +
+					saturate(ks * pow(dot(rm, v), a) * is);
+			}
+
 			final_color += light_final_color;
 		}
 	}
 
-	for (unsigned int i = 0; i < spotlight_count; i++) {
+	/*for (unsigned int i = 0; i < spotlight_count; i++) {
 		if (!spotlight_is_zero(spotlights[i])) {
 			float4 light_final_color;
 
@@ -172,9 +213,9 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 
 			final_color += light_final_color;
 		}
-	}
+	}*/
 
-	final_color.a = diffuse.a;
+	final_color.a = 255.0f;
 
 	return final_color;
 }

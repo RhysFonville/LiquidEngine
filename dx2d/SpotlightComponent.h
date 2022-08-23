@@ -5,8 +5,8 @@ public:
 	__declspec(align(16))
 	struct ConstantBufferStruct {
 		XMFLOAT3 direction;
-		XMFLOAT4 ambient;
 		XMFLOAT4 diffuse;
+		XMFLOAT4 specular;
 	};
 
 public:
@@ -15,12 +15,12 @@ public:
 	void operator=(const SpotlightComponent &light) noexcept;
 
 	operator ConstantBufferStruct() const noexcept {
-		return { direction, 255.0f / ambient, 255.0f / diffuse };
+		return { direction, 255.0f / diffuse, specular };
 	}
 
 	FVector3 direction;
-	FVector4 ambient;
 	FVector4 diffuse;
+	FVector4 specular;
 
 	static const Type component_type = Type::SpotlightComponent;
 };
