@@ -188,8 +188,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 
 			float3 lm = normalize(point_lights[i].position - input.world_position);
 			float3 n = normal;
-			//float3 rm = reflect(lm, n);
-			//float3 rm = 2*(lm*n)*n-lm;
 			float3 rm = 2.0f * n * dot(n, lm);
 			float3 v = normalize(camera_position - input.world_position);
 
