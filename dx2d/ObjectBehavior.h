@@ -13,10 +13,14 @@ public:
 	std::shared_ptr<Object> object;
 
 protected:
+	virtual void on_start() { }
+
 	virtual void tick() { }
 
 private:
 	friend class BehaviorManager;
+
+	void base_on_start();
 
 	void base_tick();
 

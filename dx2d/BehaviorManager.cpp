@@ -2,6 +2,12 @@
 
 BehaviorManager::BehaviorManager() : behaviors(std::vector<std::unique_ptr<ObjectBehavior>>()) {}
 
+void BehaviorManager::start() {
+	for (std::unique_ptr<ObjectBehavior> &behavior : behaviors) {
+		behavior->base_on_start();
+	}
+}
+
 void BehaviorManager::tick() {
 	for (std::unique_ptr<ObjectBehavior> &behavior : behaviors) {
 		behavior->base_tick();

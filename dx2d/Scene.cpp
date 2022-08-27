@@ -5,6 +5,8 @@ Scene::Scene(Window &window) {
 	graphics_scene = std::make_shared<GraphicsScene>(window.get_window(), objects);
 	physics_scene = PhysicsScene();
 	behavior_manager = BehaviorManager();
+
+	behavior_manager.start();
 }
 
 void Scene::tick() {
