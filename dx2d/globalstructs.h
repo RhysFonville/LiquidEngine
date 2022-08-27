@@ -23,6 +23,10 @@ struct Color {
 	}
 };
 
+static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) noexcept {
+	return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+}
+
 struct FColor {
 	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
 

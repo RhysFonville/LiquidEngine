@@ -2,10 +2,10 @@
 
 MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object)
 	: ObjectBehavior(objects, object, "MyBehavior") {
-	object->get_component<MeshComponent>()->material.ks = 0.5f;
-	object->get_component<MeshComponent>()->material.kd = 0.5f;
-	object->get_component<MeshComponent>()->material.ka = 0.5f;
-	object->get_component<MeshComponent>()->material.a = 0.5f;
+	object->get_component<MeshComponent>()->material.ks = Color(100, 100, 100, 100);
+	object->get_component<MeshComponent>()->material.kd = Color(127, 127, 127, 127);
+	object->get_component<MeshComponent>()->material.ka = Color(0, 0, 0, 0);
+	object->get_component<MeshComponent>()->material.a = 1.0f;
 }
 
 void MyBehavior::tick() {

@@ -30,13 +30,51 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 		if (line.substr(0, 8) == "map_Bump") {
 			normal_map = Texture(line.substr(9));
 		}
-		/*if (line.substr(0, 2) == "Kd") {
+		/*if (line.substr(0, 2) == "Ns") {
+			a = std::stof(line.substr(3));
+		}
+		if (line.substr(0, 2) == "Ka") {
 			std::vector<std::string> colors = split(line, ' ');
 
-			diffuse = Color({ (UCHAR)(std::stof(colors[1]) * 255.0f),
-							  (UCHAR)(std::stof(colors[2]) * 255.0f),
-							  (UCHAR)(std::stof(colors[3]) * 255.0f),
-							  (UCHAR)255 });
+			ka = Color({
+						(UCHAR)(std::stof(colors[1]) * 255.0f),
+						(UCHAR)(std::stof(colors[2]) * 255.0f),
+						(UCHAR)(std::stof(colors[3]) * 255.0f),
+						(UCHAR)255
+				});
+		}*/
+		if (line.substr(0, 2) == "Kd") {
+			std::vector<std::string> colors = split(line, ' ');
+
+			kd = Color({
+						(UCHAR)(std::stof(colors[1]) * 255.0f),
+						(UCHAR)(std::stof(colors[2]) * 255.0f),
+						(UCHAR)(std::stof(colors[3]) * 255.0f),
+						(UCHAR)255
+				});
+		}
+		/*if (line.substr(0, 2) == "Ks") {
+			std::vector<std::string> colors = split(line, ' ');
+
+			ks = Color({
+				(UCHAR)(std::stof(colors[1]) * 255.0f),
+				(UCHAR)(std::stof(colors[2]) * 255.0f),
+				(UCHAR)(std::stof(colors[3]) * 255.0f),
+				(UCHAR)255
+				});
+		}
+		if (line.substr(0, 2) == "Ks") {
+			std::vector<std::string> colors = split(line, ' ');
+
+			ks = Color({
+				(UCHAR)(std::stof(colors[1]) * 255.0f),
+				(UCHAR)(std::stof(colors[2]) * 255.0f),
+				(UCHAR)(std::stof(colors[3]) * 255.0f),
+				(UCHAR)255
+				});
+		}
+		if (line.substr(0, 2) == "d ") {
+			kd.a = std::stof(line.substr(3)) * 255.0f;
 		}*/
 	}
 }
@@ -64,9 +102,9 @@ Material::operator ConstantBufferStruct() const noexcept {
 	//cbs.specular = specular;
 	//cbs.shininess = shininess;
 
-	cbs.ks = ks;
-	cbs.kd = kd;
-	cbs.ka = ka;
+	cbs.ks = color_to_XMFLOAT4(ks, true);
+	cbs.kd = color_to_XMFLOAT4(kd, true);
+	cbs.ka = color_to_XMFLOAT4(ka, true);
 	cbs.a = a;
 
 	return cbs;

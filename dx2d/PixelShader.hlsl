@@ -4,7 +4,9 @@ Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
 SamplerState texture_sampler_state;
 
-static const uint falloff = 2;
+static const float DISTANCE_FALLOFF_POWER = 1.0f;
+static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
+
 static const float4 ia = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 struct VS_OUTPUT {
@@ -41,9 +43,9 @@ struct Material {
 	//float4 diffuse;
 	//float specular;
 	//float shininess;
-	float ks;
-	float kd;
-	float ka;
+	float4 ks;
+	float4 kd;
+	float4 ka;
 	float a;
 };
 
@@ -85,10 +87,6 @@ bool spotlight_is_zero(Spotlight light) {
 		light.diffuse.a == 0) || light.diffuse.a == 0);
 }
 
-float3 invert(float3 color) {
-	return float3(1-color.r, 1-color.g, 1-color.b);
-}
-
 float4 invert(float4 color) {
 	return float4(1-color.r, 1-color.g, 1-color.b, color.a);
 }
@@ -125,26 +123,26 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 	float4 final_color = material.ka*ia;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	float ka = material.ka;
+	float4 ka = material.ka;
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_light_is_zero(directional_lights[i])) {
 			float4 is = directional_lights[i].specular;
 			float4 id = directional_lights[i].diffuse;
 
-			float ks = material.ks;
-			float kd = material.kd;
+			float4 ks = material.ks;
+			float4 kd = material.kd;
 			float a = material.a;
 
-			float3 lm = normalize(directional_lights[i].direction);
+			float3 lm = normalize(-directional_lights[i].direction);
 			float3 n = normal;
 			//float3 rm = reflect(lm, n);
-			float3 rm = 2*(lm*n)*n-lm;
-			float3 v = normalize(camera_position - input.world_position);
+			//float3 rm = 2*(lm*n)*n-lm;
+			//float3 v = normalize(camera_position - input.world_position);
 
 			if (dot(lm, n) > 0.0f) {
-				light_final_color += saturate(kd*dot(lm, n)*id) +
-					saturate(ks * pow(dot(rm, v), a) * is);
+				light_final_color += saturate(kd*dot(lm, n)*id)/* +
+					saturate(ks * pow(dot(rm, v), a) * is)*/;
 			}
 
 			final_color += light_final_color;
@@ -155,38 +153,19 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 
 	for (uint i = 0; i < point_light_count; i++) {
 		if (!point_light_is_zero(point_lights[i])) {
-			/*float3 lightToPixelVec = point_lights[i].position - input.transform_position;
-
-			float d = length(lightToPixelVec);
-
-			float3 finalAmbient = diffuse * point_lights[i].ambient;
-			if (d > point_lights[i].range)
-				final_color += float4(finalAmbient, diffuse.a);
-
-			lightToPixelVec /= d; 
-
-			float howMuchLight = dot(lightToPixelVec, normal);
-
-			if (howMuchLight > 0.0f) {
-				light_final_color += howMuchLight * diffuse * point_lights[i].diffuse;
-
-				light_final_color /=
-					(point_lights[i].attenuation.x) +
-					(point_lights[i].attenuation.y * d) +
-					(point_lights[i].attenuation.z * (d*d));
-			}
-			light_final_color = float4(saturate(light_final_color + finalAmbient), 1.0f);
-			
-			final_color += light_final_color;*/
-
 			float4 is = point_lights[i].specular;
 			float4 id = point_lights[i].diffuse;
 
-			float ks = material.ks;
-			float kd = material.kd;
+			float4 ks = material.ks;
+			float4 kd = material.kd;
 			float a = material.a;
 
 			float3 lm = normalize(point_lights[i].position - input.world_position);
+
+			float d = length(lm);
+			if (d > point_lights[i].range)
+				continue;
+
 			float3 n = normal;
 			float3 rm = 2.0f * n * dot(n, lm);
 			float3 v = normalize(camera_position - input.world_position);
@@ -195,6 +174,11 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 				light_final_color += saturate(kd*dot(lm, n) * id) +
 					saturate(ks * pow(dot(rm, v), a) * is);
 			}
+
+			light_final_color /=
+				(point_lights[i].attenuation.x) +
+				(point_lights[i].attenuation.y * d) +
+				(point_lights[i].attenuation.z * (d*d));
 
 			final_color += light_final_color;
 		}
@@ -212,6 +196,14 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 			final_color += light_final_color;
 		}
 	}*/
+
+	final_color *= saturate(
+		1 /
+		pow(
+			distance(input.world_position, camera_position),
+			DISTANCE_FALLOFF_POWER
+		) / DISTANCE_FALLOFF_INTENSITY
+	);
 
 	final_color.a = 255.0f;
 

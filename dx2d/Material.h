@@ -16,9 +16,14 @@ public:
 		//float specular;
 		//float shininess;
 
-		float ks;
-		float kd;
-		float ka;
+		float pad;
+
+		XMFLOAT4 ks;
+		XMFLOAT4 kd;
+		XMFLOAT4 ka;
+
+		float pad1;
+		
 		float a;
 	};
 
@@ -26,7 +31,7 @@ public:
 	Material(std::string name = "");
 
 	void compile(bool compile_texture = true);
-
+	
 	void clean_up();
 
 	void read_mtl_file(std::vector<std::string> contents) noexcept;
@@ -38,17 +43,10 @@ public:
 	Texture normal_map;
 	//Color diffuse;
 
-	float ks;
-	float kd;
-	float ka;
-	float a;
-
-	//float metallic;
-	//float specular = 0.0f;
-	//float shininess = 0.0f;
-	//float roughness;
-	//float anisotropy;
-	//float emissive_color;
+	Color ks = Color(255, 255, 255, 255); // Specular
+	Color kd = Color(255, 255, 255, 255); // Diffuse
+	Color ka = Color(0, 0, 0, 0); // Ambient
+	float a = 0.5f; // Shininess
 
 	std::string pixel_shader_name = "PixelShader.cso";
 	std::string vertex_shader_name = "VertexShader.cso";
