@@ -24,7 +24,10 @@ struct Color {
 };
 
 static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) noexcept {
-	return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+	if (normalize)
+		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+	else
+		return XMFLOAT4(color.r, color.g, color.b, color.a);
 }
 
 struct FColor {

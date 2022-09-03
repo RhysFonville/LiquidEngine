@@ -27,16 +27,26 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 		std::ifstream obj_file(obj_file_path);
 		std::ifstream mtl_file;
 
+		std::string mtl_file_path = "";
+
 		std::vector<std::string> file_vec;
 
-		std::string line;
+		std::string line = "";
 
 		// Find name of .mtl file
 		if (obj_file.is_open()) {
 			while (std::getline(obj_file, line)) {
-				if (line.substr(0, 6) == "mtllib") {
-					mtl_file.open(line.substr(7));
-					break;
+				if (!line.empty()) {
+					trim(line);
+					if (line[0] != '#') {
+						remove_extra_spaces(line);
+
+						if (line.substr(0, 6) == "mtllib") {
+							mtl_file_path = line.substr(7);
+							mtl_file.open(mtl_file_path);
+							break;
+						}
+					}
 				}
 			}
 		} else {
@@ -45,33 +55,41 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 
 		// Read .mtl file
 		if (mtl_file.is_open()) {
+
 			bool first_mtl = true;
 			int last_new_mtl_index = 0;
 
 			Material newmtl;
 
 			while (std::getline(mtl_file, line)) {
-				if (line.length() >= 14) {
-					if (line.substr(2, 14) == "Material Count") {
-						Storage::materials.reserve(line[line.length()-1] - '0');
+				if (!line.empty()) {
+					trim(line);
+					if (line[0] != '#') {
+						remove_extra_spaces(line);
+						
+						if (line.length() >= 14) {
+							if (line.substr(2, 14) == "Material Count") {
+								Storage::materials.reserve(line[line.length()-1] - '0');
+							}
+						}
+
+						if (line.substr(0, 6) == "newmtl") {
+							if (!first_mtl) {
+								newmtl.read_mtl_file(std::vector<std::string>(file_vec.begin()+last_new_mtl_index,
+									file_vec.end()));
+
+								last_new_mtl_index = file_vec.size();
+
+								Storage::materials.push_back(newmtl);
+							}
+
+							newmtl = Material(line.substr(7));
+							first_mtl = false;
+						}
+
+						file_vec.push_back(line);
 					}
 				}
-
-				if (line.substr(0, 6) == "newmtl") {
-					if (!first_mtl) {
-						newmtl.read_mtl_file(std::vector<std::string>(file_vec.begin()+last_new_mtl_index,
-							file_vec.end()));
-
-						last_new_mtl_index = file_vec.size();
-
-						Storage::materials.push_back(newmtl);
-					}
-
-					newmtl = Material(line.substr(7));
-					first_mtl = false;
-				}
-
-				file_vec.push_back(line);
 			}
 
 			newmtl.read_mtl_file(std::vector<std::string>(file_vec.begin()+last_new_mtl_index,
@@ -79,7 +97,7 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 
 			Storage::materials.push_back(newmtl);
 		} else {
-			ERROR_MESSAGE(L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"");
+			ERROR_MESSAGE(L"Could not open file \"" + string_to_wstring(mtl_file_path) + L"\"");
 		}
 		file_vec.clear();
 
@@ -94,19 +112,26 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 
 			std::string line;
 			while (std::getline(obj_file, line)) {
-				if (line[0] == 'o') {
-					if (!first_obj_sight) {
-						mesh_data += obj.read_obj_file(std::vector<std::string>(file_vec.begin() + last_new_obj_index,
-							file_vec.end()-1), mesh_data);
+				if (!line.empty()) {
+					trim(line);
+					if (line[0] != '#') {
+						remove_extra_spaces(line);
 
-						objects->push_back(std::make_shared<Object>(obj));
+						if (line[0] == 'o') {
+							if (!first_obj_sight) {
+								mesh_data += obj.read_obj_file(std::vector<std::string>(file_vec.begin() + last_new_obj_index,
+									file_vec.end()-1), mesh_data);
 
-						last_new_obj_index = file_vec.size();
+								objects->push_back(std::make_shared<Object>(obj));
+
+								last_new_obj_index = file_vec.size();
+							}
+							obj = Object(line.substr(2));
+							first_obj_sight = false;
+						}
+						file_vec.push_back(line);
 					}
-					obj = Object(line.substr(2));
-					first_obj_sight = false;
 				}
-				file_vec.push_back(line);
 			}
 
 			mesh_data += obj.read_obj_file(std::vector<std::string>(file_vec.begin()+last_new_obj_index,

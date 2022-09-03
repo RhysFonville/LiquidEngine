@@ -42,11 +42,21 @@ ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &r
 					for (std::string vertex : words_in_face_line) {
 						std::vector<std::string> vertex_components = split(vertex, '/');
 
-						mesh_data.vertices.push_back(Vertex(
-							vertices[std::stoi(vertex_components[0])-read.offsets.vertex_index_offset-1],
-							texcoords[std::stoi(vertex_components[1])-read.offsets.texcoord_index_offset-1],
-							normals[std::stoi(vertex_components[2])-read.offsets.normal_index_offset-1]
-						));
+						if (vertex_components.size() == 3) {
+							mesh_data.vertices.push_back(Vertex(
+								vertices[std::stoi(vertex_components[0])-read.offsets.vertex_index_offset-1],
+								texcoords[std::stoi(vertex_components[1])-read.offsets.texcoord_index_offset-1],
+								normals[std::stoi(vertex_components[2])-read.offsets.normal_index_offset-1]
+							));
+						} else if (vertex_components.size() < 3) {
+							mesh_data.vertices.push_back(Vertex(
+								vertices[std::stoi(vertex_components[0])-read.offsets.vertex_index_offset-1],
+								TexCoord(0.0f, 0.0f),
+								normals[std::stoi(vertex_components[1])-read.offsets.normal_index_offset-1]
+							));
+						} else {
+							ERROR_MESSAGE(L" \"" + read.file_name + L"\" is formatted incorrectly. A face descriptor has more than 4 specifiers for it's vertex description.");
+						}
 					}
 				}
 			}

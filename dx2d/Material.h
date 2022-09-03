@@ -16,13 +16,11 @@ public:
 		//float specular;
 		//float shininess;
 
-		float pad;
+		BOOL pad0, pad1;
 
 		XMFLOAT4 ks;
 		XMFLOAT4 kd;
 		XMFLOAT4 ka;
-
-		float pad1;
 		
 		float a;
 	};
@@ -45,7 +43,7 @@ public:
 
 	Color ks = Color(255, 255, 255, 255); // Specular
 	Color kd = Color(255, 255, 255, 255); // Diffuse
-	Color ka = Color(0, 0, 0, 0); // Ambient
+	Color ka = Color(0, 0, 0, 255); // Ambient
 	float a = 0.5f; // Shininess
 
 	std::string pixel_shader_name = "PixelShader.cso";

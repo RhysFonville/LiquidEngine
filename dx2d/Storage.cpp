@@ -6,5 +6,5 @@ Material & Storage::get_material_by_name(std::string name) {
 	}
 
 	ERROR_MESSAGE(L"Material not found in storage.");
-	return *materials.end();
+	return *(materials.end()-1);
 }

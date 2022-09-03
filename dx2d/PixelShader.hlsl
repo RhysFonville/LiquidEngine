@@ -7,7 +7,7 @@ SamplerState texture_sampler_state;
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
 
-static const float4 ia = float4(0.0f, 0.0f, 0.0f, 0.0f);
+static const float4 ia = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;

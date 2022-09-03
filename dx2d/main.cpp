@@ -14,7 +14,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		camera.get_component<PointLightComponent>()->specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
 		engine.scene.objects->push_back(std::make_shared<Object>(camera));
 
-		engine.scene.read_obj_file("untitled.obj");
+		engine.scene.read_obj_file("teapot.obj");
+		engine.scene.read_obj_file("bunny.obj");
 
 		engine.scene.behavior_manager.behaviors.push_back(
 			std::unique_ptr<ObjectBehavior>(
@@ -22,11 +23,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 			)
 		);
 
-		engine.scene.behavior_manager.behaviors.push_back(
+		/*engine.scene.behavior_manager.behaviors.push_back(
 		std::unique_ptr<ObjectBehavior>(
 				new MyBehavior(engine.scene.objects, engine.scene.objects->at(1))
 			)
-		);
+		);*/
 
 		engine.scene.graphics_scene->compile();
 

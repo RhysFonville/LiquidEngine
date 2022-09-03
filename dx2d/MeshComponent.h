@@ -81,12 +81,12 @@ struct ReadObjFileDataOutput {
 struct ReadObjFileDataInput {
 	std::vector<std::string> contents;
 	ReadObjFileDataOutput offsets;
+	std::wstring file_name;
 
 	ReadObjFileDataInput() { }
 	ReadObjFileDataInput(std::vector<std::string> contents,
-		ReadObjFileDataOutput offsets = ReadObjFileDataOutput())
-		: contents(contents),
-		offsets(offsets) { }
+		ReadObjFileDataOutput offsets = ReadObjFileDataOutput(), std::wstring file_name = L"")
+		: contents(contents), offsets(offsets), file_name(file_name) { }
 };
 
 class MeshComponent : public Component {

@@ -74,7 +74,7 @@ public:
 	void set_viewport(D3D11_VIEWPORT viewport) noexcept;
 
 	D3D11_FILL_MODE fill_mode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
 	D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 	GET std::shared_ptr<CameraComponent> camera() const;
