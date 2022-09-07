@@ -96,8 +96,16 @@ float4 falloff_equation(float obj_pos) {
 }
 
 float4 main(VS_OUTPUT input) : SV_TARGET {
-	//if (material.has_texture)
-	//	diffuse += object_texture.Sample(texture_sampler_state, input.texcoord);
+	float4 ks = material.ks;
+	float4 kd = material.kd;
+	float4 ka = material.ka;
+	float a = material.a;
+
+	if (material.has_texture)
+		kd = object_texture.Sample(texture_sampler_state, input.texcoord);
+
+	float4 final_color = material.ka*ia;
+	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	float3 normal = input.normal;
 
@@ -119,11 +127,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		//Convert normal from normal map to texture space and store in input.normal
 		normal = normalize(mul(normal_map_result, texSpace));
 	}*/
-
-	float4 final_color = material.ka*ia;
-	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
-
-	float4 ka = material.ka;
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_light_is_zero(directional_lights[i])) {
@@ -155,10 +158,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		if (!point_light_is_zero(point_lights[i])) {
 			float4 is = point_lights[i].specular;
 			float4 id = point_lights[i].diffuse;
-
-			float4 ks = material.ks;
-			float4 kd = material.kd;
-			float a = material.a;
 
 			float3 lm = normalize(point_lights[i].position - input.world_position);
 
