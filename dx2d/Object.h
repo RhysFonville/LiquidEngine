@@ -24,6 +24,15 @@ public:
 	GET Transform get_transform() const noexcept;
 
 	bool has_component(const Component::Type &search) const noexcept;
+	template <typename T>
+	bool has_component() const {
+		for (const std::shared_ptr<Component> &component : components) {
+			if (component->type == T::component_type) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	std::shared_ptr<Object> get_parent() noexcept;
 	void set_parent(const std::shared_ptr<Object> &parent) noexcept;
@@ -33,6 +42,8 @@ public:
 	void set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept;
 
 	void add_child(const std::shared_ptr<Object> &child) noexcept;
+
+	void compile() noexcept;
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 

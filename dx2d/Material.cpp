@@ -6,10 +6,10 @@ Material::Material(std::string name) : name(name) {
 
 void Material::compile(bool compile_texture) {
 	// Create Pixel Shader
-	HANDLE_POSSIBLE_EXCEPTION(D3DReadFileToBlob(string_to_wstring(pixel_shader_name).c_str(), pixel_blob.GetAddressOf()));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(pixel_shader_name).c_str(), pixel_blob.GetAddressOf()));
 
 	// Create Vertex Shader
-	HANDLE_POSSIBLE_EXCEPTION(D3DReadFileToBlob(string_to_wstring(vertex_shader_name).c_str(), vertex_blob.GetAddressOf()));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(vertex_shader_name).c_str(), vertex_blob.GetAddressOf()));
 }
 
 void Material::clean_up() {
@@ -24,12 +24,6 @@ void Material::clean_up() {
 
 void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 	for (std::string line : contents) {
-		if (line.substr(0, 6) == "map_Kd") {
-			texture = Texture(line.substr(7));
-		}
-		if (line.substr(0, 8) == "map_Bump") {
-			normal_map = Texture(line.substr(9));
-		}
 		if (line.substr(0, 2) == "Ns") {
 			a = std::stof(line.substr(3)) / 900.0f;
 		}
@@ -66,7 +60,16 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 		if (line.substr(0, 2) == "d ") {
 			kd.a = std::stof(line.substr(2)) * 255.0f;
 		}
+
+		if (line.substr(0, 6) == "map_Kd") {
+			texture = Texture(line.substr(7));
+		}
+		if (line.substr(0, 8) == "map_Bump") {
+			normal_map = Texture(line.substr(9));
+		}
 	}
+	a *= 13.0f;
+	ks /= 6.0f;
 }
 
 bool Material::operator==(const Material &material) const noexcept {

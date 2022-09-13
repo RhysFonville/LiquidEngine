@@ -34,14 +34,14 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 
 						// Preserve the existing buffer count and format.
 						// Automatically choose the width and height to match the client rect for HWNDs.
-						HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->ResizeBuffers(0, this_window_wndproc->size.x,
+						HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->swap_chain->ResizeBuffers(0, this_window_wndproc->size.x,
 							this_window_wndproc->size.y, DXGI_FORMAT_UNKNOWN, 0));
 											
 						// Perform error handling here!
 
 						// Get buffer and create a render-target-view.
 						ID3D11Texture2D* pBuffer;
-						HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->swap_chain->GetBuffer(
+						HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->swap_chain->GetBuffer(
 							0, 
 							__uuidof(ID3D11Texture2D),
 							(void**)&pBuffer)
@@ -50,7 +50,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 
 						Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
 						if (pBuffer != NULL) {
-							HANDLE_POSSIBLE_EXCEPTION(GRAPHICS_SCENE->device->CreateRenderTargetView(
+							HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->device->CreateRenderTargetView(
 								pBuffer,
 								NULL,
 								&target
@@ -140,12 +140,12 @@ void Window::check_input() {
 void Window::clean_up() {
 	if (ReleaseDC(window, dc) == 0) {
 		dc = GetDC(window);
-		ERROR_MESSAGE(L"Failed to release the device context.");
+		throw L"Failed to release the device context.";
 		ReleaseDC(window, dc);
 	}
 	if (DestroyWindow(this_window_wndproc->get_window()) == 0) {
 		dc = GetDC(window);
-		ERROR_MESSAGE(L"Failed to destroy window.");
+		throw L"Failed to destroy window.";
 		ReleaseDC(window, dc);
 	}
 	this_window_wndproc = NULL;

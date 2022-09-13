@@ -1,27 +1,49 @@
 #include "MyBehavior.h"
 
 MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object)
-	: ObjectBehavior(objects, object, "MyBehavior") {
-	/*object->get_component<MeshComponent>()->material.ks = Color(100, 100, 100, 100);
-	object->get_component<MeshComponent>()->material.kd = Color(127, 127, 127, 127);
-	object->get_component<MeshComponent>()->material.ka = Color(0, 0, 0, 0);
-	object->get_component<MeshComponent>()->material.a = 1.0f;*/
-}
+	: ObjectBehavior(objects, object, "MyBehavior") { }
 
 void MyBehavior::tick() {
-	//object->rotate({ 0.01f, 0.01f, 0.01f });
-
-	/*std::shared_ptr<MeshComponent> mesh_component = object->get_component<MeshComponent>();
-	if (compf(mesh_component->material.specular, 1.0f))
-		going_up = false;
-	else if (compf(mesh_component->material.specular, 0.0f))
-		going_up = true;
-
-	if (going_up) {
-		mesh_component->material.specular += 0.01f;
-		mesh_component->material.shininess += 0.01f;
-	} else {
-		mesh_component->material.specular -= 0.01f;
-		mesh_component->material.shininess -= 0.01f;
-	}*/
+	if (GetKeyState(VK_UP) & 0x8000) { // W
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FPosition3(0.0f, 0.0f, 1.0f) / 20.0f);
+		} else {
+			object->translate(FPosition3(0.0f, 0.0f, 1.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(VK_LEFT) & 0x8000) { // A
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FPosition3(-1.0f, 0.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FPosition3(-1.0f, 0.0f, 0.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(VK_DOWN) & 0x8000) { // S
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FPosition3(0.0f, 0.0f, -1.0f) / 20.0f);
+		} else {
+			object->translate(FPosition3(0.0f, 0.0f, -1.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(VK_RIGHT) & 0x8000) { // D
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FPosition3(1.0f, 0.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FPosition3(1.0f, 0.0f, 0.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(VK_NUMPAD1) & 0x8000) { // Q
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FPosition3(0.0f, -1.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FPosition3(0.0f, -1.0f, 0.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(VK_NUMPAD2) & 0x8000) { // E
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 5.0f);
+		}
+	}
 }

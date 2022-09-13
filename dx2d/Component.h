@@ -31,6 +31,8 @@ public:
 
 	virtual void clean_up() { };
 
+	virtual void compile() noexcept { };
+
 	bool operator==(const Component &component) const noexcept;
 
 	const Type type;

@@ -62,6 +62,10 @@ static FVector3 cross(const FVector3 &a, const FVector3 &b) {
 	return ret;
 }
 
+static float dot(const FVector3 &v1, const FVector3 &v2){
+	return v1.x * v2.x + v1.y * v2.y;
+}
+
 static float normalize(float f) {
 	return 1.0f / f;
 }

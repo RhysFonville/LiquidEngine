@@ -11,13 +11,15 @@
 class Scene {
 public:
 	Scene(Window &window);
-	Scene() { }
+	Scene() { };
 
 	void tick();
 
 	void clean_up();
 
-	void read_obj_file(std::string obj_file_path) noexcept;
+	void compile() noexcept;
+
+	void read_obj_file(std::string obj_file_path);
 
 	std::shared_ptr<GraphicsScene> graphics_scene;
 	PhysicsScene physics_scene;

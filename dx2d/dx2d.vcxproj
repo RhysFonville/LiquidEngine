@@ -156,7 +156,6 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="ObjectBehavior.cpp" />
-    <ClCompile Include="oldstuff.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="PointLightComponent.cpp" />
     <ClCompile Include="Scene.cpp" />

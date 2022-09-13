@@ -16,7 +16,7 @@ struct Vertex {
 	TexCoord texcoord = TexCoord();
 	Normal normal = Normal();
 	Tangent tangent = Tangent();
-	//Bitangent bitangent = Bitangent();
+	Bitangent bitangent = Bitangent();
 
 	Vertex(float x, float y, float z) : position(x, y, z) { }
 
@@ -48,16 +48,54 @@ struct Vertex {
 	}
 };
 
+using Triangle = Triplet<Vertex>;
+
+static std::vector<Triangle> split_into_triangles(const std::vector<Vertex> &tris) noexcept {
+	std::vector<Triangle> ret;
+
+	for (size_t i = 0; i < tris.size(); i += 3){
+		if (i + 2 <= tris.size()) {
+			ret.push_back({
+				tris[i+0],
+				tris[i+1],
+				tris[i+2]
+			});
+		}
+	}
+
+	return ret;
+}
+
 struct MeshData {
 	std::vector<Vertex> vertices;
 	std::vector<USHORT> indices;
 
 	bool operator==(const MeshData &mesh) const noexcept {
-		if (vertices == mesh.vertices &&
-			indices == mesh.indices)
-			return true;
-		else
-			return false;
+		return (vertices == mesh.vertices &&
+			indices == mesh.indices);
+	}
+
+	std::vector<Triangle> split_mesh_into_triangles() const noexcept {
+		return split_into_triangles(vertices);
+	}
+
+	std::vector<Vertex> transform(const Transform &transform) {
+		std::vector<Vertex> ret = vertices;
+
+		auto m = XMMatrixTranslation(transform.position.x, 
+			transform.position.y, transform.position.z);
+
+		auto mm = XMMatrixTranspose(FXMMATRIX (transform));
+		
+		for (Vertex &vertex : ret) {
+
+			auto v = XMVECTOR(vertex.position);
+
+			XMVECTOR pos = XMVector3Transform(vertex.position, m);
+			vertex.position = pos;
+		}
+
+		return ret;
 	}
 };
 
@@ -96,9 +134,11 @@ public:
 
 	MeshComponent(const Material &material);
 
-	ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read) noexcept;
+	ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read);
 
 	void clean_up() override;
+
+	void compile() noexcept override;
 
 	bool operator==(const MeshComponent &appearance) const noexcept;
 

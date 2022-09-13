@@ -3,7 +3,7 @@
 Scene::Scene(Window &window) {
 	objects = std::make_shared<std::vector<std::shared_ptr<Object>>>();
 	graphics_scene = std::make_shared<GraphicsScene>(window.get_window(), objects);
-	physics_scene = PhysicsScene();
+	physics_scene = PhysicsScene(objects);
 	behavior_manager = BehaviorManager();
 
 	behavior_manager.start();
@@ -11,6 +11,7 @@ Scene::Scene(Window &window) {
 
 void Scene::tick() {
 	behavior_manager.tick();
+	physics_scene.tick();
 	graphics_scene->clear();
 	graphics_scene->draw();
 	graphics_scene->present();
@@ -18,11 +19,19 @@ void Scene::tick() {
 
 void Scene::clean_up() {
 	graphics_scene->clean_up();
-	//physics_scene.clean_up();
+	physics_scene.clean_up();
 	behavior_manager.clean_up();
 }
 
-void Scene::read_obj_file(std::string obj_file_path) noexcept {
+void Scene::compile() noexcept {
+	for (std::shared_ptr<Object> &object : *objects) {
+		object->compile();
+	}
+
+	graphics_scene->compile();
+}
+
+void Scene::read_obj_file(std::string obj_file_path) {
 	if (!obj_file_path.empty()) {
 		std::ifstream obj_file(obj_file_path);
 		std::ifstream mtl_file;
@@ -50,7 +59,7 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 				}
 			}
 		} else {
-			ERROR_MESSAGE(L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"");
+			throw (L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"").c_str();
 		}
 
 		// Read .mtl file
@@ -97,7 +106,7 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 
 			Storage::materials.push_back(newmtl);
 		} else {
-			ERROR_MESSAGE(L"Could not open file \"" + string_to_wstring(mtl_file_path) + L"\"");
+			throw (L"Could not open file \"" + string_to_wstring(mtl_file_path) + L"\"").c_str();
 		}
 		file_vec.clear();
 
@@ -140,7 +149,7 @@ void Scene::read_obj_file(std::string obj_file_path) noexcept {
 			objects->push_back(std::make_shared<Object>(obj));
 
 		} else {
-			ERROR_MESSAGE(L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"");
+			throw (L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"").c_str();
 		}
 	}
 }

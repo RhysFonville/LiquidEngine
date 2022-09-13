@@ -2,6 +2,7 @@
 
 Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
+Texture2D a_map : register(t2);
 SamplerState texture_sampler_state;
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
@@ -13,7 +14,7 @@ struct VS_OUTPUT {
 	float4 position : SV_POSITION;
 	float2 texcoord : TEXCOORD;
 	float3 normal : NORMAL;
-	//float3 tangent : TANGENT;
+	float3 tangent : TANGENT;
 	float3 world_position : POSITION;
 };
 
@@ -107,9 +108,9 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 	float4 final_color = material.ka*ia;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	float3 normal = input.normal;
+	float3 n = input.normal;
 
-	/*if (material.has_normal_map) {
+	if (material.has_normal_map) {
 		float3 normal_map_result = normal_map.Sample(texture_sampler_state, input.texcoord);
 
 		//Change normal map range from [0, 1] to [-1, 1]
@@ -125,8 +126,8 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		float3x3 texSpace = float3x3(input.tangent, biTangent, input.normal);
 
 		//Convert normal from normal map to texture space and store in input.normal
-		normal = normalize(mul(normal_map_result, texSpace));
-	}*/
+		n = normalize(mul(normal_map_result, texSpace));
+	}
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_light_is_zero(directional_lights[i])) {
@@ -138,7 +139,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 			float a = material.a;
 
 			float3 lm = normalize(-directional_lights[i].direction);
-			float3 n = normal;
 			//float3 rm = reflect(lm, n);
 			//float3 rm = 2*(lm*n)*n-lm;
 			//float3 v = normalize(camera_position - input.world_position);
@@ -165,7 +165,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 			if (d > point_lights[i].range)
 				continue;
 
-			float3 n = normal;
 			float3 rm = 2.0f * n * dot(n, lm);
 			float3 v = normalize(camera_position - input.world_position);
 
@@ -203,8 +202,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 			DISTANCE_FALLOFF_POWER
 		) / DISTANCE_FALLOFF_INTENSITY
 	);
-
-	final_color.a = 255.0f;
 
 	return final_color;
 }

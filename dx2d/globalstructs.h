@@ -4,6 +4,7 @@
 #include <vector>
 #include <Windows.h>
 #include <DirectXMath.h>
+#include <utility>
 
 using namespace DirectX;
 
@@ -20,6 +21,16 @@ struct Color {
 
 	operator XMFLOAT4() {
 		return XMFLOAT4(r, g, b, a);
+	}
+
+	Color operator/(float divisor) const noexcept {
+		return Color(
+					(UCHAR)(r / divisor), (UCHAR)(g / divisor),
+					(UCHAR)(b / divisor), (UCHAR)(a / divisor)
+				);
+	}
+	void operator/=(float divisor) noexcept {
+		*this = *this / divisor;
 	}
 };
 
@@ -176,6 +187,12 @@ struct TVector3 {
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
+	}
+
+	void operator=(const XMVECTOR &vector) noexcept {
+		x = XMVectorGetX(vector);
+		y = XMVectorGetY(vector);
+		z = XMVectorGetZ(vector);
 	}
 };
 
@@ -348,6 +365,36 @@ struct Transform {
 		else
 			return false;
 	}
+};
+
+template <typename T>
+struct Triplet {
+	T first;
+	T second;
+	T third;
+
+	Triplet(const T &f, const T &s, const T &t) : first(f), second(s), third(t) { }
+
+	T & operator[](UCHAR index) {
+		switch (index) {
+		case 0:
+			return first;
+		case 1:
+			return second;
+		case 2:
+			return third;
+		default:
+			throw "Index out of bounds when using [] operator on triplet.";
+		}
+	}
+};
+
+using Line = std::pair<FPoint3, FPoint3>;
+using Segment = std::pair<FPoint3, FPoint3>;
+
+struct Ray {
+	FPoint3 origin;
+	FPoint3 direction;
 };
 
 template <typename T>

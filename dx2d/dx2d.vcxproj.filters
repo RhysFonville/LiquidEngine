@@ -66,9 +66,6 @@
     <ClCompile Include="ObjectBehavior.cpp">
       <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="oldstuff.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsScene.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -137,9 +134,6 @@
     <ClInclude Include="GraphicsScene.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="MeshComponent.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="globalutil.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
@@ -171,6 +165,9 @@
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

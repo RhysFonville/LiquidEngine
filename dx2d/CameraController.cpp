@@ -34,6 +34,20 @@ void CameraController::tick() {
 			object->translate(camera.direction_right() / 5.0f);
 		}
 	}
+	if (GetKeyState(0x51) & 0x8000) { // Q
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FVector3(0.0f, -1.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FVector3(0.0f, -1.0f, 0.0f) / 5.0f);
+		}
+	}
+	if (GetKeyState(0x45) & 0x8000) { // E
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 20.0f);
+		} else {
+			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 5.0f);
+		}
+	}
 
 	POINT current_cursor_pos;
 	if (GetCursorPos(&current_cursor_pos)) {

@@ -18,7 +18,7 @@ GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 	sampler_description.MinLOD = 0;
 	sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
 
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateSamplerState(&sampler_description, sampler_state.GetAddressOf()));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, sampler_state.GetAddressOf()));
 
 	context->IASetPrimitiveTopology(primitive_topology);
 
@@ -34,7 +34,7 @@ void GraphicsScene::compile() {
 
 			if (material.texture != Texture()) {
 				// +---------------- Texture ----------------+
-				HANDLE_POSSIBLE_EXCEPTION(DirectX::CreateWICTextureFromFile(
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(DirectX::CreateWICTextureFromFile(
 					device.Get(),
 					string_to_wstring(material.texture.file_name).c_str(),
 					material.texture.texture.GetAddressOf(),
@@ -42,7 +42,7 @@ void GraphicsScene::compile() {
 				));
 			}
 			if (material.normal_map != Texture()) {
-				HANDLE_POSSIBLE_EXCEPTION(DirectX::CreateWICTextureFromFile(
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(DirectX::CreateWICTextureFromFile(
 					device.Get(),
 					string_to_wstring(material.normal_map.file_name).c_str(),
 					material.normal_map.texture.GetAddressOf(),
@@ -52,13 +52,13 @@ void GraphicsScene::compile() {
 
 			// +---------------- Shaders ----------------+
 			// Create Pixel Shader
-			HANDLE_POSSIBLE_EXCEPTION(device->CreatePixelShader(material.pixel_blob->GetBufferPointer(), material.pixel_blob->GetBufferSize(), NULL, &material.pixel_shader));
+			HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreatePixelShader(material.pixel_blob->GetBufferPointer(), material.pixel_blob->GetBufferSize(), NULL, &material.pixel_shader));
 
 			// Create Vertex Shader
-			HANDLE_POSSIBLE_EXCEPTION(device->CreateVertexShader(material.vertex_blob->GetBufferPointer(), material.vertex_blob->GetBufferSize(), NULL, &material.vertex_shader));
+			HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateVertexShader(material.vertex_blob->GetBufferPointer(), material.vertex_blob->GetBufferSize(), NULL, &material.vertex_shader));
 
 			// Create Input Layout
-			HANDLE_POSSIBLE_EXCEPTION(device->CreateInputLayout(input_element_description,
+			HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateInputLayout(input_element_description,
 				(UINT)std::size(input_element_description),
 				material.vertex_blob->GetBufferPointer(), 
 				material.vertex_blob->GetBufferSize(),
@@ -118,7 +118,7 @@ void GraphicsScene::draw() {
 }
 
 void GraphicsScene::present() {
-	HANDLE_POSSIBLE_EXCEPTION(swap_chain->Present(1u, 0u));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(swap_chain->Present(1u, 0u));
 }
 
 void GraphicsScene::clear(bool clear_drawing) {
@@ -202,7 +202,7 @@ void GraphicsScene::set_vertex_buffer(const MeshComponent &mesh) {
 	data.pSysMem = &mesh.mesh_data.vertices[0];
 
 	// Creating the Buffer
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBuffer(&buffer_description, &data, &vertex_buffer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&buffer_description, &data, &vertex_buffer));
 
 	// Bind Vertex Buffer to Pipeline
 	UINT stride = sizeof(Vertex);
@@ -221,7 +221,7 @@ void GraphicsScene::set_index_buffer(const MeshComponent &mesh) {
 	index_buffer_description.StructureByteStride = sizeof(USHORT);
 	D3D11_SUBRESOURCE_DATA subresource_data = { };
 	subresource_data.pSysMem = &mesh.mesh_data.indices[0];
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBuffer(&index_buffer_description, &subresource_data, &index_buffer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&index_buffer_description, &subresource_data, &index_buffer));
 	// Bind index buffer
 	context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 }
@@ -247,7 +247,7 @@ void GraphicsScene::create_per_object_constant_buffers(CameraComponent &camera, 
 	vertex_constant_buffer_description.StructureByteStride = 0u;
 	D3D11_SUBRESOURCE_DATA vertex_constant_subresource_data = { };
 	vertex_constant_subresource_data.pSysMem = &vcb;
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBuffer(&vertex_constant_buffer_description, &vertex_constant_subresource_data, &vertex_constant_buffer_pointer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&vertex_constant_buffer_description, &vertex_constant_subresource_data, &vertex_constant_buffer_pointer));
 
 	// Set constant buffer
 	context->VSSetConstantBuffers(1u, 1u, vertex_constant_buffer_pointer.GetAddressOf());
@@ -265,7 +265,7 @@ void GraphicsScene::create_per_object_constant_buffers(CameraComponent &camera, 
 	material_constant_buffer_description.StructureByteStride = 0u;
 	D3D11_SUBRESOURCE_DATA material_constant_subresource_data = { };
 	material_constant_subresource_data.pSysMem = &pcb;
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBuffer(&material_constant_buffer_description, &material_constant_subresource_data, &material_constant_buffer_pointer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&material_constant_buffer_description, &material_constant_subresource_data, &material_constant_buffer_pointer));
 
 	// Set constant buffer
 	context->PSSetConstantBuffers(2u, 1u, material_constant_buffer_pointer.GetAddressOf());
@@ -321,7 +321,7 @@ void GraphicsScene::create_per_frame_constant_buffer() {
 	constant_subresource_data.pSysMem = &cb;
 	constant_subresource_data.SysMemPitch = 0u;
 	constant_subresource_data.SysMemSlicePitch = 0u;
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBuffer(&constant_buffer_description, &constant_subresource_data, &constant_buffer_pointer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&constant_buffer_description, &constant_subresource_data, &constant_buffer_pointer));
 
 	// Set constant buffer
 	context->PSSetConstantBuffers(0u, 1u, constant_buffer_pointer.GetAddressOf());
@@ -347,7 +347,7 @@ void GraphicsScene::create_essentials() {
 	swap_chain_description.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD; // Swap effect that usually has the best performance
 	swap_chain_description.Flags = 0u; // No flags
 
-	HANDLE_POSSIBLE_EXCEPTION(D3D11CreateDeviceAndSwapChain(
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3D11CreateDeviceAndSwapChain(
 		nullptr, // Choose default adapter
 		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, // Use hardware device
 		nullptr, // Handle to driver
@@ -372,8 +372,8 @@ void GraphicsScene::create_essentials() {
 	bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> back_buffer = nullptr;
-	HANDLE_POSSIBLE_EXCEPTION(swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), &back_buffer));
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateRenderTargetView(
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), &back_buffer));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateRenderTargetView(
 		back_buffer.Get(),
 		nullptr,
 		&target
@@ -403,7 +403,7 @@ void GraphicsScene::create_unessentials() {
 	rasterizer_state_description.ScissorEnable = false;
 	rasterizer_state_description.MultisampleEnable = false;
 	rasterizer_state_description.AntialiasedLineEnable = false;
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateRasterizerState(&rasterizer_state_description, rasterizer_state.GetAddressOf()));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateRasterizerState(&rasterizer_state_description, rasterizer_state.GetAddressOf()));
 
 	context->RSSetState(rasterizer_state.Get());
 
@@ -424,7 +424,7 @@ void GraphicsScene::create_unessentials() {
 	blend_description.RenderTarget[0].DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ZERO;
 	blend_description.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 	blend_description.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE::D3D11_COLOR_WRITE_ENABLE_ALL;
-	HANDLE_POSSIBLE_EXCEPTION(device->CreateBlendState(&blend_description, &blend_state));
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBlendState(&blend_description, &blend_state));
 
 	context->OMSetBlendState(blend_state.Get(), 0, 0xffffffff);
 }

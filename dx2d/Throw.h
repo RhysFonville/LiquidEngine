@@ -48,7 +48,6 @@ inline bool YESNO_MESSAGE(std::wstring message, bool help = true) {
 	}
 }
 
-// Helper utility converts D3D API failures into exceptions.
 inline bool CHECK_RESULT(HRESULT hr) {
 	if (FAILED(hr)) {
 		_com_error error(hr);
@@ -59,9 +58,20 @@ inline bool CHECK_RESULT(HRESULT hr) {
 		return false;
 	}
 }
-static HRESULT r = S_OK;
-#define HANDLE_POSSIBLE_EXCEPTION(function) \
+
+static HRESULT rw = S_OK;
+#define HANDLE_POSSIBLE_EXCEPTION_WINDOWS(function) \
 r = function; \
-while (CHECK_RESULT(r) == true) { \
-	r = function; \
+while (CHECK_RESULT(rw) == true) { \
+	rw = function; \
+}
+
+static bool r = true;
+#define HANDLE_POSSIBLE_EXCEPTION(function) \
+while (r == true) { \
+	try { \
+		function; \
+	} catch (std::exception &e) { \
+		r = ERROR_MESSAGE(string_to_wstring(e.what())) \
+	} \
 }

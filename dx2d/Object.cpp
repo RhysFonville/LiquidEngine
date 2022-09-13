@@ -62,7 +62,11 @@ GET Transform Object::get_transform() const noexcept {
 
 bool Object::operator==(const Object &object) const noexcept {
 	return (components == object.components &&
-		transform == object.transform);
+		transform == object.transform &&
+		name == object.name &&
+		parent == object.parent &&
+		children == object.children &&
+		is_static == object.is_static);
 }
 
 bool Object::has_component(const Component::Type &search) const noexcept {
@@ -118,6 +122,12 @@ std::shared_ptr<Object> Object::get_parent() noexcept {
 //void Object::add_child(const std::shared_ptr<Object> &child) noexcept {
 //	child->set_parent(std::make_shared<Object>(*this));
 //}
+
+void Object::compile() noexcept {
+	for (std::shared_ptr<Component> &component : components) {
+		component->compile();
+	}
+}
 
 ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {
 	MeshComponent mc;
