@@ -280,6 +280,19 @@ struct TVector4 {
 		z = vector.z;
 		w = vector.w;
 	}
+
+	T & operator[](UCHAR index) {
+		switch (index) {
+		case 0:
+			return first;
+		case 1:
+			return second;
+		case 2:
+			return third;
+		default:
+			throw "Index out of bounds when using [] operator on triplet.";
+		}
+	}
 };
 
 using Vector4 = TVector4<int>;
@@ -367,34 +380,111 @@ struct Transform {
 	}
 };
 
-template <typename T>
-struct Triplet {
-	T first;
-	T second;
-	T third;
+namespace Geometry {
+	using TexCoord = FPosition2;
+	using FTexCoord = TexCoord;
+	
+	struct Vertex {
+		FPosition position = FPosition();
+		TexCoord texcoord = TexCoord();
+		Normal normal = Normal();
+		Tangent tangent = Tangent();
+		Bitangent bitangent = Bitangent();
 
-	Triplet(const T &f, const T &s, const T &t) : first(f), second(s), third(t) { }
+		Vertex(float x, float y, float z) : position(x, y, z) { }
 
-	T & operator[](UCHAR index) {
-		switch (index) {
-		case 0:
-			return first;
-		case 1:
-			return second;
-		case 2:
-			return third;
-		default:
-			throw "Index out of bounds when using [] operator on triplet.";
+		Vertex(float x, float y, float z, float u, float v)
+			: position(x, y, z), texcoord(u, v) { }
+
+		Vertex(float x,  float y,  float z,
+			float u,  float v,
+			float nx, float ny, float nz)
+			: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
+
+		Vertex(FPosition position, TexCoord texcoord, Normal normal)
+			: position(position), texcoord(texcoord), normal(normal) { }
+
+		bool operator==(const Vertex &vertex) const noexcept {
+			return (position == vertex.position &&
+				texcoord == vertex.texcoord &&
+				normal == vertex.normal &&
+				tangent == vertex.tangent);
 		}
-	}
-};
+	};
 
-using Line = std::pair<FPoint3, FPoint3>;
-using Segment = std::pair<FPoint3, FPoint3>;
+	struct SimpleVertex {
+		FPosition position = FPosition();
 
-struct Ray {
-	FPoint3 origin;
-	FPoint3 direction;
+		SimpleVertex(float x, float y, float z) : position(x, y, z) { }
+
+		SimpleVertex(FPosition position)
+			: position(position) { }
+
+		bool operator==(const SimpleVertex &vertex) const noexcept {
+			if (position == vertex.position)
+				return true;
+			else
+				return false;
+		}
+
+		bool operator!=(const SimpleVertex &vertex) const noexcept {
+			if (position != vertex.position)
+				return true;
+			else
+				return false;
+		}
+	};
+
+	struct Triangle {
+		Vertex first;
+		Vertex second;
+		Vertex third;
+	};
+
+	struct SimpleTriangle {
+		SimpleVertex first;
+		SimpleVertex second;
+		SimpleVertex third;
+	};
+
+	struct Box {
+		std::vector<Vertex> vertices;
+
+		Box() : vertices(std::vector<Vertex>(8)) { }
+		Box(const std::vector<Vertex> &verts) {
+			if (verts.size() <= 8) {
+				verts.resize(8);
+				vertices = verts;
+			}
+		}
+	};
+
+	struct SimpleBox {
+		std::vector<SimpleVertex> vertices;
+
+		SimpleBox() : vertices(std::vector<SimpleVertex>(8)) { }
+		SimpleBox(std::vector<SimpleVertex> &verts) {
+			if (verts.size() <= 8) {
+				verts.resize(8);
+				vertices = verts;
+			}
+		}
+	};
+
+	using Cube = Box;
+
+	struct Line {
+		FPoint3 p1, p2;
+	};
+
+	struct Segment {
+		FPoint3 p1, p2;
+	};
+
+	struct Ray {
+		FPoint3 origin;
+		FPoint3 direction;
+	};
 };
 
 template <typename T>

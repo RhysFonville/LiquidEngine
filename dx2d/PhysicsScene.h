@@ -217,8 +217,6 @@
       else  return 0; }\
     else return 0; }}
 
-
-
 class PhysicsScene {
 public:
 	PhysicsScene(ObjectVector &objects);

@@ -8,47 +8,7 @@
 #include "globalutil.h"
 #include "Component.h"
 
-using TexCoord = FPosition2;
-using FTexCoord = TexCoord;
-
-struct Vertex {
-	FPosition position = FPosition();
-	TexCoord texcoord = TexCoord();
-	Normal normal = Normal();
-	Tangent tangent = Tangent();
-	Bitangent bitangent = Bitangent();
-
-	Vertex(float x, float y, float z) : position(x, y, z) { }
-
-	Vertex(float x, float y, float z, float u, float v)
-		: position(x, y, z), texcoord(u, v) { }
-
-	Vertex(float x,  float y,  float z,
-		   float u,  float v,
-		   float nx, float ny, float nz)
-		: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
-
-	Vertex(FPosition position, TexCoord texcoord, Normal normal)
-		: position(position), texcoord(texcoord), normal(normal) { }
-
-	bool operator==(const Vertex &vertex) const noexcept {
-		if (position == vertex.position &&
-			texcoord == vertex.texcoord)
-			return true;
-		else
-			return false;
-	}
-
-	bool operator!=(const Vertex &vertex) const noexcept {
-		if (position != vertex.position &&
-			texcoord != vertex.texcoord)
-			return true;
-		else
-			return false;
-	}
-};
-
-using Triangle = Triplet<Vertex>;
+using namespace Geometry;
 
 static std::vector<Triangle> split_into_triangles(const std::vector<Vertex> &tris) noexcept {
 	std::vector<Triangle> ret;
@@ -70,6 +30,8 @@ struct MeshData {
 	std::vector<Vertex> vertices;
 	std::vector<USHORT> indices;
 
+	Box bounding_box;
+
 	bool operator==(const MeshData &mesh) const noexcept {
 		return (vertices == mesh.vertices &&
 			indices == mesh.indices);
@@ -81,21 +43,65 @@ struct MeshData {
 
 	std::vector<Vertex> transform(const Transform &transform) {
 		std::vector<Vertex> ret = vertices;
-
-		auto m = XMMatrixTranslation(transform.position.x, 
-			transform.position.y, transform.position.z);
-
-		auto mm = XMMatrixTranspose(FXMMATRIX (transform));
 		
 		for (Vertex &vertex : ret) {
-
-			auto v = XMVECTOR(vertex.position);
-
-			XMVECTOR pos = XMVector3Transform(vertex.position, m);
-			vertex.position = pos;
+			vertex.position = XMVector3Transform(vertex.position,
+				XMMatrixTranspose(transform));
 		}
 
 		return ret;
+	}
+
+	Box get_bounding_box() {
+		auto x_extremes = std::minmax_element(vertices.begin(), vertices.end(),
+			[](const Vertex &lhs, const Vertex &rhs) {
+				return lhs.position.x < rhs.position.x;
+			});
+
+		auto y_extremes = std::minmax_element(vertices.begin(), vertices.end(),
+			[](const Vertex &lhs, const Vertex &rhs) {
+				return lhs.position.y < rhs.position.y;
+			});
+
+		auto z_extremes = std::minmax_element(vertices.begin(), vertices.end(),
+			[](const Vertex &lhs, const Vertex &rhs) {
+				return lhs.position.y < rhs.position.y;
+			});
+
+		Vertex v1(	x_extremes.first->position.x,
+					y_extremes.first->position.y,
+					z_extremes.first->position.z
+		);
+		Vertex v2(	x_extremes.first->position.x,
+					y_extremes.second->position.y,
+					z_extremes.first->position.z
+		);
+		Vertex v3(	x_extremes.second->position.x,
+					y_extremes.second->position.y,
+					z_extremes.first->position.z
+		);
+		Vertex v4(	x_extremes.second->position.x,
+					y_extremes.first->position.y,
+					z_extremes.first->position.z
+		);
+		Vertex v5(	x_extremes.first->position.x,
+					y_extremes.first->position.y,
+					z_extremes.second->position.z
+		);
+		Vertex v6(	x_extremes.first->position.x,
+					y_extremes.second->position.y,
+					z_extremes.second->position.z
+		);
+		Vertex v7(	x_extremes.second->position.x,
+					y_extremes.second->position.y,
+					z_extremes.second->position.z
+		);
+		Vertex v8(	x_extremes.second->position.x,
+					y_extremes.first->position.y,
+					z_extremes.second->position.z
+		);
+
+		return Box({ v1, v2, v3, v4, v5, v6, v7, v8 });
 	}
 };
 

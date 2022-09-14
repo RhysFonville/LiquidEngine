@@ -20,37 +20,6 @@ void PhysicsScene::tick() noexcept {
 							)
 						);
 
-					/*double p1[3] = {
-						(double)object1_tris[0][0].position.x,
-						(double)object1_tris[0][0].position.y,
-						(double)object1_tris[0][0].position.z
-					};
-					double p2[3] = {
-						(double)object1_tris[0][1].position.x,
-						(double)object1_tris[0][1].position.y,
-						(double)object1_tris[0][1].position.z
-					};
-					double p3[3] = {
-						(double)object1_tris[0][2].position.x,
-						(double)object1_tris[0][2].position.y,
-						(double)object1_tris[0][2].position.z
-					};
-					double q1[3] = {
-						(double)object2_tris[0][0].position.x,
-						(double)object2_tris[0][0].position.y,
-						(double)object2_tris[0][0].position.z
-					};
-					double q2[3] = {
-						(double)object2_tris[0][1].position.x,
-						(double)object2_tris[0][1].position.y,
-						(double)object2_tris[0][1].position.z
-					};
-					double q3[3] = {
-						(double)object2_tris[0][2].position.x,
-						(double)object2_tris[0][2].position.y,
-						(double)object2_tris[0][2].position.z
-					};*/
-
 					bool intersecting = false;
 					for (const Triangle &object1_tri : object1_tris) {
 						for (const Triangle &object2_tri : object2_tris) {
@@ -303,15 +272,15 @@ float PhysicsScene::signed_tetrahedron_volume(FPoint3 a, FPoint3 b, FPoint3 c, F
 	return (1.0f/6.0f)*dot(cross(b-a,c-a),d-a);
 }
 
-bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Segment &segment) {
+bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Line &segment) {
 	FPoint3 q1, q2, p1, p2, p3;
 
 	p1 = triangle.first.position;
 	p2 = triangle.second.position;
 	p3 = triangle.third.position;
 
-	q1 = segment.first;
-	q2 = segment.second;
+	q1 = segment.p1;
+	q2 = segment.p2;
 
 	float a = signed_tetrahedron_volume(q1,p1,p2,p3);
 	float b = signed_tetrahedron_volume(q2,p1,p2,p3);
