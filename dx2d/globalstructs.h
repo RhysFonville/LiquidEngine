@@ -284,11 +284,11 @@ struct TVector4 {
 	T & operator[](UCHAR index) {
 		switch (index) {
 		case 0:
-			return first;
+			return x;
 		case 1:
-			return second;
+			return y;
 		case 2:
-			return third;
+			return z;
 		default:
 			throw "Index out of bounds when using [] operator on triplet.";
 		}
@@ -391,6 +391,8 @@ namespace Geometry {
 		Tangent tangent = Tangent();
 		Bitangent bitangent = Bitangent();
 
+		Vertex() { }
+
 		Vertex(float x, float y, float z) : position(x, y, z) { }
 
 		Vertex(float x, float y, float z, float u, float v)
@@ -415,7 +417,9 @@ namespace Geometry {
 	struct SimpleVertex {
 		FPosition position = FPosition();
 
-		SimpleVertex(float x, float y, float z) : position(x, y, z) { }
+		SimpleVertex() { }
+		
+		SimpleVertex(float x, float y, float z) : position(FPosition(x, y, z)) { }
 
 		SimpleVertex(FPosition position)
 			: position(position) { }
@@ -451,9 +455,9 @@ namespace Geometry {
 		std::vector<Vertex> vertices;
 
 		Box() : vertices(std::vector<Vertex>(8)) { }
-		Box(const std::vector<Vertex> &verts) {
+		Box(std::vector<Vertex> &verts) {
 			if (verts.size() <= 8) {
-				verts.resize(8);
+				verts.reserve(8);
 				vertices = verts;
 			}
 		}
@@ -465,7 +469,7 @@ namespace Geometry {
 		SimpleBox() : vertices(std::vector<SimpleVertex>(8)) { }
 		SimpleBox(std::vector<SimpleVertex> &verts) {
 			if (verts.size() <= 8) {
-				verts.resize(8);
+				verts.reserve(8);
 				vertices = verts;
 			}
 		}

@@ -101,7 +101,9 @@ struct MeshData {
 					z_extremes.second->position.z
 		);
 
-		return Box({ v1, v2, v3, v4, v5, v6, v7, v8 });
+
+		std::vector<Vertex> v({ v1, v2, v3, v4, v5, v6, v7, v8 });
+		return Box(v);
 	}
 };
 
