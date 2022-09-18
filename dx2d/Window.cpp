@@ -22,7 +22,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 				if (GetWindowRect(hwnd, &rect)) {
 					UINT width = rect.right - rect.left;
 					UINT height = rect.bottom - rect.top;
-					this_window_wndproc->size = Size2(width, height);
+					this_window_wndproc->size = UVector2(width, height);
 				}
 
 				/*if (!this_window_wndproc->first_size) {
@@ -120,7 +120,7 @@ Window::Window(HINSTANCE hInstance, std::shared_ptr<GraphicsScene> graphics_scen
 	RegisterClassW(&window_class);
 }
 
-void Window::set_up_window(const Position2 &position, const Size2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
+void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
 	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, hInstance, lpParam);
@@ -168,11 +168,11 @@ WNDCLASS & Window::get_class() noexcept {
 	return window_class;
 }
 
-Size2 Window::get_size() const noexcept {
+UVector2 Window::get_size() const noexcept {
 	return size;
 }
 
-void Window::set_size(const Size2 &size) noexcept {
+void Window::set_size(const UVector2 &size) noexcept {
 	this->size = size;
 	SetWindowPos(window, 0, 0, 0, size.x, size.y, SWP_SHOWWINDOW | SWP_NOMOVE);
 }

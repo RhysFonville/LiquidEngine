@@ -55,7 +55,7 @@ void CameraController::tick() {
 			if (previous_cursor_pos.x != 0 && previous_cursor_pos.y != 0) {
 				POINT diff = { current_cursor_pos.x - previous_cursor_pos.x,
 							   current_cursor_pos.y - previous_cursor_pos.y };
-				object->rotate(FRotation3((float)diff.y / 7, (float)diff.x / 7, 0.0f));
+				object->rotate(FVector3((float)diff.y / 7, (float)diff.x / 7, 0.0f));
 			}
 		}
 	}

@@ -58,7 +58,7 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 				});
 		}
 		if (line.substr(0, 2) == "d ") {
-			kd.a = std::stof(line.substr(2)) * 255.0f;
+			kd.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
 		}
 
 		if (line.substr(0, 6) == "map_Kd") {

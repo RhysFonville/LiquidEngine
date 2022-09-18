@@ -137,8 +137,8 @@ struct ReadObjFileDataInput {
 
 class MeshComponent : public Component {
 public:
-	MeshComponent(const FPosition3 &position = FPosition3(),
-		const FRotation3 &rotation = FRotation3());
+	MeshComponent(const FVector3 &position = FVector3(),
+		const FVector3 &rotation = FVector3());
 
 	MeshComponent(const Material &material);
 

@@ -2,12 +2,10 @@
 
 GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 	: window(window), objects(objects) {
-	Size2 size = get_window_size(window);
-
 	create_essentials();
 	create_unessentials();
 
-	create_depth_stencil_buffer(size.x, size.y);
+	create_depth_stencil_buffer(resolution.x, resolution.y);
 
 	D3D11_SAMPLER_DESC sampler_description = { };
 	sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -231,8 +229,7 @@ void GraphicsScene::create_per_object_constant_buffers(CameraComponent &camera, 
 
 	Transform object_transform = object.get_transform();
 
-	Size2 size = get_window_size(window);
-	camera.update(size);
+	camera.update(UVector2_to_FVector2(resolution));
 
 	vcb.WVP = XMMatrixTranspose(camera.WVP);
 	vcb.transform = object_transform;
@@ -328,11 +325,9 @@ void GraphicsScene::create_per_frame_constant_buffer() {
 }
 
 void GraphicsScene::create_essentials() {
-	Size2 size = get_window_size(window);
-
 	DXGI_SWAP_CHAIN_DESC swap_chain_description = { };
-	swap_chain_description.BufferDesc.Width = size.x; // Figure it out yourself
-	swap_chain_description.BufferDesc.Height = size.y;
+	swap_chain_description.BufferDesc.Width = resolution.x;
+	swap_chain_description.BufferDesc.Height = resolution.y;
 	swap_chain_description.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM; // Or DXGI_FORMAT_B8G8R8A8_UNORM? // Layout of pixels
 	swap_chain_description.BufferDesc.RefreshRate.Numerator = 0; // Pick whatever is already there
 	swap_chain_description.BufferDesc.RefreshRate.Denominator = 0; // Pick whatever is already there
@@ -363,8 +358,8 @@ void GraphicsScene::create_essentials() {
 	));
 
 	DXGI_MODE_DESC bufferDesc = { };
-	bufferDesc.Width = size.x;
-	bufferDesc.Height = size.y;
+	bufferDesc.Width = resolution.x;
+	bufferDesc.Height = resolution.y;
 	bufferDesc.RefreshRate.Numerator = 60;
 	bufferDesc.RefreshRate.Denominator = 1;
 	bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -380,8 +375,8 @@ void GraphicsScene::create_essentials() {
 	));
 
 	// Configure Viewport
-	viewport.Width = (float)size.x;
-	viewport.Height = (float)size.y;
+	viewport.Width = (float)resolution.x;
+	viewport.Height = (float)resolution.y;
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1;
 	viewport.TopLeftX = 0;
@@ -390,8 +385,6 @@ void GraphicsScene::create_essentials() {
 }
 
 void GraphicsScene::create_unessentials() {
-	Size2 size = get_window_size(window);
-
 	D3D11_RASTERIZER_DESC rasterizer_state_description = { };
 	rasterizer_state_description.FillMode = fill_mode;
 	rasterizer_state_description.CullMode = cull_mode;

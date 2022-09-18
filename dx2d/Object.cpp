@@ -2,7 +2,8 @@
 
 Object::Object(std::string name) : is_static(true), name(name) {}
 
-void Object::set_position(const FPosition3 &position) noexcept {
+void Object::set_position(const FVector3 &position) noexcept {
+	mechanics.previous_position = transform.position;
 	transform.position = position;
 
 	for (std::shared_ptr<Component> &component : components) {
@@ -14,7 +15,7 @@ void Object::set_position(const FPosition3 &position) noexcept {
 	}
 }
 
-void Object::set_rotation(const FRotation3 &rotation) noexcept {
+void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
 	for (std::shared_ptr<Component> &component : components) {
@@ -26,7 +27,7 @@ void Object::set_rotation(const FRotation3 &rotation) noexcept {
 	}
 }
 
-void Object::set_size(const FSize3 &size) noexcept {
+void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
 
 	for (std::shared_ptr<Component> &component : components) {
@@ -38,15 +39,15 @@ void Object::set_size(const FSize3 &size) noexcept {
 	}
 }
 
-void Object::translate(const FPosition3 &position) noexcept {
+void Object::translate(const FVector3 &position) noexcept {
 	set_position(position + transform.position);
 }
 
-void Object::rotate(const FRotation3 &rotation) noexcept {
+void Object::rotate(const FVector3 &rotation) noexcept {
 	set_rotation(rotation + transform.rotation);
 }
 
-void Object::size(const FSize3 &size) noexcept {
+void Object::size(const FVector3 &size) noexcept {
 	set_size(size + transform.size);
 }
 
@@ -67,6 +68,15 @@ bool Object::operator==(const Object &object) const noexcept {
 		parent == object.parent &&
 		children == object.children &&
 		is_static == object.is_static);
+}
+
+bool Object::operator!=(const Object &object) const noexcept {
+	return (components != object.components &&
+		transform != object.transform &&
+		name != object.name &&
+		parent != object.parent &&
+		children != object.children &&
+		is_static != object.is_static);
 }
 
 bool Object::has_component(const Component::Type &search) const noexcept {
@@ -123,7 +133,7 @@ std::shared_ptr<Object> Object::get_parent() noexcept {
 //	child->set_parent(std::make_shared<Object>(*this));
 //}
 
-void Object::compile() noexcept {
+void Object::compile() {
 	for (std::shared_ptr<Component> &component : components) {
 		component->compile();
 	}

@@ -115,5 +115,7 @@ private:
 
 	ObjectVector objects;
 
+	UVector2 resolution = UVector2(1920, 1080);
+
 	FColor background_color = { 0.25f, 0.25f, 0.25f };
 };

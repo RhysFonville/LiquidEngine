@@ -8,17 +8,55 @@
 
 using namespace DirectX;
 
+class MechanicsData {
+public:
+	FVector3 previous_position = FVector3();
+
+	FVector3 velocity = FVector3();
+	FVector3 acceleration = FVector3();
+	float speed = 0.0f; 
+	float kinetic_energy = 0.0f;
+	FVector3 momentum = FVector3();
+
+	std::vector<Mechanics::Force> forces;
+
+	FVector3 get_net_force() const noexcept {
+		FVector3 net_force;
+
+		for (const Mechanics::Force &force : forces) {
+			net_force += force;
+		}
+
+		return net_force;
+	}
+
+	float get_mass() const noexcept {
+		return mass;
+	}
+
+	void set_mass(float mass) {
+		if (mass != 0) {
+			this->mass = mass;
+		} else {
+			throw L"An object's mass must be set to >0.0f.";
+		}
+	}
+
+private:
+	float mass = 10.0f;
+};
+
 class Object {
 public:
 	Object(std::string name = "New Object");
 
-	void set_position(const FPosition3 &position) noexcept;
-	void set_rotation(const FRotation3 &rotation) noexcept;
-	void set_size(const FSize3 &size) noexcept;
+	void set_position(const FVector3 &position) noexcept;
+	void set_rotation(const FVector3 &rotation) noexcept;
+	void set_size(const FVector3 &size) noexcept;
 
-	void translate(const FPosition3 &position) noexcept;
-	void rotate(const FRotation3 &rotation) noexcept;
-	void size(const FSize3 &size) noexcept;
+	void translate(const FVector3 &position) noexcept;
+	void rotate(const FVector3 &rotation) noexcept;
+	void size(const FVector3 &size) noexcept;
 
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
@@ -43,7 +81,7 @@ public:
 
 	void add_child(const std::shared_ptr<Object> &child) noexcept;
 
-	void compile() noexcept;
+	void compile();
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
@@ -70,6 +108,7 @@ public:
 
 	
 	bool operator==(const Object &object) const noexcept;
+	bool operator!=(const Object &object) const noexcept;
 
 	void clean_up();
 
@@ -78,6 +117,8 @@ public:
 	bool is_static = true;
 
 	std::string name;
+
+	MechanicsData mechanics;
 
 private:
 	Transform transform;

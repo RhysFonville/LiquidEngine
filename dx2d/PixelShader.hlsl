@@ -119,7 +119,7 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		//Make sure tangent is completely orthogonal to normal
 		input.tangent = normalize(input.tangent - dot(input.tangent, input.normal)*input.normal);
 
-		//Create the biTangent
+		//Create the biFVector3
 		float3 biTangent = cross(input.normal, input.tangent);
 
 		//Create the "Texture Space"
@@ -195,13 +195,16 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 		}
 	}*/
 
-	final_color *= saturate(
+	float4 distance_falloff = saturate(
 		1 /
 		pow(
 			distance(input.world_position, camera_position),
 			DISTANCE_FALLOFF_POWER
 		) / DISTANCE_FALLOFF_INTENSITY
 	);
+	distance_falloff.a = 1.0f;
+
+	final_color *= distance_falloff;
 
 	return final_color;
 }

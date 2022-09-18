@@ -19,6 +19,12 @@ using ObjectVector = std::shared_ptr<std::vector<std::shared_ptr<Object>>>;
 struct Color {
 	UCHAR r = 255, g = 255, b = 255, a = 255;
 
+	Color(UCHAR r, UCHAR g, UCHAR b, UCHAR a = 255) : r(r), g(g), b(b), a(a) { }
+
+	operator XMFLOAT3() {
+		return XMFLOAT3(r, g, b);
+	}
+
 	operator XMFLOAT4() {
 		return XMFLOAT4(r, g, b, a);
 	}
@@ -29,6 +35,7 @@ struct Color {
 					(UCHAR)(b / divisor), (UCHAR)(a / divisor)
 				);
 	}
+
 	void operator/=(float divisor) noexcept {
 		*this = *this / divisor;
 	}
@@ -119,6 +126,7 @@ struct TVector3 {
 	T z = 0;
 
 	TVector3() {}
+	TVector3(const TVector3 &vector) : x(vector.x), y(vector.y), z(vector.z) { }
 	constexpr TVector3(T x, T y, T z) : x(x), y(y), z(z) {}
 	TVector3(XMVECTOR vector) : x((T)XMVectorGetX(vector)),
 		y((T)XMVectorGetY(vector)), z((T)XMVectorGetZ(vector)) { }
@@ -304,60 +312,21 @@ using FVector4 = TVector4<float>;
 using FVector3 = TVector3<float>;
 using FVector2 = TVector2<float>;
 
-using FPosition3 = FVector3;
-using FPosition2 = FVector2;
-using FPosition = FPosition3;
-
-using FSize3 = FVector3;
-using FSize2 = FVector2;
-using FSize = FSize3;
-
-using FRotation3 = FVector3;
-using FRotation2 = FVector2;
-using FRotation = FRotation3;
-
-using Position3 = Vector3;
-using Position2 = Vector2;
-using Position = Position3;
-
-using Size3 = Vector3;
-using Size2 = Vector2;
-using Size = Size3;
-
-using FPoint3 = FPosition3;
-using FPoint2 = FPosition2;
-using FPoint = FPoint3;
-
-using Point3 = Position3;
-using Point2 = Position2;
-using Point = Point3;
-
-using Normal3 = FVector3;
-using Normal2 = FVector2;
-using Normal = Normal3;
-
-using Tangent3 = FVector3;
-using Tangent2 = FVector2;
-using Tangent = Tangent3;
-
-using Bitangent3 = FVector3;
-using Bitangent2 = FVector2;
-using Bitangent = Bitangent3;
-
-using Binormal3 = FVector3;
-using Binormal2 = FVector2;
-using Binormal = Binormal3;
+using UVector4 = TVector4<UINT>;
+using UVector3 = TVector3<UINT>;
+using UVector2 = TVector2<UINT>;
+using UVector = Vector3;
 
 struct Transform {
-	FPosition3 position = { 0, 0, 0 };
-	FRotation3 rotation = { 0, 0, 0 };
-	FSize3 size = { 1, 1, 1 };
+	FVector3 position = { 0, 0, 0 };
+	FVector3 rotation = { 0, 0, 0 };
+	FVector3 size = { 1, 1, 1 };
 
 	Transform()
 		: position({ 0.0f, 0.0f, 0.0f }), rotation({ 0.0f, 0.0f, 0.0f }), size({ 1.0f, 1.0f, 1.0f }) { }
-	Transform(FPosition3 position, FRotation3 rotation)
+	Transform(FVector3 position, FVector3 rotation)
 		: position(position), rotation(rotation), size({ 1.0f, 1.0f, 1.0f }) { }
-	Transform(FPosition3 position, FRotation3 rotation, FSize3 size)
+	Transform(FVector3 position, FVector3 rotation, FVector3 size)
 		: position(position), rotation(rotation), size(size) { }
 
 	operator XMMATRIX() const noexcept {
@@ -381,15 +350,15 @@ struct Transform {
 };
 
 namespace Geometry {
-	using TexCoord = FPosition2;
-	using FTexCoord = TexCoord;
+	using FVector3 = FVector3;
+	using FFVector3 = FVector3;
 	
 	struct Vertex {
-		FPosition position = FPosition();
-		TexCoord texcoord = TexCoord();
-		Normal normal = Normal();
-		Tangent tangent = Tangent();
-		Bitangent bitangent = Bitangent();
+		FVector3 position = FVector3();
+		FVector2 texcoord = FVector2();
+		FVector3 normal = FVector3();
+		FVector3 tangent = FVector3();
+		FVector3 bitangent = FVector3();
 
 		Vertex() { }
 
@@ -403,7 +372,7 @@ namespace Geometry {
 			float nx, float ny, float nz)
 			: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
 
-		Vertex(FPosition position, TexCoord texcoord, Normal normal)
+		Vertex(FVector3 position, FVector2 texcoord, FVector3 normal)
 			: position(position), texcoord(texcoord), normal(normal) { }
 
 		bool operator==(const Vertex &vertex) const noexcept {
@@ -415,13 +384,13 @@ namespace Geometry {
 	};
 
 	struct SimpleVertex {
-		FPosition position = FPosition();
+		FVector3 position = FVector3();
 
 		SimpleVertex() { }
 		
-		SimpleVertex(float x, float y, float z) : position(FPosition(x, y, z)) { }
+		SimpleVertex(float x, float y, float z) : position(FVector3(x, y, z)) { }
 
-		SimpleVertex(FPosition position)
+		SimpleVertex(FVector3 position)
 			: position(position) { }
 
 		bool operator==(const SimpleVertex &vertex) const noexcept {
@@ -478,16 +447,37 @@ namespace Geometry {
 	using Cube = Box;
 
 	struct Line {
-		FPoint3 p1, p2;
+		FVector3 p1, p2;
 	};
 
 	struct Segment {
-		FPoint3 p1, p2;
+		FVector3 p1, p2;
 	};
 
 	struct Ray {
-		FPoint3 origin;
-		FPoint3 direction;
+		FVector3 origin;
+		FVector3 direction;
+	};
+};
+
+namespace Mechanics {
+	class Force : public FVector3 {
+	public:
+		enum class Type {
+			Impulse,
+			Constant
+		};
+
+		std::string name = "";
+		Type type;
+
+		Force(FVector3 vector, std::string name = "",
+			Type type = Type::Impulse) : FVector3(vector), name(name), type(type) { }
+
+		bool operator==(const Force &force) const noexcept {
+			return (name == force.name && type == force.type &&
+				x == force.x && y == force.y && z == force.z);
+		}
 	};
 };
 

@@ -17,7 +17,7 @@ public:
 
 	void clean_up();
 
-	void compile() noexcept;
+	void compile();
 
 	void read_obj_file(std::string obj_file_path);
 

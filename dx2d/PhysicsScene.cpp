@@ -4,48 +4,11 @@ PhysicsScene::PhysicsScene(ObjectVector &objects) : objects(objects) {}
 
 void PhysicsScene::tick() noexcept {
 	for (std::shared_ptr<Object> &object1 : *objects) {
+		handle_mechanics(*object1);
 		for (std::shared_ptr<Object> &object2 : *objects) {
 			if (*object1 != *object2) {
-				if (object1->has_component<MeshComponent>() && object2->has_component<MeshComponent>()) {
-					std::vector<Triangle> object1_tris =
-						split_into_triangles(
-							object1->get_component<MeshComponent>()->mesh_data.transform(
-								object1->get_transform()
-							)
-						);
-					std::vector<Triangle> object2_tris =
-						split_into_triangles(
-							object2->get_component<MeshComponent>()->mesh_data.transform(
-								object2->get_transform()
-							)
-						);
-
-					bool intersecting = false;
-					for (const Triangle &object1_tri : object1_tris) {
-						for (const Triangle &object2_tri : object2_tris) {
-							bool intersects = (
-								tri_tri_overlap_test_3d(object1_tri, object2_tri)
-							);
-
-							if (!intersecting && intersects)
-								intersecting = intersects;
-						}
-					}
-
-					if (intersecting) {
-						object1->get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
-						object2->get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
-
-						object1->get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-						object2->get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-					} else {
-						object1->get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
-						object2->get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
-
-						object1->get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-						object2->get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-					}
-				}
+				handle_mechanics(*object2);
+				handle_collision(*object1, *object2);
 			}
 		}
 	}
@@ -55,9 +18,63 @@ void PhysicsScene::clean_up() {
 
 }
 
+void PhysicsScene::handle_mechanics(Object &object) {
+	object.mechanics.acceleration = object.mechanics.get_net_force() / object.mechanics.get_mass();
+	object.mechanics.velocity += object.mechanics.acceleration;
+
+	object.set_position(object.get_transform().position + object.mechanics.velocity);
+
+	object.mechanics.momentum = object.mechanics.get_mass() * object.mechanics.velocity;
+	object.mechanics.speed = distance(object.mechanics.previous_position, object.get_transform().position);
+	object.mechanics.kinetic_energy = object.mechanics.get_mass()/2 * pow(object.mechanics.speed, 2);
+}
+
+void PhysicsScene::handle_collision(Object &object1, Object &object2) {
+	if (object1.has_component<MeshComponent>() && object2.has_component<MeshComponent>()) {
+		std::vector<Triangle> object1_tris =
+			split_into_triangles(
+				object1.get_component<MeshComponent>()->mesh_data.transform(
+					object1.get_transform()
+				)
+			);
+		std::vector<Triangle> object2_tris =
+			split_into_triangles(
+				object2.get_component<MeshComponent>()->mesh_data.transform(
+					object2.get_transform()
+				)
+			);
+
+		bool intersecting = false;
+		for (const Triangle &object1_tri : object1_tris) {
+			for (const Triangle &object2_tri : object2_tris) {
+				bool intersects = (
+					tri_tri_overlap_test_3d(object1_tri, object2_tri)
+					);
+
+				if (!intersecting && intersects)
+					intersecting = intersects;
+			}
+		}
+
+		if (intersecting) {
+			object1.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
+			object2.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
+
+			object1.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
+			object2.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
+		} else {
+			object1.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
+			object2.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
+
+			object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
+			object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
+		}
+	}
+}
+
 // https://stackoverflow.com/questions/1496215/triangle-triangle-intersection-in-3d-space
 
-bool PhysicsScene::tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle &tri2) {
+bool PhysicsScene::tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle &tri2) noexcept {
 	double dp1, dq1, dr1, dp2, dq2, dr2;
 	double v1[3], v2[3];
 	double N1[3], N2[3];
@@ -168,7 +185,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle 
 
 bool PhysicsScene::coplanar_tri_tri3d(double p1[3], double q1[3], double r1[3],
 	double p2[3], double q2[3], double r2[3],
-	double normal_1[3]) {
+	double normal_1[3]) noexcept {
 
 	double P1[2],Q1[2],R1[2];
 	double P2[2],Q2[2],R2[2];
@@ -223,7 +240,7 @@ bool PhysicsScene::coplanar_tri_tri3d(double p1[3], double q1[3], double r1[3],
 }
 
 bool PhysicsScene::tri_tri_overlap_test_2d(double p1[2], double q1[2], double r1[2], 
-	double p2[2], double q2[2], double r2[2]) {
+	double p2[2], double q2[2], double r2[2]) noexcept {
 	if (ORIENT_2D(p1,q1,r1) < 0.0f) {
 		if ( ORIENT_2D(p2,q2,r2) < 0.0f) {
 			return ccw_tri_tri_intersection_2d(p1,r1,q1,p2,r2,q2);
@@ -240,7 +257,7 @@ bool PhysicsScene::tri_tri_overlap_test_2d(double p1[2], double q1[2], double r1
 }
 
 bool PhysicsScene::ccw_tri_tri_intersection_2d(double p1[2], double q1[2], double r1[2], 
-	double p2[2], double q2[2], double r2[2]) {
+	double p2[2], double q2[2], double r2[2]) noexcept {
 	if (ORIENT_2D(p2,q2,p1) >= 0.0f) {
 		if (ORIENT_2D(q2,r2,p1) >= 0.0f) {
 			if (ORIENT_2D(r2,p2,p1) >= 0.0f) {
@@ -268,19 +285,19 @@ bool PhysicsScene::ccw_tri_tri_intersection_2d(double p1[2], double q1[2], doubl
 	}
 }
 
-float PhysicsScene::signed_tetrahedron_volume(FPoint3 a, FPoint3 b, FPoint3 c, FPoint3 d) {
+float PhysicsScene::signed_tetrahedron_volume(FVector3 a, FVector3 b, FVector3 c, FVector3 d) noexcept {
 	return (1.0f/6.0f)*dot(cross(b-a,c-a),d-a);
 }
 
-bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Line &segment) {
-	FPoint3 q1, q2, p1, p2, p3;
+bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Line &line) noexcept {
+	FVector3 q1, q2, p1, p2, p3;
 
 	p1 = triangle.first.position;
 	p2 = triangle.second.position;
 	p3 = triangle.third.position;
 
-	q1 = segment.p1;
-	q2 = segment.p2;
+	q1 = line.p1;
+	q2 = line.p2;
 
 	float a = signed_tetrahedron_volume(q1,p1,p2,p3);
 	float b = signed_tetrahedron_volume(q2,p1,p2,p3);

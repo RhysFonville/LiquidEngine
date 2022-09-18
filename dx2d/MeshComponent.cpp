@@ -1,6 +1,6 @@
 #include "MeshComponent.h"
 
-MeshComponent::MeshComponent(const FPosition3 &position, const FRotation3 &rotation)
+MeshComponent::MeshComponent(const FVector3 &position, const FVector3 &rotation)
 	: Component(Component::Type::MeshComponent, Transform(position, rotation)), material(Material()) { }
 
 MeshComponent::MeshComponent(const Material &material)
@@ -13,26 +13,26 @@ ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &r
 
 		std::string line;
 
-		std::vector<FPosition> vertices;
-		std::vector<TexCoord> texcoords;
-		std::vector<Normal> normals;
+		std::vector<FVector3> vertices;
+		std::vector<FVector2> texcoords;
+		std::vector<FVector3> normals;
 
 		for (std::string line : read.contents) {
 			std::vector<std::string> words = split(line, ' ');
 			if (words.size() > 1) {
 				if (words[0] == "v") {
-					vertices.push_back(FPosition(
+					vertices.push_back(FVector3(
 						std::stof(words[1]),
 						std::stof(words[2]),
 						std::stof(words[3])
 					));
 				} else if (words[0] == "vt") {
-					texcoords.push_back(TexCoord(
+					texcoords.push_back(FVector2(
 						std::stof(words[1]),
 						std::stof(words[2])
 					));
 				} else if (words[0] == "vn") {
-					normals.push_back(Normal(
+					normals.push_back(FVector3(
 						std::stof(words[1]),
 						std::stof(words[2]),
 						std::stof(words[3])
@@ -51,7 +51,7 @@ ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &r
 						} else if (vertex_components.size() < 3) {
 							mesh_data.vertices.push_back(Vertex(
 								vertices[std::stoi(vertex_components[0])-read.offsets.vertex_index_offset-1],
-								TexCoord(0.0f, 0.0f),
+								FVector2(0.0f, 0.0f),
 								normals[std::stoi(vertex_components[1])-read.offsets.normal_index_offset-1]
 							));
 						} else {

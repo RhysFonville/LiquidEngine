@@ -23,7 +23,7 @@ void Scene::clean_up() {
 	behavior_manager.clean_up();
 }
 
-void Scene::compile() noexcept {
+void Scene::compile() {
 	for (std::shared_ptr<Object> &object : *objects) {
 		object->compile();
 	}
@@ -66,7 +66,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 		if (mtl_file.is_open()) {
 
 			bool first_mtl = true;
-			int last_new_mtl_index = 0;
+			size_t last_new_mtl_index = 0;
 
 			Material newmtl;
 

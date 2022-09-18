@@ -61,7 +61,7 @@ inline bool CHECK_RESULT(HRESULT hr) {
 
 static HRESULT rw = S_OK;
 #define HANDLE_POSSIBLE_EXCEPTION_WINDOWS(function) \
-r = function; \
+rw = function; \
 while (CHECK_RESULT(rw) == true) { \
 	rw = function; \
 }

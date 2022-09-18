@@ -5,14 +5,14 @@
 
 class CameraComponent : public Component {
 public:
-	CameraComponent(const FPosition3 &position = FPosition3(),
-		const FRotation3 &rotation = FRotation3());
+	CameraComponent(const FVector3 &position = FVector3(),
+		const FVector3 &rotation = FVector3());
 
-	void set_position(FPosition3 position) noexcept override;
-	void set_rotation(FRotation3 rotation) noexcept override;
+	void set_position(FVector3 position) noexcept override;
+	void set_rotation(FVector3 rotation) noexcept override;
 
-	void rotate(FRotation3 rotation) noexcept override;
-	void rotate_locally(FRotation3 rotation) noexcept;
+	void rotate(FVector3 rotation) noexcept override;
+	void rotate_locally(FVector3 rotation) noexcept;
 
 	GET FVector3 get_target() const noexcept;
 
@@ -25,7 +25,7 @@ public:
 
 	GET FVector3 direction_real_up() const noexcept;
 
-	void update(const Size2 &size) noexcept;
+	void update(const FVector2 &size) noexcept;
 
 	static const Type component_type = Type::CameraComponent;
 
