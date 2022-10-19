@@ -8,103 +8,110 @@
 #include "globalutil.h"
 #include "Component.h"
 
-using namespace Geometry;
+class MeshData {
+public:
+	MeshData(const std::vector<Vertex> &vertices, const std::vector<UINT> &indices)
+		: vertices(vertices), indices(indices),
+		bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
+		triangles(split_into_triangles(vertices)) { }
 
-static std::vector<Triangle> split_into_triangles(const std::vector<Vertex> &tris) noexcept {
-	std::vector<Triangle> ret;
-
-	for (size_t i = 0; i < tris.size(); i += 3){
-		if (i + 2 <= tris.size()) {
-			ret.push_back({
-				tris[i+0],
-				tris[i+1],
-				tris[i+2]
-			});
-		}
-	}
-
-	return ret;
-}
-
-struct MeshData {
-	std::vector<Vertex> vertices;
-	std::vector<USHORT> indices;
-
-	Box bounding_box;
+	MeshData(const std::vector<Vertex> &vertices)
+		: vertices(vertices), indices(std::vector<UINT>()),
+		bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
+		triangles(split_into_triangles(vertices)) { }
 
 	bool operator==(const MeshData &mesh) const noexcept {
 		return (vertices == mesh.vertices &&
 			indices == mesh.indices);
 	}
 
-	std::vector<Triangle> split_mesh_into_triangles() const noexcept {
-		return split_into_triangles(vertices);
+	GET SimpleBox get_bounding_box() const noexcept {
+		return bounding_box;
 	}
 
-	std::vector<Vertex> transform(const Transform &transform) {
-		std::vector<Vertex> ret = vertices;
-		
-		for (Vertex &vertex : ret) {
-			vertex.position = XMVector3Transform(vertex.position,
-				XMMatrixTranspose(transform));
+	GET std::vector<Vertex> get_vertices() const noexcept {
+		return vertices;
+	}
+
+	GET std::vector<Triangle> get_triangles() const noexcept {
+		return triangles;
+	}
+
+	GET std::vector<SimpleVertex> get_physics_vertices() const noexcept {
+		return physics_vertices;
+	}
+
+	GET std::vector<SimpleTriangle> get_physics_triangles() const noexcept {
+		return physics_triangles;
+	}
+
+	void set_vertices(const std::vector<Vertex> &new_verts, size_t physics_verts_chunk_divisor = 3) {
+		if (vertices != new_verts) {
+			vertices = new_verts;
+
+			// CALCULATE PHYSCIS VERTICES FROM NEW VERTS.
+			// Iterates through new verts with jump length
+			// of physics_verts_chunk_divisor and averages the positions
+			// to create 1 vertex. There is then physics 1 vertex for every
+			// physics_verts_chunk_divisor new_vert.
+
+			//std::vector<SimpleVertex> new_physics_verts;
+			//for (size_t i = 0; i < new_verts.size(); i += physics_verts_chunk_divisor) {
+			//	std::vector<SimpleVertex> chunk(physics_verts_chunk_divisor);
+
+			//	// Keeping the chunk vector in cause it might be useful later.
+			//	for (size_t j = 0; j < physics_verts_chunk_divisor; j++) {
+			//		chunk.push_back((SimpleVertex)new_verts[i+j]);
+			//	}
+
+			//	FVector3 sum;
+			//	for (const SimpleVertex &vert : chunk) {
+			//		sum += vert.position;
+			//	}
+			//	new_physics_verts.push_back(SimpleVertex(sum / chunk.size()));
+			//}
+
+			//size_t leftover_verts = new_verts.size() % physics_verts_chunk_divisor - 1;
+			//if (leftover_verts > 3) {
+			//	/*size_t leftover_divisor = leftover_verts % 3;
+			//	size_t leftover_start_index = new_verts.size()-(physics_verts_chunk_divisor-2);
+
+			//	for (size_t i = 0; i < leftover_divisor; i++) {
+			//		FVector3 sum;
+			//		for (size_t j = leftover_start_index;
+			//			j < leftover_start_index + i*3; j++) {
+			//			sum += new_verts[j].position;
+			//		}
+			//		new_physics_verts.push_back(SimpleVertex(sum / leftover_verts));
+			//	}*/
+			//} else {
+			//	for (int i = 0; i < leftover_verts; i++) {
+			//		new_physics_verts.pop_back();
+			//	}
+			//}
+
+			//physics_vertices = new_physics_verts;
+			physics_vertices = verts_to_simple_verts(vertices);
+			physics_triangles = split_into_simple_triangles(physics_vertices);
+			bounding_box = SimpleBox(physics_vertices);
+
+			/*vertices.clear();
+			for (const SimpleVertex &vert : bounding_box.vertices) {
+				vertices.push_back(Vertex(vert.position, { 0, 0 }, { 0, 0, 0 }));
+			}*/
 		}
-
-		return ret;
 	}
 
-	Box get_bounding_box() {
-		auto x_extremes = std::minmax_element(vertices.begin(), vertices.end(),
-			[](const Vertex &lhs, const Vertex &rhs) {
-				return lhs.position.x < rhs.position.x;
-			});
+	std::vector<UINT> indices;
 
-		auto y_extremes = std::minmax_element(vertices.begin(), vertices.end(),
-			[](const Vertex &lhs, const Vertex &rhs) {
-				return lhs.position.y < rhs.position.y;
-			});
-
-		auto z_extremes = std::minmax_element(vertices.begin(), vertices.end(),
-			[](const Vertex &lhs, const Vertex &rhs) {
-				return lhs.position.y < rhs.position.y;
-			});
-
-		Vertex v1(	x_extremes.first->position.x,
-					y_extremes.first->position.y,
-					z_extremes.first->position.z
-		);
-		Vertex v2(	x_extremes.first->position.x,
-					y_extremes.second->position.y,
-					z_extremes.first->position.z
-		);
-		Vertex v3(	x_extremes.second->position.x,
-					y_extremes.second->position.y,
-					z_extremes.first->position.z
-		);
-		Vertex v4(	x_extremes.second->position.x,
-					y_extremes.first->position.y,
-					z_extremes.first->position.z
-		);
-		Vertex v5(	x_extremes.first->position.x,
-					y_extremes.first->position.y,
-					z_extremes.second->position.z
-		);
-		Vertex v6(	x_extremes.first->position.x,
-					y_extremes.second->position.y,
-					z_extremes.second->position.z
-		);
-		Vertex v7(	x_extremes.second->position.x,
-					y_extremes.second->position.y,
-					z_extremes.second->position.z
-		);
-		Vertex v8(	x_extremes.second->position.x,
-					y_extremes.first->position.y,
-					z_extremes.second->position.z
-		);
+private:
+	std::vector<Vertex> vertices;
+	std::vector<Triangle> triangles;
+	std::vector<SimpleVertex> physics_vertices;
+	std::vector<SimpleTriangle> physics_triangles;
 
 
-		std::vector<Vertex> v({ v1, v2, v3, v4, v5, v6, v7, v8 });
-		return Box(v);
-	}
+	SimpleBox bounding_box;
 };
 
 struct ReadObjFileDataOutput {

@@ -6,7 +6,7 @@
 
 class Storage {
 public:
-	static Material & get_material_by_name(std::string name);
+	static GET Material & get_material_by_name(std::string name);
 
 	static inline std::vector<Material> materials;
 };

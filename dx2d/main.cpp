@@ -21,13 +21,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		
 		//camera.get_component<PointLightComponent>()->set_position(FVector3(0.0f, 2.0f, 0.0f));
 
-		engine.scene.read_obj_file("teapot.obj");
-		(*engine.scene.objects)[1]->mechanics.forces.push_back(Mechanics::Force(FVector3(0.01f, 0.0f, 0.0f)));
+		/*HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("Shapes/cube.obj"));
+		(*engine.scene.objects)[1]->set_size(FVector3(15.0f, 15.0f, 15.0f));
+		(*engine.scene.objects)[1]->mechanics.forces.push_back(Mechanics::Force(FVector3(0.00001f, 0.0f, 0.0f)));
+		HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("Shapes/cube.obj"));
+		(*engine.scene.objects)[2]->set_size(FVector3(15.0f, 15.0f, 15.0f));*/
 
-		/*engine.scene.read_obj_file("collisiontriangle1.obj");
-		engine.scene.read_obj_file("collisiontriangle2.obj");*/
-
-		engine.scene.graphics_scene->set_background_color(Color(0, 0, 0, 0));
+		//HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("bunny.obj"));
+		HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("Shapes/cube.obj"));
 
 		engine.scene.behavior_manager.behaviors.push_back(
 			std::unique_ptr<ObjectBehavior>(
@@ -41,9 +42,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 			)
 		);
 
-		engine.scene.compile();
+		HANDLE_POSSIBLE_EXCEPTION(engine.scene.compile());
 
-		engine.loop();
+		HANDLE_POSSIBLE_EXCEPTION(engine.loop());
 	} catch (const std::exception &e) {
 		if (YESNO_MESSAGE(L"Do you want to append the error message to the output file?") == true) {
 			append_to_file("out.txt", e.what());

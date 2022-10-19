@@ -65,7 +65,8 @@ struct FColor {
 };
 
 template <typename T>
-struct TVector2 {
+class TVector2 {
+public:
 	T x = 0;
 	T y = 0;
 
@@ -120,7 +121,8 @@ struct TVector2 {
 };
 
 template <typename T>
-struct TVector3 {
+class TVector3 {
+public:
 	T x = 0;
 	T y = 0;
 	T z = 0;
@@ -151,10 +153,6 @@ struct TVector3 {
 		return ret;
 	}
 
-	T matrix_multiplication(const TVector3<T> &vector) const noexcept {
-		return this->x*vector.x + this->y*vector.y + this->z*vector.z;
-	}
-
 	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
 		return TVector3<T>(x*vector.x, y*vector.y, z*vector.z);
 	}
@@ -183,14 +181,6 @@ struct TVector3 {
 		return (x != vector.x || y != vector.y || z != vector.z);
 	}
 
-	operator XMVECTOR() const noexcept {
-		return XMVectorSet((float)x, (float)y, (float)z, 1.0f);
-	}
-
-	operator XMFLOAT3() const noexcept {
-		return { (float)x, (float)y, (float)z };
-	}
-
 	void operator=(const TVector3<T> &vector) noexcept {
 		x = vector.x;
 		y = vector.y;
@@ -202,10 +192,24 @@ struct TVector3 {
 		y = XMVectorGetY(vector);
 		z = XMVectorGetZ(vector);
 	}
+
+	T & operator[](UCHAR index) {
+		switch (index) {
+		case 0:
+			return x;
+		case 1:
+			return y;
+		case 2:
+			return z;
+		default:
+			throw std::exception("Index out of bounds when using [] operator on TVector3.");
+		}
+	}
 };
 
 template <typename T>
-struct TVector4 {
+class TVector4 {
+public:
 	T x = 0;
 	T y = 0;
 	T z = 0;
@@ -219,7 +223,7 @@ struct TVector4 {
 		return (x == 0 && y == 0 && z == 0 && w == 0);
 	}
 
-	TVector4<T> operator+(TVector4<T> vector) {
+	TVector3<T> operator+(TVector3<T> vector) {
 		vector.x += x;
 		vector.y += y;
 		vector.z += z;
@@ -227,66 +231,58 @@ struct TVector4 {
 		return vector;
 	}
 
-	TVector4<T> operator-(const TVector4<T> &vector) noexcept {
+	TVector3<T> operator-(const TVector3<T> &vector) noexcept {
 		TVector3<T> ret = *this;
 		ret.x -= vector.x;
 		ret.y -= vector.y;
 		ret.z -= vector.z;
+		ret.w -= vector.w;
 
 		return ret;
 	}
 
-	T matrix_multiplication(const TVector4<T> &vector) const noexcept {
-		return this->x*vector.x + this->y*vector.y + this->z*vector.z + this->w*vector.w;
+	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
+		return TVector3<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
 	}
 
-	TVector4<T> operator*(const TVector4<T> &vector) const noexcept {
-		return TVector4<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
+	TVector3<T> operator*(T n) const noexcept {
+		return TVector3<T>(x*n, y*n, z*n, w*n);
 	}
 
-	TVector4<T> operator*(T n) const noexcept {
-		return TVector4<T>(x*n, y*n, z*n, w*n);
-	}
-
-	TVector4<T> operator-(T n) const noexcept {
-		return TVector4<T>(x/n, y/n, z/n, w/n);
-	}
-
-	void operator+=(const TVector4<T> &vector) noexcept {
+	void operator+=(const TVector3<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;
 		z += vector.z;
 		w += vector.w;
 	}
 
-	void operator-=(const TVector4<T> &vector) noexcept {
+	void operator-=(const TVector3<T> &vector) noexcept {
 		x -= vector.x;
 		y -= vector.y;
 		z -= vector.z;
 		w -= vector.w;
 	}
 
-	bool operator==(const TVector4<T> &vector) const noexcept {
+	bool operator==(const TVector3<T> &vector) const noexcept {
 		return (x == vector.x && y == vector.y && z == vector.z && w == vector.w);
 	}
 
-	bool operator!=(const TVector4<T> &vector) const noexcept {
+	bool operator!=(const TVector3<T> &vector) const noexcept {
 		return (x != vector.x || y != vector.y || z != vector.z || w != vector.w);
 	}
 
-	operator XMVECTOR() const noexcept {
-		return XMVectorSet((float)x, (float)y, (float)z, 1.0f);
-	}
-
-	operator XMFLOAT4() const noexcept {
-		return { (float)x, (float)y, (float)z, (float)w };
-	}
-
-	void operator=(const TVector4<T> &vector) noexcept {
+	void operator=(const TVector3<T> &vector) noexcept {
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
 		w = vector.w;
+	}
+
+	void operator=(const XMVECTOR &vector) noexcept {
+		x = XMVectorGetX(vector);
+		y = XMVectorGetY(vector);
+		z = XMVectorGetZ(vector);
+		w = XMVectorGetW(vector);
 	}
 
 	T & operator[](UCHAR index) {
@@ -297,10 +293,14 @@ struct TVector4 {
 			return y;
 		case 2:
 			return z;
+		case 3:
+			return w;
 		default:
-			throw "Index out of bounds when using [] operator on triplet.";
+			throw std::exception("Index out of bounds when using [] operator on TVector4.");
 		}
 	}
+
+	
 };
 
 using Vector4 = TVector4<int>;
@@ -308,8 +308,87 @@ using Vector3 = TVector3<int>;
 using Vector2 = TVector2<int>;
 using Vector = Vector3;
 
-using FVector4 = TVector4<float>;
-using FVector3 = TVector3<float>;
+class FVector3 : public TVector3<float> {
+public:
+	FVector3() : TVector3<float>() {}
+	FVector3(TVector3<float> v) : TVector3<float>(v) {}
+	FVector3(const FVector3 &vector)
+		: TVector3<float>(vector) { }
+	constexpr FVector3(float x, float y, float z)
+		: TVector3<float>(x, y, z) { }
+	FVector3(XMVECTOR vector) : TVector3<float>(vector) {}
+
+	operator TVector3<float>() const noexcept {
+		return TVector3<float>(x, y, z);
+	}
+
+	operator XMVECTOR() const noexcept {
+		return XMVectorSet(x, y, z, 1.0f);
+	}
+
+	operator XMFLOAT3() const noexcept {
+		return { x, y, z };
+	}
+
+	FVector3 pow(float p) noexcept {
+		return FVector3(powf(x, p), powf(y, p), powf(z, p));
+	}
+
+	FVector3 operator/(float f) {
+		return FVector3(x/f, y/f, z/f);
+	}
+
+	FVector3 operator/(size_t f) {
+		return FVector3((float)(x/f), (float)(y/f), (float)(z/f));
+	}
+
+	float matrix_multiplication(const FVector3 &vector) const noexcept {
+		return x*vector.x + y*vector.y + z*vector.z;
+	}
+
+	FVector3 operator/(float f) const noexcept {
+		return FVector3(x/f, y/f, z/f);
+	}
+};
+
+class FVector4 : public TVector4<float> {
+public:
+	FVector4() {}
+	FVector4(const FVector4 &vector)
+		: TVector4<float>(vector) { }
+	constexpr FVector4(float x, float y, float z, float w)
+		: TVector4<float>(x, y, z, w) { }
+
+	operator TVector4<float>() const noexcept {
+		return TVector4<float>(x, y, z, w);
+	}
+
+	operator XMVECTOR() const noexcept {
+		return XMVectorSet(x, y, z, 1.0f);
+	}
+
+	operator XMFLOAT4() const noexcept {
+		return { x, y, z, w };
+	}
+
+	TVector4 pow(float p) noexcept {
+		return TVector4(powf(x, p), powf(y, p),
+			powf(z, p), powf(w, p));
+	}
+
+	float matrix_multiplication(const FVector4 &vector) const noexcept {
+		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
+	}
+	
+	FVector4 operator/(float f) const noexcept {
+		return FVector4(x/f, y/f, z/f, w/f);
+	}
+
+	FVector4 operator/(size_t f) {
+		return FVector4((float)(x/f), (float)(y/f), (float)(z/f), (float)(w/f));
+	}
+};
+
 using FVector2 = TVector2<float>;
 
 using UVector4 = TVector4<UINT>;
@@ -340,124 +419,187 @@ struct Transform {
 	}
 
 	bool operator==(const Transform &transform) const noexcept {
-		if (position == transform.position &&
+		return (position == transform.position &&
 			rotation == transform.rotation &&
-			size == transform.size)
-			return true;
-		else
-			return false;
+			size == transform.size);
 	}
 };
 
-namespace Geometry {
-	using FVector3 = FVector3;
-	using FFVector3 = FVector3;
-	
-	struct Vertex {
-		FVector3 position = FVector3();
-		FVector2 texcoord = FVector2();
-		FVector3 normal = FVector3();
-		FVector3 tangent = FVector3();
-		FVector3 bitangent = FVector3();
+struct SimpleVertex {
+	FVector3 position = FVector3();
 
-		Vertex() { }
+	SimpleVertex() { }
 
-		Vertex(float x, float y, float z) : position(x, y, z) { }
+	SimpleVertex(float x, float y, float z) : position(FVector3(x, y, z)) { }
 
-		Vertex(float x, float y, float z, float u, float v)
-			: position(x, y, z), texcoord(u, v) { }
+	SimpleVertex(FVector3 position)
+		: position(position) { }
 
-		Vertex(float x,  float y,  float z,
-			float u,  float v,
-			float nx, float ny, float nz)
-			: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
+	bool operator==(const SimpleVertex &vertex) const noexcept {
+		return (position == vertex.position);
+	}
 
-		Vertex(FVector3 position, FVector2 texcoord, FVector3 normal)
-			: position(position), texcoord(texcoord), normal(normal) { }
+	bool operator!=(const SimpleVertex &vertex) const noexcept {
+		return (position != vertex.position);
+	}
+};
 
-		bool operator==(const Vertex &vertex) const noexcept {
-			return (position == vertex.position &&
-				texcoord == vertex.texcoord &&
-				normal == vertex.normal &&
-				tangent == vertex.tangent);
+struct Vertex {
+	FVector3 position = FVector3();
+	FVector2 texcoord = FVector2();
+	FVector3 normal = FVector3();
+	FVector3 tangent = FVector3();
+	FVector3 bitangent = FVector3();
+
+	Vertex() { }
+
+	Vertex(float x, float y, float z) : position(x, y, z) { }
+
+	Vertex(float x, float y, float z, float u, float v)
+		: position(x, y, z), texcoord(u, v) { }
+
+	Vertex(float x,  float y,  float z,
+		float u,  float v,
+		float nx, float ny, float nz)
+		: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
+
+	Vertex(FVector3 position, FVector2 texcoord, FVector3 normal)
+		: position(position), texcoord(texcoord), normal(normal) { }
+
+	bool operator==(const Vertex &vertex) const noexcept {
+		return (position == vertex.position &&
+			texcoord == vertex.texcoord &&
+			normal == vertex.normal &&
+			tangent == vertex.tangent);
+	}
+
+	operator SimpleVertex() const noexcept {
+		return SimpleVertex(position);
+	}
+};
+
+struct SimpleTriangle {
+	SimpleVertex first;
+	SimpleVertex second;
+	SimpleVertex third;
+
+	bool contains(const SimpleVertex &vertex) {
+		return (first == vertex || second == vertex || third == vertex);
+	}
+};
+
+struct Triangle {
+	Vertex first;
+	Vertex second;
+	Vertex third;
+
+	operator SimpleTriangle() const noexcept {
+		return SimpleTriangle((SimpleVertex)first, (SimpleVertex)second,
+			(SimpleVertex)third);
+	}
+};
+
+struct SimpleBox {
+	std::vector<SimpleVertex> vertices;
+
+	SimpleBox() : vertices(std::vector<SimpleVertex>(8)) { }
+	SimpleBox(const std::vector<SimpleVertex> &verts) {
+		vertices.reserve(8);
+
+		auto x_extremes = std::minmax_element(verts.begin(), verts.end(),
+			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+				return lhs.position.x < rhs.position.x;
+			});
+
+		auto y_extremes = std::minmax_element(verts.begin(), verts.end(),
+			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+				return lhs.position.y < rhs.position.y;
+			});
+
+		auto z_extremes = std::minmax_element(verts.begin(), verts.end(),
+			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+				return lhs.position.z < rhs.position.z;
+			});
+
+		SimpleVertex v1(x_extremes.first->position.x,
+			y_extremes.first->position.y,
+			z_extremes.first->position.z
+		);
+		SimpleVertex v2(x_extremes.first->position.x,
+			y_extremes.second->position.y,
+			z_extremes.first->position.z
+		);
+		SimpleVertex v3(x_extremes.second->position.x,
+			y_extremes.second->position.y,
+			z_extremes.first->position.z
+		);
+		SimpleVertex v4(x_extremes.second->position.x,
+			y_extremes.first->position.y,
+			z_extremes.first->position.z
+		);
+		SimpleVertex v5(x_extremes.first->position.x,
+			y_extremes.first->position.y,
+			z_extremes.second->position.z
+		);
+		SimpleVertex v6(x_extremes.first->position.x,
+			y_extremes.second->position.y,
+			z_extremes.second->position.z
+		);
+		SimpleVertex v7(x_extremes.second->position.x,
+			y_extremes.second->position.y,
+			z_extremes.second->position.z
+		);
+		SimpleVertex v8(x_extremes.second->position.x,
+			y_extremes.first->position.y,
+			z_extremes.second->position.z
+		);
+
+		vertices = std::vector<SimpleVertex>({ v1, v2, v3, v4, v5, v6, v7, v8 });
+	}
+
+	std::vector<SimpleTriangle> split_into_triangles() {
+		return std::vector<SimpleTriangle>({
+/*FRONT*/	SimpleTriangle({ vertices[0], vertices[1], vertices[2] }),
+			SimpleTriangle({ vertices[2], vertices[3], vertices[0] }),
+/*BOTTOM*/	SimpleTriangle({ vertices[7], vertices[4], vertices[0] }),
+			SimpleTriangle({ vertices[0], vertices[3], vertices[7] }),
+/*BACK*/	SimpleTriangle({ vertices[6], vertices[5], vertices[4] }),
+			SimpleTriangle({ vertices[4], vertices[7], vertices[6] }),
+/*LEFT*/	SimpleTriangle({ vertices[5], vertices[1], vertices[0] }),
+			SimpleTriangle({ vertices[0], vertices[4], vertices[5] }),
+/*RIGHT*/	SimpleTriangle({ vertices[2], vertices[6], vertices[7] }),
+			SimpleTriangle({ vertices[7], vertices[3], vertices[2] }),
+/*TOP*/		SimpleTriangle({ vertices[5], vertices[6], vertices[2] }),
+			SimpleTriangle({ vertices[2], vertices[1], vertices[5] })
+			});
+	}
+};
+
+struct Box {
+	std::vector<Vertex> vertices;
+
+	Box() : vertices(std::vector<Vertex>(8)) { }
+	Box(std::vector<Vertex> &verts) {
+		if (verts.size() <= 8) {
+			verts.reserve(8);
+			vertices = verts;
 		}
-	};
+	}
+};
 
-	struct SimpleVertex {
-		FVector3 position = FVector3();
+using Cube = Box;
 
-		SimpleVertex() { }
-		
-		SimpleVertex(float x, float y, float z) : position(FVector3(x, y, z)) { }
+struct Line {
+	FVector3 p1, p2;
+};
 
-		SimpleVertex(FVector3 position)
-			: position(position) { }
+struct Segment {
+	FVector3 p1, p2;
+};
 
-		bool operator==(const SimpleVertex &vertex) const noexcept {
-			if (position == vertex.position)
-				return true;
-			else
-				return false;
-		}
-
-		bool operator!=(const SimpleVertex &vertex) const noexcept {
-			if (position != vertex.position)
-				return true;
-			else
-				return false;
-		}
-	};
-
-	struct Triangle {
-		Vertex first;
-		Vertex second;
-		Vertex third;
-	};
-
-	struct SimpleTriangle {
-		SimpleVertex first;
-		SimpleVertex second;
-		SimpleVertex third;
-	};
-
-	struct Box {
-		std::vector<Vertex> vertices;
-
-		Box() : vertices(std::vector<Vertex>(8)) { }
-		Box(std::vector<Vertex> &verts) {
-			if (verts.size() <= 8) {
-				verts.reserve(8);
-				vertices = verts;
-			}
-		}
-	};
-
-	struct SimpleBox {
-		std::vector<SimpleVertex> vertices;
-
-		SimpleBox() : vertices(std::vector<SimpleVertex>(8)) { }
-		SimpleBox(std::vector<SimpleVertex> &verts) {
-			if (verts.size() <= 8) {
-				verts.reserve(8);
-				vertices = verts;
-			}
-		}
-	};
-
-	using Cube = Box;
-
-	struct Line {
-		FVector3 p1, p2;
-	};
-
-	struct Segment {
-		FVector3 p1, p2;
-	};
-
-	struct Ray {
-		FVector3 origin;
-		FVector3 direction;
-	};
+struct Ray {
+	FVector3 origin;
+	FVector3 direction;
 };
 
 namespace Mechanics {
@@ -480,23 +622,3 @@ namespace Mechanics {
 		}
 	};
 };
-
-template <typename T>
-TVector3<T> operator*(T n, const TVector3<T> *vector) noexcept {
-	return TVector3<T>(vector.x*n, vector.y*n, vector.z*n);
-}
-
-template <typename T>
-TVector4<T> operator*(T n, const TVector4<T> &vector) noexcept {
-	return TVector4<T>(vector.x*n, vector.y*n, vector.z*n, vector.w*n);
-}
-
-template <typename T>
-TVector3<T> operator/(T n, const TVector3<T> *vector) noexcept {
-	return TVector3<T>(vector.x/n, vector.y/n, vector.z/n);
-}
-
-template <typename T>
-TVector4<T> operator/(T n, const TVector4<T> &vector) noexcept {
-	return TVector4<T>(vector.x/n, vector.y/n, vector.z/n, vector.w/n);
-}

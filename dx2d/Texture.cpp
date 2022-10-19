@@ -15,7 +15,7 @@ void Texture::clean_up() {
 bool Texture::operator==(const Texture &texture) const noexcept {
 	if (this->texture.Get() == texture.texture.Get() &&
 		texture_view.Get() == texture.texture_view.Get() &&
-		/*sampler_state.Get() == texture.sampler_state.Get() &&*/
+		sampler_state.Get() == texture.sampler_state.Get() &&
 		file_name == texture.file_name)
 		return true;
 	else

@@ -2,8 +2,8 @@
 
 Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
-Texture2D a_map : register(t2);
 SamplerState texture_sampler_state;
+SamplerState normal_map_sampler_state;
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
@@ -111,7 +111,7 @@ float4 main(VS_OUTPUT input) : SV_TARGET {
 	float3 n = input.normal;
 
 	if (material.has_normal_map) {
-		float3 normal_map_result = normal_map.Sample(texture_sampler_state, input.texcoord);
+		float3 normal_map_result = normal_map.Sample(normal_map_sampler_state, input.texcoord);
 
 		//Change normal map range from [0, 1] to [-1, 1]
 		normal_map_result = (2.0f*normal_map_result) - 1.0f;

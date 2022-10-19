@@ -71,11 +71,11 @@ bool Object::operator==(const Object &object) const noexcept {
 }
 
 bool Object::operator!=(const Object &object) const noexcept {
-	return (components != object.components &&
-		transform != object.transform &&
-		name != object.name &&
-		parent != object.parent &&
-		children != object.children &&
+	return (components != object.components ||
+		transform != object.transform ||
+		name != object.name ||
+		parent != object.parent ||
+		children != object.children ||
 		is_static != object.is_static);
 }
 

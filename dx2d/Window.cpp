@@ -140,12 +140,12 @@ void Window::check_input() {
 void Window::clean_up() {
 	if (ReleaseDC(window, dc) == 0) {
 		dc = GetDC(window);
-		throw L"Failed to release the device context.";
+		throw std::exception("Failed to release the device context.");
 		ReleaseDC(window, dc);
 	}
 	if (DestroyWindow(this_window_wndproc->get_window()) == 0) {
 		dc = GetDC(window);
-		throw L"Failed to destroy window.";
+		throw std::exception("Failed to destroy window.");
 		ReleaseDC(window, dc);
 	}
 	this_window_wndproc = NULL;

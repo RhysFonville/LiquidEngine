@@ -74,7 +74,7 @@ public:
 	void set_viewport(D3D11_VIEWPORT viewport) noexcept;
 
 	D3D11_FILL_MODE fill_mode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 	D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 	GET std::shared_ptr<CameraComponent> camera() const;
@@ -91,8 +91,8 @@ private:
 
 	void create_depth_stencil_buffer(UINT width, UINT height);
 
-	void set_vertex_buffer(const MeshComponent &mesh);
-	void set_index_buffer(const MeshComponent &mesh);
+	void set_vertex_buffer(const std::vector<Vertex> &mesh);
+	void set_index_buffer(const std::vector<UINT> &mesh);
 
 	void create_per_object_constant_buffers(CameraComponent &camera, const Object &object);
 	void create_per_frame_constant_buffer();
@@ -107,7 +107,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blend_state = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state = nullptr;
 
 	D3D11_VIEWPORT viewport = { };
 
@@ -115,7 +114,7 @@ private:
 
 	ObjectVector objects;
 
-	UVector2 resolution = UVector2(1920, 1080);
+	UVector2 resolution = UVector2(3840, 2160);
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f };
 };

@@ -7,17 +7,6 @@ GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 
 	create_depth_stencil_buffer(resolution.x, resolution.y);
 
-	D3D11_SAMPLER_DESC sampler_description = { };
-	sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	sampler_description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampler_description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampler_description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampler_description.ComparisonFunc = D3D11_COMPARISON_NEVER;
-	sampler_description.MinLOD = 0;
-	sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
-
-	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, sampler_state.GetAddressOf()));
-
 	context->IASetPrimitiveTopology(primitive_topology);
 
 	context->OMSetRenderTargets(1u, target.GetAddressOf(), depth_stencil_view.Get());
@@ -30,6 +19,15 @@ void GraphicsScene::compile() {
 		if (mesh != nullptr) {
 			Material &material = mesh->material;
 
+			D3D11_SAMPLER_DESC sampler_description = { };
+			sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			sampler_description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+			sampler_description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+			sampler_description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+			sampler_description.ComparisonFunc = D3D11_COMPARISON_NEVER;
+			sampler_description.MinLOD = 0;
+			sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
+
 			if (material.texture != Texture()) {
 				// +---------------- Texture ----------------+
 				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(DirectX::CreateWICTextureFromFile(
@@ -38,6 +36,8 @@ void GraphicsScene::compile() {
 					material.texture.texture.GetAddressOf(),
 					material.texture.texture_view.GetAddressOf()
 				));
+
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, material.texture.sampler_state.GetAddressOf()));
 			}
 			if (material.normal_map != Texture()) {
 				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(DirectX::CreateWICTextureFromFile(
@@ -46,8 +46,10 @@ void GraphicsScene::compile() {
 					material.normal_map.texture.GetAddressOf(),
 					material.normal_map.texture_view.GetAddressOf()
 				));
-			}
 
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, material.normal_map.sampler_state.GetAddressOf()));
+			}
+			
 			// +---------------- Shaders ----------------+
 			// Create Pixel Shader
 			HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreatePixelShader(material.pixel_blob->GetBufferPointer(), material.pixel_blob->GetBufferSize(), NULL, &material.pixel_shader));
@@ -87,9 +89,9 @@ void GraphicsScene::draw() {
 	for (std::shared_ptr<Object> object : *objects) {
 		std::shared_ptr<MeshComponent> mesh = obj_mesh(*object);
 		if (mesh != nullptr) {
-			set_vertex_buffer(*mesh);
+			set_vertex_buffer(mesh->mesh_data.get_vertices());
 			if (!mesh->mesh_data.indices.empty())
-				set_index_buffer(*mesh);
+				set_index_buffer(mesh->mesh_data.indices);
 
 			context->VSSetShader(mesh->material.vertex_shader.Get(), nullptr, 0u);
 			context->PSSetShader(mesh->material.pixel_shader.Get(), nullptr, 0u);
@@ -104,13 +106,16 @@ void GraphicsScene::draw() {
 			
 			context->PSSetShaderResources(0, 1, mesh->material.texture.texture_view.GetAddressOf());
 			context->PSSetShaderResources(1, 1, mesh->material.normal_map.texture_view.GetAddressOf());
-			context->PSSetSamplers(0, 1, /*mesh->material.texture.*/sampler_state.GetAddressOf());
+			if (mesh->material.texture != Texture())
+				context->PSSetSamplers(0, 1, mesh->material.texture.sampler_state.GetAddressOf());
+			if (mesh->material.normal_map != Texture())
+				context->PSSetSamplers(1, 1, mesh->material.normal_map.sampler_state.GetAddressOf());
 
 			// Draw it
 			if (!mesh->mesh_data.indices.empty())
 				context->DrawIndexed((UINT)mesh->mesh_data.indices.size(), 0u, 0u);
 			else
-				context->Draw((UINT)mesh->mesh_data.vertices.size(), 0u);
+				context->Draw((UINT)mesh->mesh_data.get_vertices().size(), 0u);
 		}
 	}
 }
@@ -185,7 +190,7 @@ void GraphicsScene::create_depth_stencil_buffer(UINT width, UINT height) {
 	device->CreateDepthStencilView(depth_stencil.Get(), &descDSV, &depth_stencil_view);
 }
 
-void GraphicsScene::set_vertex_buffer(const MeshComponent &mesh) {
+void GraphicsScene::set_vertex_buffer(const std::vector<Vertex> &verts) {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer = nullptr;
 
 	// Buffer Description (Vertex)
@@ -194,10 +199,10 @@ void GraphicsScene::set_vertex_buffer(const MeshComponent &mesh) {
 	buffer_description.Usage = D3D11_USAGE_DEFAULT;
 	buffer_description.CPUAccessFlags = 0u;
 	buffer_description.MiscFlags = 0u;
-	buffer_description.ByteWidth = sizeof(Vertex) * (UINT)mesh.mesh_data.vertices.size() + sizeof(Vertex);
+	buffer_description.ByteWidth = sizeof(Vertex) * (UINT)verts.size() + sizeof(Vertex);
 	buffer_description.StructureByteStride = sizeof(Vertex);
 	D3D11_SUBRESOURCE_DATA data = {  };
-	data.pSysMem = &mesh.mesh_data.vertices[0];
+	data.pSysMem = &verts[0];
 
 	// Creating the Buffer
 	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&buffer_description, &data, &vertex_buffer));
@@ -208,17 +213,17 @@ void GraphicsScene::set_vertex_buffer(const MeshComponent &mesh) {
 	context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &stride, &offset);
 }
 
-void GraphicsScene::set_index_buffer(const MeshComponent &mesh) {
+void GraphicsScene::set_index_buffer(const std::vector<UINT> &indices) {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer = nullptr;
 	D3D11_BUFFER_DESC index_buffer_description = { };
 	index_buffer_description.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	index_buffer_description.Usage = D3D11_USAGE_DEFAULT;
 	index_buffer_description.CPUAccessFlags = 0u;
 	index_buffer_description.MiscFlags = 0u;
-	index_buffer_description.ByteWidth = sizeof(USHORT) * (UINT)mesh.mesh_data.indices.size() + sizeof(USHORT);
-	index_buffer_description.StructureByteStride = sizeof(USHORT);
+	index_buffer_description.ByteWidth = sizeof(UINT) * (UINT)indices.size() + sizeof(UINT);
+	index_buffer_description.StructureByteStride = sizeof(UINT);
 	D3D11_SUBRESOURCE_DATA subresource_data = { };
-	subresource_data.pSysMem = &mesh.mesh_data.indices[0];
+	subresource_data.pSysMem = &indices[0];
 	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBuffer(&index_buffer_description, &subresource_data, &index_buffer));
 	// Bind index buffer
 	context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
@@ -388,18 +393,17 @@ void GraphicsScene::create_unessentials() {
 	D3D11_RASTERIZER_DESC rasterizer_state_description = { };
 	rasterizer_state_description.FillMode = fill_mode;
 	rasterizer_state_description.CullMode = cull_mode;
-	rasterizer_state_description.FrontCounterClockwise = true;
-	rasterizer_state_description.DepthBias = false;
-	rasterizer_state_description.DepthBiasClamp = 0;
-	rasterizer_state_description.SlopeScaledDepthBias = 0;
+	rasterizer_state_description.FrontCounterClockwise = false;
+	rasterizer_state_description.DepthBias = 0;
+	rasterizer_state_description.DepthBiasClamp = 0.0f;
+	rasterizer_state_description.SlopeScaledDepthBias = 0.0f;
 	rasterizer_state_description.DepthClipEnable = true;
 	rasterizer_state_description.ScissorEnable = false;
-	rasterizer_state_description.MultisampleEnable = false;
-	rasterizer_state_description.AntialiasedLineEnable = false;
+	rasterizer_state_description.MultisampleEnable = true;
+	rasterizer_state_description.AntialiasedLineEnable = true;
 	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateRasterizerState(&rasterizer_state_description, rasterizer_state.GetAddressOf()));
 
 	context->RSSetState(rasterizer_state.Get());
-
 	/*D3D11_RECT rect;
 	rect.left = 0;
 	rect.right = width;
@@ -419,7 +423,7 @@ void GraphicsScene::create_unessentials() {
 	blend_description.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE::D3D11_COLOR_WRITE_ENABLE_ALL;
 	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateBlendState(&blend_description, &blend_state));
 
-	context->OMSetBlendState(blend_state.Get(), 0, 0xffffffff);
+	context->OMSetBlendState(blend_state.Get(), 0, UINT_MAX);
 }
 
 std::shared_ptr<CameraComponent> GraphicsScene::camera() const {

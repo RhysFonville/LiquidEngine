@@ -173,11 +173,13 @@
 	if (ORIENT_2D(R2,Q2,Q1) <= 0.0f)\
 	  if (ORIENT_2D(P1,P2,Q1) > 0.0f) {\
   if (ORIENT_2D(P1,Q2,Q1) <= 0.0f) return 1; \
-  else return 0;} else {\
+  else return 0; \
+	  } else {\
   if (ORIENT_2D(P1,P2,R1) >= 0.0f)\
 	if (ORIENT_2D(Q1,R1,P2) >= 0.0f) return 1; \
 	else return 0;\
-  else return 0;}\
+  else return 0; \
+	  }\
 	else \
 	  if (ORIENT_2D(P1,Q2,Q1) <= 0.0f)\
   if (ORIENT_2D(R2,Q2,R1) <= 0.0f)\
@@ -204,18 +206,26 @@
   if (ORIENT_2D(R2,P2,Q1) >= 0.0f) {\
 	if (ORIENT_2D(P1,P2,Q1) >= 0.0f) { \
 		if (ORIENT_2D(P1,Q1,R2) >= 0.0f) return 1; \
-		else return 0;} else { \
+		else return 0; \
+	} else { \
 	  if (ORIENT_2D(Q1,R1,P2) >= 0.0f){ \
-  if (ORIENT_2D(R1,P1,P2) >= 0.0f) return 1; else return 0;} \
-	  else return 0; } \
+  if (ORIENT_2D(R1,P1,P2) >= 0.0f) return 1; else return 0; \
+	  } \
+	  else return 0; \
+	} \
   } else {\
 	if (ORIENT_2D(R2,P2,R1) >= 0.0f) {\
 	  if (ORIENT_2D(P1,P2,R1) >= 0.0f) {\
   if (ORIENT_2D(P1,R1,R2) >= 0.0f) return 1;  \
   else {\
-	if (ORIENT_2D(Q1,R1,R2) >= 0.0f) return 1; else return 0;}}\
-	  else  return 0; }\
-	else return 0; }}
+	if (ORIENT_2D(Q1,R1,R2) >= 0.0f) return 1; else return 0; \
+  } \
+	  }\
+	  else  return 0; \
+	}\
+	else return 0; \
+  } \
+}
 
 class PhysicsScene {
 public:
@@ -229,20 +239,22 @@ public:
 	void handle_mechanics(Object &object);
 	void handle_collision(Object &object1, Object &object2);
 
+	static bool tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept;
+
+	static bool coplanar_tri_tri3d(float p1[3], float q1[3], float r1[3],
+		float p2[3], float q2[3], float r2[3],
+		float normal_1[3]) noexcept;
+
+	static bool tri_tri_overlap_test_2d(float p1[2], float q1[2], float r1[2], 
+		float p2[2], float q2[2], float r2[2]) noexcept;
+
+	static bool ccw_tri_tri_intersection_2d(float p1[2], float q1[2], float r1[2], 
+		float p2[2], float q2[2], float r2[2]) noexcept;
+
+	static std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> approximate_closest_tris(const MeshData &mesh1, const MeshData &mesh2, const Transform &obj1_transform, const Transform &obj2_transform);
+
 	static float signed_tetrahedron_volume(FVector3 a, FVector3 b, FVector3 c, FVector3 d) noexcept;
-	static bool triangle_line_collision(const Triangle &triangle, const Line &line) noexcept;
-
-	static bool tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle &tri2) noexcept;
-
-	static bool coplanar_tri_tri3d(double p1[3], double q1[3], double r1[3],
-		double p2[3], double q2[3], double r2[3],
-		double normal_1[3]) noexcept;
-
-	static bool tri_tri_overlap_test_2d(double p1[2], double q1[2], double r1[2], 
-		double p2[2], double q2[2], double r2[2]) noexcept;
-
-	static bool ccw_tri_tri_intersection_2d(double p1[2], double q1[2], double r1[2], 
-		double p2[2], double q2[2], double r2[2]) noexcept;
+	static bool triangle_line_collision(const SimpleTriangle &triangle, const Line &line) noexcept;
 
 private:
 	ObjectVector objects;

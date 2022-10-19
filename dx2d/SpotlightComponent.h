@@ -15,7 +15,7 @@ public:
 	void operator=(const SpotlightComponent &light) noexcept;
 
 	operator ConstantBufferStruct() const noexcept {
-		return { direction, 255.0f / diffuse, specular };
+		return { direction, diffuse / 255.0f, specular };
 	}
 
 	FVector3 direction;

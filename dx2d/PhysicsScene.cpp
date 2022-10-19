@@ -22,85 +22,138 @@ void PhysicsScene::handle_mechanics(Object &object) {
 	object.mechanics.acceleration = object.mechanics.get_net_force() / object.mechanics.get_mass();
 	object.mechanics.velocity += object.mechanics.acceleration;
 
-	object.set_position(object.get_transform().position + object.mechanics.velocity);
+	FVector3 old_position = object.get_transform().position;
+
+	object.set_position(old_position + object.mechanics.velocity);
 
 	object.mechanics.momentum = object.mechanics.get_mass() * object.mechanics.velocity;
 	object.mechanics.speed = distance(object.mechanics.previous_position, object.get_transform().position);
-	object.mechanics.kinetic_energy = object.mechanics.get_mass()/2 * pow(object.mechanics.speed, 2);
+	object.mechanics.kinetic_energy = object.mechanics.get_mass()/2 * powf(object.mechanics.speed, 2);
 }
 
 void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 	if (object1.has_component<MeshComponent>() && object2.has_component<MeshComponent>()) {
-		std::vector<Triangle> object1_tris =
-			split_into_triangles(
-				object1.get_component<MeshComponent>()->mesh_data.transform(
-					object1.get_transform()
-				)
-			);
-		std::vector<Triangle> object2_tris =
-			split_into_triangles(
-				object2.get_component<MeshComponent>()->mesh_data.transform(
-					object2.get_transform()
-				)
-			);
+		MeshComponent mesh_component1 = *object1.get_component<MeshComponent>();
+		MeshComponent mesh_component2 = *object2.get_component<MeshComponent>();
+		
+		std::vector<SimpleTriangle> bounding_box1_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
+		std::vector<SimpleTriangle> bounding_box2_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
+		bounding_box1_tris = transform_simple_tris(bounding_box1_tris, object1.get_transform());
+		bounding_box1_tris = transform_simple_tris(bounding_box2_tris, object2.get_transform());
 
-		bool intersecting = false;
-		for (const Triangle &object1_tri : object1_tris) {
-			for (const Triangle &object2_tri : object2_tris) {
+		bool bounding_box_intersecting = false;
+		for (const SimpleTriangle &object1_tri : bounding_box1_tris) {
+			for (const SimpleTriangle &object2_tri : bounding_box2_tris) {
 				bool intersects = (
 					tri_tri_overlap_test_3d(object1_tri, object2_tri)
-					);
+				);
 
-				if (!intersecting && intersects)
-					intersecting = intersects;
+				if (!bounding_box_intersecting && intersects)
+					bounding_box_intersecting = intersects;
 			}
 		}
+		bounding_box_intersecting = true;
+		if (bounding_box_intersecting) {
+			std::vector<SimpleTriangle> object1_tris =
+				split_into_simple_triangles(
+					transform_simple_vertices(
+						mesh_component1.mesh_data.get_physics_vertices(),
+						object1.get_transform()
+					)
+				);
+			std::vector<SimpleTriangle> object2_tris =
+				split_into_simple_triangles(
+					transform_simple_vertices(
+						mesh_component2.mesh_data.get_physics_vertices(),
+						object1.get_transform()
+					)
+				);
 
-		if (intersecting) {
-			object1.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
-			object2.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
+			bool intersecting = false;
+			for (const SimpleTriangle &object1_tri : object1_tris) {
+				for (const SimpleTriangle &object2_tri : object2_tris) {
+					bool intersects = (
+						tri_tri_overlap_test_3d(object1_tri, object2_tri)
+					);
 
-			object1.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-			object2.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-		} else {
-			object1.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
-			object2.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
+					if (intersects) {
+						intersecting = true;
+						break;
+					}
+				}
+				if (intersecting)
+					break;
+			}
 
-			object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-			object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
+			/*auto approx_closest_tris = approximate_closest_tris(
+				mesh_component1.mesh_data, mesh_component2.mesh_data,
+				object1.get_transform(), object2.get_transform()
+			);
+			std::vector<SimpleTriangle> object1_closest_tris = approx_closest_tris.first;
+			std::vector<SimpleTriangle> object2_closest_tris = approx_closest_tris.second;
+
+			bool intersecting = false;
+			for (const SimpleTriangle &object1_tri : object1_closest_tris) {
+				for (const SimpleTriangle &object2_tri : object2_closest_tris) {
+					bool intersects = (
+						tri_tri_overlap_test_3d(object1_tri, object2_tri)
+					);
+
+					if (intersects) {
+						intersecting = true;
+						break;
+					}
+				}
+				if (intersecting)
+					break;
+			}*/
+
+			if (intersecting) {
+				object1.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
+				object2.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
+
+				object1.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
+				object2.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
+			} else {
+				object1.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
+				object2.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
+
+				object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
+				object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
+			}
 		}
 	}
 }
 
 // https://stackoverflow.com/questions/1496215/triangle-triangle-intersection-in-3d-space
 
-bool PhysicsScene::tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle &tri2) noexcept {
-	double dp1, dq1, dr1, dp2, dq2, dr2;
-	double v1[3], v2[3];
-	double N1[3], N2[3];
+bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept {
+	float dp1, dq1, dr1, dp2, dq2, dr2;
+	float v1[3], v2[3];
+	float N1[3], N2[3];
 
-	double p1[3] = { tri1.first.position.x,
+	float p1[3] = { tri1.first.position.x,
 		tri1.first.position.y,
 		tri1.first.position.z };
 
-	double q1[3] = { tri1.second.position.x,
+	float q1[3] = { tri1.second.position.x,
 		tri1.second.position.y,
 		tri1.second.position.z };
 
-	double r1[3] = { tri1.third.position.x,
+	float r1[3] = { tri1.third.position.x,
 		tri1.third.position.y,
 		tri1.third.position.z };
 
 
-	double p2[3] = { tri2.first.position.x,
+	float p2[3] = { tri2.first.position.x,
 		tri2.first.position.y,
 		tri2.first.position.z };
 
-	double q2[3] = { tri2.second.position.x,
+	float q2[3] = { tri2.second.position.x,
 		tri2.second.position.y,
 		tri2.second.position.z };
 
-	double r2[3] = { tri2.third.position.x,
+	float r2[3] = { tri2.third.position.x,
 		tri2.third.position.y,
 		tri2.third.position.z };
 
@@ -183,14 +236,14 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const Triangle &tri1, const Triangle 
 	}
 }
 
-bool PhysicsScene::coplanar_tri_tri3d(double p1[3], double q1[3], double r1[3],
-	double p2[3], double q2[3], double r2[3],
-	double normal_1[3]) noexcept {
+bool PhysicsScene::coplanar_tri_tri3d(float p1[3], float q1[3], float r1[3],
+	float p2[3], float q2[3], float r2[3],
+	float normal_1[3]) noexcept {
 
-	double P1[2],Q1[2],R1[2];
-	double P2[2],Q2[2],R2[2];
+	float P1[2],Q1[2],R1[2];
+	float P2[2],Q2[2],R2[2];
 
-	double n_x, n_y, n_z;
+	float n_x, n_y, n_z;
 
 	n_x = ((normal_1[0]<0)?-normal_1[0]:normal_1[0]);
 	n_y = ((normal_1[1]<0)?-normal_1[1]:normal_1[1]);
@@ -239,8 +292,8 @@ bool PhysicsScene::coplanar_tri_tri3d(double p1[3], double q1[3], double r1[3],
 
 }
 
-bool PhysicsScene::tri_tri_overlap_test_2d(double p1[2], double q1[2], double r1[2], 
-	double p2[2], double q2[2], double r2[2]) noexcept {
+bool PhysicsScene::tri_tri_overlap_test_2d(float p1[2], float q1[2], float r1[2], 
+	float p2[2], float q2[2], float r2[2]) noexcept {
 	if (ORIENT_2D(p1,q1,r1) < 0.0f) {
 		if ( ORIENT_2D(p2,q2,r2) < 0.0f) {
 			return ccw_tri_tri_intersection_2d(p1,r1,q1,p2,r2,q2);
@@ -256,8 +309,8 @@ bool PhysicsScene::tri_tri_overlap_test_2d(double p1[2], double q1[2], double r1
 	}
 }
 
-bool PhysicsScene::ccw_tri_tri_intersection_2d(double p1[2], double q1[2], double r1[2], 
-	double p2[2], double q2[2], double r2[2]) noexcept {
+bool PhysicsScene::ccw_tri_tri_intersection_2d(float p1[2], float q1[2], float r1[2], 
+	float p2[2], float q2[2], float r2[2]) noexcept {
 	if (ORIENT_2D(p2,q2,p1) >= 0.0f) {
 		if (ORIENT_2D(q2,r2,p1) >= 0.0f) {
 			if (ORIENT_2D(r2,p2,p1) >= 0.0f) {
@@ -289,7 +342,7 @@ float PhysicsScene::signed_tetrahedron_volume(FVector3 a, FVector3 b, FVector3 c
 	return (1.0f/6.0f)*dot(cross(b-a,c-a),d-a);
 }
 
-bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Line &line) noexcept {
+bool PhysicsScene::triangle_line_collision(const SimpleTriangle &triangle, const Line &line) noexcept {
 	FVector3 q1, q2, p1, p2, p3;
 
 	p1 = triangle.first.position;
@@ -309,4 +362,44 @@ bool PhysicsScene::triangle_line_collision(const Triangle &triangle, const Line 
 	// If a and b have different signs AND c, d and e have the same sign,
 	// then there is an intersection.
 	return ((a != b) && (c == d && d == e));
+}
+
+std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> PhysicsScene::approximate_closest_tris(const MeshData &mesh1, const MeshData &mesh2, const Transform &obj1_transform, const Transform &obj2_transform) {
+	std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> ret;
+	
+	SimpleBox box1 = mesh1.get_bounding_box();
+	SimpleBox box2 = mesh2.get_bounding_box();
+
+	std::pair<SimpleVertex, SimpleVertex> closest_box_verts = std::make_pair(
+		box1.vertices[0], box2.vertices[0]
+	);
+	
+	float closest_box_verts_dist = distance(
+		transform_vector(closest_box_verts.first.position, obj1_transform),
+		transform_vector(closest_box_verts.second.position, obj2_transform)
+	);
+	for (SimpleVertex box1_vert : mesh1.get_bounding_box().vertices) {
+		for (SimpleVertex box2_vert : mesh2.get_bounding_box().vertices) {
+			if (float dist = distance(transform_vector(box1_vert.position, obj1_transform),
+							transform_vector(box2_vert.position, obj2_transform));
+				dist < closest_box_verts_dist) {
+
+				closest_box_verts = std::make_pair(box1_vert, box2_vert);
+				closest_box_verts_dist = dist;
+			}
+		}
+	}
+
+	for (SimpleTriangle obj1_tri : mesh1.get_physics_triangles()) {
+		if (obj1_tri.contains(closest_box_verts.first)) {
+			ret.first.push_back(obj1_tri);
+		}
+	}
+	for (SimpleTriangle obj2_tri : mesh1.get_physics_triangles()) {
+		if (obj2_tri.contains(closest_box_verts.first)) {
+			ret.first.push_back(obj2_tri);
+		}
+	}
+
+	return ret;
 }

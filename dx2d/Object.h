@@ -20,7 +20,7 @@ public:
 
 	std::vector<Mechanics::Force> forces;
 
-	FVector3 get_net_force() const noexcept {
+	GET FVector3 get_net_force() const noexcept {
 		FVector3 net_force;
 
 		for (const Mechanics::Force &force : forces) {
@@ -30,7 +30,7 @@ public:
 		return net_force;
 	}
 
-	float get_mass() const noexcept {
+	GET float get_mass() const noexcept {
 		return mass;
 	}
 
@@ -38,12 +38,12 @@ public:
 		if (mass != 0) {
 			this->mass = mass;
 		} else {
-			throw L"An object's mass must be set to >0.0f.";
+			throw std::exception("An object's mass must be set to >0.0f kilograms.");
 		}
 	}
 
 private:
-	float mass = 10.0f;
+	float mass = 20.0f;
 };
 
 class Object {
@@ -61,9 +61,9 @@ public:
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
-	bool has_component(const Component::Type &search) const noexcept;
+	GET bool has_component(const Component::Type &search) const noexcept;
 	template <typename T>
-	bool has_component() const {
+	GET bool has_component() const {
 		for (const std::shared_ptr<Component> &component : components) {
 			if (component->type == T::component_type) {
 				return true;
@@ -72,11 +72,11 @@ public:
 		return false;
 	}
 
-	std::shared_ptr<Object> get_parent() noexcept;
+	GET std::shared_ptr<Object> get_parent() noexcept;
 	void set_parent(const std::shared_ptr<Object> &parent) noexcept;
 	void remove_parent() noexcept;
 
-	std::vector<std::shared_ptr<Object>> get_children() noexcept;
+	GET std::vector<std::shared_ptr<Object>> get_children() noexcept;
 	void set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept;
 
 	void add_child(const std::shared_ptr<Object> &child) noexcept;

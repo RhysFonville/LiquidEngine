@@ -18,7 +18,7 @@ public:
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> texture = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture_view = nullptr;
-	//Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state = nullptr;
 
 	std::string file_name = "";
 };

@@ -11,9 +11,20 @@
 
 #define GET [[nodiscard]]
 
+#define COMPTR_RELEASE(x) { if ((x)) { (x).Reset(); } }
+
+namespace fs = std::filesystem;
+
 using uint = unsigned int;
 
-#define COMPTR_RELEASE(x) { if ((x)) { (x).Reset(); } }
+enum class Unit {
+	Meters,						// Distance
+	Kilograms,					// Mass
+	Newtons,					// Force
+	MetersPerSecond,			// Velocity
+	MetertsPerSecondSquared,	// Acceleration
+	Joules						// Kinetic Energy
+};
 
 static GET UVector2 get_window_size(HWND hwnd) {
 	RECT rect;
@@ -130,9 +141,158 @@ static FVector2 UVector2_to_FVector2(const UVector2 &vector) noexcept {
 	return FVector2((float)vector.x, (float)vector.y);
 }
 
-static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f};
-static constexpr FVector3 global_backward{ 0.0f,  0.0f, -1.0f};
-static constexpr FVector3 global_left    {-1.0f,  0.0f,  0.0f};
-static constexpr FVector3 global_right   { 1.0f,  0.0f,  0.0f};
-static constexpr FVector3 global_up      { 0.0f,  1.0f,  0.0f};
-static constexpr FVector3 global_down    { 0.0f, -1.0f,  0.0f};
+static FVector3 transform_vector(FVector3 vector, Transform transform) noexcept {
+	XMVECTOR vec = XMVector3Transform(vector,
+		XMMatrixTranspose(transform));
+
+	FVector3 ret;
+
+	ret.x = XMVectorGetX(vec);
+	ret.y = XMVectorGetY(vec);
+	ret.z = XMVectorGetZ(vec);
+
+	return ret;
+}
+
+static std::vector<Vertex> tris_to_verts(const std::vector<Triangle> &tris) {
+	std::vector<Vertex> ret;
+	for (const Triangle &tri : tris) {
+		ret.push_back(tri.first);
+		ret.push_back(tri.second);
+		ret.push_back(tri.third);
+	}
+	
+	return ret;
+}
+
+static std::vector<SimpleVertex> tris_to_simple_verts(const std::vector<Triangle> &tris) noexcept {
+	std::vector<SimpleVertex> ret;
+	for (const Triangle &tri : tris) {
+		ret.push_back((SimpleVertex)tri.first);
+		ret.push_back((SimpleVertex)tri.second);
+		ret.push_back((SimpleVertex)tri.third);
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleVertex> simple_tris_to_simple_verts(const std::vector<SimpleTriangle> &tris) noexcept {
+	std::vector<SimpleVertex> ret;
+	for (const SimpleTriangle &tri : tris) {
+		ret.push_back(tri.first.position);
+		ret.push_back(tri.second.position);
+		ret.push_back(tri.third.position);
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleTriangle> tris_to_simple_tris(const std::vector<Triangle> &tris) {
+	std::vector<SimpleTriangle> ret;
+	for (const Triangle &tri : tris) {
+		ret.push_back((SimpleTriangle)tri);
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleVertex> verts_to_simple_verts(const std::vector<Vertex> &verts) {
+	std::vector<SimpleVertex> ret;
+	for (const Vertex &vert : verts) {
+		ret.push_back(vert);
+	}
+	
+	return ret;
+}
+
+static std::vector<Triangle> split_into_triangles(const std::vector<Vertex> &verts) noexcept {
+	std::vector<Triangle> ret;
+
+	for (size_t i = 0; i < verts.size(); i += 3){
+		if (i + 2 < verts.size()) {
+			ret.push_back({
+				verts[i+0],
+				verts[i+1],
+				verts[i+2]
+			});
+		}
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleTriangle> split_into_simple_triangles(const std::vector<SimpleVertex> &verts) noexcept {
+	std::vector<SimpleTriangle> ret;
+
+	for (size_t i = 0; i < verts.size(); i += 3){
+		if (i + 2 < verts.size()) {
+			ret.push_back({
+				verts[i+0],
+				verts[i+1],
+				verts[i+2]
+			});
+		}
+	}
+
+	return ret;
+}
+
+static std::vector<Vertex> transform_vertices(const std::vector<Vertex> &verts, const Transform &transform) {
+	std::vector<Vertex> ret = verts;
+
+	for (Vertex &vertex : ret) {
+		vertex.position = transform_vector(vertex.position, transform);
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleVertex> transform_simple_vertices(const std::vector<SimpleVertex> &verts, const Transform &transform) {
+	std::vector<SimpleVertex> ret = verts;
+
+	for (SimpleVertex &vertex : ret) {
+		vertex.position = transform_vector(vertex.position, transform);
+	}
+
+	return ret;
+}
+
+static std::vector<Triangle> transform_tris(const std::vector<Triangle> &tris, const Transform &transform) {
+	std::vector<Triangle> ret = tris;
+
+	for (Triangle &tri : ret) {
+		tri.first.position = transform_vector(tri.first.position, transform);
+		tri.second.position = transform_vector(tri.second.position, transform);
+		tri.third.position = transform_vector(tri.third.position, transform);
+	}
+
+	return ret;
+}
+
+static std::vector<SimpleTriangle> transform_simple_tris(const std::vector<SimpleTriangle> &tris, const Transform &transform) {
+	std::vector<SimpleTriangle> ret = tris;
+
+	for (SimpleTriangle &tri : ret) {
+		tri.first.position = transform_vector(tri.first.position, transform);
+		tri.second.position = transform_vector(tri.second.position, transform);
+		tri.third.position = transform_vector(tri.third.position, transform);
+	}
+
+	return ret;
+}
+
+static std::string get_parent_directory(const std::string &str, bool add_ending_slash = true) {
+	std::string ret = str.substr(0, str.find_last_of("/\\"));
+	if (add_ending_slash) {
+		ret += "\\";
+	}
+
+	return ret;
+}
+
+static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f };
+static constexpr FVector3 global_backward{ 0.0f,  0.0f, -1.0f };
+static constexpr FVector3 global_left    {-1.0f,  0.0f,  0.0f };
+static constexpr FVector3 global_right   { 1.0f,  0.0f,  0.0f };
+static constexpr FVector3 global_up      { 0.0f,  1.0f,  0.0f };
+static constexpr FVector3 global_down    { 0.0f, -1.0f,  0.0f };

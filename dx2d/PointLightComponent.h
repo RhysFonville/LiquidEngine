@@ -29,7 +29,7 @@ public:
 
 	operator ConstantBufferStruct() const noexcept {
 		return ConstantBufferStruct(transform.position, range, attenuation,
-			255.0f / diffuse, 255.0f / specular);
+			diffuse / 255.0f, specular / 255.0f);
 	}
 
 	FVector3 attenuation;

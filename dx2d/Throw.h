@@ -66,12 +66,12 @@ while (CHECK_RESULT(rw) == true) { \
 	rw = function; \
 }
 
-static bool r = true;
+static bool r = false;
 #define HANDLE_POSSIBLE_EXCEPTION(function) \
-while (r == true) { \
+do { \
 	try { \
 		function; \
 	} catch (std::exception &e) { \
-		r = ERROR_MESSAGE(string_to_wstring(e.what())) \
+		r = ERROR_MESSAGE(string_to_wstring(e.what())); \
 	} \
-}
+} while (r == true);

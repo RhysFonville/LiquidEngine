@@ -11,7 +11,7 @@ Scene::Scene(Window &window) {
 
 void Scene::tick() {
 	behavior_manager.tick();
-	physics_scene.tick();
+	//physics_scene.tick();
 	graphics_scene->clear();
 	graphics_scene->draw();
 	graphics_scene->present();
@@ -42,6 +42,12 @@ void Scene::read_obj_file(std::string obj_file_path) {
 
 		std::string line = "";
 
+		std::string parent_dir;
+
+		if (!fs::equivalent(obj_file_path, get_parent_directory(obj_file_path, false))) {
+			parent_dir = get_parent_directory(obj_file_path, true);
+		}
+
 		// Find name of .mtl file
 		if (obj_file.is_open()) {
 			while (std::getline(obj_file, line)) {
@@ -51,7 +57,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 						remove_extra_spaces(line);
 
 						if (line.substr(0, 6) == "mtllib") {
-							mtl_file_path = line.substr(7);
+							mtl_file_path = parent_dir + line.substr(7);
 							mtl_file.open(mtl_file_path);
 							break;
 						}
@@ -59,12 +65,11 @@ void Scene::read_obj_file(std::string obj_file_path) {
 				}
 			}
 		} else {
-			throw (L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"").c_str();
+			throw std::exception(("Could not open file \"" + obj_file_path + "\"").c_str());
 		}
 
 		// Read .mtl file
 		if (mtl_file.is_open()) {
-
 			bool first_mtl = true;
 			size_t last_new_mtl_index = 0;
 
@@ -106,7 +111,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 
 			Storage::materials.push_back(newmtl);
 		} else {
-			throw (L"Could not open file \"" + string_to_wstring(mtl_file_path) + L"\"").c_str();
+			throw std::exception(("Could not open file \"" + mtl_file_path + "\"").c_str());
 		}
 		file_vec.clear();
 
@@ -149,7 +154,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 			objects->push_back(std::make_shared<Object>(obj));
 
 		} else {
-			throw (L"Could not open file \"" + string_to_wstring(obj_file_path) + L"\"").c_str();
+			throw std::exception(("Could not open file \"" + obj_file_path + "\"").c_str());
 		}
 	}
 }
