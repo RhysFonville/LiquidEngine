@@ -10,6 +10,16 @@ GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 	context->IASetPrimitiveTopology(primitive_topology);
 
 	context->OMSetRenderTargets(1u, target.GetAddressOf(), depth_stencil_view.Get());
+
+	default_sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	default_sampler_description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	default_sampler_description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	default_sampler_description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	default_sampler_description.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	default_sampler_description.MinLOD = 0.0f;
+	default_sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
+
+	HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&default_sampler_description, default_sampler_state.GetAddressOf()));
 }
 
 // Anything related to object compilation for the graphics scene is done here.
@@ -18,15 +28,6 @@ void GraphicsScene::compile() {
 		std::shared_ptr<MeshComponent> mesh = obj_mesh(*object);
 		if (mesh != nullptr) {
 			Material &material = mesh->material;
-
-			D3D11_SAMPLER_DESC sampler_description = { };
-			sampler_description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-			sampler_description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-			sampler_description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-			sampler_description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-			sampler_description.ComparisonFunc = D3D11_COMPARISON_NEVER;
-			sampler_description.MinLOD = 0;
-			sampler_description.MaxLOD = D3D11_FLOAT32_MAX;
 
 			if (material.texture != Texture()) {
 				// +---------------- Texture ----------------+
@@ -37,7 +38,7 @@ void GraphicsScene::compile() {
 					material.texture.texture_view.GetAddressOf()
 				));
 
-				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, material.texture.sampler_state.GetAddressOf()));
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&default_sampler_description, material.texture.sampler_state.GetAddressOf()));
 			}
 			if (material.normal_map != Texture()) {
 				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(DirectX::CreateWICTextureFromFile(
@@ -47,7 +48,7 @@ void GraphicsScene::compile() {
 					material.normal_map.texture_view.GetAddressOf()
 				));
 
-				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&sampler_description, material.normal_map.sampler_state.GetAddressOf()));
+				HANDLE_POSSIBLE_EXCEPTION_WINDOWS(device->CreateSamplerState(&default_sampler_description, material.normal_map.sampler_state.GetAddressOf()));
 			}
 			
 			// +---------------- Shaders ----------------+
@@ -106,10 +107,16 @@ void GraphicsScene::draw() {
 			
 			context->PSSetShaderResources(0, 1, mesh->material.texture.texture_view.GetAddressOf());
 			context->PSSetShaderResources(1, 1, mesh->material.normal_map.texture_view.GetAddressOf());
+			
 			if (mesh->material.texture != Texture())
 				context->PSSetSamplers(0, 1, mesh->material.texture.sampler_state.GetAddressOf());
+			else
+				context->PSSetSamplers(0, 1, default_sampler_state.GetAddressOf());
+
 			if (mesh->material.normal_map != Texture())
 				context->PSSetSamplers(1, 1, mesh->material.normal_map.sampler_state.GetAddressOf());
+			else
+				context->PSSetSamplers(1, 1, default_sampler_state.GetAddressOf());
 
 			// Draw it
 			if (!mesh->mesh_data.indices.empty())
@@ -341,7 +348,7 @@ void GraphicsScene::create_essentials() {
 	swap_chain_description.SampleDesc.Count = 1; // No anti-aliasing
 	swap_chain_description.SampleDesc.Quality = 0; // No anti-aliasing
 	swap_chain_description.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // Use buffer as render target
-	swap_chain_description.BufferCount = 1; // One back buffer
+	swap_chain_description.BufferCount = 1u; // One back buffer
 	swap_chain_description.OutputWindow = window; // Use this window
 	swap_chain_description.Windowed = true; // Is it windowed?
 	swap_chain_description.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD; // Swap effect that usually has the best performance

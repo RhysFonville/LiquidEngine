@@ -51,6 +51,9 @@ struct PerObjectPixelConstantBuffer {
 	Material::ConstantBufferStruct material;
 };
 
+static D3D11_SAMPLER_DESC default_sampler_description;
+static Microsoft::WRL::ComPtr<ID3D11SamplerState> default_sampler_state;
+
 class GraphicsScene {
 public:
 	GraphicsScene() {}
