@@ -48,7 +48,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 						);
 						// Perform error handling here!
 
-						Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
+						ComPtr<ID3D11RenderTargetView> target = nullptr;
 						if (pBuffer != NULL) {
 							HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->device->CreateRenderTargetView(
 								pBuffer,

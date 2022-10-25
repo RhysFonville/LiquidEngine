@@ -12,13 +12,13 @@ Scene::Scene(Window &window) {
 void Scene::tick() {
 	behavior_manager.tick();
 	//physics_scene.tick();
-	graphics_scene->clear();
-	graphics_scene->draw();
-	graphics_scene->present();
+	//graphics_scene->clear();
+	//graphics_scene->draw();
+	//graphics_scene->present();
 }
 
 void Scene::clean_up() {
-	graphics_scene->clean_up();
+	//graphics_scene->clean_up();
 	physics_scene.clean_up();
 	behavior_manager.clean_up();
 }
@@ -28,7 +28,7 @@ void Scene::compile() {
 		object->compile();
 	}
 
-	graphics_scene->compile();
+	//graphics_scene->compile();
 }
 
 void Scene::read_obj_file(std::string obj_file_path) {

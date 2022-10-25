@@ -7,6 +7,9 @@
 #include <locale>
 #include <numbers>
 
+#include <wrl.h>
+#include <d3d12.h>
+
 #include "globalstructs.h"
 
 #define GET [[nodiscard]]

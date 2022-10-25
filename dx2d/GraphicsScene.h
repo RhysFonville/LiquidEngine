@@ -2,6 +2,8 @@
 
 #include <DirectXMath.h>
 #include <filesystem>
+#include <dxgi1_4.h>
+#include "d3dx12.h"
 #include "Object.h"
 #include "globalutil.h"
 #include "CameraComponent.h"
@@ -9,50 +11,24 @@
 #include "PointLightComponent.h"
 #include "SpotlightComponent.h"
 
+#pragma comment(lib,"D3D12.lib")
+#pragma comment (lib, "D3DCompiler.lib")
+#pragma comment(lib, "dxgi.lib")
+
 #define D3D11_DOUBLE_SIDED D3D11_CULL_NONE
 
-#pragma comment(lib,"D3D11.lib")
-#pragma comment (lib, "D3DCompiler.lib")
+static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-#define MAX_LIGHTS_PER_TYPE 16
+static constexpr UINT NUMBER_OF_BUFFERS = 2u;
 
-#pragma pack(4)
+using Microsoft::WRL::ComPtr;
 
-constexpr D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-};
-
-__declspec(align(16))
-struct PerFrameConstantBuffer {
-	XMFLOAT3 pad;
-	DirectionalLightComponent::ConstantBufferStruct directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	PointLightComponent::ConstantBufferStruct point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	SpotlightComponent::ConstantBufferStruct spotlights[MAX_LIGHTS_PER_TYPE] = { };
-	uint directional_light_count = 0;
-	uint point_light_count = 0;
-	uint spotlight_count = 0;
-
-	float pad1;
-
-	XMFLOAT3 camera_position;
-};
-
-__declspec(align(16))
-struct PerObjectVertexConstantBuffer {
-	XMMATRIX WVP;
-	XMMATRIX transform;
-};
-
-__declspec(align(16))
-struct PerObjectPixelConstantBuffer {
-	Material::ConstantBufferStruct material;
-};
-
-static D3D11_SAMPLER_DESC default_sampler_description;
-static Microsoft::WRL::ComPtr<ID3D11SamplerState> default_sampler_state;
+//constexpr D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
+//	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D11_INPUT_PER_VERTEX_DATA, 0 },
+//	{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+//	{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+//	{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+//};
 
 class GraphicsScene {
 public:
@@ -60,25 +36,18 @@ public:
 	GraphicsScene(HWND window,
 		const ObjectVector &objects);
 
-	void compile();
-	void clean_up(bool clean_swap_chain = true, bool clean_device = true, bool clean_context = true);
-
 	void draw();
 	void present();
-	void clear(bool clear_drawing = true);
+	//void clear(bool clear_drawing = true);
 
-	GET D3D11_PRIMITIVE_TOPOLOGY get_primitive_topology() const noexcept;
+	/*GET D3D11_PRIMITIVE_TOPOLOGY get_primitive_topology() const noexcept;
 	void set_primitive_topology(D3D11_PRIMITIVE_TOPOLOGY primitive_topology) noexcept;
 
 	GET Color get_background_color() const noexcept;
 	void set_background_color(Color background_color) noexcept;
 
 	GET D3D11_VIEWPORT get_viewport() const noexcept;
-	void set_viewport(D3D11_VIEWPORT viewport) noexcept;
-
-	D3D11_FILL_MODE fill_mode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-	D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	void set_viewport(D3D11_VIEWPORT viewport) noexcept;*/
 
 	GET std::shared_ptr<CameraComponent> camera() const;
 
@@ -92,26 +61,27 @@ private:
 
 	GET std::shared_ptr<MeshComponent> obj_mesh(const Object &object) const;
 
-	void create_depth_stencil_buffer(UINT width, UINT height);
-
-	void set_vertex_buffer(const std::vector<Vertex> &mesh);
-	void set_index_buffer(const std::vector<UINT> &mesh);
-
-	void create_per_object_constant_buffers(CameraComponent &camera, const Object &object);
-	void create_per_frame_constant_buffer();
-
 	void create_essentials();
-	void create_unessentials();
 
-	Microsoft::WRL::ComPtr<ID3D11Device> device = nullptr;
-	Microsoft::WRL::ComPtr<IDXGISwapChain> swap_chain = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11BlendState> blend_state = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state = nullptr;
+	bool vsync_enabled = false;
+	ComPtr<ID3D12Device> device = nullptr;
+	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
+	std::string video_card_description;
+	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
+	ComPtr<ID3D12DescriptorHeap> render_target_view_heap = nullptr;
+	ComPtr<ID3D12Resource> back_buffer_render_target[2] = { nullptr, nullptr };
+	unsigned int buffer_index = 0u;
+	ComPtr<ID3D12CommandAllocator> command_allocator = nullptr;
+	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
+	ComPtr<ID3D12PipelineState> pipeline_state = nullptr;
+	ComPtr<ID3D12Fence> fence = nullptr;
+	HANDLE fence_event = nullptr;
+	ULONGLONG fence_value = 0ll;
+	ComPtr<IDXGIFactory4> factory = nullptr;
+	ComPtr<IDXGIAdapter> adapter = nullptr;
+	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
-	D3D11_VIEWPORT viewport = { };
+	//D3D11_VIEWPORT viewport = { };
 
 	HWND window;
 

@@ -51,11 +51,11 @@ public:
 
 	std::string name = "Material";
 
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout = nullptr;
+	/*ComPtr<ID3D11InputLayout> input_layout = nullptr;
 
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader = nullptr;
+	ComPtr<ID3D11VertexShader> vertex_shader = nullptr;
+	ComPtr<ID3D11PixelShader> pixel_shader = nullptr;*/
 
-	Microsoft::WRL::ComPtr<ID3DBlob> vertex_blob = nullptr;
-	Microsoft::WRL::ComPtr<ID3DBlob> pixel_blob = nullptr;
+	/*ComPtr<ID3DBlob> vertex_blob = nullptr;
+	ComPtr<ID3DBlob> pixel_blob = nullptr;*/
 };
