@@ -12,9 +12,7 @@ Scene::Scene(Window &window) {
 void Scene::tick() {
 	behavior_manager.tick();
 	//physics_scene.tick();
-	//graphics_scene->clear();
-	//graphics_scene->draw();
-	//graphics_scene->present();
+	graphics_scene->tick();
 }
 
 void Scene::clean_up() {

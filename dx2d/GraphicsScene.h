@@ -36,9 +36,7 @@ public:
 	GraphicsScene(HWND window,
 		const ObjectVector &objects);
 
-	void draw();
-	void present();
-	//void clear(bool clear_drawing = true);
+	void tick();
 
 	/*GET D3D11_PRIMITIVE_TOPOLOGY get_primitive_topology() const noexcept;
 	void set_primitive_topology(D3D11_PRIMITIVE_TOPOLOGY primitive_topology) noexcept;
