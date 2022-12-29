@@ -15,26 +15,21 @@
 #pragma comment (lib, "D3DCompiler.lib")
 #pragma comment(lib, "dxgi.lib")
 
-#define D3D11_DOUBLE_SIDED D3D11_CULL_NONE
-
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
 static constexpr UINT NUMBER_OF_BUFFERS = 2u;
 
 using Microsoft::WRL::ComPtr;
 
-//constexpr D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
-//	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D11_INPUT_PER_VERTEX_DATA, 0 },
-//	{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-//	{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-//	{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-//};
+
 
 class GraphicsScene {
 public:
 	GraphicsScene() {}
 	GraphicsScene(HWND window,
 		const ObjectVector &objects);
+
+	void compile();
 
 	void tick();
 
@@ -78,12 +73,27 @@ private:
 	ComPtr<IDXGIFactory4> factory = nullptr;
 	ComPtr<IDXGIAdapter> adapter = nullptr;
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
+	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
+	ComPtr<ID3D12RootSignature> root_signature = nullptr; // root signature defines data shaders will access
+	
+	ComPtr<ID3D12Debug> debug_interface = nullptr;
+	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
+	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
+	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
 
-	//D3D11_VIEWPORT viewport = { };
+	D3D12_VIEWPORT viewport = { }; // area that output from rasterizer will be stretched to.
+	D3D12_RECT scissor_rect = { }; // the area to draw in. pixels outside that area will not be drawn onto
 
-	HWND window;
+	ComPtr<ID3D12Resource> vertex_buffer = { }; // a default buffer in GPU memory that we will load vertex data for our triangle into
 
-	ObjectVector objects;
+	D3D12_VERTEX_BUFFER_VIEW vertex_buffer_view = { }; // a structure containing a pointer to the vertex data in gpu memory
+											   // the total size of the buffer, and the size of each element (vertex)
+
+	DXGI_SAMPLE_DESC sample_description = { };
+
+	HWND window = nullptr;
+
+	ObjectVector objects = { };
 
 	UVector2 resolution = UVector2(3840, 2160);
 
