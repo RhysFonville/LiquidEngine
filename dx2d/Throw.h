@@ -59,19 +59,21 @@ inline bool CHECK_RESULT(HRESULT hr) {
 	}
 }
 
-static HRESULT rw = S_OK;
-#define HANDLE_POSSIBLE_EXCEPTION_WINDOWS(function) \
-rw = function; \
-while (CHECK_RESULT(rw) == true) { \
-	rw = function; \
+static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
+// HPEW - Handle Possible Exception (Windows)
+#define HPEW(function) \
+hpewr = function; \
+while (CHECK_RESULT(hpewr) == true) { \
+	hpewr = function; \
 }
 
-static bool r = false;
-#define HANDLE_POSSIBLE_EXCEPTION(function) \
+static bool hper = false; // Handle Possible Excpetion Result
+// HPE - Handle Possible Exception
+#define HPE(function) \
 do { \
 	try { \
 		function; \
 	} catch (std::exception &e) { \
-		r = ERROR_MESSAGE(string_to_wstring(e.what())); \
+		hper = ERROR_MESSAGE(string_to_wstring(e.what())); \
 	} \
-} while (r == true);
+} while (hper == true);

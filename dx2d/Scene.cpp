@@ -26,7 +26,7 @@ void Scene::compile() {
 		object->compile();
 	}
 
-	graphics_scene->compile();
+	//graphics_scene->compile();
 }
 
 void Scene::read_obj_file(std::string obj_file_path) {

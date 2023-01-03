@@ -28,7 +28,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		(*engine.scene.objects)[2]->set_size(FVector3(15.0f, 15.0f, 15.0f));*/
 
 		//HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("bunny.obj"));
-		HANDLE_POSSIBLE_EXCEPTION(engine.scene.read_obj_file("Shapes/cube.obj"));
+		engine.scene.read_obj_file("Shapes/cube.obj");
 
 		engine.scene.behavior_manager.behaviors.push_back(
 			std::unique_ptr<ObjectBehavior>(
@@ -42,9 +42,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 			)
 		);
 
-		HANDLE_POSSIBLE_EXCEPTION(engine.scene.compile());
+		engine.scene.compile();
 
-		HANDLE_POSSIBLE_EXCEPTION(engine.loop());
+		engine.loop();
 	} catch (const std::exception &e) {
 		if (YESNO_MESSAGE(L"Do you want to append the error message to the output file?") == true) {
 			append_to_file("out.txt", e.what());
