@@ -5,10 +5,10 @@
 #include <comdef.h>
 #include "Conversion.h"
 
-inline bool ERROR_MESSAGE(std::wstring message) {
+inline bool ERROR_MESSAGE(std::wstring message, std::string extra_message = "") {
 	int out = MessageBoxExW(NULL, message.c_str(), L"Error!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONERROR | MB_DEFBUTTON1, 0);
 	if (out == IDCANCEL) {
-		throw std::exception(wstring_to_string(message).c_str());
+		throw std::exception((wstring_to_string(message) + '\n' + extra_message).c_str());
 		return false;
 	} else if (out == IDTRYAGAIN) {
 		return true;
@@ -48,28 +48,36 @@ inline bool YESNO_MESSAGE(std::wstring message, bool help = true) {
 	}
 }
 
-inline bool CHECK_RESULT(HRESULT hr) {
+inline bool CHECK_RESULT(HRESULT hr, std::string extra_message = "") {
 	if (FAILED(hr)) {
 		_com_error error(hr);
 		std::wstring str = L"ERROR CODE " + std::to_wstring(error.Error()) + L": "
 			+ std::wstring(error.ErrorMessage());
-		return ERROR_MESSAGE(str);
+		return ERROR_MESSAGE(str, extra_message);
 	} else {
 		return false;
 	}
 }
 
 static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
+
 // HPEW - Handle Possible Exception (Windows)
-#define HPEW(function) \
+#define HPEW_1_ARG(function) \
 hpewr = function; \
 while (CHECK_RESULT(hpewr) == true) { \
 	hpewr = function; \
 }
 
+#define HPEW_2_ARGS(function, extra_message) \
+hpewr = function; \
+while (CHECK_RESULT(hpewr, extra_message) == true) { \
+	hpewr = function; \
+}
+
 static bool hper = false; // Handle Possible Excpetion Result
+
 // HPE - Handle Possible Exception
-#define HPE(function) \
+#define HPE_1_ARG(function) \
 do { \
 	try { \
 		function; \
@@ -77,3 +85,26 @@ do { \
 		hper = ERROR_MESSAGE(string_to_wstring(e.what())); \
 	} \
 } while (hper == true);
+
+#define HPE_2_ARGS(function, extra_message) \
+do { \
+	try { \
+		function; \
+	} catch (std::exception &e) { \
+		hper = ERROR_MESSAGE(string_to_wstring(e.what()), extra_message); \
+	} \
+} while (hper == true);
+
+#define GET_3RD_ARG(arg1, arg2, arg3, ...) arg3
+
+#define HPEW_MACRO_CHOOSER(...) \
+    GET_3RD_ARG(__VA_ARGS__, HPEW_2_ARGS, \
+                HPEW_1_ARG, )
+
+#define HPEW(...) HPEW_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
+
+#define HPE_MACRO_CHOOSER(...) \
+    GET_3RD_ARG(__VA_ARGS__, HPE_2_ARGS, \
+                HPE_1_ARG, )
+
+#define HPE(...) HPE_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)

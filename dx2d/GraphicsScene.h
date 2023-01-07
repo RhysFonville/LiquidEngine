@@ -47,7 +47,6 @@ private:
 
 	static constexpr UINT NUMBER_OF_BUFFERS = 3u;
 
-	bool vsync_enabled = false;
 	ComPtr<ID3D12Device> device = nullptr;
 	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
 	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
@@ -57,7 +56,6 @@ private:
 	unsigned int buffer_index = 0u;
 	ComPtr<ID3D12CommandAllocator> command_allocator[NUMBER_OF_BUFFERS] = { };
 	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
-	ComPtr<ID3D12PipelineState> pipeline_state = nullptr;
 	ComPtr<ID3D12Fence> fence[NUMBER_OF_BUFFERS] = { };
 	HANDLE fence_event = nullptr;
 	ULONGLONG fence_value[NUMBER_OF_BUFFERS] = { };
@@ -65,9 +63,15 @@ private:
 	std::string video_card_description;
 	ComPtr<IDXGIAdapter1> adapter = nullptr;
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
+	
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
 	ComPtr<ID3D12RootSignature> root_signature = nullptr; // root signature defines data shaders will access
-	
+	ComPtr<ID3D12Resource> vertex_buffer = nullptr; // a default buffer in GPU memory that we will load vertex data for our triangle into
+	D3D12_VERTEX_BUFFER_VIEW vertex_buffer_view; // a structure containing a pointer to the vertex data in gpu memory
+											   // the total size of the buffer, and the size of each element (vertex)
+
+	ComPtr<ID3D12Resource> vertex_buffer_upload_heap = nullptr;
+
 	ComPtr<ID3D12Debug> debug_interface = nullptr;
 	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
 	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
@@ -76,10 +80,6 @@ private:
 	D3D12_VIEWPORT viewport = { }; // area that output from rasterizer will be stretched to.
 	D3D12_RECT scissor_rect = { }; // the area to draw in. pixels outside that area will not be drawn onto
 
-	ComPtr<ID3D12Resource> vertex_buffer = nullptr; // a default buffer in GPU memory that we will load vertex data for our triangle into
-
-	D3D12_VERTEX_BUFFER_VIEW vertex_buffer_view = { }; // a structure containing a pointer to the vertex data in gpu memory
-											   // the total size of the buffer, and the size of each element (vertex)
 	UINT frame_index = 0u;
 
 	DXGI_SAMPLE_DESC sample_description = { };

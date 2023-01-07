@@ -6,9 +6,12 @@ GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 }
 
 void GraphicsScene::initD3D() {
+	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
+	debug_interface->EnableDebugLayer();
+
 	// -- Create the Device -- //
 
-	HPEW(CreateDXGIFactory1(IID_PPV_ARGS(&factory)));
+	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 
 	int adapter_index = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
 	bool adapter_found = false; // set this to true when a good one was found
@@ -38,12 +41,16 @@ void GraphicsScene::initD3D() {
 
 	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&device)));
 
+	device->QueryInterface(IID_PPV_ARGS(&debug_device));
+
 	// -- Create the Command Queue -- //
 
-	D3D12_COMMAND_QUEUE_DESC cqDesc = { }; // we will be using all the default values
+	D3D12_COMMAND_QUEUE_DESC command_queue_desc = { }; // we will be using all the default values
 
-	HPEW(device->CreateCommandQueue(&cqDesc, IID_PPV_ARGS(&command_queue))); // create the command queue
+	HPEW(device->CreateCommandQueue(&command_queue_desc, IID_PPV_ARGS(&command_queue))); // create the command queue
 	
+	command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue));
+
 	// -- Create the Swap Chain (triple buffering) -- //														 // -- Create the Swap Chain (double/tripple buffering) -- //
 
 	DXGI_MODE_DESC back_buffer_desc = {}; // this is to describe our display mode
@@ -76,7 +83,6 @@ void GraphicsScene::initD3D() {
 	swap_chain = static_cast<IDXGISwapChain3*>(temp_swap_chain);
 
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
-	
 
 	// -- Create the Back Buffers (render target views) Descriptor Heap -- //
 
@@ -118,11 +124,12 @@ void GraphicsScene::initD3D() {
 		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocator[i])));
 	}
 
+	// -- Create Command List -- //
+
 	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator[0].Get(), NULL, IID_PPV_ARGS(&command_list)));
 
-	// command lists are created in the recording state. our main loop will set it up for recording again so close it now
-	command_list->Close();
+	command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list));
 
 	// -- Create a Fence & Fence Event -- //
 
@@ -138,6 +145,182 @@ void GraphicsScene::initD3D() {
 	if (fence_event == nullptr) {
 		throw std::exception("Failed to create fence event.");
 	}
+
+	// -- Create Root Signature -- //
+
+	CD3DX12_ROOT_SIGNATURE_DESC root_signature_desc;
+	root_signature_desc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+	ID3DBlob *signature;
+	HPEW(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, nullptr));
+
+	HPEW(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&root_signature)));
+
+	// -- Create Vertex and Pixel Shaders -- //
+
+	// when debugging, we can compile the shader files at runtime.
+	// but for release versions, we can compile the hlsl shaders
+	// with fxc.exe to create .cso files, which contain the shader
+	// bytecode. We can load the .cso files at runtime to get the
+	// shader bytecode, which of course is faster than compiling
+	// them at runtime
+
+	// compile vertex shader
+	ID3DBlob* vertexShader; // d3d blob for holding vertex shader bytecode
+	ID3DBlob* errorBuff; // a buffer holding the error data if any
+	HPEW(D3DCompileFromFile(L"VertexShader.hlsl",
+		nullptr,
+		nullptr,
+		"main",
+		"vs_5_0",
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		0,
+		&vertexShader,
+		&errorBuff
+	), (errorBuff == nullptr ? "" : (char*)errorBuff->GetBufferPointer()));
+
+	// fill out a shader bytecode structure, which is basically just a pointer
+	// to the shader bytecode and the size of the shader bytecode
+	D3D12_SHADER_BYTECODE vertexShaderBytecode = {};
+	vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
+	vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
+
+	// compile pixel shader
+	ID3DBlob* pixelShader;
+	HPEW(D3DCompileFromFile(L"PixelShader.hlsl",
+		nullptr,
+		nullptr,
+		"main",
+		"ps_5_0",
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		0,
+		&pixelShader,
+		&errorBuff
+	), (errorBuff == nullptr ? "" : (char*)errorBuff->GetBufferPointer()));
+
+	// fill out shader bytecode structure for pixel shader
+	D3D12_SHADER_BYTECODE pixelShaderBytecode = {};
+	pixelShaderBytecode.BytecodeLength = pixelShader->GetBufferSize();
+	pixelShaderBytecode.pShaderBytecode = pixelShader->GetBufferPointer();
+
+	constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+	};
+
+	// fill out an input layout description structure
+	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
+
+	// we can get the number of elements in an array by "sizeof(array) / sizeof(arrayElementType)"
+	input_layout_desc.NumElements = sizeof(input_layout) / sizeof(D3D12_INPUT_ELEMENT_DESC);
+	input_layout_desc.pInputElementDescs = input_layout;
+
+	// -- Create the PSO -- //
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
+	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
+	pso_desc.pRootSignature = root_signature.Get(); // the root signature that describes the input data this pso needs
+	pso_desc.VS = vertexShaderBytecode; // structure describing where to find the vertex shader bytecode and how large it is
+	pso_desc.PS = pixelShaderBytecode; // same as VS but for pixel shader
+	pso_desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // type of topology we are drawing
+	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
+	pso_desc.SampleDesc = sample_desc; // must be the same sample description as the swapchain and depth/stencil buffer
+	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
+	pso_desc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT); // a default rasterizer state.
+	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blent state.
+	pso_desc.NumRenderTargets = 1; // we are only binding one render target
+
+	// create the pso
+	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
+
+	// -- Create vertex buffer -- //
+
+	// a triangle
+	Vertex verts[] = {
+		Vertex(0.0f, 0.5f, 0.5f),
+		Vertex(0.5f, -0.5f, 0.5f),
+		Vertex(-0.5f, -0.5f, 0.5f),
+	};
+
+	int vBufferSize = sizeof(verts);
+
+	// create default heap
+	// default heap is memory on the GPU. Only the GPU has access to this memory
+	// To get data into this heap, we will have to upload the data using
+	// an upload heap
+	auto buffer = CD3DX12_RESOURCE_DESC::Buffer(vBufferSize);
+	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	device->CreateCommittedResource(
+		&heap_properties, // a default heap
+		D3D12_HEAP_FLAG_NONE, // no flags
+		&buffer, // resource description for a buffer
+		D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
+										// from the upload heap to this heap
+		nullptr, // optimized clear value must be null for this type of resource. used for render targets and depth/stencil buffers
+		IID_PPV_ARGS(&vertex_buffer));
+
+	// we can give resource heaps a name so when we debug with the graphics debugger we know what resource we are looking at
+	vertex_buffer->SetName(L"Vertex Buffer Resource Heap");
+
+	// create upload heap
+	// upload heaps are used to upload data to the GPU. CPU can write to it, GPU can read from it
+	// We will upload the vertex buffer using this heap to the default heap
+	auto heap_properties2 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	auto buffer2 = CD3DX12_RESOURCE_DESC::Buffer(vBufferSize);
+	device->CreateCommittedResource(
+		&heap_properties2, // upload heap
+		D3D12_HEAP_FLAG_NONE, // no flags
+		&buffer2, // resource description for a buffer
+		D3D12_RESOURCE_STATE_GENERIC_READ, // GPU will read from this buffer and copy its contents to the default heap
+		nullptr,
+		IID_PPV_ARGS(&vertex_buffer_upload_heap));
+	vertex_buffer_upload_heap->SetName(L"Vertex Buffer Upload Resource Heap");
+
+	// store vertex buffer in upload heap
+	D3D12_SUBRESOURCE_DATA vertex_data = {};
+	vertex_data.pData = reinterpret_cast<BYTE*>(verts); // pointer to our vertex array
+	vertex_data.RowPitch = vBufferSize; // size of all our triangle vertex data
+	vertex_data.SlicePitch = vBufferSize; // also the size of our triangle vertex data
+
+	// we are now creating a command with the command list to copy the data from
+	// the upload heap to the default heap
+	UpdateSubresources(command_list.Get(), vertex_buffer.Get(), vertex_buffer_upload_heap.Get(), 0, 0, 1, &vertex_data);
+
+	// transition the vertex buffer data from copy destination state to vertex buffer state
+	auto transition = CD3DX12_RESOURCE_BARRIER::Transition(vertex_buffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+	command_list->ResourceBarrier(1, &transition);
+
+	// Now we execute the command list to upload the initial assets (triangle data)
+	command_list->Close();
+	ID3D12CommandList* ppCommandLists[] = { command_list.Get()};
+	command_queue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+
+	// increment the fence value now, otherwise the buffer might not be uploaded by the time we start drawing
+	fence_value[frame_index]++;
+	HPEW(command_queue->Signal(fence[frame_index].Get(), fence_value[frame_index]));
+
+	// create a vertex buffer view for the triangle. We get the GPU memory address to the vertex pointer using the GetGPUVirtualAddress() method
+	vertex_buffer_view.BufferLocation = vertex_buffer->GetGPUVirtualAddress();
+	vertex_buffer_view.StrideInBytes = sizeof(Vertex);
+	vertex_buffer_view.SizeInBytes = vBufferSize;
+
+	// -- Fill out OM viewing settings -- //
+
+	// Fill out the Viewport
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = (float)resolution.x;
+	viewport.Height = (float)resolution.y;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+
+	// Fill out a scissor rect
+	scissor_rect.left = 0;
+	scissor_rect.top = 0;
+	scissor_rect.right = resolution.x;
+	scissor_rect.bottom = resolution.y;
 }
 
 void GraphicsScene::update_pipeline() {
@@ -155,10 +338,8 @@ void GraphicsScene::update_pipeline() {
 	// that any other command lists associated to this command allocator are in
 	// the closed state (not recording).
 	// Here you will pass an initial pipeline state object as the second parameter,
-	// but in this tutorial we are only clearing the rtv, and do not actually need
-	// anything but an initial default pipeline, which is what we get by setting
-	// the second parameter to NULL
-	HPEW(command_list->Reset(command_allocator[frame_index].Get(), NULL));
+
+	HPEW(command_list->Reset(command_allocator[frame_index].Get(), pipeline_state_object.Get()));
 
 	// here we start recording commands into the commandList (which all the commands will be stored in the commandAllocator)
 
@@ -177,6 +358,15 @@ void GraphicsScene::update_pipeline() {
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
+	// draw triangle
+	command_list->SetPipelineState(pipeline_state_object.Get());
+	command_list->SetGraphicsRootSignature(root_signature.Get()); // set the root signature
+	command_list->RSSetViewports(1, &viewport); // set the viewports
+	command_list->RSSetScissorRects(1, &scissor_rect); // set the scissor rects
+	command_list->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // set the primitive topology
+	command_list->IASetVertexBuffers(0, 1, &vertex_buffer_view); // set the vertex buffer (using the vertex buffer view)
+	command_list->DrawInstanced(3, 1, 0, 0); // finally draw 3 vertices (draw the triangle)
+
 	// transition the "frameIndex" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
@@ -187,10 +377,10 @@ void GraphicsScene::update_pipeline() {
 
 void GraphicsScene::render() {
 	// create an array of command lists (only one command list here)
-	ID3D12CommandList* ppCommandLists[] = { command_list.Get() };
+	ID3D12CommandList* command_lists[] = { command_list.Get() };
 
 	// execute the array of command lists
-	command_queue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+	command_queue->ExecuteCommandLists(_countof(command_lists), command_lists);
 
 	// this command goes in at the end of our command queue. we will know when our command queue 
 	// has finished because the fence value will be set to "fenceValue" from the GPU since the command
