@@ -5,18 +5,13 @@ GraphicsScene::GraphicsScene(HWND window, const ObjectVector &objects)
 	initD3D();
 }
 
-void GraphicsScene::initD3D() {
-	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
-	debug_interface->EnableDebugLayer();
-
-	// -- Create the Device -- //
-
+void GraphicsScene::create_adapter_and_device() {
 	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 
 	int adapter_index = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
 	bool adapter_found = false; // set this to true when a good one was found
 
-	// find first hardware gpu that supports d3d 12
+								// find first hardware gpu that supports d3d 12
 	while (factory->EnumAdapters1(adapter_index, adapter.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
 		DXGI_ADAPTER_DESC1 desc;
 		HPEW(adapter->GetDesc1(&desc));
@@ -42,27 +37,26 @@ void GraphicsScene::initD3D() {
 	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&device)));
 
 	device->QueryInterface(IID_PPV_ARGS(&debug_device));
+}
 
-	// -- Create the Command Queue -- //
-
+void GraphicsScene::create_command_queue() {
 	D3D12_COMMAND_QUEUE_DESC command_queue_desc = { }; // we will be using all the default values
 
 	HPEW(device->CreateCommandQueue(&command_queue_desc, IID_PPV_ARGS(&command_queue))); // create the command queue
-	
+
 	command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue));
+}
 
-	// -- Create the Swap Chain (triple buffering) -- //														 // -- Create the Swap Chain (double/tripple buffering) -- //
-
+void GraphicsScene::create_swap_chain() {
 	DXGI_MODE_DESC back_buffer_desc = {}; // this is to describe our display mode
 	back_buffer_desc.Width = resolution.x; // buffer width
 	back_buffer_desc.Height = resolution.y; // buffer height
 	back_buffer_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the buffer (rgba 32 bits, 8 bits for each chanel)
-	
+
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
-	DXGI_SAMPLE_DESC sample_desc = {};
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
-	// Describe and create the swap chain.
+						   // Describe and create the swap chain.
 	DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
 	swap_chain_desc.BufferCount = NUMBER_OF_BUFFERS; // number of buffers we have
 	swap_chain_desc.BufferDesc = back_buffer_desc; // our back buffer description
@@ -83,16 +77,16 @@ void GraphicsScene::initD3D() {
 	swap_chain = static_cast<IDXGISwapChain3*>(temp_swap_chain);
 
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
+}
 
-	// -- Create the Back Buffers (render target views) Descriptor Heap -- //
-
+void GraphicsScene::create_back_buffers_and_rtv_with_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
 	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
 	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
 
-													   // This heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
-													   // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
+														 // This heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
+														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
 	rtv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&rtv_heap_desc, IID_PPV_ARGS(&rtv_descriptor_heap)));
 
@@ -118,21 +112,25 @@ void GraphicsScene::initD3D() {
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
 
-	// -- Create the Command Allocators -- //
+	
+}
 
+void GraphicsScene::create_command_allocators() {
+	
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocator[i])));
 	}
+	
+}
 
-	// -- Create Command List -- //
-
+void GraphicsScene::create_command_list() {
 	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator[0].Get(), NULL, IID_PPV_ARGS(&command_list)));
 
 	command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list));
+}
 
-	// -- Create a Fence & Fence Event -- //
-
+void GraphicsScene::create_fence_and_fence_event() {
 	// create the fences
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++)
 	{
@@ -145,9 +143,9 @@ void GraphicsScene::initD3D() {
 	if (fence_event == nullptr) {
 		throw std::exception("Failed to create fence event.");
 	}
+}
 
-	// -- Create Root Signature -- //
-
+void GraphicsScene::create_root_signature() {
 	CD3DX12_ROOT_SIGNATURE_DESC root_signature_desc;
 	root_signature_desc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
@@ -155,9 +153,9 @@ void GraphicsScene::initD3D() {
 	HPEW(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, nullptr));
 
 	HPEW(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&root_signature)));
+}
 
-	// -- Create Vertex and Pixel Shaders -- //
-
+void GraphicsScene::create_vertex_and_pixel_shaders() {
 	// when debugging, we can compile the shader files at runtime.
 	// but for release versions, we can compile the hlsl shaders
 	// with fxc.exe to create .cso files, which contain the shader
@@ -166,8 +164,8 @@ void GraphicsScene::initD3D() {
 	// them at runtime
 
 	// compile vertex shader
-	ID3DBlob* vertexShader; // d3d blob for holding vertex shader bytecode
-	ID3DBlob* errorBuff; // a buffer holding the error data if any
+	ID3DBlob* vertex_shader; // d3d blob for holding vertex shader bytecode
+	ID3DBlob* error_buff; // a buffer holding the error data if any
 	HPEW(D3DCompileFromFile(L"VertexShader.hlsl",
 		nullptr,
 		nullptr,
@@ -175,18 +173,17 @@ void GraphicsScene::initD3D() {
 		"vs_5_0",
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
 		0,
-		&vertexShader,
-		&errorBuff
-	), (errorBuff == nullptr ? "" : (char*)errorBuff->GetBufferPointer()));
+		&vertex_shader,
+		&error_buff
+	), (error_buff == nullptr ? "" : (char*)error_buff->GetBufferPointer()));
 
 	// fill out a shader bytecode structure, which is basically just a pointer
 	// to the shader bytecode and the size of the shader bytecode
-	D3D12_SHADER_BYTECODE vertexShaderBytecode = {};
-	vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
-	vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
+	vs_bytecode.BytecodeLength = vertex_shader->GetBufferSize();
+	vs_bytecode.pShaderBytecode = vertex_shader->GetBufferPointer();
 
 	// compile pixel shader
-	ID3DBlob* pixelShader;
+	ID3DBlob* pixel_shader;
 	HPEW(D3DCompileFromFile(L"PixelShader.hlsl",
 		nullptr,
 		nullptr,
@@ -194,15 +191,16 @@ void GraphicsScene::initD3D() {
 		"ps_5_0",
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
 		0,
-		&pixelShader,
-		&errorBuff
-	), (errorBuff == nullptr ? "" : (char*)errorBuff->GetBufferPointer()));
+		&pixel_shader,
+		&error_buff
+	), (error_buff == nullptr ? "" : (char*)error_buff->GetBufferPointer()));
 
 	// fill out shader bytecode structure for pixel shader
-	D3D12_SHADER_BYTECODE pixelShaderBytecode = {};
-	pixelShaderBytecode.BytecodeLength = pixelShader->GetBufferSize();
-	pixelShaderBytecode.pShaderBytecode = pixelShader->GetBufferPointer();
+	ps_bytecode.BytecodeLength = pixel_shader->GetBufferSize();
+	ps_bytecode.pShaderBytecode = pixel_shader->GetBufferPointer();
+}
 
+void GraphicsScene::create_pso() {
 	constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -217,13 +215,11 @@ void GraphicsScene::initD3D() {
 	input_layout_desc.NumElements = sizeof(input_layout) / sizeof(D3D12_INPUT_ELEMENT_DESC);
 	input_layout_desc.pInputElementDescs = input_layout;
 
-	// -- Create the PSO -- //
-
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
 	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
 	pso_desc.pRootSignature = root_signature.Get(); // the root signature that describes the input data this pso needs
-	pso_desc.VS = vertexShaderBytecode; // structure describing where to find the vertex shader bytecode and how large it is
-	pso_desc.PS = pixelShaderBytecode; // same as VS but for pixel shader
+	pso_desc.VS = vs_bytecode; // structure describing where to find the vertex shader bytecode and how large it is
+	pso_desc.PS = ps_bytecode; // same as VS but for pixel shader
 	pso_desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // type of topology we are drawing
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample description as the swapchain and depth/stencil buffer
@@ -231,12 +227,48 @@ void GraphicsScene::initD3D() {
 	pso_desc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT); // a default rasterizer state.
 	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blent state.
 	pso_desc.NumRenderTargets = 1; // we are only binding one render target
+	pso_desc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT); // a default depth stencil state
+	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 
 	// create the pso
 	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
+}
 
-	// -- Create vertex buffer -- //
+void GraphicsScene::create_depth_stencil() {
+	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
+	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
+	dsv_heap_desc.NumDescriptors = 1;
+	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+	dsv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
 
+	D3D12_DEPTH_STENCIL_VIEW_DESC depth_stencil_desc = {};
+	depth_stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
+	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+	depth_stencil_desc.Flags = D3D12_DSV_FLAG_NONE;
+
+	D3D12_CLEAR_VALUE depth_optimized_clear_value = {};
+	depth_optimized_clear_value.Format = DXGI_FORMAT_D32_FLOAT;
+	depth_optimized_clear_value.DepthStencil.Depth = 1.0f;
+	depth_optimized_clear_value.DepthStencil.Stencil = 0;
+
+	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, resolution.x, resolution.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+	device->CreateCommittedResource(
+		&heap_properties,
+		D3D12_HEAP_FLAG_NONE,
+		&tex,
+		D3D12_RESOURCE_STATE_DEPTH_WRITE,
+		&depth_optimized_clear_value,
+		IID_PPV_ARGS(&depth_stencil_buffer)
+	);
+	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
+	depth_stencil_descriptor_heap->SetName(L"Depth/Stencil Resource Heap");
+
+	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
+}
+
+void GraphicsScene::create_vertex_buffer() {
 	// a triangle
 	Vertex verts[] = {
 		Vertex(0.0f, 0.5f, 0.5f),
@@ -251,9 +283,9 @@ void GraphicsScene::initD3D() {
 	// To get data into this heap, we will have to upload the data using
 	// an upload heap
 	auto buffer = CD3DX12_RESOURCE_DESC::Buffer(vBufferSize);
-	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	auto heap_properties1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	device->CreateCommittedResource(
-		&heap_properties, // a default heap
+		&heap_properties1, // a default heap
 		D3D12_HEAP_FLAG_NONE, // no flags
 		&buffer, // resource description for a buffer
 		D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
@@ -305,9 +337,9 @@ void GraphicsScene::initD3D() {
 	vertex_buffer_view.BufferLocation = vertex_buffer->GetGPUVirtualAddress();
 	vertex_buffer_view.StrideInBytes = sizeof(Vertex);
 	vertex_buffer_view.SizeInBytes = vBufferSize;
+}
 
-	// -- Fill out OM viewing settings -- //
-
+void GraphicsScene::fill_out_om_viewing_settings() {
 	// Fill out the Viewport
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
@@ -321,6 +353,25 @@ void GraphicsScene::initD3D() {
 	scissor_rect.top = 0;
 	scissor_rect.right = resolution.x;
 	scissor_rect.bottom = resolution.y;
+}
+
+void GraphicsScene::initD3D() {
+	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
+	debug_interface->EnableDebugLayer();
+
+	create_adapter_and_device();
+	create_command_queue();
+	create_swap_chain();
+	create_back_buffers_and_rtv_with_descriptor_heap();
+	create_command_allocators();
+	create_command_list();
+	create_fence_and_fence_event();
+	create_root_signature();
+	create_vertex_and_pixel_shaders();
+	create_pso();
+	create_depth_stencil();
+	create_vertex_buffer();
+	fill_out_om_viewing_settings();
 }
 
 void GraphicsScene::update_pipeline() {
@@ -349,14 +400,19 @@ void GraphicsScene::update_pipeline() {
 
 	// here we again get the handle to our current render target view so we can set it as the render target in the output merger stage of the pipeline
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index, rtv_descriptor_size);
+	// get a handle to the depth/stencil buffer
+	CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 	// set the render target for the output merger stage (the output of the pipeline)
-	command_list->OMSetRenderTargets(1, &rtv_handle, FALSE, nullptr);
+	command_list->OMSetRenderTargets(1, &rtv_handle, FALSE, &dsv_handle);
 
 	// Clear the render target by using the ClearRenderTargetView command
 	const float color[4] = { background_color.r, background_color.g,
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
+
+	// clear the depth/stencil buffer
+	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 	// draw triangle
 	command_list->SetPipelineState(pipeline_state_object.Get());

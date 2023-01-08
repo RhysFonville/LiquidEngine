@@ -43,6 +43,23 @@ private:
 
 	GET std::shared_ptr<MeshComponent> obj_mesh(const Object &object) const;
 
+	ObjectVector objects = { };
+
+
+	void create_adapter_and_device();
+	void create_command_queue();
+	void create_swap_chain();
+	void create_back_buffers_and_rtv_with_descriptor_heap();
+	void create_command_allocators();
+	void create_command_list();
+	void create_fence_and_fence_event();
+	void create_root_signature();
+	void create_vertex_and_pixel_shaders();
+	void create_pso();
+	void create_depth_stencil();
+	void create_vertex_buffer();
+	void fill_out_om_viewing_settings();
+
 	static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
 	static constexpr UINT NUMBER_OF_BUFFERS = 3u;
@@ -66,11 +83,14 @@ private:
 	
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
 	ComPtr<ID3D12RootSignature> root_signature = nullptr; // root signature defines data shaders will access
+	
 	ComPtr<ID3D12Resource> vertex_buffer = nullptr; // a default buffer in GPU memory that we will load vertex data for our triangle into
 	D3D12_VERTEX_BUFFER_VIEW vertex_buffer_view; // a structure containing a pointer to the vertex data in gpu memory
 											   // the total size of the buffer, and the size of each element (vertex)
-
 	ComPtr<ID3D12Resource> vertex_buffer_upload_heap = nullptr;
+
+	ComPtr<ID3D12Resource> depth_stencil_buffer; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
+	ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap; // This is a heap for our depth/stencil buffer descriptor
 
 	ComPtr<ID3D12Debug> debug_interface = nullptr;
 	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
@@ -80,6 +100,14 @@ private:
 	D3D12_VIEWPORT viewport = { }; // area that output from rasterizer will be stretched to.
 	D3D12_RECT scissor_rect = { }; // the area to draw in. pixels outside that area will not be drawn onto
 
+	DXGI_SAMPLE_DESC sample_desc = {};
+
+	D3D12_SHADER_BYTECODE vs_bytecode = { };
+	D3D12_SHADER_BYTECODE hs_bytecode = { };
+	D3D12_SHADER_BYTECODE ds_bytecode = { };
+	D3D12_SHADER_BYTECODE gs_bytecode = { };
+	D3D12_SHADER_BYTECODE ps_bytecode = { };
+
 	UINT frame_index = 0u;
 
 	DXGI_SAMPLE_DESC sample_description = { };
@@ -87,8 +115,6 @@ private:
 	HWND window = nullptr;
 
 	bool fullscreen = false;
-
-	ObjectVector objects = { };
 
 	UVector2 resolution = UVector2(3840, 2160);
 };
