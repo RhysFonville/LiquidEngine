@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Component.h"
+
 class SpotlightComponent : public Component {
 public:
 	__declspec(align(16))
@@ -12,11 +14,12 @@ public:
 public:
 	SpotlightComponent();
 
-	void operator=(const SpotlightComponent &light) noexcept;
-
 	operator ConstantBufferStruct() const noexcept {
 		return { direction, diffuse / 255.0f, specular };
 	}
+
+	virtual bool operator==(const SpotlightComponent &component) const noexcept;
+	virtual void operator=(const SpotlightComponent &component) noexcept;
 
 	FVector3 direction;
 	FVector4 diffuse;

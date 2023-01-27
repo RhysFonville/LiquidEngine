@@ -33,8 +33,8 @@ void PhysicsScene::handle_mechanics(Object &object) {
 
 void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 	if (object1.has_component<MeshComponent>() && object2.has_component<MeshComponent>()) {
-		MeshComponent mesh_component1 = *object1.get_component<MeshComponent>();
-		MeshComponent mesh_component2 = *object2.get_component<MeshComponent>();
+		const MeshComponent mesh_component1 = *object1.get_component<MeshComponent>();
+		const MeshComponent mesh_component2 = *object2.get_component<MeshComponent>();
 		
 		std::vector<SimpleTriangle> bounding_box1_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
 		std::vector<SimpleTriangle> bounding_box2_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();

@@ -21,11 +21,12 @@ public:
 public:
 	DirectionalLightComponent();
 
-	void operator=(const DirectionalLightComponent &light) noexcept;
-
 	operator ConstantBufferStruct() const noexcept {
 		return ConstantBufferStruct(direction / 255.0f, diffuse / 255.0f, specular / 255.0f);
 	}
+
+	bool operator==(const DirectionalLightComponent &component) const noexcept;
+	void operator=(const DirectionalLightComponent &component) noexcept;
 
 	FVector3 direction;
 	FVector4 diffuse;

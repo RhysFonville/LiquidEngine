@@ -5,10 +5,10 @@
 #include <comdef.h>
 #include "Conversion.h"
 
-inline bool ERROR_MESSAGE(std::wstring message, std::string extra_message = "") {
-	int out = MessageBoxExW(NULL, message.c_str(), L"Error!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONERROR | MB_DEFBUTTON1, 0);
+inline bool ERROR_MESSAGE(std::string message, std::string extra_message = "") {
+	int out = MessageBoxExA(NULL, (message + "\n\n" + extra_message).c_str(), "Error!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONERROR | MB_DEFBUTTON1, 0);
 	if (out == IDCANCEL) {
-		throw std::exception((wstring_to_string(message) + '\n' + extra_message).c_str());
+		throw std::exception((message + "\n\n" + extra_message).c_str());
 		return false;
 	} else if (out == IDTRYAGAIN) {
 		return true;
@@ -17,10 +17,10 @@ inline bool ERROR_MESSAGE(std::wstring message, std::string extra_message = "") 
 	}
 }
 
-inline bool WARNING_MESSAGE(std::wstring message) {
-	int out = MessageBoxExW(NULL, message.c_str(), L"Warning!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONWARNING | MB_DEFBUTTON3, 0);
+inline bool WARNING_MESSAGE(std::string message) {
+	int out = MessageBoxExA(NULL, message.c_str(), "Warning!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONWARNING | MB_DEFBUTTON3, 0);
 	if (out == IDABORT) {
-		throw std::exception(wstring_to_string(message).c_str());
+		throw std::exception(message.c_str());
 		return false;
 	} else if (out == IDRETRY) {
 		return true;
@@ -29,17 +29,17 @@ inline bool WARNING_MESSAGE(std::wstring message) {
 	}
 }
 
-inline bool INFO_MESSAGE(std::wstring message) {
-	int out = MessageBoxExW(NULL, message.c_str(), L"Attention!", MB_OK | MB_HELP | MB_ICONINFORMATION | MB_DEFBUTTON1, 0);
+inline bool INFO_MESSAGE(std::string message) {
+	int out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_OK | MB_HELP | MB_ICONINFORMATION | MB_DEFBUTTON1, 0);
 	return false;
 }
 
-inline bool YESNO_MESSAGE(std::wstring message, bool help = true) {
+inline bool YESNO_MESSAGE(std::string message, bool help = true) {
 	int out;
 	if (help)
-		out = MessageBoxExW(NULL, message.c_str(), L"Attention!", MB_YESNO | MB_HELP | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
+		out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_HELP | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
 	else
-		out = MessageBoxExW(NULL, message.c_str(), L"Attention!", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
+		out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
 	
 	if (out == IDYES) {
 		return true;
@@ -51,8 +51,8 @@ inline bool YESNO_MESSAGE(std::wstring message, bool help = true) {
 inline bool CHECK_RESULT(HRESULT hr, std::string extra_message = "") {
 	if (FAILED(hr)) {
 		_com_error error(hr);
-		std::wstring str = L"ERROR CODE " + std::to_wstring(error.Error()) + L": "
-			+ std::wstring(error.ErrorMessage());
+		std::string str = "ERROR CODE " + std::to_string(error.Error()) + ": "
+			+ std::string(wstring_to_string(error.ErrorMessage()));
 		return ERROR_MESSAGE(str, extra_message);
 	} else {
 		return false;
@@ -64,13 +64,13 @@ static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
 // HPEW - Handle Possible Exception (Windows)
 #define HPEW_1_ARG(function) \
 hpewr = function; \
-while (CHECK_RESULT(hpewr) == true) { \
+while (CHECK_RESULT(hpewr, std::string("Function: ") + #function) == true) { \
 	hpewr = function; \
 }
 
 #define HPEW_2_ARGS(function, extra_message) \
 hpewr = function; \
-while (CHECK_RESULT(hpewr, extra_message) == true) { \
+while (CHECK_RESULT(hpewr, extra_message + std::string("Function: ") + #function) == true) { \
 	hpewr = function; \
 }
 
@@ -82,7 +82,7 @@ do { \
 	try { \
 		function; \
 	} catch (std::exception &e) { \
-		hper = ERROR_MESSAGE(string_to_wstring(e.what())); \
+		hper = ERROR_MESSAGE(e.what()); \
 	} \
 } while (hper == true);
 
@@ -91,7 +91,7 @@ do { \
 	try { \
 		function; \
 	} catch (std::exception &e) { \
-		hper = ERROR_MESSAGE(string_to_wstring(e.what()), extra_message); \
+		hper = ERROR_MESSAGE(e.what(), extra_message); \
 	} \
 } while (hper == true);
 

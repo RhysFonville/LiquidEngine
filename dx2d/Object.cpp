@@ -2,6 +2,10 @@
 
 Object::Object(std::string name) : is_static(true), name(name) {}
 
+Object::~Object() {
+	clean_up();
+}
+
 void Object::set_position(const FVector3 &position) noexcept {
 	mechanics.previous_position = transform.position;
 	transform.position = position;
@@ -81,7 +85,7 @@ bool Object::operator!=(const Object &object) const noexcept {
 
 bool Object::has_component(const Component::Type &search) const noexcept {
 	for (const std::shared_ptr<Component> &component : components) {
-		if (component->type == search) {
+		if (component->get_type() == search) {
 			return true;
 		}
 	}
@@ -151,7 +155,20 @@ ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &cont
 		}
 	}
 
-	components.push_back(std::make_shared<MeshComponent>(mc));
+	add_component(std::make_shared<MeshComponent>(mc));
 
 	return out;
+}
+
+const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & Object::get_added_components() const noexcept {
+	return components_added;
+}
+
+const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & Object::get_removed_components() const noexcept {
+	return components_removed;
+}
+
+void Object::clear_component_history() noexcept {
+	components_added.clear();
+	components_removed.clear();
 }

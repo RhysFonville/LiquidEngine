@@ -8,9 +8,11 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
 		switch (uMsg) {
 			case WM_CLOSE:
-				if (YESNO_MESSAGE(L"Are you sure you want to exit?", false) == true)
+				if (YESNO_MESSAGE("Are you sure you want to exit?", false) == true) {
 					this_window_wndproc->running = false;
-				return 0;
+					GRAPHICS_SCENE->cleanup();
+					return 0;
+				}
 				break;
 			case WM_DESTROY:
 				PostQuitMessage(WM_QUIT);
@@ -56,7 +58,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 								&target
 							));
 						} else {
-							ERROR_MESSAGE(L"Swap chain render target resource ID3D11Resource is null when attempting to resize window.");
+							throw std::exception("Swap chain render target resource ID3D11Resource is null when attempting to resize window.");
 						}
 
 						target.CopyTo(GRAPHICS_SCENE->target.GetAddressOf());

@@ -76,7 +76,7 @@ void MeshComponent::clean_up() {
 
 void MeshComponent::compile() noexcept {
 	std::vector<Vertex> verts = mesh_data.get_vertices();
-	for (int i = 0; i < verts.size(); i += 3){
+	for (size_t i = 0; i < verts.size(); i += 3){
 		if (i <= verts.size()) {
 
 			// Shortcuts for vertices
@@ -99,15 +99,15 @@ void MeshComponent::compile() noexcept {
 
 			float r =     1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
 			FVector3 tangent =   (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
-			FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
+			//FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
 
 			verts[i+0].tangent = tangent;
 			verts[i+1].tangent = tangent;
 			verts[i+2].tangent = tangent;
 
-			verts[i+0].bitangent = bitangent;
+			/*verts[i+0].bitangent = bitangent;
 			verts[i+1].bitangent = bitangent;
-			verts[i+2].bitangent = bitangent;
+			verts[i+2].bitangent = bitangent;*/
 		}
 	}
 
@@ -116,6 +116,12 @@ void MeshComponent::compile() noexcept {
 }
 
 bool MeshComponent::operator==(const MeshComponent &appearance) const noexcept {
-	if (material == appearance.material &&
-		mesh_data == appearance.mesh_data) return true; else return false;
+	return ((Component*)this == (Component*)&appearance &&
+			material == appearance.material &&
+			mesh_data == appearance.mesh_data);
+}
+
+void MeshComponent::operator=(const MeshComponent &component) noexcept {
+	material = component.material;
+	mesh_data = component.mesh_data;
 }

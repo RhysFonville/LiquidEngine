@@ -4,9 +4,15 @@ SpotlightComponent::SpotlightComponent()
 	: Component(Type::SpotlightComponent), direction(0, 0, 0),
 	diffuse(0, 0, 0, 0) { }
 
-void SpotlightComponent::operator=(const SpotlightComponent &light) noexcept {
-	transform = light.transform;
-	direction = light.direction;
-	diffuse = light.diffuse;
+bool SpotlightComponent::operator==(const SpotlightComponent &component) const noexcept {
+	return ((Component*)this == (Component*)&component &&
+			direction == component.direction &&
+			diffuse == component.diffuse &&
+			specular == component.specular);
 }
 
+void SpotlightComponent::operator=(const SpotlightComponent &component) noexcept {
+	direction = component.direction;
+	diffuse = component.diffuse;
+	specular = component.specular;
+}

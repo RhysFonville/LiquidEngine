@@ -131,3 +131,33 @@ void CameraComponent::update(const FVector2 &size) noexcept {
 void CameraComponent::set_view() noexcept {
 	view = XMMatrixLookAtLH((XMVECTOR)transform.position, (XMVECTOR)this->target, (XMVECTOR)this->up);
 }
+
+bool CameraComponent::operator==(const CameraComponent &component) const noexcept {
+	return
+		((Component*)this == (Component*)&component &&
+		target == component.target &&
+		up == component.up &&
+		forward == component.forward &&
+		backward == component.backward &&
+		left == component.left &&
+		right == component.right &&
+		down == component.down/* &&
+		WVP == component.WVP &&
+		world == component.world &&
+		view == component.view &&
+		projection == component.projection*/);
+}
+
+void CameraComponent::operator=(const CameraComponent &component) noexcept {
+	target = component.target;
+	up = component.up;
+	forward = component.forward;
+	backward = component.backward;
+	left = component.left;
+	right = component.right;
+	down = component.down;
+	WVP = component.WVP;
+	world = component.world;
+	view = component.view;
+	projection = component.projection;
+}

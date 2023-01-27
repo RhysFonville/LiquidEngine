@@ -5,6 +5,7 @@
 class Component {
 public:
 	enum class Type {
+		None,
 		MeshComponent,
 		CameraComponent,
 		DirectionalLightComponent,
@@ -12,6 +13,7 @@ public:
 		SpotlightComponent
 	};
 
+	Component() : type(Type::None) { }
 	Component(const Type &type, const Transform &transform = Transform());
 
 	virtual void set_position(FVector3 position) noexcept;
@@ -33,11 +35,12 @@ public:
 
 	virtual void compile() { };
 
-	bool operator==(const Component &component) const noexcept;
+	GET Type get_type() const noexcept;
 
-	const Type type;
+	virtual bool operator==(const Component &component) const noexcept;
+	virtual void operator=(const Component &component) noexcept;
 
 protected:
 	Transform transform;
+	Type type;
 };
-

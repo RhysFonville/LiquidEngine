@@ -158,6 +158,7 @@
     <ClCompile Include="ObjectBehavior.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="PointLightComponent.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpotlightComponent.cpp" />
     <ClCompile Include="Storage.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="ObjectBehavior.h" />
     <ClInclude Include="PhysicsScene.h" />
     <ClInclude Include="PointLightComponent.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpotlightComponent.h" />
     <ClInclude Include="Storage.h" />

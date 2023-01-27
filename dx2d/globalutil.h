@@ -12,11 +12,16 @@
 
 #include "globalstructs.h"
 
+#define ACCEPT_BASE_AND_HEIRS_ONLY(base) typename = std::enable_if<std::is_base_of<base, T>::value>::type
+
+#define GET_WITH_REASON(x) [[nodiscard(x)]]
 #define GET [[nodiscard]]
 
-#define COMPTR_RELEASE(x) { if ((x)) { (x).Reset(); } }
+#define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
 
 namespace fs = std::filesystem;
+
+using Microsoft::WRL::ComPtr;
 
 using uint = unsigned int;
 

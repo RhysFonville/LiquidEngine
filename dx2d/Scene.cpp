@@ -26,7 +26,7 @@ void Scene::compile() {
 		object->compile();
 	}
 
-	//graphics_scene->compile();
+	graphics_scene->compile();
 }
 
 void Scene::read_obj_file(std::string obj_file_path) {
@@ -156,3 +156,21 @@ void Scene::read_obj_file(std::string obj_file_path) {
 		}
 	}
 }
+
+//std::vector<Object> Scene::get_objects() const noexcept {
+//	std::vector<Object> ret;
+//	for (auto object : *objects) {
+//		ret.push_back(*object);
+//	}
+//	return ret;
+//}
+//
+//void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
+//	objects->push_back(object);
+//	graphics_scene->objects_added_indices.push_back(objects->size()-1);
+//}
+//
+//void Scene::remove_object(int index) noexcept {
+//	objects->erase(objects->begin()+index);
+//	graphics_scene->objects_removed_indices.push_back(index);
+//}

@@ -91,19 +91,13 @@ public:
 	}
 
 	bool operator==(const TVector2 &vector) const noexcept {
-		if (x == vector.x &&
-			y == vector.y)
-			return true;
-		else
-			return false;
+		return (x == vector.x &&
+				y == vector.y);
 	}
 
 	bool operator!=(const TVector2 &vector) const noexcept {
-		if (x != vector.x &&
-			y != vector.y)
-			return true;
-		else
-			return false;
+		return (x != vector.x &&
+				y != vector.y);
 	}
 
 	operator XMVECTOR() const {
@@ -223,7 +217,7 @@ public:
 		return (x == 0 && y == 0 && z == 0 && w == 0);
 	}
 
-	TVector3<T> operator+(TVector3<T> vector) {
+	TVector4<T> operator+(TVector4<T> vector) {
 		vector.x += x;
 		vector.y += y;
 		vector.z += z;
@@ -231,8 +225,8 @@ public:
 		return vector;
 	}
 
-	TVector3<T> operator-(const TVector3<T> &vector) noexcept {
-		TVector3<T> ret = *this;
+	TVector4<T> operator-(const TVector4<T> &vector) noexcept {
+		TVector4<T> ret = *this;
 		ret.x -= vector.x;
 		ret.y -= vector.y;
 		ret.z -= vector.z;
@@ -241,37 +235,37 @@ public:
 		return ret;
 	}
 
-	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
-		return TVector3<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
+	TVector4<T> operator*(const TVector4<T> &vector) const noexcept {
+		return TVector4<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
 	}
 
-	TVector3<T> operator*(T n) const noexcept {
-		return TVector3<T>(x*n, y*n, z*n, w*n);
+	TVector4<T> operator*(T n) const noexcept {
+		return TVector4<T>(x*n, y*n, z*n, w*n);
 	}
 
-	void operator+=(const TVector3<T> &vector) noexcept {
+	void operator+=(const TVector4<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;
 		z += vector.z;
 		w += vector.w;
 	}
 
-	void operator-=(const TVector3<T> &vector) noexcept {
+	void operator-=(const TVector4<T> &vector) noexcept {
 		x -= vector.x;
 		y -= vector.y;
 		z -= vector.z;
 		w -= vector.w;
 	}
 
-	bool operator==(const TVector3<T> &vector) const noexcept {
+	bool operator==(const TVector4<T> &vector) const noexcept {
 		return (x == vector.x && y == vector.y && z == vector.z && w == vector.w);
 	}
 
-	bool operator!=(const TVector3<T> &vector) const noexcept {
+	bool operator!=(const TVector4<T> &vector) const noexcept {
 		return (x != vector.x || y != vector.y || z != vector.z || w != vector.w);
 	}
 
-	void operator=(const TVector3<T> &vector) noexcept {
+	void operator=(const TVector4<T> &vector) noexcept {
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
@@ -449,7 +443,7 @@ struct Vertex {
 	FVector2 texcoord = FVector2();
 	FVector3 normal = FVector3();
 	FVector3 tangent = FVector3();
-	FVector3 bitangent = FVector3();
+	//FVector3 bitangent = FVector3();
 
 	Vertex() { }
 
@@ -458,8 +452,8 @@ struct Vertex {
 	Vertex(float x, float y, float z, float u, float v)
 		: position(x, y, z), texcoord(u, v) { }
 
-	Vertex(float x,  float y,  float z,
-		float u,  float v,
+	Vertex(float x, float y, float z,
+		float u, float v,
 		float nx, float ny, float nz)
 		: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
 

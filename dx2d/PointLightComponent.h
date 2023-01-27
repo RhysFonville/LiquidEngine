@@ -25,12 +25,13 @@ public:
 public:
 	PointLightComponent();
 
-	void operator=(const PointLightComponent &light) noexcept;
-
 	operator ConstantBufferStruct() const noexcept {
 		return ConstantBufferStruct(transform.position, range, attenuation,
 			diffuse / 255.0f, specular / 255.0f);
 	}
+
+	bool operator==(const PointLightComponent &component) const noexcept;
+	void operator=(const PointLightComponent &light) noexcept;
 
 	FVector3 attenuation;
 	float range;
