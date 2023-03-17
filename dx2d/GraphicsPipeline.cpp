@@ -1,11 +1,138 @@
-#include "ResourceManager.h"
+#include "GraphicsPipeline.h"
 
-ResourceManager::ResourceManager() { }
+GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description,
+	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
 
-void ResourceManager::StaticMeshes::add_mesh(const std::shared_ptr<MeshComponent> &mesh, ComPtr<ID3D12Device> &device,
+void GraphicsPipeline::update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
+	input_assembler.update(command_list);
+	rasterizer.update(command_list);
+	output_merger.update(command_list, rtv_handle);
+
+	// clear the depth/stencil buffer
+	command_list->SetPipelineState(pipeline_state_object.Get());
+	command_list->SetGraphicsRootSignature(root_signature.Get()); // set the root signature
+}
+
+void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
+	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
+
+	update(command_list, rtv_handle);
+
+	if (!vertex_buffers.empty()) {
+		for (size_t i = 0; i < vertex_buffers.size(); i++) {
+			command_list->DrawInstanced(vertex_buffers[i].SizeInBytes/sizeof(Vertex), 1, 0, 0);
+		}
+	}
+}
+
+void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description, const UVector2 &resolution) {
+	// Create Pixel and Vertex Shaders
+
+	// when debugging, we can compile the shader files at runtime.
+	// but for release versions, we can compile the hlsl shaders
+	// with fxc.exe to create .cso files, which contain the shader
+	// bytecode. We can load the .cso files at runtime to get the
+	// shader bytecode, which of course is faster than compiling
+	// them at runtime
+
+	// fill out a shader bytecode structure, which is basically just a pointer
+	// to the shader bytecode and the size of the shader bytecode
+
+	vs.compile();
+	hs.compile();
+	ds.compile();
+	gs.compile();
+	ps.compile();
+
+	output_merger.compile(resolution, device);
+
+	// Create Root Signature
+
+	CD3DX12_ROOT_SIGNATURE_DESC root_signature_desc;
+	root_signature_desc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+	ID3DBlob *signature;
+	HPEW(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, nullptr));
+
+	HPEW(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&root_signature)));
+
+	// fill out an input layout description structure
+	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
+
+	// we can get the number of elements in an array by "sizeof(array) / sizeof(arrayElementType)"
+	input_layout_desc.NumElements = sizeof(input_layout) / sizeof(D3D12_INPUT_ELEMENT_DESC);
+	input_layout_desc.pInputElementDescs = input_layout;
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
+	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
+	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
+	pso_desc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT); // a default depth stencil state
+	pso_desc.VS = vs.bytecode; // structure describing where to find the vertex shader bytecode and how large it is
+	pso_desc.HS = hs.bytecode;
+	pso_desc.DS = ds.bytecode;
+	pso_desc.GS = gs.bytecode;
+	pso_desc.PS = ps.bytecode;
+	pso_desc.RasterizerState = rasterizer.desc;
+	//pso_desc.StreamOutput = stream_output.desc;
+	pso_desc.pRootSignature = root_signature.Get(); // the root signature that describes the input data this pso needs
+	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
+	pso_desc.SampleDesc = sample_description; // must be the same sample description as the swapchain and depth/stencil buffer
+	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
+	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blent state.
+	pso_desc.NumRenderTargets = 1; // we are only binding one render target
+	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+	//pso_desc.Flags = D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG;
+
+	// create the pso
+	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
+}
+
+void GraphicsPipeline::clean_up() {
+	SAFE_RELEASE(output_merger.depth_stencil_buffer);
+	SAFE_RELEASE(output_merger.depth_stencil_descriptor_heap);
+	for (auto &buffer : input_assembler.vertex_buffers) {
+		SAFE_RELEASE(buffer);
+	}
+}
+
+bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexcept {
+	return (pipeline_state_object == pipeline.pipeline_state_object &&
+	root_signature == pipeline.root_signature &&
+	input_assembler == pipeline.input_assembler &&
+
+	vs == pipeline.vs &&
+	hs == pipeline.hs &&
+	ds == pipeline.ds &&
+	gs == pipeline.gs &&
+	ps == pipeline.ps &&
+
+	tesselator == pipeline.tesselator &&
+	rasterizer == pipeline.rasterizer &&
+	output_merger == pipeline.output_merger &&
+	stream_output == pipeline.stream_output);
+}
+
+void GraphicsPipeline::operator=(const GraphicsPipeline &pipeline) noexcept {
+	pipeline_state_object = pipeline.pipeline_state_object;
+	root_signature = pipeline.root_signature;
+	input_assembler = pipeline.input_assembler;
+	
+	vs = pipeline.vs;
+	hs = pipeline.hs;
+	ds = pipeline.ds;
+	gs = pipeline.gs;
+	ps = pipeline.ps;
+
+	tesselator = pipeline.tesselator;
+	rasterizer = pipeline.rasterizer;
+	output_merger = pipeline.output_merger;
+	stream_output = pipeline.stream_output;
+}
+
+void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3D12Device> &device,
 	ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index) {
 
-	const std::vector<Vertex> &verts = mesh->mesh_data.get_vertices();
+	const std::vector<Vertex> &verts = mesh.get_vertices();
 
 	if (index == (size_t)-1) {
 		index = vertex_buffers.size();
@@ -28,10 +155,9 @@ void ResourceManager::StaticMeshes::add_mesh(const std::shared_ptr<MeshComponent
 	vertex_buffer_upload->Map(0, nullptr, &p);
 	memcpy(p, &verts[0], sizeof(Vertex) * verts.size());
 	vertex_buffer_upload->Unmap(0, nullptr);
-	
-	vertex_buffers.insert(vertex_buffers.begin()+index, std::make_tuple(nullptr, D3D12_VERTEX_BUFFER_VIEW(), mesh));
 
-	VertexBuffer &new_buffer = vertex_buffers[index];
+	vertex_buffers.insert(vertex_buffers.begin()+index, nullptr);
+	vertex_buffer_views.insert(vertex_buffer_views.begin()+index, D3D12_VERTEX_BUFFER_VIEW());
 
 	auto default_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	auto default_buffer = CD3DX12_RESOURCE_DESC::Buffer(verts.size()*sizeof(Vertex));
@@ -40,34 +166,34 @@ void ResourceManager::StaticMeshes::add_mesh(const std::shared_ptr<MeshComponent
 		D3D12_HEAP_FLAG_NONE, // no flags
 		&default_buffer, // resource description for a buffer
 		D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
-										// from the upload heap to this heap
+		// from the upload heap to this heap
 		nullptr, // optimized clear value must be null for this type of resource. used for render targets and depth/stencil buffers
-		IID_PPV_ARGS(&std::get<0>(new_buffer))
+		IID_PPV_ARGS(&vertex_buffers[index])
 	);
 
-	command_list->CopyResource(std::get<0>(new_buffer).Get(), vertex_buffer_upload);
+	command_list->CopyResource(vertex_buffers[index].Get(), vertex_buffer_upload);
 
-	std::get<1>(new_buffer).BufferLocation = std::get<0>(new_buffer)->GetGPUVirtualAddress();
-	std::get<1>(new_buffer).SizeInBytes = (UINT)verts.size() * sizeof(Vertex);
-	std::get<1>(new_buffer).StrideInBytes = sizeof(Vertex);
+	vertex_buffer_views[index].BufferLocation = vertex_buffers[index]->GetGPUVirtualAddress();
+	vertex_buffer_views[index].SizeInBytes = (UINT)verts.size() * sizeof(Vertex);
+	vertex_buffer_views[index].StrideInBytes = sizeof(Vertex);
 
 	// we can give resource heaps a name so when we debug with the graphics debugger we know what resource we are looking at
-	std::get<0>(new_buffer)->SetName(L"Vertex Buffer Default Resource Heap");
+	vertex_buffers[index]->SetName(L"Vertex Buffer Default Resource Heap");
 
 	// transition the vertex buffer data from copy destination state to vertex buffer state
-	auto transition = CD3DX12_RESOURCE_BARRIER::Transition(std::get<0>(new_buffer).Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+	auto transition = CD3DX12_RESOURCE_BARRIER::Transition(vertex_buffers[index].Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
 	command_list->ResourceBarrier(1, &transition);
 }
 
-void ResourceManager::StaticMeshes::remove_mesh(size_t index) {
+void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
 	vertex_buffers.erase(vertex_buffers.begin() + index);
 }
 
-const std::vector<VertexBuffer> & ResourceManager::StaticMeshes::get_vertex_buffers() const noexcept {
-	return vertex_buffers;
+const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {
+	return vertex_buffer_views;
 }
 
-void ResourceManager::create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device) {
+void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device) {
 	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
 	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
 	dsv_heap_desc.NumDescriptors = 1;
@@ -102,13 +228,10 @@ void ResourceManager::create_depth_stencil(const UVector2 &resolution, ComPtr<ID
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
 }
 
-void ResourceManager::cleanup() {
-	SAFE_RELEASE(depth_stencil_buffer);
-	SAFE_RELEASE(depth_stencil_descriptor_heap);
-	for (auto &buffer : static_meshes.vertex_buffers) {
-		SAFE_RELEASE(std::get<0>(buffer));
-	}
-}
+
+
+
+
 
 // -- DYNAMIC MESHES -- //
 
@@ -245,7 +368,7 @@ void ResourceManager::create_depth_stencil(const UVector2 &resolution, ComPtr<ID
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
 }
 
-void ResourceManager::cleanup() {
+void ResourceManager::clean_up() {
 	SAFE_RELEASE(depth_stencil_buffer);
 	SAFE_RELEASE(depth_stencil_descriptor_heap);
 	for (auto &buffer : vertex_buffers) {

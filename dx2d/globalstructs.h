@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <utility>
+#include <dxgi1_4.h>
 
 using namespace DirectX;
 
@@ -14,12 +15,13 @@ enum class RotationUnit {
 };
 
 class Object;
-using ObjectVector = std::shared_ptr<std::vector<std::shared_ptr<Object>>>;
+using ObjectVector = std::vector<std::shared_ptr<Object>>;
 
-struct Color {
-	UCHAR r = 255, g = 255, b = 255, a = 255;
+template <typename T>
+struct TColor {
+	T r = 255, g = 255, b = 255, a = 255;
 
-	Color(UCHAR r, UCHAR g, UCHAR b, UCHAR a = 255) : r(r), g(g), b(b), a(a) { }
+	TColor(T r, T g, T b, T a = 255) : r(r), g(g), b(b), a(a) { }
 
 	operator XMFLOAT3() {
 		return XMFLOAT3(r, g, b);
@@ -29,17 +31,24 @@ struct Color {
 		return XMFLOAT4(r, g, b, a);
 	}
 
-	Color operator/(float divisor) const noexcept {
-		return Color(
-					(UCHAR)(r / divisor), (UCHAR)(g / divisor),
-					(UCHAR)(b / divisor), (UCHAR)(a / divisor)
+	operator DXGI_RGBA() {
+		return DXGI_RGBA({ r, g, b, a });
+	}
+
+	TColor operator/(T divisor) const noexcept {
+		return TColor(
+					(T)(r / divisor), (T)(g / divisor),
+					(T)(b / divisor), (T)(a / divisor)
 				);
 	}
 
-	void operator/=(float divisor) noexcept {
+	void operator/=(T divisor) noexcept {
 		*this = *this / divisor;
 	}
 };
+
+using Color = TColor<UCHAR>;
+using FColor = TColor<float>;
 
 static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) noexcept {
 	if (normalize)
@@ -48,21 +57,21 @@ static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) no
 		return XMFLOAT4(color.r, color.g, color.b, color.a);
 }
 
-struct FColor {
-	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
-
-	FColor operator*(float n) const noexcept {
-		return { r*n, g*n, b*n, a*n };
-	}
-
-	FColor operator/(float n) const noexcept {
-		return { r/n, g/n, b/n, a/n };
-	}
-
-	operator Color() const noexcept {
-		return { (UCHAR)r, (UCHAR)g, (UCHAR)b, (UCHAR)a };
-	}
-};
+//struct FColor {
+//	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
+//
+//	FColor operator*(float n) const noexcept {
+//		return { r*n, g*n, b*n, a*n };
+//	}
+//
+//	FColor operator/(float n) const noexcept {
+//		return { r/n, g/n, b/n, a/n };
+//	}
+//
+//	operator Color() const noexcept {
+//		return { (UCHAR)r, (UCHAR)g, (UCHAR)b, (UCHAR)a };
+//	}
+//};
 
 template <typename T>
 class TVector2 {

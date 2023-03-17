@@ -87,7 +87,7 @@ public:
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
 	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
-	GET std::shared_ptr<T> get_component() const noexcept {
+	GET std::shared_ptr<T> get_component() noexcept {
 		for (const std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				return std::static_pointer_cast<T>(component);
@@ -97,7 +97,7 @@ public:
 	}
 
 	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
-	GET std::vector<std::shared_ptr<T>> get_components() const noexcept {
+	GET std::vector<std::shared_ptr<T>> get_components() noexcept {
 		std::vector<std::shared_ptr<T>> ret;
 		for (const std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
@@ -105,16 +105,6 @@ public:
 			}
 		}
 		return ret;
-	}
-
-	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
-	GET const std::shared_ptr<T> get_const_component() const noexcept {
-		return get_component<T>();
-	}
-
-	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
-	GET const std::vector<std::shared_ptr<T>> get_const_components() const noexcept {
-		return get_components<T>();
 	}
 
 	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>

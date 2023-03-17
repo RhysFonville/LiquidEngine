@@ -8,10 +8,9 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
 		switch (uMsg) {
 			case WM_CLOSE:
-				if (YESNO_MESSAGE("Are you sure you want to exit?", false) == true) {
+				if (YESNO_MESSAGE("Are you sure you want to exit?") == true) {
 					this_window_wndproc->running = false;
-					GRAPHICS_SCENE->cleanup();
-					return 0;
+					//GRAPHICS_SCENE->clean_up();
 				}
 				break;
 			case WM_DESTROY:
@@ -140,16 +139,8 @@ void Window::check_input() {
 }
 
 void Window::clean_up() {
-	if (ReleaseDC(window, dc) == 0) {
-		dc = GetDC(window);
-		throw std::exception("Failed to release the device context.");
-		ReleaseDC(window, dc);
-	}
-	if (DestroyWindow(this_window_wndproc->get_window()) == 0) {
-		dc = GetDC(window);
-		throw std::exception("Failed to destroy window.");
-		ReleaseDC(window, dc);
-	}
+	HPEW(ReleaseDC(window, dc));
+	HPEW((DestroyWindow(this_window_wndproc->get_window())));
 	this_window_wndproc = NULL;
 	graphics_scene = nullptr;
 }

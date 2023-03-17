@@ -6,6 +6,7 @@
 #include <cctype>
 #include <locale>
 #include <numbers>
+#include <chrono>
 
 #include <wrl.h>
 #include <d3d12.h>
@@ -296,6 +297,45 @@ static std::string get_parent_directory(const std::string &str, bool add_ending_
 	}
 
 	return ret;
+}
+
+static std::string format_time_point(const std::chrono::time_point<std::chrono::system_clock> &time_point) {
+	return std::format("{0:%F %R %Z}", floor<std::chrono::milliseconds>(time_point));
+}
+
+static bool operator==(const D3D12_RECT &lhs, const D3D12_RECT &rhs) noexcept {
+	return (lhs.left == rhs.left &&
+		lhs.right == rhs.right &&
+		lhs.top == rhs.top &&
+		lhs.bottom == rhs.bottom);
+}
+
+static bool operator==(const D3D12_VERTEX_BUFFER_VIEW &lhs, const D3D12_VERTEX_BUFFER_VIEW &rhs) noexcept {
+	return (lhs.BufferLocation == rhs.BufferLocation &&
+		lhs.SizeInBytes == rhs.SizeInBytes &&
+		lhs.StrideInBytes && rhs.StrideInBytes);
+}
+
+static bool operator==(const D3D12_STREAM_OUTPUT_DESC &lhs, const D3D12_STREAM_OUTPUT_DESC &rhs) noexcept {
+	return (lhs.NumEntries == rhs.NumEntries &&
+		lhs.NumStrides == rhs.NumStrides &&
+		lhs.pBufferStrides == rhs.pBufferStrides &&
+		lhs.pSODeclaration == rhs.pSODeclaration &&
+		lhs.RasterizedStream == rhs.RasterizedStream);
+}
+
+static bool operator==(const D3D12_RASTERIZER_DESC &lhs, const D3D12_RASTERIZER_DESC &rhs) noexcept {
+	return (lhs.AntialiasedLineEnable == rhs.AntialiasedLineEnable &&
+		lhs.ConservativeRaster == rhs.ConservativeRaster &&
+		lhs.CullMode == rhs.CullMode &&
+		lhs.DepthBias == rhs.DepthBias &&
+		lhs.DepthBiasClamp == rhs.DepthBiasClamp &&
+		lhs.DepthClipEnable == rhs.DepthClipEnable &&
+		lhs.FillMode == rhs.FillMode &&
+		lhs.ForcedSampleCount == rhs.ForcedSampleCount &&
+		lhs.FrontCounterClockwise == rhs.FrontCounterClockwise &&
+		lhs.MultisampleEnable == rhs.MultisampleEnable &&
+		lhs.SlopeScaledDepthBias == rhs.SlopeScaledDepthBias);
 }
 
 static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f };

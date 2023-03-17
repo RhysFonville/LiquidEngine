@@ -46,16 +46,8 @@ public:
 	Color ka = Color(0, 0, 0, 255); // Ambient
 	float a = 0.5f; // Shininess
 
-	std::string pixel_shader_name = "PixelShader.cso";
-	std::string vertex_shader_name = "VertexShader.cso";
+	std::string pixel_shader = "PixelShader.cso";
+	std::string vertex_shader = "VertexShader.cso";
 
 	std::string name = "Material";
-
-	/*ComPtr<ID3D11InputLayout> input_layout = nullptr;
-
-	ComPtr<ID3D11VertexShader> vertex_shader = nullptr;
-	ComPtr<ID3D11PixelShader> pixel_shader = nullptr;*/
-
-	/*ComPtr<ID3DBlob> vertex_blob = nullptr;
-	ComPtr<ID3DBlob> pixel_blob = nullptr;*/
 };

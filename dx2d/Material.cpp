@@ -6,10 +6,10 @@ Material::Material(std::string name) : name(name) {
 
 void Material::compile(bool compile_texture) {
 	//// Create Pixel Shader
-	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(pixel_shader_name).c_str(), pixel_blob.GetAddressOf()));
+	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(pixel_shader).c_str(), pixel_blob.GetAddressOf()));
 
 	//// Create Vertex Shader
-	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(vertex_shader_name).c_str(), vertex_blob.GetAddressOf()));
+	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(vertex_shader).c_str(), vertex_blob.GetAddressOf()));
 }
 
 void Material::clean_up() {
@@ -79,8 +79,8 @@ bool Material::operator==(const Material &material) const noexcept {
 		pixel_shader.Get() == material.pixel_shader.Get() &&
 		vertex_blob.Get() == material.vertex_blob.Get() &&
 		pixel_blob.Get() == material.pixel_blob.Get() &&*/
-		pixel_shader_name == material.pixel_shader_name &&
-		vertex_shader_name == material.vertex_shader_name)
+		pixel_shader == material.pixel_shader &&
+		vertex_shader == material.vertex_shader)
 		return true;
 	else
 		return false;

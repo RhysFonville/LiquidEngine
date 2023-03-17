@@ -10,7 +10,8 @@ public:
 		CameraComponent,
 		DirectionalLightComponent,
 		PointLightComponent,
-		SpotlightComponent
+		SpotlightComponent,
+		AppearanceComponent
 	};
 
 	Component() : type(Type::None) { }

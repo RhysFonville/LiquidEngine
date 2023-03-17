@@ -115,10 +115,10 @@ void MeshComponent::compile() noexcept {
 	mesh_data.indices = std::vector<UINT>();
 }
 
-bool MeshComponent::operator==(const MeshComponent &appearance) const noexcept {
-	return ((Component*)this == (Component*)&appearance &&
-			material == appearance.material &&
-			mesh_data == appearance.mesh_data);
+bool MeshComponent::operator==(const MeshComponent &mesh) const noexcept {
+	return ((Component*)this == (Component*)&mesh &&
+			material == mesh.material &&
+			mesh_data == mesh.mesh_data);
 }
 
 void MeshComponent::operator=(const MeshComponent &component) noexcept {

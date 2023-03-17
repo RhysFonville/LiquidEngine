@@ -3,12 +3,27 @@
 #include <exception>
 #include <Windows.h>
 #include <comdef.h>
+#include <stacktrace>
 #include "Conversion.h"
+#include "globalutil.h"
 
-inline bool ERROR_MESSAGE(std::string message, std::string extra_message = "") {
-	int out = MessageBoxExA(NULL, (message + "\n\n" + extra_message).c_str(), "Error!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONERROR | MB_DEFBUTTON1, 0);
+inline bool INFO_MESSAGE(std::string message) {
+	int out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_OK | MB_ICONINFORMATION | MB_DEFBUTTON1, 0);
+	return false;
+}
+
+inline bool ERROR_MESSAGE(std::string message, std::string function = "", std::string extra_message = "") {
+	std::string final_message = "+===== ERROR AT " + format_time_point(std::chrono::system_clock::now()) + " =====+";
+	std::string print_final_message = message + " : " + extra_message + "\n\n" + function;
+	
+	final_message += '\n' + message + (!extra_message.empty() ? " : " + extra_message : "") + "\n";
+	final_message += "FUNCTION: " + function;
+	final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
+	append_to_file("throw_details.log", final_message + "\n\n");
+
+	int out = MessageBoxExA(NULL, print_final_message.c_str(), "Error!", MB_CANCELTRYCONTINUE | MB_ICONERROR, 0);
 	if (out == IDCANCEL) {
-		throw std::exception((message + "\n\n" + extra_message).c_str());
+		throw std::exception(message.c_str());
 		return false;
 	} else if (out == IDTRYAGAIN) {
 		return true;
@@ -18,7 +33,7 @@ inline bool ERROR_MESSAGE(std::string message, std::string extra_message = "") {
 }
 
 inline bool WARNING_MESSAGE(std::string message) {
-	int out = MessageBoxExA(NULL, message.c_str(), "Warning!", MB_CANCELTRYCONTINUE | MB_HELP | MB_ICONWARNING | MB_DEFBUTTON3, 0);
+	int out = MessageBoxExA(NULL, message.c_str(), "Warning!", MB_CANCELTRYCONTINUE | MB_ICONWARNING | MB_DEFBUTTON3, 0);
 	if (out == IDABORT) {
 		throw std::exception(message.c_str());
 		return false;
@@ -29,17 +44,9 @@ inline bool WARNING_MESSAGE(std::string message) {
 	}
 }
 
-inline bool INFO_MESSAGE(std::string message) {
-	int out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_OK | MB_HELP | MB_ICONINFORMATION | MB_DEFBUTTON1, 0);
-	return false;
-}
-
-inline bool YESNO_MESSAGE(std::string message, bool help = true) {
+inline bool YESNO_MESSAGE(std::string message) {
 	int out;
-	if (help)
-		out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_HELP | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
-	else
-		out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
+	out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
 	
 	if (out == IDYES) {
 		return true;
@@ -48,12 +55,12 @@ inline bool YESNO_MESSAGE(std::string message, bool help = true) {
 	}
 }
 
-inline bool CHECK_RESULT(HRESULT hr, std::string extra_message = "") {
+inline bool CHECK_RESULT(HRESULT hr, std::string function, std::string extra_message = "") {
 	if (FAILED(hr)) {
 		_com_error error(hr);
-		std::string str = "ERROR CODE " + std::to_string(error.Error()) + ": "
+		std::string str = "ERROR CODE: " + std::to_string(error.Error()) + ": "
 			+ std::string(wstring_to_string(error.ErrorMessage()));
-		return ERROR_MESSAGE(str, extra_message);
+		return ERROR_MESSAGE(str, function, extra_message);
 	} else {
 		return false;
 	}
@@ -64,13 +71,14 @@ static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
 // HPEW - Handle Possible Exception (Windows)
 #define HPEW_1_ARG(function) \
 hpewr = function; \
-while (CHECK_RESULT(hpewr, std::string("Function: ") + #function) == true) { \
+while (CHECK_RESULT(hpewr, #function) == true) { \
 	hpewr = function; \
 }
 
 #define HPEW_2_ARGS(function, extra_message) \
 hpewr = function; \
-while (CHECK_RESULT(hpewr, extra_message + std::string("Function: ") + #function) == true) { \
+while (CHECK_RESULT(hpewr, #function, extra_message) == true) { \
+	OutputDebugStringA(extra_message); \
 	hpewr = function; \
 }
 
@@ -81,7 +89,7 @@ static bool hper = false; // Handle Possible Excpetion Result
 do { \
 	try { \
 		function; \
-	} catch (std::exception &e) { \
+	} catch (const std::exception &e) { \
 		hper = ERROR_MESSAGE(e.what()); \
 	} \
 } while (hper == true);
@@ -90,7 +98,7 @@ do { \
 do { \
 	try { \
 		function; \
-	} catch (std::exception &e) { \
+	} catch (const std::exception &e) { \
 		hper = ERROR_MESSAGE(e.what(), extra_message); \
 	} \
 } while (hper == true);

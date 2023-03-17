@@ -162,7 +162,7 @@ public:
 
 	void compile() noexcept override;
 
-	bool operator==(const MeshComponent &appearance) const noexcept;
+	bool operator==(const MeshComponent &mesh) const noexcept;
 	void operator=(const MeshComponent &component) noexcept;
 
 	Material material;

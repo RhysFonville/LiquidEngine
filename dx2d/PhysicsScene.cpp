@@ -3,9 +3,9 @@
 PhysicsScene::PhysicsScene(ObjectVector &objects) : objects(objects) {}
 
 void PhysicsScene::tick() noexcept {
-	for (std::shared_ptr<Object> &object1 : *objects) {
+	for (std::shared_ptr<Object> &object1 : objects) {
 		handle_mechanics(*object1);
-		for (std::shared_ptr<Object> &object2 : *objects) {
+		for (std::shared_ptr<Object> &object2 : objects) {
 			if (*object1 != *object2) {
 				handle_mechanics(*object2);
 				handle_collision(*object1, *object2);
