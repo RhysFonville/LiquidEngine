@@ -23,15 +23,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		
 	camera.get_component<PointLightComponent>()->set_position(FVector3(0.0f, 2.0f, 0.0f));
 
-	HPE(engine.scene.read_obj_file("Shapes/cube.obj"));
-
-	GraphicsPipeline pipeline;
-	D3D12_RASTERIZER_DESC desc = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
-	desc.CullMode = D3D12_CULL_MODE_NONE;
-	pipeline.rasterizer.set_description(desc);
+	HPE(engine.scene.read_obj_file("bunny.obj"));
 
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
-		pipeline,
+		GraphicsPipeline(),
 		engine.scene.objects[2]->get_component<MeshComponent>()
 	));
 

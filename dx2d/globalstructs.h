@@ -190,12 +190,6 @@ public:
 		z = vector.z;
 	}
 
-	void operator=(const XMVECTOR &vector) noexcept {
-		x = XMVectorGetX(vector);
-		y = XMVectorGetY(vector);
-		z = XMVectorGetZ(vector);
-	}
-
 	T & operator[](UCHAR index) {
 		switch (index) {
 		case 0:
@@ -351,6 +345,12 @@ public:
 
 	FVector3 operator/(float f) const noexcept {
 		return FVector3(x/f, y/f, z/f);
+	}
+
+	void operator=(const XMVECTOR &vector) noexcept {
+		x = XMVectorGetX(vector);
+		y = XMVectorGetY(vector);
+		z = XMVectorGetZ(vector);
 	}
 };
 

@@ -28,10 +28,10 @@ public:
 	static constexpr UINT NUMBER_OF_BUFFERS = 3u;
 	
 	static constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
-		{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
-		{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
-		{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
-		{ "TANGENT",	0, DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
+		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
+		{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
+		{ "TANGENT",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
 	};
 
 	class InputAssembler {
@@ -42,8 +42,8 @@ public:
 		void remove_mesh(size_t index);
 
 		void update(ComPtr<ID3D12GraphicsCommandList> &command_list) {
-			command_list->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // set the primitive topology
-			command_list->IASetVertexBuffers(0, vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)
+			command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
+			command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)
 		}
 
 		const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
@@ -58,7 +58,8 @@ public:
 	private:
 		friend GraphicsPipeline;
 
-		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 		std::vector<ComPtr<ID3D12Resource>> vertex_buffers; // a default buffer in GPU memory that we will load vertex data for our triangle into
 		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views; // a structure containing a pointer to the vertex data in gpu memory
@@ -179,7 +180,7 @@ public:
 	public:
 		Rasterizer() { }
 		Rasterizer(const UVector2 &resolution) {
-			set_viewing_settings(resolution);
+			compile(resolution);
 		}
 
 		void set_viewing_settings(const UVector2 &resolution) {
@@ -196,6 +197,10 @@ public:
 			scissor_rect.top = 0;
 			scissor_rect.right = resolution.x;
 			scissor_rect.bottom = resolution.y;
+		}
+		
+		void compile(const UVector2 &resolution) {
+			set_viewing_settings(resolution);
 		}
 
 		void update(ComPtr<ID3D12GraphicsCommandList> &command_list) {
@@ -246,7 +251,7 @@ public:
 			CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 			// set the render target for the output merger stage (the output of the pipeline)
-			command_list->OMSetRenderTargets(1, &rtv_handle, FALSE, &dsv_handle);
+			command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
 		}
 
 		void create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device);
@@ -260,9 +265,11 @@ public:
 
 		ComPtr<ID3D12Resource> depth_stencil_buffer = nullptr; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
 		ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap = nullptr; // This is a heap for our depth/stencil buffer descriptor
-		
+
 	private:
 		friend GraphicsPipeline;
+
+		D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 	} output_merger;
 
 	class StreamOutput {

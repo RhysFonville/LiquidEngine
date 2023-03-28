@@ -4,25 +4,24 @@ GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMP
 	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
 
 void GraphicsPipeline::update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
+	command_list->SetPipelineState(pipeline_state_object.Get());
+	command_list->SetGraphicsRootSignature(root_signature.Get()); // set the root signature
+	
 	input_assembler.update(command_list);
 	rasterizer.update(command_list);
 	output_merger.update(command_list, rtv_handle);
-
-	// clear the depth/stencil buffer
-	command_list->SetPipelineState(pipeline_state_object.Get());
-	command_list->SetGraphicsRootSignature(root_signature.Get()); // set the root signature
 }
 
 void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
-	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
-
 	update(command_list, rtv_handle);
-
-	if (!vertex_buffers.empty()) {
-		for (size_t i = 0; i < vertex_buffers.size(); i++) {
-			command_list->DrawInstanced(vertex_buffers[i].SizeInBytes/sizeof(Vertex), 1, 0, 0);
-		}
+	
+	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
+	UINT verts = 0;
+	for (const D3D12_VERTEX_BUFFER_VIEW &view : vertex_buffers) {
+		verts += view.SizeInBytes/sizeof(Vertex);
 	}
+
+	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
 void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description, const UVector2 &resolution) {
@@ -42,6 +41,7 @@ void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_D
 	hs.compile();
 	ds.compile();
 	gs.compile();
+	rasterizer.compile(resolution);
 	ps.compile();
 
 	output_merger.compile(resolution, device);
@@ -56,6 +56,8 @@ void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_D
 
 	HPEW(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&root_signature)));
 
+	// Fill PSO
+
 	// fill out an input layout description structure
 	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
 
@@ -66,14 +68,14 @@ void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_D
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
 	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
 	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
-	pso_desc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT); // a default depth stencil state
 	pso_desc.VS = vs.bytecode; // structure describing where to find the vertex shader bytecode and how large it is
 	pso_desc.HS = hs.bytecode;
 	pso_desc.DS = ds.bytecode;
+	pso_desc.StreamOutput = stream_output.desc;
 	pso_desc.GS = gs.bytecode;
-	pso_desc.PS = ps.bytecode;
 	pso_desc.RasterizerState = rasterizer.desc;
-	//pso_desc.StreamOutput = stream_output.desc;
+	pso_desc.PS = ps.bytecode;
+	pso_desc.DepthStencilState = output_merger.depth_stencil_desc; // a default depth stencil state
 	pso_desc.pRootSignature = root_signature.Get(); // the root signature that describes the input data this pso needs
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_description; // must be the same sample description as the swapchain and depth/stencil buffer
@@ -206,10 +208,10 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
 	depth_stencil_desc.Flags = D3D12_DSV_FLAG_NONE;
 
-	D3D12_CLEAR_VALUE depth_optimized_clear_value = {};
-	depth_optimized_clear_value.Format = DXGI_FORMAT_D32_FLOAT;
-	depth_optimized_clear_value.DepthStencil.Depth = 1.0f;
-	depth_optimized_clear_value.DepthStencil.Stencil = 0;
+	D3D12_CLEAR_VALUE depth_clear_value = {};
+	depth_clear_value.Format = DXGI_FORMAT_D32_FLOAT;
+	depth_clear_value.DepthStencil.Depth = 1.0f;
+	depth_clear_value.DepthStencil.Stencil = 0;
 
 	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, resolution.x, resolution.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
@@ -218,11 +220,9 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 		D3D12_HEAP_FLAG_NONE,
 		&tex,
 		D3D12_RESOURCE_STATE_DEPTH_WRITE,
-		&depth_optimized_clear_value,
+		&depth_clear_value,
 		IID_PPV_ARGS(&depth_stencil_buffer)
 	);
-	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
-	depth_stencil_descriptor_heap->SetName(L"Depth Stencil Resource Heap");
 
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
