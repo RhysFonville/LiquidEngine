@@ -1,19 +1,20 @@
 #include "GraphicsPipeline.h"
 
-GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description,
+GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc,
 	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
 
-void GraphicsPipeline::update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
+void GraphicsPipeline::update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
 	command_list->SetPipelineState(pipeline_state_object.Get());
-	command_list->SetGraphicsRootSignature(root_signature.Get()); // set the root signature
+	command_list->SetGraphicsRootSignature(root_signature.signature.Get()); // set the root signature
 	
+	root_signature.update(command_list, frame_index);
 	input_assembler.update(command_list);
 	rasterizer.update(command_list);
 	output_merger.update(command_list, rtv_handle);
 }
 
-void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
-	update(command_list, rtv_handle);
+void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+	update(command_list, rtv_handle, frame_index);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
 	UINT verts = 0;
@@ -24,48 +25,26 @@ void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, cons
 	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
-void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description, const UVector2 &resolution) {
-	// Create Pixel and Vertex Shaders
-
-	// when debugging, we can compile the shader files at runtime.
-	// but for release versions, we can compile the hlsl shaders
-	// with fxc.exe to create .cso files, which contain the shader
-	// bytecode. We can load the .cso files at runtime to get the
-	// shader bytecode, which of course is faster than compiling
-	// them at runtime
-
-	// fill out a shader bytecode structure, which is basically just a pointer
-	// to the shader bytecode and the size of the shader bytecode
-
+void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+	root_signature.compile(device);
 	vs.compile();
 	hs.compile();
 	ds.compile();
 	gs.compile();
 	rasterizer.compile(resolution);
 	ps.compile();
-
 	output_merger.compile(resolution, device);
-
-	// Create Root Signature
-
-	CD3DX12_ROOT_SIGNATURE_DESC root_signature_desc;
-	root_signature_desc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-
-	ID3DBlob *signature;
-	HPEW(D3D12SerializeRootSignature(&root_signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, nullptr));
-
-	HPEW(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&root_signature)));
 
 	// Fill PSO
 
-	// fill out an input layout description structure
+	// fill out an input layout desc structure
 	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
 
-	// we can get the number of elements in an array by "sizeof(array) / sizeof(arrayElementType)"
 	input_layout_desc.NumElements = sizeof(input_layout) / sizeof(D3D12_INPUT_ELEMENT_DESC);
 	input_layout_desc.pInputElementDescs = input_layout;
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
+	pso_desc.pRootSignature = root_signature.signature.Get(); // the root signature that describes the input data this pso needs
 	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
 	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
 	pso_desc.VS = vs.bytecode; // structure describing where to find the vertex shader bytecode and how large it is
@@ -76,9 +55,8 @@ void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_D
 	pso_desc.RasterizerState = rasterizer.desc;
 	pso_desc.PS = ps.bytecode;
 	pso_desc.DepthStencilState = output_merger.depth_stencil_desc; // a default depth stencil state
-	pso_desc.pRootSignature = root_signature.Get(); // the root signature that describes the input data this pso needs
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
-	pso_desc.SampleDesc = sample_description; // must be the same sample description as the swapchain and depth/stencil buffer
+	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
 	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
 	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blent state.
 	pso_desc.NumRenderTargets = 1; // we are only binding one render target
@@ -146,7 +124,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3
 	device->CreateCommittedResource(
 		&upload_heap_properties, // upload heap
 		D3D12_HEAP_FLAG_NONE, // no flags
-		&upload_buffer, // resource description for a buffer
+		&upload_buffer, // resource desc for a buffer
 		D3D12_RESOURCE_STATE_GENERIC_READ, // GPU will read from this buffer and copy its contents to the default heap
 		nullptr,
 		IID_PPV_ARGS(&vertex_buffer_upload));
@@ -166,12 +144,14 @@ void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3
 	device->CreateCommittedResource(
 		&default_heap_properties, // a default heap
 		D3D12_HEAP_FLAG_NONE, // no flags
-		&default_buffer, // resource description for a buffer
+		&default_buffer, // resource desc for a buffer
 		D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
 		// from the upload heap to this heap
 		nullptr, // optimized clear value must be null for this type of resource. used for render targets and depth/stencil buffers
 		IID_PPV_ARGS(&vertex_buffers[index])
 	);
+
+	vertex_buffers[index]->SetName(L"Vertex Buffer Default Resource Heap");
 
 	command_list->CopyResource(vertex_buffers[index].Get(), vertex_buffer_upload);
 
@@ -224,14 +204,117 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 		IID_PPV_ARGS(&depth_stencil_buffer)
 	);
 
-	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
+
+	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
+void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
+	std::vector<D3D12_ROOT_PARAMETER> params;
+	for (const DescriptorTable &table : descriptor_tables) {
+		params.push_back(table.root_parameters[0]);
+	}
 
+	signature_desc.Init((UINT)params.size(), (params.empty() ? nullptr : &params[0]), 0, nullptr,
+		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | // we can deny shader stages here for better performance
+		D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS |
+		D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS |
+		D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS |
+		D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS);
 
+	ComPtr<ID3DBlob> signature_blob;
+	ComPtr<ID3DBlob> error_buf;
+	HPEW(D3D12SerializeRootSignature(&signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature_blob, &error_buf), HPEW_ERR_BLOB_PARAM(error_buf));
 
+	HPEW(device->CreateRootSignature(0, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
 
+	// Create a constant buffer descriptor heap for each frame
+	// this is the descriptor heap that will store our constant buffer descriptor
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
+		heap_desc.NumDescriptors = 1;
+		heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+
+		HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
+	}
+
+	for (ConstantBuffer &cb : constant_buffers) {
+		cb.compile(device, descriptor_heaps);
+	}
+}
+
+void GraphicsPipeline::RootSignature::update(ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
+	for (ConstantBuffer &cb : constant_buffers) {
+		cb.apply(frame_index);
+	}
+	
+	// set constant buffer descriptor heap
+	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
+	command_list->SetDescriptorHeaps(_countof(heaps), heaps);
+
+	// set the root descriptor table 0 to the constant buffer descriptor heap
+	command_list->SetGraphicsRootDescriptorTable(0, descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart());
+}
+
+bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signature) const noexcept {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+		if (descriptor_heaps[i] == root_signature.descriptor_heaps[i]) return false;
+	}
+
+	return (signature == root_signature.signature &&
+		descriptor_tables == root_signature.descriptor_tables &&
+		constant_buffers == root_signature.constant_buffers &&
+		signature_desc == root_signature.signature_desc);
+}
+
+void GraphicsPipeline::RootSignature::add_constant_buffer(const ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
+	//descriptor_tables.emplace_back(std::move(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader)));
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader));
+	constant_buffers.push_back(cb);
+}
+
+GraphicsPipeline::RootSignature::RootArgument::RootArgument()
+	: root_parameters(std::shared_ptr<D3D12_ROOT_PARAMETER[]>(new D3D12_ROOT_PARAMETER[PARAMS_SIZE])) { }
+
+GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader)
+	: ranges(std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]>(new D3D12_DESCRIPTOR_RANGE[RANGES_SIZE])) {
+	compile(type, shader);
+}
+
+void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader) {
+	ranges[0].RangeType = type;
+	ranges[0].NumDescriptors = 1;
+	ranges[0].BaseShaderRegister = 0; // b0
+	ranges[0].RegisterSpace = 0; // space 0. can usually be zero
+	ranges[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // this appends the range to the end of the root signature descriptor tables
+
+	table.NumDescriptorRanges = RANGES_SIZE;
+	table.pDescriptorRanges = &ranges[0];
+	
+	root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // this is a descriptor table
+	root_parameters[0].DescriptorTable = table; // this is our descriptor table for this root parameter
+	root_parameters[0].ShaderVisibility = shader;
+
+}
+
+bool GraphicsPipeline::RootSignature::DescriptorTable::operator==(const DescriptorTable &descriptor_table) const noexcept {
+	return (table == descriptor_table.table &&
+		ranges[0] == descriptor_table.ranges[0]);
+}
+
+void GraphicsPipeline::RootSignature::ConstantBuffer::apply(int frame_index) noexcept {
+	memcpy(gpu_addresses[frame_index], obj.get(), obj_size);
+}
+
+bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantBuffer &cb) const noexcept {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+		if (gpu_addresses[i] != cb.gpu_addresses[i] && upload_heaps[i] == cb.upload_heaps[i]) return false;
+	}
+	
+	return (//obj == cb.obj &&						std::equal_to<void> no matching call operator found
+		obj_size == cb.obj_size);
+}
 
 // -- DYNAMIC MESHES -- //
 
@@ -257,7 +340,7 @@ size_t ResourceManager::create_vertex_default_buffers(size_t number_of_verts, Co
 		device->CreateCommittedResource(
 			&heap_properties1, // a default heap
 			D3D12_HEAP_FLAG_NONE, // no flags
-			&buffer, // resource description for a buffer
+			&buffer, // resource desc for a buffer
 			D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
 											// from the upload heap to this heap
 			nullptr, // optimized clear value must be null for this type of resource. used for render targets and depth/stencil buffers
@@ -282,7 +365,7 @@ void ResourceManager::fill_vertex_buffers(const std::vector<Vertex> &verts, size
 	device->CreateCommittedResource(
 		&heap_properties2, // upload heap
 		D3D12_HEAP_FLAG_NONE, // no flags
-		&buffer2, // resource description for a buffer
+		&buffer2, // resource desc for a buffer
 		D3D12_RESOURCE_STATE_GENERIC_READ, // GPU will read from this buffer and copy its contents to the default heap
 		nullptr,
 		IID_PPV_ARGS(&vertex_buffer_upload));

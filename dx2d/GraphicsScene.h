@@ -58,7 +58,7 @@ private:
 	ComPtr<ID3D12Resource> render_targets[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
 	unsigned int buffer_index = 0u;
 	ComPtr<IDXGIFactory4> factory = nullptr;
-	std::string video_card_description;
+	std::string video_card_desc;
 	ComPtr<IDXGIAdapter1> adapter = nullptr;
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
@@ -77,8 +77,8 @@ private:
 
 	UINT frame_index = 0u;
 
-	DXGI_SAMPLE_DESC sample_description = { };
-	DXGI_MODE_DESC back_buffer_description = { }; // this is to describe our display mode
+	DXGI_SAMPLE_DESC sample_desc = { };
+	DXGI_MODE_DESC back_buffer_desc = { }; // this is to describe our display mode
 
 	HWND window = nullptr;
 

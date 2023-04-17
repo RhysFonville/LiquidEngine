@@ -21,7 +21,7 @@ void GraphicsScene::create_adapter_and_device() {
 	int adapter_index = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
 	bool adapter_found = false; // set this to true when a good one was found
 
-								// find first hardware gpu that supports d3d 12
+	// find first hardware gpu that supports d3d 12
 	while (factory->EnumAdapters1(adapter_index, adapter.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
 		DXGI_ADAPTER_DESC1 desc;
 		HPEW(adapter->GetDesc1(&desc));
@@ -58,28 +58,29 @@ void GraphicsScene::create_command_queue() {
 }
 
 void GraphicsScene::create_swap_chain() {
-	back_buffer_description.Width = resolution.x; // buffer width
-	back_buffer_description.Height = resolution.y; // buffer height
-	back_buffer_description.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the buffer (rgba 32 bits, 8 bits for each chanel)
+	back_buffer_desc.Width = resolution.x; // buffer width
+	back_buffer_desc.Height = resolution.y; // buffer height
+	back_buffer_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the buffer (rgba 32 bits, 8 bits for each chanel)
 
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
-	sample_description.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
+	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
 	// Describe and create the swap chain.
 	DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
 	swap_chain_desc.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of buffers we have
-	swap_chain_desc.BufferDesc = back_buffer_description; // our back buffer description
+	swap_chain_desc.BufferDesc = back_buffer_desc; // our back buffer desc
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // this says the pipeline will render to this swap chain
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // dxgi will discard the buffer (data) after we call present
 	swap_chain_desc.OutputWindow = window; // handle to our window
-	swap_chain_desc.SampleDesc = sample_description; // our multi-sampling description
-	swap_chain_desc.Windowed = !fullscreen; // set to true, then if in fullscreen must call SetFullScreenState with true for full screen to get uncapped fps
+	swap_chain_desc.SampleDesc = sample_desc; // our multi-sampling desc
+	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	swap_chain_desc.Windowed = !fullscreen;
 
 	IDXGISwapChain *temp_swap_chain;
 
 	factory->CreateSwapChain(
 		command_queue.Get(), // the queue will be flushed once the swap chain is created
-		&swap_chain_desc, // give it the swap chain description we created above
+		&swap_chain_desc, // give it the swap chain desc we created above
 		&temp_swap_chain // store the created swap chain in a temp IDXGISwapChain interface
 	);
 
@@ -107,11 +108,10 @@ void GraphicsScene::create_back_buffers_and_rtv_with_descriptor_heap() {
 	// device to give us the size. we will use this size to increment a descriptor handle offset
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
-	// get a handle to the first descriptor in the descriptor heap. a handle is basically a pointer,
-	// but we cannot literally use it like a c++ pointer.
+	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
-	// Create a RTV for each buffer (double buffering is two buffers, tripple buffering is 3).
+	// Create a RTV for each buffer
 	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		// first we get the n'th buffer in the swap chain and store it in the n'th
 		// position of our ID3D12Resource array
@@ -155,7 +155,7 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		appearance->compile(device, command_list, sample_description, resolution);
+		appearance->compile(device, command_list, sample_desc, resolution);
 	}
 
 	HPEW(command_list->Close());
@@ -186,8 +186,6 @@ void GraphicsScene::update() {
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
 	// here we start recording commands into the commandList (which all the commands will be stored in the commandAllocator)
-	
-	//mesh_roll_call();
 
 	// transition the "frame_index" render target from the present state to the render target state so the command list draws to it starting from here
 	CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
@@ -202,7 +200,7 @@ void GraphicsScene::update() {
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		appearance->pipeline.run(command_list, rtv_handle);
+		appearance->pipeline.run(command_list, rtv_handle, frame_index);
 	}
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
@@ -311,10 +309,10 @@ UVector2 GraphicsScene::get_resolution() const noexcept {
 void GraphicsScene::set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings) {
 	this->resolution = resolution;
 	
-	back_buffer_description.Width = resolution.x;
-	back_buffer_description.Height = resolution.y;
+	back_buffer_desc.Width = resolution.x;
+	back_buffer_desc.Height = resolution.y;
 
-	HPEW(swap_chain->ResizeTarget(&back_buffer_description));
+	HPEW(swap_chain->ResizeTarget(&back_buffer_desc));
 
 	if (reset_om_viewing_settings) {
 		// dfslkfgjhsdf

@@ -13,7 +13,7 @@ public:
 
 	void compile(ComPtr<ID3D12Device> &device,
 		ComPtr<ID3D12GraphicsCommandList> &command_list,
-		const DXGI_SAMPLE_DESC &sample_description,
+		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution) noexcept;
 
 	void clean_up() override;

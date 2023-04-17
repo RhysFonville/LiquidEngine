@@ -7,7 +7,7 @@ public:
 	__declspec(align(16))
 	struct ConstantBufferStruct {
 		XMFLOAT3 direction;
-		float pad;
+		float pad = 0;
 		XMFLOAT4 diffuse;
 		XMFLOAT4 specular;
 

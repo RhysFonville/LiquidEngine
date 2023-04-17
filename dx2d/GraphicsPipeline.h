@@ -1,31 +1,35 @@
 #pragma once
 
 #include <d3d12.h>
+#include <array>
 #include "d3dx12.h"
 #include "MeshComponent.h"
 #include "globalutil.h"
+
+#define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
+#define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
+#define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
 class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
 	GraphicsPipeline(ComPtr<ID3D12Device> &device,
-		const DXGI_SAMPLE_DESC &sample_description,
+		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle);
-	void run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle);
+	void update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
 
-	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_description, const UVector2 &resolution);
+	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
 	void clean_up();
 
 	bool operator==(const GraphicsPipeline &pipeline) const noexcept;
 	void operator=(const GraphicsPipeline &pipeline) noexcept;
 
-	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
-	ComPtr<ID3D12RootSignature> root_signature = nullptr; // root signature defines data shaders will access
-
 	static constexpr UINT NUMBER_OF_BUFFERS = 3u;
+
+	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
 	
 	static constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -110,7 +114,7 @@ public:
 					effect_compile_options,
 					&blob,
 					&error_buffer
-				), (error_buffer == nullptr ? "" : (char*)error_buffer->GetBufferPointer()));
+				), HPEW_ERR_BLOB_PARAM(error_buffer));
 			
 				bytecode.BytecodeLength = blob->GetBufferSize();
 				bytecode.pShaderBytecode = blob->GetBufferPointer();
@@ -135,8 +139,8 @@ public:
 		UINT shader_compile_options = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 		UINT effect_compile_options = NULL;
 		D3D12_SHADER_BYTECODE bytecode = { };
-		ID3DBlob *blob = nullptr; // d3d blob for holding vertex shader bytecode
-		ID3DBlob* error_buffer = nullptr; // a buffer holding the error data from compilation if any
+		ComPtr<ID3DBlob> blob = nullptr; // d3d blob for holding vertex shader bytecode
+		ComPtr<ID3DBlob> error_buffer = nullptr; // a buffer holding the error data from compilation if any
 
 		void set_target_from_type(Type type) {
 			const std::string suffix = "_5_0";
@@ -216,11 +220,11 @@ public:
 			);
 		}
 
-		void set_description(const D3D12_RASTERIZER_DESC &desc) noexcept {
+		void set_desc(const D3D12_RASTERIZER_DESC &desc) noexcept {
 			this->desc = desc;
 		}
 
-		D3D12_RASTERIZER_DESC get_description() const noexcept {
+		D3D12_RASTERIZER_DESC get_desc() const noexcept {
 			return desc;
 		}
 
@@ -282,7 +286,7 @@ public:
 			return (desc == stream_output.desc);
 		}
 
-		D3D12_STREAM_OUTPUT_DESC get_description() const noexcept {
+		D3D12_STREAM_OUTPUT_DESC get_desc() const noexcept {
 			return desc;
 		}
 
@@ -291,4 +295,105 @@ public:
 
 		D3D12_STREAM_OUTPUT_DESC desc = {};
 	} stream_output;
+
+	class RootSignature {
+	public:
+		class RootArgument {
+			RootArgument();
+
+		protected:
+			friend RootSignature;
+
+			static constexpr size_t PARAMS_SIZE = 1;
+			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters;
+		};
+		class DescriptorTable : public RootArgument {
+		public:
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader);
+			/*DescriptorTable(const DescriptorTable &t) {
+				table = t.table;
+				for (auto i = 0; i < RANGES_SIZE; i++) {
+					ranges[i] = t.ranges[i];
+				}
+				for (auto i = 0; i < PARAMS_SIZE; i++) {
+					root_parameters[i] = t.root_parameters[i];
+				}
+			}*/
+			
+			void compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader);
+			
+			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
+
+		private:
+			D3D12_ROOT_DESCRIPTOR_TABLE table;
+			static constexpr size_t RANGES_SIZE = 1;
+			std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]> ranges;
+		};
+
+		class ConstantBuffer {
+		public:
+			template <typename T>
+			ConstantBuffer(const std::shared_ptr<T> &cb)
+				: obj(std::static_pointer_cast<void>(cb)), obj_size(sizeof(T)) { }
+
+			void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
+				// create a resource heap, descriptor heap, and pointer to cbv for each frame
+
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer(sizeof(ConstantBuffer) * 64);
+					HPEW(device->CreateCommittedResource(
+						&type, // this heap will be used to upload the constant buffer data
+						D3D12_HEAP_FLAG_NONE, // no flags
+						&buf, // size of the resource heap. Must be a multiple of 64KB for single-textures and constant buffers
+						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
+						nullptr, // we do not have use an optimized clear value for constant buffers
+						IID_PPV_ARGS(&upload_heaps[i])));
+					upload_heaps[i]->SetName(L"Constant Buffer Upload Resource Heap");
+
+					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
+					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
+					view_desc.SizeInBytes = (sizeof(ConstantBuffer) + 255) & ~255;	// CB size is required to be 256-byte aligned.
+					device->CreateConstantBufferView(&view_desc, descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart());
+
+					//ZeroMemory(obj.get(), obj_size);
+
+					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
+					HPEW(upload_heaps[i]->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
+					apply(i);
+				}
+			}
+
+			void apply(int frame_index) noexcept;
+
+			bool operator==(const ConstantBuffer &cb) const noexcept;
+
+			std::shared_ptr<void> obj;
+			size_t obj_size;
+
+			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
+
+			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
+		};
+		
+		RootSignature() { }
+
+		void compile(ComPtr<ID3D12Device> &device);
+
+		void update(ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
+
+		bool operator==(const RootSignature &root_signature) const noexcept;
+
+		void add_constant_buffer(const ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+
+		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
+
+	private:
+		ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS] = { }; // Stores the descriptor to our constant buffer
+		std::vector<DescriptorTable> descriptor_tables = { };
+
+		std::vector<ConstantBuffer> constant_buffers = { };
+
+		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
+	} root_signature;
 };

@@ -86,7 +86,7 @@ public:
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
-	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET std::shared_ptr<T> get_component() noexcept {
 		for (const std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
@@ -96,7 +96,7 @@ public:
 		return nullptr;
 	}
 
-	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET std::vector<std::shared_ptr<T>> get_components() noexcept {
 		std::vector<std::shared_ptr<T>> ret;
 		for (const std::shared_ptr<Component> &component : components) {
@@ -107,7 +107,7 @@ public:
 		return ret;
 	}
 
-	template <typename T, ACCEPT_BASE_AND_HEIRS_ONLY(Component)>
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	void add_component(std::shared_ptr<T> component) {
 		components_added.push_back(std::make_pair(component, components.size()));
 		components.push_back(component);

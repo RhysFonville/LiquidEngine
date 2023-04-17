@@ -4,6 +4,10 @@
 
 #include "AppearanceComponent.h"
 
+struct SampleBuffer {
+	float x = 1.0f;
+};
+
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
 
@@ -25,8 +29,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 
+	GraphicsPipeline pipeline;
+
+	SampleBuffer buffer = SampleBuffer();
+	GraphicsPipeline::RootSignature::ConstantBuffer cb(std::make_shared<SampleBuffer>(buffer));
+	pipeline.root_signature.add_constant_buffer(cb, D3D12_SHADER_VISIBILITY_VERTEX);
+
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
-		GraphicsPipeline(),
+		pipeline,
 		engine.scene.objects[2]->get_component<MeshComponent>()
 	));
 
@@ -51,5 +61,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	);
 
 	engine.scene.compile();
+
 	engine.loop();
 }

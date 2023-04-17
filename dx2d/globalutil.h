@@ -13,12 +13,10 @@
 
 #include "globalstructs.h"
 
-#define ACCEPT_BASE_AND_HEIRS_ONLY(base) typename = std::enable_if<std::is_base_of<base, T>::value>::type
+#define ACCEPT_BASE_AND_HEIRS_ONLY(T, base) T, typename = std::enable_if<std::is_base_of<base, T>::value>::type
 
 #define GET_WITH_REASON(x) [[nodiscard(x)]]
 #define GET [[nodiscard]]
-
-#define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
 
 namespace fs = std::filesystem;
 
@@ -68,7 +66,7 @@ static FColor color_to_fcolor(const Color &c) noexcept {
 	return { (float)c.r, (float)c.g, (float)c.b, (float)c.a };
 }
 
-static void append_to_file(const std::string &path, const std::string &message) {
+static void append_to_file(const std::string &message, const std::string &path = "out.log") {
 	std::ofstream file_out;
 	file_out.open(path, std::ios_base::app);
 
@@ -136,9 +134,9 @@ static std::string trim_copy(std::string s) {
 }
 
 static void remove_extra_spaces(std::string &s) {
-	for (int j = 0; j < s.length(); j++) {
-		if (s[j] == ' ' && s[j+1] == ' ')
-			s.erase(j, 1);	
+	for (int i = 0; i < s.length(); i++) {
+		if (s[i] == ' ' && s[i+1] == ' ')
+			s.erase(i, 1);	
 	}
 }
 
@@ -336,6 +334,48 @@ static bool operator==(const D3D12_RASTERIZER_DESC &lhs, const D3D12_RASTERIZER_
 		lhs.FrontCounterClockwise == rhs.FrontCounterClockwise &&
 		lhs.MultisampleEnable == rhs.MultisampleEnable &&
 		lhs.SlopeScaledDepthBias == rhs.SlopeScaledDepthBias);
+}
+
+static bool operator==(const D3D12_ROOT_SIGNATURE_DESC &lhs, const D3D12_ROOT_SIGNATURE_DESC &rhs) noexcept {
+	return (lhs.Flags == rhs.Flags &&
+		lhs.NumParameters == rhs.NumParameters &&
+		lhs.NumStaticSamplers == rhs.NumStaticSamplers &&
+		lhs.pParameters == rhs.pParameters &&
+		lhs.pStaticSamplers == rhs.pStaticSamplers
+	);
+}
+
+static bool operator==(const D3D12_ROOT_DESCRIPTOR_TABLE &lhs, const D3D12_ROOT_DESCRIPTOR_TABLE &rhs) noexcept {
+	return (lhs.NumDescriptorRanges == rhs.NumDescriptorRanges &&
+		lhs.pDescriptorRanges == rhs.pDescriptorRanges);
+}
+
+static bool operator==(const D3D12_DESCRIPTOR_RANGE &lhs, const D3D12_DESCRIPTOR_RANGE &rhs) noexcept {
+	return (lhs.BaseShaderRegister == rhs.BaseShaderRegister &&
+		lhs.NumDescriptors == rhs.NumDescriptors &&
+		lhs.OffsetInDescriptorsFromTableStart == rhs.OffsetInDescriptorsFromTableStart &&
+		lhs.RangeType == rhs.RangeType &&
+		lhs.RegisterSpace == rhs.RegisterSpace);
+}
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+static T make_multiple(T x, T multiple) {
+	if (multiple == 0)
+		return x;
+
+	T remainder = x % multiple;
+	if (remainder == 0)
+		return x;
+
+	return x + multiple - remainder;
+}
+
+template <typename T>
+static std::string address_to_string(const T *ptr) {
+	const void *address = static_cast<const void*>(ptr);
+	std::stringstream ss;
+	ss << address;  
+	return ss.str();
 }
 
 static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f };

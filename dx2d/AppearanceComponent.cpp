@@ -8,8 +8,8 @@ AppearanceComponent::AppearanceComponent(const GraphicsPipeline &pipeline, const
 	: Component(Component::Type::AppearanceComponent, Transform(FVector3(), FVector3())), mesh(mesh),
 	pipeline(pipeline), mesh_changed(true) { }
 
-void AppearanceComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_description, const UVector2 &resolution) noexcept {
-	pipeline.compile(device, sample_description, resolution);
+void AppearanceComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
+	pipeline.compile(device, sample_desc, resolution);
 	
 	if (mesh != nullptr) {
 		pipeline.input_assembler.add_mesh(mesh->mesh_data, device, command_list);

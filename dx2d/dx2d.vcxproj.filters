@@ -198,5 +198,8 @@
     <Text Include="throw_details.log">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="out.log">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

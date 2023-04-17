@@ -9,6 +9,8 @@
 
 using namespace DirectX;
 
+#define ACCEPT_DIGIT_ONLY(T) T, typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type
+
 enum class RotationUnit {
 	Radians,
 	Degrees
@@ -17,7 +19,7 @@ enum class RotationUnit {
 class Object;
 using ObjectVector = std::vector<std::shared_ptr<Object>>;
 
-template <typename T>
+template<ACCEPT_DIGIT_ONLY(typename T)>
 struct TColor {
 	T r = 255, g = 255, b = 255, a = 255;
 
@@ -73,7 +75,7 @@ static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) no
 //	}
 //};
 
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector2 {
 public:
 	T x = 0;
@@ -133,8 +135,6 @@ public:
 	TVector3() {}
 	TVector3(const TVector3 &vector) : x(vector.x), y(vector.y), z(vector.z) { }
 	constexpr TVector3(T x, T y, T z) : x(x), y(y), z(z) {}
-	TVector3(XMVECTOR vector) : x((T)XMVectorGetX(vector)),
-		y((T)XMVectorGetY(vector)), z((T)XMVectorGetZ(vector)) { }
 
 	bool is_zero() const noexcept {
 		return (x == 0 && y == 0 && z == 0);
@@ -313,7 +313,8 @@ public:
 		: TVector3<float>(vector) { }
 	constexpr FVector3(float x, float y, float z)
 		: TVector3<float>(x, y, z) { }
-	FVector3(XMVECTOR vector) : TVector3<float>(vector) {}
+	FVector3(XMVECTOR vector)
+		: TVector3<float>(XMVectorGetX(vector), XMVectorGetY(vector), XMVectorGetZ(vector)) { }
 
 	operator TVector3<float>() const noexcept {
 		return TVector3<float>(x, y, z);
