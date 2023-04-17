@@ -31,8 +31,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	GraphicsPipeline pipeline;
 
-	SampleBuffer buffer = SampleBuffer();
-	GraphicsPipeline::RootSignature::ConstantBuffer cb(std::make_shared<SampleBuffer>(buffer));
+	SampleBuffer buffer;
+	GraphicsPipeline::RootSignature::ConstantBuffer cb(buffer);
 	pipeline.root_signature.add_constant_buffer(cb, D3D12_SHADER_VISIBILITY_VERTEX);
 
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(

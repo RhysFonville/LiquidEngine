@@ -333,8 +333,8 @@ public:
 		class ConstantBuffer {
 		public:
 			template <typename T>
-			ConstantBuffer(const std::shared_ptr<T> &cb)
-				: obj(std::static_pointer_cast<void>(cb)), obj_size(sizeof(T)) { }
+			ConstantBuffer(const T &cb)
+				: obj(std::static_pointer_cast<void>(std::make_shared<T>(cb))), obj_size(sizeof(T)) { }
 
 			void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
 				// create a resource heap, descriptor heap, and pointer to cbv for each frame
