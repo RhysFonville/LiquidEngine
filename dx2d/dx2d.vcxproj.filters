@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Util">
       <UniqueIdentifier>{b63bdf02-44ef-437a-b568-214e26b825f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Base">
+      <UniqueIdentifier>{6615bb5d-7679-4f07-87c2-c7b9780da433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="AppearanceComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseShaderStructs.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,10 +190,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="DefaultVertex.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
     <FxCompile Include="UnlitPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="DefaultVertex.hlsl">
+    <FxCompile Include="BaseVS.hlsl">
+      <Filter>Shaders\Base</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseLitPS.hlsl">
+      <Filter>Shaders\Base</Filter>
+    </FxCompile>
+    <FxCompile Include="LitPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

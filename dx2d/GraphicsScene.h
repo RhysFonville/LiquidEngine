@@ -7,8 +7,8 @@
 #include "PointLightComponent.h"
 #include "SpotlightComponent.h"
 #include "GraphicsPipeline.h"
-
 #include "AppearanceComponent.h"
+#include "BaseShaderStructs.h"
 
 #pragma comment(lib,"D3D12.lib")
 #pragma comment (lib, "D3DCompiler.lib")
@@ -38,9 +38,9 @@ public:
 	GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings = true);
 
-	static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
-
 	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
+
+	std::shared_ptr<CameraComponent> camera;
 
 private:
 	friend class Window;
@@ -85,12 +85,6 @@ private:
 	bool fullscreen = false;
 
 	UVector2 resolution = UVector2(3840, 2160);
-
-	GET std::shared_ptr<CameraComponent> camera() const;
-
-	GET std::vector<std::shared_ptr<DirectionalLightComponent>> directional_lights() const;
-	GET std::vector<std::shared_ptr<PointLightComponent>> point_lights() const;
-	GET std::vector<std::shared_ptr<SpotlightComponent>> spotlights() const;
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
 };

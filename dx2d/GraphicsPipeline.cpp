@@ -270,22 +270,22 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 
 void GraphicsPipeline::RootSignature::add_constant_buffer(const ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
 	//descriptor_tables.emplace_back(std::move(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader)));
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader));
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, ++number_of_cbs));
 	constant_buffers.push_back(cb);
 }
 
 GraphicsPipeline::RootSignature::RootArgument::RootArgument()
 	: root_parameters(std::shared_ptr<D3D12_ROOT_PARAMETER[]>(new D3D12_ROOT_PARAMETER[PARAMS_SIZE])) { }
 
-GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader)
+GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index)
 	: ranges(std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]>(new D3D12_DESCRIPTOR_RANGE[RANGES_SIZE])) {
-	compile(type, shader);
+	compile(type, shader, index);
 }
 
-void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader) {
+void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index) {
 	ranges[0].RangeType = type;
 	ranges[0].NumDescriptors = 1;
-	ranges[0].BaseShaderRegister = 0; // b0
+	ranges[0].BaseShaderRegister = index;
 	ranges[0].RegisterSpace = 0; // space 0. can usually be zero
 	ranges[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // this appends the range to the end of the root signature descriptor tables
 

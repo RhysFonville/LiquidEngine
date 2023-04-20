@@ -1,12 +1,13 @@
 #include "AppearanceComponent.h"
 
 AppearanceComponent::AppearanceComponent(const std::shared_ptr<MeshComponent> &mesh)
-	: Component(Component::Type::AppearanceComponent, Transform(FVector3(), FVector3())), mesh(mesh) { }
-AppearanceComponent::AppearanceComponent(const GraphicsPipeline &pipeline)
-	: Component(Component::Type::AppearanceComponent, Transform(FVector3(), FVector3())), pipeline(pipeline) { }
-AppearanceComponent::AppearanceComponent(const GraphicsPipeline &pipeline, const std::shared_ptr<MeshComponent> &mesh)
-	: Component(Component::Type::AppearanceComponent, Transform(FVector3(), FVector3())), mesh(mesh),
-	pipeline(pipeline), mesh_changed(true) { }
+	: Component(Component::Type::AppearanceComponent), mesh(mesh) { }
+AppearanceComponent::AppearanceComponent(const Material &material)
+	: Component(Component::Type::AppearanceComponent), material(material) { }
+	
+AppearanceComponent::AppearanceComponent(const GraphicsPipeline &pipeline, const std::shared_ptr<MeshComponent> &mesh,
+	const Material &material) : Component(Component::Type::AppearanceComponent), mesh(mesh), pipeline(pipeline),
+	mesh_changed(true) { }
 
 void AppearanceComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
 	pipeline.compile(device, sample_desc, resolution);
@@ -31,7 +32,9 @@ void AppearanceComponent::set_mesh(const std::shared_ptr<MeshComponent> &mesh, C
 }
 
 bool AppearanceComponent::mesh_was_changed() const noexcept {
-	return mesh_changed;
+	bool mesh_changed_before = mesh_changed;
+	mesh_changed = false;
+	return mesh_changed_before;
 }
 
 bool AppearanceComponent::operator==(const AppearanceComponent &appearance) const noexcept {

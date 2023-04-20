@@ -165,8 +165,6 @@ public:
 	bool operator==(const MeshComponent &mesh) const noexcept;
 	void operator=(const MeshComponent &component) noexcept;
 
-	Material material;
-
 	MeshData mesh_data = {
 		 {
 			// Front Face

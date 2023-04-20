@@ -6,10 +6,11 @@
 class AppearanceComponent : public Component {
 public:
 	AppearanceComponent() { }
-	AppearanceComponent(const GraphicsPipeline &pipeline);
 	AppearanceComponent(const std::shared_ptr<MeshComponent> &mesh);
+	AppearanceComponent(const Material &material);
 	AppearanceComponent(const GraphicsPipeline &pipeline,
-		const std::shared_ptr<MeshComponent> &mesh);
+		const std::shared_ptr<MeshComponent> &mesh = nullptr,
+		const Material &material = Material());
 
 	void compile(ComPtr<ID3D12Device> &device,
 		ComPtr<ID3D12GraphicsCommandList> &command_list,
@@ -28,11 +29,12 @@ public:
 	void operator=(const AppearanceComponent &component) noexcept;
 
 	GraphicsPipeline pipeline;
+	Material material;
 
 	static const Type component_type = Type::AppearanceComponent;
 
 private:
-	bool mesh_changed = false;
+	mutable bool mesh_changed = false;
 
 	std::shared_ptr<MeshComponent> mesh = nullptr;
 };

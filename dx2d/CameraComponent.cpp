@@ -1,7 +1,7 @@
 #include "CameraComponent.h"
 
 CameraComponent::CameraComponent(const FVector3 &position, const FVector3 &rotation)
-	: Component(Type::CameraComponent, Transform()) {
+	: Component(Type::CameraComponent) {
 	translate(position);
 	rotate(rotation);
 	set_view();

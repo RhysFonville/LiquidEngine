@@ -309,7 +309,7 @@ public:
 		};
 		class DescriptorTable : public RootArgument {
 		public:
-			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader);
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index);
 			/*DescriptorTable(const DescriptorTable &t) {
 				table = t.table;
 				for (auto i = 0; i < RANGES_SIZE; i++) {
@@ -320,7 +320,7 @@ public:
 				}
 			}*/
 			
-			void compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader);
+			void compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index);
 			
 			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
@@ -395,5 +395,7 @@ public:
 		std::vector<ConstantBuffer> constant_buffers = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
+
+		UINT number_of_cbs = 0u;
 	} root_signature;
 };

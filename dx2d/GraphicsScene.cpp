@@ -155,6 +155,11 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
+		appearance->pipeline.root_signature.add_constant_buffer(PerObjectVertexConstantBuffer({
+			camera->WVP,
+			(XMMATRIX)appearance->get_transform()
+		}), D3D12_SHADER_VISIBILITY_VERTEX);
+
 		appearance->compile(device, command_list, sample_desc, resolution);
 	}
 
