@@ -3,6 +3,8 @@
 #include "GraphicsPipeline.h"
 #include "MeshComponent.h"
 
+using ShaderType = GraphicsPipeline::Shader::Type;
+
 class AppearanceComponent : public Component {
 public:
 	AppearanceComponent() { }
@@ -24,6 +26,11 @@ public:
 		ComPtr<ID3D12GraphicsCommandList> &command_list) noexcept;
 
 	bool mesh_was_changed() const noexcept;
+
+	template <typename T>
+	GraphicsPipeline::RootSignature::ConstantBuffer add_constant_buffer(const T &cb, ShaderType shader) {
+		pipeline.root_signature.add_constant_buffer(cb, (D3D12_SHADER_VISIBILITY)shader+1));
+	}
 
 	bool operator==(const AppearanceComponent &appearance) const noexcept;
 	void operator=(const AppearanceComponent &component) noexcept;

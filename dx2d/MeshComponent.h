@@ -154,8 +154,6 @@ public:
 	MeshComponent(const FVector3 &position = FVector3(),
 		const FVector3 &rotation = FVector3());
 
-	MeshComponent(const Material &material);
-
 	ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read);
 
 	void clean_up() override;

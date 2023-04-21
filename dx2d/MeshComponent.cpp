@@ -1,10 +1,7 @@
 #include "MeshComponent.h"
 
 MeshComponent::MeshComponent(const FVector3 &position, const FVector3 &rotation)
-	: Component(Component::Type::MeshComponent, Transform(position, rotation)), material(Material()) { }
-
-MeshComponent::MeshComponent(const Material &material)
-	: Component(Component::Type::MeshComponent), material(material) { }
+	: Component(Component::Type::MeshComponent, Transform(position, rotation)) { }
 
 ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &read) {
 	if (!read.contents.empty()) {
@@ -70,10 +67,6 @@ ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &r
 	return ReadObjFileDataOutput();
 }
 
-void MeshComponent::clean_up() {
-	material.clean_up();
-}
-
 void MeshComponent::compile() noexcept {
 	std::vector<Vertex> verts = mesh_data.get_vertices();
 	for (size_t i = 0; i < verts.size(); i += 3){
@@ -117,11 +110,9 @@ void MeshComponent::compile() noexcept {
 
 bool MeshComponent::operator==(const MeshComponent &mesh) const noexcept {
 	return ((Component*)this == (Component*)&mesh &&
-			material == mesh.material &&
 			mesh_data == mesh.mesh_data);
 }
 
 void MeshComponent::operator=(const MeshComponent &component) noexcept {
-	material = component.material;
 	mesh_data = component.mesh_data;
 }

@@ -196,14 +196,17 @@
     <FxCompile Include="UnlitPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="BaseVS.hlsl">
-      <Filter>Shaders\Base</Filter>
-    </FxCompile>
     <FxCompile Include="BaseLitPS.hlsl">
       <Filter>Shaders\Base</Filter>
     </FxCompile>
     <FxCompile Include="LitPixel.hlsl">
       <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseShader.hlsl">
+      <Filter>Shaders\Base</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseVS.hlsl">
+      <Filter>Shaders\Base</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

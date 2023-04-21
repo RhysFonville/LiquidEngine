@@ -2,10 +2,8 @@
 #include "MyBehavior.h"
 #include "CameraController.h"
 
-#include "AppearanceComponent.h"
-
-struct SampleBuffer {
-	float x = 1.0f;
+struct mycb {
+	XMFLOAT3 col;
 };
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
@@ -29,16 +27,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 
-	GraphicsPipeline pipeline;
-
-	SampleBuffer buffer;
-	GraphicsPipeline::RootSignature::ConstantBuffer cb(buffer);
-	pipeline.root_signature.add_constant_buffer(cb, D3D12_SHADER_VISIBILITY_VERTEX);
+	Material mat(Material::Type::Unlit);
+	mat.ps = "UnlitPixel.hlsl";
 
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
-		pipeline,
 		engine.scene.objects[2]->get_component<MeshComponent>()
 	));
+
+	engine.scene.objects[2]->get_component<AppearanceComponent>()->add_constant_buffer<mycb>({ XMFLOAT3(1.0f, 1.0f, 1.0f) }, ShaderType::Pixel);
 
 	/*(*engine.scene.objects)[1]->set_size(FVector3(15.0f, 15.0f, 15.0f));
 	(*engine.scene.objects)[1]->mechanics.forces.push_back(Mechanics::Force(FVector3(0.00001f, 0.0f, 0.0f)));

@@ -2,8 +2,34 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-#include "Texture.h"
+//#include "Texture.h"
 #include "Throw.h"
+#include "GraphicsPipeline.h"
+
+class Material {
+public:
+	enum class Type {
+		Lit,
+		Unlit
+	};
+
+	Material() { }
+	Material(Type type) { }
+
+	void compile();
+	
+	void clean_up();
+
+	bool operator==(const Material &material) const noexcept;
+
+	std::string vs = "DefaultVertex.hlsl";
+	std::string hs = "";
+	std::string ds = "";
+	std::string gs = "";
+	std::string ps = "UnlitPixel.hlsl";
+
+	const Type type = Type::Lit;
+};
 
 class UnlitMaterial : public Material {
 public:
@@ -12,14 +38,14 @@ public:
 
 class LitMaterial : public Material {
 public:
-	LitMaterial();
+	LitMaterial() { }
 
 	void read_mtl_file(std::vector<std::string> contents) noexcept;
 
 	bool operator==(const LitMaterial &material);
 
 	__declspec(align(16))
-	struct ConstantBufferStruct {
+		struct ConstantBufferStruct {
 		/*BOOL has_texture;
 		BOOL has_normal_map;*/
 
@@ -37,15 +63,4 @@ private:
 	float a = 0.5f; // Shininess
 
 	ConstantBufferStruct cbs;
-};
-
-class Material {
-public:
-	Material() { }
-
-	void compile();
-	
-	void clean_up();
-
-	bool operator==(const Material &material) const noexcept;
 };
