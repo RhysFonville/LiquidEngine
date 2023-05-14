@@ -140,8 +140,7 @@ void GraphicsScene::create_command_list() {
 
 void GraphicsScene::create_fences_and_fences_event() {
 	// create the fences
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++)
-	{
+	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
 		fence_values[i] = 0; // set the initial fences value to 0
 	}
@@ -155,15 +154,12 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		appearance->pipeline.root_signature.add_constant_buffer(PerFrameVSCB({
-			camera->WVP
-		}), D3D12_SHADER_VISIBILITY_VERTEX);
-
-		appearance->pipeline.root_signature.add_constant_buffer(PerObjectVSCB({
-			(XMMATRIX)appearance->get_transform()
-		}), D3D12_SHADER_VISIBILITY_VERTEX);
+		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
+
+		//appearance->pipeline.root_signature.add_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 	}
 
 	HPEW(command_list->Close());
@@ -178,6 +174,11 @@ void GraphicsScene::compile() {
 void GraphicsScene::update() {
 	// We have to wait for the gpu to finish with the command allocator before we reset it
 	wait_for_previous_frame();
+
+	if (camera != nullptr) {
+		//camera->update(UVector2_to_FVector2(resolution));
+		//cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(camera->WVP);
+	}
 
 	// we can only reset an allocator once the gpu is done with it
 	// resetting an allocator frees the memory that the command list was stored in
@@ -208,6 +209,7 @@ void GraphicsScene::update() {
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
+		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
 		appearance->pipeline.run(command_list, rtv_handle, frame_index);
 	}
 

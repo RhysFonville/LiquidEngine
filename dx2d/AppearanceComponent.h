@@ -2,6 +2,7 @@
 
 #include "GraphicsPipeline.h"
 #include "MeshComponent.h"
+#include "Material.h"
 
 using ShaderType = GraphicsPipeline::Shader::Type;
 
@@ -21,16 +22,13 @@ public:
 
 	void clean_up() override;
 
+	const MeshComponent & get_mesh() const noexcept;
+
 	void set_mesh(const std::shared_ptr<MeshComponent> &mesh,
 		ComPtr<ID3D12Device> &device,
 		ComPtr<ID3D12GraphicsCommandList> &command_list) noexcept;
 
 	bool mesh_was_changed() const noexcept;
-
-	template <typename T>
-	GraphicsPipeline::RootSignature::ConstantBuffer add_constant_buffer(const T &cb, ShaderType shader) {
-		pipeline.root_signature.add_constant_buffer(cb, (D3D12_SHADER_VISIBILITY)shader+1));
-	}
 
 	bool operator==(const AppearanceComponent &appearance) const noexcept;
 	void operator=(const AppearanceComponent &component) noexcept;

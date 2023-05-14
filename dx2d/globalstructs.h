@@ -47,12 +47,18 @@ struct TColor {
 	void operator/=(T divisor) noexcept {
 		*this = *this / divisor;
 	}
+
+	bool operator==(const TColor<T> &color) const noexcept {
+		return (r == color.r &&
+			g == color.g &&
+			b == color.b);
+	}
 };
 
 using Color = TColor<UCHAR>;
 using FColor = TColor<float>;
 
-static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) noexcept {
+static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = true) noexcept {
 	if (normalize)
 		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 	else

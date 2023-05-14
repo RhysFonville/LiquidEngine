@@ -3,6 +3,8 @@
 MeshComponent::MeshComponent(const FVector3 &position, const FVector3 &rotation)
 	: Component(Component::Type::MeshComponent, Transform(position, rotation)) { }
 
+void MeshComponent::clean_up() { }
+
 ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &read) {
 	if (!read.contents.empty()) {
 		std::string line;

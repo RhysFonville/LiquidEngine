@@ -1,16 +1,19 @@
 #include "Material.h"
 
-Material::Material(Type type) : type(type) { }
+void Material::compile(GraphicsPipeline &pipeline) {
+	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, vs);
+	pipeline.hs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Hull, hs);
+	pipeline.ds = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Domain, ds);
+	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, gs);
+	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
 
-void Material::compile() {
-	//// Create Pixel Shader
-	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(pixel_shader).c_str(), pixel_blob.GetAddressOf()));
-
-	//// Create Vertex Shader
-	//HANDLE_POSSIBLE_EXCEPTION_WINDOWS(D3DReadFileToBlob(string_to_wstring(vertex_shader).c_str(), vertex_blob.GetAddressOf()));
+	//cb = GraphicsPipeline::RootSignature::ConstantBuffer(PerObjectPSCB({ cbs }));
+	//pipeline.root_signature.add_constant_buffer(cb, D3D12_SHADER_VISIBILITY_PIXEL);
 }
 
-void LitMaterial::read_mtl_file(std::vector<std::string> contents) noexcept {
+void Material::clean_up() { }
+
+void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 	for (std::string line : contents) {
 		if (line.substr(0, 2) == "Ns") {
 			a = std::stof(line.substr(3)) / 900.0f;
@@ -60,11 +63,33 @@ void LitMaterial::read_mtl_file(std::vector<std::string> contents) noexcept {
 	ks /= 6.0f;
 }
 
-//bool LitMaterial::operator==(const LitMaterial &material) {
-//	cbs.ks = color_to_XMFLOAT4(ks, true);
-//	cbs.kd = color_to_XMFLOAT4(kd, true);
-//	cbs.ka = color_to_XMFLOAT4(ka, true);
-//	cbs.a = a;
-//
-//	return cbs;
-//}
+void Material::operator=(const Material &material) noexcept {
+	vs = material.vs;
+	hs = material.hs;
+	ds = material.ds;
+	gs = material.gs;
+	ps = material.ps;
+
+	ks = material.ks;
+	kd = material.kd;
+	ka = material.ka;
+	a = material.a;
+
+	cbs = material.cbs;
+	cb = material.cb;
+}
+
+bool Material::operator==(const Material &material) const noexcept {
+	return (vs == material.vs &&
+		hs == material.hs &&
+		ds == material.ds &&
+		gs == material.gs &&
+		ps == material.ps &&
+		
+		ks == material.ks &&
+		kd == material.kd &&
+		ka == material.ka &&
+		a == material.a &&
+
+		cb == material.cb);
+}

@@ -148,12 +148,12 @@ ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &cont
 
 	ReadObjFileDataOutput out = mc.read_obj_file(ReadObjFileDataInput(content, mesh_out));
 
-	std::string line;
+	/*std::string line;
 	for (const std::string line : content) {
 		if (line.substr(0, 6) == "usemtl") {
 			mc.material = Storage::get_material_by_name(line.substr(7));
 		}
-	}
+	}*/
 
 	add_component(std::make_shared<MeshComponent>(mc));
 

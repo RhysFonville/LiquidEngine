@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppearanceComponent.cpp" />
-    <ClCompile Include="BaseShaderStructs.h" />
     <ClCompile Include="BehaviorManager.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraController.cpp" />
@@ -173,7 +172,6 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Conversion.h" />
     <ClInclude Include="globalstructs.h" />
     <ClInclude Include="globalutil.h" />
     <ClInclude Include="GraphicsPipeline.h" />

@@ -5,6 +5,8 @@
 #include "d3dx12.h"
 #include "MeshComponent.h"
 #include "globalutil.h"
+#include "Throw.h"
+#include "D3DCompiler.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
@@ -136,7 +138,7 @@ public:
 		// Add ID3DInclude someday
 		std::string entrypoint = "main";
 		std::string target = "ps_5_0";
-		UINT shader_compile_options = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+		UINT shader_compile_options = D3DCOMPILE_DEBUG;
 		UINT effect_compile_options = NULL;
 		D3D12_SHADER_BYTECODE bytecode = { };
 		ComPtr<ID3DBlob> blob = nullptr; // d3d blob for holding vertex shader bytecode
@@ -332,9 +334,23 @@ public:
 
 		class ConstantBuffer {
 		public:
+			ConstantBuffer() { }
+
 			template <typename T>
 			ConstantBuffer(const T &cb)
 				: obj(std::static_pointer_cast<void>(std::make_shared<T>(cb))), obj_size(sizeof(T)) { }
+
+			/*ConstantBuffer(const ConstantBuffer &cb) {
+				obj = cb.obj;
+				obj_size = cb.obj_size;
+
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					gpu_addresses[i] = cb.gpu_addresses[i];
+				}
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					upload_heaps[i] = cb.upload_heaps[i];
+				}
+			}*/
 
 			void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
 				// create a resource heap, descriptor heap, and pointer to cbv for each frame
@@ -360,7 +376,6 @@ public:
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
 					HPEW(upload_heaps[i]->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
-					apply(i);
 				}
 			}
 
@@ -368,8 +383,8 @@ public:
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
-			std::shared_ptr<void> obj;
-			size_t obj_size;
+			std::shared_ptr<void> obj = nullptr;
+			size_t obj_size = 0u;
 
 			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
 
@@ -384,7 +399,7 @@ public:
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 
-		void add_constant_buffer(const ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
@@ -392,10 +407,8 @@ public:
 		ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS] = { }; // Stores the descriptor to our constant buffer
 		std::vector<DescriptorTable> descriptor_tables = { };
 
-		std::vector<ConstantBuffer> constant_buffers = { };
+		std::vector<ConstantBuffer*> constant_buffers = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
-
-		UINT number_of_cbs = 0u;
 	} root_signature;
 };

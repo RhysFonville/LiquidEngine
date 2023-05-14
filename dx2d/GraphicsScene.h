@@ -8,11 +8,34 @@
 #include "SpotlightComponent.h"
 #include "GraphicsPipeline.h"
 #include "AppearanceComponent.h"
-#include "BaseShaderStructs.h"
 
 #pragma comment(lib,"D3D12.lib")
 #pragma comment (lib, "D3DCompiler.lib")
 #pragma comment(lib, "dxgi.lib")
+
+__declspec(align(16))
+struct PerFrameVSCB { // b0
+	XMMATRIX WVP;
+};
+
+__declspec(align(16))
+struct PerObjectVSCB { // b1
+	XMMATRIX transform;
+};
+
+static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
+
+__declspec(align(16))
+struct PerFramePSCB { // b2
+	DirectionalLightComponent::ConstantBufferStruct directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	PointLightComponent::ConstantBufferStruct point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	SpotlightComponent::ConstantBufferStruct spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	uint directional_light_count = 0;
+	uint point_light_count = 0;
+	uint spotlight_count = 0;
+
+	XMFLOAT3 camera_position;
+};
 
 class GraphicsScene {
 public:
@@ -74,6 +97,24 @@ private:
 	void create_command_allocators();
 	void create_command_list();
 	void create_fences_and_fences_event();
+
+	template <typename T>
+	class ConstantBuffer {
+	public:
+		ConstantBuffer(const T &obj)
+			: obj(std::make_shared<T>(obj)) {
+			cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+		}
+
+		std::shared_ptr<T> obj;
+		GraphicsPipeline::RootSignature::ConstantBuffer cb;
+	};
+
+	struct CBS {
+		ConstantBuffer<PerFrameVSCB> per_frame_vs = ConstantBuffer<PerFrameVSCB>(PerFrameVSCB());
+		ConstantBuffer<PerObjectVSCB> per_object_vs = ConstantBuffer<PerObjectVSCB>(PerObjectVSCB());
+		//ConstantBuffer<PerFramePSCB> per_frame_ps = ConstantBuffer<PerFramePSCB>(PerFramePSCB());
+	} cbs;
 
 	UINT frame_index = 0u;
 

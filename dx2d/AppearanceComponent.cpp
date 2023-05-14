@@ -10,16 +10,8 @@ AppearanceComponent::AppearanceComponent(const GraphicsPipeline &pipeline, const
 	mesh_changed(true) { }
 
 void AppearanceComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
-	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, material.vs);
-	pipeline.hs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Hull, material.hs);
-	pipeline.ds = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Domain, material.ds);
-	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, material.gs);
-	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, material.ps);
+	material.compile(pipeline);
 	
-	/*if (material.type == Material::Type::Lit) {
-		pipeline.root_signature.add_constant_buffer(LitMaterial::ConstantBufferStruct({  }));
-	}*/
-
 	pipeline.compile(device, sample_desc, resolution);
 	
 	if (mesh != nullptr) {
@@ -29,6 +21,10 @@ void AppearanceComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12Gra
 
 void AppearanceComponent::clean_up() {
 	pipeline.clean_up();
+}
+
+const MeshComponent & AppearanceComponent::get_mesh() const noexcept {
+	return *mesh;
 }
 
 void AppearanceComponent::set_mesh(const std::shared_ptr<MeshComponent> &mesh, ComPtr<ID3D12Device> &device,
@@ -56,4 +52,5 @@ bool AppearanceComponent::operator==(const AppearanceComponent &appearance) cons
 void AppearanceComponent::operator=(const AppearanceComponent &component) noexcept {
 	mesh = component.mesh;
 	pipeline = component.pipeline;
+	material = component.material;
 }

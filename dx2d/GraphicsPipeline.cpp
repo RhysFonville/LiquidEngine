@@ -219,8 +219,7 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | // we can deny shader stages here for better performance
 		D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS |
 		D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS |
-		D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS |
-		D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS);
+		D3D12_ROOT_SIGNATURE_FLAG_DENY_GEOMETRY_SHADER_ROOT_ACCESS);
 
 	ComPtr<ID3DBlob> signature_blob;
 	ComPtr<ID3DBlob> error_buf;
@@ -239,22 +238,24 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 		HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
 	}
 
-	for (ConstantBuffer &cb : constant_buffers) {
-		cb.compile(device, descriptor_heaps);
+	for (ConstantBuffer *cb : constant_buffers) {
+		cb->compile(device, descriptor_heaps);
 	}
 }
 
 void GraphicsPipeline::RootSignature::update(ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
-	for (ConstantBuffer &cb : constant_buffers) {
-		cb.apply(frame_index);
+	for (ConstantBuffer *cb : constant_buffers) {
+		cb->apply(frame_index);
 	}
 	
 	// set constant buffer descriptor heap
 	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
 	command_list->SetDescriptorHeaps(_countof(heaps), heaps);
 
-	// set the root descriptor table 0 to the constant buffer descriptor heap
-	command_list->SetGraphicsRootDescriptorTable(0, descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart());
+	if (!descriptor_tables.empty()) {
+		// set the root descriptor table 0 to the constant buffer descriptor heap
+		command_list->SetGraphicsRootDescriptorTable(0, descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart());
+	}
 }
 
 bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signature) const noexcept {
@@ -268,10 +269,10 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 		signature_desc == root_signature.signature_desc);
 }
 
-void GraphicsPipeline::RootSignature::add_constant_buffer(const ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
+void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
 	//descriptor_tables.emplace_back(std::move(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader)));
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, ++number_of_cbs));
-	constant_buffers.push_back(cb);
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, (UINT)constant_buffers.size()));
+	constant_buffers.push_back(&cb);
 }
 
 GraphicsPipeline::RootSignature::RootArgument::RootArgument()

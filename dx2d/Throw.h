@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <comdef.h>
 #include <stacktrace>
-#include "Conversion.h"
 #include "globalutil.h"
 
 inline bool INFO_MESSAGE(std::string message) {

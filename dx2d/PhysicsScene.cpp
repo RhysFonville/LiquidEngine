@@ -108,7 +108,7 @@ void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 					break;
 			}*/
 
-			if (intersecting) {
+			/*if (intersecting) {
 				object1.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
 				object2.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
 
@@ -120,7 +120,7 @@ void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 
 				object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
 				object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-			}
+			}*/
 		}
 	}
 }

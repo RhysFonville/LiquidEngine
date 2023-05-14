@@ -4,7 +4,6 @@
 #include <vector>
 #include <Windows.h>
 #include <fstream>
-#include "Material.h"
 #include "globalutil.h"
 #include "Component.h"
 

@@ -2,10 +2,6 @@
 #include "MyBehavior.h"
 #include "CameraController.h"
 
-struct mycb {
-	XMFLOAT3 col;
-};
-
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
 
@@ -13,6 +9,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	camera.add_component(std::make_shared<CameraComponent>());
 	camera.add_component(std::make_shared<PointLightComponent>());
 	engine.scene.objects.push_back(std::make_shared<Object>(camera));
+
+	engine.scene.graphics_scene->camera = camera.get_component<CameraComponent>();
 
 	Object light("Light");
 	light.add_component(std::make_shared<PointLightComponent>());
@@ -27,14 +25,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 
-	Material mat(Material::Type::Unlit);
-	mat.ps = "UnlitPixel.hlsl";
+	engine.scene.objects[0]->set_position(FVector3(0.0f, 0.0f, 0.0f));
 
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
 		engine.scene.objects[2]->get_component<MeshComponent>()
 	));
-
-	engine.scene.objects[2]->get_component<AppearanceComponent>()->add_constant_buffer<mycb>({ XMFLOAT3(1.0f, 1.0f, 1.0f) }, ShaderType::Pixel);
 
 	/*(*engine.scene.objects)[1]->set_size(FVector3(15.0f, 15.0f, 15.0f));
 	(*engine.scene.objects)[1]->mechanics.forces.push_back(Mechanics::Force(FVector3(0.00001f, 0.0f, 0.0f)));
