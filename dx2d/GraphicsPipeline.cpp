@@ -305,7 +305,7 @@ bool GraphicsPipeline::RootSignature::DescriptorTable::operator==(const Descript
 }
 
 void GraphicsPipeline::RootSignature::ConstantBuffer::apply(int frame_index) noexcept {
-	memcpy(gpu_addresses[frame_index], obj.get(), obj_size);
+	memcpy(gpu_addresses[frame_index], obj, obj_size);
 }
 
 bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantBuffer &cb) const noexcept {
@@ -314,7 +314,8 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 	}
 	
 	return (//obj == cb.obj &&						std::equal_to<void> no matching call operator found
-		obj_size == cb.obj_size);
+		obj_size == cb.obj_size &&
+		name == cb.name);
 }
 
 // -- DYNAMIC MESHES -- //

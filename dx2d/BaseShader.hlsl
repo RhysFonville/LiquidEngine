@@ -7,3 +7,19 @@ struct VS_OUTPUT {
 };
 
 typedef VS_OUTPUT PS_INPUT;
+
+static matrix IDENTITY_MATRIX =
+{
+	{ 1, 0, 0, 0 },
+	{ 0, 1, 0, 0 },
+	{ 0, 0, 1, 0 },
+	{ 0, 0, 0, 1 }
+};
+
+static matrix ZERO_MATRIX =
+{
+	{ 0, 0, 0, 0 },
+	{ 0, 0, 0, 0 },
+	{ 0, 0, 0, 0 },
+	{ 0, 0, 0, 0 }
+};

@@ -337,8 +337,9 @@ public:
 			ConstantBuffer() { }
 
 			template <typename T>
-			ConstantBuffer(const T &cb)
-				: obj(std::static_pointer_cast<void>(std::make_shared<T>(cb))), obj_size(sizeof(T)) { }
+			ConstantBuffer(T &cb, std::string name = "")
+				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
+				name(name.empty() ? typeid(T).name() : name) { }
 
 			/*ConstantBuffer(const ConstantBuffer &cb) {
 				obj = cb.obj;
@@ -357,7 +358,7 @@ public:
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer(sizeof(ConstantBuffer) * 64);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size * 64);
 					HPEW(device->CreateCommittedResource(
 						&type, // this heap will be used to upload the constant buffer data
 						D3D12_HEAP_FLAG_NONE, // no flags
@@ -365,11 +366,11 @@ public:
 						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
 						nullptr, // we do not have use an optimized clear value for constant buffers
 						IID_PPV_ARGS(&upload_heaps[i])));
-					upload_heaps[i]->SetName(L"Constant Buffer Upload Resource Heap");
+					upload_heaps[i]->SetName(string_to_wstring("Constant Buffer Upload Resource Heap (TYPE: " + name + ")").c_str());
 
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
-					view_desc.SizeInBytes = (sizeof(ConstantBuffer) + 255) & ~255;	// CB size is required to be 256-byte aligned.
+					view_desc.SizeInBytes = (sizeof(obj_size) + 255) & ~255;	// CB size is required to be 256-byte aligned.
 					device->CreateConstantBufferView(&view_desc, descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart());
 
 					//ZeroMemory(obj.get(), obj_size);
@@ -383,12 +384,14 @@ public:
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
-			std::shared_ptr<void> obj = nullptr;
+			void *obj = nullptr;
 			size_t obj_size = 0u;
 
 			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
 
 			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
+			
+			mutable std::string name = "";
 		};
 		
 		RootSignature() { }

@@ -1,24 +1,20 @@
 #include "BaseVS.hlsl"
 
-//cbuffer PerFrameVSCB : register(b0) {
-//	matrix WVP;
-//}
-
-cbuffer PerObjectVSCB : register(b0) {
-	matrix transform;
-}
-
 VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 normal, float3 tangent) {
 	VS_OUTPUT output;
 
-	output.world_position = mul(float4(position, 1.0f), transform);
+	output.world_position = mul(float4(position, 1.0f), transform).xyz;
 	output.position = float4(output.world_position, 1.0f);
-	//output.position = mul(output.position, WVP);
+
+	if (any(WVP != IDENTITY_MATRIX)) {
+		output.position = mul(output.position, WVP);
+	} else {
+		output.position = float4(position, 1.0f);
+	}
+
 	output.texcoord = texcoord;
 	output.normal = normal;
 	output.tangent = tangent;
-
-	//output.position = float4(position, 1.0f);
 
 	return output;
 }

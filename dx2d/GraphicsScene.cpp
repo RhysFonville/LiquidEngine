@@ -154,7 +154,7 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
@@ -176,8 +176,8 @@ void GraphicsScene::update() {
 	wait_for_previous_frame();
 
 	if (camera != nullptr) {
-		//camera->update(UVector2_to_FVector2(resolution));
-		//cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(camera->WVP);
+		camera->update(UVector2_to_FVector2(resolution));
+		cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(camera->WVP);
 	}
 
 	// we can only reset an allocator once the gpu is done with it
