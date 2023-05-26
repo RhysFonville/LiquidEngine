@@ -14,9 +14,9 @@ public:
 public:
 	SpotlightComponent();
 
-	operator ConstantBufferStruct() const noexcept {
+	/*operator ConstantBufferStruct() const noexcept {
 		return { direction, diffuse / 255.0f, specular };
-	}
+	}*/
 
 	virtual bool operator==(const SpotlightComponent &component) const noexcept;
 	virtual void operator=(const SpotlightComponent &component) noexcept;

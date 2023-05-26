@@ -366,11 +366,14 @@ public:
 						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
 						nullptr, // we do not have use an optimized clear value for constant buffers
 						IID_PPV_ARGS(&upload_heaps[i])));
+					
+					append_to_file(name);
+
 					upload_heaps[i]->SetName(string_to_wstring("Constant Buffer Upload Resource Heap (TYPE: " + name + ")").c_str());
 
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
-					view_desc.SizeInBytes = (sizeof(obj_size) + 255) & ~255;	// CB size is required to be 256-byte aligned.
+					view_desc.SizeInBytes = (obj_size + 255) & ~255;	// CB size is required to be 256-byte aligned.
 					device->CreateConstantBufferView(&view_desc, descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart());
 
 					//ZeroMemory(obj.get(), obj_size);

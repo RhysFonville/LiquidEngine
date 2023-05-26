@@ -270,7 +270,6 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 }
 
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
-	//descriptor_tables.emplace_back(std::move(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader)));
 	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, (UINT)constant_buffers.size()));
 	constant_buffers.push_back(&cb);
 }
@@ -296,7 +295,6 @@ void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_
 	root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // this is a descriptor table
 	root_parameters[0].DescriptorTable = table; // this is our descriptor table for this root parameter
 	root_parameters[0].ShaderVisibility = shader;
-
 }
 
 bool GraphicsPipeline::RootSignature::DescriptorTable::operator==(const DescriptorTable &descriptor_table) const noexcept {

@@ -170,6 +170,14 @@ public:
 		return TVector3<T>(x*n, y*n, z*n);
 	}
 
+	TVector3<T> operator/(const TVector3<T> &vector) const noexcept {
+		return TVector3<T>(x/vector.x, y/vector.y, z/vector.z);
+	}
+
+	TVector3<T> operator/(T n) const noexcept {
+		return TVector3<T>(x/n, y/n, z/n);
+	}
+
 	void operator+=(const TVector3<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;
@@ -250,6 +258,14 @@ public:
 
 	TVector4<T> operator*(T n) const noexcept {
 		return TVector4<T>(x*n, y*n, z*n, w*n);
+	}
+
+	TVector4<T> operator/(const TVector4<T> &vector) const noexcept {
+		return TVector4<T>(x/vector.x, y/vector.y, z/vector.z, w/vector.w);
+	}
+
+	TVector4<T> operator/(T n) const noexcept {
+		return TVector4<T>(x/n, y/n, z/n, w/n);
 	}
 
 	void operator+=(const TVector4<T> &vector) noexcept {
@@ -338,20 +354,8 @@ public:
 		return FVector3(powf(x, p), powf(y, p), powf(z, p));
 	}
 
-	FVector3 operator/(float f) {
-		return FVector3(x/f, y/f, z/f);
-	}
-
-	FVector3 operator/(size_t f) {
-		return FVector3((float)(x/f), (float)(y/f), (float)(z/f));
-	}
-
 	float matrix_multiplication(const FVector3 &vector) const noexcept {
 		return x*vector.x + y*vector.y + z*vector.z;
-	}
-
-	FVector3 operator/(float f) const noexcept {
-		return FVector3(x/f, y/f, z/f);
 	}
 
 	void operator=(const XMVECTOR &vector) noexcept {
@@ -374,7 +378,7 @@ public:
 	}
 
 	operator XMVECTOR() const noexcept {
-		return XMVectorSet(x, y, z, 1.0f);
+		return XMVectorSet(x, y, z, w);
 	}
 
 	operator XMFLOAT4() const noexcept {
@@ -388,14 +392,6 @@ public:
 
 	float matrix_multiplication(const FVector4 &vector) const noexcept {
 		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
-	}
-	
-	FVector4 operator/(float f) const noexcept {
-		return FVector4(x/f, y/f, z/f, w/f);
-	}
-
-	FVector4 operator/(size_t f) {
-		return FVector4((float)(x/f), (float)(y/f), (float)(z/f), (float)(w/f));
 	}
 };
 

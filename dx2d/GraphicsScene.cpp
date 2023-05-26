@@ -155,7 +155,7 @@ void GraphicsScene::create_fences_and_fences_event() {
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
 
@@ -209,7 +209,7 @@ void GraphicsScene::update() {
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
+		//cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
 		appearance->pipeline.run(command_list, rtv_handle, frame_index);
 	}
 
@@ -238,6 +238,11 @@ void GraphicsScene::render() {
 }
 
 void GraphicsScene::tick() {
+	dt.tp2 = std::chrono::system_clock::now();
+	std::chrono::duration<float> elapsed_time = dt.tp2 - dt.tp1;
+	dt.tp1 = dt.tp2;
+	float dt = elapsed_time.count();
+
 	update();
 	render();
 }
@@ -327,6 +332,10 @@ void GraphicsScene::set_resolution(const UVector2 &resolution, bool reset_om_vie
 	if (reset_om_viewing_settings) {
 		// dfslkfgjhsdf
 	}
+}
+
+float GraphicsScene::get_delta_time() const noexcept {
+	return dt.dt;
 }
 
 //std::shared_ptr<CameraComponent> GraphicsScene::camera() const {
