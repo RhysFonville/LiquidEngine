@@ -13,19 +13,19 @@
 #pragma comment (lib, "D3DCompiler.lib")
 #pragma comment(lib, "dxgi.lib")
 
-__declspec(align(16))
+_declspec(align(256u))
 struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
 };
 
-__declspec(align(16))
+_declspec(align(256u))
 struct PerObjectVSCB { // b1
 	XMMATRIX transform;
 };
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-__declspec(align(16))
+_declspec(align(256u))
 struct PerFramePSCB { // b2
 	DirectionalLightComponent::ConstantBufferStruct directional_lights[MAX_LIGHTS_PER_TYPE] = { };
 	PointLightComponent::ConstantBufferStruct point_lights[MAX_LIGHTS_PER_TYPE] = { };

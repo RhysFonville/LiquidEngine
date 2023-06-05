@@ -19,8 +19,8 @@ public:
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
-	void run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void run(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
 
 	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
@@ -327,8 +327,10 @@ public:
 			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
 		private:
+			friend RootSignature;
+
 			D3D12_ROOT_DESCRIPTOR_TABLE table;
-			static constexpr size_t RANGES_SIZE = 1;
+			static constexpr size_t RANGES_SIZE = 1; // In practice you often only have one descriptor range per-table.
 			std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]> ranges;
 		};
 
@@ -374,7 +376,9 @@ public:
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
 					view_desc.SizeInBytes = (obj_size + 255) & ~255;	// CB size is required to be 256-byte aligned.
-					device->CreateConstantBufferView(&view_desc, descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart());
+					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
+					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+					device->CreateConstantBufferView(&view_desc, handle);
 
 					//ZeroMemory(obj.get(), obj_size);
 
@@ -390,10 +394,12 @@ public:
 			void *obj = nullptr;
 			size_t obj_size = 0u;
 
-			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
+			UINT *gpu_addresses[NUMBER_OF_BUFFERS] = { };
 
 			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
-			
+
+			UINT index = 0u;
+
 			mutable std::string name = "";
 		};
 		
@@ -401,7 +407,7 @@ public:
 
 		void compile(ComPtr<ID3D12Device> &device);
 
-		void update(ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
+		void update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 

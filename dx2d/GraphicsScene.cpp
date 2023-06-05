@@ -155,11 +155,9 @@ void GraphicsScene::create_fences_and_fences_event() {
 void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
-
-		//appearance->pipeline.root_signature.add_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 	}
 
 	HPEW(command_list->Close());
@@ -209,8 +207,8 @@ void GraphicsScene::update() {
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		//cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
-		appearance->pipeline.run(command_list, rtv_handle, frame_index);
+		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
+		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
 	}
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a

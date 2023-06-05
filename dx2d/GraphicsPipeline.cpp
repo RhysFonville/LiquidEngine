@@ -3,18 +3,18 @@
 GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc,
 	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
 
-void GraphicsPipeline::update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
 	command_list->SetPipelineState(pipeline_state_object.Get());
 	command_list->SetGraphicsRootSignature(root_signature.signature.Get()); // set the root signature
 	
-	root_signature.update(command_list, frame_index);
+	root_signature.update(device, command_list, frame_index);
 	input_assembler.update(command_list);
 	rasterizer.update(command_list);
 	output_merger.update(command_list, rtv_handle);
 }
 
-void GraphicsPipeline::run(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
-	update(command_list, rtv_handle, frame_index);
+void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+	update(device, command_list, rtv_handle, frame_index);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
 	UINT verts = 0;
@@ -231,9 +231,10 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 	// this is the descriptor heap that will store our constant buffer descriptor
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
-		heap_desc.NumDescriptors = 1;
+		heap_desc.NumDescriptors = descriptor_tables.size();
 		heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		heap_desc.NodeMask = 0u;
 
 		HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
 	}
@@ -243,7 +244,7 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 	}
 }
 
-void GraphicsPipeline::RootSignature::update(ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
+void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
 	for (ConstantBuffer *cb : constant_buffers) {
 		cb->apply(frame_index);
 	}
@@ -252,9 +253,11 @@ void GraphicsPipeline::RootSignature::update(ComPtr<ID3D12GraphicsCommandList> &
 	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
 	command_list->SetDescriptorHeaps(_countof(heaps), heaps);
 
-	if (!descriptor_tables.empty()) {
-		// set the root descriptor table 0 to the constant buffer descriptor heap
-		command_list->SetGraphicsRootDescriptorTable(0, descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart());
+	int i = 0;
+	for (const DescriptorTable &descriptor_table : descriptor_tables) {
+		D3D12_GPU_DESCRIPTOR_HANDLE handle = { };
+		handle.ptr = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart().ptr + descriptor_table.ranges[0].BaseShaderRegister * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		command_list->SetGraphicsRootDescriptorTable(i++, handle);
 	}
 }
 
@@ -270,7 +273,9 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 }
 
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, (UINT)constant_buffers.size()));
+	UINT index = (UINT)constant_buffers.size();
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index));
+	cb.index = index;
 	constant_buffers.push_back(&cb);
 }
 
@@ -288,9 +293,9 @@ void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_
 	ranges[0].BaseShaderRegister = index;
 	ranges[0].RegisterSpace = 0; // space 0. can usually be zero
 	ranges[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // this appends the range to the end of the root signature descriptor tables
-
+	
 	table.NumDescriptorRanges = RANGES_SIZE;
-	table.pDescriptorRanges = &ranges[0];
+	table.pDescriptorRanges = ranges.get();
 	
 	root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // this is a descriptor table
 	root_parameters[0].DescriptorTable = table; // this is our descriptor table for this root parameter

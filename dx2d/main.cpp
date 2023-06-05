@@ -12,6 +12,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	engine.scene.graphics_scene->camera = camera.get_component<CameraComponent>();
 
+	engine.scene.objects[0]->set_rotation(FVector3(0.0f, 0.0f, 0.0f));
+
 	Object light("Light");
 	light.add_component(std::make_shared<PointLightComponent>());
 	engine.scene.objects.push_back(std::make_shared<Object>(light));
@@ -25,7 +27,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 
-	engine.scene.objects[0]->set_position(FVector3(0.0f, 0.0f, 0.0f));
+	engine.scene.objects[2]->set_position(FVector3(0.0f, 0.0f, 0.0f));
+	engine.scene.objects[2]->set_rotation(FVector3(0.0f, 1.0f, 0.0f));
 
 	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
 		engine.scene.objects[2]->get_component<MeshComponent>()
@@ -47,7 +50,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	engine.scene.behavior_manager.behaviors.push_back(
 	std::unique_ptr<ObjectBehavior>(
-			new MyBehavior(engine.scene.objects, engine.scene.objects[1])
+			new MyBehavior(engine.scene.objects, engine.scene.objects[2])
 		)
 	);
 

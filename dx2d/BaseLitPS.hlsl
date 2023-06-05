@@ -46,8 +46,8 @@ cbuffer PerObjectPSCB : register(b3) {
 	Material material;
 }
 
-Texture2D object_texture : register(t0);
-Texture2D normal_map : register(t1);
+Texture2D object_texture : register(t4);
+Texture2D normal_map : register(t5);
 SamplerState texture_sampler_state;
 SamplerState normal_map_sampler_state;
 
