@@ -86,7 +86,7 @@ float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 
-float4 calculate_lit_ps_main(float kd, PS_INPUT ps_in) {
+float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	float4 ks = material.ks;
 	float4 ka = material.ka;
 	float a = material.a;

@@ -156,6 +156,8 @@ void GraphicsScene::compile() {
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
 	}
@@ -208,6 +210,7 @@ void GraphicsScene::update() {
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
 		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
+		cbs.per_object_ps.obj->material = appearance->material.data;
 		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
 	}
 

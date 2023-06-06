@@ -172,7 +172,7 @@ public:
 	Shader hs = Shader(Shader::Type::Hull);
 	Shader ds = Shader(Shader::Type::Domain);
 	Shader gs = Shader(Shader::Type::Geometry);
-	Shader ps = Shader(Shader::Type::Pixel, "UnlitPixel.hlsl");
+	Shader ps = Shader(Shader::Type::Pixel, "LitPixel.hlsl");
 
 	class Tesselator {
 	public:
@@ -402,6 +402,10 @@ public:
 
 			mutable std::string name = "";
 		};
+
+		static ConstantBuffer & create_cb() {
+
+		}
 		
 		RootSignature() { }
 
@@ -423,4 +427,18 @@ public:
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 	} root_signature;
+
+	template <typename T>
+	class ConstantBuffer {
+	public:
+		ConstantBuffer() { }
+
+		ConstantBuffer(const T &obj)
+			: obj(std::make_shared<T>(obj)) {
+			cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+		}
+
+		std::shared_ptr<T> obj = { };
+		GraphicsPipeline::RootSignature::ConstantBuffer cb;
+	};
 };

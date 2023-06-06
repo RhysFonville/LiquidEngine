@@ -231,7 +231,7 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 	// this is the descriptor heap that will store our constant buffer descriptor
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
-		heap_desc.NumDescriptors = descriptor_tables.size();
+		heap_desc.NumDescriptors = (UINT)descriptor_tables.size();
 		heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		heap_desc.NodeMask = 0u;
