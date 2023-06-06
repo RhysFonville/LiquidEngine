@@ -11,7 +11,7 @@ struct VS_OUTPUT {
 
 typedef VS_OUTPUT PS_INPUT;
 
-static matrix IDENTITY_MATRIX =
+static const matrix IDENTITY_MATRIX =
 {
 	{ 1, 0, 0, 0 },
 	{ 0, 1, 0, 0 },
@@ -19,10 +19,14 @@ static matrix IDENTITY_MATRIX =
 	{ 0, 0, 0, 1 }
 };
 
-static matrix ZERO_MATRIX =
+static const matrix ZERO_MATRIX =
 {
 	{ 0, 0, 0, 0 },
 	{ 0, 0, 0, 0 },
 	{ 0, 0, 0, 0 },
 	{ 0, 0, 0, 0 }
 };
+
+static float4 invert(float4 color) {
+	return float4(1-color.r, 1-color.g, 1-color.b, color.a);
+}

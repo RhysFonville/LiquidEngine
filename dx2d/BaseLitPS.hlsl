@@ -78,11 +78,7 @@ bool spotlight_is_zero(Spotlight light) {
 		light.diffuse.a == 0) || light.diffuse.a == 0);
 }
 
-float4 invert(float4 color) {
-	return float4(1-color.r, 1-color.g, 1-color.b, color.a);
-}
-
-float4 falloff_equation(float obj_pos) {
+static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 

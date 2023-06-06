@@ -106,10 +106,10 @@ private:
 	void create_fences_and_fences_event();
 
 	struct CBS {
-		GraphicsPipeline::ConstantBuffer<PerFrameVSCB> per_frame_vs;
-		GraphicsPipeline::ConstantBuffer<PerObjectVSCB> per_object_vs;
-		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps;
-		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps;
+		GraphicsPipeline::ConstantBuffer<PerFrameVSCB> per_frame_vs = GraphicsPipeline::ConstantBuffer<PerFrameVSCB>(PerFrameVSCB());
+		GraphicsPipeline::ConstantBuffer<PerObjectVSCB> per_object_vs = GraphicsPipeline::ConstantBuffer<PerObjectVSCB>(PerObjectVSCB());
+		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps = GraphicsPipeline::ConstantBuffer<PerFramePSCB>(PerFramePSCB());
+		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps = GraphicsPipeline::ConstantBuffer<PerObjectPSCB>(PerObjectPSCB());
 	} cbs;
 
 	UINT frame_index = 0u;
