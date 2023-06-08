@@ -8,27 +8,6 @@
 
 class Material {
 public:
-	__declspec(align(16))
-		struct MaterialData {
-			/*BOOL has_texture;
-			BOOL has_normal_map;*/
-
-			Color ks = Color(255, 255, 255, 255); // Specular
-			Color kd = Color(255, 255, 255, 255); // Diffuse
-			Color ka = Color(0, 0, 0, 255); // Ambient
-			float a = 0.5f; // Shininess
-
-			bool operator==(const MaterialData &data) const noexcept {
-				return (
-					ks == data.ks &&
-					kd == data.kd &&
-					ka == data.ka &&
-					a == data.a
-				);
-			}
-	};
-
-public:
 	Material() { }
 	Material(Color ks, Color kd, Color ka, float a)
 		: data({ ks, kd, ka, a }) { }
@@ -42,12 +21,30 @@ public:
 	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
-	MaterialData data;
+	__declspec(align(16))
+	struct MaterialData {
+		/*BOOL has_texture;
+		BOOL has_normal_map;*/
+
+		Color ks = Color(255, 255, 255, 255); // Specular
+		Color kd = Color(255, 255, 255, 255); // Diffuse
+		Color ka = Color(0, 0, 0, 255); // Ambient
+		float a = 0.5f; // Shininess
+
+		bool operator==(const MaterialData &data) const noexcept {
+			return (
+				ks == data.ks &&
+				kd == data.kd &&
+				ka == data.ka &&
+				a == data.a
+				);
+		}
+	} data;
 
 private:
 	std::string vs = "DefaultVertex.hlsl";
 	std::string hs = "";
 	std::string ds = "";
 	std::string gs = "";
-	std::string ps = "UnlitPixel.hlsl";
+	std::string ps = "LitPixel.hlsl";
 };

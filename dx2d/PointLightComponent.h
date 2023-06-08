@@ -4,39 +4,17 @@
 
 class PointLightComponent : public Component {
 public:
-	__declspec(align(16))
-	struct ConstantBufferStruct {
-		XMFLOAT3 position;
-        float range;
-		XMFLOAT3 attenuation; // Falloff: x - Constant, y - Linear, z - Exponential
-		XMFLOAT4 diffuse;
-		XMFLOAT4 specular;
-
-		ConstantBufferStruct()
-			: position(XMFLOAT3()), range(0.0f), attenuation(XMFLOAT3()),
-			diffuse(XMFLOAT4()), specular(XMFLOAT4()) { }
-
-		ConstantBufferStruct(XMFLOAT3 pos, float range, XMFLOAT3 att,
-			XMFLOAT4 diff, XMFLOAT4 spec)
-			: position(pos), range(range), attenuation(att),
-			diffuse(diff), specular(spec) { }
-	};
-
-public:
 	PointLightComponent();
-
-	operator ConstantBufferStruct() const noexcept {
-		/*return ConstantBufferStruct(transform.position, range, attenuation,
-			diffuse / 255.0f, specular / 255.0f);*/
-	}
 
 	bool operator==(const PointLightComponent &component) const noexcept;
 	void operator=(const PointLightComponent &light) noexcept;
 
-	FVector3 attenuation;
-	float range;
-	FVector4 diffuse;
-	FVector4 specular;
+	struct PLData {
+		FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
+		float range = 100.0f;
+		FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+		FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	} data;
 
 	static const Type component_type = Type::PointLightComponent;
 };

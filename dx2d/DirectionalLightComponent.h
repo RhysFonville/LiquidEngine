@@ -4,33 +4,16 @@
 
 class DirectionalLightComponent : public Component {
 public:
-	__declspec(align(16))
-	struct ConstantBufferStruct {
-		XMFLOAT3 direction;
-		float pad = 0;
-		XMFLOAT4 diffuse;
-		XMFLOAT4 specular;
-
-		ConstantBufferStruct() : direction(XMFLOAT3()),
-			diffuse(XMFLOAT4()), specular(XMFLOAT4()) { }
-
-		ConstantBufferStruct(XMFLOAT3 dir, XMFLOAT4 diff, XMFLOAT4 spec)
-			: direction(dir), diffuse(diff), specular(spec) { }
-	};
-
-public:
 	DirectionalLightComponent();
-
-	/*operator ConstantBufferStruct() const noexcept {
-		return ConstantBufferStruct(direction / 255.0f, diffuse / 255.0f, specular / 255.0f);
-	}*/
 
 	bool operator==(const DirectionalLightComponent &component) const noexcept;
 	void operator=(const DirectionalLightComponent &component) noexcept;
 
-	FVector3 direction;
-	FVector4 diffuse;
-	FVector4 specular;
+	struct DLData {
+		FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
+		FVector4 diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
+		FVector4 specular = FVector4(0.5f, 0.5f, 0.5f, 1.0f);
+	} data;
 
 	static const Type component_type = Type::DirectionalLightComponent;
 };

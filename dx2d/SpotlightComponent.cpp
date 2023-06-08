@@ -1,18 +1,15 @@
 #include "SpotlightComponent.h"
 
 SpotlightComponent::SpotlightComponent()
-	: Component(Type::SpotlightComponent), direction(0, 0, 0),
-	diffuse(0, 0, 0, 0) { }
+	: Component(Type::SpotlightComponent), data({ }) { }
 
 bool SpotlightComponent::operator==(const SpotlightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&
-			direction == component.direction &&
-			diffuse == component.diffuse &&
-			specular == component.specular);
+		data.direction == component.data.direction &&
+		data.diffuse == component.data.diffuse &&
+		data.specular == component.data.specular);
 }
 
 void SpotlightComponent::operator=(const SpotlightComponent &component) noexcept {
-	direction = component.direction;
-	diffuse = component.diffuse;
-	specular = component.specular;
+	data = component.data;
 }

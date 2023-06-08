@@ -179,6 +179,17 @@ void GraphicsScene::update() {
 		camera->update(UVector2_to_FVector2(resolution));
 		cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(camera->WVP);
 	}
+	for (int i = 0; i < MAX_LIGHTS_PER_TYPE || i < lights.size(); i++) {
+		if (lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
+			cbs.per_frame_ps.obj->directional_lights[cbs.per_frame_ps.obj->directional_light_count] = std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data;
+		}
+		if (lights[i]->get_type() == Component::Type::PointLightComponent) {
+			cbs.per_frame_ps.obj->point_lights[cbs.per_frame_ps.obj->point_light_count] = std::static_pointer_cast<PointLightComponent>(lights[i])->data;
+		}
+		if (lights[i]->get_type() == Component::Type::SpotlightComponent) {
+			cbs.per_frame_ps.obj->spotlights[cbs.per_frame_ps.obj->spotlight_count] = std::static_pointer_cast<SpotlightComponent>(lights[i])->data;
+		}
+	}
 
 	// we can only reset an allocator once the gpu is done with it
 	// resetting an allocator frees the memory that the command list was stored in

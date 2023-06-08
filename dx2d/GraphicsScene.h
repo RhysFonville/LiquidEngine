@@ -27,9 +27,9 @@ struct PerObjectVSCB { // b1
 
 _declspec(align(256u))
 struct PerFramePSCB { // b2
-	DirectionalLightComponent::ConstantBufferStruct directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	PointLightComponent::ConstantBufferStruct point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	SpotlightComponent::ConstantBufferStruct spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	DirectionalLightComponent::DLData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	PointLightComponent::PLData point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	SpotlightComponent::SLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
 	uint directional_light_count = 0;
 	uint point_light_count = 0;
 	uint spotlight_count = 0;
@@ -69,8 +69,8 @@ public:
 	GET float get_delta_time() const noexcept;
 
 	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
-
 	std::shared_ptr<CameraComponent> camera;
+	std::vector<std::shared_ptr<Component>> lights;
 
 private:
 	friend class Window;
