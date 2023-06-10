@@ -10,10 +10,12 @@ public:
 	void operator=(const PointLightComponent &light) noexcept;
 
 	struct PLData {
-		FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
 		float range = 100.0f;
+		FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
 		FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 		FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+		bool null = false;
 	} data;
 
 	static const Type component_type = Type::PointLightComponent;

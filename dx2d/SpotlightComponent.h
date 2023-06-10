@@ -13,6 +13,8 @@ public:
 		FVector3 direction;
 		FVector4 diffuse;
 		FVector4 specular;
+
+		bool null = false;
 	} data;
 
 	static const Type component_type = Type::SpotlightComponent;

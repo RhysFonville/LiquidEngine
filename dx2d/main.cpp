@@ -12,20 +12,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	engine.scene.graphics_scene->camera = camera.get_component<CameraComponent>();
 
-	engine.scene.objects[0]->set_rotation(FVector3(0.0f, 0.0f, 0.0f));
-
 	Object light("Light");
 	light.add_component(std::make_shared<PointLightComponent>());
 	engine.scene.objects.push_back(std::make_shared<Object>(light));
 
-	engine.scene.graphics_scene->lights.push_back(light.get_component<PointLightComponent>());
+	light.get_component<PointLightComponent>()->data.range = 100.0f;
+	light.get_component<PointLightComponent>()->data.attenuation = FVector3(0.0f, 0.0f, 1.0f);
+	light.get_component<PointLightComponent>()->data.diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
+	light.get_component<PointLightComponent>()->data.specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
 
-	camera.get_component<PointLightComponent>()->data.range = 100.0f;
-	camera.get_component<PointLightComponent>()->data.attenuation = FVector3(0.0f, 0.0f, 1.0f);
-	camera.get_component<PointLightComponent>()->data.diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-	camera.get_component<PointLightComponent>()->data.specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-		
-	camera.get_component<PointLightComponent>()->set_position(FVector3(0.0f, 2.0f, 0.0f));
+	engine.scene.graphics_scene->lights.push_back(light.get_component<PointLightComponent>());
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 

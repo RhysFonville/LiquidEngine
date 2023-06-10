@@ -22,8 +22,6 @@ namespace fs = std::filesystem;
 
 using Microsoft::WRL::ComPtr;
 
-using uint = unsigned int;
-
 enum class Unit {
 	Meters,						// Distance
 	Kilograms,					// Mass

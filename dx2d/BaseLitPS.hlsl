@@ -6,20 +6,23 @@ struct DirectionalLight {
 	float3 direction;
 	float4 diffuse;
 	float4 specular;
+	bool null;
 };
 
 struct PointLight {
-	float3 position;
 	float range;
 	float3 attenuation;
 	float4 diffuse;
 	float4 specular;
+	bool null;
+	float3 position;
 };
 
 struct Spotlight {
 	float3 direction;
 	float4 diffuse;
 	float4 specular;
+	bool null;
 };
 
 struct Material {
@@ -32,12 +35,12 @@ struct Material {
 };
 
 cbuffer PerFramePSCB : register(b2) {
-	DirectionalLight directional_lights[MAX_LIGHTS_PER_TYPE];
+	//DirectionalLight directional_lights[MAX_LIGHTS_PER_TYPE];
 	PointLight point_lights[MAX_LIGHTS_PER_TYPE];
-	Spotlight spotlights[MAX_LIGHTS_PER_TYPE];
-	uint directional_light_count;
+	//Spotlight spotlights[MAX_LIGHTS_PER_TYPE];
+	//uint directional_light_count;
 	uint point_light_count;
-	uint spotlight_count;
+	//uint spotlight_count;
 
 	float3 camera_position;
 }
@@ -55,28 +58,6 @@ static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
 
 static const float4 ia = float4(0.0f, 0.0f, 0.0f, 1.0f);
-
-bool directional_light_is_zero(DirectionalLight light) {
-	return ((light.diffuse.r == 0 && 
-		light.diffuse.g == 0 &&
-		light.diffuse.b == 0 &&
-		light.diffuse.a == 0) || light.diffuse.a == 0);
-}
-
-bool point_light_is_zero(PointLight light) {
-	return ((light.diffuse.r == 0 &&
-		light.diffuse.g == 0 &&
-		light.diffuse.b == 0 &&
-		light.diffuse.a == 0) || light.diffuse.a == 0 ||
-		light.range <= 0.0f);
-}
-
-bool spotlight_is_zero(Spotlight light) {
-	return ((light.diffuse.r == 0 &&
-		light.diffuse.g == 0 &&
-		light.diffuse.b == 0 &&
-		light.diffuse.a == 0) || light.diffuse.a == 0);
-}
 
 static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
@@ -114,33 +95,33 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	//	n = normalize(mul(normal_map_result, texSpace));
 	//}
 
-	for (uint i = 0; i < directional_light_count; i++) {
-		if (!directional_light_is_zero(directional_lights[i])) {
-			float4 is = directional_lights[i].specular;
-			float4 id = directional_lights[i].diffuse;
+	//for (uint i = 0; i < directional_light_count; i++) {
+	//	if (!directional_lights[i].null) {
+	//		float4 is = directional_lights[i].specular;
+	//		float4 id = directional_lights[i].diffuse;
 
-			float4 ks = material.ks;
-			float4 kd = material.kd;
-			float a = material.a;
+	//		float4 ks = material.ks;
+	//		float4 kd = material.kd;
+	//		float a = material.a;
 
-			float3 lm = normalize(-directional_lights[i].direction);
-			//float3 rm = reflect(lm, n);
-			//float3 rm = 2*(lm*n)*n-lm;
-			//float3 v = normalize(camera_position - input.world_position);
+	//		float3 lm = normalize(-directional_lights[i].direction);
+	//		//float3 rm = reflect(lm, n);
+	//		//float3 rm = 2*(lm*n)*n-lm;
+	//		//float3 v = normalize(camera_position - input.world_position);
 
-			if (dot(lm, n) > 0.0f) {
-				light_final_color += saturate(kd*dot(lm, n)*id)/* +
-					saturate(ks * pow(dot(rm, v), a) * is)*/;
-			}
+	//		if (dot(lm, n) > 0.0f) {
+	//			light_final_color += saturate(kd*dot(lm, n)*id)/* +
+	//				saturate(ks * pow(dot(rm, v), a) * is)*/;
+	//		}
 
-			final_color += light_final_color;
+	//		final_color += light_final_color;
 
-			//light_final_color += ia;
-		}
-	}
+	//		//light_final_color += ia;
+	//	}
+	//}
 
 	for (uint i = 0; i < point_light_count; i++) {
-		if (!point_light_is_zero(point_lights[i])) {
+		if (!point_lights[i].null) {
 			float4 is = point_lights[i].specular;
 			float4 id = point_lights[i].diffuse;
 
@@ -168,7 +149,7 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	}
 
 	/*for (unsigned int i = 0; i < spotlight_count; i++) {
-	if (!spotlight_is_zero(spotlights[i])) {
+	if (!spotlights[i].null) {
 	float4 light_final_color;
 	light_final_color = diffuse * spotlights[i].ambient;
 	light_final_color += saturate(dot(spotlights[i].direction, normal) *

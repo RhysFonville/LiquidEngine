@@ -374,7 +374,7 @@ public:
 		: TVector4<float>(x, y, z, w) { }
 
 	operator TVector4<float>() const noexcept {
-		return TVector4<float>(x, y, z, w);
+		return FVector4(x, y, z, w);
 	}
 
 	operator XMVECTOR() const noexcept {
@@ -385,8 +385,12 @@ public:
 		return { x, y, z, w };
 	}
 
-	TVector4 pow(float p) noexcept {
-		return TVector4(powf(x, p), powf(y, p),
+	FVector4 operator/(float f) const noexcept {
+		return FVector4(x/f, y/f, z/f, w/f);
+	}
+
+	FVector4 pow(float p) noexcept {
+		return FVector4(powf(x, p), powf(y, p),
 			powf(z, p), powf(w, p));
 	}
 

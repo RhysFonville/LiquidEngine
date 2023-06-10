@@ -178,31 +178,43 @@ void GraphicsScene::update() {
 	if (camera != nullptr) {
 		camera->update(UVector2_to_FVector2(resolution));
 		cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(camera->WVP);
+		cbs.per_frame_ps.obj->camera_position = camera->get_position();
 	}
 
-	std::vector<DirectionalLightComponent::DLData> dl(MAX_LIGHTS_PER_TYPE); UINT dl_count = 0;
-	std::vector<PointLightComponent::PLData> pl(MAX_LIGHTS_PER_TYPE);		UINT pl_count = 0;
-	std::vector<SpotlightComponent::SLData> sl(MAX_LIGHTS_PER_TYPE);		UINT sl_count = 0;
+	std::vector<DirectionalLightComponent::DLData> dl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXPLData> pl(MAX_LIGHTS_PER_TYPE);
+	std::vector<SpotlightComponent::SLData> sl(MAX_LIGHTS_PER_TYPE);
+	UINT dl_count = 0;
+	UINT pl_count = 0;
+	UINT sl_count = 0;
+	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
+		dl[i].null = true;
+		pl[i].null = true;
+		sl[i].null = true;
+	}
+	
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < lights.size(); i++) {
 		if (lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			dl.push_back(std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data);
+			dl[dl_count] = std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data;
 			dl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::PointLightComponent) {
-			pl.push_back(std::static_pointer_cast<PointLightComponent>(lights[i])->data);
+			auto data = std::static_pointer_cast<PointLightComponent>(lights[i])->data;
+			pl[pl_count] = DXPLData(data, lights[i]->get_position());
 			pl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			sl.push_back(std::static_pointer_cast<SpotlightComponent>(lights[i])->data);
+			sl[sl_count] = std::static_pointer_cast<SpotlightComponent>(lights[i])->data;
 			sl_count++;
 		}
 	}
-	std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
+
+	//std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
 	std::copy(pl.begin(), pl.end(), cbs.per_frame_ps.obj->point_lights);
-	std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
-	cbs.per_frame_ps.obj->directional_light_count = dl_count;
+	//std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
+	//cbs.per_frame_ps.obj->directional_light_count = dl_count;
 	cbs.per_frame_ps.obj->point_light_count = pl_count;
-	cbs.per_frame_ps.obj->spotlight_count = sl_count;
+	//cbs.per_frame_ps.obj->spotlight_count = sl_count;
 
 	// we can only reset an allocator once the gpu is done with it
 	// resetting an allocator frees the memory that the command list was stored in

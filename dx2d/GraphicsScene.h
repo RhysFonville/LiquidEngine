@@ -15,29 +15,47 @@
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-_declspec(align(256u))
+struct DXPLData /*: public PointLightComponent::PLData*/ {
+	DXPLData() { }
+	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
+		: range(data.range), attenuation(data.attenuation),
+		diffuse(data.diffuse/255.0f), specular(data.specular/255.0f),
+		position(pos) { }
+
+
+	float range = 100.0f;
+	FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
+	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	bool null = false;
+
+	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
+};
+
+_declspec(align(256))
 struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
 };
 
-_declspec(align(256u))
+_declspec(align(256))
 struct PerObjectVSCB { // b1
 	XMMATRIX transform;
 };
 
-_declspec(align(256u))
+_declspec(align(256))
 struct PerFramePSCB { // b2
-	DirectionalLightComponent::DLData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	PointLightComponent::PLData point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	SpotlightComponent::SLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
-	uint directional_light_count = 0;
-	uint point_light_count = 0;
-	uint spotlight_count = 0;
+	//DirectionalLightComponent::DLData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	DXPLData point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	//SpotlightComponent::SLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	//UINT directional_light_count = 0;
+	UINT point_light_count = 0;
+	//UINT spotlight_count = 0;
 
 	XMFLOAT3 camera_position;
 };
 
-__declspec(align(16))
+__declspec(align(256))
 struct PerObjectPSCB { // b3
 	Material::MaterialData material;
 };

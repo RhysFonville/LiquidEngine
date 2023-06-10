@@ -13,6 +13,8 @@ public:
 		FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
 		FVector4 diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
 		FVector4 specular = FVector4(0.5f, 0.5f, 0.5f, 1.0f);
+
+		bool null = false;
 	} data;
 
 	static const Type component_type = Type::DirectionalLightComponent;
