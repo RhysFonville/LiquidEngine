@@ -246,7 +246,7 @@ void GraphicsScene::update() {
 
 	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
 		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
-		cbs.per_object_ps.obj->material = appearance->material.data;
+		cbs.per_object_ps.obj->material = DXMatData(appearance->material.data);
 		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
 	}
 

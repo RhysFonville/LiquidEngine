@@ -15,7 +15,8 @@
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-struct DXPLData /*: public PointLightComponent::PLData*/ {
+_declspec(align(256))
+struct DXPLData {
 	DXPLData() { }
 	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
 		: range(data.range), attenuation(data.attenuation),
@@ -28,9 +29,17 @@ struct DXPLData /*: public PointLightComponent::PLData*/ {
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	bool null = false;
+	int null = false;
 
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
+};
+
+_declspec(align(256))
+struct DXMatData : Material::MaterialData {
+	DXMatData() { }
+	DXMatData(const MaterialData &data)
+		: MaterialData({ data.ks/255.0f, data.kd/255.0f,
+		data.ka/255.0f, data.a }) { }
 };
 
 _declspec(align(256))
@@ -57,7 +66,7 @@ struct PerFramePSCB { // b2
 
 __declspec(align(256))
 struct PerObjectPSCB { // b3
-	Material::MaterialData material;
+	DXMatData material;
 };
 
 class GraphicsScene {
