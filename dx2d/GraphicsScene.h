@@ -45,7 +45,7 @@ struct DXPLData {
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	int null = false;
+	bool null = false;
 
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
@@ -105,7 +105,7 @@ struct PerFramePSCB { // b2
 
 __declspec(align(256))
 struct PerObjectPSCB { // b3
-	DXMatData material;
+	Material::MaterialData material;
 };
 
 class GraphicsScene {
