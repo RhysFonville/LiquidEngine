@@ -84,10 +84,6 @@ static std::vector<std::string> split(const std::string &s, char delim) {
 	return elems;
 }
 
-static FColor color_to_fcolor(const Color &c) noexcept {
-	return { (float)c.r, (float)c.g, (float)c.b, (float)c.a };
-}
-
 static void append_to_file(const std::string &message, const std::string &path = "out.log") {
 	std::ofstream file_out;
 	file_out.open(path, std::ios_base::app);

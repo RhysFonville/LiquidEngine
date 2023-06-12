@@ -18,8 +18,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	light.get_component<PointLightComponent>()->data.range = 100.0f;
 	light.get_component<PointLightComponent>()->data.attenuation = FVector3(0.0f, 0.0f, 1.0f);
-	light.get_component<PointLightComponent>()->data.diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-	light.get_component<PointLightComponent>()->data.specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
+	light.get_component<PointLightComponent>()->data.diffuse = Color(255, 255, 255, 255);
+	light.get_component<PointLightComponent>()->data.specular = Color(255, 255, 255, 255);
 
 	engine.scene.graphics_scene->lights.push_back(light.get_component<PointLightComponent>());
 

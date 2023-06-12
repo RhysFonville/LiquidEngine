@@ -28,10 +28,10 @@ struct Spotlight {
 struct Material {
 	/*bool has_texture;
 	bool has_normal_map;*/
+	float a;
 	float4 ks;
 	float4 kd;
 	float4 ka;
-	float a;
 };
 
 cbuffer PerFramePSCB : register(b2) {
@@ -120,33 +120,33 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	//	}
 	//}
 
-	for (uint i = 0; i < point_light_count; i++) {
-		if (!point_lights[i].null) {
-			float4 is = point_lights[i].specular;
-			float4 id = point_lights[i].diffuse;
+	//for (uint i = 0; i < point_light_count; i++) {
+	//	if (!point_lights[i].null) {
+	//		float4 is = point_lights[i].specular;
+	//		float4 id = point_lights[i].diffuse;
 
-			float3 lm = normalize(point_lights[i].position - ps_in.world_position);
+	//		float3 lm = normalize(point_lights[i].position - ps_in.world_position);
 
-			float d = length(lm);
-			if (d > point_lights[i].range)
-				continue;
+	//		float d = length(lm);
+	//		if (d > point_lights[i].range)
+	//			continue;
 
-			float3 rm = 2.0f * n * dot(n, lm);
-			float3 v = normalize(camera_position - ps_in.world_position);
+	//		float3 rm = 2.0f * n * dot(n, lm);
+	//		float3 v = normalize(camera_position - ps_in.world_position);
 
-			if (dot(lm, n) > 0.0f) {
-				light_final_color += saturate(kd*dot(lm, n) * id) +
-					saturate(ks * pow(dot(rm, v), a) * is);
-			}
+	//		if (dot(lm, n) > 0.0f) {
+	//			light_final_color += saturate(kd*dot(lm, n) * id) +
+	//				saturate(ks * pow(dot(rm, v), a) * is);
+	//		}
 
-			light_final_color /=
-				(point_lights[i].attenuation.x) +
-				(point_lights[i].attenuation.y * d) +
-				(point_lights[i].attenuation.z * (d*d));
+	//		light_final_color /=
+	//			(point_lights[i].attenuation.x) +
+	//			(point_lights[i].attenuation.y * d) +
+	//			(point_lights[i].attenuation.z * (d*d));
 
-			final_color += light_final_color;
-		}
-	}
+	//		final_color += light_final_color;
+	//	}
+	//}
 
 	/*for (unsigned int i = 0; i < spotlight_count; i++) {
 	if (!spotlights[i].null) {

@@ -181,9 +181,9 @@ void GraphicsScene::update() {
 		cbs.per_frame_ps.obj->camera_position = camera->get_position();
 	}
 
-	std::vector<DirectionalLightComponent::DLData> dl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXDLData> dl(MAX_LIGHTS_PER_TYPE);
 	std::vector<DXPLData> pl(MAX_LIGHTS_PER_TYPE);
-	std::vector<SpotlightComponent::SLData> sl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXSLData> sl(MAX_LIGHTS_PER_TYPE);
 	UINT dl_count = 0;
 	UINT pl_count = 0;
 	UINT sl_count = 0;
@@ -195,7 +195,8 @@ void GraphicsScene::update() {
 	
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < lights.size(); i++) {
 		if (lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			dl[dl_count] = std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data;
+			auto data = std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data;
+			dl[dl_count] = DXDLData(data);
 			dl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::PointLightComponent) {
@@ -204,7 +205,8 @@ void GraphicsScene::update() {
 			pl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			sl[sl_count] = std::static_pointer_cast<SpotlightComponent>(lights[i])->data;
+			auto data = std::static_pointer_cast<SpotlightComponent>(lights[i])->data;
+			sl[sl_count] = DXSLData(data);
 			sl_count++;
 		}
 	}

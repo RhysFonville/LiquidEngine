@@ -229,14 +229,16 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 
 	// Create a constant buffer descriptor heap for each frame
 	// this is the descriptor heap that will store our constant buffer descriptor
-	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
-		heap_desc.NumDescriptors = (UINT)descriptor_tables.size();
-		heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		heap_desc.NodeMask = 0u;
+	if (!descriptor_tables.empty()) {
+		for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+			D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
+			heap_desc.NumDescriptors = (UINT)descriptor_tables.size();
+			heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+			heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+			heap_desc.NodeMask = 0u;
 
-		HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
+			HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
+		}
 	}
 
 	for (ConstantBuffer *cb : constant_buffers) {
@@ -251,7 +253,9 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 	
 	// set constant buffer descriptor heap
 	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
-	command_list->SetDescriptorHeaps(_countof(heaps), heaps);
+	if (!descriptor_tables.empty()) { // descriptor_heaps is only empty when descriptor_tables is as well
+		command_list->SetDescriptorHeaps(_countof(heaps), heaps);
+	}
 
 	int i = 0;
 	for (const DescriptorTable &descriptor_table : descriptor_tables) {

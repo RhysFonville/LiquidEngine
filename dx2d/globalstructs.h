@@ -58,11 +58,15 @@ struct TColor {
 using Color = TColor<UCHAR>;
 using FColor = TColor<float>;
 
-static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = true) noexcept {
+static XMFLOAT4 color_to_xmfloat4(const Color &color, bool normalize = true) noexcept {
 	if (normalize)
 		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 	else
 		return XMFLOAT4(color.r, color.g, color.b, color.a);
+}
+
+static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
+	return color_to_xmfloat4(color, normalize);
 }
 
 //struct FColor {
@@ -398,6 +402,14 @@ public:
 		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
 	}
 };
+
+static FVector4 color_to_fvector(const Color &color) noexcept {
+	return FVector4(color.r, color.g, color.b, color.a);
+}
+
+static FVector4 ctofvec(const Color &color) noexcept {
+	return color_to_fvector(color);
+}
 
 using FVector2 = TVector2<float>;
 

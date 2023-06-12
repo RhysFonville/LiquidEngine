@@ -16,11 +16,27 @@
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
 _declspec(align(256))
+struct DXDLData {
+	DXDLData() { }
+	DXDLData(const DirectionalLightComponent::DLData &data)
+		: direction(data.direction),
+		diffuse(ctofvec(data.diffuse)/255.0f),
+		specular(ctofvec(data.specular)/255.0f) { }
+
+	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
+	FVector4 diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
+	FVector4 specular = FVector4(0.5f, 0.5f, 0.5f, 1.0f);
+
+	int null = false;
+};
+
+_declspec(align(256))
 struct DXPLData {
 	DXPLData() { }
 	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
 		: range(data.range), attenuation(data.attenuation),
-		diffuse(data.diffuse/255.0f), specular(data.specular/255.0f),
+		diffuse(ctofvec(data.diffuse)/255.0f), 
+		specular(ctofvec(data.specular)/255.0f),
 		position(pos) { }
 
 
@@ -34,12 +50,35 @@ struct DXPLData {
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
+
 _declspec(align(256))
-struct DXMatData : Material::MaterialData {
+struct DXSLData {
+	DXSLData() { }
+	DXSLData(const SpotlightComponent::SLData &data)
+		: direction(data.direction),
+		diffuse(ctofvec(data.diffuse)/255.0f),
+		specular(ctofvec(data.specular)/255.0f) { }
+
+
+	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
+	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 specular = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	int null = false;
+};
+
+_declspec(align(256))
+struct DXMatData {
 	DXMatData() { }
-	DXMatData(const MaterialData &data)
-		: MaterialData({ data.ks/255.0f, data.kd/255.0f,
-		data.ka/255.0f, data.a }) { }
+	DXMatData(const Material::MaterialData &data)
+		: a(data.a), ks(color_to_fvector(data.ks)/255.0f),
+		kd(color_to_fvector(data.kd)/255.0f),
+		ka(color_to_fvector(data.ka)/255.0f) { }
+
+	float a = 0.5f;
+	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
+	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
+	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
 };
 
 _declspec(align(256))

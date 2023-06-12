@@ -1,7 +1,7 @@
 #include "SpotlightComponent.h"
 
 SpotlightComponent::SpotlightComponent()
-	: Component(Type::SpotlightComponent), data({ }) { }
+	: Component(Type::SpotlightComponent) { }
 
 bool SpotlightComponent::operator==(const SpotlightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&

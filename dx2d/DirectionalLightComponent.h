@@ -11,8 +11,8 @@ public:
 
 	struct DLData {
 		FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
-		FVector4 diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-		FVector4 specular = FVector4(0.5f, 0.5f, 0.5f, 1.0f);
+		Color diffuse = Color(255, 255, 255, 255);
+		Color specular = Color(5, 5, 5, 255);
 
 		bool null = false;
 	} data;
