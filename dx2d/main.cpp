@@ -7,21 +7,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	Object camera("Camera");
 	camera.add_component(std::make_shared<CameraComponent>());
-	camera.add_component(std::make_shared<PointLightComponent>());
 	engine.scene.objects.push_back(std::make_shared<Object>(camera));
 
 	engine.scene.graphics_scene->camera = camera.get_component<CameraComponent>();
 
 	Object light("Light");
-	light.add_component(std::make_shared<PointLightComponent>());
+	light.add_component(std::make_shared<DirectionalLightComponent>());
 	engine.scene.objects.push_back(std::make_shared<Object>(light));
 
-	light.get_component<PointLightComponent>()->data.range = 100.0f;
-	light.get_component<PointLightComponent>()->data.attenuation = FVector3(0.0f, 0.0f, 1.0f);
-	light.get_component<PointLightComponent>()->data.diffuse = Color(255, 255, 255, 255);
-	light.get_component<PointLightComponent>()->data.specular = Color(255, 255, 255, 255);
-
-	engine.scene.graphics_scene->lights.push_back(light.get_component<PointLightComponent>());
+	engine.scene.graphics_scene->lights.push_back(light.get_component<DirectionalLightComponent>());
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 

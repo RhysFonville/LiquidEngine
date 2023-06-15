@@ -37,7 +37,7 @@ public:
 				kd == data.kd &&
 				ka == data.ka &&
 				a == data.a
-				);
+			);
 		}
 	} data;
 

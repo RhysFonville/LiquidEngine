@@ -211,12 +211,12 @@ void GraphicsScene::update() {
 		}
 	}
 
-	//std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
+	std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
 	std::copy(pl.begin(), pl.end(), cbs.per_frame_ps.obj->point_lights);
-	//std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
-	//cbs.per_frame_ps.obj->directional_light_count = dl_count;
+	std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
+	cbs.per_frame_ps.obj->directional_light_count = dl_count;
 	cbs.per_frame_ps.obj->point_light_count = pl_count;
-	//cbs.per_frame_ps.obj->spotlight_count = sl_count;
+	cbs.per_frame_ps.obj->spotlight_count = sl_count;
 
 	// we can only reset an allocator once the gpu is done with it
 	// resetting an allocator frees the memory that the command list was stored in
