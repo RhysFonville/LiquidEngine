@@ -188,9 +188,9 @@ void GraphicsScene::update() {
 	UINT pl_count = 0;
 	UINT sl_count = 0;
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
-		dl[i].null = true;
-		pl[i].null = true;
-		sl[i].null = true;
+		dl[i].null = 1;
+		pl[i].null = 1;
+		sl[i].null = 1;
 	}
 	
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < lights.size(); i++) {

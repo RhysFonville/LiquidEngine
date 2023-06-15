@@ -105,7 +105,7 @@ struct PerFramePSCB { // b2
 
 __declspec(align(256))
 struct PerObjectPSCB { // b3
-	Material::MaterialData material;
+	DXMatData material;
 };
 
 class GraphicsScene {

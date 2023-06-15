@@ -6,7 +6,7 @@ struct DirectionalLight {
 	float3 direction;
 	float4 diffuse;
 	float4 specular;
-	bool null;
+	int null;
 };
 
 struct PointLight {
@@ -14,7 +14,7 @@ struct PointLight {
 	float3 attenuation;
 	float4 diffuse;
 	float4 specular;
-	bool null;
+    int null;
 	float3 position;
 };
 
@@ -22,7 +22,7 @@ struct Spotlight {
 	float3 direction;
 	float4 diffuse;
 	float4 specular;
-	bool null;
+    int null;
 };
 
 struct Material {
