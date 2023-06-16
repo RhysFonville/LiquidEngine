@@ -1,8 +1,9 @@
 #include "Scene.h"
 
 Scene::Scene(Window &window) {
-	objects = std::make_shared<std::vector<std::shared_ptr<Object>>>();
-	graphics_scene = std::make_shared<GraphicsScene>(window.get_window(), objects);
+	objects = std::vector<std::shared_ptr<Object>>();
+
+	graphics_scene = std::make_shared<GraphicsScene>(window.get_window());
 	physics_scene = PhysicsScene(objects);
 	behavior_manager = BehaviorManager();
 
@@ -12,21 +13,27 @@ Scene::Scene(Window &window) {
 void Scene::tick() {
 	behavior_manager.tick();
 	//physics_scene.tick();
-	graphics_scene->clear();
-	graphics_scene->draw();
-	graphics_scene->present();
+	graphics_scene->tick();
 }
 
 void Scene::clean_up() {
-	graphics_scene->clean_up();
+	//graphics_scene->clean_up();
 	physics_scene.clean_up();
 	behavior_manager.clean_up();
 }
 
 void Scene::compile() {
-	for (std::shared_ptr<Object> &object : *objects) {
+	for (std::shared_ptr<Object> &object : objects) {
 		object->compile();
 	}
+
+	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
+	for (std::shared_ptr<Object> &object : objects) {
+		if (std::shared_ptr<AppearanceComponent> appearance = object->get_component<AppearanceComponent>(); appearance != nullptr) {
+			appearances.push_back(appearance);
+		}
+	}
+	graphics_scene->appearances = appearances;
 
 	graphics_scene->compile();
 }
@@ -75,7 +82,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 
 			Material newmtl;
 
-			while (std::getline(mtl_file, line)) {
+			/*while (std::getline(mtl_file, line)) {
 				if (!line.empty()) {
 					trim(line);
 					if (line[0] != '#') {
@@ -107,7 +114,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 			}
 
 			newmtl.read_mtl_file(std::vector<std::string>(file_vec.begin()+last_new_mtl_index,
-				file_vec.end()));
+				file_vec.end()));*/
 
 			Storage::materials.push_back(newmtl);
 		} else {
@@ -136,7 +143,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 								mesh_data += obj.read_obj_file(std::vector<std::string>(file_vec.begin() + last_new_obj_index,
 									file_vec.end()-1), mesh_data);
 
-								objects->push_back(std::make_shared<Object>(obj));
+								objects.push_back(std::make_shared<Object>(obj));
 
 								last_new_obj_index = file_vec.size();
 							}
@@ -151,10 +158,28 @@ void Scene::read_obj_file(std::string obj_file_path) {
 			mesh_data += obj.read_obj_file(std::vector<std::string>(file_vec.begin()+last_new_obj_index,
 				file_vec.end()), mesh_data);
 
-			objects->push_back(std::make_shared<Object>(obj));
+			objects.push_back(std::make_shared<Object>(obj));
 
 		} else {
 			throw std::exception(("Could not open file \"" + obj_file_path + "\"").c_str());
 		}
 	}
 }
+
+//std::vector<Object> Scene::get_objects() const noexcept {
+//	std::vector<Object> ret;
+//	for (auto object : *objects) {
+//		ret.push_back(*object);
+//	}
+//	return ret;
+//}
+//
+//void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
+//	objects->push_back(object);
+//	graphics_scene->objects_added_indices.push_back(objects->size()-1);
+//}
+//
+//void Scene::remove_object(int index) noexcept {
+//	objects->erase(objects->begin()+index);
+//	graphics_scene->objects_removed_indices.push_back(index);
+//}

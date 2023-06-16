@@ -27,6 +27,9 @@ public:
 
 	void update(const FVector2 &size) noexcept;
 
+	bool operator==(const CameraComponent &component) const noexcept;
+	void operator=(const CameraComponent &component) noexcept;
+
 	static const Type component_type = Type::CameraComponent;
 
 private:

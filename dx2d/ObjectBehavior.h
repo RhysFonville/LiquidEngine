@@ -12,6 +12,7 @@ public:
 
 	std::shared_ptr<Object> object;
 
+
 protected:
 	virtual void on_start() { }
 

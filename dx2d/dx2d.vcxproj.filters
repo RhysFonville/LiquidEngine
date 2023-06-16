@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Util">
       <UniqueIdentifier>{b63bdf02-44ef-437a-b568-214e26b825f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Base">
+      <UniqueIdentifier>{6615bb5d-7679-4f07-87c2-c7b9780da433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,6 +102,12 @@
     <ClCompile Include="MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsPipeline.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AppearanceComponent.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -111,9 +120,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Conversion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Throw.h">
@@ -170,16 +176,42 @@
     <ClInclude Include="MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsPipeline.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AppearanceComponent.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="DefaultVertex.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="UnlitPixel.hlsl">
       <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseLitPS.hlsl">
+      <Filter>Shaders\Base</Filter>
+    </FxCompile>
+    <FxCompile Include="LitPixel.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseShader.hlsl">
+      <Filter>Shaders\Base</Filter>
+    </FxCompile>
+    <FxCompile Include="BaseVS.hlsl">
+      <Filter>Shaders\Base</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="throw_details.log">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="out.log">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

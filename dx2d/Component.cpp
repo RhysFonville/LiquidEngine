@@ -27,15 +27,15 @@ void Component::size(FVector3 size) noexcept {
 	set_size(size + transform.size);
 }
 
-GET FVector3 Component::get_position() const noexcept {
+FVector3 Component::get_position() const noexcept {
 	return transform.position;
 }
 
-GET FVector3 Component::get_rotation() const noexcept {
+FVector3 Component::get_rotation() const noexcept {
 	return transform.rotation;
 }
 
-GET FVector3 Component::get_size() const noexcept {
+FVector3 Component::get_size() const noexcept {
 	return transform.size;
 }
 
@@ -45,10 +45,19 @@ void Component::set_transform(Transform transform) noexcept {
 	set_size(transform.size);
 }
 
-GET Transform Component::get_transform() const noexcept {
+Transform Component::get_transform() const noexcept {
 	return transform;
+}
+
+Component::Type Component::get_type() const noexcept {
+	return type;
 }
 
 bool Component::operator==(const Component &component) const noexcept {
 	return (component.type == type && component.transform == transform);
+}
+
+void Component::operator=(const Component &component) noexcept {
+	transform = component.transform;
+	type = component.type;
 }
