@@ -7,7 +7,7 @@
 
 class CameraController : public ObjectBehavior {
 public:
-	CameraController(const ObjectVector &objects, std::shared_ptr<Object> &object);
+	CameraController(const ObjectVector &objects, Object* object);
 
 	void tick() override;
 

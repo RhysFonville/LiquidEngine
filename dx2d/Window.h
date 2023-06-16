@@ -34,7 +34,7 @@ public:
 	GET bool is_running() const noexcept;
 	void is_running(bool running) noexcept;
 
-	std::shared_ptr<GraphicsScene> graphics_scene;
+	GraphicsScene* graphics_scene;
 
 private:
 	HWND window;

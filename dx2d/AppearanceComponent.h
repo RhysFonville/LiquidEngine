@@ -22,7 +22,7 @@ public:
 
 	void clean_up() override;
 
-	const MeshComponent & get_mesh() const noexcept;
+	const MeshComponent* get_mesh() const noexcept;
 
 	void set_mesh(const std::shared_ptr<MeshComponent> &mesh,
 		ComPtr<ID3D12Device> &device,
@@ -41,5 +41,5 @@ public:
 private:
 	mutable bool mesh_changed = false;
 
-	std::shared_ptr<MeshComponent> mesh = nullptr;
+	MeshComponent* mesh = nullptr;
 };

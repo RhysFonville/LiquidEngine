@@ -6,11 +6,11 @@
 
 class ObjectBehavior {
 public:
-	ObjectBehavior(const ObjectVector &objects, const std::shared_ptr<Object> &object, const std::string &name);
+	ObjectBehavior(const ObjectVector &objects, const Object* object, const std::string &name);
 
 	std::string name;
 
-	std::shared_ptr<Object> object;
+	Object* object;
 
 
 protected:
