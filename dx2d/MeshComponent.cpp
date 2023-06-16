@@ -1,10 +1,9 @@
 #include "MeshComponent.h"
 
 MeshComponent::MeshComponent(const FVector3 &position, const FVector3 &rotation)
-	: Component(Component::Type::MeshComponent, Transform(position, rotation)), material(Material()) { }
+	: Component(Component::Type::MeshComponent, Transform(position, rotation)) { }
 
-MeshComponent::MeshComponent(const Material &material)
-	: Component(Component::Type::MeshComponent), material(material) { }
+void MeshComponent::clean_up() { }
 
 ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &read) {
 	if (!read.contents.empty()) {
@@ -70,13 +69,9 @@ ReadObjFileDataOutput MeshComponent::read_obj_file(const ReadObjFileDataInput &r
 	return ReadObjFileDataOutput();
 }
 
-void MeshComponent::clean_up() {
-	material.clean_up();
-}
-
 void MeshComponent::compile() noexcept {
 	std::vector<Vertex> verts = mesh_data.get_vertices();
-	for (int i = 0; i < verts.size(); i += 3){
+	for (size_t i = 0; i < verts.size(); i += 3){
 		if (i <= verts.size()) {
 
 			// Shortcuts for vertices
@@ -99,15 +94,15 @@ void MeshComponent::compile() noexcept {
 
 			float r =     1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
 			FVector3 tangent =   (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
-			FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
+			//FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
 
 			verts[i+0].tangent = tangent;
 			verts[i+1].tangent = tangent;
 			verts[i+2].tangent = tangent;
 
-			verts[i+0].bitangent = bitangent;
+			/*verts[i+0].bitangent = bitangent;
 			verts[i+1].bitangent = bitangent;
-			verts[i+2].bitangent = bitangent;
+			verts[i+2].bitangent = bitangent;*/
 		}
 	}
 
@@ -115,7 +110,11 @@ void MeshComponent::compile() noexcept {
 	mesh_data.indices = std::vector<UINT>();
 }
 
-bool MeshComponent::operator==(const MeshComponent &appearance) const noexcept {
-	if (material == appearance.material &&
-		mesh_data == appearance.mesh_data) return true; else return false;
+bool MeshComponent::operator==(const MeshComponent &mesh) const noexcept {
+	return ((Component*)this == (Component*)&mesh &&
+			mesh_data == mesh.mesh_data);
+}
+
+void MeshComponent::operator=(const MeshComponent &component) noexcept {
+	mesh_data = component.mesh_data;
 }

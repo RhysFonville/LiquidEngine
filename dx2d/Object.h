@@ -49,6 +49,7 @@ private:
 class Object {
 public:
 	Object(std::string name = "New Object");
+	~Object();
 
 	void set_position(const FVector3 &position) noexcept;
 	void set_rotation(const FVector3 &rotation) noexcept;
@@ -65,7 +66,7 @@ public:
 	template <typename T>
 	GET bool has_component() const {
 		for (const std::shared_ptr<Component> &component : components) {
-			if (component->type == T::component_type) {
+			if (component->get_type() == T::component_type) {
 				return true;
 			}
 		}
@@ -85,34 +86,50 @@ public:
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
-	template <typename T>
-	GET std::shared_ptr<T> get_component() const noexcept {
-		for (std::shared_ptr<Component> component : components) {
-			if (component->type == T::component_type) {
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
+	GET std::shared_ptr<T> get_component() noexcept {
+		for (const std::shared_ptr<Component> &component : components) {
+			if (component->get_type() == T::component_type) {
 				return std::static_pointer_cast<T>(component);
 			}
 		}
 		return nullptr;
 	}
 
-	template <typename T>
-	GET std::vector<std::shared_ptr<T>> get_components() const noexcept {
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
+	GET std::vector<std::shared_ptr<T>> get_components() noexcept {
 		std::vector<std::shared_ptr<T>> ret;
-		for (std::shared_ptr<Component> component : components) {
-			if (component->type == T::component_type) {
+		for (const std::shared_ptr<Component> &component : components) {
+			if (component->get_type() == T::component_type) {
 				ret.push_back(std::static_pointer_cast<T>(component));
 			}
 		}
 		return ret;
 	}
 
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
+	void add_component(std::shared_ptr<T> component) {
+		components_added.push_back(std::make_pair(component, components.size()));
+		components.push_back(component);
+	}
+
+	void remove_component(size_t index) {
+		components_removed.push_back(std::make_pair(
+			components[index], 
+			index
+		));
+		components.erase(components.begin()+index);
+	}
+
+	void clear_component_history() noexcept;
+
+	const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & get_added_components() const noexcept;
+	const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & get_removed_components() const noexcept;
 	
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
 
 	void clean_up();
-
-	std::vector<std::shared_ptr<Component>> components;
 
 	bool is_static = true;
 
@@ -122,8 +139,11 @@ public:
 
 private:
 	Transform transform;
+	
+	std::vector<std::shared_ptr<Component>> components;
+	std::vector<std::pair<std::shared_ptr<Component>, size_t>> components_added;
+	std::vector<std::pair<std::shared_ptr<Component>, size_t>> components_removed;
 
 	std::shared_ptr<Object> parent = nullptr;
 	std::vector<std::shared_ptr<Object>> children;
 };
-

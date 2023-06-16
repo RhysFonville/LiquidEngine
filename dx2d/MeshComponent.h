@@ -4,7 +4,6 @@
 #include <vector>
 #include <Windows.h>
 #include <fstream>
-#include "Material.h"
 #include "globalutil.h"
 #include "Component.h"
 
@@ -25,23 +24,30 @@ public:
 			indices == mesh.indices);
 	}
 
+	void operator=(const MeshData &mesh) noexcept {
+		vertices = mesh.vertices;
+		indices = mesh.indices;
+		bounding_box = mesh.bounding_box;
+		triangles = mesh.triangles;
+	}
+
 	GET SimpleBox get_bounding_box() const noexcept {
 		return bounding_box;
 	}
 
-	GET std::vector<Vertex> get_vertices() const noexcept {
+	GET const std::vector<Vertex> & get_vertices() const noexcept {
 		return vertices;
 	}
 
-	GET std::vector<Triangle> get_triangles() const noexcept {
+	GET const std::vector<Triangle> & get_triangles() const noexcept {
 		return triangles;
 	}
 
-	GET std::vector<SimpleVertex> get_physics_vertices() const noexcept {
+	GET const std::vector<SimpleVertex> & get_physics_vertices() const noexcept {
 		return physics_vertices;
 	}
 
-	GET std::vector<SimpleTriangle> get_physics_triangles() const noexcept {
+	GET const std::vector<SimpleTriangle> & get_physics_triangles() const noexcept {
 		return physics_triangles;
 	}
 
@@ -147,17 +153,14 @@ public:
 	MeshComponent(const FVector3 &position = FVector3(),
 		const FVector3 &rotation = FVector3());
 
-	MeshComponent(const Material &material);
-
 	ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read);
 
 	void clean_up() override;
 
 	void compile() noexcept override;
 
-	bool operator==(const MeshComponent &appearance) const noexcept;
-
-	Material material;
+	bool operator==(const MeshComponent &mesh) const noexcept;
+	void operator=(const MeshComponent &component) noexcept;
 
 	MeshData mesh_data = {
 		 {

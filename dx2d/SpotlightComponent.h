@@ -1,26 +1,21 @@
 #pragma once
-#include "Component.h"
-class SpotlightComponent : public Component {
-public:
-	__declspec(align(16))
-	struct ConstantBufferStruct {
-		XMFLOAT3 direction;
-		XMFLOAT4 diffuse;
-		XMFLOAT4 specular;
-	};
 
+#include "Component.h"
+
+class SpotlightComponent : public Component {
 public:
 	SpotlightComponent();
 
-	void operator=(const SpotlightComponent &light) noexcept;
+	virtual bool operator==(const SpotlightComponent &component) const noexcept;
+	virtual void operator=(const SpotlightComponent &component) noexcept;
 
-	operator ConstantBufferStruct() const noexcept {
-		return { direction, diffuse / 255.0f, specular };
-	}
+	struct SLData {
+		FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
+		Color diffuse = Color(255, 255, 255, 255);
+		Color specular = Color(5, 5, 5, 5);
 
-	FVector3 direction;
-	FVector4 diffuse;
-	FVector4 specular;
+		bool null = false;
+	} data;
 
 	static const Type component_type = Type::SpotlightComponent;
 };

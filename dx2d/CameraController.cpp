@@ -8,44 +8,44 @@ void CameraController::tick() {
 
 	if (GetKeyState(0x57) & 0x8000) { // W
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(camera.direction_forward() / 20.0f);
+			camera.set_position(camera.get_position() + camera.direction_forward() * 0.001f / 2.0f);
 		} else {
-			object->translate(camera.direction_forward() / 5.0f);
+			camera.set_position(camera.get_position() + camera.direction_forward() * 0.001f);
 		}
 	}
 	if (GetKeyState(0x41) & 0x8000) { // A
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(camera.direction_left() / 20.0f);
+			camera.set_position(camera.get_position() + camera.direction_left() * 0.001f / 2.0f);
 		} else {
-			object->translate(camera.direction_left() / 5.0f);
+			camera.set_position(camera.get_position() + camera.direction_left() * 0.001f);
 		}
 	}
 	if (GetKeyState(0x53) & 0x8000) { // S
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(camera.direction_backward() / 20.0f);
+			camera.set_position(camera.get_position() + camera.direction_backward() * 0.001f / 2.0f);
 		} else {
-			object->translate(camera.direction_backward() / 5.0f);
+			camera.set_position(camera.get_position() + camera.direction_backward() * 0.001f);
 		}
 	}
 	if (GetKeyState(0x44) & 0x8000) { // D
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(camera.direction_right() / 20.0f);
+			camera.set_position(camera.get_position() + camera.direction_right() * 0.001f / 2.0f);
 		} else {
-			object->translate(camera.direction_right() / 5.0f);
+			camera.set_position(camera.get_position() + camera.direction_right() * 0.001f);
 		}
 	}
 	if (GetKeyState(0x51) & 0x8000) { // Q
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(FVector3(0.0f, -1.0f, 0.0f) / 20.0f);
+			camera.set_position(camera.get_position() + FVector3(0.0f, -1.0f, 0.0f) * 0.001f / 2.0f);
 		} else {
-			object->translate(FVector3(0.0f, -1.0f, 0.0f) / 5.0f);
+			camera.set_position(camera.get_position() + FVector3(0.0f, -1.0f, 0.0f) * 0.001f);
 		}
 	}
 	if (GetKeyState(0x45) & 0x8000) { // E
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 20.0f);
+			camera.set_position(camera.get_position() + FVector3(0.0f, 1.0f, 0.0f) * 0.001f / 2.0f);
 		} else {
-			object->translate(FVector3(0.0f, 1.0f, 0.0f) / 5.0f);
+			camera.set_position(camera.get_position() + FVector3(0.0f, 1.0f, 0.0f) * 0.001f);
 		}
 	}
 

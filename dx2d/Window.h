@@ -4,7 +4,6 @@
 
 #include <string>
 #include <functional>
-#include "Conversion.h"
 #include "GraphicsScene.h"
 #include "globalstructs.h"
 

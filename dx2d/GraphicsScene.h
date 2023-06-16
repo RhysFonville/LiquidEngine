@@ -1,123 +1,204 @@
 #pragma once
 
-#include <DirectXMath.h>
 #include <filesystem>
 #include "Object.h"
-#include "globalutil.h"
 #include "CameraComponent.h"
 #include "DirectionalLightComponent.h"
 #include "PointLightComponent.h"
 #include "SpotlightComponent.h"
+#include "GraphicsPipeline.h"
+#include "AppearanceComponent.h"
 
-#define D3D11_DOUBLE_SIDED D3D11_CULL_NONE
-
-#pragma comment(lib,"D3D11.lib")
+#pragma comment(lib,"D3D12.lib")
 #pragma comment (lib, "D3DCompiler.lib")
+#pragma comment(lib, "dxgi.lib")
 
-#define MAX_LIGHTS_PER_TYPE 16
+static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-#pragma pack(4)
+_declspec(align(16))
+struct DXDLData {
+	DXDLData() { }
+	DXDLData(const DirectionalLightComponent::DLData &data)
+		: direction(data.direction),
+		diffuse(ctofvec(data.diffuse)/255.0f),
+		specular(ctofvec(data.specular)/255.0f) { }
 
-constexpr D3D11_INPUT_ELEMENT_DESC input_element_description[] = {
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                            D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
+	float pad = 0.0f;
+	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	int null = false;
+
+	FVector3 pad1 = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-__declspec(align(16))
-struct PerFrameConstantBuffer {
-	XMFLOAT3 pad;
-	DirectionalLightComponent::ConstantBufferStruct directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	PointLightComponent::ConstantBufferStruct point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	SpotlightComponent::ConstantBufferStruct spotlights[MAX_LIGHTS_PER_TYPE] = { };
-	uint directional_light_count = 0;
-	uint point_light_count = 0;
-	uint spotlight_count = 0;
+_declspec(align(16))
+struct DXPLData {
+	DXPLData() { }
+	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
+		: range(data.range), attenuation(data.attenuation),
+		diffuse(ctofvec(data.diffuse)/255.0f), 
+		specular(ctofvec(data.specular)/255.0f),
+		position(pos) { }
 
-	float pad1;
 
-	XMFLOAT3 camera_position;
+	float range = 100.0f;
+	FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
+	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	int null = false;
+
+	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-__declspec(align(16))
-struct PerObjectVertexConstantBuffer {
+_declspec(align(16))
+struct DXSLData {
+	DXSLData() { }
+	DXSLData(const SpotlightComponent::SLData &data)
+		: direction(data.direction),
+		diffuse(ctofvec(data.diffuse)/255.0f),
+		specular(ctofvec(data.specular)/255.0f) { }
+
+
+	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
+	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	int null = 0;
+
+	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);;
+};
+
+_declspec(align(16))
+struct DXMatData {
+	DXMatData() { }
+	DXMatData(const Material::MaterialData &data)
+		: a(data.a), ks(color_to_fvector(data.ks)/255.0f),
+		kd(color_to_fvector(data.kd)/255.0f),
+		ka(color_to_fvector(data.ka)/255.0f) { }
+
+	float a = 0.5f;
+	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
+	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
+	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
+};
+
+_declspec(align(256))
+struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
+};
+
+_declspec(align(256))
+struct PerObjectVSCB { // b1
 	XMMATRIX transform;
 };
 
-__declspec(align(16))
-struct PerObjectPixelConstantBuffer {
-	Material::ConstantBufferStruct material;
+_declspec(align(256))
+struct PerFramePSCB { // b2
+	FVector3 camera_position;
+
+	UINT directional_light_count = 0;
+	UINT point_light_count = 0;
+	UINT spotlight_count = 0;
+
+	DXDLData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	DXPLData point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	DXSLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
 };
 
-static D3D11_SAMPLER_DESC default_sampler_description;
-static Microsoft::WRL::ComPtr<ID3D11SamplerState> default_sampler_state;
+__declspec(align(256))
+struct PerObjectPSCB { // b3
+	DXMatData material;
+};
 
 class GraphicsScene {
 public:
-	GraphicsScene() {}
-	GraphicsScene(HWND window,
-		const ObjectVector &objects);
+	GraphicsScene() { }
+	GraphicsScene(HWND window, const std::vector<std::shared_ptr<AppearanceComponent>> &appearances = { }); // initializes direct3d 12
+
+	void tick(); // Updates pipeline and renders
+	void clean_up(); // release com ojects and clean up memory
+
+	void update(); // update the direct3d pipeline (update command lists)
+	void render(); // execute the command list
+	void increment_fence(); // increment fences
+	void wait_for_fence_cpu(); // wait for fences incrementation on cpu side
+	void wait_for_fence_gpu(); // wait for fences incrementation on gpu side
+	void wait_for_previous_frame(); // wait for command list completion
 
 	void compile();
-	void clean_up(bool clean_swap_chain = true, bool clean_device = true, bool clean_context = true);
 
-	void draw();
-	void present();
-	void clear(bool clear_drawing = true);
+	void set_fullscreen(bool fullscreen);
+	void toggle_fullscreen();
+	GET bool is_fullscreen() const noexcept;
 
-	GET D3D11_PRIMITIVE_TOPOLOGY get_primitive_topology() const noexcept;
-	void set_primitive_topology(D3D11_PRIMITIVE_TOPOLOGY primitive_topology) noexcept;
+	GET UVector2 get_resolution() const noexcept;
+	void set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings = true);
 
-	GET Color get_background_color() const noexcept;
-	void set_background_color(Color background_color) noexcept;
+	GET float get_delta_time() const noexcept;
 
-	GET D3D11_VIEWPORT get_viewport() const noexcept;
-	void set_viewport(D3D11_VIEWPORT viewport) noexcept;
-
-	D3D11_FILL_MODE fill_mode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	D3D11_CULL_MODE cull_mode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-	D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-
-	GET std::shared_ptr<CameraComponent> camera() const;
-
-	GET std::vector<std::shared_ptr<DirectionalLightComponent>> directional_lights() const;
-	GET std::vector<std::shared_ptr<PointLightComponent>> point_lights() const;
-	GET std::vector<std::shared_ptr<SpotlightComponent>> spotlights() const;
+	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
+	std::shared_ptr<CameraComponent> camera;
+	std::vector<std::shared_ptr<Component>> lights;
 
 private:
 	friend class Window;
-	friend class Texture;
 
-	GET std::shared_ptr<MeshComponent> obj_mesh(const Object &object) const;
+	ComPtr<ID3D12Device> device = nullptr;
+	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
+	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
+	ComPtr<ID3D12CommandAllocator> command_allocators[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
+	ComPtr<ID3D12Fence> fences[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
+	HANDLE fences_event = nullptr;
+	ULONGLONG fence_values[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap = nullptr;
+	UINT rtv_descriptor_size = 0u; // size of the rtv descriptor on the device (all front and back buffers will be the same size)
+	ComPtr<ID3D12Resource> render_targets[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
+	unsigned int buffer_index = 0u;
+	ComPtr<IDXGIFactory4> factory = nullptr;
+	std::string video_card_desc;
+	ComPtr<IDXGIAdapter1> adapter = nullptr;
+	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
-	void create_depth_stencil_buffer(UINT width, UINT height);
+	ComPtr<ID3D12Debug> debug_interface = nullptr;
+	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
+	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
+	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
 
-	void set_vertex_buffer(const std::vector<Vertex> &mesh);
-	void set_index_buffer(const std::vector<UINT> &mesh);
+	void create_adapter_and_device();
+	void create_command_queue();
+	void create_swap_chain();
+	void create_back_buffers_and_rtv_with_descriptor_heap();
+	void create_command_allocators();
+	void create_command_list();
+	void create_fences_and_fences_event();
 
-	void create_per_object_constant_buffers(CameraComponent &camera, const Object &object);
-	void create_per_frame_constant_buffer();
+	struct CBS {
+		GraphicsPipeline::ConstantBuffer<PerFrameVSCB> per_frame_vs = GraphicsPipeline::ConstantBuffer<PerFrameVSCB>(PerFrameVSCB());
+		GraphicsPipeline::ConstantBuffer<PerObjectVSCB> per_object_vs = GraphicsPipeline::ConstantBuffer<PerObjectVSCB>(PerObjectVSCB());
+		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps = GraphicsPipeline::ConstantBuffer<PerFramePSCB>(PerFramePSCB());
+		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps = GraphicsPipeline::ConstantBuffer<PerObjectPSCB>(PerObjectPSCB());
+	} cbs;
 
-	void create_essentials();
-	void create_unessentials();
+	UINT frame_index = 0u;
 
-	Microsoft::WRL::ComPtr<ID3D11Device> device = nullptr;
-	Microsoft::WRL::ComPtr<IDXGISwapChain> swap_chain = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11BlendState> blend_state = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state = nullptr;
+	DXGI_SAMPLE_DESC sample_desc = { };
+	DXGI_MODE_DESC back_buffer_desc = { }; // this is to describe our display mode
 
-	D3D11_VIEWPORT viewport = { };
+	HWND window = nullptr;
 
-	HWND window;
-
-	ObjectVector objects;
+	bool fullscreen = false;
 
 	UVector2 resolution = UVector2(3840, 2160);
 
-	FColor background_color = { 0.25f, 0.25f, 0.25f };
+	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
+
+	struct DeltaTime {
+		float dt = 0.0f;
+		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+		std::chrono::system_clock::time_point tp2 = tp1;
+	} dt;
 };

@@ -2,60 +2,49 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-#include "Texture.h"
+//#include "Texture.h"
 #include "Throw.h"
+#include "GraphicsPipeline.h"
 
 class Material {
 public:
-	__declspec(align(16))
-	struct ConstantBufferStruct {
-		BOOL has_texture;
-		BOOL has_normal_map;
+	Material() { }
+	Material(Color ks, Color kd, Color ka, float a)
+		: data({ ks, kd, ka, a }) { }
 
-		//XMFLOAT4 diffuse;
-		//float specular;
-		//float shininess;
-
-		BOOL pad0, pad1;
-
-		XMFLOAT4 ks;
-		XMFLOAT4 kd;
-		XMFLOAT4 ka;
-		
-		float a;
-	};
-
-public:
-	Material(std::string name = "");
-
-	void compile(bool compile_texture = true);
+	void compile(GraphicsPipeline &pipeline);
 	
 	void clean_up();
 
 	void read_mtl_file(std::vector<std::string> contents) noexcept;
 
+	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
-	operator ConstantBufferStruct() const noexcept;
 
-	Texture texture;
-	Texture normal_map;
-	//Color diffuse;
+	__declspec(align(256))
+	struct MaterialData {
+		/*BOOL has_texture;
+		BOOL has_normal_map;*/
 
-	Color ks = Color(255, 255, 255, 255); // Specular
-	Color kd = Color(255, 255, 255, 255); // Diffuse
-	Color ka = Color(0, 0, 0, 255); // Ambient
-	float a = 0.5f; // Shininess
+		Color ks = Color(255, 255, 255, 255); // Specular
+		Color kd = Color(255, 255, 255, 255); // Diffuse
+		Color ka = Color(0, 0, 0, 255); // Ambient
+		float a = 0.5f; // Shininess
 
-	std::string pixel_shader_name = "PixelShader.cso";
-	std::string vertex_shader_name = "VertexShader.cso";
+		bool operator==(const MaterialData &data) const noexcept {
+			return (
+				ks == data.ks &&
+				kd == data.kd &&
+				ka == data.ka &&
+				a == data.a
+			);
+		}
+	} data;
 
-	std::string name = "Material";
-
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3DBlob> vertex_blob = nullptr;
-	Microsoft::WRL::ComPtr<ID3DBlob> pixel_blob = nullptr;
+private:
+	std::string vs = "DefaultVertex.hlsl";
+	std::string hs = "";
+	std::string ds = "";
+	std::string gs = "";
+	std::string ps = "LitPixel.hlsl";
 };

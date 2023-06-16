@@ -2,9 +2,9 @@
 
 Material & Storage::get_material_by_name(std::string name) {
 	for (Material &material : materials) {
-		if (material.name == name) return material;
+		//if (material.name == name) return material;
 	}
 
-	ERROR_MESSAGE(L"Material not found in storage.");
+	throw std::exception("Material not found in storage.");
 	return *(materials.end()-1);
 }

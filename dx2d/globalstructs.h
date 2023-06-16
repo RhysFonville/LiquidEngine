@@ -5,8 +5,11 @@
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <utility>
+#include <dxgi1_4.h>
 
 using namespace DirectX;
+
+#define ACCEPT_DIGIT_ONLY(T) T, typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type
 
 enum class RotationUnit {
 	Radians,
@@ -14,12 +17,13 @@ enum class RotationUnit {
 };
 
 class Object;
-using ObjectVector = std::shared_ptr<std::vector<std::shared_ptr<Object>>>;
+using ObjectVector = std::vector<std::shared_ptr<Object>>;
 
-struct Color {
-	UCHAR r = 255, g = 255, b = 255, a = 255;
+template<ACCEPT_DIGIT_ONLY(typename T)>
+struct TColor {
+	T r = 255, g = 255, b = 255, a = 255;
 
-	Color(UCHAR r, UCHAR g, UCHAR b, UCHAR a = 255) : r(r), g(g), b(b), a(a) { }
+	TColor(T r, T g, T b, T a = 255) : r(r), g(g), b(b), a(a) { }
 
 	operator XMFLOAT3() {
 		return XMFLOAT3(r, g, b);
@@ -29,42 +33,59 @@ struct Color {
 		return XMFLOAT4(r, g, b, a);
 	}
 
-	Color operator/(float divisor) const noexcept {
-		return Color(
-					(UCHAR)(r / divisor), (UCHAR)(g / divisor),
-					(UCHAR)(b / divisor), (UCHAR)(a / divisor)
+	operator DXGI_RGBA() {
+		return DXGI_RGBA({ r, g, b, a });
+	}
+
+	TColor operator/(T divisor) const noexcept {
+		return TColor(
+					(T)(r / divisor), (T)(g / divisor),
+					(T)(b / divisor), (T)(a / divisor)
 				);
 	}
 
-	void operator/=(float divisor) noexcept {
+	void operator/=(T divisor) noexcept {
 		*this = *this / divisor;
+	}
+
+	bool operator==(const TColor<T> &color) const noexcept {
+		return (r == color.r &&
+			g == color.g &&
+			b == color.b);
 	}
 };
 
-static XMFLOAT4 color_to_XMFLOAT4(const Color &color, bool normalize = false) noexcept {
+using Color = TColor<UCHAR>;
+using FColor = TColor<float>;
+
+static XMFLOAT4 color_to_xmfloat4(const Color &color, bool normalize = true) noexcept {
 	if (normalize)
 		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 	else
 		return XMFLOAT4(color.r, color.g, color.b, color.a);
 }
 
-struct FColor {
-	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
+static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
+	return color_to_xmfloat4(color, normalize);
+}
 
-	FColor operator*(float n) const noexcept {
-		return { r*n, g*n, b*n, a*n };
-	}
+//struct FColor {
+//	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
+//
+//	FColor operator*(float n) const noexcept {
+//		return { r*n, g*n, b*n, a*n };
+//	}
+//
+//	FColor operator/(float n) const noexcept {
+//		return { r/n, g/n, b/n, a/n };
+//	}
+//
+//	operator Color() const noexcept {
+//		return { (UCHAR)r, (UCHAR)g, (UCHAR)b, (UCHAR)a };
+//	}
+//};
 
-	FColor operator/(float n) const noexcept {
-		return { r/n, g/n, b/n, a/n };
-	}
-
-	operator Color() const noexcept {
-		return { (UCHAR)r, (UCHAR)g, (UCHAR)b, (UCHAR)a };
-	}
-};
-
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector2 {
 public:
 	T x = 0;
@@ -91,19 +112,13 @@ public:
 	}
 
 	bool operator==(const TVector2 &vector) const noexcept {
-		if (x == vector.x &&
-			y == vector.y)
-			return true;
-		else
-			return false;
+		return (x == vector.x &&
+				y == vector.y);
 	}
 
 	bool operator!=(const TVector2 &vector) const noexcept {
-		if (x != vector.x &&
-			y != vector.y)
-			return true;
-		else
-			return false;
+		return (x != vector.x &&
+				y != vector.y);
 	}
 
 	operator XMVECTOR() const {
@@ -130,8 +145,6 @@ public:
 	TVector3() {}
 	TVector3(const TVector3 &vector) : x(vector.x), y(vector.y), z(vector.z) { }
 	constexpr TVector3(T x, T y, T z) : x(x), y(y), z(z) {}
-	TVector3(XMVECTOR vector) : x((T)XMVectorGetX(vector)),
-		y((T)XMVectorGetY(vector)), z((T)XMVectorGetZ(vector)) { }
 
 	bool is_zero() const noexcept {
 		return (x == 0 && y == 0 && z == 0);
@@ -161,6 +174,14 @@ public:
 		return TVector3<T>(x*n, y*n, z*n);
 	}
 
+	TVector3<T> operator/(const TVector3<T> &vector) const noexcept {
+		return TVector3<T>(x/vector.x, y/vector.y, z/vector.z);
+	}
+
+	TVector3<T> operator/(T n) const noexcept {
+		return TVector3<T>(x/n, y/n, z/n);
+	}
+
 	void operator+=(const TVector3<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;
@@ -185,12 +206,6 @@ public:
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
-	}
-
-	void operator=(const XMVECTOR &vector) noexcept {
-		x = XMVectorGetX(vector);
-		y = XMVectorGetY(vector);
-		z = XMVectorGetZ(vector);
 	}
 
 	T & operator[](UCHAR index) {
@@ -223,7 +238,7 @@ public:
 		return (x == 0 && y == 0 && z == 0 && w == 0);
 	}
 
-	TVector3<T> operator+(TVector3<T> vector) {
+	TVector4<T> operator+(TVector4<T> vector) {
 		vector.x += x;
 		vector.y += y;
 		vector.z += z;
@@ -231,8 +246,8 @@ public:
 		return vector;
 	}
 
-	TVector3<T> operator-(const TVector3<T> &vector) noexcept {
-		TVector3<T> ret = *this;
+	TVector4<T> operator-(const TVector4<T> &vector) noexcept {
+		TVector4<T> ret = *this;
 		ret.x -= vector.x;
 		ret.y -= vector.y;
 		ret.z -= vector.z;
@@ -241,37 +256,45 @@ public:
 		return ret;
 	}
 
-	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
-		return TVector3<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
+	TVector4<T> operator*(const TVector4<T> &vector) const noexcept {
+		return TVector4<T>(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
 	}
 
-	TVector3<T> operator*(T n) const noexcept {
-		return TVector3<T>(x*n, y*n, z*n, w*n);
+	TVector4<T> operator*(T n) const noexcept {
+		return TVector4<T>(x*n, y*n, z*n, w*n);
 	}
 
-	void operator+=(const TVector3<T> &vector) noexcept {
+	TVector4<T> operator/(const TVector4<T> &vector) const noexcept {
+		return TVector4<T>(x/vector.x, y/vector.y, z/vector.z, w/vector.w);
+	}
+
+	TVector4<T> operator/(T n) const noexcept {
+		return TVector4<T>(x/n, y/n, z/n, w/n);
+	}
+
+	void operator+=(const TVector4<T> &vector) noexcept {
 		x += vector.x;
 		y += vector.y;
 		z += vector.z;
 		w += vector.w;
 	}
 
-	void operator-=(const TVector3<T> &vector) noexcept {
+	void operator-=(const TVector4<T> &vector) noexcept {
 		x -= vector.x;
 		y -= vector.y;
 		z -= vector.z;
 		w -= vector.w;
 	}
 
-	bool operator==(const TVector3<T> &vector) const noexcept {
+	bool operator==(const TVector4<T> &vector) const noexcept {
 		return (x == vector.x && y == vector.y && z == vector.z && w == vector.w);
 	}
 
-	bool operator!=(const TVector3<T> &vector) const noexcept {
+	bool operator!=(const TVector4<T> &vector) const noexcept {
 		return (x != vector.x || y != vector.y || z != vector.z || w != vector.w);
 	}
 
-	void operator=(const TVector3<T> &vector) noexcept {
+	void operator=(const TVector4<T> &vector) noexcept {
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
@@ -316,7 +339,8 @@ public:
 		: TVector3<float>(vector) { }
 	constexpr FVector3(float x, float y, float z)
 		: TVector3<float>(x, y, z) { }
-	FVector3(XMVECTOR vector) : TVector3<float>(vector) {}
+	FVector3(XMVECTOR vector)
+		: TVector3<float>(XMVectorGetX(vector), XMVectorGetY(vector), XMVectorGetZ(vector)) { }
 
 	operator TVector3<float>() const noexcept {
 		return TVector3<float>(x, y, z);
@@ -334,20 +358,14 @@ public:
 		return FVector3(powf(x, p), powf(y, p), powf(z, p));
 	}
 
-	FVector3 operator/(float f) {
-		return FVector3(x/f, y/f, z/f);
-	}
-
-	FVector3 operator/(size_t f) {
-		return FVector3((float)(x/f), (float)(y/f), (float)(z/f));
-	}
-
 	float matrix_multiplication(const FVector3 &vector) const noexcept {
 		return x*vector.x + y*vector.y + z*vector.z;
 	}
 
-	FVector3 operator/(float f) const noexcept {
-		return FVector3(x/f, y/f, z/f);
+	void operator=(const XMVECTOR &vector) noexcept {
+		x = XMVectorGetX(vector);
+		y = XMVectorGetY(vector);
+		z = XMVectorGetZ(vector);
 	}
 };
 
@@ -360,34 +378,38 @@ public:
 		: TVector4<float>(x, y, z, w) { }
 
 	operator TVector4<float>() const noexcept {
-		return TVector4<float>(x, y, z, w);
+		return FVector4(x, y, z, w);
 	}
 
 	operator XMVECTOR() const noexcept {
-		return XMVectorSet(x, y, z, 1.0f);
+		return XMVectorSet(x, y, z, w);
 	}
 
 	operator XMFLOAT4() const noexcept {
 		return { x, y, z, w };
 	}
 
-	TVector4 pow(float p) noexcept {
-		return TVector4(powf(x, p), powf(y, p),
+	FVector4 operator/(float f) const noexcept {
+		return FVector4(x/f, y/f, z/f, w/f);
+	}
+
+	FVector4 pow(float p) noexcept {
+		return FVector4(powf(x, p), powf(y, p),
 			powf(z, p), powf(w, p));
 	}
 
 	float matrix_multiplication(const FVector4 &vector) const noexcept {
 		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
 	}
-	
-	FVector4 operator/(float f) const noexcept {
-		return FVector4(x/f, y/f, z/f, w/f);
-	}
-
-	FVector4 operator/(size_t f) {
-		return FVector4((float)(x/f), (float)(y/f), (float)(z/f), (float)(w/f));
-	}
 };
+
+static FVector4 color_to_fvector(const Color &color) noexcept {
+	return FVector4(color.r, color.g, color.b, color.a);
+}
+
+static FVector4 ctofvec(const Color &color) noexcept {
+	return color_to_fvector(color);
+}
 
 using FVector2 = TVector2<float>;
 
@@ -449,7 +471,7 @@ struct Vertex {
 	FVector2 texcoord = FVector2();
 	FVector3 normal = FVector3();
 	FVector3 tangent = FVector3();
-	FVector3 bitangent = FVector3();
+	//FVector3 bitangent = FVector3();
 
 	Vertex() { }
 
@@ -458,8 +480,8 @@ struct Vertex {
 	Vertex(float x, float y, float z, float u, float v)
 		: position(x, y, z), texcoord(u, v) { }
 
-	Vertex(float x,  float y,  float z,
-		float u,  float v,
+	Vertex(float x, float y, float z,
+		float u, float v,
 		float nx, float ny, float nz)
 		: position(x, y, z), texcoord(u, v), normal(nx, ny, nz) { }
 
