@@ -1,3 +1,5 @@
+/*
+
 #include "PhysicsScene.h"
 
 PhysicsScene::PhysicsScene(ObjectVector &objects) : objects(objects) {}
@@ -120,7 +122,7 @@ void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 
 				object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
 				object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-			}*/
+			}*//*
 		}
 	}
 }
@@ -160,7 +162,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 	/* Compute distance signs  of p1, q1 and r1 to the plane of
 	triangle(p2,q2,r2) */
 
-
+/*
 	SUB(v1,p2,r2)
 	SUB(v2,q2,r2)
 	CROSS(N2,v1,v2)
@@ -176,7 +178,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 
 	/* Compute distance signs  of p2, q2 and r2 to the plane of
 	triangle(p1,q1,r1) */
-
+/*
 
 	SUB(v1,q1,p1)
 	SUB(v2,r1,p1)
@@ -192,7 +194,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 	if (((dp2 * dq2) > 0.0f) && ((dp2 * dr2) > 0.0f)) return 0;
 
 	/* Permutation in a canonical form of T1's vertices */
-
+/*
 
 	if (dp1 > 0.0f) {
 		if (dq1 > 0.0f) {
@@ -252,7 +254,7 @@ bool PhysicsScene::coplanar_tri_tri3d(float p1[3], float q1[3], float r1[3],
 
 	/* Projection of the triangles in 3D onto 2D such that the area of
 	the projection is maximized. */
-
+/*
 
 	if (( n_x > n_z ) && ( n_x >= n_y )) {
 		// Project onto plane YZ
@@ -403,3 +405,4 @@ std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> PhysicsScene
 
 	return ret;
 }
+*/

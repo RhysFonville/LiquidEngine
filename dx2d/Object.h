@@ -88,9 +88,9 @@ public:
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET T* get_component() noexcept {
-		for (const std::shared_ptr<Component> &component : components) {
+		for (const std::unique_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
-				return std::static_pointer_cast<T>(component);
+				return (T*)component.get();
 			}
 		}
 		return nullptr;
@@ -98,18 +98,18 @@ public:
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET std::vector<T*> get_components() noexcept {
-		std::vector<std::shared_ptr<T>> ret;
-		for (const std::shared_ptr<Component> &component : components) {
+		std::vector<T*> ret;
+		for (const std::unique_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
-				ret.push_back(std::static_pointer_cast<T>(component));
+				ret.push_back((T*)component.get());
 			}
 		}
 		return ret;
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(T &component) {
-		components.push_back(std::make_unique(component));
+	void add_component(const T &component) {
+		components.push_back(std::make_unique<T>(component));
 	}
 
 	void remove_component(size_t index) {
@@ -132,6 +132,6 @@ private:
 	
 	std::vector<std::unique_ptr<Component>> components;
 
-	std::unique_ptr<Object> parent = nullptr;
-	std::vector<std::unique_ptr<Object>> children;
+	Object* parent = nullptr;
+	std::vector<Object*> children;
 };

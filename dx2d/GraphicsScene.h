@@ -116,7 +116,7 @@ struct PerObjectPSCB { // b3
 class GraphicsScene {
 public:
 	GraphicsScene() { }
-	GraphicsScene(HWND window, const std::vector<std::shared_ptr<AppearanceComponent>> &appearances = { }); // initializes direct3d 12
+	GraphicsScene(HWND window, const std::vector<AppearanceComponent*> &appearances = { }); // initializes direct3d 12
 
 	void tick(); // Updates pipeline and renders
 	void clean_up(); // release com ojects and clean up memory
@@ -139,9 +139,9 @@ public:
 
 	GET float get_delta_time() const noexcept;
 
-	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
-	std::shared_ptr<CameraComponent> camera;
-	std::vector<std::shared_ptr<Component>> lights;
+	std::vector<AppearanceComponent*> appearances;
+	CameraComponent* camera;
+	std::vector<Component*> lights;
 
 private:
 	friend class Window;

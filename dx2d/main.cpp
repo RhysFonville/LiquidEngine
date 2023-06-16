@@ -6,23 +6,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	Engine engine(hInstance);
 
 	Object camera("Camera");
-	camera.add_component(std::make_shared<CameraComponent>());
-	engine.scene.objects.push_back(std::make_shared<Object>(camera));
+	camera.add_component(CameraComponent());
+	engine.scene.objects.push_back(std::make_unique<Object>(camera));
 
-	engine.scene.graphics_scene->camera = camera.get_component<CameraComponent>();
+	engine.scene.graphics_scene.camera = camera.get_component<CameraComponent>();
 
 	Object light("Light");
-	light.add_component(std::make_shared<DirectionalLightComponent>());
-	engine.scene.objects.push_back(std::make_shared<Object>(light));
+	light.add_component(DirectionalLightComponent());
+	engine.scene.objects.push_back(std::make_unique<Object>(light));
 
-	engine.scene.graphics_scene->lights.push_back(light.get_component<DirectionalLightComponent>());
+	engine.scene.graphics_scene.lights.push_back((Component*)light.get_component<DirectionalLightComponent>());
 
 	HPE(engine.scene.read_obj_file("bunny.obj"));
 
-	engine.scene.objects[2]->set_position(FVector3(0.0f, 0.0f, 0.0f));
-	engine.scene.objects[2]->set_rotation(FVector3(0.0f, 1.0f, 0.0f));
-
-	engine.scene.objects[2]->add_component(std::make_shared<AppearanceComponent>(
+	engine.scene.objects[2]->add_component(AppearanceComponent(
 		engine.scene.objects[2]->get_component<MeshComponent>()
 	));
 

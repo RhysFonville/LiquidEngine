@@ -22,8 +22,8 @@ public:
 	void read_obj_file(std::string obj_file_path);
 
 	GraphicsScene graphics_scene;
-	PhysicsScene physics_scene;
-	ObjectVector objects;
+	//PhysicsScene physics_scene;
+	std::vector<std::unique_ptr<Object>> objects;
 	BehaviorManager behavior_manager;
 };
 

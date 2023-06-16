@@ -4,7 +4,7 @@ CameraController::CameraController(const ObjectVector &objects, Object* object)
 	: ObjectBehavior(objects, object, "CameraController") { }
 
 void CameraController::tick() {
-	CameraComponent *camera = object->get_component<CameraComponent>();
+	CameraComponent* camera = object->get_component<CameraComponent>();
 
 	if (GetKeyState(0x57) & 0x8000) { // W
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {

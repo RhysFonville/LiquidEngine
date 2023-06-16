@@ -118,7 +118,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3
 		index = vertex_buffers.size();
 	}
 
-	ID3D12Resource *vertex_buffer_upload = nullptr;
+	ID3D12Resource* vertex_buffer_upload = nullptr;
 	auto upload_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	auto upload_buffer = CD3DX12_RESOURCE_DESC::Buffer(verts.size() * sizeof(Vertex));
 	device->CreateCommittedResource(
@@ -131,7 +131,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3
 
 	vertex_buffer_upload->SetName(L"Vertex Buffer Upload Resource Heap");
 
-	void *p = nullptr;
+	void* p = nullptr;
 	vertex_buffer_upload->Map(0, nullptr, &p);
 	memcpy(p, &verts[0], sizeof(Vertex) * verts.size());
 	vertex_buffer_upload->Unmap(0, nullptr);
@@ -241,13 +241,13 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 		}
 	}
 
-	for (ConstantBuffer *cb : constant_buffers) {
+	for (ConstantBuffer* cb : constant_buffers) {
 		cb->compile(device, descriptor_heaps);
 	}
 }
 
 void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
-	for (ConstantBuffer *cb : constant_buffers) {
+	for (ConstantBuffer* cb : constant_buffers) {
 		cb->apply(frame_index);
 	}
 	

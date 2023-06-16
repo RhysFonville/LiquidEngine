@@ -11,7 +11,7 @@ class Window {
 public:
 	Window(WNDPROC window_procedure, HINSTANCE hInstance);
 	Window(HINSTANCE hInstance);
-	Window(HINSTANCE hInstance, std::shared_ptr<GraphicsScene> graphics_scene);
+	Window(HINSTANCE hInstance, GraphicsScene* graphics_scene);
 
 	void set_up_window(const Vector2 &position = Vector2(CW_USEDEFAULT, CW_USEDEFAULT),
 		const Vector2 &size = Vector2(1200, 800),

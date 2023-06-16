@@ -10,11 +10,11 @@ void Object::set_position(const FVector3 &position) noexcept {
 	mechanics.previous_position = transform.position;
 	transform.position = position;
 
-	for (std::shared_ptr<Component> &component : components) {
+	for (std::unique_ptr<Component> &component : components) {
 		component->set_position(position);
 	}
 
-	for (const std::shared_ptr<Object> &child : children) {
+	for (Object *child : children) {
 		child->set_position(position);
 	}
 }
@@ -22,11 +22,11 @@ void Object::set_position(const FVector3 &position) noexcept {
 void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
-	for (std::shared_ptr<Component> &component : components) {
+	for (std::unique_ptr<Component> &component : components) {
 		component->set_rotation(rotation);
 	}
 
-	for (const std::shared_ptr<Object> &child : children) {
+	for (Object *child : children) {
 		child->set_position(rotation);
 	}
 }
@@ -34,11 +34,11 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
 
-	for (std::shared_ptr<Component> &component : components) {
+	for (std::unique_ptr<Component> &component : components) {
 		component->set_size(size);
 	}
 
-	for (const std::shared_ptr<Object> &child : children) {
+	for (Object *child : children) {
 		child->set_position(size);
 	}
 }
@@ -84,7 +84,7 @@ bool Object::operator!=(const Object &object) const noexcept {
 }
 
 bool Object::has_component(const Component::Type &search) const noexcept {
-	for (const std::shared_ptr<Component> &component : components) {
+	for (const std::unique_ptr<Component> &component : components) {
 		if (component->get_type() == search) {
 			return true;
 		}
@@ -93,12 +93,12 @@ bool Object::has_component(const Component::Type &search) const noexcept {
 }
 
 void Object::clean_up() {
-	for (std::shared_ptr<Component> &component : components) {
+	for (std::unique_ptr<Component> &component : components) {
 		component->clean_up();
 	}
 }
 
-std::shared_ptr<Object> Object::get_parent() noexcept {
+Object* Object::get_parent() noexcept {
 	return parent;
 }
 
@@ -138,7 +138,7 @@ std::shared_ptr<Object> Object::get_parent() noexcept {
 //}
 
 void Object::compile() {
-	for (std::shared_ptr<Component> &component : components) {
+	for (std::unique_ptr<Component> &component : components) {
 		component->compile();
 	}
 }
@@ -155,20 +155,7 @@ ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &cont
 		}
 	}*/
 
-	add_component(std::make_shared<MeshComponent>(mc));
+	add_component(mc);
 
 	return out;
-}
-
-const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & Object::get_added_components() const noexcept {
-	return components_added;
-}
-
-const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & Object::get_removed_components() const noexcept {
-	return components_removed;
-}
-
-void Object::clear_component_history() noexcept {
-	components_added.clear();
-	components_removed.clear();
 }

@@ -2,7 +2,7 @@
 
 #define GRAPHICS_SCENE this_window_wndproc->graphics_scene
 
-Window *this_window_wndproc;
+Window* this_window_wndproc;
 
 LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
@@ -109,7 +109,7 @@ Window::Window(HINSTANCE hInstance) {
 	RegisterClassW(&window_class);
 }
 
-Window::Window(HINSTANCE hInstance, std::shared_ptr<GraphicsScene> graphics_scene)
+Window::Window(HINSTANCE hInstance, GraphicsScene* graphics_scene)
 	: graphics_scene(graphics_scene) {
 
 	window_class.style = CS_HREDRAW | CS_VREDRAW;
