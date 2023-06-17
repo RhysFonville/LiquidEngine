@@ -83,7 +83,7 @@ bool Object::operator!=(const Object &object) const noexcept {
 		is_static != object.is_static);
 }
 
-bool Object::has_component(const Component::Type &search) const noexcept {
+bool Object::has_component(Component::Type search) const noexcept {
 	for (const std::unique_ptr<Component> &component : components) {
 		if (component->get_type() == search) {
 			return true;

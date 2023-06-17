@@ -21,9 +21,16 @@ public:
 
 	void read_obj_file(std::string obj_file_path);
 
+	std::vector<Object> & get_objects() noexcept;
+	void add_object(Object object) noexcept;
+
+	void remove_object(int index) noexcept;
+
 	GraphicsScene graphics_scene;
 	//PhysicsScene physics_scene;
-	std::vector<std::unique_ptr<Object>> objects;
-	BehaviorManager behavior_manager;
+	//BehaviorManager behavior_manager;
+
+private:
+	std::vector<Object> objects;
 };
 

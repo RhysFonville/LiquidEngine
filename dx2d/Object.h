@@ -62,10 +62,10 @@ public:
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
-	GET bool has_component(const Component::Type &search) const noexcept;
+	GET bool has_component(Component::Type search) const noexcept;
 	template <typename T>
 	GET bool has_component() const {
-		for (const std::shared_ptr<Component> &component : components) {
+		for (const std::unique_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				return true;
 			}
@@ -77,7 +77,7 @@ public:
 	void set_parent(const Object* parent) noexcept;
 	void remove_parent() noexcept;
 
-	GET std::vector<Object*> get_children() noexcept;
+	GET std::vector<Object> & get_children() noexcept;
 	void set_children(const std::vector<Object*> &children) noexcept;
 
 	void add_child(const Object* child) noexcept;
@@ -88,7 +88,7 @@ public:
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET T* get_component() noexcept {
-		for (const std::unique_ptr<Component> &component : components) {
+		for (std::unique_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				return (T*)component.get();
 			}
@@ -99,7 +99,7 @@ public:
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET std::vector<T*> get_components() noexcept {
 		std::vector<T*> ret;
-		for (const std::unique_ptr<Component> &component : components) {
+		for (std::unique_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				ret.push_back((T*)component.get());
 			}
@@ -108,7 +108,7 @@ public:
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(const T &component) {
+	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
 		components.push_back(std::make_unique<T>(component));
 	}
 
@@ -130,7 +130,7 @@ public:
 private:
 	Transform transform;
 	
-	std::vector<std::unique_ptr<Component>> components;
+	std::vector<std::unique_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 	Object* parent = nullptr;
 	std::vector<Object*> children;
