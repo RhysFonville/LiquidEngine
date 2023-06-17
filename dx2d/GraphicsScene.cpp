@@ -1,6 +1,6 @@
 #include "GraphicsScene.h"
 
-GraphicsScene::GraphicsScene(HWND window, const std::vector<std::shared_ptr<AppearanceComponent>> &appearances)
+GraphicsScene::GraphicsScene(HWND window, const std::vector<AppearanceComponent*> &appearances)
 	: window(window), appearances(appearances) {
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
@@ -76,7 +76,7 @@ void GraphicsScene::create_swap_chain() {
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	swap_chain_desc.Windowed = !fullscreen;
 
-	IDXGISwapChain *temp_swap_chain;
+	IDXGISwapChain* temp_swap_chain;
 
 	factory->CreateSwapChain(
 		command_queue.Get(), // the queue will be flushed once the swap chain is created
@@ -153,7 +153,7 @@ void GraphicsScene::create_fences_and_fences_event() {
 }
 
 void GraphicsScene::compile() {
-	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
+	for (AppearanceComponent *appearance : appearances) {
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
@@ -195,17 +195,17 @@ void GraphicsScene::update() {
 	
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < lights.size(); i++) {
 		if (lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			auto data = std::static_pointer_cast<DirectionalLightComponent>(lights[i])->data;
+			auto data = ((DirectionalLightComponent*)lights[i])->data;
 			dl[dl_count] = DXDLData(data);
 			dl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::PointLightComponent) {
-			auto data = std::static_pointer_cast<PointLightComponent>(lights[i])->data;
+			auto data = ((PointLightComponent*)lights[i])->data;
 			pl[pl_count] = DXPLData(data, lights[i]->get_position());
 			pl_count++;
 		}
 		if (lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			auto data = std::static_pointer_cast<SpotlightComponent>(lights[i])->data;
+			auto data = ((SpotlightComponent*)lights[i])->data;
 			sl[sl_count] = DXSLData(data);
 			sl_count++;
 		}
@@ -246,8 +246,8 @@ void GraphicsScene::update() {
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
-	for (const std::shared_ptr<AppearanceComponent> &appearance : appearances) {
-		cbs.per_object_vs.obj->transform = appearance->get_mesh().get_transform();
+	for (AppearanceComponent *appearance : appearances) {
+		cbs.per_object_vs.obj->transform = appearance->get_mesh()->get_transform();
 		cbs.per_object_ps.obj->material = appearance->material.data;
 		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
 	}

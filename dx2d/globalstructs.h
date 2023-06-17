@@ -16,9 +16,6 @@ enum class RotationUnit {
 	Degrees
 };
 
-class Object;
-using ObjectVector = std::vector<std::shared_ptr<Object>>;
-
 template<ACCEPT_DIGIT_ONLY(typename T)>
 struct TColor {
 	T r = 255, g = 255, b = 255, a = 255;

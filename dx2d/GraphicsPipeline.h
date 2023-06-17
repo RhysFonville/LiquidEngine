@@ -391,10 +391,10 @@ public:
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
-			void *obj = nullptr;
+			void* obj = nullptr;
 			size_t obj_size = 0u;
 
-			UINT *gpu_addresses[NUMBER_OF_BUFFERS] = { };
+			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
 
 			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
 

@@ -15,7 +15,7 @@
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-_declspec(align(16))
+//_declspec(align(16))
 struct DXDLData {
 	DXDLData() { }
 	DXDLData(const DirectionalLightComponent::DLData &data)
@@ -33,7 +33,7 @@ struct DXDLData {
 	FVector3 pad1 = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-_declspec(align(16))
+//_declspec(align(16))
 struct DXPLData {
 	DXPLData() { }
 	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
@@ -53,7 +53,7 @@ struct DXPLData {
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-_declspec(align(16))
+//_declspec(align(16))
 struct DXSLData {
 	DXSLData() { }
 	DXSLData(const SpotlightComponent::SLData &data)
@@ -71,7 +71,7 @@ struct DXSLData {
 	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);;
 };
 
-_declspec(align(16))
+//_declspec(align(16))
 struct DXMatData {
 	DXMatData() { }
 	DXMatData(const Material::MaterialData &data)
@@ -85,17 +85,17 @@ struct DXMatData {
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
 };
 
-_declspec(align(256))
+//_declspec(align(256))
 struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
 };
 
-_declspec(align(256))
+//_declspec(align(256))
 struct PerObjectVSCB { // b1
 	XMMATRIX transform;
 };
 
-_declspec(align(256))
+//_declspec(align(256))
 struct PerFramePSCB { // b2
 	FVector3 camera_position;
 
@@ -108,7 +108,7 @@ struct PerFramePSCB { // b2
 	DXSLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
 };
 
-__declspec(align(256))
+//__declspec(align(256))
 struct PerObjectPSCB { // b3
 	DXMatData material;
 };
@@ -116,7 +116,7 @@ struct PerObjectPSCB { // b3
 class GraphicsScene {
 public:
 	GraphicsScene() { }
-	GraphicsScene(HWND window, const std::vector<std::shared_ptr<AppearanceComponent>> &appearances = { }); // initializes direct3d 12
+	GraphicsScene(HWND window, const std::vector<AppearanceComponent*> &appearances = { }); // initializes direct3d 12
 
 	void tick(); // Updates pipeline and renders
 	void clean_up(); // release com ojects and clean up memory
@@ -139,9 +139,9 @@ public:
 
 	GET float get_delta_time() const noexcept;
 
-	std::vector<std::shared_ptr<AppearanceComponent>> appearances;
-	std::shared_ptr<CameraComponent> camera;
-	std::vector<std::shared_ptr<Component>> lights;
+	std::vector<AppearanceComponent*> appearances;
+	CameraComponent* camera;
+	std::vector<Component*> lights;
 
 private:
 	friend class Window;

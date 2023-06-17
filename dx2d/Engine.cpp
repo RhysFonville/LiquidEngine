@@ -4,7 +4,7 @@ Engine::Engine(HINSTANCE hInstance)
 	: scene(Scene()), window(Window(hInstance)) {
 	window.set_up_window();
 	scene = Scene(window);
-	window.graphics_scene = scene.graphics_scene;
+	window.graphics_scene = &scene.graphics_scene;
 }
 
 void Engine::loop() {

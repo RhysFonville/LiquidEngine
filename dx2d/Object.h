@@ -62,7 +62,7 @@ public:
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
-	GET bool has_component(const Component::Type &search) const noexcept;
+	GET bool has_component(Component::Type search) const noexcept;
 	template <typename T>
 	GET bool has_component() const {
 		for (const std::shared_ptr<Component> &component : components) {
@@ -73,58 +73,48 @@ public:
 		return false;
 	}
 
-	GET std::shared_ptr<Object> get_parent() noexcept;
-	void set_parent(const std::shared_ptr<Object> &parent) noexcept;
+	GET Object* get_parent() noexcept;
+	void set_parent(const Object* parent) noexcept;
 	void remove_parent() noexcept;
 
-	GET std::vector<std::shared_ptr<Object>> get_children() noexcept;
-	void set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept;
+	GET std::vector<Object> & get_children() noexcept;
+	void set_children(const std::vector<Object*> &children) noexcept;
 
-	void add_child(const std::shared_ptr<Object> &child) noexcept;
+	void add_child(const Object* child) noexcept;
 
 	void compile();
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	GET std::shared_ptr<T> get_component() noexcept {
-		for (const std::shared_ptr<Component> &component : components) {
+	GET T* get_component() noexcept {
+		for (std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
-				return std::static_pointer_cast<T>(component);
+				return (T*)component.get();
 			}
 		}
 		return nullptr;
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	GET std::vector<std::shared_ptr<T>> get_components() noexcept {
-		std::vector<std::shared_ptr<T>> ret;
-		for (const std::shared_ptr<Component> &component : components) {
+	GET std::vector<T*> get_components() noexcept {
+		std::vector<T*> ret;
+		for (std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
-				ret.push_back(std::static_pointer_cast<T>(component));
+				ret.push_back((T*)component.get());
 			}
 		}
 		return ret;
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(std::shared_ptr<T> component) {
-		components_added.push_back(std::make_pair(component, components.size()));
-		components.push_back(component);
+	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
+		components.push_back(std::make_unique<T>(component));
 	}
 
 	void remove_component(size_t index) {
-		components_removed.push_back(std::make_pair(
-			components[index], 
-			index
-		));
 		components.erase(components.begin()+index);
 	}
-
-	void clear_component_history() noexcept;
-
-	const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & get_added_components() const noexcept;
-	const std::vector<std::pair<std::shared_ptr<Component>, size_t>> & get_removed_components() const noexcept;
 	
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
@@ -140,10 +130,8 @@ public:
 private:
 	Transform transform;
 	
-	std::vector<std::shared_ptr<Component>> components;
-	std::vector<std::pair<std::shared_ptr<Component>, size_t>> components_added;
-	std::vector<std::pair<std::shared_ptr<Component>, size_t>> components_removed;
+	std::vector<std::shared_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
-	std::shared_ptr<Object> parent = nullptr;
-	std::vector<std::shared_ptr<Object>> children;
+	Object* parent = nullptr;
+	std::vector<Object*> children;
 };

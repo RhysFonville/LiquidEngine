@@ -1,3 +1,5 @@
+/*
+
 #pragma once
 
 #include "MeshComponent.h"
@@ -38,7 +40,7 @@
 
 
 
-/* Permutation in a canonical form of T2's vertices */
+// Permutation in a canonical form of T2's vertices
 
 #define TRI_TRI_3D(p1,q1,r1,p2,q2,r2,dp2,dq2,dr2) { \
   if (dp2 > 0.0f) { \
@@ -259,3 +261,4 @@ public:
 private:
 	ObjectVector objects;
 };
+*/

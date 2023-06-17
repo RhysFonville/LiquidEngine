@@ -389,8 +389,8 @@ static T make_multiple(T x, T multiple) {
 }
 
 template <typename T>
-static std::string address_to_string(const T *ptr) {
-	const void *address = static_cast<const void*>(ptr);
+static std::string address_to_string(const T* ptr) {
+	const void* address = static_cast<const void*>(ptr);
 	std::stringstream ss;
 	ss << address;  
 	return ss.str();
