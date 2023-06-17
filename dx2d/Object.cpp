@@ -10,7 +10,7 @@ void Object::set_position(const FVector3 &position) noexcept {
 	mechanics.previous_position = transform.position;
 	transform.position = position;
 
-	for (std::unique_ptr<Component> &component : components) {
+	for (std::shared_ptr<Component> &component : components) {
 		component->set_position(position);
 	}
 
@@ -22,7 +22,7 @@ void Object::set_position(const FVector3 &position) noexcept {
 void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
-	for (std::unique_ptr<Component> &component : components) {
+	for (std::shared_ptr<Component> &component : components) {
 		component->set_rotation(rotation);
 	}
 
@@ -34,7 +34,7 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
 
-	for (std::unique_ptr<Component> &component : components) {
+	for (std::shared_ptr<Component> &component : components) {
 		component->set_size(size);
 	}
 
@@ -84,7 +84,7 @@ bool Object::operator!=(const Object &object) const noexcept {
 }
 
 bool Object::has_component(Component::Type search) const noexcept {
-	for (const std::unique_ptr<Component> &component : components) {
+	for (const std::shared_ptr<Component> &component : components) {
 		if (component->get_type() == search) {
 			return true;
 		}
@@ -93,7 +93,7 @@ bool Object::has_component(Component::Type search) const noexcept {
 }
 
 void Object::clean_up() {
-	for (std::unique_ptr<Component> &component : components) {
+	for (std::shared_ptr<Component> &component : components) {
 		component->clean_up();
 	}
 }
@@ -138,7 +138,7 @@ Object* Object::get_parent() noexcept {
 //}
 
 void Object::compile() {
-	for (std::unique_ptr<Component> &component : components) {
+	for (std::shared_ptr<Component> &component : components) {
 		component->compile();
 	}
 }

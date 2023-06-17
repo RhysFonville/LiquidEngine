@@ -65,7 +65,7 @@ public:
 	GET bool has_component(Component::Type search) const noexcept;
 	template <typename T>
 	GET bool has_component() const {
-		for (const std::unique_ptr<Component> &component : components) {
+		for (const std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				return true;
 			}
@@ -88,7 +88,7 @@ public:
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET T* get_component() noexcept {
-		for (std::unique_ptr<Component> &component : components) {
+		for (std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				return (T*)component.get();
 			}
@@ -99,7 +99,7 @@ public:
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET std::vector<T*> get_components() noexcept {
 		std::vector<T*> ret;
-		for (std::unique_ptr<Component> &component : components) {
+		for (std::shared_ptr<Component> &component : components) {
 			if (component->get_type() == T::component_type) {
 				ret.push_back((T*)component.get());
 			}
@@ -130,7 +130,7 @@ public:
 private:
 	Transform transform;
 	
-	std::vector<std::unique_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
+	std::vector<std::shared_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 	Object* parent = nullptr;
 	std::vector<Object*> children;

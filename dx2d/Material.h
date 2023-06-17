@@ -21,7 +21,7 @@ public:
 	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
-	__declspec(align(256))
+	//__declspec(align(256))
 	struct MaterialData {
 		/*BOOL has_texture;
 		BOOL has_normal_map;*/

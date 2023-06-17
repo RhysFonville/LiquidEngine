@@ -56,8 +56,8 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 			normal_map = Texture(line.substr(9));
 		}*/
 	}
-	data.a *= 13.0f;
-	data.ks /= 6.0f;
+	data.a *= 13;
+	data.ks /= 6;
 }
 
 void Material::operator=(const Material &material) noexcept {
