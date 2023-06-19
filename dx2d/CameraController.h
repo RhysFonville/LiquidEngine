@@ -3,8 +3,6 @@
 #include "ObjectBehavior.h"
 #include "CameraComponent.h"
 
-#include "globalstructs.h"
-
 class CameraController : public ObjectBehavior {
 public:
 	CameraController(Object* object);

@@ -23,14 +23,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		engine.scene.get_objects()[2].get_component<MeshComponent>()
 	));
 
-	/*engine.scene.behavior_manager.behaviors.push_back(
-		std::unique_ptr<ObjectBehavior>(
-			new CameraController(engine.scene.objects, engine.scene.objects[0].get())
-		)
-	);*/
+	engine.scene.behavior_manager.object_behaviors.push_back(
+		std::make_shared<CameraController>(&engine.scene.get_objects()[0])
+	);
 
 	engine.scene.behavior_manager.object_behaviors.push_back(
-		&MyBehavior(&engine.scene.get_objects()[2])
+		std::make_shared<MyBehavior>(&engine.scene.get_objects()[2])
 	);
 
 	engine.scene.compile();

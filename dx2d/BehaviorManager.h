@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "ObjectBehavior.h"
 
 class BehaviorManager {
@@ -8,6 +9,6 @@ public:
 
 	void tick(float dt);
 
-	std::vector<ObjectBehavior*> object_behaviors; // For casting
+	std::vector<std::shared_ptr<ObjectBehavior>> object_behaviors; // For casting
 };
 
