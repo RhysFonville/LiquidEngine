@@ -55,7 +55,7 @@ public:
 	MyBehavior(Object* object);
 
 	void tick(float dt) override;
-	
+}
 ```
 
 <h3>MyBehavior.cpp</h3>
