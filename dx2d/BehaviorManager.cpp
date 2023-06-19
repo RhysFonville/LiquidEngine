@@ -1,21 +1,9 @@
-//#include "BehaviorManager.h"
-//
-//BehaviorManager::BehaviorManager() : behaviors(std::vector<std::unique_ptr<ObjectBehavior>>()) {}
-//
-//void BehaviorManager::start() {
-//	for (std::unique_ptr<ObjectBehavior> &behavior : behaviors) {
-//		behavior->base_on_start();
-//	}
-//}
-//
-//void BehaviorManager::tick() {
-//	for (std::unique_ptr<ObjectBehavior> &behavior : behaviors) {
-//		behavior->base_tick();
-//	}
-//}
-//
-//void BehaviorManager::clean_up() noexcept {
-//	for (std::unique_ptr<ObjectBehavior> &behavior : behaviors) {
-//		behavior.release();
-//	}
-//}
+#include "BehaviorManager.h"
+
+BehaviorManager::BehaviorManager() : object_behaviors(std::vector<ObjectBehavior*>()) { }
+
+void BehaviorManager::tick(float dt) {
+	for (ObjectBehavior* behavior : object_behaviors) {
+		behavior->tick(dt);
+	}
+}

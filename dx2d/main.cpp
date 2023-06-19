@@ -27,13 +27,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		std::unique_ptr<ObjectBehavior>(
 			new CameraController(engine.scene.objects, engine.scene.objects[0].get())
 		)
-	);
-
-	engine.scene.behavior_manager.behaviors.push_back(
-		std::unique_ptr<ObjectBehavior>(
-			new MyBehavior(engine.scene.objects, engine.scene.objects[2].get())
-		)
 	);*/
+
+	engine.scene.behavior_manager.object_behaviors.push_back(
+		&MyBehavior(&engine.scene.get_objects()[2])
+	);
 
 	engine.scene.compile();
 

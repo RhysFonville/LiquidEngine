@@ -5,20 +5,18 @@ Scene::Scene(Window &window) {
 
 	graphics_scene = window.get_window();
 	//physics_scene = PhysicsScene(objects);
-	//behavior_manager = BehaviorManager();
-	//behavior_manager.start();
+	behavior_manager = BehaviorManager();
 }
 
 void Scene::tick() {
-	//behavior_manager.tick();
+	behavior_manager.tick();
 	//physics_scene.tick();
 	graphics_scene.tick();
 }
 
 void Scene::clean_up() {
-	//graphics_scene->clean_up();
+	//graphics_scene.clean_up();
 	//physics_scene.clean_up();
-	//behavior_manager.clean_up();
 }
 
 void Scene::compile() {

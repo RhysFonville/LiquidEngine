@@ -28,7 +28,7 @@ public:
 
 	GraphicsScene graphics_scene;
 	//PhysicsScene physics_scene;
-	//BehaviorManager behavior_manager;
+	BehaviorManager behavior_manager;
 
 private:
 	std::vector<Object> objects;
