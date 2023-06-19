@@ -137,8 +137,6 @@ public:
 	GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings = true);
 
-	GET float get_delta_time() const noexcept;
-
 	std::vector<AppearanceComponent*> appearances;
 	CameraComponent* camera;
 	std::vector<Component*> lights;
@@ -195,10 +193,4 @@ private:
 	UVector2 resolution = UVector2(3840, 2160);
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
-
-	struct DeltaTime {
-		float dt = 0.0f;
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::system_clock::time_point tp2 = tp1;
-	} dt;
 };

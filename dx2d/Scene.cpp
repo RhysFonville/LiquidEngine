@@ -5,20 +5,23 @@ Scene::Scene(Window &window) {
 
 	graphics_scene = window.get_window();
 	//physics_scene = PhysicsScene(objects);
-	//behavior_manager = BehaviorManager();
-	//behavior_manager.start();
+	behavior_manager = BehaviorManager();
 }
 
 void Scene::tick() {
-	//behavior_manager.tick();
+	dt.tp2 = std::chrono::system_clock::now();
+	std::chrono::duration<float> elapsed_time = dt.tp2 - dt.tp1;
+	dt.tp1 = dt.tp2;
+	dt.dt = elapsed_time.count();
+
+	behavior_manager.tick(dt.dt);
 	//physics_scene.tick();
 	graphics_scene.tick();
 }
 
 void Scene::clean_up() {
-	//graphics_scene->clean_up();
+	//graphics_scene.clean_up();
 	//physics_scene.clean_up();
-	//behavior_manager.clean_up();
 }
 
 void Scene::compile() {
@@ -175,4 +178,8 @@ void Scene::add_object(Object object) noexcept {
 
 void Scene::remove_object(int index) noexcept {
 	objects.erase(objects.begin()+index);
+}
+
+float Scene::get_delta_time() const noexcept {
+	return dt.dt;
 }
