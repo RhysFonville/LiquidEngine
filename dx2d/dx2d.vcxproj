@@ -231,6 +231,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -5,44 +5,42 @@
 ```
 #include "Engine.h"
 #include "MyBehavior.h"
+#include "CameraController.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
-	
-	try {
-		Object camera("Camera");
-		camera.components.push_back(std::make_shared<CameraComponent>());
-		engine.scene.objects->push_back(std::make_shared<Object>(camera));
-		
-		Object sun("Sun");
-		sun.components.push_back(std::make_shared<DirectionalLightComponent>());
-		sun.get_component<DirectionalLightComponent>()->direction = FVector3(0.0f, 0.0f, 1.0f);
-		sun.get_component<DirectionalLightComponent>()->diffuse = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-		sun.get_component<DirectionalLightComponent>()->specular = FVector4(255.0f, 255.0f, 255.0f, 255.0f);
-		engine.scene.objects->push_back(std::make_shared<Object>(sun));
-		
-		Object obj;
-		obj.transform.position = { 0.0f, 0.0f, 5.0f };
-		obj.transform.rotation = { 70.0f, 70.0f, 70.0f };
-		obj.transform.scale = { 1, 1, 1 };
-		engine.scene.objects.get()->push_back(obj);
 
-		Object obj1;
-		obj1.transform.position = { 3.0f, 1.0f, 7.0f };
-		obj1.transform.rotation = { 0.0f, 0.0f, 0.0f };
-		obj1.transform.scale = { 1, 1, 1 };
-		engine.scene.objects.get()->push_back(obj1);
+	Object camera("Camera");
+	camera.add_component(CameraComponent());
+	engine.scene.add_object(camera);
 
-		engine.scene.behavior_manager.behaviors.emplace_back(
-			std::shared_ptr<ObjectBehavior>(new MyBehavior((*engine.scene.objects)[2])));
-		engine.scene.behavior_manager.behaviors.emplace_back(
-			std::shared_ptr<ObjectBehavior>(new MyBehavior((*engine.scene.objects)[3])));
+	engine.scene.graphics_scene.camera = camera.get_component<CameraComponent>();
 
-		engine.loop();
-	} catch(const std::exception &e) {
-		append_to_file("out.txt", e.what());
-	}
+	Object light("Light");
+	light.add_component(DirectionalLightComponent());
+	engine.scene.add_object(light);
+
+	engine.scene.graphics_scene.lights.push_back((Component*)light.get_component<DirectionalLightComponent>());
+
+	HPE(engine.scene.read_obj_file("bunny.obj"));
+
+	engine.scene.get_objects()[2].add_component(AppearanceComponent(
+		engine.scene.get_objects()[2].get_component<MeshComponent>()
+	));
+
+	engine.scene.behavior_manager.object_behaviors.push_back(
+		std::make_shared<CameraController>(&engine.scene.get_objects()[0])
+	);
+
+	engine.scene.behavior_manager.object_behaviors.push_back(
+		std::make_shared<MyBehavior>(&engine.scene.get_objects()[2])
+	);
+
+	engine.scene.compile();
+
+	engine.loop();
 }
+
 ```
 
 <h3>MyBehavior.h</h3>
@@ -54,9 +52,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 class MyBehavior : public ObjectBehavior {
 public:
-	MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object);
+	MyBehavior(Object* object);
 
-	void tick() override;
+	void tick(float dt) override;
 	
 ```
 
@@ -65,11 +63,10 @@ public:
 ```
 #include "MyBehavior.h"
 
-MyBehavior::MyBehavior(const ObjectVector &objects, std::shared_ptr<Object> &object)
-	: ObjectBehavior(objects, object, "MyBehavior") { }
+MyBehavior::MyBehavior(Object* object) : ObjectBehavior(object) { }
 
-void MyBehavior::tick() {
-	object->rotate({ 0.01f, 0.01f, 0.01f });
+void MyBehavior::tick(float dt) {
+	object->rotate(FVector3(1.0f, 1.0f, 1.0f) * dt);
 }
 
 ```
