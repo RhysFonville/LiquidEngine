@@ -277,11 +277,6 @@ void GraphicsScene::render() {
 }
 
 void GraphicsScene::tick() {
-	dt.tp2 = std::chrono::system_clock::now();
-	std::chrono::duration<float> elapsed_time = dt.tp2 - dt.tp1;
-	dt.tp1 = dt.tp2;
-	float dt = elapsed_time.count();
-
 	update();
 	render();
 }
@@ -371,10 +366,6 @@ void GraphicsScene::set_resolution(const UVector2 &resolution, bool reset_om_vie
 	if (reset_om_viewing_settings) {
 		// dfslkfgjhsdf
 	}
-}
-
-float GraphicsScene::get_delta_time() const noexcept {
-	return dt.dt;
 }
 
 //std::shared_ptr<CameraComponent> GraphicsScene::camera() const {
