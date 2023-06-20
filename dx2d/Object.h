@@ -74,13 +74,12 @@ public:
 	}
 
 	GET Object* get_parent() noexcept;
-	void set_parent(const Object* parent) noexcept;
+	void set_parent(Object* parent) noexcept;
 	void remove_parent() noexcept;
 
-	GET std::vector<Object> & get_children() noexcept;
-	void set_children(const std::vector<Object*> &children) noexcept;
+	GET std::vector<Object*> & get_children() noexcept;
 
-	void add_child(const Object* child) noexcept;
+	void add_child(Object* child) noexcept;
 
 	void compile();
 
@@ -134,4 +133,13 @@ private:
 
 	Object* parent = nullptr;
 	std::vector<Object*> children;
+
+	void remove_this_from_parents_children() {
+		this->parent->children.erase(std::remove(
+			this->parent->children.begin(),
+			this->parent->children.end(),
+			this),
+			this->parent->children.end()
+		);
+	}
 };

@@ -1,6 +1,6 @@
 #include "Object.h"
 
-Object::Object(std::string name) : is_static(true), name(name) {}
+Object::Object(std::string name) : name(name) {}
 
 Object::~Object() {
 	clean_up();
@@ -70,8 +70,7 @@ bool Object::operator==(const Object &object) const noexcept {
 		transform == object.transform &&
 		name == object.name &&
 		parent == object.parent &&
-		children == object.children &&
-		is_static == object.is_static);
+		children == object.children);
 }
 
 bool Object::operator!=(const Object &object) const noexcept {
@@ -79,8 +78,7 @@ bool Object::operator!=(const Object &object) const noexcept {
 		transform != object.transform ||
 		name != object.name ||
 		parent != object.parent ||
-		children != object.children ||
-		is_static != object.is_static);
+		children != object.children);
 }
 
 bool Object::has_component(Component::Type search) const noexcept {
@@ -96,45 +94,37 @@ void Object::clean_up() {
 	for (std::shared_ptr<Component> &component : components) {
 		component->clean_up();
 	}
+
+	remove_this_from_parents_children();
+
+	for (Object* child : children) {
+		child->parent = nullptr;
+	}
 }
 
 Object* Object::get_parent() noexcept {
 	return parent;
 }
 
-void Object::set_parent(const std::shared_ptr<Object> &parent) noexcept {
-	this->parent->children.erase(std::remove(
-		this->parent->children.begin(),
-		this->parent->children.end(),
-		*this),
-		this->parent->children.end());
-	parent->children.push_back(std::make_shared<Object>(*this));
+void Object::set_parent(Object* parent) noexcept {
+	remove_this_from_parents_children();
+	parent->add_child(this);
 
 	this->parent = parent;
 }
 
 void Object::remove_parent() noexcept {
-	this->parent->children.erase(std::remove(
-		this->parent->children.begin(),
-		this->parent->children.end(),
-		*this),
-		this->parent->children.end());
-
 	parent = nullptr;
 }
 
-std::vector<std::shared_ptr<Object>> Object::get_children() noexcept {
+std::vector<Object*> & Object::get_children() noexcept {
 	return children;
 }
 
-void Object::set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept {
-	for (const std::shared_ptr<Object> &child : children) {
-		child->set_parent(std::make_shared<Object>(*this));
-	}
-}
-
-void Object::add_child(const std::shared_ptr<Object> &child) noexcept {
-	child->set_parent(std::make_shared<Object>(*this));
+void Object::add_child(Object* child) noexcept {
+	 children.push_back(child);
+	 child->remove_this_from_parents_children();
+	 child->parent = this;
 }
 
 void Object::compile() {
