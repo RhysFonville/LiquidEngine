@@ -84,7 +84,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 
 			Material newmtl;
 
-			/*while (std::getline(mtl_file, line)) {
+			while (std::getline(mtl_file, line)) {
 				if (!line.empty()) {
 					trim(line);
 					if (line[0] != '#') {
@@ -102,11 +102,9 @@ void Scene::read_obj_file(std::string obj_file_path) {
 									file_vec.end()));
 
 								last_new_mtl_index = file_vec.size();
-
-								Storage::materials.push_back(newmtl);
 							}
 
-							newmtl = Material(line.substr(7));
+							newmtl = Material();
 							first_mtl = false;
 						}
 
@@ -116,7 +114,7 @@ void Scene::read_obj_file(std::string obj_file_path) {
 			}
 
 			newmtl.read_mtl_file(std::vector<std::string>(file_vec.begin()+last_new_mtl_index,
-				file_vec.end()));*/
+				file_vec.end()));
 
 			Storage::materials.push_back(newmtl);
 		} else {

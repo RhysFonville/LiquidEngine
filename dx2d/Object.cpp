@@ -14,7 +14,7 @@ void Object::set_position(const FVector3 &position) noexcept {
 		component->set_position(position);
 	}
 
-	for (Object *child : children) {
+	for (Object* child : children) {
 		child->set_position(position);
 	}
 }
@@ -26,7 +26,7 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 		component->set_rotation(rotation);
 	}
 
-	for (Object *child : children) {
+	for (Object* child : children) {
 		child->set_position(rotation);
 	}
 }
@@ -38,7 +38,7 @@ void Object::set_size(const FVector3 &size) noexcept {
 		component->set_size(size);
 	}
 
-	for (Object *child : children) {
+	for (Object* child : children) {
 		child->set_position(size);
 	}
 }
@@ -102,40 +102,40 @@ Object* Object::get_parent() noexcept {
 	return parent;
 }
 
-//void Object::set_parent(const std::shared_ptr<Object> &parent) noexcept {
-//	this->parent->children.erase(std::remove(
-//		this->parent->children.begin(),
-//		this->parent->children.end(),
-//		*this),
-//		this->parent->children.end());
-//	parent->children.push_back(std::make_shared<Object>(*this));
-//
-//	this->parent = parent;
-//}
-//
-//void Object::remove_parent() noexcept {
-//	this->parent->children.erase(std::remove(
-//		this->parent->children.begin(),
-//		this->parent->children.end(),
-//		*this),
-//		this->parent->children.end());
-//
-//	parent = nullptr;
-//}
-//
-//std::vector<std::shared_ptr<Object>> Object::get_children() noexcept {
-//	return children;
-//}
-//
-//void Object::set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept {
-//	for (const std::shared_ptr<Object> &child : children) {
-//		child->set_parent(std::make_shared<Object>(*this));
-//	}
-//}
-//
-//void Object::add_child(const std::shared_ptr<Object> &child) noexcept {
-//	child->set_parent(std::make_shared<Object>(*this));
-//}
+void Object::set_parent(const std::shared_ptr<Object> &parent) noexcept {
+	this->parent->children.erase(std::remove(
+		this->parent->children.begin(),
+		this->parent->children.end(),
+		*this),
+		this->parent->children.end());
+	parent->children.push_back(std::make_shared<Object>(*this));
+
+	this->parent = parent;
+}
+
+void Object::remove_parent() noexcept {
+	this->parent->children.erase(std::remove(
+		this->parent->children.begin(),
+		this->parent->children.end(),
+		*this),
+		this->parent->children.end());
+
+	parent = nullptr;
+}
+
+std::vector<std::shared_ptr<Object>> Object::get_children() noexcept {
+	return children;
+}
+
+void Object::set_children(const std::vector<std::shared_ptr<Object>> &children) noexcept {
+	for (const std::shared_ptr<Object> &child : children) {
+		child->set_parent(std::make_shared<Object>(*this));
+	}
+}
+
+void Object::add_child(const std::shared_ptr<Object> &child) noexcept {
+	child->set_parent(std::make_shared<Object>(*this));
+}
 
 void Object::compile() {
 	for (std::shared_ptr<Component> &component : components) {
