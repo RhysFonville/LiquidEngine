@@ -7,9 +7,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	Object camera("Camera");
 	camera.add_component(CameraComponent());
+	camera.add_component(PointLightComponent());
 	engine.scene.add_object(camera);
 
 	engine.scene.graphics_scene.camera = camera.get_component<CameraComponent>();
+	engine.scene.graphics_scene.lights.push_back((Component*)camera.get_component<PointLightComponent>());
 
 	Object light("Light");
 	light.add_component(DirectionalLightComponent());

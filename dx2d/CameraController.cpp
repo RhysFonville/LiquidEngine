@@ -7,44 +7,44 @@ void CameraController::tick(float dt) {
 
 	if (GetKeyState(0x57) & 0x8000) { // W
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + camera->direction_forward() * dt / 2.0f);
+			object->set_position(object->get_position() + camera->direction_forward() * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + camera->direction_forward() * dt);
+			object->set_position(object->get_position() + camera->direction_forward() * dt);
 		}
 	}
 	if (GetKeyState(0x41) & 0x8000) { // A
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + camera->direction_left() * dt / 2.0f);
+			object->set_position(object->get_position() + camera->direction_left() * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + camera->direction_left() * dt);
+			object->set_position(object->get_position() + camera->direction_left() * dt);
 		}
 	}
 	if (GetKeyState(0x53) & 0x8000) { // S
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + camera->direction_backward() * dt / 2.0f);
+			object->set_position(object->get_position() + camera->direction_backward() * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + camera->direction_backward() * dt);
+			object->set_position(object->get_position() + camera->direction_backward() * dt);
 		}
 	}
 	if (GetKeyState(0x44) & 0x8000) { // D
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + camera->direction_right() * dt / 2.0f);
+			object->set_position(object->get_position() + camera->direction_right() * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + camera->direction_right() * dt);
+			object->set_position(object->get_position() + camera->direction_right() * dt);
 		}
 	}
 	if (GetKeyState(0x51) & 0x8000) { // Q
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + FVector3(0.0f, -1.0f, 0.0f) * dt / 2.0f);
+			object->set_position(object->get_position() + FVector3(0.0f, -1.0f, 0.0f) * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + FVector3(0.0f, -1.0f, 0.0f) * dt);
+			object->set_position(object->get_position() + FVector3(0.0f, -1.0f, 0.0f) * dt);
 		}
 	}
 	if (GetKeyState(0x45) & 0x8000) { // E
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			camera->set_position(camera->get_position() + FVector3(0.0f, 1.0f, 0.0f) * dt / 2.0f);
+			object->set_position(object->get_position() + FVector3(0.0f, 1.0f, 0.0f) * dt / 2.0f);
 		} else {
-			camera->set_position(camera->get_position() + FVector3(0.0f, 1.0f, 0.0f) * dt);
+			object->set_position(object->get_position() + FVector3(0.0f, 1.0f, 0.0f) * dt);
 		}
 	}
 

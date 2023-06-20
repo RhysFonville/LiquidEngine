@@ -59,6 +59,10 @@ public:
 	void rotate(const FVector3 &rotation) noexcept;
 	void size(const FVector3 &size) noexcept;
 
+	GET FVector3 get_position() const noexcept;
+	GET FVector3 get_rotation() const noexcept;
+	GET FVector3 get_size() const noexcept;
+
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
@@ -120,8 +124,6 @@ public:
 
 	void clean_up();
 
-	bool is_static = true;
-
 	std::string name;
 
 	MechanicsData mechanics;
@@ -135,11 +137,13 @@ private:
 	std::vector<Object*> children;
 
 	void remove_this_from_parents_children() {
-		this->parent->children.erase(std::remove(
-			this->parent->children.begin(),
-			this->parent->children.end(),
-			this),
-			this->parent->children.end()
-		);
+		if (parent != nullptr) {
+			this->parent->children.erase(std::remove(
+				this->parent->children.begin(),
+				this->parent->children.end(),
+				this),
+				this->parent->children.end()
+			);
+		}
 	}
 };

@@ -57,38 +57,38 @@ void CameraComponent::rotate(FVector3 rotation) noexcept {
 	}
 }
 
-void CameraComponent::rotate_locally(FVector3 rotation) noexcept {
-	transform.rotation += rotation;
-
-	rotation.x = degrees_to_theta(transform.rotation.x);
-	rotation.y = degrees_to_theta(transform.rotation.y);
-	rotation.z = degrees_to_theta(transform.rotation.z);
-
-	XMMATRIX rot_matrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
-
-	target = XMVector3TransformCoord(forward,
-		rot_matrix
-	);
-	XMVector3Normalize(target);
-
-	up = XMVector3TransformCoord(up,
-		rot_matrix
-	);
-	XMVector3Normalize(up);
-
-	target += transform.position;
-
-	forward = XMVector3TransformCoord(global_forward, rot_matrix);
-	backward = XMVector3TransformCoord(global_backward, rot_matrix);
-	left = XMVector3TransformCoord(global_left, rot_matrix);
-	right = XMVector3TransformCoord(global_right, rot_matrix);
-
-	XMMATRIX roll_matrix = XMMatrixRotationZ(rotation.z);
-
-	down = XMVector3TransformCoord(global_up, roll_matrix);
-
-	set_view();
-}
+//void CameraComponent::rotate_locally(FVector3 rotation) noexcept {
+//	transform.rotation += rotation;
+//
+//	rotation.x = degrees_to_theta(transform.rotation.x);
+//	rotation.y = degrees_to_theta(transform.rotation.y);
+//	rotation.z = degrees_to_theta(transform.rotation.z);
+//
+//	XMMATRIX rot_matrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
+//
+//	target = XMVector3TransformCoord(forward,
+//		rot_matrix
+//	);
+//	XMVector3Normalize(target);
+//
+//	up = XMVector3TransformCoord(up,
+//		rot_matrix
+//	);
+//	XMVector3Normalize(up);
+//
+//	target += transform.position;
+//
+//	forward = XMVector3TransformCoord(global_forward, rot_matrix);
+//	backward = XMVector3TransformCoord(global_backward, rot_matrix);
+//	left = XMVector3TransformCoord(global_left, rot_matrix);
+//	right = XMVector3TransformCoord(global_right, rot_matrix);
+//
+//	XMMATRIX roll_matrix = XMMatrixRotationZ(rotation.z);
+//
+//	down = XMVector3TransformCoord(global_up, roll_matrix);
+//
+//	set_view();
+//}
 
 FVector3 CameraComponent::get_target() const noexcept {
 	return target;

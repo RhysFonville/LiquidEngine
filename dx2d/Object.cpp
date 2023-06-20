@@ -55,6 +55,18 @@ void Object::size(const FVector3 &size) noexcept {
 	set_size(size + transform.size);
 }
 
+GET FVector3 Object::get_position() const noexcept {
+	return transform.position;
+}
+
+GET FVector3 Object::get_rotation() const noexcept {
+	return transform.rotation;
+}
+
+GET FVector3 Object::get_size() const noexcept {
+	return transform.size;
+}
+
 void Object::set_transform(const Transform &transform) noexcept {
 	set_position(transform.position);
 	set_rotation(transform.rotation);

@@ -12,7 +12,7 @@ public:
 	void set_rotation(FVector3 rotation) noexcept override;
 
 	void rotate(FVector3 rotation) noexcept override;
-	void rotate_locally(FVector3 rotation) noexcept;
+	//void rotate_locally(FVector3 rotation) noexcept;
 
 	GET FVector3 get_target() const noexcept;
 
