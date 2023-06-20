@@ -15,7 +15,7 @@
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-//_declspec(align(16))
+_declspec(align(16))
 struct DXDLData {
 	DXDLData() { }
 	DXDLData(const DirectionalLightComponent::DLData &data)
@@ -33,7 +33,7 @@ struct DXDLData {
 	FVector3 pad1 = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-//_declspec(align(16))
+_declspec(align(16))
 struct DXPLData {
 	DXPLData() { }
 	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
@@ -44,7 +44,7 @@ struct DXPLData {
 
 
 	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
+	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -53,7 +53,7 @@ struct DXPLData {
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
-//_declspec(align(16))
+_declspec(align(16))
 struct DXSLData {
 	DXSLData() { }
 	DXSLData(const SpotlightComponent::SLData &data)
@@ -71,7 +71,7 @@ struct DXSLData {
 	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);;
 };
 
-//_declspec(align(16))
+_declspec(align(16))
 struct DXMatData {
 	DXMatData() { }
 	DXMatData(const Material::MaterialData &data)
@@ -79,13 +79,13 @@ struct DXMatData {
 		kd(color_to_fvector(data.kd)/255.0f),
 		ka(color_to_fvector(data.ka)/255.0f) { }
 
-	float a = 0.5f;
 	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
+	float a = 0.5f; // Shininess
 };
 
-//_declspec(align(256))
+_declspec(align(256))
 struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
 };

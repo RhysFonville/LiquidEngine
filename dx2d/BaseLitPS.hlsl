@@ -28,10 +28,10 @@ struct Spotlight {
 struct Material {
 	/*bool has_texture;
 	bool has_normal_map;*/
-	float a;
 	float4 ks;
 	float4 kd;
 	float4 ka;
+    float a;
 };
 
 cbuffer PerFramePSCB : register(b2) {
@@ -117,7 +117,7 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 		}
 	}
 
-	for (uint i = 0; i < point_light_count; i++) {
+    for (uint i = 0; i < point_light_count; i++) { // https://en.wikipedia.org/wiki/Phong_reflection_model
 		if (!point_lights[i].null) {
 			float4 is = point_lights[i].specular;
 			float4 id = point_lights[i].diffuse;

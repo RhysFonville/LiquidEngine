@@ -11,9 +11,9 @@ public:
 
 	struct PLData {
 		float range = 100.0f;
-		FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
-		Color diffuse = Color(255, 255, 255, 255);
-		Color specular = Color(255, 255, 255, 255);
+		FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
+		Color diffuse = Color(100, 100, 100, 100);
+		Color specular = Color(0, 0, 0, 0);
 
 		bool null = false;
 	} data;

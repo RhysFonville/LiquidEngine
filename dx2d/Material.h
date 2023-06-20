@@ -26,7 +26,7 @@ public:
 		/*BOOL has_texture;
 		BOOL has_normal_map;*/
 
-		Color ks = Color(255, 255, 255, 255); // Specular
+		Color ks = Color(0, 0, 0, 255); // Specular
 		Color kd = Color(255, 255, 255, 255); // Diffuse
 		Color ka = Color(0, 0, 0, 255); // Ambient
 		float a = 0.5f; // Shininess
