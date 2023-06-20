@@ -2,6 +2,7 @@
 
 #include "ObjectBehavior.h"
 #include "CameraComponent.h"
+#include "PointLightComponent.h"
 
 class CameraController : public ObjectBehavior {
 public:
@@ -11,4 +12,6 @@ public:
 
 private:
 	POINT previous_cursor_pos = { 0, 0 };
+
+	int wait = 0;
 };

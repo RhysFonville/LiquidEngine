@@ -59,4 +59,42 @@ void CameraController::tick(float dt) {
 		}
 	}
 	previous_cursor_pos = current_cursor_pos;
+
+	PointLightComponent* light = object->get_component<PointLightComponent>();
+	if (GetKeyState(0x52) & 0x8000) { // R
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.r--;
+			} else {
+				light->data.diffuse.r++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
+	if (GetKeyState(0x47) & 0x8000) { // G
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.g--;
+			} else {
+				light->data.diffuse.g++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
+	if (GetKeyState(0x42) & 0x8000) { // B
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.b--;
+			} else {
+				light->data.diffuse.b++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
 }
