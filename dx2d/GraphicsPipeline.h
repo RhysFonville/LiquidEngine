@@ -333,6 +333,31 @@ public:
 			static constexpr size_t RANGES_SIZE = 1; // In practice you often only have one descriptor range per-table.
 			std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]> ranges;
 		};
+		class RootConstants : public RootArgument {
+		public:
+			template <typename T>
+			RootConstants(UINT index) {
+				compile<T>(index);
+			}
+
+			template <typename T>
+			void compile(UINT index) {
+				constants.Num32BitValues = 1u;
+				constants.RegisterSpace = 0u;
+				constants.ShaderRegister = index;
+
+				root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
+				root_parameters[0].Constants = constants;
+			}
+
+		private:
+			friend RootSignature;
+			
+			void* obj = nullptr;
+
+			D3D12_ROOT_DESCRIPTOR_TABLE table;
+			D3D12_ROOT_CONSTANTS constants;
+		};
 
 		class ConstantBuffer {
 		public:
@@ -403,10 +428,6 @@ public:
 			mutable std::string name = "";
 		};
 
-		static ConstantBuffer & create_cb() {
-
-		}
-		
 		RootSignature() { }
 
 		void compile(ComPtr<ID3D12Device> &device);
