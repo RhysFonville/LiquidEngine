@@ -336,12 +336,14 @@ public:
 		class RootConstants : public RootArgument {
 		public:
 			template <typename T>
-			RootConstants(UINT index) {
-				compile<T>(index);
+			RootConstants(T &obj, UINT index) {
+				compile<T>(obj, index);
 			}
 
 			template <typename T>
-			void compile(UINT index) {
+			void compile(T &obj, UINT index) {
+				obj = static_cast<void*>(obj);
+
 				constants.Num32BitValues = 1u;
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
@@ -437,6 +439,12 @@ public:
 		bool operator==(const RootSignature &root_signature) const noexcept;
 
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+		
+		template <typename T>
+		void bind_root_constants(T &obj) {
+			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
+			root_constants.push_back(RootConstants<T>(obj, index));
+		}
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
@@ -445,6 +453,7 @@ public:
 		std::vector<DescriptorTable> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
+		std::vector<RootConstants> root_constants = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 	} root_signature;

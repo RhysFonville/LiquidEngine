@@ -277,7 +277,7 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 }
 
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
-	UINT index = (UINT)constant_buffers.size();
+	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index));
 	cb.index = index;
 	constant_buffers.push_back(&cb);
