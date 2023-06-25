@@ -301,17 +301,19 @@ public:
 	class RootSignature {
 	public:
 		class RootArgument {
-			RootArgument();
+			RootArgument(UINT parameter_index);
 
 		protected:
 			friend RootSignature;
 
 			static constexpr size_t PARAMS_SIZE = 1;
 			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters;
+
+			UINT parameter_index;
 		};
 		class DescriptorTable : public RootArgument {
 		public:
-			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index);
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index);
 			/*DescriptorTable(const DescriptorTable &t) {
 				table = t.table;
 				for (auto i = 0; i < RANGES_SIZE; i++) {
@@ -336,13 +338,14 @@ public:
 		class RootConstants : public RootArgument {
 		public:
 			template <typename T>
-			RootConstants(T &obj, UINT index) {
+			RootConstants(T &obj, UINT index, UINT parameter_index) {
 				compile<T>(obj, index);
 			}
 
 			template <typename T>
 			void compile(T &obj, UINT index) {
-				obj = static_cast<void*>(obj);
+				this->obj = static_cast<void*>(obj);
+				obj_size = sizeof(obj);
 
 				constants.Num32BitValues = 1u;
 				constants.RegisterSpace = 0u;
@@ -356,6 +359,7 @@ public:
 			friend RootSignature;
 			
 			void* obj = nullptr;
+			size_t obj_size = 0u;
 
 			D3D12_ROOT_DESCRIPTOR_TABLE table;
 			D3D12_ROOT_CONSTANTS constants;
@@ -443,7 +447,7 @@ public:
 		template <typename T>
 		void bind_root_constants(T &obj) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			root_constants.push_back(RootConstants<T>(obj, index));
+			root_constants.push_back(RootConstants<T>(obj, index, index));
 		}
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access

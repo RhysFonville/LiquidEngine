@@ -154,8 +154,8 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (AppearanceComponent *appearance : appearances) {
-		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		appearance->pipeline.root_signature.bind_root_constants(cbs.per_frame_vs.cb);
+		appearance->pipeline.root_signature.bind_root_constants(cbs.per_object_vs.cb);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 

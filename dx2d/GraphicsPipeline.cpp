@@ -263,6 +263,10 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 		handle.ptr = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart().ptr + descriptor_table.ranges[0].BaseShaderRegister * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		command_list->SetGraphicsRootDescriptorTable(i++, handle);
 	}
+
+	for (const RootConstants &constants : root_constants) {
+		command_list->SetGraphicsRoot32BitConstants(constants.parameter_index, constants.obj_size / 32u, constants.obj, 0u);
+	}
 }
 
 bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signature) const noexcept {
@@ -278,16 +282,18 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index));
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, index));
 	cb.index = index;
 	constant_buffers.push_back(&cb);
 }
 
-GraphicsPipeline::RootSignature::RootArgument::RootArgument()
-	: root_parameters(std::shared_ptr<D3D12_ROOT_PARAMETER[]>(new D3D12_ROOT_PARAMETER[PARAMS_SIZE])) { }
+GraphicsPipeline::RootSignature::RootArgument::RootArgument(UINT parameter_index)
+	: root_parameters(std::shared_ptr<D3D12_ROOT_PARAMETER[]>(new D3D12_ROOT_PARAMETER[PARAMS_SIZE])),
+	parameter_index(parameter_index) { }
 
-GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index)
-	: ranges(std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]>(new D3D12_DESCRIPTOR_RANGE[RANGES_SIZE])) {
+GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index)
+	: ranges(std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]>(new D3D12_DESCRIPTOR_RANGE[RANGES_SIZE])),
+	RootArgument(parameter_index) {
 	compile(type, shader, index);
 }
 
