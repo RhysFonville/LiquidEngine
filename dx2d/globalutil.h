@@ -396,6 +396,12 @@ static std::string address_to_string(const T* ptr) {
 	return ss.str();
 }
 
+static XMFLOAT4X4 xmmatrix_to_4x4(const XMMATRIX &matrix) {
+	XMFLOAT4X4 float4;
+	XMStoreFloat4x4(&float4, matrix);
+	return float4;
+}
+
 static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f };
 static constexpr FVector3 global_backward{ 0.0f,  0.0f, -1.0f };
 static constexpr FVector3 global_left    {-1.0f,  0.0f,  0.0f };

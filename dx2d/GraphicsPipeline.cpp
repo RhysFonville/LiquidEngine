@@ -268,7 +268,7 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 	}
 
 	for (const RootConstants &constants : root_constants) {
-		command_list->SetGraphicsRoot32BitConstants(constants.parameter_index, constants.obj_size / 32u, constants.obj, 0u);
+		command_list->SetGraphicsRoot32BitConstants(constants.parameter_index, constants.constants.Num32BitValues, constants.obj, 0u);
 	}
 }
 

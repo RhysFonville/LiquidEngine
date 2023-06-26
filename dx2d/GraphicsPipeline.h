@@ -343,16 +343,16 @@ public:
 				: RootArgument(parameter_index) { }
 
 			template <typename T>
-			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index) {
-				compile<T>(obj, shader, index);
+			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
+				compile<T>(obj, shader, index, number_of_values);
 			}
 
 			template <typename T>
-			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index) {
+			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values = -1) {
 				this->obj = static_cast<void*>(&obj);
 				obj_size = sizeof(obj);
 
-				constants.Num32BitValues = sizeof(obj) / 32u;
+				constants.Num32BitValues = (number_of_values == -1 ? sizeof(obj) / 32u : number_of_values);
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
 
@@ -367,7 +367,9 @@ public:
 			void* obj = nullptr;
 			size_t obj_size = 0u;
 
-			D3D12_ROOT_CONSTANTS constants = { };
+			D3D12_ROOT_CONSTANTS constants;
+
+			UINT number_of_values = -1;
 		};
 
 		class ConstantBuffer {
@@ -450,10 +452,10 @@ public:
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
 		
 		template <typename T>
-		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader) {
+		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 			RootConstants rc(index);
-			rc.compile<T>(obj, shader, index);
+			rc.compile<T>(obj, shader, index, number_of_values);
 			root_constants.push_back(rc);
 		}
 
