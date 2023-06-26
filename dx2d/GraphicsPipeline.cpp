@@ -214,6 +214,9 @@ void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 	for (const DescriptorTable &table : descriptor_tables) {
 		params.push_back(table.root_parameters[0]);
 	}
+	for (const RootConstants &constants : root_constants) {
+		params.push_back(constants.root_parameters[0]);
+	}
 
 	signature_desc.Init((UINT)params.size(), (params.empty() ? nullptr : &params[0]), 0, nullptr,
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | // we can deny shader stages here for better performance

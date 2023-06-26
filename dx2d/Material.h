@@ -46,5 +46,5 @@ private:
 	std::string hs = "";
 	std::string ds = "";
 	std::string gs = "";
-	std::string ps = "LitPixel.hlsl";
+	std::string ps = "UnlitPixel.hlsl";
 };

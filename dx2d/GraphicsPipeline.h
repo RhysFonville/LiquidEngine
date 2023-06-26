@@ -301,15 +301,16 @@ public:
 	class RootSignature {
 	public:
 		class RootArgument {
+			RootArgument();
 			RootArgument(UINT parameter_index);
 
 		protected:
 			friend RootSignature;
 
 			static constexpr size_t PARAMS_SIZE = 1;
-			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters;
+			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters = nullptr;
 
-			UINT parameter_index;
+			UINT parameter_index = 0u;
 		};
 		class DescriptorTable : public RootArgument {
 		public:
@@ -337,22 +338,27 @@ public:
 		};
 		class RootConstants : public RootArgument {
 		public:
+			RootConstants() { }
+			RootConstants(UINT parameter_index)
+				: RootArgument(parameter_index) { }
+
 			template <typename T>
-			RootConstants(T &obj, UINT index, UINT parameter_index) {
-				compile<T>(obj, index);
+			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index) {
+				compile<T>(obj, shader, index);
 			}
 
 			template <typename T>
-			void compile(T &obj, UINT index) {
-				this->obj = static_cast<void*>(obj);
+			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index) {
+				this->obj = static_cast<void*>(&obj);
 				obj_size = sizeof(obj);
 
-				constants.Num32BitValues = 1u;
+				constants.Num32BitValues = sizeof(obj) / 32u;
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
 
 				root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
 				root_parameters[0].Constants = constants;
+				root_parameters[0].ShaderVisibility = shader;
 			}
 
 		private:
@@ -361,8 +367,7 @@ public:
 			void* obj = nullptr;
 			size_t obj_size = 0u;
 
-			D3D12_ROOT_DESCRIPTOR_TABLE table;
-			D3D12_ROOT_CONSTANTS constants;
+			D3D12_ROOT_CONSTANTS constants = { };
 		};
 
 		class ConstantBuffer {
@@ -445,9 +450,11 @@ public:
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
 		
 		template <typename T>
-		void bind_root_constants(T &obj) {
+		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			root_constants.push_back(RootConstants<T>(obj, index, index));
+			RootConstants rc(index);
+			rc.compile<T>(obj, shader, index);
+			root_constants.push_back(rc);
 		}
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
