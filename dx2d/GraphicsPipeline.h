@@ -1,7 +1,6 @@
 #pragma once
 
 #include <d3d12.h>
-#include <array>
 #include "d3dx12.h"
 #include "MeshComponent.h"
 #include "globalutil.h"
@@ -302,16 +301,18 @@ public:
 	public:
 		class RootArgument {
 			RootArgument();
+			RootArgument(UINT parameter_index);
 
 		protected:
 			friend RootSignature;
 
-			static constexpr size_t PARAMS_SIZE = 1;
-			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters;
+			std::vector<D3D12_ROOT_PARAMETER> root_parameters = { };
+
+			UINT parameter_index = 0u;
 		};
 		class DescriptorTable : public RootArgument {
 		public:
-			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index);
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index);
 			/*DescriptorTable(const DescriptorTable &t) {
 				table = t.table;
 				for (auto i = 0; i < RANGES_SIZE; i++) {
@@ -330,8 +331,45 @@ public:
 			friend RootSignature;
 
 			D3D12_ROOT_DESCRIPTOR_TABLE table;
-			static constexpr size_t RANGES_SIZE = 1; // In practice you often only have one descriptor range per-table.
-			std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]> ranges;
+
+			UINT heap_index = 0u;
+			
+			std::vector<D3D12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
+		};
+		class RootConstants : public RootArgument {
+		public:
+			RootConstants() { }
+			RootConstants(UINT parameter_index)
+				: RootArgument(parameter_index) { }
+
+			template <typename T>
+			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
+				compile<T>(obj, shader, index, number_of_values);
+			}
+
+			template <typename T>
+			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values = -1) {
+				this->obj = static_cast<void*>(&obj);
+				obj_size = sizeof(obj);
+
+				constants.Num32BitValues = (number_of_values == -1 ? sizeof(obj) / 32u : number_of_values);
+				constants.RegisterSpace = 0u;
+				constants.ShaderRegister = index;
+
+				root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
+				root_parameters[0].Constants = constants;
+				root_parameters[0].ShaderVisibility = shader;
+			}
+
+		private:
+			friend RootSignature;
+			
+			void* obj = nullptr;
+			size_t obj_size = 0u;
+
+			D3D12_ROOT_CONSTANTS constants;
+
+			UINT number_of_values = -1;
 		};
 
 		class ConstantBuffer {
@@ -360,7 +398,7 @@ public:
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size * 64);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size*64u);
 					HPEW(device->CreateCommittedResource(
 						&type, // this heap will be used to upload the constant buffer data
 						D3D12_HEAP_FLAG_NONE, // no flags
@@ -368,19 +406,14 @@ public:
 						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
 						nullptr, // we do not have use an optimized clear value for constant buffers
 						IID_PPV_ARGS(&upload_heaps[i])));
-					
-					append_to_file(name);
-
-					upload_heaps[i]->SetName(string_to_wstring("Constant Buffer Upload Resource Heap (TYPE: " + name + ")").c_str());
 
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
-					view_desc.SizeInBytes = (obj_size + 255) & ~255;	// CB size is required to be 256-byte aligned.
+					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
+
 					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
 					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 					device->CreateConstantBufferView(&view_desc, handle);
-
-					//ZeroMemory(obj.get(), obj_size);
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
 					HPEW(upload_heaps[i]->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
@@ -403,10 +436,6 @@ public:
 			mutable std::string name = "";
 		};
 
-		static ConstantBuffer & create_cb() {
-
-		}
-		
 		RootSignature() { }
 
 		void compile(ComPtr<ID3D12Device> &device);
@@ -416,6 +445,14 @@ public:
 		bool operator==(const RootSignature &root_signature) const noexcept;
 
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+		
+		template <typename T>
+		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
+			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
+			RootConstants rc(index);
+			rc.compile<T>(obj, shader, index, number_of_values);
+			root_constants.push_back(rc);
+		}
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
@@ -424,6 +461,7 @@ public:
 		std::vector<DescriptorTable> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
+		std::vector<RootConstants> root_constants = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 	} root_signature;
