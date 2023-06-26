@@ -7,6 +7,7 @@
 #include <locale>
 #include <numbers>
 #include <chrono>
+#include <functional>
 
 #include <wrl.h>
 #include <d3d12.h>
@@ -401,6 +402,27 @@ static XMFLOAT4X4 xmmatrix_to_4x4(const XMMATRIX &matrix) {
 	XMStoreFloat4x4(&float4, matrix);
 	return float4;
 }
+
+//template <typename T, typename U>
+//static bool is_sorted(const std::vector<T> &vec, std::function<T(U obj)> get_obj = [](U obj) { return obj; }) {
+//	for (int i = 1; i < vec.size(); i++) {
+//		if (vec[i] <= vec[i-1]) return false;
+//	}
+//
+//	return true;
+//}
+//
+//template <typename T, typename U>
+//static std::vector<T> sort(std::vector<T> vec, std::function<T(U obj)> get_obj = [](U obj) { return obj; }) {
+//	while (!is_sorted(vec, get_obj)) {
+//		for (int i = 1; i < vec.size(); i++) {
+//			if (vec[i] <= vec[i-1]) {
+//				vec.insert(vec.begin()+i-1, vec[i]);
+//				vec.erase(vec.begin()+vec[i+1]);
+//			}
+//		}
+//	}
+//}
 
 static constexpr FVector3 global_forward { 0.0f,  0.0f,  1.0f };
 static constexpr FVector3 global_backward{ 0.0f,  0.0f, -1.0f };

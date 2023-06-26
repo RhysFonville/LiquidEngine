@@ -1,7 +1,6 @@
 #pragma once
 
 #include <d3d12.h>
-#include <array>
 #include "d3dx12.h"
 #include "MeshComponent.h"
 #include "globalutil.h"
@@ -307,14 +306,13 @@ public:
 		protected:
 			friend RootSignature;
 
-			static constexpr size_t PARAMS_SIZE = 1;
-			std::shared_ptr<D3D12_ROOT_PARAMETER[]> root_parameters = nullptr;
+			std::vector<D3D12_ROOT_PARAMETER> root_parameters = { };
 
 			UINT parameter_index = 0u;
 		};
 		class DescriptorTable : public RootArgument {
 		public:
-			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index);
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index);
 			/*DescriptorTable(const DescriptorTable &t) {
 				table = t.table;
 				for (auto i = 0; i < RANGES_SIZE; i++) {
@@ -333,8 +331,10 @@ public:
 			friend RootSignature;
 
 			D3D12_ROOT_DESCRIPTOR_TABLE table;
-			static constexpr size_t RANGES_SIZE = 1; // In practice you often only have one descriptor range per-table.
-			std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]> ranges;
+
+			UINT heap_index = 0u;
+			
+			std::vector<D3D12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
 		};
 		class RootConstants : public RootArgument {
 		public:
@@ -398,7 +398,7 @@ public:
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size*64u);
 					HPEW(device->CreateCommittedResource(
 						&type, // this heap will be used to upload the constant buffer data
 						D3D12_HEAP_FLAG_NONE, // no flags
@@ -410,11 +410,10 @@ public:
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
 					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
+
 					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
 					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 					device->CreateConstantBufferView(&view_desc, handle);
-
-					//ZeroMemory(obj.get(), obj_size);
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
 					HPEW(upload_heaps[i]->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));

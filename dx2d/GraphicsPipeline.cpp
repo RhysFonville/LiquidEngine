@@ -211,11 +211,16 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 
 void GraphicsPipeline::RootSignature::compile(ComPtr<ID3D12Device> &device) {
 	std::vector<D3D12_ROOT_PARAMETER> params;
-	for (const DescriptorTable &table : descriptor_tables) {
-		params.push_back(table.root_parameters[0]);
-	}
-	for (const RootConstants &constants : root_constants) {
-		params.push_back(constants.root_parameters[0]);
+
+	for (int i = 0; i < descriptor_tables.size()+root_constants.size(); i++) {
+		for (const DescriptorTable &table : descriptor_tables) {
+			if (table.parameter_index == i)
+				params.push_back(table.root_parameters[0]);
+		}
+		for (const RootConstants &constants : root_constants) {
+			if (constants.parameter_index == i)
+			params.push_back(constants.root_parameters[0]);
+		}
 	}
 
 	signature_desc.Init((UINT)params.size(), (params.empty() ? nullptr : &params[0]), 0, nullptr,
@@ -260,11 +265,12 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 		command_list->SetDescriptorHeaps(_countof(heaps), heaps);
 	}
 
-	int i = 0;
 	for (const DescriptorTable &descriptor_table : descriptor_tables) {
-		D3D12_GPU_DESCRIPTOR_HANDLE handle = { };
-		handle.ptr = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart().ptr + descriptor_table.ranges[0].BaseShaderRegister * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-		command_list->SetGraphicsRootDescriptorTable(i++, handle);
+		D3D12_GPU_DESCRIPTOR_HANDLE handle =
+			descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart();
+		handle.ptr += descriptor_table.heap_index *
+			device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		command_list->SetGraphicsRootDescriptorTable(descriptor_table.parameter_index, handle);
 	}
 
 	for (const RootConstants &constants : root_constants) {
@@ -285,18 +291,18 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, index));
-	cb.index = index;
+	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, (UINT)descriptor_tables.size(), index));
+	cb.index = (UINT)descriptor_tables.size()-1;
 	constant_buffers.push_back(&cb);
 }
 
 GraphicsPipeline::RootSignature::RootArgument::RootArgument(UINT parameter_index)
-	: root_parameters(std::shared_ptr<D3D12_ROOT_PARAMETER[]>(new D3D12_ROOT_PARAMETER[PARAMS_SIZE])),
+	: root_parameters(std::vector<D3D12_ROOT_PARAMETER>(1u)),
 	parameter_index(parameter_index) { }
 
-GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index)
-	: ranges(std::shared_ptr<D3D12_DESCRIPTOR_RANGE[]>(new D3D12_DESCRIPTOR_RANGE[RANGES_SIZE])),
-	RootArgument(parameter_index) {
+GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index)
+	: RootArgument(parameter_index), ranges(std::vector<D3D12_DESCRIPTOR_RANGE>(1u)),
+	heap_index(heap_index) {
 	compile(type, shader, index);
 }
 
@@ -307,8 +313,8 @@ void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_
 	ranges[0].RegisterSpace = 0; // space 0. can usually be zero
 	ranges[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // this appends the range to the end of the root signature descriptor tables
 	
-	table.NumDescriptorRanges = RANGES_SIZE;
-	table.pDescriptorRanges = ranges.get();
+	table.NumDescriptorRanges = (UINT)ranges.size();
+	table.pDescriptorRanges = &ranges[0];
 	
 	root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // this is a descriptor table
 	root_parameters[0].DescriptorTable = table; // this is our descriptor table for this root parameter
