@@ -398,7 +398,7 @@ public:
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size * 64);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size);
 					HPEW(device->CreateCommittedResource(
 						&type, // this heap will be used to upload the constant buffer data
 						D3D12_HEAP_FLAG_NONE, // no flags
@@ -406,14 +406,10 @@ public:
 						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
 						nullptr, // we do not have use an optimized clear value for constant buffers
 						IID_PPV_ARGS(&upload_heaps[i])));
-					
-					append_to_file(name);
-
-					upload_heaps[i]->SetName(string_to_wstring("Constant Buffer Upload Resource Heap (TYPE: " + name + ")").c_str());
 
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
-					view_desc.SizeInBytes = (obj_size + 255) & ~255;	// CB size is required to be 256-byte aligned.
+					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
 					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
 					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 					device->CreateConstantBufferView(&view_desc, handle);

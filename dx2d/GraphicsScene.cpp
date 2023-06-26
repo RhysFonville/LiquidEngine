@@ -156,8 +156,8 @@ void GraphicsScene::compile() {
 	for (AppearanceComponent *appearance : appearances) {
 		appearance->pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		appearance->pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		//appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		appearance->compile(device, command_list, sample_desc, resolution);
 	}
@@ -177,7 +177,7 @@ void GraphicsScene::update() {
 
 	if (camera != nullptr) {
 		camera->update(UVector2_to_FVector2(resolution));
-		cbs.per_frame_vs.WVP = xmmatrix_to_4x4(XMMatrixTranspose(camera->WVP));
+		cbs.per_frame_vs.WVP = XMMatrixTranspose(camera->WVP);
 		cbs.per_frame_ps.obj->camera_position = camera->get_position();
 	}
 
@@ -247,7 +247,7 @@ void GraphicsScene::update() {
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	for (AppearanceComponent *appearance : appearances) {
-		cbs.per_object_vs.transform = xmmatrix_to_4x4(appearance->get_mesh()->get_transform());
+		cbs.per_object_vs.transform = appearance->get_mesh()->get_transform();
 		cbs.per_object_ps.obj->material = appearance->material.data;
 		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
 	}

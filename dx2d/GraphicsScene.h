@@ -87,12 +87,12 @@ struct DXMatData {
 
 _declspec(align(256))
 struct PerFrameVSCB { // b0
-	XMFLOAT4X4  WVP;
+	XMMATRIX WVP;
 };
 
 //_declspec(align(256))
 struct PerObjectVSCB { // b1
-	XMFLOAT4X4 transform;
+	XMMATRIX transform;
 };
 
 //_declspec(align(256))
