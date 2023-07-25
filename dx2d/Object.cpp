@@ -10,10 +10,6 @@ void Object::set_position(const FVector3 &position) noexcept {
 	mechanics.previous_position = transform.position;
 	transform.position = position;
 
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_position(position);
-	}
-
 	for (Object* child : children) {
 		child->set_position(position);
 	}
@@ -22,10 +18,6 @@ void Object::set_position(const FVector3 &position) noexcept {
 void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_rotation(rotation);
-	}
-
 	for (Object* child : children) {
 		child->set_position(rotation);
 	}
@@ -33,10 +25,6 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 
 void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
-
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_size(size);
-	}
 
 	for (Object* child : children) {
 		child->set_position(size);
@@ -78,7 +66,7 @@ GET Transform Object::get_transform() const noexcept {
 }
 
 bool Object::operator==(const Object &object) const noexcept {
-	return (components == object.components &&
+	return (root_component == object.root_component &&
 		transform == object.transform &&
 		name == object.name &&
 		parent == object.parent &&
@@ -86,32 +74,29 @@ bool Object::operator==(const Object &object) const noexcept {
 }
 
 bool Object::operator!=(const Object &object) const noexcept {
-	return (components != object.components ||
+	return (root_component != object.root_component ||
 		transform != object.transform ||
 		name != object.name ||
 		parent != object.parent ||
 		children != object.children);
 }
 
-bool Object::has_component(Component::Type search) const noexcept {
-	for (const std::shared_ptr<Component> &component : components) {
-		if (component->get_type() == search) {
-			return true;
-		}
-	}
-	return false;
-}
-
 void Object::clean_up() {
-	for (std::shared_ptr<Component> &component : components) {
-		component->clean_up();
-	}
-
 	remove_this_from_parents_children();
 
 	for (Object* child : children) {
 		child->parent = nullptr;
 	}
+
+	root_component.clean_up();
+}
+
+void Object::compile() {
+	root_component.compile();
+}
+
+void Object::tick() {
+	root_component.tick();
 }
 
 Object* Object::get_parent() noexcept {

@@ -5,14 +5,26 @@ Component::Component(const Type &type, const Transform &transform)
 
 void Component::set_position(FVector3 position) noexcept {
 	transform.position = position;
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_position(position);
+	}
 }
 
 void Component::set_rotation(FVector3 rotation) noexcept {
 	transform.rotation = rotation;
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_rotation(rotation);
+	}
 }
 
 void Component::set_size(FVector3 size) noexcept {
 	transform.size = size;
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_size(size);
+	}
 }
 
 void Component::translate(FVector3 position) noexcept {
@@ -60,4 +72,13 @@ bool Component::operator==(const Component &component) const noexcept {
 void Component::operator=(const Component &component) noexcept {
 	transform = component.transform;
 	type = component.type;
+}
+
+bool Component::has_component(Component::Type search) const noexcept {
+	for (const std::shared_ptr<Component> &component : components) {
+		if (component->get_type() == search) {
+			return true;
+		}
+	}
+	return false;
 }

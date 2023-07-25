@@ -1,8 +1,6 @@
 #pragma once
 
 #include <DirectXMath.h>
-#include "MeshComponent.h"
-#include "Component.h"
 #include "globalstructs.h"
 #include "Storage.h"
 
@@ -66,17 +64,6 @@ public:
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
-	GET bool has_component(Component::Type search) const noexcept;
-	template <typename T>
-	GET bool has_component() const {
-		for (const std::shared_ptr<Component> &component : components) {
-			if (component->get_type() == T::component_type) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	GET Object* get_parent() noexcept;
 	void set_parent(Object* parent) noexcept;
 	void remove_parent() noexcept;
@@ -85,53 +72,23 @@ public:
 
 	void add_child(Object* child) noexcept;
 
+	void clean_up();
 	void compile();
+	void tick();
 
 	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
-
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	GET T* get_component() noexcept {
-		for (std::shared_ptr<Component> &component : components) {
-			if (component->get_type() == T::component_type) {
-				return (T*)component.get();
-			}
-		}
-		return nullptr;
-	}
-
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	GET std::vector<T*> get_components() noexcept {
-		std::vector<T*> ret;
-		for (std::shared_ptr<Component> &component : components) {
-			if (component->get_type() == T::component_type) {
-				ret.push_back((T*)component.get());
-			}
-		}
-		return ret;
-	}
-
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
-		components.push_back(std::make_unique<T>(component));
-	}
-
-	void remove_component(size_t index) {
-		components.erase(components.begin()+index);
-	}
 	
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
-
-	void clean_up();
 
 	std::string name;
 
 	MechanicsData mechanics;
 
+	Component root_component;
+
 private:
 	Transform transform;
-	
-	std::vector<std::shared_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 	Object* parent = nullptr;
 	std::vector<Object*> children;
