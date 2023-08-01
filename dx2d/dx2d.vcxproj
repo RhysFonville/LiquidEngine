@@ -143,60 +143,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AppearanceComponent.cpp" />
-    <ClCompile Include="BehaviorManager.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
-    <ClCompile Include="CameraController.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="GraphicsPipeline.cpp" />
-    <ClCompile Include="GraphicsScene.cpp" />
+    <ClCompile Include="Components\AppearanceComponent.cpp" />
+    <ClCompile Include="Components\CameraComponent.cpp" />
+    <ClCompile Include="Components\CameraController.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
+    <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="DirectionalLightComponent.cpp" />
+    <ClCompile Include="Components\DirectionalLightComponent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="MyBehavior.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="MeshComponent.cpp" />
-    <ClCompile Include="ObjectBehavior.cpp" />
+    <ClCompile Include="Components\MeshComponent.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
-    <ClCompile Include="PointLightComponent.cpp" />
+    <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SpotlightComponent.cpp" />
+    <ClCompile Include="Components\SpotlightComponent.cpp" />
     <ClCompile Include="Storage.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppearanceComponent.h" />
-    <ClInclude Include="BehaviorManager.h" />
-    <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="CameraController.h" />
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="Components\AppearanceComponent.h" />
+    <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\CameraController.h" />
+    <ClInclude Include="Components\Component.h" />
     <ClInclude Include="globalstructs.h" />
     <ClInclude Include="globalutil.h" />
-    <ClInclude Include="GraphicsPipeline.h" />
-    <ClInclude Include="GraphicsScene.h" />
+    <ClInclude Include="Graphics\GraphicsPipeline.h" />
+    <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="DirectionalLightComponent.h" />
+    <ClInclude Include="Components\DirectionalLightComponent.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MyBehavior.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="ObjectBehavior.h" />
+    <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="PhysicsScene.h" />
-    <ClInclude Include="PointLightComponent.h" />
+    <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SpotlightComponent.h" />
+    <ClInclude Include="Components\SpotlightComponent.h" />
     <ClInclude Include="Storage.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Throw.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="BaseShader.hlsl">
+    <FxCompile Include="Graphics\BaseShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="BaseLitPS.hlsl">
+    <FxCompile Include="Graphics\BaseLitPS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -209,10 +205,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DisableOptimizations>
     </FxCompile>
-    <FxCompile Include="BaseVS.hlsl">
+    <FxCompile Include="Graphics\BaseVS.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="DefaultVertex.hlsl">
+    <FxCompile Include="Graphics\DefaultVertex.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -221,11 +217,11 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <EnableDebuggingInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableDebuggingInformation>
     </FxCompile>
-    <FxCompile Include="LitPixel.hlsl">
+    <FxCompile Include="Graphics\LitPixel.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="UnlitPixel.hlsl">
+    <FxCompile Include="Graphics\UnlitPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>

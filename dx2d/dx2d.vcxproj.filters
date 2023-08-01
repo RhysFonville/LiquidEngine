@@ -63,49 +63,43 @@
     <ClCompile Include="MyBehavior.cpp">
       <Filter>Source Files\Behaviors\UserBehaviors</Filter>
     </ClCompile>
-    <ClCompile Include="BehaviorManager.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectBehavior.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsScene.cpp">
+    <ClCompile Include="Graphics\GraphicsScene.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
+    <ClCompile Include="Components\CameraComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
+    <ClCompile Include="Components\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraController.cpp">
+    <ClCompile Include="Components\CameraController.cpp">
       <Filter>Source Files\Behaviors\UserBehaviors</Filter>
     </ClCompile>
-    <ClCompile Include="DirectionalLightComponent.cpp">
+    <ClCompile Include="Components\DirectionalLightComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
+    <ClCompile Include="Graphics\Material.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="SpotlightComponent.cpp">
+    <ClCompile Include="Components\SpotlightComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="PointLightComponent.cpp">
+    <ClCompile Include="Components\PointLightComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MeshComponent.cpp">
+    <ClCompile Include="Components\MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsPipeline.cpp">
+    <ClCompile Include="Graphics\GraphicsPipeline.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="AppearanceComponent.cpp">
+    <ClCompile Include="Components\AppearanceComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,16 +122,10 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviorManager.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectBehavior.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
     <ClInclude Include="MyBehavior.h">
       <Filter>Header Files\Behaviors\UserBehaviors</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsScene.h">
+    <ClInclude Include="Graphics\GraphicsScene.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="globalutil.h">
@@ -146,60 +134,60 @@
     <ClInclude Include="globalstructs.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
+    <ClInclude Include="Components\CameraComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
+    <ClInclude Include="Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraController.h">
+    <ClInclude Include="Components\CameraController.h">
       <Filter>Header Files\Behaviors\UserBehaviors</Filter>
     </ClInclude>
-    <ClInclude Include="DirectionalLightComponent.h">
+    <ClInclude Include="Components\DirectionalLightComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Graphics\Texture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="SpotlightComponent.h">
+    <ClInclude Include="Components\SpotlightComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="PointLightComponent.h">
+    <ClInclude Include="Components\PointLightComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MeshComponent.h">
+    <ClInclude Include="Components\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsPipeline.h">
+    <ClInclude Include="Graphics\GraphicsPipeline.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="AppearanceComponent.h">
+    <ClInclude Include="Components\AppearanceComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="DefaultVertex.hlsl">
+    <FxCompile Include="Graphics\DefaultVertex.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="UnlitPixel.hlsl">
+    <FxCompile Include="Graphics\UnlitPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="BaseLitPS.hlsl">
+    <FxCompile Include="Graphics\BaseLitPS.hlsl">
       <Filter>Shaders\Base</Filter>
     </FxCompile>
-    <FxCompile Include="LitPixel.hlsl">
+    <FxCompile Include="Graphics\LitPixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="BaseShader.hlsl">
+    <FxCompile Include="Graphics\BaseShader.hlsl">
       <Filter>Shaders\Base</Filter>
     </FxCompile>
-    <FxCompile Include="BaseVS.hlsl">
+    <FxCompile Include="Graphics\BaseVS.hlsl">
       <Filter>Shaders\Base</Filter>
     </FxCompile>
   </ItemGroup>

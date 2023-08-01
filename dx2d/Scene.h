@@ -4,7 +4,6 @@
 #include "GraphicsScene.h"
 #include "PhysicsScene.h"
 #include "Object.h"
-#include "BehaviorManager.h"
 #include "Window.h"
 #include "Storage.h"
 
@@ -30,10 +29,9 @@ public:
 
 	GraphicsScene graphics_scene;
 	//PhysicsScene physics_scene;
-	BehaviorManager behavior_manager;
 
 private:
-	std::vector<Object> objects;
+	std::vector<std::shared_ptr<Object>> objects;
 
 	struct DeltaTime {
 		float dt = 0.0f;
