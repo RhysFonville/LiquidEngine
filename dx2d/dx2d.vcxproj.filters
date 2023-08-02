@@ -72,7 +72,7 @@
     <ClCompile Include="Components\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\CameraController.cpp">
+    <ClCompile Include="CameraController.cpp">
       <Filter>Source Files\Behaviors\UserBehaviors</Filter>
     </ClCompile>
     <ClCompile Include="Components\DirectionalLightComponent.cpp">
@@ -101,6 +101,18 @@
     </ClCompile>
     <ClCompile Include="Components\AppearanceComponent.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhysicalComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhysicsBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\StaticMeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +152,7 @@
     <ClInclude Include="Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\CameraController.h">
+    <ClInclude Include="CameraController.h">
       <Filter>Header Files\Behaviors\UserBehaviors</Filter>
     </ClInclude>
     <ClInclude Include="Components\DirectionalLightComponent.h">
@@ -149,7 +161,7 @@
     <ClInclude Include="Graphics\Texture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
+    <ClInclude Include="Graphics\Material.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Components\SpotlightComponent.h">
@@ -169,6 +181,18 @@
     </ClInclude>
     <ClInclude Include="Components\AppearanceComponent.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicalComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\StaticMeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,8 @@
 #include <d3d12.h>
 #include "d3dx12.h"
 #include "MeshComponent.h"
-#include "globalutil.h"
-#include "Throw.h"
+#include "../globalutil.h"
+#include "../Throw.h"
 #include "D3DCompiler.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))

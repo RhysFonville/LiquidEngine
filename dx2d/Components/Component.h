@@ -1,17 +1,16 @@
 #pragma once
 
-#include "globalutil.h"
+#include "../globalutil.h"
 
 class Component {
 public:
 	enum class Type {
 		None,
-		MeshComponent,
+		StaticMeshComponent,
 		CameraComponent,
 		DirectionalLightComponent,
 		PointLightComponent,
 		SpotlightComponent,
-		AppearanceComponent
 	};
 
 	Component() : type(Type::None) { }

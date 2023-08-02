@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Components\AppearanceComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
-    <ClCompile Include="Components\CameraController.cpp" />
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
@@ -153,13 +153,17 @@
     <ClCompile Include="Components\DirectionalLightComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MyBehavior.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Components\MeshComponent.cpp" />
+    <ClCompile Include="Components\PhysicalComponent.cpp" />
+    <ClCompile Include="Components\PhysicsBody.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
+    <ClCompile Include="Components\StaticMeshComponent.cpp" />
     <ClCompile Include="Storage.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -167,7 +171,7 @@
   <ItemGroup>
     <ClInclude Include="Components\AppearanceComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
-    <ClInclude Include="Components\CameraController.h" />
+    <ClInclude Include="CameraController.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="globalstructs.h" />
     <ClInclude Include="globalutil.h" />
@@ -175,14 +179,18 @@
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Components\DirectionalLightComponent.h" />
-    <ClInclude Include="Material.h" />
+    <ClInclude Include="Graphics\Material.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MyBehavior.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Components\MeshComponent.h" />
+    <ClInclude Include="Components\PhysicalComponent.h" />
+    <ClInclude Include="Components\PhysicsBody.h" />
     <ClInclude Include="PhysicsScene.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
+    <ClInclude Include="Components\StaticMeshComponent.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Throw.h" />
