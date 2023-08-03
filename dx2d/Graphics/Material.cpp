@@ -1,11 +1,14 @@
 #include "Material.h"
 
-void Material::compile(GraphicsPipeline &pipeline) {
+void Material::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list,
+	const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
 	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, vs);
 	pipeline.hs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Hull, hs);
 	pipeline.ds = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Domain, ds);
 	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, gs);
 	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
+
+	pipeline.compile(device, sample_desc, resolution);
 }
 
 void Material::clean_up() { }

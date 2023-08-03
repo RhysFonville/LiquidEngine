@@ -12,7 +12,8 @@ public:
 	Material(Color ks, Color kd, Color ka, float a)
 		: data({ ks, kd, ka, a }) { }
 
-	void compile(GraphicsPipeline &pipeline);
+	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list,
+		const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 	
 	void clean_up();
 
@@ -41,6 +42,8 @@ public:
 		}
 	} data;
 
+	GraphicsPipeline pipeline;
+
 private:
 	std::string vs = "DefaultVertex.hlsl";
 	std::string hs = "";
@@ -48,5 +51,5 @@ private:
 	std::string gs = "";
 	std::string ps = "LitPixel.hlsl";
 
-	GraphicsPipeline pipeline;
+	
 };

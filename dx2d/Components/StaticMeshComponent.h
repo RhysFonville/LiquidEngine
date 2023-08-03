@@ -88,7 +88,7 @@ class StaticMeshComponent : public PhysicalComponent {
 
 	void clean_up() override;
 
-	Mesh get_mesh();
+	Mesh get_mesh() const noexcept;
 	void set_mesh(const Mesh &mesh) noexcept;
 
 	Material material;
