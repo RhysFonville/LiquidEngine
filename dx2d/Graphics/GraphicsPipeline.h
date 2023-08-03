@@ -2,7 +2,7 @@
 
 #include <d3d12.h>
 #include "d3dx12.h"
-#include "MeshComponent.h"
+#include "GraphicsPipelineMeshProxy.h"
 #include "../globalutil.h"
 #include "../Throw.h"
 #include "D3DCompiler.h"
@@ -43,13 +43,12 @@ public:
 	public:
 		InputAssembler() { }
 
-		void add_mesh(const MeshData &mesh, ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
+		void add_mesh(const Mesh &mesh, ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
 		void remove_mesh(size_t index);
 
-		void update(ComPtr<ID3D12GraphicsCommandList> &command_list) {
-			command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
-			command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)
-		}
+		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
+
+		void set_proxy(GraphicsPipelineMeshProxy &proxy) { this->proxy = proxy; }
 
 		const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
 
@@ -62,13 +61,15 @@ public:
 
 	private:
 		friend GraphicsPipeline;
+		
+		GraphicsPipelineMeshProxy &proxy;
 
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 		std::vector<ComPtr<ID3D12Resource>> vertex_buffers; // a default buffer in GPU memory that we will load vertex data for our triangle into
 		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views; // a structure containing a pointer to the vertex data in gpu memory
-		// the total size of the buffer, and the size of each element (vertex)
+																   // the total size of the buffer, and the size of each element (vertex)
 	} input_assembler;
 
 	class Shader {

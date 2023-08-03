@@ -1,7 +1,6 @@
 #pragma once
 
 #include "PhysicalComponent.h"
-#include "../Graphics/GraphicsPipeline.h"
 #include "../Graphics/Material.h"
 #include "../Mesh.h"
 
@@ -82,10 +81,6 @@ class StaticMeshComponent : public PhysicalComponent {
 		}
 	};
 
-	AppearanceComponent(const Material &material);
-	AppearanceComponent(const GraphicsPipeline &pipeline,
-		const Material &material = Material());
-
 	void compile(ComPtr<ID3D12Device> &device,
 		ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
@@ -93,16 +88,17 @@ class StaticMeshComponent : public PhysicalComponent {
 
 	void clean_up() override;
 
-	void set_mesh(const Mesh &mesh,
-		ComPtr<ID3D12Device> &device,
-		ComPtr<ID3D12GraphicsCommandList> &command_list) noexcept;
+	Mesh get_mesh();
+	void set_mesh(const Mesh &mesh) noexcept;
 
-	GraphicsPipeline pipeline;
 	Material material;
 
 	static const Type component_type = Type::StaticMeshComponent;
 
 private:
 	Mesh mesh;
+	GraphicsPipelineMeshProxy proxy;
+
+	GraphicsPipeline pipeline;
 };
 

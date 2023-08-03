@@ -109,7 +109,7 @@ void GraphicsPipeline::operator=(const GraphicsPipeline &pipeline) noexcept {
 	stream_output = pipeline.stream_output;
 }
 
-void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3D12Device> &device,
+void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, ComPtr<ID3D12Device> &device,
 	ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index) {
 
 	const std::vector<Vertex> &verts = mesh.get_vertices();
@@ -169,6 +169,19 @@ void GraphicsPipeline::InputAssembler::add_mesh(const MeshData &mesh, ComPtr<ID3
 
 void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
 	vertex_buffers.erase(vertex_buffers.begin() + index);
+}
+
+void GraphicsPipeline::InputAssembler::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list) {
+	GraphicsPipelineMeshChangeInfo changes = proxy.get_changes(true);
+	for (const std::pair<Mesh, size_t> &addition : changes.additions) {
+		add_mesh(addition.first, device, command_list, addition.second);
+	}
+	for (size_t removal : changes.removals) {
+		remove_mesh(removal);
+	}
+	
+	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
+	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)
 }
 
 const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {

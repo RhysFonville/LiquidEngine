@@ -3,7 +3,7 @@
 #include <d3dcompiler.h>
 #include <fstream>
 //#include "Texture.h"
-#include "Throw.h"
+#include "../Throw.h"
 #include "GraphicsPipeline.h"
 
 class Material {
@@ -47,4 +47,6 @@ private:
 	std::string ds = "";
 	std::string gs = "";
 	std::string ps = "LitPixel.hlsl";
+
+	GraphicsPipeline pipeline;
 };

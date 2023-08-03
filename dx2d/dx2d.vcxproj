@@ -143,7 +143,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Components\AppearanceComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="Components\Component.cpp" />
@@ -169,7 +168,6 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components\AppearanceComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="Components\Component.h" />
