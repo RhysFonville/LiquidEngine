@@ -3,17 +3,17 @@
 GraphicsPipeline::GraphicsPipeline(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc,
 	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
 
-void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+void GraphicsPipeline::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
 	command_list->SetPipelineState(pipeline_state_object.Get());
 	command_list->SetGraphicsRootSignature(root_signature.signature.Get()); // set the root signature
 	
 	root_signature.update(device, command_list, frame_index);
-	input_assembler.update(command_list);
+	input_assembler.update(device, command_list);
 	rasterizer.update(command_list);
 	output_merger.update(command_list, rtv_handle);
 }
 
-void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+void GraphicsPipeline::run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
 	update(device, command_list, rtv_handle, frame_index);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
@@ -68,11 +68,12 @@ void GraphicsPipeline::compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_D
 }
 
 void GraphicsPipeline::clean_up() {
-	SAFE_RELEASE(output_merger.depth_stencil_buffer);
-	SAFE_RELEASE(output_merger.depth_stencil_descriptor_heap);
 	for (auto &buffer : input_assembler.vertex_buffers) {
 		SAFE_RELEASE(buffer);
 	}
+
+	SAFE_RELEASE(output_merger.depth_stencil_buffer);
+	SAFE_RELEASE(output_merger.depth_stencil_descriptor_heap);
 }
 
 bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexcept {
@@ -172,7 +173,7 @@ void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
 }
 
 void GraphicsPipeline::InputAssembler::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	GraphicsPipelineMeshChangeInfo changes = proxy.get_changes(true);
+	GraphicsPipelineMeshChangeInfo changes = proxy->get_changes(true);
 	for (const std::pair<Mesh, size_t> &addition : changes.additions) {
 		add_mesh(addition.first, device, command_list, addition.second);
 	}

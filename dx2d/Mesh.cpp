@@ -196,50 +196,9 @@ Mesh::ReadObjFileDataOutput Mesh::read_obj_file(const ReadObjFileDataInput &read
 			}
 		}
 
-		mesh_data.set_vertices(final_verts);
+		set_vertices(final_verts);
 
 		return ReadObjFileDataOutput(vertices.size(), texcoords.size(), normals.size());
 	}
 	return ReadObjFileDataOutput();
-}
-
-void StaticMeshComponent::compile() noexcept {
-	std::vector<Vertex> verts = mesh_data.get_vertices();
-	for (size_t i = 0; i < verts.size(); i += 3) {
-		if (i <= verts.size()) {
-
-			// Shortcuts for vertices
-			FVector3 v0 = verts[i+0].position;
-			FVector3 v1 = verts[i+1].position;
-			FVector3 v2 = verts[i+2].position;
-
-			// Shortcuts for UVs
-			FVector2 uv0 = verts[i+0].texcoord;
-			FVector2 uv1 = verts[i+1].texcoord;
-			FVector2 uv2 = verts[i+2].texcoord;
-
-			// Edges of the triangle : position delta
-			FVector3 deltaPos1 = v1-v0;
-			FVector3 deltaPos2 = v2-v0;
-
-			// UV delta
-			FVector2 deltaUV1 = uv1-uv0;
-			FVector2 deltaUV2 = uv2-uv0;
-
-			float r =     1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
-			FVector3 tangent =   (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
-			//FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
-
-			verts[i+0].tangent = tangent;
-			verts[i+1].tangent = tangent;
-			verts[i+2].tangent = tangent;
-
-			/*verts[i+0].bitangent = bitangent;
-			verts[i+1].bitangent = bitangent;
-			verts[i+2].bitangent = bitangent;*/
-		}
-	}
-
-	mesh_data.set_vertices(verts);
-	mesh_data.indices = std::vector<UINT>();
 }

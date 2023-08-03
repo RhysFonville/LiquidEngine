@@ -1,11 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "GraphicsScene.h"
+#include "Graphics/GraphicsScene.h"
 #include "PhysicsScene.h"
 #include "Object.h"
 #include "Window.h"
-#include "Storage.h"
 
 class Scene {
 public:
@@ -18,7 +17,7 @@ public:
 
 	void compile();
 
-	void read_obj_file(std::string obj_file_path);
+	//void read_obj_file(std::string obj_file_path);
 
 	GET std::vector<Object> & get_objects() noexcept;
 	void add_object(Object object) noexcept;

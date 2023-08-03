@@ -2,7 +2,7 @@
 
 #include <DirectXMath.h>
 #include "globalstructs.h"
-#include "Storage.h"
+#include "Mesh.h"
 
 using namespace DirectX;
 
@@ -76,7 +76,7 @@ public:
 	void compile();
 	void tick();
 
-	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
+	//ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 	
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;

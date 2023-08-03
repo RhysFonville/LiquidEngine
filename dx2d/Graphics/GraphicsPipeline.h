@@ -2,9 +2,9 @@
 
 #include <d3d12.h>
 #include "d3dx12.h"
-#include "GraphicsPipelineMeshProxy.h"
 #include "../globalutil.h"
 #include "../Throw.h"
+#include "../Components/StaticMeshComponent.h"
 #include "D3DCompiler.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
@@ -18,8 +18,8 @@ public:
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
-	void run(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
 
 	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
@@ -48,7 +48,9 @@ public:
 
 		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-		void set_proxy(GraphicsPipelineMeshProxy &proxy) { this->proxy = proxy; }
+		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshProxy> &proxy) {
+			this->proxy = proxy;
+		}
 
 		const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
 
@@ -62,7 +64,7 @@ public:
 	private:
 		friend GraphicsPipeline;
 		
-		GraphicsPipelineMeshProxy &proxy;
+		std::shared_ptr<GraphicsPipelineMeshProxy> proxy = nullptr;
 
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

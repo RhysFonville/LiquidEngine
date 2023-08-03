@@ -130,19 +130,11 @@ void Object::compile() {
 	}
 }
 
-ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {
-	MeshComponent mc;
-
-	ReadObjFileDataOutput out = mc.read_obj_file(ReadObjFileDataInput(content, mesh_out));
-
-	/*std::string line;
-	for (const std::string line : content) {
-		if (line.substr(0, 6) == "usemtl") {
-			mc.material = Storage::get_material_by_name(line.substr(7));
-		}
-	}*/
-
-	add_component(mc);
-
-	return out;
-}
+//ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {
+//	StaticMeshComponent mc;
+//	ReadObjFileDataOutput out = mc.read_obj_file(ReadObjFileDataInput(content, mesh_out));
+//
+//	root_component.add_component(mc);
+//
+//	return out;
+//}

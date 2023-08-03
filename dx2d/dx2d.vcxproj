@@ -155,7 +155,6 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MyBehavior.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Components\MeshComponent.cpp" />
     <ClCompile Include="Components\PhysicalComponent.cpp" />
     <ClCompile Include="Components\PhysicsBody.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
@@ -163,7 +162,6 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
     <ClCompile Include="Components\StaticMeshComponent.cpp" />
-    <ClCompile Include="Storage.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -181,7 +179,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MyBehavior.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="Components\PhysicalComponent.h" />
     <ClInclude Include="Components\PhysicsBody.h" />
     <ClInclude Include="PhysicsScene.h" />
@@ -189,7 +186,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
     <ClInclude Include="Components\StaticMeshComponent.h" />
-    <ClInclude Include="Storage.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Throw.h" />
     <ClInclude Include="Window.h" />

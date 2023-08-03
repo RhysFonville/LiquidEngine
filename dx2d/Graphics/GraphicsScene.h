@@ -1,13 +1,12 @@
 #pragma once
 
 #include <filesystem>
-#include "Object.h"
-#include "CameraComponent.h"
-#include "DirectionalLightComponent.h"
-#include "PointLightComponent.h"
-#include "SpotlightComponent.h"
+#include "../Components/CameraComponent.h"
+#include "../Components/DirectionalLightComponent.h"
+#include "../Components/PointLightComponent.h"
+#include "../Components/SpotlightComponent.h"
+#include "../Components/StaticMeshComponent.h"
 #include "GraphicsPipeline.h"
-#include "AppearanceComponent.h"
 
 #pragma comment(lib,"D3D12.lib")
 #pragma comment (lib, "D3DCompiler.lib")
@@ -116,7 +115,7 @@ struct PerObjectPSCB { // b3
 class GraphicsScene {
 public:
 	GraphicsScene() { }
-	GraphicsScene(HWND window, const std::vector<AppearanceComponent*> &appearances = { }); // initializes direct3d 12
+	GraphicsScene(HWND window, const std::vector<StaticMeshComponent*> &static_meshes); // initializes direct3d 12
 
 	void tick(); // Updates pipeline and renders
 	void clean_up(); // release com ojects and clean up memory
@@ -137,7 +136,7 @@ public:
 	GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings = true);
 
-	std::vector<AppearanceComponent*> appearances;
+	std::vector<StaticMeshComponent*> static_meshes;
 	CameraComponent* camera;
 	std::vector<Component*> lights;
 

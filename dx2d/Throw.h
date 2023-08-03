@@ -3,7 +3,7 @@
 #include <exception>
 #include <Windows.h>
 #include <comdef.h>
-#include <stacktrace>
+//#include <stacktrace> idk why it doesn't know what this is.. I put it on /std:c++latest, and https://learn.microsoft.com/en-us/cpp/overview/what-s-new-for-visual-cpp-in-visual-studio?view=msvc-170 says that should work...
 #include "globalutil.h"
 
 inline bool INFO_MESSAGE(std::string message) {
@@ -31,7 +31,7 @@ inline bool ERROR_MESSAGE(THROW_PARAMS params) {
 	final_message += "\tFUNCTION: " + params.func_location + '\n';
 	final_message += "\tFILE: " + params.file_location + '\n';
 	final_message += "\tLINE: " + std::to_string(params.line_location) + "\n\n";
-	final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
+	//final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
 	append_to_file("throw_details.log", final_message + "\n\n");
 
 	int out = MessageBoxExA(NULL, print_final_message.c_str(), "Error!", MB_CANCELTRYCONTINUE | MB_ICONERROR, 0);

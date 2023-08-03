@@ -1,7 +1,7 @@
 #include "GraphicsScene.h"
 
-GraphicsScene::GraphicsScene(HWND window, const std::vector<AppearanceComponent*> &appearances)
-	: window(window), appearances(appearances) {
+GraphicsScene::GraphicsScene(HWND window, const std::vector<StaticMeshComponent*> &static_meshes)
+	: window(window), static_meshes(static_meshes) {
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
 	debug_interface->EnableDebugLayer();
@@ -153,13 +153,13 @@ void GraphicsScene::create_fences_and_fences_event() {
 }
 
 void GraphicsScene::compile() {
-	for (AppearanceComponent *appearance : appearances) {
-		appearance->pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		appearance->pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		appearance->pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+	for (StaticMeshComponent *mesh : static_meshes) {
+		mesh->material.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh->material.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh->material.pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh->material.pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
-		appearance->compile(device, command_list, sample_desc, resolution);
+		mesh->compile(device, command_list, sample_desc, resolution);
 	}
 
 	HPEW(command_list->Close());
@@ -246,10 +246,10 @@ void GraphicsScene::update() {
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
-	for (AppearanceComponent *appearance : appearances) {
-		cbs.per_object_vs.transform = appearance->get_mesh()->get_transform();
-		cbs.per_object_ps.obj->material = appearance->material.data;
-		appearance->pipeline.run(device, command_list, rtv_handle, frame_index);
+	for (StaticMeshComponent *mesh : static_meshes) {
+		cbs.per_object_vs.transform = mesh->get_transform();
+		cbs.per_object_ps.obj->material = mesh->material.data;
+		mesh->material.pipeline.run(device, command_list, rtv_handle, frame_index);
 	}
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a

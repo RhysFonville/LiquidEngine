@@ -50,6 +50,4 @@ private:
 	std::string ds = "";
 	std::string gs = "";
 	std::string ps = "LitPixel.hlsl";
-
-	
 };

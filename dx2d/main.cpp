@@ -1,12 +1,10 @@
 #include "Engine.h"
-#include "MyBehavior.h"
-#include "CameraController.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
 
-	Object camera("Camera");
-	camera.add_component(CameraComponent());
+	/*Object camera("Camera");
+	camera.(CameraComponent());
 	camera.add_component(PointLightComponent());
 	engine.scene.add_object(camera);
 
@@ -31,7 +29,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	engine.scene.behavior_manager.object_behaviors.push_back(
 		std::make_shared<MyBehavior>(&engine.scene.get_objects()[2])
-	);
+	);*/
 
 	engine.scene.compile();
 

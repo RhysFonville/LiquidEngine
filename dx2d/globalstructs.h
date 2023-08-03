@@ -131,7 +131,7 @@ public:
 	}
 };
 
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector3 {
 public:
 	T x = 0;
@@ -218,7 +218,7 @@ public:
 	}
 };
 
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector4 {
 public:
 	T x = 0;
