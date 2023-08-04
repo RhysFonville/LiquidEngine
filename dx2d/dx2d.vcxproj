@@ -143,96 +143,63 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Components\CameraComponent.cpp" />
-    <ClCompile Include="CameraController.cpp" />
-    <ClCompile Include="Components\Component.cpp" />
-    <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
-    <ClCompile Include="Graphics\GraphicsScene.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Components\DirectionalLightComponent.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Graphics\Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Components\PhysicalComponent.cpp" />
-    <ClCompile Include="Components\PhysicsBody.cpp" />
-    <ClCompile Include="PhysicsScene.cpp" />
-    <ClCompile Include="Components\PointLightComponent.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Components\SpotlightComponent.cpp" />
-    <ClCompile Include="Components\StaticMeshComponent.cpp" />
-    <ClCompile Include="Graphics\Texture.cpp" />
-    <ClCompile Include="Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Components\CameraComponent.h" />
-    <ClInclude Include="CameraController.h" />
-    <ClInclude Include="Components\Component.h" />
-    <ClInclude Include="globalstructs.h" />
-    <ClInclude Include="globalutil.h" />
-    <ClInclude Include="Graphics\GraphicsPipeline.h" />
-    <ClInclude Include="Graphics\GraphicsScene.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Components\DirectionalLightComponent.h" />
-    <ClInclude Include="Graphics\Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Components\PhysicalComponent.h" />
-    <ClInclude Include="Components\PhysicsBody.h" />
-    <ClInclude Include="PhysicsScene.h" />
-    <ClInclude Include="Components\PointLightComponent.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Components\SpotlightComponent.h" />
-    <ClInclude Include="Components\StaticMeshComponent.h" />
-    <ClInclude Include="Graphics\Texture.h" />
-    <ClInclude Include="Throw.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Graphics\BaseShader.hlsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </FxCompile>
-    <FxCompile Include="Graphics\BaseLitPS.hlsl">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-      <EnableDebuggingInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableDebuggingInformation>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </EntryPointName>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DisableOptimizations>
-    </FxCompile>
-    <FxCompile Include="Graphics\BaseVS.hlsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </FxCompile>
-    <FxCompile Include="Graphics\DefaultVertex.hlsl">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-      <EnableDebuggingInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableDebuggingInformation>
-    </FxCompile>
-    <FxCompile Include="Graphics\LitPixel.hlsl">
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Graphics\UnlitPixel.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log" />
     <Text Include="throw_details.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CameraController.h" />
+    <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\DirectionalLightComponent.h" />
+    <ClInclude Include="Components\PhysicalComponent.h" />
+    <ClInclude Include="Components\PhysicsBody.h" />
+    <ClInclude Include="Components\PointLightComponent.h" />
+    <ClInclude Include="Components\SpotlightComponent.h" />
+    <ClInclude Include="Components\StaticMeshComponent.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="globalstructs.h" />
+    <ClInclude Include="globalutil.h" />
+    <ClInclude Include="Graphics\d3dx12.h" />
+    <ClInclude Include="Graphics\GraphicsPipeline.h" />
+    <ClInclude Include="Graphics\GraphicsPipelineMeshProxy.h" />
+    <ClInclude Include="Graphics\GraphicsScene.h" />
+    <ClInclude Include="Graphics\Material.h" />
+    <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Objects\MyCamera.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="PhysicsScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Throw.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="Components\CameraComponent.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\DirectionalLightComponent.cpp" />
+    <ClCompile Include="Components\PhysicalComponent.cpp" />
+    <ClCompile Include="Components\PhysicsBody.cpp" />
+    <ClCompile Include="Components\PointLightComponent.cpp" />
+    <ClCompile Include="Components\SpotlightComponent.cpp" />
+    <ClCompile Include="Components\StaticMeshComponent.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
+    <ClCompile Include="Graphics\GraphicsPipelineMeshProxy.cpp" />
+    <ClCompile Include="Graphics\GraphicsScene.cpp" />
+    <ClCompile Include="Graphics\Material.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Objects\MyCamera.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PhysicsScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

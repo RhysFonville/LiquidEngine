@@ -373,7 +373,7 @@ public:
 			void* obj = nullptr;
 			size_t obj_size = 0u;
 
-			D3D12_ROOT_CONSTANTS constants;
+			D3D12_ROOT_CONSTANTS constants = { };
 
 			UINT number_of_values = -1;
 		};

@@ -1,7 +1,5 @@
 #include "Object.h"
 
-Object::Object(std::string name) : name(name) {}
-
 Object::~Object() {
 	clean_up();
 }
@@ -95,8 +93,9 @@ void Object::compile() {
 	root_component.base_compile();
 }
 
-void Object::tick() {
+void Object::base_tick(float dt) {
 	root_component.base_tick();
+	tick(dt);
 }
 
 Object* Object::get_parent() noexcept {
