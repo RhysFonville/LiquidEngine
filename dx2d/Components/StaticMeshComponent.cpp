@@ -4,10 +4,15 @@ StaticMeshComponent::StaticMeshComponent() : PhysicalComponent(Type::StaticMeshC
 	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
-void StaticMeshComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list,
-	const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
-
+void StaticMeshComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
 	material.compile(device, command_list, sample_desc, resolution);
+
+	mesh.compile();
+	proxy->add_mesh(mesh);
+}
+
+void StaticMeshComponent::compile() noexcept {
+	material.compile();
 
 	mesh.compile();
 	proxy->add_mesh(mesh);
@@ -23,8 +28,21 @@ Mesh StaticMeshComponent::get_mesh() const noexcept {
 
 void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh = mesh;
+	this->mesh.compile();
 
-	proxy->remove_mesh(0);
+	proxy->add_mesh(mesh);
+}
+
+Material & StaticMeshComponent::get_material() noexcept {
+	return material;
+}
+
+void StaticMeshComponent::set_material(const Material &material) noexcept {
+	this->material = material;
+	this->material.compile();
+
+	this->material.pipeline.input_assembler.set_proxy(proxy);
+	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 }
 

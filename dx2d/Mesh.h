@@ -49,7 +49,7 @@ public:
 
 	void set_vertices(const std::vector<Vertex> &new_verts, size_t physics_verts_chunk_divisor = 3);
 
-	ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read);
+	//ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &read);
 
 	std::vector<UINT> indices;
 

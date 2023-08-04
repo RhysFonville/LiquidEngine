@@ -4,8 +4,8 @@
 #include "d3dx12.h"
 #include "../globalutil.h"
 #include "../Throw.h"
-#include "../Components/StaticMeshComponent.h"
 #include "D3DCompiler.h"
+#include "GraphicsPipelineMeshProxy.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
@@ -19,7 +19,7 @@ public:
 		const UVector2 &resolution);
 
 	void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
-	void run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
 	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
@@ -32,6 +32,8 @@ public:
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
 	
+	bool compilation_signal = true;
+
 	static constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
@@ -45,6 +47,7 @@ public:
 
 		void add_mesh(const Mesh &mesh, ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
 		void remove_mesh(size_t index);
+		void remove_all_meshes();
 
 		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
 

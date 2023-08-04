@@ -5,6 +5,8 @@
 #include <DirectXMath.h>
 #include <utility>
 #include <dxgi1_4.h>
+#include <string>
+#include <algorithm>
 
 using namespace DirectX;
 

@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include "globalstructs.h"
 #include "Mesh.h"
+#include "Components/Component.h"
 
 using namespace DirectX;
 

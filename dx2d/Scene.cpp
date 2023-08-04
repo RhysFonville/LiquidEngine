@@ -156,11 +156,11 @@ void Scene::compile() {
 //	}
 //}
 
-std::vector<Object> & Scene::get_objects() noexcept {
+std::vector<std::shared_ptr<Object>> & Scene::get_objects() noexcept {
 	return objects;
 }
 
-void Scene::add_object(Object object) noexcept {
+void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
 	objects.push_back(object);
 }
 

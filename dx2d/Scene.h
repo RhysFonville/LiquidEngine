@@ -19,8 +19,8 @@ public:
 
 	//void read_obj_file(std::string obj_file_path);
 
-	GET std::vector<Object> & get_objects() noexcept;
-	void add_object(Object object) noexcept;
+	GET std::vector<std::shared_ptr<Object>> & get_objects() noexcept;
+	void add_object(const std::shared_ptr<Object> &object) noexcept;
 
 	void remove_object(int index) noexcept;
 

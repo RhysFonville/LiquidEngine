@@ -4,7 +4,7 @@
 
 #include <string>
 #include <functional>
-#include "GraphicsScene.h"
+#include "Graphics/GraphicsScene.h"
 #include "globalstructs.h"
 
 class Window {

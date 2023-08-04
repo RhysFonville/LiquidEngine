@@ -13,7 +13,11 @@ void GraphicsPipeline::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12Graphic
 	output_merger.update(command_list, rtv_handle);
 }
 
-void GraphicsPipeline::run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+void GraphicsPipeline::run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+	if (compilation_signal) {
+		compile(device, sample_desc, resolution);
+	}
+	
 	update(device, command_list, rtv_handle, frame_index);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
@@ -172,13 +176,24 @@ void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
 	vertex_buffers.erase(vertex_buffers.begin() + index);
 }
 
+void GraphicsPipeline::InputAssembler::remove_all_meshes() {
+	vertex_buffers.clear();
+}
+
 void GraphicsPipeline::InputAssembler::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	GraphicsPipelineMeshChangeInfo changes = proxy->get_changes(true);
-	for (const std::pair<Mesh, size_t> &addition : changes.additions) {
-		add_mesh(addition.first, device, command_list, addition.second);
-	}
-	for (size_t removal : changes.removals) {
-		remove_mesh(removal);
+	size_t add_index = 0;
+	size_t sub_index = 0;
+	for (GraphicsPipelineMeshChangeInfoType type : changes.order) {
+		if (type == GraphicsPipelineMeshChangeInfoType::Add) {
+			add_mesh(changes.additions[add_index].first, device, command_list, changes.additions[add_index].second);
+		} else {
+			if (changes.subtractions[sub_index] == (size_t)-1) {
+				remove_all_meshes();
+			} else {
+				remove_mesh(changes.subtractions[sub_index]);
+			}
+		}
 	}
 	
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology

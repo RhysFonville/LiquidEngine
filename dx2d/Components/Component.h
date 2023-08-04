@@ -31,6 +31,10 @@ public:
 	virtual void set_transform(Transform transform) noexcept;
 	virtual GET Transform get_transform() const noexcept;
 
+	void base_clean_up() { for (auto &comp : components) { clean_up(); } clean_up(); }
+	void base_compile() { for (auto &comp : components) { compile(); } compile(); }
+	void base_tick() { for (auto &comp : components) { tick(); } tick(); }
+
 	virtual void clean_up() { }
 	virtual void compile() { }
 	virtual void tick() { }

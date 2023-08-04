@@ -1,8 +1,8 @@
 #pragma once
 
 #include "WICTextureLoader.h"
-#include "Throw.h"
-#include "globalutil.h"
+#include "../Throw.h"
+#include "../globalutil.h"
 
 class Texture {
 public:

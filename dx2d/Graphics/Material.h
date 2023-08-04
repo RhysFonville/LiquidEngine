@@ -12,8 +12,8 @@ public:
 	Material(Color ks, Color kd, Color ka, float a)
 		: data({ ks, kd, ka, a }) { }
 
-	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list,
-		const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void compile();
 	
 	void clean_up();
 

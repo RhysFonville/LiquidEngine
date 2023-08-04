@@ -154,10 +154,10 @@ void GraphicsScene::create_fences_and_fences_event() {
 
 void GraphicsScene::compile() {
 	for (StaticMeshComponent *mesh : static_meshes) {
-		mesh->material.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh->material.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh->material.pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh->material.pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh->compile(device, command_list, sample_desc, resolution);
 	}
@@ -248,8 +248,8 @@ void GraphicsScene::update() {
 
 	for (StaticMeshComponent *mesh : static_meshes) {
 		cbs.per_object_vs.transform = mesh->get_transform();
-		cbs.per_object_ps.obj->material = mesh->material.data;
-		mesh->material.pipeline.run(device, command_list, rtv_handle, frame_index);
+		cbs.per_object_ps.obj->material = mesh->get_material().data;
+		mesh->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 	}
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a

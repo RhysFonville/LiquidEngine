@@ -88,15 +88,15 @@ void Object::clean_up() {
 		child->parent = nullptr;
 	}
 
-	root_component.clean_up();
+	root_component.base_clean_up();
 }
 
 void Object::compile() {
-	root_component.compile();
+	root_component.base_compile();
 }
 
 void Object::tick() {
-	root_component.tick();
+	root_component.base_tick();
 }
 
 Object* Object::get_parent() noexcept {
@@ -122,12 +122,6 @@ void Object::add_child(Object* child) noexcept {
 	 children.push_back(child);
 	 child->remove_this_from_parents_children();
 	 child->parent = this;
-}
-
-void Object::compile() {
-	for (std::shared_ptr<Component> &component : components) {
-		component->compile();
-	}
 }
 
 //ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {

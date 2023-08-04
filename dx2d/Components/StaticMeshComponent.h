@@ -2,10 +2,6 @@
 
 #include "PhysicalComponent.h"
 #include "../Graphics/Material.h"
-#include "../Mesh.h"
-#include "../Graphics/GraphicsPipelineMeshProxy.h"
-
-using PipelineShaderType = GraphicsPipeline::Shader::Type;
 
 class StaticMeshComponent : public PhysicalComponent {
 public:
@@ -13,18 +9,17 @@ public:
 
 	void clean_up() override;
 
-	void compile(ComPtr<ID3D12Device> &device,
-		ComPtr<ID3D12GraphicsCommandList> &command_list,
-		const DXGI_SAMPLE_DESC &sample_desc,
-		const UVector2 &resolution) noexcept;
+	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept;
+	void compile() noexcept override;
 
 	Mesh get_mesh() const noexcept;
 	void set_mesh(const Mesh &mesh) noexcept;
 
+	Material & get_material() noexcept;
+	void set_material(const Material &material) noexcept;
+
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
-
-	Material material;
 
 	static const Type component_type = Type::StaticMeshComponent;
 
@@ -94,6 +89,7 @@ private:
 		}
 	};
 
+	Material material;
+
 	std::shared_ptr<GraphicsPipelineMeshProxy> proxy = std::make_shared<GraphicsPipelineMeshProxy>();
 };
-

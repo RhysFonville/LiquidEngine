@@ -60,9 +60,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBehavior.cpp">
-      <Filter>Source Files\Behaviors\UserBehaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\GraphicsScene.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -124,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyBehavior.h">
-      <Filter>Header Files\Behaviors\UserBehaviors</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\GraphicsScene.h">
       <Filter>Header Files\Graphics</Filter>
