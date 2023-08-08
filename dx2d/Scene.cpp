@@ -3,7 +3,7 @@
 Scene::Scene(Window &window) {
 	objects = std::vector<std::shared_ptr<Object>>();
 
-	graphics_scene = GraphicsScene(window.get_window(), std::vector<StaticMeshComponent*>());
+	graphics_scene = Renderer(window.get_window(), std::vector<StaticMeshComponent*>());
 	//physics_scene = PhysicsScene(objects);
 }
 

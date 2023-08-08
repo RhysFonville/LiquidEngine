@@ -12,9 +12,9 @@ struct GraphicsPipelineMeshChangeInfo {
 	std::vector<GraphicsPipelineMeshChangeInfoType> order;
 };
 
-class GraphicsPipelineMeshProxy {
+class GraphicsPipelineMeshChangeManager {
 public:
-	GraphicsPipelineMeshProxy() { }
+	GraphicsPipelineMeshChangeManager() { }
 
 	void add_mesh(const Mesh &mesh, size_t index = (size_t)-1);
 	void remove_mesh(size_t index);

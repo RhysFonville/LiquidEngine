@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Component.h"
+#include "GraphicsComponent.h"
 #include "SimpleMath.h"
 
-class CameraComponent : public Component {
+class CameraComponent : public GraphicsComponent {
 public:
-	CameraComponent(const FVector3 &position = FVector3(),
-		const FVector3 &rotation = FVector3());
+	CameraComponent();
 
 	void set_position(FVector3 position) noexcept override;
 	void set_rotation(FVector3 rotation) noexcept override;
@@ -33,7 +32,7 @@ public:
 	static const Type component_type = Type::CameraComponent;
 
 private:
-	friend class GraphicsScene;
+	friend class Renderer;
 
 	void set_view() noexcept;
 
@@ -51,3 +50,4 @@ private:
 	XMMATRIX view = XMMatrixIdentity();
 	XMMATRIX projection = XMMatrixIdentity();
 };
+

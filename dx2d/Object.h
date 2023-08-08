@@ -38,7 +38,7 @@ public:
 	void clean_up();
 	void compile();
 	void base_tick(float dt);
-	virtual void tick(float dt);
+	virtual void tick(float dt) { }
 
 	//ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 	
@@ -46,8 +46,6 @@ public:
 	bool operator!=(const Object &object) const noexcept;
 
 	std::string name;
-
-	MechanicsData mechanics;
 
 	Component root_component;
 

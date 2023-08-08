@@ -109,7 +109,7 @@ Window::Window(HINSTANCE hInstance) {
 	RegisterClassW(&window_class);
 }
 
-Window::Window(HINSTANCE hInstance, GraphicsScene* graphics_scene)
+Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
 	: graphics_scene(graphics_scene) {
 
 	window_class.style = CS_HREDRAW | CS_VREDRAW;

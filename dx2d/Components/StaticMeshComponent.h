@@ -91,5 +91,5 @@ private:
 
 	Material material;
 
-	std::shared_ptr<GraphicsPipelineMeshProxy> proxy = std::make_shared<GraphicsPipelineMeshProxy>();
+	std::shared_ptr<GraphicsPipelineMeshChangeManager> proxy = std::make_shared<GraphicsPipelineMeshChangeManager>();
 };

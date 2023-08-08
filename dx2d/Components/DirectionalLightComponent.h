@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.h"
+#include "LightComponent.h"
 
-class DirectionalLightComponent : public Component {
+class DirectionalLightComponent : public LightComponent {
 public:
 	DirectionalLightComponent();
 

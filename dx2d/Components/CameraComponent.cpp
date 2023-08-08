@@ -1,11 +1,7 @@
 #include "CameraComponent.h"
 
-CameraComponent::CameraComponent(const FVector3 &position, const FVector3 &rotation)
-	: Component(Type::CameraComponent) {
-	translate(position);
-	rotate(rotation);
-	set_view();
-}
+CameraComponent::CameraComponent()
+	: GraphicsComponent(Type::CameraComponent) { }
 
 void CameraComponent::set_position(FVector3 position) noexcept {
 	FVector3 difference = position - transform.position;

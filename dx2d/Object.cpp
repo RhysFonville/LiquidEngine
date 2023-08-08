@@ -5,7 +5,6 @@ Object::~Object() {
 }
 
 void Object::set_position(const FVector3 &position) noexcept {
-	mechanics.previous_position = transform.position;
 	transform.position = position;
 
 	for (Object* child : children) {

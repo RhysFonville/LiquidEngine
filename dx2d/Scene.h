@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Graphics/GraphicsScene.h"
+#include "Graphics/Renderer.h"
 #include "PhysicsScene.h"
 #include "Object.h"
 #include "Window.h"
@@ -26,7 +26,7 @@ public:
 
 	GET float get_delta_time() const noexcept;
 
-	GraphicsScene graphics_scene;
+	Renderer graphics_scene;
 	//PhysicsScene physics_scene;
 
 private:

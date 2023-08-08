@@ -5,7 +5,7 @@
 #include "../globalutil.h"
 #include "../Throw.h"
 #include "D3DCompiler.h"
-#include "GraphicsPipelineMeshProxy.h"
+#include "GraphicsPipelineMeshChangeManager.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
@@ -51,7 +51,7 @@ public:
 
 		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshProxy> &proxy) {
+		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChangeManager> &proxy) {
 			this->proxy = proxy;
 		}
 
@@ -67,7 +67,7 @@ public:
 	private:
 		friend GraphicsPipeline;
 		
-		std::shared_ptr<GraphicsPipelineMeshProxy> proxy = nullptr;
+		std::shared_ptr<GraphicsPipelineMeshChangeManager> proxy = nullptr;
 
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

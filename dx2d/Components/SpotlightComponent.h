@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.h"
+#include "LightComponent.h"
 
-class SpotlightComponent : public Component {
+class SpotlightComponent : public LightComponent {
 public:
 	SpotlightComponent();
 

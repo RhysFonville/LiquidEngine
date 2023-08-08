@@ -1,7 +1,6 @@
 #include "Component.h"
 
-Component::Component(const Type &type, const Transform &transform)
-	: type(type), transform(transform) { }
+Component::Component(const Type &type) : type(type) { }
 
 void Component::set_position(FVector3 position) noexcept {
 	transform.position = position;

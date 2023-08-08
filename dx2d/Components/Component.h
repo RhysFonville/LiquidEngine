@@ -14,7 +14,7 @@ public:
 	};
 
 	Component() : type(Type::None) { }
-	Component(const Type &type, const Transform &transform = Transform());
+	Component(const Type &type);
 
 	virtual void set_position(FVector3 position) noexcept;
 	virtual void set_rotation(FVector3 rotation) noexcept;
@@ -31,9 +31,23 @@ public:
 	virtual void set_transform(Transform transform) noexcept;
 	virtual GET Transform get_transform() const noexcept;
 
-	void base_clean_up() { for (auto &comp : components) { clean_up(); } clean_up(); }
-	void base_compile() { for (auto &comp : components) { compile(); } compile(); }
-	void base_tick() { for (auto &comp : components) { tick(); } tick(); }
+	void base_clean_up() {
+		for (auto &comp : components) {
+			clean_up();
+		}
+		clean_up();
+	}
+	void base_compile() {
+		for (auto &comp : components) {
+			compile();
+		} compile();
+	}
+	void base_tick() {
+		for (auto &comp : components) {
+			tick();
+		}
+		tick();
+	}
 
 	virtual void clean_up() { }
 	virtual void compile() { }
@@ -79,17 +93,17 @@ public:
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
 		components.push_back(std::make_shared<T>(component));
-		components.back().lock()->parent = this;
+		components.back()->parent = this;
 	}
 
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
 	}
 
-	Component* parent;
-	std::vector<std::shared_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
+	Component* parent = nullptr;
+	std::vector<std::shared_ptr<Component>> components = { }; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 protected:
 	Transform transform;
-	Type type;
+	Type type = Type::None;
 };

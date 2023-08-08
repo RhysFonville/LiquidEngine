@@ -65,7 +65,7 @@
     <ClInclude Include="Graphics\GraphicsPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsPipelineMeshProxy.h">
+    <ClInclude Include="Graphics\GraphicsPipelineMeshChangeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\GraphicsScene.h">
@@ -89,7 +89,7 @@
     <ClInclude Include="Components\PhysicalComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\PhysicsBody.h">
+    <ClInclude Include="PhysicsBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\PointLightComponent.h">
@@ -102,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\MyCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Engine\DefaultCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -142,7 +145,7 @@
     <ClCompile Include="Components\PhysicalComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PhysicsBody.cpp">
+    <ClCompile Include="PhysicsBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\PointLightComponent.cpp">
@@ -157,7 +160,7 @@
     <ClCompile Include="Graphics\GraphicsPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicsPipelineMeshProxy.cpp">
+    <ClCompile Include="Graphics\GraphicsPipelineMeshChangeManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\GraphicsScene.cpp">
@@ -170,6 +173,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\MyCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Engine\DefaultCube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,7 @@
 
 class MyCamera : public Object {
 public:
-	MyCamera() { }
+	MyCamera();
 
 	void tick(float dt) override;
 
