@@ -3,6 +3,8 @@
 Engine::Engine(HINSTANCE hInstance)
 	: world(World()), window(Window(hInstance)) {
 	world.scenes.push_back(Scene(&renderer.scene));
+	world.active_scene = world.scenes.begin();
+
 	window.set_up_window();
 	renderer = Renderer(window.get_window());
 }
