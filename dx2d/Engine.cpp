@@ -1,9 +1,10 @@
 #include "Engine.h"
 
 Engine::Engine(HINSTANCE hInstance)
-	: world(World()), window(Window(hInstance)), renderer(Renderer(window.get_window())) {
+	: world(World()), window(Window(hInstance)) {
 	world.scenes.push_back(Scene(&renderer.scene));
 	window.set_up_window();
+	renderer = Renderer(window.get_window());
 }
 
 void Engine::compile() {
