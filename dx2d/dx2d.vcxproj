@@ -156,6 +156,9 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\DirectionalLightComponent.h" />
     <ClInclude Include="Components\PhysicalComponent.h" />
+    <ClInclude Include="Components\GraphicsComponent.h" />
+    <ClInclude Include="Graphics\GraphicsScene.h" />
+    <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
@@ -167,7 +170,7 @@
     <ClInclude Include="Graphics\d3dx12.h" />
     <ClInclude Include="Graphics\GraphicsPipeline.h" />
     <ClInclude Include="Graphics\GraphicsPipelineMeshChangeManager.h" />
-    <ClInclude Include="Graphics\GraphicsScene.h" />
+    <ClInclude Include="Graphics\Renderer.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Mesh.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Throw.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraController.cpp" />
@@ -184,6 +188,9 @@
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\DirectionalLightComponent.cpp" />
     <ClCompile Include="Components\PhysicalComponent.cpp" />
+    <ClCompile Include="Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Graphics\GraphicsScene.cpp" />
+    <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
@@ -192,7 +199,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsPipelineMeshChangeManager.cpp" />
-    <ClCompile Include="Graphics\GraphicsScene.cpp" />
+    <ClCompile Include="Graphics\Renderer.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="main.cpp" />
@@ -202,6 +209,7 @@
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

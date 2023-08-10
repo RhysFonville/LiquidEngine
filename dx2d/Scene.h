@@ -1,17 +1,17 @@
 #pragma once
 
 #include <vector>
-#include "Graphics/Renderer.h"
+#include "Graphics/GraphicsScene.h"
 #include "PhysicsScene.h"
 #include "Object.h"
 #include "Window.h"
 
 class Scene {
 public:
-	Scene(Window &window);
-	Scene() { };
+	Scene() { }
+	Scene(GraphicsScene *graphics_scene);
 
-	void tick();
+	void tick(float dt);
 
 	void clean_up();
 
@@ -24,18 +24,10 @@ public:
 
 	void remove_object(int index) noexcept;
 
-	GET float get_delta_time() const noexcept;
-
-	Renderer graphics_scene;
 	//PhysicsScene physics_scene;
+	GraphicsScene *graphics_scene = nullptr;
 
 private:
-	std::vector<std::shared_ptr<Object>> objects;
-
-	struct DeltaTime {
-		float dt = 0.0f;
-		std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
-		std::chrono::system_clock::time_point tp2 = tp1;
-	} dt;
+	std::vector<std::shared_ptr<Object>> objects = { };
 };
 

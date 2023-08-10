@@ -1,7 +1,7 @@
 #include "PointLightComponent.h"
 
 PointLightComponent::PointLightComponent()
-	: Component(Component::Type::PointLightComponent), data({ }) { }
+	: LightComponent(Component::Type::PointLightComponent), data({ }) { }
 
 bool PointLightComponent::operator==(const PointLightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&

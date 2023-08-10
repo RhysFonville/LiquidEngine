@@ -6,6 +6,7 @@
 #include "../Components/PointLightComponent.h"
 #include "../Components/SpotlightComponent.h"
 #include "../Components/StaticMeshComponent.h"
+#include "../globalutil.h"
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
@@ -109,9 +110,45 @@ struct PerObjectPSCB { // b3
 
 class GraphicsScene {
 public:
-	GraphicsScene();
+	GraphicsScene() { }
+
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+	void add_component(const T *component) {
+		if (component->get_type() == Component::Type::CameraComponent) {
+			camera = (CameraComponent*)component;
+		} else if (LightComponent::is_light_component(*component)) {
+			lights.push_back((LightComponent*)component);
+		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
+			static_meshes.push_back((StaticMeshComponent*)component);
+		}
+	}
+
+	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+	void remove_component(const T *component) {
+		if (component->get_type() == Component::Type::StaticMeshComponent) {
+			auto static_meshes_index = std::find(static_meshes.begin(), static_meshes.end(), (StaticMeshComponent*)component);
+			if (static_meshes_index == static_meshes.end()) {
+				static_meshes.erase(static_meshes_index);
+			}
+		}
+		
+		if (component->get_type() == Component::Type::CameraComponent) {
+			if ((CameraComponent*)component == camera) {
+				camera = nullptr;
+			}
+		}
+
+		if (LightComponent::is_light_component(*component)) {
+			auto lights_index = std::find(lights.begin(), lights.end(), (LightComponent*)component);
+			if (lights_index == lights.end()) {
+				lights.erase(lights_index);
+			}
+		}
+	}
+private:
+	friend class Renderer;
 
 	std::vector<StaticMeshComponent*> static_meshes;
 	CameraComponent* camera;
-	std::vector<Component*> lights;
+	std::vector<LightComponent*> lights;
 };

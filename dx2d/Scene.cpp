@@ -1,20 +1,13 @@
 #include "Scene.h"
 
-Scene::Scene(Window &window) {
-	objects = std::vector<std::shared_ptr<Object>>();
+Scene::Scene(GraphicsScene *graphics_scene) : graphics_scene(graphics_scene) { }
 
-	graphics_scene = Renderer(window.get_window(), std::vector<StaticMeshComponent*>());
-	//physics_scene = PhysicsScene(objects);
-}
-
-void Scene::tick() {
-	dt.tp2 = std::chrono::system_clock::now();
-	std::chrono::duration<float> elapsed_time = dt.tp2 - dt.tp1;
-	dt.tp1 = dt.tp2;
-	dt.dt = elapsed_time.count();
+void Scene::tick(float dt) {
+	for (std::shared_ptr<Object> &object : objects) {
+		object->base_tick(dt);
+	}
 
 	//physics_scene.tick();
-	graphics_scene.tick();
 }
 
 void Scene::clean_up() {
@@ -34,8 +27,6 @@ void Scene::compile() {
 		}
 	}
 	graphics_scene.static_meshes = static_meshes;*/
-
-	graphics_scene.compile();
 }
 
 //void Scene::read_obj_file(std::string obj_file_path) {
@@ -162,12 +153,9 @@ std::vector<std::shared_ptr<Object>> & Scene::get_objects() noexcept {
 
 void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
 	objects.push_back(object);
+	objects.back()->graphics_scene = graphics_scene;
 }
 
 void Scene::remove_object(int index) noexcept {
 	objects.erase(objects.begin()+index);
-}
-
-float Scene::get_delta_time() const noexcept {
-	return dt.dt;
 }

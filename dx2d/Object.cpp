@@ -10,6 +10,10 @@ void Object::set_position(const FVector3 &position) noexcept {
 	for (Object* child : children) {
 		child->set_position(position);
 	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_position(position);
+	}
 }
 
 void Object::set_rotation(const FVector3 &rotation) noexcept {
@@ -18,6 +22,10 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 	for (Object* child : children) {
 		child->set_position(rotation);
 	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_rotation(rotation);
+	}
 }
 
 void Object::set_size(const FVector3 &size) noexcept {
@@ -25,6 +33,10 @@ void Object::set_size(const FVector3 &size) noexcept {
 
 	for (Object* child : children) {
 		child->set_position(size);
+	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_size(size);
 	}
 }
 
@@ -78,22 +90,45 @@ bool Object::operator!=(const Object &object) const noexcept {
 		children != object.children);
 }
 
-void Object::clean_up() {
+void Object::base_clean_up() {
 	remove_this_from_parents_children();
 
 	for (Object* child : children) {
+		child->clean_up();
 		child->parent = nullptr;
 	}
 
 	root_component.base_clean_up();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_compile();
+	}
+
+	clean_up();
 }
 
-void Object::compile() {
+void Object::base_compile() {
+	for (Object* child : children) {
+		child->compile();
+	}
+
 	root_component.base_compile();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_compile();
+	}
+
+	compile();
 }
 
 void Object::base_tick(float dt) {
+	for (Object* child : children) {
+		child->base_tick(dt);
+	}
+
 	root_component.base_tick();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_tick();
+	}
+
 	tick(dt);
 }
 
@@ -130,3 +165,13 @@ void Object::add_child(Object* child) noexcept {
 //
 //	return out;
 //}
+
+bool Object::has_component(Component::Type search) const noexcept {
+	for (const std::shared_ptr<Component> &component : components) {
+		if (component->get_type() == search) {
+			return true;
+		}
+	}
+	return false;
+}
+

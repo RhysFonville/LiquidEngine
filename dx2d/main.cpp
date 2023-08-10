@@ -5,10 +5,10 @@
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
 
-	engine.scene.add_object(std::shared_ptr<MyCamera>());
-	engine.scene.add_object(std::shared_ptr<DefaultCube>());
+	engine.world.active_scene->add_object(std::shared_ptr<MyCamera>());
+	engine.world.active_scene->add_object(std::shared_ptr<DefaultCube>());
 
-	engine.scene.compile();
+	engine.world.compile();
 
 	engine.loop();
 }

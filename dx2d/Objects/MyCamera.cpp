@@ -1,7 +1,7 @@
 #include "MyCamera.h"
 
 MyCamera::MyCamera() : Object() {
-	root_component.add_component(CameraComponent());
+	add_component(CameraComponent());
 }
 
 void MyCamera::tick(float dt) {
