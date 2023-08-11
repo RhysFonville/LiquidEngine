@@ -1,45 +1,42 @@
 #include "Object.h"
 
-Object::Object(std::string name) : name(name) {}
-
 Object::~Object() {
 	clean_up();
 }
 
 void Object::set_position(const FVector3 &position) noexcept {
-	mechanics.previous_position = transform.position;
 	transform.position = position;
-
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_position(position);
-	}
 
 	for (Object* child : children) {
 		child->set_position(position);
+	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_position(position);
 	}
 }
 
 void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_rotation(rotation);
-	}
-
 	for (Object* child : children) {
 		child->set_position(rotation);
+	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_rotation(rotation);
 	}
 }
 
 void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
 
-	for (std::shared_ptr<Component> &component : components) {
-		component->set_size(size);
-	}
-
 	for (Object* child : children) {
 		child->set_position(size);
+	}
+
+	for (std::shared_ptr<Component> &component : components) {
+		component->set_size(size);
 	}
 }
 
@@ -78,7 +75,7 @@ GET Transform Object::get_transform() const noexcept {
 }
 
 bool Object::operator==(const Object &object) const noexcept {
-	return (components == object.components &&
+	return (root_component == object.root_component &&
 		transform == object.transform &&
 		name == object.name &&
 		parent == object.parent &&
@@ -86,32 +83,53 @@ bool Object::operator==(const Object &object) const noexcept {
 }
 
 bool Object::operator!=(const Object &object) const noexcept {
-	return (components != object.components ||
+	return (root_component != object.root_component ||
 		transform != object.transform ||
 		name != object.name ||
 		parent != object.parent ||
 		children != object.children);
 }
 
-bool Object::has_component(Component::Type search) const noexcept {
-	for (const std::shared_ptr<Component> &component : components) {
-		if (component->get_type() == search) {
-			return true;
-		}
-	}
-	return false;
-}
-
-void Object::clean_up() {
-	for (std::shared_ptr<Component> &component : components) {
-		component->clean_up();
-	}
-
+void Object::base_clean_up() {
 	remove_this_from_parents_children();
 
 	for (Object* child : children) {
+		child->clean_up();
 		child->parent = nullptr;
 	}
+
+	root_component.base_clean_up();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_compile();
+	}
+
+	clean_up();
+}
+
+void Object::base_compile() {
+	for (Object* child : children) {
+		child->compile();
+	}
+
+	root_component.base_compile();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_compile();
+	}
+
+	compile();
+}
+
+void Object::base_tick(float dt) {
+	for (Object* child : children) {
+		child->base_tick(dt);
+	}
+
+	root_component.base_tick();
+	for (const std::shared_ptr<Component> &comp : components) {
+		comp->base_tick();
+	}
+
+	tick(dt);
 }
 
 Object* Object::get_parent() noexcept {
@@ -139,25 +157,21 @@ void Object::add_child(Object* child) noexcept {
 	 child->parent = this;
 }
 
-void Object::compile() {
-	for (std::shared_ptr<Component> &component : components) {
-		component->compile();
-	}
-}
+//ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {
+//	StaticMeshComponent mc;
+//	ReadObjFileDataOutput out = mc.read_obj_file(ReadObjFileDataInput(content, mesh_out));
+//
+//	root_component.add_component(mc);
+//
+//	return out;
+//}
 
-ReadObjFileDataOutput Object::read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept {
-	MeshComponent mc;
-
-	ReadObjFileDataOutput out = mc.read_obj_file(ReadObjFileDataInput(content, mesh_out));
-
-	/*std::string line;
-	for (const std::string line : content) {
-		if (line.substr(0, 6) == "usemtl") {
-			mc.material = Storage::get_material_by_name(line.substr(7));
+bool Object::has_component(Component::Type search) const noexcept {
+	for (const std::shared_ptr<Component> &component : components) {
+		if (component->get_type() == search) {
+			return true;
 		}
-	}*/
-
-	add_component(mc);
-
-	return out;
+	}
+	return false;
 }
+

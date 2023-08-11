@@ -3,10 +3,13 @@
 #include <exception>
 #include <Windows.h>
 #include <comdef.h>
-#include <stacktrace>
+//#include <stacktrace> idk why it doesn't know what this is.. I put it on /std:c++latest, and https://learn.microsoft.com/en-us/cpp/overview/what-s-new-for-visual-cpp-in-visual-studio?view=msvc-170 says that should work...
 #include "globalutil.h"
 
-inline bool INFO_MESSAGE(std::string message) {
+static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
+static bool hpewquit = false;
+
+static bool INFO_MESSAGE(std::string message) {
 	int out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_OK | MB_ICONINFORMATION | MB_DEFBUTTON1, 0);
 	return false;
 }
@@ -21,7 +24,7 @@ struct THROW_PARAMS {
 	std::string extra_message = "";
 };
 
-inline bool ERROR_MESSAGE(THROW_PARAMS params) {
+static bool ERROR_MESSAGE(THROW_PARAMS params) {
 	std::string final_message = "+===== ERROR AT " + format_time_point(std::chrono::system_clock::now()) + " =====+";
 	std::string print_final_message = params.message + " : " + params.extra_message + "\n\n" + params.function_that_threw;
 	
@@ -31,24 +34,12 @@ inline bool ERROR_MESSAGE(THROW_PARAMS params) {
 	final_message += "\tFUNCTION: " + params.func_location + '\n';
 	final_message += "\tFILE: " + params.file_location + '\n';
 	final_message += "\tLINE: " + std::to_string(params.line_location) + "\n\n";
-	final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
+	//final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
 	append_to_file("throw_details.log", final_message + "\n\n");
 
-	int out = MessageBoxExA(NULL, print_final_message.c_str(), "Error!", MB_CANCELTRYCONTINUE | MB_ICONERROR, 0);
-	if (out == IDCANCEL) {
-		throw std::exception(params.message.c_str());
-		return false;
-	} else if (out == IDTRYAGAIN) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-inline bool WARNING_MESSAGE(std::string message) {
-	int out = MessageBoxExA(NULL, message.c_str(), "Warning!", MB_CANCELTRYCONTINUE | MB_ICONWARNING | MB_DEFBUTTON3, 0);
+	int out = MessageBoxExA(NULL, print_final_message.c_str(), "Error!", MB_ABORTRETRYIGNORE | MB_ICONERROR, 0);
 	if (out == IDABORT) {
-		throw std::exception(message.c_str());
+		hpewquit = true;
 		return false;
 	} else if (out == IDRETRY) {
 		return true;
@@ -57,7 +48,19 @@ inline bool WARNING_MESSAGE(std::string message) {
 	}
 }
 
-inline bool YESNO_MESSAGE(std::string message) {
+static bool WARNING_MESSAGE(std::string message) {
+	int out = MessageBoxExA(NULL, message.c_str(), "Warning!", MB_ABORTRETRYIGNORE | MB_ICONWARNING | MB_DEFBUTTON3, 0);
+	if (out == IDABORT) {
+		hpewquit = true;
+		return false;
+	} else if (out == IDRETRY) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+static bool YESNO_MESSAGE(std::string message) {
 	int out;
 	out = MessageBoxExA(NULL, message.c_str(), "Attention!", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON1, 0);
 	
@@ -78,7 +81,7 @@ inline bool YESNO_MESSAGE(std::string message) {
 //	std::string extra_message = "";
 //};
 
-inline bool CHECK_RESULT(THROW_PARAMS params) {
+static bool CHECK_RESULT(THROW_PARAMS params) {
 	if (FAILED(params.hr)) {
 		_com_error error(params.hr);
 		return ERROR_MESSAGE(THROW_PARAMS({
@@ -95,20 +98,24 @@ inline bool CHECK_RESULT(THROW_PARAMS params) {
 	}
 }
 
-static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
-
 // HPEW - Handle Possible Exception (Windows)
 #define HPEW_1_ARG(function) \
 hpewr = function; \
-while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__ })) == true) { \
+while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__ }))) { \
 	hpewr = function; \
+} \
+if (hpewquit) { \
+	throw std::exception(); \
 }
 
 #define HPEW_2_ARGS(function, extra_message) \
 hpewr = function; \
-while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__, extra_message }))) == true) { \
+while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__, extra_message })))) { \
 	OutputDebugStringA(extra_message); \
 	hpewr = function; \
+} \
+if (hpewquit) { \
+	throw std::exception(); \
 }
 
 static bool hper = false; // Handle Possible Excpetion Result

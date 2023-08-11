@@ -5,6 +5,8 @@
 #include <DirectXMath.h>
 #include <utility>
 #include <dxgi1_4.h>
+#include <string>
+#include <algorithm>
 
 using namespace DirectX;
 
@@ -131,7 +133,7 @@ public:
 	}
 };
 
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector3 {
 public:
 	T x = 0;
@@ -218,7 +220,7 @@ public:
 	}
 };
 
-template <typename T>
+template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector4 {
 public:
 	T x = 0;

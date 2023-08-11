@@ -4,14 +4,14 @@
 
 #include <string>
 #include <functional>
-#include "GraphicsScene.h"
+#include "Graphics/Renderer.h"
 #include "globalstructs.h"
 
 class Window {
 public:
 	Window(WNDPROC window_procedure, HINSTANCE hInstance);
 	Window(HINSTANCE hInstance);
-	Window(HINSTANCE hInstance, GraphicsScene* graphics_scene);
+	Window(HINSTANCE hInstance, Renderer* graphics_scene);
 
 	void set_up_window(const Vector2 &position = Vector2(CW_USEDEFAULT, CW_USEDEFAULT),
 		const Vector2 &size = Vector2(1200, 800),
@@ -34,7 +34,7 @@ public:
 	GET bool is_running() const noexcept;
 	void is_running(bool running) noexcept;
 
-	GraphicsScene* graphics_scene;
+	Renderer* graphics_scene;
 
 private:
 	HWND window;

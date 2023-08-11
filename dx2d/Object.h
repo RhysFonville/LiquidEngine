@@ -1,54 +1,16 @@
 #pragma once
 
 #include <DirectXMath.h>
-#include "MeshComponent.h"
-#include "Component.h"
 #include "globalstructs.h"
-#include "Storage.h"
+#include "Mesh.h"
+#include "Components/Component.h"
+#include "Graphics/GraphicsScene.h"
 
 using namespace DirectX;
 
-class MechanicsData {
-public:
-	FVector3 previous_position = FVector3();
-
-	FVector3 velocity = FVector3();
-	FVector3 acceleration = FVector3();
-	float speed = 0.0f; 
-	float kinetic_energy = 0.0f;
-	FVector3 momentum = FVector3();
-
-	std::vector<Mechanics::Force> forces;
-
-	GET FVector3 get_net_force() const noexcept {
-		FVector3 net_force;
-
-		for (const Mechanics::Force &force : forces) {
-			net_force += force;
-		}
-
-		return net_force;
-	}
-
-	GET float get_mass() const noexcept {
-		return mass;
-	}
-
-	void set_mass(float mass) {
-		if (mass != 0) {
-			this->mass = mass;
-		} else {
-			throw std::exception("An object's mass must be set to >0.0f kilograms.");
-		}
-	}
-
-private:
-	float mass = 20.0f;
-};
-
 class Object {
 public:
-	Object(std::string name = "New Object");
+	Object() { }
 	~Object();
 
 	void set_position(const FVector3 &position) noexcept;
@@ -66,6 +28,28 @@ public:
 	void set_transform(const Transform &transform) noexcept;
 	GET Transform get_transform() const noexcept;
 
+	GET Object* get_parent() noexcept;
+	void set_parent(Object* parent) noexcept;
+	void remove_parent() noexcept;
+
+	GET std::vector<Object*> & get_children() noexcept;
+
+	void add_child(Object* child) noexcept;
+
+	void base_clean_up();
+	void base_compile();
+	void base_tick(float dt);
+
+	virtual void on_start() { }
+	virtual void clean_up() { }
+	virtual void compile() { }
+	virtual void tick(float dt) { }
+
+	//ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
+	
+	bool operator==(const Object &object) const noexcept;
+	bool operator!=(const Object &object) const noexcept;
+
 	GET bool has_component(Component::Type search) const noexcept;
 	template <typename T>
 	GET bool has_component() const {
@@ -76,18 +60,6 @@ public:
 		}
 		return false;
 	}
-
-	GET Object* get_parent() noexcept;
-	void set_parent(Object* parent) noexcept;
-	void remove_parent() noexcept;
-
-	GET std::vector<Object*> & get_children() noexcept;
-
-	void add_child(Object* child) noexcept;
-
-	void compile();
-
-	ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	GET T* get_component() noexcept {
@@ -111,36 +83,44 @@ public:
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
-		components.push_back(std::make_unique<T>(component));
+	void add_component(const std::shared_ptr<T> &component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
+		components.push_back(component);
+
+		if (GraphicsComponent::is_graphics_component(*components.back())) {
+			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
+		}
+
+		components.back()->parent = &root_component;
 	}
 
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
+
+		if (GraphicsComponent::is_graphics_component(*components.back())) {
+			graphics_scene->remove_component(std::static_pointer_cast<GraphicsComponent>(*(components.begin()+index)).get());
+		}
 	}
-	
-	bool operator==(const Object &object) const noexcept;
-	bool operator!=(const Object &object) const noexcept;
 
-	void clean_up();
+	std::string name = "";
 
-	std::string name;
+	Component root_component;
 
-	MechanicsData mechanics;
+	GraphicsScene* graphics_scene = nullptr;
 
 private:
 	Transform transform;
-	
-	std::vector<std::shared_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 	Object* parent = nullptr;
-	std::vector<Object*> children;
+	std::vector<Object*> children = { };
+
+	std::vector<std::shared_ptr<Component>> components = { }; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 
 	void remove_this_from_parents_children() {
 		if (parent != nullptr) {
-			this->parent->children.erase(std::remove(
-				this->parent->children.begin(),
-				this->parent->children.end(),
+			this->parent->children.erase(
+				std::remove(
+					this->parent->children.begin(),
+					this->parent->children.end(),
 				this),
 				this->parent->children.end()
 			);
