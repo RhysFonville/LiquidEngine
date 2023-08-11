@@ -6,8 +6,9 @@
 
 class MyCamera : public Object {
 public:
-	MyCamera();
+	MyCamera() { }
 
+	void on_start() override;
 	void tick(float dt) override;
 
 private:

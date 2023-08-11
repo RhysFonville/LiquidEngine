@@ -45,9 +45,9 @@ public:
 	GraphicsPipeline pipeline;
 
 private:
-	std::string vs = "DefaultVertex.hlsl";
+	std::string vs = "Graphics/DefaultVertex.hlsl";
 	std::string hs = "";
 	std::string ds = "";
 	std::string gs = "";
-	std::string ps = "LitPixel.hlsl";
+	std::string ps = "Graphics/LitPixel.hlsl";
 };

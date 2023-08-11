@@ -9,7 +9,7 @@
 class Scene {
 public:
 	Scene() { }
-	Scene(GraphicsScene *graphics_scene);
+	Scene(GraphicsScene* graphics_scene);
 
 	void tick(float dt);
 
@@ -25,7 +25,7 @@ public:
 	void remove_object(int index) noexcept;
 
 	//PhysicsScene physics_scene;
-	GraphicsScene *graphics_scene = nullptr;
+	GraphicsScene* graphics_scene = nullptr;
 
 private:
 	std::vector<std::shared_ptr<Object>> objects = { };

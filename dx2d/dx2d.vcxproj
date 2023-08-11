@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log" />
-    <Text Include="throw_details.log" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraController.h" />
@@ -178,6 +177,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsScene.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="StaticEngineProcessToggles.h" />
     <ClInclude Include="Throw.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />

@@ -2,6 +2,7 @@
 
 #include "World.h"
 #include "Window.h"
+#include "StaticEngineProcessToggles.h"
 
 class Engine {
 public:

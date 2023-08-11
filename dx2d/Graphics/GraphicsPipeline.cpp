@@ -181,7 +181,7 @@ void GraphicsPipeline::InputAssembler::remove_all_meshes() {
 }
 
 void GraphicsPipeline::InputAssembler::update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	GraphicsPipelineMeshChangeInfo changes = proxy->get_changes(true);
+	GraphicsPipelineMeshChangeInfo changes = change_manager->get_changes(true);
 	size_t add_index = 0;
 	size_t sub_index = 0;
 	for (GraphicsPipelineMeshChangeInfoType type : changes.order) {
@@ -195,6 +195,7 @@ void GraphicsPipeline::InputAssembler::update(ComPtr<ID3D12Device> &device, ComP
 			}
 		}
 	}
+	change_manager->clear_change_info();
 	
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
 	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)

@@ -1,6 +1,6 @@
 #include "MyCamera.h"
 
-MyCamera::MyCamera() : Object() {
+void MyCamera::on_start() {
 	add_component(CameraComponent());
 }
 

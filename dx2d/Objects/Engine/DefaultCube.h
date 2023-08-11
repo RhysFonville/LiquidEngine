@@ -5,6 +5,8 @@
 
 class DefaultCube : public Object {
 public:
-	DefaultCube();
+	DefaultCube() { }
+
+	void on_start() override;
 };
 

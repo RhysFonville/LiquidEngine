@@ -148,7 +148,7 @@ public:
 private:
 	friend class Renderer;
 
-	std::vector<StaticMeshComponent*> static_meshes;
-	CameraComponent* camera;
-	std::vector<LightComponent*> lights;
+	std::vector<StaticMeshComponent*> static_meshes = { };
+	CameraComponent* camera = nullptr;
+	std::vector<LightComponent*> lights = { };
 };

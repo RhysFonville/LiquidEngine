@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-Scene::Scene(GraphicsScene *graphics_scene) : graphics_scene(graphics_scene) { }
+Scene::Scene(GraphicsScene* graphics_scene) : graphics_scene(graphics_scene) { }
 
 void Scene::tick(float dt) {
 	for (std::shared_ptr<Object> &object : objects) {
@@ -154,6 +154,7 @@ std::vector<std::shared_ptr<Object>> & Scene::get_objects() noexcept {
 void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
 	objects.push_back(object);
 	objects.back()->graphics_scene = graphics_scene;
+	objects.back()->on_start();
 }
 
 void Scene::remove_object(int index) noexcept {

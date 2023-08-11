@@ -40,6 +40,7 @@ public:
 	void base_compile();
 	void base_tick(float dt);
 
+	virtual void on_start() { }
 	virtual void clean_up() { }
 	virtual void compile() { }
 	virtual void tick(float dt) { }
@@ -100,17 +101,17 @@ public:
 		}
 	}
 
-	std::string name;
+	std::string name = "";
 
 	Component root_component;
 
-	GraphicsScene *graphics_scene;
+	GraphicsScene* graphics_scene = nullptr;
 
 private:
 	Transform transform;
 
 	Object* parent = nullptr;
-	std::vector<Object*> children;
+	std::vector<Object*> children = { };
 
 	std::vector<std::shared_ptr<Component>> components = { }; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 

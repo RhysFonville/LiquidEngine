@@ -51,8 +51,8 @@ public:
 
 		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChangeManager> &proxy) {
-			this->proxy = proxy;
+		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChangeManager> &change_manager) {
+			this->change_manager = change_manager;
 		}
 
 		const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
@@ -60,14 +60,16 @@ public:
 		bool operator==(const InputAssembler &input_assembler) const noexcept {
 			return (
 				vertex_buffers == input_assembler.vertex_buffers &&
-				vertex_buffer_views == input_assembler.vertex_buffer_views
+				vertex_buffer_views == input_assembler.vertex_buffer_views &&
+				primitive_topology_type == input_assembler.primitive_topology_type &&
+				primitive_topology == input_assembler.primitive_topology
 			);
 		}
 
 	private:
 		friend GraphicsPipeline;
 		
-		std::shared_ptr<GraphicsPipelineMeshChangeManager> proxy = nullptr;
+		std::shared_ptr<GraphicsPipelineMeshChangeManager> change_manager = nullptr;
 
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

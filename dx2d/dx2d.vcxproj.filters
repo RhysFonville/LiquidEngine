@@ -21,9 +21,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="throw_details.log">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="out.log">
       <Filter>Resource Files</Filter>
     </Text>
@@ -117,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticEngineProcessToggles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,13 +10,10 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 			case WM_CLOSE:
 				if (YESNO_MESSAGE("Are you sure you want to exit?") == true) {
 					this_window_wndproc->running = false;
-					//GRAPHICS_SCENE->clean_up();
 				}
 				break;
 			case WM_DESTROY:
-				PostQuitMessage(WM_QUIT);
-				break;
-			case WM_QUIT:
+				PostQuitMessage(0);
 				break;
 			case WM_SIZE:
 				RECT rect;
@@ -25,60 +22,6 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 					UINT height = rect.bottom - rect.top;
 					this_window_wndproc->size = UVector2(width, height);
 				}
-
-				/*if (!this_window_wndproc->first_size) {
-					if (GRAPHICS_SCENE) {
-						GRAPHICS_SCENE->context->OMSetRenderTargets(0, 0, 0);
-
-						// Release all outstanding references to the swap chain's buffers.
-						GRAPHICS_SCENE->clean_up(false, false, false);
-
-						// Preserve the existing buffer count and format.
-						// Automatically choose the width and height to match the client rect for HWNDs.
-						HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->swap_chain->ResizeBuffers(0, this_window_wndproc->size.x,
-							this_window_wndproc->size.y, DXGI_FORMAT_UNKNOWN, 0));
-											
-						// Perform error handling here!
-
-						// Get buffer and create a render-target-view.
-						ID3D11Texture2D* pBuffer;
-						HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->swap_chain->GetBuffer(
-							0, 
-							__uuidof(ID3D11Texture2D),
-							(void**)&pBuffer)
-						);
-						// Perform error handling here!
-
-						ComPtr<ID3D11RenderTargetView> target = nullptr;
-						if (pBuffer != NULL) {
-							HANDLE_POSSIBLE_EXCEPTION_WINDOWS(GRAPHICS_SCENE->device->CreateRenderTargetView(
-								pBuffer,
-								NULL,
-								&target
-							));
-						} else {
-							throw std::exception("Swap chain render target resource ID3D11Resource is null when attempting to resize window.");
-						}
-
-						target.CopyTo(GRAPHICS_SCENE->target.GetAddressOf());
-						target.Detach();
-						GRAPHICS_SCENE->context->OMSetRenderTargets(1u, GRAPHICS_SCENE->target.GetAddressOf(), NULL);
-
-						GRAPHICS_SCENE->create_unessentials();
-					
-						for (std::shared_ptr<Object> &object : *GRAPHICS_SCENE->objects) {
-							std::shared_ptr<MeshComponent> mesh = GRAPHICS_SCENE->obj_mesh(*object);
-							if (mesh != nullptr) {
-								Material &material = mesh->material;
-								material.compile(false);
-							}
-						}
-
-						GRAPHICS_SCENE->compile();
-
-						GRAPHICS_SCENE->context->IASetPrimitiveTopology(GRAPHICS_SCENE->primitive_topology);
-					}
-				}*/
 				
 				this_window_wndproc->first_size = false;
 				break;

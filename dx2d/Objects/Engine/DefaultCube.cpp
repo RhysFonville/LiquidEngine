@@ -1,5 +1,5 @@
 #include "DefaultCube.h"
 
-DefaultCube::DefaultCube() : Object() {
+void DefaultCube::on_start() {
 	add_component(StaticMeshComponent());
 }

@@ -8,7 +8,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	engine.world.active_scene->add_object(std::make_shared<MyCamera>());
 	engine.world.active_scene->add_object(std::make_shared<DefaultCube>());
 
-	engine.world.compile();
-
+	engine.compile();
 	engine.loop();
 }

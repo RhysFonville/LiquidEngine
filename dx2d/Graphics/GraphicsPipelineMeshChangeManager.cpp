@@ -24,4 +24,5 @@ GraphicsPipelineMeshChangeInfo GraphicsPipelineMeshChangeManager::get_changes(bo
 void GraphicsPipelineMeshChangeManager::clear_change_info() {
 	changes.additions.clear();
 	changes.subtractions.clear();
+	changes.order.clear();
 }
