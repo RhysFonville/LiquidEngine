@@ -6,7 +6,7 @@
 
 class MyCamera : public Object {
 public:
-	MyCamera() { }
+	MyCamera();
 
 	void on_start() override;
 	void tick(float dt) override;
@@ -15,7 +15,9 @@ private:
 	POINT previous_cursor_pos = { 0, 0 };
 	int wait = 0;
 
-	CameraComponent camera;
-	PointLightComponent light;
+	int speed = 3;
+
+	std::shared_ptr<CameraComponent> camera;
+	std::shared_ptr<PointLightComponent> light;
 };
 

@@ -1,50 +1,55 @@
 #include "MyCamera.h"
 
+MyCamera::MyCamera()
+	: camera(std::make_shared<CameraComponent>()),
+	light(std::make_shared<PointLightComponent>()) { }
+
 void MyCamera::on_start() {
-	add_component(CameraComponent());
+	add_component(camera);
+	add_component(light);
 }
 
 void MyCamera::tick(float dt) {
 	if (GetKeyState(0x57) & 0x8000) { // W
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera.direction_forward() * dt / 2.0f);
+			translate(camera->direction_forward() * dt * speed / 2.0f);
 		} else {
-			translate(camera.direction_forward() * dt);
+			translate(camera->direction_forward() * dt * speed);
 		}
 	}
 	if (GetKeyState(0x41) & 0x8000) { // A
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera.direction_left() * dt / 2.0f);
+			translate(camera->direction_left() * dt * speed / 2.0f);
 		} else {
-			translate(camera.direction_left() * dt);
+			translate(camera->direction_left() * dt * speed);
 		}
 	}
 	if (GetKeyState(0x53) & 0x8000) { // S
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera.direction_backward() * dt / 2.0f);
+			translate(camera->direction_backward() * dt * speed / 2.0f);
 		} else {
-			translate(camera.direction_backward() * dt);
+			translate(camera->direction_backward() * dt * speed);
 		}
 	}
 	if (GetKeyState(0x44) & 0x8000) { // D
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera.direction_right() * dt / 2.0f);
+			translate(camera->direction_right() * dt * speed / 2.0f);
 		} else {
-			translate(camera.direction_right() * dt);
+			translate(camera->direction_right() * dt * speed);
 		}
 	}
 	if (GetKeyState(0x51) & 0x8000) { // Q
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(FVector3(0.0f, -1.0f, 0.0f) * dt / 2.0f);
+			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed / 2.0f);
 		} else {
-			translate(FVector3(0.0f, -1.0f, 0.0f) * dt);
+			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed);
 		}
 	}
 	if (GetKeyState(0x45) & 0x8000) { // E
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(FVector3(0.0f, 1.0f, 0.0f) * dt / 2.0f);
+			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed / 2.0f);
 		} else {
-			translate(FVector3(0.0f, 1.0f, 0.0f) * dt);
+			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed);
 		}
 	}
 
@@ -63,9 +68,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x52) & 0x8000) { // R
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light.data.diffuse.r--;
+				light->data.diffuse.r--;
 			} else {
-				light.data.diffuse.r++;
+				light->data.diffuse.r++;
 			}
 			wait = 0;
 		} else {
@@ -75,9 +80,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x47) & 0x8000) { // G
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light.data.diffuse.g--;
+				light->data.diffuse.g--;
 			} else {
-				light.data.diffuse.g++;
+				light->data.diffuse.g++;
 			}
 			wait = 0;
 		} else {
@@ -87,9 +92,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x42) & 0x8000) { // B
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light.data.diffuse.b--;
+				light->data.diffuse.b--;
 			} else {
-				light.data.diffuse.b++;
+				light->data.diffuse.b++;
 			}
 			wait = 0;
 		} else {

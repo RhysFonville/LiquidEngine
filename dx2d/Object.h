@@ -83,8 +83,8 @@ public:
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(T component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
-		components.push_back(std::make_shared<T>(component));
+	void add_component(const std::shared_ptr<T> &component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
+		components.push_back(component);
 
 		if (GraphicsComponent::is_graphics_component(*components.back())) {
 			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
