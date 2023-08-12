@@ -1,0 +1,144 @@
+\hypertarget{_primitive_batch_8h_source}{}\doxysection{Primitive\+Batch.\+h}
+\label{_primitive_batch_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/PrimitiveBatch.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/PrimitiveBatch.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ PrimitiveBatch.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{namespace\ }Internal}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Base\ class,\ not\ to\ be\ used\ directly:\ clients\ should\ access\ this\ via\ the\ derived\ PrimitiveBatch<T>.}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{size\_t}\ maxIndices,\ \textcolor{keywordtype}{size\_t}\ maxVertices,\ \textcolor{keywordtype}{size\_t}\ vertexSize);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}(\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}(\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{PrimitiveBatchBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{\string~PrimitiveBatchBase}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Begin/End\ a\ batch\ of\ primitive\ drawing\ operations.}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Begin();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ End();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Internal,\ untyped\ drawing\ method.}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Draw(D3D11\_PRIMITIVE\_TOPOLOGY\ topology,\ \textcolor{keywordtype}{bool}\ isIndexed,\ \_In\_opt\_count\_(indexCount)\ uint16\_t\ \textcolor{keyword}{const}*\ indices,\ \textcolor{keywordtype}{size\_t}\ indexCount,\ \textcolor{keywordtype}{size\_t}\ vertexCount,\ \_Out\_\ \textcolor{keywordtype}{void}**\ pMappedVertices);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_primitive_batch_base_1_1_impl}{Impl}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Template\ makes\ the\ API\ typesafe,\ eg.\ PrimitiveBatch<VertexPositionColor>.}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TVertex>}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_primitive_batch_base}{Internal::PrimitiveBatchBase}}}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ DefaultBatchSize\ =\ 2048;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{size\_t}\ maxIndices\ =\ DefaultBatchSize\ *\ 3,\ \textcolor{keywordtype}{size\_t}\ maxVertices\ =\ DefaultBatchSize)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ :\ PrimitiveBatchBase(deviceContext,\ maxIndices,\ maxVertices,\ \textcolor{keyword}{sizeof}(TVertex))}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}(\mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}(\mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_primitive_batch}{PrimitiveBatch}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Similar\ to\ the\ D3D9\ API\ DrawPrimitiveUP.}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(D3D11\_PRIMITIVE\_TOPOLOGY\ topology,\ \_In\_reads\_(vertexCount)\ TVertex\ \textcolor{keyword}{const}*\ vertices,\ \textcolor{keywordtype}{size\_t}\ vertexCount)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ mappedVertices;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ PrimitiveBatchBase::Draw(topology,\ \textcolor{keyword}{false},\ \textcolor{keyword}{nullptr},\ 0,\ vertexCount,\ \&mappedVertices);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(mappedVertices,\ vertices,\ vertexCount\ *\ \textcolor{keyword}{sizeof}(TVertex));}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Similar\ to\ the\ D3D9\ API\ DrawIndexedPrimitiveUP.}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DrawIndexed(D3D11\_PRIMITIVE\_TOPOLOGY\ topology,\ \_In\_reads\_(indexCount)\ uint16\_t\ \textcolor{keyword}{const}*\ indices,\ \textcolor{keywordtype}{size\_t}\ indexCount,\ \_In\_reads\_(vertexCount)\ TVertex\ \textcolor{keyword}{const}*\ vertices,\ \textcolor{keywordtype}{size\_t}\ vertexCount)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ mappedVertices;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ PrimitiveBatchBase::Draw(topology,\ \textcolor{keyword}{true},\ indices,\ indexCount,\ vertexCount,\ \&mappedVertices);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(mappedVertices,\ vertices,\ vertexCount\ *\ \textcolor{keyword}{sizeof}(TVertex));}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DrawLine(TVertex\ \textcolor{keyword}{const}\&\ v1,\ TVertex\ \textcolor{keyword}{const}\&\ v2)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ TVertex*\ mappedVertices;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ PrimitiveBatchBase::Draw(D3D11\_PRIMITIVE\_TOPOLOGY\_LINELIST,\ \textcolor{keyword}{false},\ \textcolor{keyword}{nullptr},\ 0,\ 2,\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}**\textcolor{keyword}{>}(\&mappedVertices));}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[0]\ =\ v1;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[1]\ =\ v2;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DrawTriangle(TVertex\ \textcolor{keyword}{const}\&\ v1,\ TVertex\ \textcolor{keyword}{const}\&\ v2,\ TVertex\ \textcolor{keyword}{const}\&\ v3)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ TVertex*\ mappedVertices;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ PrimitiveBatchBase::Draw(D3D11\_PRIMITIVE\_TOPOLOGY\_TRIANGLELIST,\ \textcolor{keyword}{false},\ \textcolor{keyword}{nullptr},\ 0,\ 3,\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}**\textcolor{keyword}{>}(\&mappedVertices));}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[0]\ =\ v1;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[1]\ =\ v2;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[2]\ =\ v3;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DrawQuad(TVertex\ \textcolor{keyword}{const}\&\ v1,\ TVertex\ \textcolor{keyword}{const}\&\ v2,\ TVertex\ \textcolor{keyword}{const}\&\ v3,\ TVertex\ \textcolor{keyword}{const}\&\ v4)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint16\_t\ quadIndices[]\ =\ \{\ 0,\ 1,\ 2,\ 0,\ 2,\ 3\ \};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ TVertex*\ mappedVertices;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ PrimitiveBatchBase::Draw(D3D11\_PRIMITIVE\_TOPOLOGY\_TRIANGLELIST,\ \textcolor{keyword}{true},\ quadIndices,\ 6,\ 4,\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}**\textcolor{keyword}{>}(\&mappedVertices));}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[0]\ =\ v1;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[1]\ =\ v2;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[2]\ =\ v3;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ mappedVertices[3]\ =\ v4;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \};}
+\DoxyCodeLine{00138\ \}}
+
+\end{DoxyCode}

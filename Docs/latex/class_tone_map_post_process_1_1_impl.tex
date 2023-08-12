@@ -1,0 +1,68 @@
+\hypertarget{class_tone_map_post_process_1_1_impl}{}\doxysection{DirectX\+::Tone\+Map\+Post\+Process\+::Impl Class Reference}
+\label{class_tone_map_post_process_1_1_impl}\index{DirectX::ToneMapPostProcess::Impl@{DirectX::ToneMapPostProcess::Impl}}
+Inheritance diagram for DirectX\+::Tone\+Map\+Post\+Process\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tone_map_post_process_1_1_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_ab41770c8e9553ff13151ae5cc4717fd5}\label{class_tone_map_post_process_1_1_impl_ab41770c8e9553ff13151ae5cc4717fd5}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_ae3e8f2229db68e3103d42de1906278e0}\label{class_tone_map_post_process_1_1_impl_ae3e8f2229db68e3103d42de1906278e0}} 
+void {\bfseries Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ \&set\+Custom\+State)
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_acd741f653df60787e945cd8a87634e06}\label{class_tone_map_post_process_1_1_impl_acd741f653df60787e945cd8a87634e06}} 
+void {\bfseries Set\+Dirty\+Flag} () noexcept
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_aefcb26e99bdfc9259d8362a568112644}\label{class_tone_map_post_process_1_1_impl_aefcb26e99bdfc9259d8362a568112644}} 
+int {\bfseries Get\+Current\+Shader\+Permutation} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_a15f68ed7c95ce363e53cf7e4b8ccec37}\label{class_tone_map_post_process_1_1_impl_a15f68ed7c95ce363e53cf7e4b8ccec37}} 
+Tone\+Map\+Constants {\bfseries constants}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_a265597dc3ef76c267b403e1cdec94a7c}\label{class_tone_map_post_process_1_1_impl_a265597dc3ef76c267b403e1cdec94a7c}} 
+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ {\bfseries hdr\+Texture}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_aa337f961459508ad2c148c35af9d9b44}\label{class_tone_map_post_process_1_1_impl_aa337f961459508ad2c148c35af9d9b44}} 
+float {\bfseries linear\+Exposure}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_a5720791f35b6c64e9ffc40735a91d21c}\label{class_tone_map_post_process_1_1_impl_a5720791f35b6c64e9ffc40735a91d21c}} 
+float {\bfseries paper\+White\+Nits}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_ab927d4614ee1c683531ea0b923b35905}\label{class_tone_map_post_process_1_1_impl_ab927d4614ee1c683531ea0b923b35905}} 
+Operator {\bfseries op}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_a905c8e68c95398ebf8ed702c85c70682}\label{class_tone_map_post_process_1_1_impl_a905c8e68c95398ebf8ed702c85c70682}} 
+Transfer\+Function {\bfseries func}
+\item 
+\mbox{\Hypertarget{class_tone_map_post_process_1_1_impl_a892c4eb55890e64b37bd5abae8dabd89}\label{class_tone_map_post_process_1_1_impl_a892c4eb55890e64b37bd5abae8dabd89}} 
+bool {\bfseries mrt}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{struct_direct_x_1_1_aligned_new}{Direct\+X\+::\+Aligned\+New$<$ Tone\+Map\+Constants $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}\label{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}} 
+static void $\ast$ {\bfseries operator new} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}\label{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}} 
+static void {\bfseries operator delete} (void $\ast$ptr)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}\label{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}} 
+static void $\ast$ {\bfseries operator new\mbox{[}$\,$\mbox{]}} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}\label{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}} 
+static void {\bfseries operator delete\mbox{[}$\,$\mbox{]}} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Tone\+Map\+Post\+Process.\+cpp\end{DoxyCompactItemize}

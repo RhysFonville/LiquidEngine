@@ -1,0 +1,65 @@
+\hypertarget{class_direct_x_1_1_sprite_batch}{}\doxysection{DirectX\+::Sprite\+Batch Class Reference}
+\label{class_direct_x_1_1_sprite_batch}\index{DirectX::SpriteBatch@{DirectX::SpriteBatch}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a478ba1af8ec3e3721ada37f4dbb1b965}\label{class_direct_x_1_1_sprite_batch_a478ba1af8ec3e3721ada37f4dbb1b965}} 
+{\bfseries Sprite\+Batch} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a747b73b87b330d8481f34bbe4a932ce2}\label{class_direct_x_1_1_sprite_batch_a747b73b87b330d8481f34bbe4a932ce2}} 
+{\bfseries Sprite\+Batch} (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a560947787c1361ee2ccfec538b0fcaea}\label{class_direct_x_1_1_sprite_batch_a560947787c1361ee2ccfec538b0fcaea}} 
+\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a311ce40d33f6dcea7662418654364add}\label{class_direct_x_1_1_sprite_batch_a311ce40d33f6dcea7662418654364add}} 
+{\bfseries Sprite\+Batch} (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a010b221ed723a9604873306a64dac6bb}\label{class_direct_x_1_1_sprite_batch_a010b221ed723a9604873306a64dac6bb}} 
+\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a5f9bf2ad536b2ac83eb908ae8a41084c}\label{class_direct_x_1_1_sprite_batch_a5f9bf2ad536b2ac83eb908ae8a41084c}} 
+void XM\+\_\+\+CALLCONV {\bfseries Begin} (Sprite\+Sort\+Mode sort\+Mode=Sprite\+Sort\+Mode\+\_\+\+Deferred, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Blend\+State $\ast$blend\+State=nullptr, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Sampler\+State $\ast$sampler\+State=nullptr, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Depth\+Stencil\+State $\ast$depth\+Stencil\+State=nullptr, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Rasterizer\+State $\ast$rasterizer\+State=nullptr, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+Shaders=nullptr, FXMMATRIX transform\+Matrix=Matrix\+Identity)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a45bb19a157a5273c55782b6711029974}\label{class_direct_x_1_1_sprite_batch_a45bb19a157a5273c55782b6711029974}} 
+void \+\_\+\+\_\+cdecl {\bfseries End} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_aae7b3405e7ba4cc3da481181ae385ea8}\label{class_direct_x_1_1_sprite_batch_aae7b3405e7ba4cc3da481181ae385ea8}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, XMFLOAT2 const \&position, FXMVECTOR color=Colors\+::\+White)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_aa6e914031c6077871b6113ff2cb61b23}\label{class_direct_x_1_1_sprite_batch_aa6e914031c6077871b6113ff2cb61b23}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, XMFLOAT2 const \&position, \+\_\+\+In\+\_\+opt\+\_\+ RECT const $\ast$source\+Rectangle, FXMVECTOR color=Colors\+::\+White, float rotation=0, XMFLOAT2 const \&origin=Float2\+Zero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_aa876f4bc89df1592ea22a3be5261bc2d}\label{class_direct_x_1_1_sprite_batch_aa876f4bc89df1592ea22a3be5261bc2d}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, XMFLOAT2 const \&position, \+\_\+\+In\+\_\+opt\+\_\+ RECT const $\ast$source\+Rectangle, FXMVECTOR color, float rotation, XMFLOAT2 const \&origin, XMFLOAT2 const \&scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a29ef3493c09f234e13452da5da31459c}\label{class_direct_x_1_1_sprite_batch_a29ef3493c09f234e13452da5da31459c}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, FXMVECTOR position, FXMVECTOR color=Colors\+::\+White)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a278191fc30d1eb966b6b62f73b7c2b5f}\label{class_direct_x_1_1_sprite_batch_a278191fc30d1eb966b6b62f73b7c2b5f}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, FXMVECTOR position, \+\_\+\+In\+\_\+opt\+\_\+ RECT const $\ast$source\+Rectangle, FXMVECTOR color=Colors\+::\+White, float rotation=0, FXMVECTOR origin=g\+\_\+\+XMZero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a7224474c7bc613b04f84e68723100e6b}\label{class_direct_x_1_1_sprite_batch_a7224474c7bc613b04f84e68723100e6b}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, FXMVECTOR position, \+\_\+\+In\+\_\+opt\+\_\+ RECT const $\ast$source\+Rectangle, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a7026a903b435b8d473f009cecc37c057}\label{class_direct_x_1_1_sprite_batch_a7026a903b435b8d473f009cecc37c057}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, RECT const \&destination\+Rectangle, FXMVECTOR color=Colors\+::\+White)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a248e4fe5c0e22f5bcff6fdae4ed868bd}\label{class_direct_x_1_1_sprite_batch_a248e4fe5c0e22f5bcff6fdae4ed868bd}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, RECT const \&destination\+Rectangle, \+\_\+\+In\+\_\+opt\+\_\+ RECT const $\ast$source\+Rectangle, FXMVECTOR color=Colors\+::\+White, float rotation=0, XMFLOAT2 const \&origin=Float2\+Zero, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_ab3dd0d175bcdfc13edfb08067cd0c970}\label{class_direct_x_1_1_sprite_batch_ab3dd0d175bcdfc13edfb08067cd0c970}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Rotation} (DXGI\+\_\+\+MODE\+\_\+\+ROTATION mode)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_a3e4c7df1353ae557eb3b93d478c135cd}\label{class_direct_x_1_1_sprite_batch_a3e4c7df1353ae557eb3b93d478c135cd}} 
+DXGI\+\_\+\+MODE\+\_\+\+ROTATION \+\_\+\+\_\+cdecl {\bfseries Get\+Rotation} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_batch_ab64cc748313aae6b2c373c282add144f}\label{class_direct_x_1_1_sprite_batch_ab64cc748313aae6b2c373c282add144f}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Viewport} (const D3\+D11\+\_\+\+VIEWPORT \&view\+Port)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Sprite\+Batch.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Sprite\+Batch.\+cpp\end{DoxyCompactItemize}

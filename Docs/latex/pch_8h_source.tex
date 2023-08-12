@@ -1,0 +1,182 @@
+\hypertarget{pch_8h_source}{}\doxysection{pch.\+h}
+\label{pch_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/pch.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/pch.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ pch.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4619\ 4616\ 4061\ 4265\ 4365\ 4571\ 4623\ 4625\ 4626\ 4628\ 4668\ 4710\ 4711\ 4746\ 4774\ 4820\ 4987\ 5026\ 5027\ 5031\ 5032\ 5039\ 5045\ 5219\ 26812)}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ C4619/4616\ \#pragma\ warning\ warnings}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ C4061\ enumerator\ 'X'\ in\ switch\ of\ enum\ 'X'\ is\ not\ explicitly\ handled\ by\ a\ case\ label}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ C4265\ class\ has\ virtual\ functions,\ but\ destructor\ is\ not\ virtual}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ C4365\ signed/unsigned\ mismatch}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ C4571\ behavior\ change}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ C4623\ default\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ C4625\ copy\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ C4626\ assignment\ operator\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ C4628\ digraphs\ not\ supported}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ C4668\ not\ defined\ as\ a\ preprocessor\ macro}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ C4710\ function\ not\ inlined}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ C4711\ selected\ for\ automatic\ inline\ expansion}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ C4746\ volatile\ access\ of\ '<expression>'\ is\ subject\ to\ /volatile:<iso|ms>\ setting}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ C4774\ format\ string\ expected\ in\ argument\ 3\ is\ not\ a\ string\ literal}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ C4820\ padding\ added\ after\ data\ member}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ C4987\ nonstandard\ extension\ used}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ C5026\ move\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ C5027\ move\ assignment\ operator\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ C5031/5032\ push/pop\ mismatches\ in\ windows\ headers}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ C5039\ pointer\ or\ reference\ to\ potentially\ throwing\ function\ passed\ to\ extern\ C\ function\ under\ -\/\ EHc}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ C5045\ Spectre\ mitigation\ warning}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ C5219\ implicit\ conversion\ from\ 'int'\ to\ 'float',\ possible\ loss\ of\ data}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ 26812:\ The\ enum\ type\ 'x'\ is\ unscoped.\ Prefer\ 'enum\ class'\ over\ 'enum'\ (Enum.3).}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Windows\ 8.1\ SDK\ related\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4471\ 4917\ 4986\ 5029)}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ C4471\ forward\ declaration\ of\ an\ unscoped\ enumeration\ must\ have\ an\ underlying\ type}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ C4917\ a\ GUID\ can\ only\ be\ associated\ with\ a\ class,\ interface\ or\ namespace}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ C4986\ exception\ specification\ does\ not\ match\ previous\ declaration}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ C5029\ nonstandard\ extension\ used}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Xbox\ One\ XDK\ related\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4643\ 5043)}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ C4643\ Forward\ declaring\ in\ namespace\ std\ is\ not\ permitted\ by\ the\ C++\ Standard}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ C5043\ exception\ specification\ does\ not\ match\ previous\ declaration}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ \_\_INTEL\_COMPILER}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 161\ 2960\ 3280)}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ warning\ \#161:\ unrecognized\ \#pragma}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ message\ \#2960:\ allocation\ may\ not\ satisfy\ the\ type's\ alignment;\ consider\ using\ <aligned\_new>\ header}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ message\ \#3280:\ declaration\ hides\ member}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat-\/pedantic"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat-\/local-\/type-\/template-\/args"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wcovered-\/switch-\/default"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wexit-\/time-\/destructors"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wfloat-\/equal"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wglobal-\/constructors"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wgnu-\/anonymous-\/struct"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wlanguage-\/extension-\/token"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wmissing-\/variable-\/declarations"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wmicrosoft-\/include"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wnested-\/anon-\/types"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wreserved-\/id-\/macro"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wswitch-\/enum"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunknown-\/pragmas"{}}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunused-\/const-\/variable"{}}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunused-\/member-\/function"{}}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifndef\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4005)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ NOMINMAX\ 1}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ NODRAWTEXT}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ NOGDI}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ NOBITMAP}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ NOMCX}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ NOSERVICE}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ NOHELP}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN10}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN10\ 0x0A00}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#ifndef\ WINAPI\_FAMILY\_GAMES}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ WINAPI\_FAMILY\_GAMES\ 6}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifdef\ \_GAMING\_XBOX}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#error\ This\ version\ of\ DirectX\ Tool\ Kit\ not\ supported\ for\ GDKX}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#elif\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#include\ <xdk.h>}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#if\ \_XDK\_VER\ <\ 0x42ED07E4\ }\textcolor{comment}{/*\ XDK\ Edition\ 180400\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#error\ DirectX\ Tool\ Kit\ for\ Direct3D\ 11\ requires\ the\ April\ 2018\ XDK\ or\ later}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ \_USE\_MATH\_DEFINES}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#include\ <cwchar>}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#include\ <new>}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#include\ <system\_error>}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4702)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#include\ <malloc.h>}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ \_XM\_NO\_XMVECTOR\_OVERLOADS\_}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#include\ <DirectXPackedVector.h>}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#include\ <DirectXCollision.h>}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#if\ (DIRECTX\_MATH\_VERSION\ <\ 315)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ XM\_ALIGNED\_STRUCT(x)\ \_\_declspec(align(x))\ struct}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4467\ 5038\ 5204\ 5220)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#include\ <wrl/client.h>}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#include\ <wincodec.h>}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#if\ (defined(WINAPI\_FAMILY)\ \&\&\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_APP))\ ||\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#pragma\ warning(disable:\ 4471\ 5204\ 5256)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#include\ <Windows.UI.Core.h>}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#include\ <mutex>}}
+
+\end{DoxyCode}

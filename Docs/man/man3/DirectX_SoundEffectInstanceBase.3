@@ -1,0 +1,98 @@
+.TH "DirectX::SoundEffectInstanceBase" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SoundEffectInstanceBase
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoundEffectInstanceBase\fP (\fBSoundEffectInstanceBase\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBSoundEffectInstanceBase\fP & \fBoperator=\fP (\fBSoundEffectInstanceBase\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBSoundEffectInstanceBase\fP (\fBSoundEffectInstanceBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBSoundEffectInstanceBase\fP & \fBoperator=\fP (\fBSoundEffectInstanceBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBInitialize\fP (_In_ \fBAudioEngine\fP *eng, _In_ const WAVEFORMATEX *wfx, SOUND_EFFECT_INSTANCE_FLAGS flags) noexcept"
+.br
+.ti -1c
+.RI "void \fBAllocateVoice\fP (_In_ const WAVEFORMATEX *wfx)"
+.br
+.ti -1c
+.RI "void \fBDestroyVoice\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBPlay\fP ()"
+.br
+.ti -1c
+.RI "void \fBStop\fP (bool immediate, bool &looped) noexcept"
+.br
+.ti -1c
+.RI "void \fBPause\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBResume\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetVolume\fP (float volume)"
+.br
+.ti -1c
+.RI "void \fBSetPitch\fP (float pitch)"
+.br
+.ti -1c
+.RI "void \fBSetPan\fP (float pan)"
+.br
+.ti -1c
+.RI "void \fBApply3D\fP (const X3DAUDIO_LISTENER &listener, const X3DAUDIO_EMITTER &emitter, bool rhcoords)"
+.br
+.ti -1c
+.RI "SoundState \fBGetState\fP (bool autostop) noexcept"
+.br
+.ti -1c
+.RI "int \fBGetPendingBufferCount\fP () const noexcept"
+.br
+.ti -1c
+.RI "unsigned int \fBGetChannelCount\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBOnCriticalError\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBOnReset\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBOnDestroy\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBOnTrim\fP ()"
+.br
+.ti -1c
+.RI "void \fBGatherStatistics\fP (\fBAudioStatistics\fP &stats) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "IXAudio2SourceVoice * \fBvoice\fP"
+.br
+.ti -1c
+.RI "SoundState \fBstate\fP"
+.br
+.ti -1c
+.RI "\fBAudioEngine\fP * \fBengine\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

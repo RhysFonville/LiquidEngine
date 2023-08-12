@@ -1,0 +1,75 @@
+.TH "Renderer" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Renderer
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRenderer\fP (HWND window)"
+.br
+.ti -1c
+.RI "void \fBtick\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBupdate\fP ()"
+.br
+.ti -1c
+.RI "void \fBrender\fP ()"
+.br
+.ti -1c
+.RI "void \fBincrement_fence\fP ()"
+.br
+.ti -1c
+.RI "void \fBwait_for_fence_cpu\fP ()"
+.br
+.ti -1c
+.RI "void \fBwait_for_fence_gpu\fP ()"
+.br
+.ti -1c
+.RI "void \fBwait_for_previous_frame\fP ()"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_fullscreen\fP (bool fullscreen)"
+.br
+.ti -1c
+.RI "void \fBtoggle_fullscreen\fP ()"
+.br
+.ti -1c
+.RI "GET bool \fBis_fullscreen\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBUVector2\fP \fBget_resolution\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_resolution\fP (const \fBUVector2\fP &resolution, bool reset_om_viewing_settings=true)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsScene\fP \fBscene\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBWindow\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

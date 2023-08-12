@@ -1,0 +1,121 @@
+\hypertarget{class_direct_x_1_1_tone_map_post_process}{}\doxysection{DirectX\+::Tone\+Map\+Post\+Process Class Reference}
+\label{class_direct_x_1_1_tone_map_post_process}\index{DirectX::ToneMapPostProcess@{DirectX::ToneMapPostProcess}}
+Inheritance diagram for DirectX\+::Tone\+Map\+Post\+Process\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_direct_x_1_1_tone_map_post_process}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_tone_map_post_process_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a2cdaa8e81758ae21d4832a414c792bee}\label{class_direct_x_1_1_tone_map_post_process_a2cdaa8e81758ae21d4832a414c792bee}} 
+enum {\bfseries Operator} \+: unsigned int \{ \newline
+{\bfseries None}
+, {\bfseries Saturate}
+, {\bfseries Reinhard}
+, {\bfseries ACESFilmic}
+, \newline
+{\bfseries Operator\+\_\+\+Max}
+ \}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_af9d8c3d42856a666be02094ba08f340e}\label{class_direct_x_1_1_tone_map_post_process_af9d8c3d42856a666be02094ba08f340e}} 
+enum {\bfseries Transfer\+Function} \+: unsigned int \{ {\bfseries Linear}
+, {\bfseries SRGB}
+, {\bfseries ST2084}
+, {\bfseries Transfer\+Function\+\_\+\+Max}
+ \}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_aa220ba25e7a630c75dfd9912906dd2cd}\label{class_direct_x_1_1_tone_map_post_process_aa220ba25e7a630c75dfd9912906dd2cd}} 
+enum {\bfseries Color\+Primary\+Rotation} \+: unsigned int \{ {\bfseries HDTV\+\_\+to\+\_\+\+UHDTV}
+, {\bfseries DCI\+\_\+\+P3\+\_\+\+D65\+\_\+to\+\_\+\+UHDTV}
+, {\bfseries HDTV\+\_\+to\+\_\+\+DCI\+\_\+\+P3\+\_\+\+D65}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_abda6bae2870d3f7fc34502733da77775}\label{class_direct_x_1_1_tone_map_post_process_abda6bae2870d3f7fc34502733da77775}} 
+{\bfseries Tone\+Map\+Post\+Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_adf0f1df9dd8c27c8e483aa455899c638}\label{class_direct_x_1_1_tone_map_post_process_adf0f1df9dd8c27c8e483aa455899c638}} 
+{\bfseries Tone\+Map\+Post\+Process} (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a12f2caa59df965ef015a7fffa4cdb691}\label{class_direct_x_1_1_tone_map_post_process_a12f2caa59df965ef015a7fffa4cdb691}} 
+\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a841149ba71af0b6338714d95be70cf83}\label{class_direct_x_1_1_tone_map_post_process_a841149ba71af0b6338714d95be70cf83}} 
+{\bfseries Tone\+Map\+Post\+Process} (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_aadbff0f28bdf97982f2bab257e32dc4a}\label{class_direct_x_1_1_tone_map_post_process_aadbff0f28bdf97982f2bab257e32dc4a}} 
+\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{Tone\+Map\+Post\+Process}} const \&)=delete
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process_a082ed179f57b03693528ab5ea5d65749}{Process}} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_af9ad9eff4677c25541ef5d1356c049df}\label{class_direct_x_1_1_tone_map_post_process_af9ad9eff4677c25541ef5d1356c049df}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Operator} (Operator op)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a0548dc5590996045dcc01197a3e135a2}\label{class_direct_x_1_1_tone_map_post_process_a0548dc5590996045dcc01197a3e135a2}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Transfer\+Function} (Transfer\+Function func)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a402cda4417baf4b2f879d2a9fe752edc}\label{class_direct_x_1_1_tone_map_post_process_a402cda4417baf4b2f879d2a9fe752edc}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+HDRSource\+Texture} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_ab1114180728714e1d9e95e1ca0b207a1}\label{class_direct_x_1_1_tone_map_post_process_ab1114180728714e1d9e95e1ca0b207a1}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Color\+Rotation} (Color\+Primary\+Rotation value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_aacaadde5d8f177e2bfe1eac8051ab49c}\label{class_direct_x_1_1_tone_map_post_process_aacaadde5d8f177e2bfe1eac8051ab49c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Color\+Rotation} (CXMMATRIX value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a504cf42e8ffcd0345a9117d8df1f300e}\label{class_direct_x_1_1_tone_map_post_process_a504cf42e8ffcd0345a9117d8df1f300e}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Exposure} (float exposure\+Value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_abbc7adba7501778be8a9217987438b4e}\label{class_direct_x_1_1_tone_map_post_process_abbc7adba7501778be8a9217987438b4e}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+ST2084\+Parameter} (float paper\+White\+Nits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a7784b3ca9d6ef557c0340fe94fc002f1}\label{class_direct_x_1_1_i_post_process_a7784b3ca9d6ef557c0340fe94fc002f1}} 
+{\bfseries IPost\+Process} (const \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a663bc193db4701cae0b373ac08cc0845}\label{class_direct_x_1_1_i_post_process_a663bc193db4701cae0b373ac08cc0845}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a2b775267873c9d6f2d2f3f1b9471a230}\label{class_direct_x_1_1_i_post_process_a2b775267873c9d6f2d2f3f1b9471a230}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a97b0b25b79cf49551c1f95c616d1eefb}\label{class_direct_x_1_1_i_post_process_a97b0b25b79cf49551c1f95c616d1eefb}} 
+{\bfseries IPost\+Process} (\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a44b034f2b42751980532e5c5e978c00f}\label{class_direct_x_1_1_i_post_process_a44b034f2b42751980532e5c5e978c00f}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&\&)=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_direct_x_1_1_tone_map_post_process_a082ed179f57b03693528ab5ea5d65749}\label{class_direct_x_1_1_tone_map_post_process_a082ed179f57b03693528ab5ea5d65749}} 
+\index{DirectX::ToneMapPostProcess@{DirectX::ToneMapPostProcess}!Process@{Process}}
+\index{Process@{Process}!DirectX::ToneMapPostProcess@{DirectX::ToneMapPostProcess}}
+\doxysubsubsection{\texorpdfstring{Process()}{Process()}}
+{\footnotesize\ttfamily void Tone\+Map\+Post\+Process\+::\+Process (\begin{DoxyParamCaption}\item[{\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$}]{device\+Context,  }\item[{\+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$}]{set\+Custom\+State = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Post\+Process.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Tone\+Map\+Post\+Process.\+cpp\end{DoxyCompactItemize}

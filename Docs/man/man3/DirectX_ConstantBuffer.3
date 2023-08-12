@@ -1,0 +1,51 @@
+.TH "DirectX::ConstantBuffer< T >" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ConstantBuffer< T >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::Internal::ConstantBufferBase\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBConstantBuffer\fP (_In_ ID3D11Device *device) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBConstantBuffer\fP (\fBConstantBuffer\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBConstantBuffer\fP & \fBoperator=\fP (\fBConstantBuffer\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBConstantBuffer\fP (\fBConstantBuffer\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBConstantBuffer\fP & \fBoperator=\fP (\fBConstantBuffer\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBCreate\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetData\fP (_In_ ID3D11DeviceContext *deviceContext, T const &value) noexcept"
+.br
+.ti -1c
+.RI "ID3D11Buffer * \fBGetBuffer\fP () const noexcept"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Member Functions inherited from \fBDirectX::Internal::ConstantBufferBase\fP
+.in +1c
+.ti -1c
+.RI "void __cdecl \fBCreateBuffer\fP (_In_ ID3D11Device *device, size_t bytes, _Outptr_ ID3D11Buffer **pBuffer)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

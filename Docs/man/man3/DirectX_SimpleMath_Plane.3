@@ -1,0 +1,112 @@
+.TH "DirectX::SimpleMath::Plane" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Plane
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits XMFLOAT4\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBPlane\fP (float ix, float iy, float iz, float iw) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const \fBVector3\fP &normal, float d) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const \fBVector3\fP &point1, const \fBVector3\fP &point2, const \fBVector3\fP &point3) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const \fBVector3\fP &point, const \fBVector3\fP &normal) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const \fBVector4\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (_In_reads_(4) const float *pArray) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (FXMVECTOR V) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const XMFLOAT4 &p) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP (const \fBPlane\fP &)=default"
+.br
+.ti -1c
+.RI "\fBPlane\fP & \fBoperator=\fP (const \fBPlane\fP &)=default"
+.br
+.ti -1c
+.RI "\fBPlane\fP (\fBPlane\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBPlane\fP & \fBoperator=\fP (\fBPlane\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBPlane\fP &p) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBPlane\fP &p) const noexcept"
+.br
+.ti -1c
+.RI "\fBPlane\fP & \fBoperator=\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBNormal\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBNormal\fP (const \fBVector3\fP &normal) noexcept"
+.br
+.ti -1c
+.RI "float \fBD\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBD\fP (float d) noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP (\fBPlane\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "float \fBDot\fP (const \fBVector4\fP &v) const noexcept"
+.br
+.ti -1c
+.RI "float \fBDotCoordinate\fP (const \fBVector3\fP &position) const noexcept"
+.br
+.ti -1c
+.RI "float \fBDotNormal\fP (const \fBVector3\fP &normal) const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBPlane\fP &plane, const \fBMatrix\fP &M, \fBPlane\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBPlane\fP \fBTransform\fP (const \fBPlane\fP &plane, const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBPlane\fP &plane, const \fBQuaternion\fP &rotation, \fBPlane\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBPlane\fP \fBTransform\fP (const \fBPlane\fP &plane, const \fBQuaternion\fP &rotation) noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,45 @@
+.TH "DirectX::MapGuard" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::MapGuard
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits D3D11_MAPPED_SUBRESOURCE\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMapGuard\fP (_In_ ID3D11DeviceContext *context, _In_ ID3D11Resource *resource, _In_ unsigned int subresource, _In_ D3D11_MAP mapType, _In_ unsigned int mapFlags) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBMapGuard\fP (\fBMapGuard\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBMapGuard\fP & \fBoperator=\fP (\fBMapGuard\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBMapGuard\fP (\fBMapGuard\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBMapGuard\fP & \fBoperator=\fP (\fBMapGuard\fP const &)=delete"
+.br
+.ti -1c
+.RI "uint8_t * \fBget\fP () const noexcept"
+.br
+.ti -1c
+.RI "uint8_t * \fBget\fP (size_t slice) const noexcept"
+.br
+.ti -1c
+.RI "uint8_t * \fBscanline\fP (size_t row) const noexcept"
+.br
+.ti -1c
+.RI "uint8_t * \fBscanline\fP (size_t slice, size_t row) const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,47 @@
+.TH "GraphicsPipeline::Rasterizer" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline::Rasterizer
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRasterizer\fP (const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBset_viewing_settings\fP (const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRasterizer\fP &rasterizer) const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_desc\fP (const D3D12_RASTERIZER_DESC &desc) noexcept"
+.br
+.ti -1c
+.RI "D3D12_RASTERIZER_DESC \fBget_desc\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "D3D12_VIEWPORT \fBviewport\fP = { }"
+.br
+.ti -1c
+.RI "D3D12_RECT \fBscissor_rect\fP = { }"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,27 @@
+\hypertarget{_texture_8h_source}{}\doxysection{Texture.\+h}
+\label{_texture_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Texture.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Texture.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}WICTextureLoader.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Throw.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}();}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}(std::string\ file\_name);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&texture)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{/*ComPtr<ID3D11Resource>\ texture\ =\ nullptr;}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ ComPtr<ID3D11ShaderResourceView>\ texture\_view\ =\ nullptr;}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ ComPtr<ID3D11SamplerState>\ sampler\_state\ =\ nullptr;*/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00021\ \};}
+
+\end{DoxyCode}

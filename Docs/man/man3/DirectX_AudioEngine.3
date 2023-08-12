@@ -1,0 +1,126 @@
+.TH "DirectX::AudioEngine" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::AudioEngine
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.ti -1c
+.RI "struct \fBRendererDetail\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBAudioEngine\fP (AUDIO_ENGINE_FLAGS flags=AudioEngine_Default, _In_opt_ const WAVEFORMATEX *wfx=nullptr, _In_opt_z_ const wchar_t *deviceId=nullptr, AUDIO_STREAM_CATEGORY category=AudioCategory_GameEffects) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBAudioEngine\fP (\fBAudioEngine\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBAudioEngine\fP & \fBoperator=\fP (\fBAudioEngine\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBAudioEngine\fP (\fBAudioEngine\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBAudioEngine\fP & \fBoperator=\fP (\fBAudioEngine\fP const &)=delete"
+.br
+.ti -1c
+.RI "bool __cdecl \fBUpdate\fP ()"
+.br
+.ti -1c
+.RI "bool __cdecl \fBReset\fP (_In_opt_ const WAVEFORMATEX *wfx=nullptr, _In_opt_z_ const wchar_t *deviceId=nullptr)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSuspend\fP () noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBResume\fP ()"
+.br
+.ti -1c
+.RI "float __cdecl \fBGetMasterVolume\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetMasterVolume\fP (float volume)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetReverb\fP (AUDIO_ENGINE_REVERB reverb)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetReverb\fP (_In_opt_ const XAUDIO2FX_REVERB_PARAMETERS *native)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetMasteringLimit\fP (int release, int loudness)"
+.br
+.ti -1c
+.RI "\fBAudioStatistics\fP __cdecl \fBGetStatistics\fP () const"
+.br
+.ti -1c
+.RI "WAVEFORMATEXTENSIBLE __cdecl \fBGetOutputFormat\fP () const noexcept"
+.br
+.ti -1c
+.RI "uint32_t __cdecl \fBGetChannelMask\fP () const noexcept"
+.br
+.ti -1c
+.RI "unsigned int __cdecl \fBGetOutputChannels\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsAudioDevicePresent\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsCriticalError\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetDefaultSampleRate\fP (int sampleRate)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetMaxVoicePool\fP (size_t maxOneShots, size_t maxInstances)"
+.br
+.ti -1c
+.RI "void __cdecl \fBTrimVoicePool\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBAllocateVoice\fP (_In_ const WAVEFORMATEX *wfx, SOUND_EFFECT_INSTANCE_FLAGS flags, bool oneshot, _Outptr_result_maybenull_ IXAudio2SourceVoice **voice)"
+.br
+.ti -1c
+.RI "void __cdecl \fBDestroyVoice\fP (_In_ IXAudio2SourceVoice *voice) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBRegisterNotify\fP (_In_ \fBIVoiceNotify\fP *notify, bool usesUpdate)"
+.br
+.ti -1c
+.RI "void __cdecl \fBUnregisterNotify\fP (_In_ \fBIVoiceNotify\fP *notify, bool usesOneShots, bool usesUpdate)"
+.br
+.ti -1c
+.RI "IXAudio2 *__cdecl \fBGetInterface\fP () const noexcept"
+.br
+.ti -1c
+.RI "IXAudio2MasteringVoice *__cdecl \fBGetMasterVoice\fP () const noexcept"
+.br
+.ti -1c
+.RI "IXAudio2SubmixVoice *__cdecl \fBGetReverbVoice\fP () const noexcept"
+.br
+.ti -1c
+.RI "X3DAUDIO_HANDLE &__cdecl \fBGet3DHandle\fP () const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static std::vector< \fBRendererDetail\fP > __cdecl \fBGetRendererDetails\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

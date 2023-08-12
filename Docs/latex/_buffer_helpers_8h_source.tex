@@ -1,0 +1,167 @@
+\hypertarget{_buffer_helpers_8h_source}{}\doxysection{Buffer\+Helpers.\+h}
+\label{_buffer_helpers_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/BufferHelpers.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/BufferHelpers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ BufferHelpers.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}GraphicsMemory.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <wrl\(\backslash\)client.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Helpers\ for\ creating\ initialized\ Direct3D\ buffer\ resources.}}
+\DoxyCodeLine{00028\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateStaticBuffer(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(count*\ stride)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ ptr,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ stride,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_\ ID3D11Buffer**\ pBuffer)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00036\ \ \ \ \ HRESULT\ CreateStaticBuffer(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \_In\_reads\_(count)\ T\ \textcolor{keyword}{const}*\ data,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_\ ID3D11Buffer**\ pBuffer)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CreateStaticBuffer(device,\ data,\ count,\ \textcolor{keyword}{sizeof}(T),\ bindFlags,\ pBuffer);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00046\ \ \ \ \ HRESULT\ CreateStaticBuffer(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ T\ \textcolor{keyword}{const}\&\ data,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_\ ID3D11Buffer**\ pBuffer)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CreateStaticBuffer(device,\ data.data(),\ data.size(),\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{typename}\ T::value\_type),\ bindFlags,\ pBuffer);}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ Helpers\ for\ creating\ texture\ from\ memory\ arrays.}}
+\DoxyCodeLine{00055\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureFromMemory(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ width,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_SUBRESOURCE\_DATA\&\ initData,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11Texture1D**\ texture,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags\ =\ D3D11\_BIND\_SHADER\_RESOURCE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureFromMemory(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ height,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_SUBRESOURCE\_DATA\&\ initData,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11Texture2D**\ texture,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags\ =\ D3D11\_BIND\_SHADER\_RESOURCE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureFromMemory(}
+\DoxyCodeLine{00072\ \ \ \ \ \#\textcolor{keywordflow}{if}\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceX*\ d3dDeviceX,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContextX*\ d3dContextX,}
+\DoxyCodeLine{00075\ \ \ \ \ \#\textcolor{keywordflow}{else}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ d3dContext,}
+\DoxyCodeLine{00078\ \ \ \ \ \#endif}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ height,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_SUBRESOURCE\_DATA\&\ initData,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11Texture2D**\ texture,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureFromMemory(\_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ height,\ \textcolor{keywordtype}{size\_t}\ depth,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_SUBRESOURCE\_DATA\&\ initData,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11Texture3D**\ texture,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_COM\_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags\ =\ D3D11\_BIND\_SHADER\_RESOURCE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Strongly\ typed\ wrapper\ around\ a\ Direct3D\ constant\ buffer.}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{namespace\ }Internal}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Base\ class,\ not\ to\ be\ used\ directly:\ clients\ should\ access\ this\ via\ the\ derived\ PrimitiveBatch<T>.}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_internal_1_1_constant_buffer_base}{ConstantBufferBase}}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateBuffer(\_In\_\ ID3D11Device*\ device,\ \textcolor{keywordtype}{size\_t}\ bytes,\ \_Outptr\_\ ID3D11Buffer**\ pBuffer);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_internal_1_1_constant_buffer_base}{Internal::ConstantBufferBase}}}
+\DoxyCodeLine{00106\ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructor.}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}(\_In\_\ ID3D11Device*\ device)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false})}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ CreateBuffer(device,\ \textcolor{keyword}{sizeof}(T),\ mConstantBuffer.GetAddressOf());}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}(\mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}(\mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Create(\_In\_\ ID3D11Device*\ device)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ CreateBuffer(device,\ \textcolor{keyword}{sizeof}(T),\ mConstantBuffer.ReleaseAndGetAddressOf());}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Writes\ new\ data\ into\ the\ constant\ buffer.}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetData(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ T\ \textcolor{keyword}{const}\&\ value,\ \textcolor{keywordtype}{void}**\ grfxMemory)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ assert(grfxMemory\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ ptr\ =\ GraphicsMemory::Get().Allocate(deviceContext,\ \textcolor{keyword}{sizeof}(T),\ 64);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ assert(ptr\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ *(T*)ptr\ =\ value;}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ *grfxMemory\ =\ ptr;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetData(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ T\ \textcolor{keyword}{const}\&\ value)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ assert(mConstantBuffer);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ D3D11\_MAPPED\_SUBRESOURCE\ mappedResource;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (SUCCEEDED(deviceContext-\/>Map(mConstantBuffer.Get(),\ 0,\ D3D11\_MAP\_WRITE\_DISCARD,\ 0,\ \&mappedResource)))}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{static\_cast<}T*\textcolor{keyword}{>}(mappedResource.pData)\ =\ value;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deviceContext-\/>Unmap(mConstantBuffer.Get(),\ 0);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{//\ \_XBOX\_ONE\ \&\&\ \_TITLE}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looks\ up\ the\ underlying\ D3D\ constant\ buffer.}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ ID3D11Buffer*\ GetBuffer()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ mConstantBuffer.Get();\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ mConstantBuffer;}
+\DoxyCodeLine{00160\ \ \ \ \ \};}
+\DoxyCodeLine{00161\ \}}
+
+\end{DoxyCode}

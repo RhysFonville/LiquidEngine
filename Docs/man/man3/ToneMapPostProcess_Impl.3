@@ -1,0 +1,73 @@
+.TH "DirectX::ToneMapPostProcess::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ToneMapPostProcess::Impl
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::AlignedNew< ToneMapConstants >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "void \fBProcess\fP (_In_ ID3D11DeviceContext *deviceContext, const std::function< void __cdecl()> &setCustomState)"
+.br
+.ti -1c
+.RI "void \fBSetDirtyFlag\fP () noexcept"
+.br
+.ti -1c
+.RI "int \fBGetCurrentShaderPermutation\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ToneMapConstants \fBconstants\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBhdrTexture\fP"
+.br
+.ti -1c
+.RI "float \fBlinearExposure\fP"
+.br
+.ti -1c
+.RI "float \fBpaperWhiteNits\fP"
+.br
+.ti -1c
+.RI "Operator \fBop\fP"
+.br
+.ti -1c
+.RI "TransferFunction \fBfunc\fP"
+.br
+.ti -1c
+.RI "bool \fBmrt\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Member Functions inherited from \fBDirectX::AlignedNew< ToneMapConstants >\fP
+.in +1c
+.ti -1c
+.RI "static void * \fBoperator new\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete\fP (void *ptr)"
+.br
+.ti -1c
+.RI "static void * \fBoperator new[]\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete[]\fP (void *ptr)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,54 @@
+.TH "DirectX::GraphicsMemory::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GraphicsMemory::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (\fBGraphicsMemory\fP *owner)"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBInitialize\fP (_In_ ID3D11Device *device, unsigned int backBufferCount) noexcept"
+.br
+.ti -1c
+.RI "void * \fBAllocate\fP (_In_opt_ ID3D11DeviceContext *context, size_t size, int alignment) noexcept"
+.br
+.ti -1c
+.RI "void \fBCommit\fP () noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsMemory\fP * \fBmOwner\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBGraphicsMemory::Impl\fP * \fBs_graphicsMemory\fP = nullptr"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

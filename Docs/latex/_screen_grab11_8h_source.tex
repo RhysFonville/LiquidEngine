@@ -1,0 +1,52 @@
+\hypertarget{_screen_grab11_8h_source}{}\doxysection{Screen\+Grab11.\+h}
+\label{_screen_grab11_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/ScreenGrab/ScreenGrab11.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/ScreenGrab/ScreenGrab11.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ ScreenGrab11.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Function\ for\ capturing\ a\ 2D\ texture\ and\ saving\ it\ to\ a\ file\ (aka\ a\ 'screenshot'}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ when\ used\ on\ a\ Direct3D\ 11\ Render\ Target).}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ as\ a\ light-\/weight\ runtime\ screen\ grabber.\ For}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ full-\/featured\ texture\ capture,\ DDS\ writer,\ and\ texture\ processing\ pipeline,}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ see\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#if\ defined(NTDDI\_WIN10\_FE)\ ||\ defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <ocidl.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <OCIdl.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveDDSTextureToFile(}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ pContext,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Resource*\ pSource,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveWICTextureToFile(}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ pContext,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Resource*\ pSource,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \_In\_\ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00046\ \}}
+
+\end{DoxyCode}

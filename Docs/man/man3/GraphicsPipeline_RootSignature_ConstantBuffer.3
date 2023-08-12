@@ -1,0 +1,50 @@
+.TH "GraphicsPipeline::RootSignature::ConstantBuffer" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline::RootSignature::ConstantBuffer
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T > \fBConstantBuffer\fP (T &cb, std::string name='')"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12DescriptorHeap > descriptor_heaps[NUMBER_OF_BUFFERS])"
+.br
+.ti -1c
+.RI "void \fBapply\fP (int frame_index) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBConstantBuffer\fP &cb) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "void * \fBobj\fP = nullptr"
+.br
+.ti -1c
+.RI "size_t \fBobj_size\fP = 0u"
+.br
+.ti -1c
+.RI "UINT * \fBgpu_addresses\fP [NUMBER_OF_BUFFERS] = { }"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12Resource > \fBupload_heaps\fP [NUMBER_OF_BUFFERS] = { }"
+.br
+.ti -1c
+.RI "UINT \fBindex\fP = 0u"
+.br
+.ti -1c
+.RI "std::string \fBname\fP = ''"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

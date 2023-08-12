@@ -1,0 +1,940 @@
+.TH "md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y \- DirectX Tool Kit for DirectX 11 
+.PP
+http://go.microsoft.com/fwlink/?LinkId=248929
+.PP
+Release available for download on \fCGitHub\fP
+.SH "Release History"
+.PP
+.SS "June 15, 2022"
+.IP "\(bu" 2
+GamePad, Keyboard, and Mouse updated to use GameInput on PC for the Gaming\&.Desktop\&.x64 platform
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for XAudio2Redist 1\&.2\&.9
+.IP "\(bu" 2
+CMake project updates
+.PP
+.SS "May 9, 2022"
+.IP "\(bu" 2
+C++20 spaceship operator updates for SimpleMath
+.IP "\(bu" 2
+Minor updates for VS 2022 (17\&.2)
+.IP "\(bu" 2
+CMake project updates (now supports MSVC, clang/LLVM, and MinGW)
+.IP "\(bu" 2
+Added Microsoft GDK projects using the Gaming\&.Desktop\&.x64 platform
+.IP "\(bu" 2
+Retired VS 2017 projects
+.IP "\(bu" 2
+Minor code review
+.IP "\(bu" 2
+Reformat source using updated \&.editorconfig settings
+.PP
+.SS "March 24, 2022"
+.IP "\(bu" 2
+Fixed bug in UWP implementation of Mouse that combined vertical/horizontal scroll-wheel input
+.IP "\(bu" 2
+Code refactoring for input classes (GamePad, Keyboard, and Mouse)
+.IP "\(bu" 2
+Update build switches for SDL recommendations
+.IP "\(bu" 2
+CMake project updates and UWP platform CMakePresets
+.IP "\(bu" 2
+Dropped support for legacy Xbox One XDK prior to April 2018
+.PP
+.SS "February 28, 2022"
+.IP "\(bu" 2
+SimpleMath Matrix updated with ToEuler and Vector3 version of CreateFromYawPitchRoll methods
+.IP "\(bu" 2
+SimpleMath Quaternion updated with ToEuler, RotateTowards, FromToRotation, LookRotation, and Angle methods
+.IP "\(bu" 2
+Keyboard updated with new IME On/Off v-keys
+.IP "\(bu" 2
+Win32 Mouse now uses \fCWM_ACTIVATE\fP for more robust behavior
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for Advanced Format (4Kn) wavebank streaming
+.IP "\(bu" 2
+Code and project review including fixing clang v13 warnings
+.IP "\(bu" 2
+Added CMakePresets\&.json
+.IP "\(bu" 2
+xwbtool: Added support for Advanced Format (4Kn) streaming wavebanks with \fC-af\fP
+.PP
+.SS "November 8, 2021"
+.IP "\(bu" 2
+VS 2022 support
+.IP "\(bu" 2
+Minor code and project review
+.IP "\(bu" 2
+makespritefont: Updated with 12\&.2 for FeatureLevel switch
+.IP "\(bu" 2
+xwbtool: Fixed potential locale issue with \fC-flist\fP
+.PP
+.SS "October 18, 2021"
+.IP "\(bu" 2
+Fixed loading of skinned PBR models from SDKMESH v2
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for XAudio2Redist 1\&.2\&.8
+.IP "\(bu" 2
+Minor code review updates
+.PP
+.SS "October 13, 2021"
+.IP "\(bu" 2
+Added skinning support for \fBNormalMapEffect\fP and \fBPBREffect\fP
+.IP "\(bu" 2
+Common states updated with support for reverse z-buffer rendering with \fBDepthReverseZ\fP and \fBDepthReadReverseZ\fP methods\&.
+.IP "\(bu" 2
+Effect factory updates
+.IP "  \(bu" 4
+Updated to use \fCSkinnedNormalMapEffect\fP / \fCSkinnedPBREffect\fP as appropriate\&.
+.IP "  \(bu" 4
+Automatically disables use of normal mapping on 9\&.x feature levels
+.IP "  \(bu" 4
+PBR now supports 'untextured' models (always requires texture coordinates) with use of diffuse color for constant albedo, and specular power for an estimated constant roughness\&.
+.PP
+
+.IP "\(bu" 2
+Model loader updates
+.IP "  \(bu" 4
+SDKMESH loader no longer requires precomputed vertex tangents for normal mapping as we don't use them\&.
+.IP "  \(bu" 4
+Added \fCModelLoader_DisableSkinning\fP flag when dealing with legacy SDKMESH files with too many skinning bone influences for \fIMaxBone\fP
+.PP
+
+.IP "\(bu" 2
+Minor update for the Mouse implementation for GameInput
+.IP "\(bu" 2
+Project and code cleanup
+.PP
+.SS "September 30, 2021"
+.IP "\(bu" 2
+Added ModelBone support for transformation hierarchies
+.IP "  \(bu" 4
+Rigid-body & skinned animation Draw support added to Model
+.PP
+
+.IP "\(bu" 2
+Added type aliases \fCModelMeshPart::InputLayoutCollection\fP, \fCGeometricPrimitive::VertexCollection\fP and \fCIndexCollection\fP\&.
+.IP "\(bu" 2
+EnvironmentMapEffect and NormalMapEffect will now use default diffuse/normal textures if none are set
+.IP "\(bu" 2
+VS 2017 projects updated to require the Windows 10 SDK (19401)
+.IP "\(bu" 2
+Code review updates
+.PP
+.SS "August 1, 2021"
+.IP "\(bu" 2
+DebugEffect, NormalMapEffect, and PBREffect updated with instancing support
+.IP "\(bu" 2
+GeometricPrimitive updated with DrawInstanced method
+.IP "\(bu" 2
+ToneMapPostProcess updated with SetColorRotation method
+.IP "\(bu" 2
+Added VS 2022 Preview projects
+.IP "\(bu" 2
+\fBMakeSpriteFont\fP updated to use \&.NET 4\&.7\&.2
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "June 9, 2021"
+.IP "\(bu" 2
+DirectX Tool Kit for Audio updates:
+.IP "  \(bu" 4
+Fixed mono source panning
+.IP "  \(bu" 4
+Added \fCEnableDefaultMultiChannel\fP helper to AudioEmitter for multi-channel source setup
+.IP "  \(bu" 4
+Added \fCGetChannelCount\fP accessor to SoundEffectInstance and SoundStreamInstance
+.IP "  \(bu" 4
+\fCApply3D\fP can now use X3DAUDIO_LISTENER and X3DAUDIO_EMITTER directly or the library helper structs\&.
+.PP
+
+.IP "\(bu" 2
+xwbtool: improved \fC-flist\fP switch to support wildcards and file exclusions
+.IP "\(bu" 2
+CMake updated to support building with XAudio2Redist
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "April 6, 2021"
+.IP "\(bu" 2
+DDSTextureLoader reader updated to accept nVidia \fBTexture\fP Tool v1 single-channel and dual-channel files marked as RGB instead of LUMINANCE
+.IP "\(bu" 2
+Minor code and project cleanup
+.IP "\(bu" 2
+xwbtool: Updated with descriptions for HRESULT failure codes
+.PP
+.SS "January 9, 2021"
+.IP "\(bu" 2
+Code review for improved conformance
+.IP "\(bu" 2
+CMake updated to support package install
+.PP
+.SS "November 11, 2020"
+.IP "\(bu" 2
+Fixed \fC/analyze\fP warnings in GameInput usage
+.IP "\(bu" 2
+Fixed \fIDirectX Tool Kit for Audio\fP use of XAudio 2\&.8 for Windows 8 w/ Windows 10 SDK
+.IP "\(bu" 2
+Minor code and project cleanup
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for XAudio2Redist 1\&.2\&.4
+.PP
+.SS "September 30, 2020"
+.IP "\(bu" 2
+GamePad class updated with \fCc_MostRecent\fP constant for \fC-1\fP player index special behavior
+.IP "\(bu" 2
+Fixed bug in WICTextureLoader that resulted in \fCWINCODEC_ERR_INSUFFICIENTBUFFER\fP for some resize requests
+.IP "\(bu" 2
+Fixed \fC\&.wav\fP file reading of MIDILoop chunk
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 15, 2020"
+.IP "\(bu" 2
+EnvironmentMapEffect now supports cubemaps, spherical, and dual-parabola environment maps
+.IP "\(bu" 2
+Code review and project updates
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for XAudio2Redist 1\&.2\&.3
+.PP
+.SS "July 2, 2020"
+.IP "\(bu" 2
+Improved SpriteFont drawing performance in Debug builds
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 May 2020 Update SDK (19041)
+.IP "\(bu" 2
+Code cleanup for some new VC++ 16\&.7 warnings and static code analysis
+.IP "\(bu" 2
+CMake updates
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated for XAudio2Redist 1\&.2\&.2
+.PP
+.SS "June 1, 2020"
+.IP "\(bu" 2
+Added BufferHelpers header with functions \fBCreateStaticBuffer\fP / \fBCreateTextureFromMemory\fP, and the \fBConstantBuffer\fP helper class
+.IP "\(bu" 2
+Added \fBIsPowerOf2\fP and \fBCreateInputLayoutFromEffect\fP helpers to DirectXHelpers
+.IP "\(bu" 2
+Converted to typed enum bitmask flags (see release notes for details on this potential \fIbreaking change\fP)
+.IP "  \(bu" 4
+\fCAUDIO_ENGINE_FLAGS\fP, \fCModelLoaderFlags\fP, \fCSOUND_EFFECT_INSTANCE_FLAGS\fP, and \fCWIC_LOADER_FLAGS\fP
+.PP
+
+.IP "\(bu" 2
+WICTextureLoader for \fCPNG\fP codec now checks \fCgAMA\fP chunk to determine colorspace if the \fCsRGB\fP chunk is not found for legacy sRGB detection\&.
+.IP "\(bu" 2
+\fCWIC_LOADER_SRGB_DEFAULT\fP flag added when loading image via WIC without explicit colorspace metadata
+.IP "\(bu" 2
+Retired XAudio 2\&.7 for \fIDirectX Tool Kit for Audio\fP\&. Use XAudio 2\&.9, XAudio 2\&.8, or XAudio2Redist instead\&.
+.IP "\(bu" 2
+CMake project updates
+.PP
+.SS "May 10, 2020"
+.IP "\(bu" 2
+WICTextureLoader updated with new loader flags: \fCFORCE_RGBA32\fP, \fCFIT_POW2\fP, and \fCMAKE_SQUARE\fP
+.IP "\(bu" 2
+SimpleMath no longer forces use of d3d11\&.h or d3d12\&.h (can be used with d3d9\&.h for example)
+.IP "\(bu" 2
+\fIDirectX Tool Kit for Audio\fP updated with \fBSoundStreamInstance\fP class for async I/O playback from XACT-style streaming wavebanks
+.IP "\(bu" 2
+Code cleanup
+.IP "\(bu" 2
+xwbtool: Updated with \fC-l\fP switch for case-sensitive file systems
+.PP
+.SS "April 3, 2020"
+.IP "\(bu" 2
+SpriteFont \fBMeasureString\fP / \fBMeasureDrawBounds\fP fixes for !ignoreWhitespace
+.IP "\(bu" 2
+Code review (\fCconstexpr\fP / \fCnoexcept\fP usage)
+.IP "\(bu" 2
+CMake updated for PCH usage with 3\&.16 or later
+.PP
+.SS "February 24, 2020"
+.IP "\(bu" 2
+\fIbreaking change\fP \fBModel::CreateFromxxx\fP changed to use ModelLoaderFlags instead of default bool parameters
+.IP "\(bu" 2
+DirectX Tool Kit for Audio updated to support XAudio2Redist NuGet
+.IP "\(bu" 2
+Added \fCignoreWhitespace\fP defaulted parameter to SpriteFont Measure methods
+.IP "\(bu" 2
+Fixed encoding issue with Utilities\&.fxh
+.IP "\(bu" 2
+Code and project cleanup
+.IP "\(bu" 2
+Retired VS 2015 projects
+.IP "\(bu" 2
+xwbtool: Changed \fC-n\fP switch to a more safe \fC-y\fP switch
+.PP
+.SS "December 17, 2019"
+.IP "\(bu" 2
+Added ARM64 platform to VS 2019 Win32 desktop Win10 project
+.IP "\(bu" 2
+Added Vector \fCoperator/\fP by float scalar to SimpleMath
+.IP "\(bu" 2
+Updated CMake project
+.IP "\(bu" 2
+Code cleaup
+.PP
+.SS "October 17, 2019"
+.IP "\(bu" 2
+Added optional \fCforceSRGB\fP parameter to \fBSaveWICTextureToFile\fP
+.IP "\(bu" 2
+GamePad updated to report VID/PID (when supported)
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 21, 2019"
+.IP "\(bu" 2
+Added xwbtool to CMake project
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "June 30, 2019"
+.IP "\(bu" 2
+Additional validation for Ex texture loaders
+.IP "\(bu" 2
+Clang/LLVM warning cleanup
+.IP "\(bu" 2
+Renamed \fCDirectXTK_Windows10\&.vcxproj\fP to \fC_Windows10_2017\&.vcxproj\fP
+.IP "\(bu" 2
+Added VS 2019 UWP project
+.PP
+.SS "May 30, 2019"
+.IP "\(bu" 2
+PBREffect updated with additional set methods
+.IP "\(bu" 2
+Added CMake project files
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "April 26, 2019"
+.IP "\(bu" 2
+Added VS 2019 desktop projects
+.IP "\(bu" 2
+Fixed guards w\&.r\&.t\&. to windows\&.h usage in Keyboard/Mouse headers
+.IP "\(bu" 2
+Added C++/WinRT \fBSetWindow\fP helper to Keyboard/Mouse
+.IP "\(bu" 2
+Code cleanup for texture loaders
+.IP "\(bu" 2
+Officially dropped Windows Vista support
+.PP
+.SS "February 7, 2019"
+.IP "\(bu" 2
+Model now supports loading \fISDKMESH v2\fP models
+.IP "\(bu" 2
+\fBPBREffectFactory\fP added to support PBR materials
+.IP "\(bu" 2
+PBREffect and NormalMapEffect shaders updated to support \fCBC5_UNORM\fP compressed normal maps
+.IP "\(bu" 2
+SpriteFont: \fBDrawString\fP overloads for UTF-8 chars in addition to UTF-16LE wide chars
+.PP
+.SS "November 16, 2018"
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 October 2018 Update SDK (17763)
+.IP "\(bu" 2
+ARM64 platform configurations added to UWP projects
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "October 31, 2018"
+.IP "\(bu" 2
+Model loader for SDKMESH now attempts to use legacy DE3CN compressed normals
+.IP "  \(bu" 4
+This is an approximation only and emits a warning in debug builds
+.PP
+
+.PP
+.SS "October 25, 2018"
+.IP "\(bu" 2
+Use UTF-8 instead of ANSI for narrow strings
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "August 17, 2018"
+.IP "\(bu" 2
+Improved validation for 16k textures and other large resources
+.IP "\(bu" 2
+Improved debug output for failed texture loads and screengrabs
+.IP "\(bu" 2
+Updated for VS 2017 15\&.8
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "July 3, 2018"
+.IP "\(bu" 2
+ModelMeshPart \fBDrawInstanced\fP method added
+.IP "\(bu" 2
+Code and project cleanup
+.PP
+.SS "May 31, 2018"
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 April 2018 Update SDK (17134)
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 April 2018 Update SDK (17134)
+.PP
+.SS "May 14, 2018"
+.IP "\(bu" 2
+Updated for VS 2017 15\&.7 update warnings
+.IP "\(bu" 2
+Code and project cleanup
+.IP "\(bu" 2
+Retired VS 2013 projects
+.PP
+.SS "April 23, 2018"
+.IP "\(bu" 2
+\fCAlignUp\fP, \fCAlignDown\fP template functions in \fBDirectXHelpers\&.h\fP
+.IP "\(bu" 2
+Mouse support for cursor visibility
+.IP "\(bu" 2
+SimpleMath and VertexTypes updated with default copy and move ctors
+.IP "\(bu" 2
+SimpleMath updates to use \fCconstexpr\fP
+.IP "\(bu" 2
+EffectFactory updated with \fBGetDevice\fP method
+.IP "\(bu" 2
+PostProcess updated with 'big triangle' optimization
+.IP "\(bu" 2
+Fix for \fCCMO\fP handling of skinning vertex data
+.IP "\(bu" 2
+Code and project file cleanup
+.IP "\(bu" 2
+xwbtool: Fixed Windows 7 compatibility issue
+.PP
+.SS "February 7, 2018"
+.IP "\(bu" 2
+Mouse fix for cursor behavior when using Remote Desktop for Win32
+.IP "\(bu" 2
+Updated for a few more VS 2017 warnings
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "December 13, 2017"
+.IP "\(bu" 2
+\fBPBREffect\fP and \fBDebugEffect\fP added
+.IP "\(bu" 2
+\fBNormalMapEffect\fP no longer requires or uses explicit vertex tangents
+.IP "\(bu" 2
+\fIbreaking change\fP NormalMapEffect::SetBiasedVertexNormalsAndTangents renamed to \fBSetBiasedVertexNormals\fP
+.IP "\(bu" 2
+PBREffect, DebugEffect, & NormalMapEffect all require Direct3D hardware feature level 10\&.0 or better
+.IP "\(bu" 2
+\fBVertexType\fP typedef added to GeometricPrimitive as alias for VertexPositionNormalTexture
+.IP "\(bu" 2
+Updated for VS 2017 15\&.5 update warnings
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "November 1, 2017"
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 Fall Creators Update SDK (16299)
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 Fall Creators Update SDK (16299)
+.PP
+.SS "September 22, 2017"
+.IP "\(bu" 2
+Updated for VS 2017 15\&.3 update \fC/permissive-\fP changes
+.IP "\(bu" 2
+\fBScreenGrab\fP updated to use non-sRGB metadata for PNG
+.IP "\(bu" 2
+Mouse use of \fCWM_INPUT\fP updated for Remote Desktop scenarios
+.IP "\(bu" 2
+Fix for \fCCMO\fP load issue when no materials are defined
+.IP "\(bu" 2
+xwbtool: added \fC-flist\fP option
+.PP
+.SS "July 28, 2017"
+.IP "\(bu" 2
+Fix for WIC writer when codec target format requires a palette
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "June 21, 2017"
+.IP "\(bu" 2
+Post-processing support with the \fBBasicPostProcess\fP, \fBDualPostProcess\fP, and \fBToneMapPostProcess\fP classes
+.IP "\(bu" 2
+SDKMESH loader fix when loading legacy files with all zero materials
+.IP "\(bu" 2
+DirectXTK for Audio: Minor fixes for environmental audio
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "April 24, 2017"
+.IP "\(bu" 2
+VS 2017 project updates
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 Creators Update SDK (15063)
+.IP "\(bu" 2
+Fixed \fBNormalMapEffect\fP shader selection for specular texture usage
+.IP "\(bu" 2
+Fixed \fBAudioEngine\fP enumeration when using Single Threaded Apartment (STA)
+.IP "\(bu" 2
+Fixed bug with \fBGamePad\fP (Windows\&.Gaming\&.Input) when no user bound
+.PP
+.SS "April 7, 2017"
+.IP "\(bu" 2
+VS 2017 updated for Windows Creators Update SDK (15063)
+.IP "\(bu" 2
+XboxDDSTextureLoader updates
+.PP
+.SS "February 10, 2017"
+.IP "\(bu" 2
+\fBGamePad\fP now supports special value of \fC-1\fP for 'most recently connected controller'
+.IP "\(bu" 2
+WIC format 40bppCMYKAlpha should be converted to RGBA8 rather than RGBA16
+.IP "\(bu" 2
+DDS support for L8A8 with bitcount 8 rather than 16
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "December 5, 2016"
+.IP "\(bu" 2
+Mouse and Keyboard classes updated with \fBIsConnected\fP method
+.IP "\(bu" 2
+Windows10 project \fC/ZW\fP switch removed to support use in C++/WinRT projection apps
+.IP "\(bu" 2
+VS 2017 RC projects added
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "October 6, 2016"
+.IP "\(bu" 2
+SDKMESH loader and BasicEffects support for compressed vertex normals with biasing
+.IP "\(bu" 2
+WICTextureLoader Ex bool forceSRGB parameter is now a \fBWIC_LOADER_FLAGS\fP flag
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "September 15, 2016"
+.IP "\(bu" 2
+Minor code cleanup
+.IP "\(bu" 2
+xwbtool: added wildcard support for input filename and optional \fC-r\fP switch for recursive search
+.PP
+.SS "September 1, 2016"
+.IP "\(bu" 2
+Added \fCforceSRGB\fP optional parameter to SpriteFont ctor
+.IP "\(bu" 2
+EffectFactory method \fBEnableForceSRGB\fP added
+.IP "\(bu" 2
+DGSLEffect now defaults to diffuse/alpha of 1
+.IP "\(bu" 2
+Removed problematic ABI::Windows::Foundation::Rect interop for SimpleMath
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 4, 2016"
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 Anniversary Update SDK (14393)
+.PP
+.SS "August 2, 2016"
+.IP "\(bu" 2
+Updated for VS 2015 Update 3 and Windows 10 SDK (14393)
+.PP
+.SS "August 1, 2016"
+.IP "\(bu" 2
+GamePad capabilities information updated for Universal Windows and Xbox One platforms
+.IP "\(bu" 2
+Specular falloff lighting computation fix in shaders
+.PP
+.SS "July 18, 2016"
+.IP "\(bu" 2
+\fBNormalMapEffect\fP for normal-map with optional specular map rendering
+.IP "\(bu" 2
+\fBEnvironmentMapEffect\fP now supports per-pixel lighting
+.IP "\(bu" 2
+Effects updated with \fBSetMatrices\fP and \fBSetColorAndAlpha\fP methods
+.IP "\(bu" 2
+SimpleMath: improved interop with DirectXMath constants
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "June 30, 2016"
+.IP "\(bu" 2
+\fBMeasureDrawString\fP added to SpriteFont; bad fix to MeasureString reverted
+.IP "\(bu" 2
+GamePad tracker updated to track emulated buttons (i\&.e\&. leftStickUp)
+.IP "\(bu" 2
+EffectFactory \fBSetDirectory\fP now checks current working directory (CWD) as well
+.IP "\(bu" 2
+\fIbreaking change\fP must include <d3d11\&.h> before including <\fBSimpleMath\&.h\fP>
+.IP "\(bu" 2
+Code refactor for sharing some files with DirectX 12 version
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "May 31, 2016"
+.IP "\(bu" 2
+Added \fBVertexPosition\fP and \fBVertexPositionDualTexture\fP to VertexTypes
+.IP "\(bu" 2
+Xbox One platform fix for PrimitiveBatch
+.IP "\(bu" 2
+CompileShader script updated to build external pdbs
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "April 26, 2016"
+.IP "\(bu" 2
+Added \fBRectangle\fP class to SimpleMath
+.IP "\(bu" 2
+Fix for SDKMESH loader when loading models with 'extra' texture coordinate sets
+.IP "\(bu" 2
+Made SimpleMath's Viewport \fBComputeTitleSafeArea\fP less conservative
+.IP "\(bu" 2
+Added view/menu aliases to GamePad::ButtonStateTracker for Xbox One Controller naming
+.IP "\(bu" 2
+Retired Windows phone 8\&.0 projects and obsolete adapter code
+.IP "\(bu" 2
+Minor code and project file cleanup
+.PP
+.SS "February 23, 2016"
+.IP "\(bu" 2
+Fixed width computation bug in \fBSpriteFont::MeasureString\fP
+.IP "\(bu" 2
+Fix to clean up partial or zero-length image files on failed write
+.IP "\(bu" 2
+Fix to WaveBankReader for UWP platform
+.IP "\(bu" 2
+Retired VS 2012 projects
+.IP "\(bu" 2
+Xbox One platform updates
+.IP "\(bu" 2
+Minor code and project file cleanup
+.PP
+.SS "January 5, 2016"
+.IP "\(bu" 2
+Xbox One platform updates
+.IP "\(bu" 2
+\fIbreaking change\fP Need to add use of \fBGraphicsMemory\fP class to Xbox One titles
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "November 30, 2015"
+.IP "\(bu" 2
+SimpleMath improvements including Viewport class
+.IP "\(bu" 2
+Fixed bug with \fBKeyboard\fP for \fCOpenBracket\fP and later VK codes
+.IP "\(bu" 2
+Fixed bug with \fBMouse\fP that reset the scrollwheel on app activate
+.IP "\(bu" 2
+\fC\fBMakeSpriteFont\fP\fP updated with \fC/FastPack\fP and \fC/FeatureLevel\fP switches
+.IP "\(bu" 2
+Updated for VS 2015 Update 1 and Windows 10 SDK (10586)
+.PP
+.SS "October 30, 2015"
+.IP "\(bu" 2
+DirectXTK for Audio 3D updates
+.IP "\(bu" 2
+\fIbreaking change\fP emitters/listeners now use RH coordinates by default
+.IP "\(bu" 2
+\fBGeometricPrimitive\fP support for custom geometry
+.IP "\(bu" 2
+SimpleMath Matrix class improvements
+.IP "\(bu" 2
+DDS support for legacy bumpmap formats (V8U8, Q8W8V8U8, V16U16)
+.IP "\(bu" 2
+Mouse fix for WinRT implementation with multiple buttons pressed
+.IP "\(bu" 2
+Wireframe \fBCommonStates\fP no longer does backface culling
+.IP "\(bu" 2
+Xbox One platform updates
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 18, 2015"
+.IP "\(bu" 2
+Xbox One platform updates
+.PP
+.SS "July 29, 2015"
+.IP "\(bu" 2
+Added \fBCreateBox\fP method to GeometricPrimitive
+.IP "\(bu" 2
+Added \fCinvertn\fP optional parameter to \fBCreateSphere\fP
+.IP "\(bu" 2
+Updates for Keyboard, Mouse class
+.IP "\(bu" 2
+Fixed bug when loading older SDKMESH models
+.IP "\(bu" 2
+Updated for VS 2015 and Windows 10 SDK RTM
+.IP "\(bu" 2
+Retired VS 2010 and Windows Store 8\&.0 projects
+.PP
+.SS "July 1, 2015"
+.IP "\(bu" 2
+Added \fBKeyboard\fP, \fBMouse\fP class
+.IP "\(bu" 2
+Support for loading pre-lit models with SDKMESH
+.IP "\(bu" 2
+\fBGamePad\fP implemented using \fCWindows\&.Gaming\&.Input\fP for Windows 10
+.IP "\(bu" 2
+DirectXTK for Audio updates for xWMA support with XAudio 2\&.9
+.IP "\(bu" 2
+Added \fBFindGlyph\fP and \fBGetSpriteSheet\fP methods to SpriteFont
+.PP
+.SS "March 27, 2015"
+.IP "\(bu" 2
+Added projects for Windows apps Technical Preview
+.IP "\(bu" 2
+GamePad temporarily uses 'null' device for universal Windows application platform
+.PP
+.SS "February 25, 2015"
+.IP "\(bu" 2
+DirectXTK for Audio updates
+.IP "  \(bu" 4
+\fIbreaking change\fP pitch now defined as -1 to 1 with 0 as the default
+.IP "  \(bu" 4
+One-shot Play method with volume, pitch, and pan
+.IP "  \(bu" 4
+\fBGetMasterVolume\fP / \fBSetMasterVolume\fP method for AudioEngine
+.IP "  \(bu" 4
+Fix for compact wavebank validation
+.IP "  \(bu" 4
+Improved voice cleanup and shutdown
+.PP
+
+.IP "\(bu" 2
+Minor code cleanup and C++11 \fC=default\fP/\fC=delete\fP usage
+.PP
+.SS "January 26, 2015"
+.IP "\(bu" 2
+GamePad class: emulate \fCXInputEnable\fP behavior for XInput 9\&.1\&.0
+.IP "\(bu" 2
+DirectXTK for Audio fix for Stop followed by Play doing a proper restart
+.IP "\(bu" 2
+DirectXTK for Audio fix when using XAudio 2\&.7 on a system with no audio device
+.IP "\(bu" 2
+Updates for Xbox One platform support
+.IP "\(bu" 2
+Minor code cleanup and C99 \fCprintf\fP string conformance
+.PP
+.SS "November 24, 2014"
+.IP "\(bu" 2
+SimpleMath fix for Matrix \fCoperator !=\fP
+.IP "\(bu" 2
+DirectXTK for Audio workaround for XAudio 2\&.7 on Windows 7 problem
+.IP "\(bu" 2
+Updates for Windows phone 8\&.1 platform support
+.IP "\(bu" 2
+Updates for Visual Studio 2015 Technical Preview
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "October 28, 2014"
+.IP "\(bu" 2
+Model support for loading from \fCVBO\fP files
+.IP "\(bu" 2
+Model render now sets samplers on slots 0,1 by default for dual-texture effects
+.IP "\(bu" 2
+Updates for Xbox One platform support
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "September 5, 2014"
+.IP "\(bu" 2
+\fBGamePad\fP class: gamepad controller helper using XInput on Windows, IGamepad for Xbox One
+.IP "\(bu" 2
+SimpleMath updates; Matrix billboard methods; \fIbreaking change\fP: Matrix::Identity() -> Matrix::Identity
+.IP "\(bu" 2
+SpriteBatch new optional \fBSetViewport\fP method
+.IP "\(bu" 2
+SpriteFont fix for white-space character rendering optimization
+.IP "\(bu" 2
+DDSTextureLoader fix for auto-gen mipmaps for volume textures
+.IP "\(bu" 2
+Explicit calling-convention annotation for public headers
+.IP "\(bu" 2
+Updates for Xbox One platform support
+.IP "\(bu" 2
+Minor code and project cleanup
+.PP
+.SS "July 15, 2014"
+.IP "\(bu" 2
+DirectXTK for Audio and XWBTool fixes
+.IP "\(bu" 2
+Updates to Xbox One platform support
+.PP
+.SS "April 3, 2014"
+.IP "\(bu" 2
+Windows phone 8\&.1 platform support
+.PP
+.SS "February 24, 2014"
+.IP "\(bu" 2
+DirectXHelper: new utility header with \fBMapGuard\fP and public version of \fBSetDebugObjectName\fP template
+.IP "\(bu" 2
+DDSTextureLoader: Optional support for auto-gen mipmaps
+.IP "\(bu" 2
+DDSTextureLoader/ScreenGrab: support for Direct3D 11 video formats including legacy 'YUY2' DDS files
+.IP "\(bu" 2
+GeometricPrimtive: Handedness fix for tetrahedron, octahedron, dodecahedron, and icosahedron
+.IP "\(bu" 2
+\fCSpriteBatch::SetRotation(DXGI_MODE_ROTATION_UNSPECIFIED)\fP to disable viewport matrix
+.IP "\(bu" 2
+XboxDDSTextureLoader: optional forceSRGB parameter
+.PP
+.SS "January 24, 2014"
+.IP "\(bu" 2
+DirectXTK for Audio updated with voice management and optional mastering volume limiter
+.IP "\(bu" 2
+Added orientation rotation support to \fBSpriteBatch\fP
+.IP "\(bu" 2
+Fixed a resource leak with \fCGetDefaultTexture\fP used by some Effects
+.IP "\(bu" 2
+Code cleanup (removed \fCDXGI_1_2_FORMATS\fP control define; d2d1\&.h workaround not needed; ScopedObject typedef removed)
+.PP
+.SS "December 24, 2013"
+.IP "\(bu" 2
+Added \fBDirectX Tool Kit for Audio\fP using XAudio2
+.IP "\(bu" 2
+Xbox One platform support
+.IP "\(bu" 2
+\fC\fBMakeSpriteFont\fP\fP tool updated with more progress feedback when capturing large fonts
+.IP "\(bu" 2
+Minor updates for \fCSDKMESH\fP Model loader
+.IP "\(bu" 2
+Fixed bug in \fCCMO\fP Model loader when handling multiple textures
+.IP "\(bu" 2
+Improved debugging output
+.PP
+.SS "October 28, 2013"
+.IP "\(bu" 2
+Updated for Visual Studio 2013 and Windows 8\&.1 SDK RTM
+.IP "\(bu" 2
+Added \fBDGSLEffect\fP, \fBDGSLEffectFactory\fP, \fBVertexPositionNormalTangentColorTexture\fP, and \fBVertexPositionNormalTangentColorTextureSkinning\fP
+.IP "\(bu" 2
+Model loading and effect factories support loading skinned models
+.IP "\(bu" 2
+\fC\fBMakeSpriteFont\fP\fP now has a smooth vs\&. sharp antialiasing option: /sharp
+.IP "\(bu" 2
+Model loading from \fCCMOs\fP now handles UV transforms for texture coordinates
+.IP "\(bu" 2
+A number of small fixes for \fBEffectFactory\fP
+.IP "\(bu" 2
+Minor code and project cleanup
+.IP "\(bu" 2
+Added \fCNO_D3D11_DEBUG_NAME\fP compilation define to control population of Direct3D debug layer names for debug builds
+.PP
+.SS "July 1, 2013"
+.IP "\(bu" 2
+VS 2013 Preview projects added and updates for DirectXMath 3\&.05 \fC__vectorcall\fP
+.IP "\(bu" 2
+Added use of sRGB WIC metadata for \fCJPEG\fP, \fCPNG\fP, and \fCTIFF\fP
+.IP "\(bu" 2
+SaveToWIC functions updated with new optional setCustomProps parameter and error check with optional targetFormat
+.PP
+.SS "May 30, 2013"
+.IP "\(bu" 2
+Added more \fBGeometricPrimitives\fP: Cone, Tetrahedron, Octahedron, Dodecahedron, Icosahedron
+.IP "\(bu" 2
+Updated to support loading new metadata from DDS files (if present)
+.IP "\(bu" 2
+Fixed bug with loading of WIC 32bpp RGBE format images
+.IP "\(bu" 2
+Fixed bug when skipping mipmaps in a 1D or 2D array texture DDS file
+.PP
+.SS "February 22, 2013"
+.IP "\(bu" 2
+Added \fBSimpleMath\fP header
+.IP "\(bu" 2
+Fixed bug that prevented properly overriding EffectFactory::CreateTexture
+.IP "\(bu" 2
+Fixed forceSRGB logic in DDSTextureLoader and WICTextureLoader
+.IP "\(bu" 2
+Break circular reference chains when using SpriteBatch with a setCustomShaders lambda
+.IP "\(bu" 2
+Updated projects with \fC/fp:fast\fP for all configs, \fC/arch:SSE2\fP for Win32 configs
+.IP "\(bu" 2
+Sensibly named \&.pdb output files
+.IP "\(bu" 2
+Added \fCWIC_USE_FACTORY_PROXY\fP build option (uses WindowsCodecs\&.dll entrypoint rather than CoCreateInstance)
+.PP
+.SS "January 25, 2013"
+.IP "\(bu" 2
+\fBGeometricPrimitive\fP support for left-handed coordinates and drawing with custom effects
+.IP "\(bu" 2
+Model, ModelMesh, and ModelMeshPart added with loading of rigid non-animating models from \&.CMO and \&.SDKMESH files
+.IP "\(bu" 2
+EffectFactory helper class added
+.PP
+.SS "December 11, 2012"
+.IP "\(bu" 2
+Ex versions of \fBDDSTextureLoader\fP and \fBWICTextureLoader\fP
+.IP "\(bu" 2
+Removed use of ATL's \fCCComPtr\fP in favor of WRL's \fCComPtr\fP for all platforms to support VS Express editions
+.IP "\(bu" 2
+Updated VS 2010 project for official 'property sheet' integration for Windows 8\&.0 SDK
+.IP "\(bu" 2
+Minor fix to \fBCommonStates\fP for Feature Level 9\&.1
+.IP "\(bu" 2
+Tweaked AlphaTestEffect\&.cpp to work around ARM NEON compiler codegen bug
+.IP "\(bu" 2
+Added dxguid\&.lib as a default library for Debug builds to resolve GUID link issues
+.PP
+.SS "November 15, 2012"
+.IP "\(bu" 2
+Added support for WIC2 when available on Windows 8 and Windows 7 with KB 2670838
+.IP "\(bu" 2
+Cleaned up warning level 4 warnings
+.PP
+.SS "October 30, 2012"
+.IP "\(bu" 2
+Added project files for Windows phone 8
+.PP
+.SS "October 12, 2012"
+.IP "\(bu" 2
+Added \fBPrimitiveBatch\fP for drawing user primitives
+.IP "\(bu" 2
+Debug object names for all D3D resources (for PIX and debug layer leak reporting)
+.PP
+.SS "October 2, 2012"
+.IP "\(bu" 2
+Added \fBScreenGrab\fP module
+.IP "\(bu" 2
+Added \fBCreateGeoSphere\fP for drawing a geodesic sphere
+.IP "\(bu" 2
+Put DDSTextureLoader and WICTextureLoader into the DirectX C++ namespace
+.PP
+.SS "September 7, 2012"
+.IP "\(bu" 2
+Renamed project files for better naming consistency
+.IP "\(bu" 2
+Updated WICTextureLoader for Windows 8 96bpp floating-point formats
+.IP "\(bu" 2
+Win32 desktop projects updated to use Windows Vista (0x0600) rather than Windows 7 (0x0601) APIs
+.IP "\(bu" 2
+Tweaked SpriteBatch\&.cpp to workaround ARM NEON compiler codegen bug
+.PP
+.SS "May 31, 2012"
+.IP "\(bu" 2
+Updated Windows Store project for Visual Studio 2012 Release Candidate changes
+.IP "\(bu" 2
+Cleaned up x64 Debug configuration warnings and switched to use \fC_DEBUG\fP instead of \fCDEBUG\fP
+.IP "\(bu" 2
+Minor fix for DDSTextureLoader's retry fallback that can happen with 10level9 feature levels
+.PP
+.SS "May 2, 2012"
+.IP "\(bu" 2
+Added \fBSpriteFont\fP implementation and the \fBMakeSpriteFont\fP utility
+.PP
+.SS "March 29, 2012"
+.IP "\(bu" 2
+WICTextureLoader updated with Windows 8 WIC native pixel formats
+.PP
+.SS "March 6, 2012"
+.IP "\(bu" 2
+Fix for too much temp memory used by WICTextureLoader
+.IP "\(bu" 2
+Add separate Visual Studio 11 projects for Desktop vs\&. Windows Store builds
+.PP
+.SS "March 5, 2012"
+.IP "\(bu" 2
+Bug fix for SpriteBatch with batches > 2048
+.PP
+.SS "February 24, 2012"
+.IP "\(bu" 2
+Original release 
+.PP
+

@@ -1,0 +1,1031 @@
+\hypertarget{_effects_8h_source}{}\doxysection{Effects.\+h}
+\label{_effects_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Effects.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Effects.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Effects.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ representing\ any\ effect\ which\ can\ be\ applied\ onto\ a\ D3D\ device\ context.}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{\string~IEffect}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ =\ 0;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ =\ 0;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00044\ \ \ \ \ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ for\ effects\ with\ world,\ view,\ and\ projection\ matrices.}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{\string~IEffectMatrices}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ =\ 0;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ for\ effects\ which\ support\ directional\ lighting.}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{\string~IEffectLights}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ =\ 0;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ =\ 0;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ =\ 0;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ =\ 0;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ =\ 0;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ =\ 0;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ =\ 0;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaxDirectionalLights\ =\ 3;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00094\ \ \ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ for\ effects\ which\ support\ fog.}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{\string~IEffectFog}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ =\ 0;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ =\ 0;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ =\ 0;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00115\ \ \ \ \ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ for\ effects\ which\ support\ skinning}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}}
+\DoxyCodeLine{00120\ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{\string~IEffectSkinning}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWeightsPerVertex(\textcolor{keywordtype}{int}\ value)\ =\ 0;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBoneTransforms(\_In\_reads\_(count)\ XMMATRIX\ \textcolor{keyword}{const}*\ value,\ \textcolor{keywordtype}{size\_t}\ count)\ =\ 0;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetBoneTransforms()\ =\ 0;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaxBones\ =\ 72;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00137\ \ \ \ \ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ supports\ optional\ texture\ mapping,\ vertex\ coloring,\ directional\ lighting,\ and\ fog.}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00142\ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}(\mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}(\mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_basic_effect}{BasicEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_effect}{\string~BasicEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEmissiveColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetSpecularColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSpecularPower(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DisableSpecular();}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ setting.}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTextureEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_basic_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00207\ \ \ \ \ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ supports\ per-\/pixel\ alpha\ testing.}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}(\mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}(\mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{AlphaTestEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_alpha_test_effect}{\string~AlphaTestEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ setting.}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Alpha\ test\ settings.}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlphaFunction(D3D11\_COMPARISON\_FUNC\ value);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetReferenceAlpha(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_alpha_test_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00262\ \ \ \ \ \};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ supports\ two\ layer\ multitexturing\ (eg.\ for\ lightmaps\ or\ detail\ textures).}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00268\ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}(\mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}(\mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{DualTextureEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_texture_effect}{\string~DualTextureEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ settings.}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture2(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dual_texture_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00314\ \ \ \ \ \};}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ supports\ cubic\ environment\ mapping.}}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00320\ \ \ \ \ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Mapping}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ Mapping\_Cube\ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ Cubic\ environment\ map}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ Mapping\_Sphere,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Spherical\ environment\ map}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ Mapping\_DualParabola,\ \ \ \textcolor{comment}{//\ Dual-\/parabola\ environment\ map\ (requires\ Feature\ Level\ 10.0)}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{EnvironmentMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{\string~EnvironmentMapEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEmissiveColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ setting.}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetEnvironmentMap(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Environment\ map\ settings.}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMode(Mapping\ mapping);}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetEnvironmentMapAmount(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEnvironmentMapSpecular(FXMVECTOR\ value);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFresnelFactor(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_environment_map_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unsupported\ interface\ methods.}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00394\ \ \ \ \ \};}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ supports\ skinned\ animation.}}
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}}
+\DoxyCodeLine{00400\ \ \ \ \ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{SkinnedEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_effect}{\string~SkinnedEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEmissiveColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetSpecularColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSpecularPower(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DisableSpecular();}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ setting.}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Animation\ settings.}}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWeightsPerVertex(\textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBoneTransforms(\_In\_reads\_(count)\ XMMATRIX\ \textcolor{keyword}{const}*\ value,\ \textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetBoneTransforms()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_skinned_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unsupported\ interface\ method.}}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00468\ \ \ \ \ \};}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ effect\ for\ Visual\ Studio\ Shader\ Designer\ (DGSL)\ shaders}}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}}
+\DoxyCodeLine{00473\ \ \ \ \ \{}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(\_In\_\ ID3D11Device*\ device,\ \_In\_opt\_\ ID3D11PixelShader*\ pixelShader\ =\ \textcolor{keyword}{nullptr})\ :}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(device,\ pixelShader,\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{\string~DGSLEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEmissiveColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetSpecularColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSpecularPower(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DisableSpecular();}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Additional\ settings.}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetUVTransform(FXMMATRIX\ value);}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetViewport(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height);}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTime(\textcolor{keywordtype}{float}\ time);}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlphaDiscardEnable(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaxDirectionalLights\ =\ 4;}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ settings.}}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTextureEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\textcolor{keywordtype}{int}\ whichTexture,\ \_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaxTextures\ =\ 8;}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_d_g_s_l_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(\_In\_\ ID3D11Device*\ device,\ \_In\_opt\_\ ID3D11PixelShader*\ pixelShader,\ \textcolor{keywordtype}{bool}\ skinningEnabled);}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unsupported\ interface\ methods.}}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00548\ \ \ \ \ \};}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}}
+\DoxyCodeLine{00551\ \ \ \ \ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}(\_In\_\ ID3D11Device*\ device,\ \_In\_opt\_\ ID3D11PixelShader*\ pixelShader\ =\ \textcolor{keyword}{nullptr})\ :}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}}(device,\ pixelShader,\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_d_g_s_l_effect}{SkinnedDGSLEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Animation\ setting.}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWeightsPerVertex(\textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBoneTransforms(\_In\_reads\_(count)\ XMMATRIX\ \textcolor{keyword}{const}*\ value,\ \textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetBoneTransforms()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00568\ \ \ \ \ \};}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ extends\ BasicEffect\ with\ normal\ maps\ and\ optional\ specular\ maps}}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffectFog}}}
+\DoxyCodeLine{00573\ \ \ \ \ \{}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(\_In\_\ ID3D11Device*\ device)\ :}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(device,\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{\string~NormalMapEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00590\ }
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Material\ settings.}}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetDiffuseColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetEmissiveColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetSpecularColor(FXMVECTOR\ value);}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSpecularPower(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DisableSpecular();}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetColorAndAlpha(FXMVECTOR\ value);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fog\ settings.}}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogStart(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetFogEnd(\textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetFogColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ setting\ -\/\ albedo,\ normal\ and\ specular\ intensity}}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetNormalTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSpecularTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Instancing\ settings.}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetInstancingEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_normal_map_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(\_In\_\ ID3D11Device*\ device,\ \textcolor{keywordtype}{bool}\ skinningEnabled);}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unsupported\ interface\ methods.}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00649\ \ \ \ \ \};}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}}
+\DoxyCodeLine{00652\ \ \ \ \ \{}
+\DoxyCodeLine{00653\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}(\_In\_\ ID3D11Device*\ device)\ :}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_normal_map_effect}{NormalMapEffect}}(device,\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_normal_map_effect}{SkinnedNormalMapEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Animation\ settings.}}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWeightsPerVertex(\textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBoneTransforms(\_In\_reads\_(count)\ XMMATRIX\ \textcolor{keyword}{const}*\ value,\ \textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetBoneTransforms()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00669\ \ \ \ \ \};}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00672\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ for\ Physically-\/Based\ Rendering\ (Roughness/Metalness)\ with\ Image-\/based\ lighting}}
+\DoxyCodeLine{00673\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}}
+\DoxyCodeLine{00674\ \ \ \ \ \{}
+\DoxyCodeLine{00675\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(\_In\_\ ID3D11Device*\ device)\ :}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(device,\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{\string~PBREffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Light\ settings.}}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDirection(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultLighting()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ PBR\ Settings.}}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetConstantAlbedo(FXMVECTOR\ value);}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetConstantMetallic(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetConstantRoughness(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Texture\ settings.}}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlbedoTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetNormalTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetRMATexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetEmissiveTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSurfaceTextures(}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ albedo,}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ normal,}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ roughnessMetallicAmbientOcclusion);}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetIBLTextures(}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ radiance,}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numRadianceMips,}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ irradiance);}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Instancing\ settings.}}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetInstancingEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Velocity\ buffer\ settings.}}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVelocityGeneration(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Render\ target\ size,\ required\ for\ velocity\ buffer\ output.}}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetRenderTargetSizeInPixels(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_p_b_r_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(\_In\_\ ID3D11Device*\ device,\ \textcolor{keywordtype}{bool}\ skinningEnabled);}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unsupported\ interface\ methods.}}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetLightingEnabled(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPerPixelLighting(\textcolor{keywordtype}{bool}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetAmbientLightColor(FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00755\ \ \ \ \ \};}
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_skinning}{IEffectSkinning}}}
+\DoxyCodeLine{00758\ \ \ \ \ \{}
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}(\_In\_\ ID3D11Device*\ device)\ :}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect}{PBREffect}}(device,\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}(\mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_skinned_p_b_r_effect}{SkinnedPBREffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Animation\ settings.}}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWeightsPerVertex(\textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBoneTransforms(\_In\_reads\_(count)\ XMMATRIX\ \textcolor{keyword}{const}*\ value,\ \textcolor{keywordtype}{size\_t}\ count)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetBoneTransforms()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00775\ \ \ \ \ \};}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00778\ \ \ \ \ \textcolor{comment}{//\ Built-\/in\ shader\ for\ debug\ visualization\ of\ normals,\ tangents,\ etc.}}
+\DoxyCodeLine{00779\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffectMatrices}}}
+\DoxyCodeLine{00780\ \ \ \ \ \{}
+\DoxyCodeLine{00781\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Mode}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ Mode\_Default\ =\ 0,\ \ \ \textcolor{comment}{//\ Hemispherical\ ambient\ lighting}}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ Mode\_Normals,\ \ \ \ \ \ \ \textcolor{comment}{//\ RGB\ normals}}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ Mode\_Tangents,\ \ \ \ \ \ \textcolor{comment}{//\ RGB\ tangents}}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ Mode\_BiTangents,\ \ \ \ \textcolor{comment}{//\ RGB\ bi-\/tangents}}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}(\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}(\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{DebugEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00797\ }
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_debug_effect}{\string~DebugEffect}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00799\ }
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffect\ methods.}}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply(\_In\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ GetVertexShaderBytecode(\_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Camera\ settings.}}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetWorld(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetView(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetProjection(FXMMATRIX\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetMatrices(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00810\ }
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Debug\ Settings.}}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMode(Mode\ debugMode);}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetHemisphericalAmbientColor(FXMVECTOR\ upper,\ FXMVECTOR\ lower);}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlpha(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vertex\ color\ setting.}}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVertexColorEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ compression\ settings.}}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBiasedVertexNormals(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Instancing\ settings.}}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetInstancingEnabled(\textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_debug_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00830\ \ \ \ \ \};}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00833\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ to\ factory\ for\ sharing\ effects\ and\ texture\ resources}}
+\DoxyCodeLine{00834\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}}
+\DoxyCodeLine{00835\ \ \ \ \ \{}
+\DoxyCodeLine{00836\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{\string~IEffectFactory}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \ \ \ \ \ name;}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perVertexColor;}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableSkinning;}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableDualTexture;}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableNormalMaps;}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ biasedVertexNormals;}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ specularPower;}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha;}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \ \ \ \ XMFLOAT3\ \ \ \ \ \ \ \ \ \ \ \ ambientColor;}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ XMFLOAT3\ \ \ \ \ \ \ \ \ \ \ \ diffuseColor;}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \ \ \ \ XMFLOAT3\ \ \ \ \ \ \ \ \ \ \ \ specularColor;}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ XMFLOAT3\ \ \ \ \ \ \ \ \ \ \ \ emissiveColor;}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \ \ \ \ \ diffuseTexture;}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \ \ \ \ \ specularTexture;}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \ \ \ \ \ normalTexture;}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \ \ \ \ \ emissiveTexture;}
+\DoxyCodeLine{00860\ }
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}()\ noexcept\ :}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perVertexColor(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableSkinning(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableDualTexture(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enableNormalMaps(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ biasedVertexNormals(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ specularPower(0),}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha(0),}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ambientColor(0,\ 0,\ 0),}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ diffuseColor(0,\ 0,\ 0),}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ specularColor(0,\ 0,\ 0),}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ emissiveColor(0,\ 0,\ 0),}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ diffuseTexture(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ specularTexture(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normalTexture(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ emissiveTexture(\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ std::shared\_ptr<IEffect>\ \_\_cdecl\ CreateEffect(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}\&\ info,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext)\ =\ 0;}
+\DoxyCodeLine{00883\ }
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTexture(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ name,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext,\ \_Outptr\_\ ID3D11ShaderResourceView**\ textureView)\ =\ 0;}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00890\ \ \ \ \ \};}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00893\ \ \ \ \ \textcolor{comment}{//\ Factory\ for\ sharing\ effects\ and\ texture\ resources}}
+\DoxyCodeLine{00894\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}}
+\DoxyCodeLine{00895\ \ \ \ \ \{}
+\DoxyCodeLine{00896\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_effect_factory}{EffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00904\ }
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_factory}{\string~EffectFactory}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffectFactory\ methods.}}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ std::shared\_ptr<IEffect>\ \_\_cdecl\ CreateEffect(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}\&\ info,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTexture(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ name,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext,\ \_Outptr\_\ ID3D11ShaderResourceView**\ textureView)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00910\ }
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Settings.}}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ReleaseCache();}
+\DoxyCodeLine{00913\ }
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSharing(\textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00915\ }
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableNormalMapEffect(\textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableForceSRGB(\textcolor{keywordtype}{bool}\ forceSRGB)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00918\ }
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetDirectory(\_In\_opt\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ path)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties.}}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ ID3D11Device*\ GetDevice()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_effect_factory_1_1_impl}{Impl}};}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ std::shared\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00929\ \ \ \ \ \};}
+\DoxyCodeLine{00930\ }
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00932\ \ \ \ \ \textcolor{comment}{//\ Factory\ for\ Physically\ Based\ Rendering\ (PBR)}}
+\DoxyCodeLine{00933\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}}
+\DoxyCodeLine{00934\ \ \ \ \ \{}
+\DoxyCodeLine{00935\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00937\ }
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00940\ }
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{PBREffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_p_b_r_effect_factory}{\string~PBREffectFactory}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00945\ }
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffectFactory\ methods.}}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ std::shared\_ptr<IEffect>\ \_\_cdecl\ CreateEffect(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}\&\ info,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTexture(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ name,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext,\ \_Outptr\_\ ID3D11ShaderResourceView**\ textureView)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Settings.}}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ReleaseCache();}
+\DoxyCodeLine{00952\ }
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSharing(\textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableForceSRGB(\textcolor{keywordtype}{bool}\ forceSRGB)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetDirectory(\_In\_opt\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ path)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties.}}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ ID3D11Device*\ GetDevice()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00961\ }
+\DoxyCodeLine{00962\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_p_b_r_effect_factory_1_1_impl}{Impl}};}
+\DoxyCodeLine{00965\ }
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ std::shared\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00967\ \ \ \ \ \};}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00969\ }
+\DoxyCodeLine{00970\ \ \ \ \ \textcolor{comment}{//\ Factory\ for\ sharing\ Visual\ Studio\ Shader\ Designer\ (DGSL)\ shaders\ and\ texture\ resources}}
+\DoxyCodeLine{00971\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}}
+\DoxyCodeLine{00972\ \ \ \ \ \{}
+\DoxyCodeLine{00973\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00975\ }
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}(\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffectFactory}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{\string~DGSLEffectFactory}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00983\ }
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IEffectFactory\ methods.}}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ std::shared\_ptr<IEffect>\ \_\_cdecl\ CreateEffect(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}\&\ info,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTexture(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ name,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext,\ \_Outptr\_\ ID3D11ShaderResourceView**\ textureView)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00987\ }
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DGSL\ methods.}}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d_g_s_l_effect_factory_1_1_d_g_s_l_effect_info}{DGSLEffectInfo}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ BaseTextureOffset\ =\ 4;}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{00993\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ textures[DGSLEffect::MaxTextures\ -\/\ BaseTextureOffset];}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ pixelShader;}
+\DoxyCodeLine{00995\ }
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_d_g_s_l_effect_factory_1_1_d_g_s_l_effect_info}{DGSLEffectInfo}}()\ noexcept\ :}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{EffectInfo}}(),}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ textures\{\},}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pixelShader(\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{01002\ }
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ std::shared\_ptr<IEffect>\ \_\_cdecl\ CreateDGSLEffect(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_d_g_s_l_effect_factory_1_1_d_g_s_l_effect_info}{DGSLEffectInfo}}\&\ info,\ \_In\_opt\_\ ID3D11DeviceContext*\ deviceContext);}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreatePixelShader(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ shader,\ \_Outptr\_\ ID3D11PixelShader**\ pixelShader);}
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Settings.}}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ReleaseCache();}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSharing(\textcolor{keywordtype}{bool}\ enabled)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{01011\ }
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableForceSRGB(\textcolor{keywordtype}{bool}\ forceSRGB)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{01013\ }
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetDirectory(\_In\_opt\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ path)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties.}}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ ID3D11Device*\ GetDevice()\ const\ noexcept;}
+\DoxyCodeLine{01018\ }
+\DoxyCodeLine{01019\ \ \ \ \ private:}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ class\ \mbox{\hyperlink{class_d_g_s_l_effect_factory_1_1_impl}{Impl}};}
+\DoxyCodeLine{01022\ }
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ std::shared\_ptr<\mbox{\hyperlink{class_d_g_s_l_effect_factory_1_1_impl}{Impl}}>\ pImpl;}
+\DoxyCodeLine{01024\ \ \ \ \ \};}
+\DoxyCodeLine{01025\ \}}
+
+\end{DoxyCode}

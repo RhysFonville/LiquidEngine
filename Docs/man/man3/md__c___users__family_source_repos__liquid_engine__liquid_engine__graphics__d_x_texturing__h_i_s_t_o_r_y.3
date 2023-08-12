@@ -1,0 +1,904 @@
+.TH "md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y \- DirectXTex texture processing library 
+.PP
+http://go.microsoft.com/fwlink/?LinkId=248926
+.PP
+Release available for download on \fCGitHub\fP
+.SH "Release History"
+.PP
+.SS "May 9, 2022"
+.IP "\(bu" 2
+TGA reader updated to support 24-bit paletted uncompressed color-mapped images (used by a DCC application)
+.IP "\(bu" 2
+Added \fCIsBGR\fP utility method
+.IP "\(bu" 2
+Workaround for driver issue on some systems using DirectX 11 \fCCapture\fP method
+.IP "\(bu" 2
+Fix for problem with resizing/mipmaps generation for HDR content using box/fant filter which should avoid going through WIC code paths
+.IP "\(bu" 2
+Minor updates for VS 2022 (17\&.2)
+.IP "\(bu" 2
+CMake project updates (now supports MSVC, clang/LLVM, and MinGW)
+.IP "\(bu" 2
+Updated D3DX12 internal copy with latest changes from DirectX-Headers GitHub
+.IP "\(bu" 2
+Retired VS 2017 projects
+.IP "\(bu" 2
+Code cleanup
+.IP "\(bu" 2
+Reformat source using updated \&.editorconfig settings
+.IP "\(bu" 2
+texconv: Improve \fC-nmap\fP handling for 16-bit sources going to BC formats
+.PP
+.SS "March 24, 2022"
+.IP "\(bu" 2
+Fixed end-point bounds issue with BC6H CPU compressor if none of the pixels are in 0-1 range
+.IP "\(bu" 2
+Fixed bug in alpha-to-coverage computation
+.IP "\(bu" 2
+Add support for installable WIC codecs for HEIF and WEBP (if present)
+.IP "\(bu" 2
+Update build switches for SDL recommendations
+.IP "\(bu" 2
+CMake project updates and UWP platform CMakePresets
+.IP "\(bu" 2
+Code cleaup for tools
+.IP "\(bu" 2
+Optional C++17 usage in a few places
+.PP
+.SS "February 28, 2022"
+.IP "\(bu" 2
+Updated D3DX12 internal copy with latest changes from GitHub
+.IP "\(bu" 2
+Code and project review including fixing clang v13 warnings
+.IP "\(bu" 2
+Added CMakePresets\&.json
+.PP
+.SS "November 8, 2021"
+.IP "\(bu" 2
+VS 2022 support
+.IP "\(bu" 2
+Updated D3DX12 internal copy with latest change from GitHubf
+.IP "\(bu" 2
+Minor code and project review
+.IP "\(bu" 2
+VS 2017 projects updated to require the Windows 10 SDK (19401)
+.IP "\(bu" 2
+texassemble/texconv: Updated with 12\&.2 for \fC-fl\fP switch
+.IP "\(bu" 2
+texassemble/texconv/texdiag: Fixed potential locale issue with \fC-flist\fP
+.PP
+.SS "September 28, 2021"
+.IP "\(bu" 2
+Minor code and project cleanup
+.PP
+.SS "August 1, 2021"
+.IP "\(bu" 2
+Fixed weighting bug in custom linear filtering for wrap/mirroring
+.IP "\(bu" 2
+Added VS 2022 Preview projects
+.IP "\(bu" 2
+texconv: Made default output extension to be lower-case like most Windows applications
+.IP "\(bu" 2
+texconv: updated colorspace rotation names for -rotatecolor switch
+.IP "\(bu" 2
+texassemble, texconv: Order of operations fix for -swizzle using 0, 1
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "June 9, 2021"
+.IP "\(bu" 2
+Minor bug fix for metadata behavior when using \fCDDS_FLAGS_NO_16BPP\fP flag for B5G6R5 content
+.IP "\(bu" 2
+texdiag: added \fC-c\fP and \fC-t\fP switches for diff command
+.IP "\(bu" 2
+texconv: Fixed bug in \fC-m\fP switch handling when resizing changes the max mipmap count
+.IP "\(bu" 2
+texconv et al: improved \fC-flist\fP switch to support wildcards and file exclusions
+.IP "\(bu" 2
+texconv et al: Added 'BGR' alias to \fC-f\fP switch for the B8G8R8X8_UNORM format
+.IP "\(bu" 2
+WICTextureLoader / DDSTextureLoader12 updated to use typed enum bitmask flags for loadFlags parameter
+.IP "\(bu" 2
+Minor code review
+.PP
+.SS "April 6, 2021"
+.IP "\(bu" 2
+DDS reader updated to accept nVidia \fBTexture\fP Tool v1 single-channel and dual-channel files marked as RGB instead of LUMINANCE
+.IP "\(bu" 2
+Fixed TGA reader regression with files smaller than 26 bytes total
+.IP "\(bu" 2
+Removed use of \fCCreateStreamOnHGlobal\fP, \fCCreateStreamOverRandomAccessStream\fP, and \fCSHCreateMemStream\fP for WICToMemory functions
+.IP "\(bu" 2
+Fix for the DirectX 12 \fCCaptureTexture\fP for reserved and MSAA resources
+.IP "\(bu" 2
+Minor code and project cleanup
+.IP "\(bu" 2
+texassemble: added \fC-stripmips\fP switch
+.IP "\(bu" 2
+texassemble, texconv: the \fCswizzle\fP switch now accepts \fC0\fP and \fC1\fP values in swizzle masks
+.IP "\(bu" 2
+texconv: added '709toDisplayP3' and 'DisplayP3to709' to \fC-rotatecolor\fP switch
+.IP "\(bu" 2
+texconv: Fixed \fC-reconstructz\fP for UNORM formats
+.IP "\(bu" 2
+texassemble, texconv, texdiag: Updated with descriptions for HRESULT failure codes, and always uses exit code 1 on failure
+.PP
+.SS "January 9, 2021"
+.IP "\(bu" 2
+Windows Subsystem for Linux support
+.IP "\(bu" 2
+Code review for improved conformance
+.IP "\(bu" 2
+CMake updated to support package install
+.IP "\(bu" 2
+texassemble: Merge command now supports \fC-swizzle\fP option
+.IP "\(bu" 2
+texconv: Updated with \fC-r:keep\fP and \fC-swizzle\fP options
+.PP
+.SS "November 11, 2020"
+.IP "\(bu" 2
+Use \fCSHCreateMemStream\fP instead of \fCCreateStreamOnHGlobal\fP for Win32 on Windows 8\&.x or Windows 10
+.IP "\(bu" 2
+Updated D3DX12 internal copy with latest change from GitHub
+.IP "\(bu" 2
+Minor code and project cleanup
+.PP
+.SS "September 30, 2020"
+.IP "\(bu" 2
+Added \fCTGA_FLAGS\fP \fCflags\fP to TGA reader/writer to control RGB vs\&. BGR, handling for all zero alpha channels, and TGA 2\&.0 colorspace metadata
+.IP "  \(bu" 4
+TGA reader will now return a \fCDXGI_FORMAT_*_SRGB\fP format if TGA 2\&.0 colorspace metadata contains 2\&.2 or 2\&.4 gamma
+.IP "  \(bu" 4
+Added forwarders for existing non-flags TGA functions, so there are no breaking changes
+.PP
+
+.IP "\(bu" 2
+\fCR16_SNORM\fP and \fCR8_SNORM\fP pixel write code updated to round instead of truncate to better match DirectXMath behavior
+.IP "\(bu" 2
+Fixed bug in standalone WICTextureLoader for DX11/DX12 that resulted in \fCWINCODEC_ERR_INSUFFICIENTBUFFER\fP for some resize requests
+.IP "\(bu" 2
+Added \fCEx\fP variants for DDSTextureLoader/WICTextureLoader for DX9 to support loading resources for non-DEFAULT pools
+.IP "\(bu" 2
+Minor code and project cleanup
+.PP
+.SS "August 15, 2020"
+.IP "\(bu" 2
+Added \fCDDS_FLAGS_ALLOW_LARGE_FILES\fP flag for DDS loader to allow textures with dimensions that are too big for Direct3D
+.IP "\(bu" 2
+Added \fCFormatDataType\fP function
+.IP "\(bu" 2
+Fixed bug with DX12 \fCCapture\fP with 'small alignment' textures
+.IP "\(bu" 2
+Code review and project updates
+.IP "\(bu" 2
+Added GDK projects
+.IP "\(bu" 2
+texassemble: updated with \fC-fl\fP switch for feature level based warning
+.IP "\(bu" 2
+texconv: updated with \fC-reconstructz\fP switch for BC5 compressed normal map view conversion
+.PP
+.SS "July 2, 2020"
+.IP "\(bu" 2
+Minor warning fixes for VS 2019 (16\&.7)
+.IP "\(bu" 2
+CMake updates
+.IP "\(bu" 2
+texassemble: Fixed animated gif handling with transparency
+.PP
+.SS "June 15, 2020"
+.IP "\(bu" 2
+Code cleanup for some new VC++ 16\&.7 warnings and static code analysis
+.IP "\(bu" 2
+texconv: Updated with support for Portable Pix Map (ppm) & Portable Float Map (pfm) file formats
+.PP
+.SS "June 1, 2020"
+.IP "\(bu" 2
+Converted to typed enum bitmask flags (see release notes for details on this potential \fIbreaking change\fP)
+.IP "  \(bu" 4
+\fBComputePitch\fP, \fBxxxDDSxxx\fP, \fBxxxWICxxx\fP, \fBFlipRotate\fP, \fBResize\fP, \fBConvert\fP, \fBGenerateMipMaps\fP, \fBGenerateMipMaps3D\fP, \fBPremultiplyAlpha\fP, \fBCompress\fP, \fBComputeNormalMap\fP, \fBCopyRectangle\fP, \fBComputeMSE\fP
+.PP
+
+.IP "\(bu" 2
+\fCWIC_FLAGS_DEFAULT_SRGB\fP / \fCWIC_LOADER_SRGB_DEFAULT\fP flag added when loading image via WIC without explicit colorspace metadata
+.IP "\(bu" 2
+WIC loader for \fCPNG\fP codec now checks \fCgAMA\fP chunk to determine colorspace if the \fCsRGB\fP chunk is not found for legacy sRGB detection\&.
+.IP "\(bu" 2
+Fixed conformance issues when using \fC/Zc:preprocessor\fP
+.IP "\(bu" 2
+CMake project updates
+.PP
+.SS "May 10, 2020"
+.IP "\(bu" 2
+HDR (RGBE Radiance) file format writer updated to accept half16 input
+.IP "\(bu" 2
+Code cleanup
+.IP "\(bu" 2
+Updated D3DX12 internal copy to Windows 10 SDK (19041) version
+.IP "\(bu" 2
+texassemble, texconv, texdiag: Updated with \fC-l\fP switch for case-sensitive file systems
+.IP "\(bu" 2
+texconv: Added \fC-dx9\fP switch to force legacy compatible DDS files
+.IP "\(bu" 2
+texconv: Collapsed \fC-bcuniform\fP, \fC-bcdither\fP, \fC-bcquick\fP, and \fC-bcmax\fP into one \fC-bc\fP switch
+.IP "\(bu" 2
+Updates to \fBDDSTextureLoader\fP, \fBScreenGrab\fP, and \fBWICTextureLoader\fP including new DX9 version
+.PP
+.SS "April 3, 2020"
+.IP "\(bu" 2
+Updated D3DX12 internal copy to latest version
+.IP "\(bu" 2
+DDS loader updated for another BC7 FourCC variant
+.IP "\(bu" 2
+Code review (\fCconstexpr\fP / \fCnoexcept\fP usage)
+.IP "\(bu" 2
+CMake updated for PCH usage with 3\&.16 or later
+.PP
+.SS "February 14, 2020"
+.IP "\(bu" 2
+Fixed quality bug in BC4S/BC5S compressor
+.IP "\(bu" 2
+Guard for divide-by-zero case in \fBPremultiplyAlpha\fP
+.IP "\(bu" 2
+texconv: added \fC-at\fP switch for alpha threshold value with BC1 compression
+.IP "\(bu" 2
+texconv: Fixed \fC-nmap\fP when outputting compressed UNORM formats
+.IP "\(bu" 2
+Code and project cleaup
+.IP "\(bu" 2
+Retired VS 2015 projects
+.PP
+.SS "December 17, 2019"
+.IP "\(bu" 2
+Added ARM64 platform to VS 2019 Win32 desktop Win10 project
+.IP "\(bu" 2
+Updated CMake project
+.IP "\(bu" 2
+Code cleaup
+.PP
+.SS "October 17, 2019"
+.IP "\(bu" 2
+Codec readers updated to return \fCTEX_ALPHA_MODE_OPAQUE\fP if reader returned an alpha channel due to conversion
+.IP "\(bu" 2
+Added DDS reader support for 'non-standard' BC6H/BC7 FourCC codes used by nVidia texture tools
+.IP "\(bu" 2
+TGA codec updated for TGA 2\&.0
+.IP "\(bu" 2
+Minor code review
+.IP "\(bu" 2
+Updated ScreenGrab module
+.IP "\(bu" 2
+texconv: Added \fC-fixbc4x4switch\fP
+.PP
+.SS "August 21, 2019"
+.IP "\(bu" 2
+Updated D3DX12 internal copy to latest version
+.IP "\(bu" 2
+Added texassemble, texconv, and texdiag to CMake project
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "June 30, 2019"
+.IP "\(bu" 2
+Additional validation for Direct3D 11 texture loaders
+.IP "\(bu" 2
+Clang/LLVM warning cleanup
+.IP "\(bu" 2
+Renamed \fCDirectXTex_Windows10\&.vcxproj\fP to \fC_Windows10_2017\&.vcxproj\fP
+.IP "\(bu" 2
+Added VS 2019 UWP project
+.PP
+.SS "May 30, 2019"
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 April 2019 Update SDK (18362)
+.IP "\(bu" 2
+Added CMake project files
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "April 26, 2019"
+.IP "\(bu" 2
+Added VS 2019 desktop projects
+.IP "\(bu" 2
+Code cleanup for texture loaders
+.IP "\(bu" 2
+Officially dropped Windows Vista support
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "February 7, 2019"
+.IP "\(bu" 2
+Added \fBScaleMipMapsAlphaForCoverage\fP function to the library
+.IP "\(bu" 2
+WIC Writer now has two new flags: \fCWIC_FLAGS_FORCE_SRGB\fP and \fCWIC_FLAGS_FORCE_LINEAR\fP
+.IP "\(bu" 2
+texassemble: added \fCarray-strip\fP command
+.IP "\(bu" 2
+texconv: added \fC-inverty\fP, \fC-keepcoverage\fP switches
+.PP
+.SS "November 16, 2018"
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 October 2018 Update SDK (17763)
+.IP "\(bu" 2
+ARM64 platform configurations added to UWP projects
+.PP
+.SS "October 25, 2018"
+.IP "\(bu" 2
+Use UTF-8 instead of ANSI for narrow strings
+.IP "\(bu" 2
+Updated D3DX12 internal copy to latest version
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 17, 2018"
+.IP "\(bu" 2
+Fixed problem loading legacy DDS files containing FOURCC pixel formats with \fCALPHAPIXELS\fP also set
+.IP "\(bu" 2
+Fixed \fCFlipRotate\fP bug when doing 180 degree rotation
+.IP "\(bu" 2
+Updated for VS 2017 15\&.8
+.PP
+.SS "August 5, 2018"
+.IP "\(bu" 2
+Improved support and validation for 16k textures (requires x64 native)
+.IP "\(bu" 2
+\fCComputePitch\fP now returns an HRESULT
+.IP "\(bu" 2
+Fix BC7 GPU shaders on WARP device
+.PP
+.SS "July 3, 2018"
+.IP "\(bu" 2
+BC7 CPU codec fix for 3subsets/\fC-bcmax\fP and minor optimization
+.IP "\(bu" 2
+BC7 GPU codec quantize fix and pbit optimization
+.IP "\(bu" 2
+BC6H CPU codec bounds checking fix
+.IP "\(bu" 2
+Code and project cleanup
+.PP
+.SS "May 31, 2018"
+.IP "\(bu" 2
+Fix for \fBIsAlphaAllOpaque\fP for 'near opaque' values
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 April 2018 Update SDK (17134)
+.PP
+.SS "May 11, 2018"
+.IP "\(bu" 2
+Workaround for WIC issue doing FP32->FP16 conversions
+.IP "\(bu" 2
+Updated for VS 2017 15\&.7 update warnings
+.IP "\(bu" 2
+Code and project cleanup
+.IP "\(bu" 2
+Retired VS 2013 projects
+.PP
+.SS "April 23, 2018"
+.IP "\(bu" 2
+Code cleanup
+.IP "\(bu" 2
+texconv: Updated with support reading 'Extended BMP' files using DXTn
+.IP "\(bu" 2
+texconv: Updated to handle non-power-of-2 volume textures with mipmaps
+.IP "\(bu" 2
+texassemble, texconv, texdiag: support format name aliases like DXT3, RGBA, BGRA, FP16, etc\&. in addition to truncated \fCDXGI_FORMAT_\fP values
+.PP
+.SS "February 9, 2018"
+.IP "\(bu" 2
+HDR (RGBE Radiance) file format reader updated to support \fC#?RGBE\fP signature
+.IP "\(bu" 2
+texconv: Added \fC-rotatecolor\fP and \fC-nits\fP switches
+.IP "\(bu" 2
+texassemble: Added merge and gif commands
+.IP "\(bu" 2
+texdiag: added dumpdds command
+.PP
+.SS "February 7, 2018"
+.IP "\(bu" 2
+Fixed bug with GPU BC7 encoding (mode 1, fixup 6)
+.IP "\(bu" 2
+Updated for a few more VS 2017 warnings
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "December 13, 2017"
+.IP "\(bu" 2
+Updated for VS 2017 15\&.5 update warnings
+.IP "\(bu" 2
+Support building library with \fC_XM_NO_XMVECTOR_OVERLOADS_\fP
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "November 1, 2017"
+.IP "\(bu" 2
+VS 2017 updated for Windows 10 Fall Creators Update SDK (16299)
+.PP
+.SS "September 22, 2017"
+.IP "\(bu" 2
+Updated for VS 2017 15\&.3 update \fC/permissive-\fP changes
+.IP "\(bu" 2
+WIC writer and ScreenGrab updated to use non-sRGB metadata for PNG
+.IP "\(bu" 2
+texassemble, texconv, texdiag: added \fC-flist\fP option
+.PP
+.SS "July 26, 2017"
+.IP "\(bu" 2
+Support for reading non-standard DDS files written by nVidia \fBTexture\fP Tools (NVTT)
+.IP "\(bu" 2
+Fix for \fBComputeMSE\fP when using \fCCMSE_IMAGE2_X2_BIAS\fP
+.IP "\(bu" 2
+Fix for WIC writer then codec target format requires a palette 
+.br
+
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "April 24, 2017"
+.IP "\(bu" 2
+VS 2017 project updates
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 Creators Update SDK (15063)
+.IP "\(bu" 2
+Updated D3DX12 internal copy to latest version
+.PP
+.SS "April 7, 2017"
+.IP "\(bu" 2
+VS 2017 updated for Windows Creators Update SDK (15063)
+.IP "\(bu" 2
+texassemble: \fC-tonemap\fP switch
+.IP "\(bu" 2
+texconv: \fC-wicmulti\fP switch
+.PP
+.SS "January 31, 2017"
+.IP "\(bu" 2
+DirectX 12 versions of \fBIsSupported\fP, \fBCreateTexture\fP (PrepareUpload), and \fBCaptureTexture\fP
+.IP "\(bu" 2
+Update to DirectX 11 version of \fBIsSupported\fP
+.IP "\(bu" 2
+WIC format 40bppCMYKAlpha should be converted to RGBA8 rather than RGBA16
+.IP "\(bu" 2
+DDS support for L8A8 with bit-count 8 rather than 16
+.IP "\(bu" 2
+\fCDXGI_FORMAT_R32G8X24_TYPELESS\fP and \fCDXGI_FORMAT_R24G8_TYPELESS\fP should be IsDepthStencil formats
+.IP "\(bu" 2
+Updates to DDSTextureLoader, ScreenGrab, and WICTextureLoader
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "December 5, 2016"
+.IP "\(bu" 2
+Fixed over-validation in DDS header parsing
+.IP "\(bu" 2
+VS 2017 RC projects added
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "October 5, 2016"
+.IP "\(bu" 2
+\fIbreaking change\fP Renamed Evaluate to \fBEvaluateImage\fP, \fBTransform\fP to \fBTransformImage\fP
+.IP "\(bu" 2
+texdiag: new command-line tool for texture debugging
+.IP "\(bu" 2
+texconv: \fC-bcmax\fP, \fC-bcquick\fP, \fC-tonemap\fP, and \fC-x2bias\fP switches
+.IP "\(bu" 2
+texconv: overwrite writing and \fC-y\fP switch
+.IP "\(bu" 2
+texconv/texassemble: optional OpenEXR support
+.IP "\(bu" 2
+texassemble: command syntax with support for generating strip and cross images from cubemap
+.IP "\(bu" 2
+Updates to DDSTextureLoader, WICTextureLoader, and ScreenGrab
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "September 14, 2016"
+.IP "\(bu" 2
+\fCHDR (RGBE Radiance)\fP file format reader and writer
+.IP "\(bu" 2
+\fBEvaluate\fP and \fB\fBTransform\fP\fP functions for computing user-defined functions on images
+.IP "\(bu" 2
+Fix BC6H GPU shaders on WARP device
+.IP "\(bu" 2
+Fix for alignment issues on ARM devices in software compression codec
+.IP "\(bu" 2
+Added \fCTEX_THRESHOLD_DEFAULT\fP (0\&.5f) constant default alpha threshold value for Convert & Compress
+.IP "\(bu" 2
+Minor \fBCaptureTexture\fP optimization
+.IP "\(bu" 2
+texconv/texassemble: Support for \&.hdr file format
+.IP "\(bu" 2
+texconv: added \fC-gpu\fP switch to specify adapter to use for GPU-based compression codecs
+.IP "\(bu" 2
+texconv: added \fC-badtails\fP switch to enable loading of legacy DXTn DDS files with incomplete mipchain tails
+.IP "\(bu" 2
+texconv: added \fC-c\fP switch for old-school colorkey/chromakey transparency to alpha conversion
+.IP "\(bu" 2
+texconv: added \fC-alpha\fP switch for reverse premultiply along with \fCTEX_PMALPHA_REVERSE\fP flag
+.IP "\(bu" 2
+texconv: added wildcard support for input filename and optional \fC-r\fP switch for recursive search
+.PP
+.SS "August 4, 2016"
+.IP "\(bu" 2
+\fCCompileShader\fP script updated to build external pdbs
+.IP "\(bu" 2
+Regenerated shaders using Windows 10 Anniversary Update SDK (14393)
+.PP
+.SS "August 2, 2016"
+.IP "\(bu" 2
+Updated for VS 2015 Update 3 and Windows 10 SDK (14393)
+.PP
+.SS "August 1, 2016"
+.IP "\(bu" 2
+Workaround for bug in XMStoreFloat3SE (impacts conversions to \fCDXGI_FORMAT_R9G9B9E5_SHAREDEXP\fP)
+.IP "\(bu" 2
+\fBDDSTextureLoader12\fP, \fBWICTextureLoader12\fP, and \fBScreenGrab12\fP for Direct3D 12 support
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "June 27, 2016"
+.IP "\(bu" 2
+texconv command-line tool \fC-wicq\fP and \fC-wiclossless\fP switches
+.IP "\(bu" 2
+Code cleanup
+.PP
+.SS "April 26, 2016"
+.IP "\(bu" 2
+Optional callback from WIC reader functions to query additional metadata
+.IP "\(bu" 2
+Retired obsolete adapter code
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "February 23, 2016"
+.IP "\(bu" 2
+Fix to clean up partial or zero-length image files on failed write
+.IP "\(bu" 2
+Retired VS 2012 projects
+.PP
+.SS "November 30, 2015"
+.IP "\(bu" 2
+texconv command-line tool \fC-fl\fP switch now supports 12\&.0 and 12\&.1 feature levels
+.IP "\(bu" 2
+Updated for VS 2015 Update 1 and Windows 10 SDK (10586)
+.PP
+.SS "October 30, 2015"
+.IP "\(bu" 2
+DDS support for legacy bumpmap formats (V8U8, Q8W8V8U8, V16U16)
+.IP "\(bu" 2
+Fix for buffer overread in BC CPU compressor
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "August 18, 2015"
+.IP "\(bu" 2
+Added \fBGetWICFactory\fP and \fBSetWICFactory\fP
+.IP "\(bu" 2
+Updates for new DXGI 1\&.3 types
+.IP "\(bu" 2
+Xbox One platform updates
+.PP
+.SS "July 29, 2015"
+.IP "\(bu" 2
+Fixed rounding problem with 32-bit RGBA/BGRA format conversions
+.IP "\(bu" 2
+texconv: use CPU parallel compression for BC1-BC5 (\fC-singleproc\fP disables)
+.IP "\(bu" 2
+Updated for VS 2015 and Windows 10 SDK RTM
+.IP "\(bu" 2
+Retired VS 2010 and Windows 8\&.0 Store projects
+.PP
+.SS "June 18, 2015"
+.IP "\(bu" 2
+New \fCBC_FLAGS_USE_3SUBSETS\fP option for BC7 compressors; now defaults to skipping 3 subset blocks
+.IP "\(bu" 2
+Fixed bug with \fBMakeTypeless\fP and \fCA8_UNORM\fP
+.IP "\(bu" 2
+Fixed file length validation problem in \fBLoadDDSFromFile\fP
+.PP
+.SS "March 27, 2015"
+.IP "\(bu" 2
+Added projects for Windows apps Technical Preview
+.IP "\(bu" 2
+Fixed bug with WIC-based mipmap generation for non-WIC supported formats
+.IP "\(bu" 2
+Fixed bug with WIC multiframe loader when resizing required
+.IP "\(bu" 2
+texconv: Added \fC-nmap\fP/\fC-nmapamp\fP for generating normal maps from height maps
+.IP "\(bu" 2
+texconv/texassemble: Updated to load multiframe WIC files (tiff, gif)
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "November 24, 2014"
+.IP "\(bu" 2
+Updates for Visual Studio 2015 Technical Preview
+.IP "\(bu" 2
+Minor code cleanup
+.PP
+.SS "September 22, 2014"
+.IP "\(bu" 2
+Format conversion improvements and bug fixes (depth/stencil, alpha-only, float16, RGB -> 1 channel)
+.IP "\(bu" 2
+Fixed issue when BC decompressing non-standard compressed rowPitch images
+.IP "\(bu" 2
+Explicit calling-convention annotation for all 'public' functions
+.IP "\(bu" 2
+Code cleanup
+.IP "\(bu" 2
+Xbox One platform updates
+.PP
+.SS "July 15, 2014"
+.IP "\(bu" 2
+texconv command-line tool fixes
+.IP "\(bu" 2
+Fixed problem with 'wide' images with CPU \fBCompress\fP
+.IP "\(bu" 2
+Updates to Xbox One platform support
+.PP
+.SS "April 3, 2014"
+.IP "\(bu" 2
+Windows phone 8\&.1 platform support
+.PP
+.SS "February 24, 2014"
+.IP "\(bu" 2
+Direct3D 11 video and Xbox One extended format support
+.IP "\(bu" 2
+New APIs: \fBIsPlanar\fP, \fBIsPalettized\fP, \fBIsDepthStencil\fP, \fBConvertToSinglePlane\fP
+.IP "\(bu" 2
+Added 'alphaWeight' parameter to GPU \fBCompress\fP \fIbreaking change\fP
+.IP "\(bu" 2
+texconv \fC-aw\fP switch to control the alpha weighting for the BC7 GPU compressor
+.IP "\(bu" 2
+Fixed bug with ordered dithering in non-WIC conversion codepaths
+.IP "\(bu" 2
+Fixed \fBSaveToDDSxxx\fP functions when using arbitrary row pitch values
+.PP
+.SS "January 24, 2014"
+.IP "\(bu" 2
+Added sRGB flags for \fBCompress\fP (\fCTEX_COMPRESS_SRGB*\fP)
+.IP "\(bu" 2
+Added 'compress' flag parameter to GPU versions of \fBCompress\fP \fIbreaking change\fP
+.IP "\(bu" 2
+Minor fix for potential rounding problem in GPU \fBCompress\fP
+.IP "\(bu" 2
+Code cleanup (removed \fCDXGI_1_2_FORMATS\fP control define; \fCScopedObject\fP typedef removed)
+.IP "\(bu" 2
+Dropped VS 2010 support without the Windows 8\&.1 SDK (removed \fCUSE_XNAMATH\fP control define)
+.PP
+.SS "December 24, 2013"
+.IP "\(bu" 2
+texconv updated with \fC-fl\fP and \fC-pow2\fP command-line switches
+.IP "\(bu" 2
+Fixed bug in \fBResize\fP when doing custom filtering which occurred when exactly doubling the image size
+.IP "\(bu" 2
+Added move operators to \fBScratchImage\fP and \fBBlob\fP classes
+.IP "\(bu" 2
+Xbox One platform support
+.PP
+.SS "October 21, 2013"
+.IP "\(bu" 2
+Updated for Visual Studio 2013 and Windows 8\&.1 SDK RTM
+.IP "\(bu" 2
+\fBPremultiplyAlpha\fP updated with new 'flags' parameter and to use sRGB correct blending
+.IP "\(bu" 2
+Fixed colorspace conversion issue with DirectCompute compressor when compressing for BC7 SRGB
+.PP
+.SS "August 13, 2013"
+.IP "\(bu" 2
+DirectCompute 4\&.0 BC6H/BC7 compressor integration
+.IP "\(bu" 2
+texconv utility uses DirectCompute compression by default for BC6H/BC7, \fC-nogpu\fP disables use of DirectCompute
+.PP
+.SS "August 1, 2013"
+.IP "\(bu" 2
+Support for BC compression/decompression of non-power-of-2 mipmapped textures
+.IP "\(bu" 2
+Fixes for BC6H / BC7 codecs to better match published standard
+.IP "\(bu" 2
+Fix for BC4 / BC5 codecs when compressing RGB images
+.IP "\(bu" 2
+Minor fix for the BC1-3 codec
+.IP "\(bu" 2
+New optional flags for \fBComputeMSE\fP to compare UNORM vs\&. SNORM images
+.IP "\(bu" 2
+New WIC loading flag added to control use of WIC metadata to return sRGB vs\&. non-sRGB formats
+.IP "\(bu" 2
+Code cleanup and /analyze fixes
+.IP "\(bu" 2
+Project file cleanup
+.IP "\(bu" 2
+texconv utility uses parallel BC compression by default for BC6H/BC7, \fC-singleproc\fP disables multithreaded behavior
+.PP
+.SS "July 1, 2013"
+.IP "\(bu" 2
+VS 2013 Preview projects added
+.IP "\(bu" 2
+SaveToWIC functions updated with new optional \fCsetCustomProps\fP parameter
+.PP
+.SS "June 15, 2013"
+.IP "\(bu" 2
+Custom filtering implementation for \fBResize\fP & \fBGenerateMipMaps(3D)\fP - Point, \fBBox\fP, Linear, Cubic, and \fBTriangle\fP
+.IP "  \(bu" 4
+\fCTEX_FILTER_TRIANGLE\fP finite low-pass triangle filter
+.IP "  \(bu" 4
+\fCTEX_FILTER_WRAP\fP, \fCTEX_FILTER_MIRROR\fP texture semantics for custom filtering
+.IP "  \(bu" 4
+\fCTEX_FILTER_BOX\fP alias for \fCTEX_FILTER_FANT WIC\fP
+.PP
+
+.IP "\(bu" 2
+Ordered and error diffusion dithering for non-WIC conversion
+.IP "\(bu" 2
+sRGB gamma correct custom filtering and conversion
+.IP "\(bu" 2
+\fCDDS_FLAGS_EXPAND_LUMINANCE\fP - Reader conversion option for L8, L16, and A8L8 legacy DDS files
+.IP "\(bu" 2
+Added use of WIC metadata for sRGB pixel formats
+.IP "\(bu" 2
+Added \fBBitsPerColor\fP utility function
+.IP "\(bu" 2
+Fixed \fBConvert\fP threshold parameter usage
+.IP "\(bu" 2
+Non-power-of-2 volume map support, fixed bug with non-square volume maps
+.IP "\(bu" 2
+texconv utility update with \fC-xlum\fP, \fC-wrap\fP, and \fC-mirror\fP options; reworked \fC-if\fP options for improved dithering
+.IP "\(bu" 2
+texassemble utility for creating cubemaps, volume maps, and texture arrays
+.IP "\(bu" 2
+DDSTextureLoader and WICTextureLoader sync'd with DirectXTK versions
+.PP
+.SS "April 16, 2013"
+.IP "\(bu" 2
+Updated alpha-mode metadata details in \&.DDS files
+.IP "\(bu" 2
+Added new control flags for \fBConvert\fP
+.IP "\(bu" 2
+Added new optional flags for \fBComputeMSE\fP
+.IP "\(bu" 2
+Fixed conversion handling for sRGB formats
+.IP "\(bu" 2
+Fixed internal routines for handling \fCR10G10B10_XR_BIAS_A2_UNORM\fP, \fCR9G9B9E5_SHAREDEXP\fP, and \fCFORMAT_R1_UNORM\fP
+.IP "\(bu" 2
+Fixed WIC I/O for \fCGUID_WICPixelFormat32bppRGBE\fP4 pixel format files (HD Photo)
+.IP "\(bu" 2
+Fixed non-square image handling in \fBGenerateMipMaps3D\fP
+.IP "\(bu" 2
+Fixed some error handling in the DDS load code
+.PP
+.SS "March 22, 2013"
+.IP "\(bu" 2
+Supports reading and writing alpha-mode (straight, premultiplied, etc\&.) metadata in \&.DDS files
+.IP "\(bu" 2
+Added build option to use WICCreateImagingFactory_Proxy instead of \fCCoCreateInstance\fP to obtain WIC factory
+.PP
+.SS "January 29, 2013"
+.IP "\(bu" 2
+Added \fBPremultiplyAlpha\fP to DirectXTex; \fC-pmalpha\fP switch for texconv command-line tool
+.IP "\(bu" 2
+Fixed problem with forceSRGB implementation for Ex versions of CreateTexture, CreateShaderResourceView, DDSTextureLoader and WICTextureLoader
+.PP
+.SS "December 11, 2012"
+.IP "\(bu" 2
+Ex versions of \fBCreateTexture\fP, \fBCreateShaderResourceView\fP, \fBDDSTextureLoader\fP and \fBWICTextureLoader\fP
+.IP "\(bu" 2
+Fixed BC2 and BC3 decompression issue for unusual color encoding case
+.IP "\(bu" 2
+Converted annotation to SAL2 for improved VS 2012 /analyze experience
+.IP "\(bu" 2
+Updated DirectXTex, DDSView, and Texconv with VS 2010 + Windows 8\&.0 SDK project using official 'property sheets'
+.PP
+.SS "November 15, 2012"
+.IP "\(bu" 2
+Added support for WIC2 when available on Windows 8 and Windows 7 with KB 2670838
+.IP "\(bu" 2
+Added optional \fCtargetGUID\fP parameter to SaveWIC* APIs to influence final container pixel format choice
+.IP "\(bu" 2
+Fixed bug in \fBSaveDDSxxx\fP which was generating invalid DDS files for 1D dimension textures
+.IP "\(bu" 2
+Improved robustness of \fBCaptureTexture\fP when resolving MSAA source textures
+.IP "\(bu" 2
+Sync'd DDSTextureLoader, ScreenGrab, and WICTextureLoader standalone versions with latest DirectXTK release
+.PP
+.SS "September 28, 2012"
+.IP "\(bu" 2
+Added \fBScreenGrab\fP module for creating runtime screenshots
+.IP "\(bu" 2
+Renamed project files for better naming consistency
+.IP "\(bu" 2
+New Typeless utilities for DirectXTex
+.IP "\(bu" 2
+Some minor code cleanup for DirectXTex's WIC writer function
+.IP "\(bu" 2
+Bug fixes and new \fC-tu\fP/\fC-tf\fP options for texconv
+.PP
+.SS "June 22, 2012"
+.IP "\(bu" 2
+Moved to using XNA Math 2\&.05 instead of XNA Math 2\&.04 for \fCUSE_XNAMATH\fP builds
+.IP "\(bu" 2
+Fixed BGR vs\&. RGB color channel swizzle problem with 24bpp legacy \&.DDS files in DirectXTex
+.IP "\(bu" 2
+Update to DirectXTex WIC and WICTextureLoader for additional 96bpp float format handling on Windows 8
+.PP
+.SS "May 31, 2012"
+.IP "\(bu" 2
+Minor fix for DDSTextureLoader's retry fallback that can happen with 10level9 feature levels
+.IP "\(bu" 2
+Switched to use \fC_DEBUG\fP instead of \fCDEBUG\fP and cleaned up debug warnings
+.IP "\(bu" 2
+added Windows Store style application project files for DirectXTex
+.PP
+.SS "April 20, 2012"
+.IP "\(bu" 2
+DirectTex's WIC-based writer opts-in for the Windows 8 BMP encoder option for writing 32 bpp RGBA files with the \fCBITMAPV5HEADER\fP
+.PP
+.SS "March 30, 2012"
+.IP "\(bu" 2
+WICTextureLoader updated with Windows 8 WIC pixel formats
+.IP "\(bu" 2
+DirectXTex updated with limited non-power-of-2 texture support and \fCTEX_FILTER_SEPARATE_ALPHA\fP option
+.IP "\(bu" 2
+Texconv updated with \fC-sepalpha\fP command-line option
+.IP "\(bu" 2
+Added \fCUSE_XNAMATH\fP control define to build DirectXTex using either XNAMath or DirectXMath
+.IP "\(bu" 2
+Added VS 2012 project files (which use DirectXMath instead of XNAMath and define \fCDXGI_1_2_FORMATS\fP)
+.PP
+.SS "March 15, 2012"
+.IP "\(bu" 2
+Fix for resource leak in \fBCreateShaderResourceView\fP Direct3D 11 helper function in DirectXTex
+.PP
+.SS "March 5, 2012"
+.IP "\(bu" 2
+Fix for too much temp memory allocated by WICTextureLoader; cleaned up legacy 'min/max' macro usage in DirectXTex
+.PP
+.SS "February 21, 2012"
+.IP "\(bu" 2
+WICTextureLoader updated to handle systems and device drivers without BGRA or 16bpp format support
+.PP
+.SS "February 20, 2012"
+.IP "\(bu" 2
+Some code cleanup for DirectXTex and DDSTextureLoader
+.IP "\(bu" 2
+Fixed bug in 10:10:10:2 format fixup in the \fBLoadDDSFromMemory\fP function
+.IP "\(bu" 2
+Fixed bugs in 'non-zero alpha' special-case handling in \fBLoadTGAFromFile\fP
+.IP "\(bu" 2
+Fixed bug in \fC_SwizzleScanline\fP when copying alpha channel for BGRA<->RGBA swizzling
+.PP
+.SS "February 11, 2012"
+.IP "\(bu" 2
+Update of DDSTextureLoader to also build in Windows Store style apps; added \fBWICTextureLoader\fP
+.IP "\(bu" 2
+Added CMYK WIC pixel formats to the DirectXTex conversion table
+.PP
+.SS "January 30, 2012"
+.IP "\(bu" 2
+Minor code-cleanup for DirectXTex to enable use of PCH through '\fBdirectxtexp\&.h\fP' header
+.PP
+.SS "January 24, 2012"
+.IP "\(bu" 2
+Some code-cleanup for DirectXTex
+.IP "\(bu" 2
+Added DXGI 1\&.2 implementation for DDSTextureLoader and DirectXTex guarded with \fCDXGI_1_2_FORMATS\fP compilation define
+.PP
+.SS "December 16, 2011"
+.IP "\(bu" 2
+Fixed x64 compilation warnings in DDSTextureLoader
+.PP
+.SS "November 30, 2011"
+.IP "\(bu" 2
+Fixed some of the constants used in \fBIsSupportedTexture\fP
+.IP "\(bu" 2
+added ability to strip off top levels of mips in DDSTextureLoader
+.IP "\(bu" 2
+changed DirectXTex to use CoCreateInstance rather than LoadLibrary to obtain the WIC factory
+.IP "\(bu" 2
+a few minor \fC/analyze\fP related annotations for DirectXTex
+.PP
+.SS "October 27, 2011"
+.IP "\(bu" 2
+Original release 
+.PP
+

@@ -1,0 +1,77 @@
+\hypertarget{class_direct_x_1_1_scratch_image}{}\doxysection{DirectX\+::Scratch\+Image Class Reference}
+\label{class_direct_x_1_1_scratch_image}\index{DirectX::ScratchImage@{DirectX::ScratchImage}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a4a79ebdf1f1d1f9f65e92e7301959843}\label{class_direct_x_1_1_scratch_image_a4a79ebdf1f1d1f9f65e92e7301959843}} 
+{\bfseries Scratch\+Image} (\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \&\&move\+From) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_aa2d3ab835d383f95694f18de1512a93c}\label{class_direct_x_1_1_scratch_image_aa2d3ab835d383f95694f18de1512a93c}} 
+\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \&\+\_\+\+\_\+cdecl {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \&\&move\+From) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a04a410bcae23bc68f28f431f2f68bab3}\label{class_direct_x_1_1_scratch_image_a04a410bcae23bc68f28f431f2f68bab3}} 
+{\bfseries Scratch\+Image} (const \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_ab41587b456265729e5759e79d80a9fa5}\label{class_direct_x_1_1_scratch_image_ab41587b456265729e5759e79d80a9fa5}} 
+\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{Scratch\+Image}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_aeeb82e2a25f50a27d4a984e90ac54320}\label{class_direct_x_1_1_scratch_image_aeeb82e2a25f50a27d4a984e90ac54320}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{Tex\+Metadata}} \&mdata, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a0845ed226026d1fd51c0da26d7a1ce5d}\label{class_direct_x_1_1_scratch_image_a0845ed226026d1fd51c0da26d7a1ce5d}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize1D} (\+\_\+\+In\+\_\+ DXGI\+\_\+\+FORMAT fmt, \+\_\+\+In\+\_\+ size\+\_\+t length, \+\_\+\+In\+\_\+ size\+\_\+t array\+Size, \+\_\+\+In\+\_\+ size\+\_\+t mip\+Levels, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a60b069ac20f5e60ece01f377e0ce3d08}\label{class_direct_x_1_1_scratch_image_a60b069ac20f5e60ece01f377e0ce3d08}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize2D} (\+\_\+\+In\+\_\+ DXGI\+\_\+\+FORMAT fmt, \+\_\+\+In\+\_\+ size\+\_\+t width, \+\_\+\+In\+\_\+ size\+\_\+t height, \+\_\+\+In\+\_\+ size\+\_\+t array\+Size, \+\_\+\+In\+\_\+ size\+\_\+t mip\+Levels, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a5797865b36e3da737a71963cb9383643}\label{class_direct_x_1_1_scratch_image_a5797865b36e3da737a71963cb9383643}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize3D} (\+\_\+\+In\+\_\+ DXGI\+\_\+\+FORMAT fmt, \+\_\+\+In\+\_\+ size\+\_\+t width, \+\_\+\+In\+\_\+ size\+\_\+t height, \+\_\+\+In\+\_\+ size\+\_\+t depth, \+\_\+\+In\+\_\+ size\+\_\+t mip\+Levels, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a33b23688980b5e3bc6070dd9a7bfed12}\label{class_direct_x_1_1_scratch_image_a33b23688980b5e3bc6070dd9a7bfed12}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize\+Cube} (\+\_\+\+In\+\_\+ DXGI\+\_\+\+FORMAT fmt, \+\_\+\+In\+\_\+ size\+\_\+t width, \+\_\+\+In\+\_\+ size\+\_\+t height, \+\_\+\+In\+\_\+ size\+\_\+t n\+Cubes, \+\_\+\+In\+\_\+ size\+\_\+t mip\+Levels, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a7a0292fa92bb386151f2627b277414a7}\label{class_direct_x_1_1_scratch_image_a7a0292fa92bb386151f2627b277414a7}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize\+From\+Image} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} \&src\+Image, \+\_\+\+In\+\_\+ bool allow1D=false, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_ae3f8bd3c27bf0c88c4157c334305cfc5}\label{class_direct_x_1_1_scratch_image_ae3f8bd3c27bf0c88c4157c334305cfc5}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize\+Array\+From\+Images} (\+\_\+\+In\+\_\+reads\+\_\+(n\+Images) const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} $\ast$images, \+\_\+\+In\+\_\+ size\+\_\+t n\+Images, \+\_\+\+In\+\_\+ bool allow1D=false, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_aa1f505ecf26d4e5b34c42e849c83ed09}\label{class_direct_x_1_1_scratch_image_aa1f505ecf26d4e5b34c42e849c83ed09}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize\+Cube\+From\+Images} (\+\_\+\+In\+\_\+reads\+\_\+(n\+Images) const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} $\ast$images, \+\_\+\+In\+\_\+ size\+\_\+t n\+Images, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_afdbc3799100e1047dc57063c14670114}\label{class_direct_x_1_1_scratch_image_afdbc3799100e1047dc57063c14670114}} 
+HRESULT \+\_\+\+\_\+cdecl {\bfseries Initialize3\+DFrom\+Images} (\+\_\+\+In\+\_\+reads\+\_\+(depth) const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} $\ast$images, \+\_\+\+In\+\_\+ size\+\_\+t depth, \+\_\+\+In\+\_\+ CP\+\_\+\+FLAGS flags=CP\+\_\+\+FLAGS\+\_\+\+NONE) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a948f8ebb90cdde61d3811293df51e9b4}\label{class_direct_x_1_1_scratch_image_a948f8ebb90cdde61d3811293df51e9b4}} 
+void \+\_\+\+\_\+cdecl {\bfseries Release} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a588b3ff01b97a65b34a81bc987f176a8}\label{class_direct_x_1_1_scratch_image_a588b3ff01b97a65b34a81bc987f176a8}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Override\+Format} (\+\_\+\+In\+\_\+ DXGI\+\_\+\+FORMAT f) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a56710bddcb4fa11eb2541f37b8f8a496}\label{class_direct_x_1_1_scratch_image_a56710bddcb4fa11eb2541f37b8f8a496}} 
+const \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{Tex\+Metadata}} \&\+\_\+\+\_\+cdecl {\bfseries Get\+Metadata} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a472d8b5018784c244f72e9b3eb5df7c8}\label{class_direct_x_1_1_scratch_image_a472d8b5018784c244f72e9b3eb5df7c8}} 
+const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} $\ast$\+\_\+\+\_\+cdecl {\bfseries Get\+Image} (\+\_\+\+In\+\_\+ size\+\_\+t mip, \+\_\+\+In\+\_\+ size\+\_\+t item, \+\_\+\+In\+\_\+ size\+\_\+t slice) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a36cec26f55ba4e8a66778e9f5879979d}\label{class_direct_x_1_1_scratch_image_a36cec26f55ba4e8a66778e9f5879979d}} 
+const \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}} $\ast$\+\_\+\+\_\+cdecl {\bfseries Get\+Images} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_aaa7762b355fe3951235cff46cbbb6d31}\label{class_direct_x_1_1_scratch_image_aaa7762b355fe3951235cff46cbbb6d31}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Image\+Count} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a00a8d328d18e4110c0346343992dca7a}\label{class_direct_x_1_1_scratch_image_a00a8d328d18e4110c0346343992dca7a}} 
+uint8\+\_\+t $\ast$\+\_\+\+\_\+cdecl {\bfseries Get\+Pixels} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_afcaa212d5d939a8b14b26a45b32ac5b2}\label{class_direct_x_1_1_scratch_image_afcaa212d5d939a8b14b26a45b32ac5b2}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Pixels\+Size} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_scratch_image_a1c7cf7b82b0ff564f06b6c49a816b38e}\label{class_direct_x_1_1_scratch_image_a1c7cf7b82b0ff564f06b6c49a816b38e}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+Alpha\+All\+Opaque} () const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+DXTexturing/\+Direct\+XTex/Direct\+XTex.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+DXTexturing/\+Direct\+XTex/Direct\+XTex\+Image.\+cpp\end{DoxyCompactItemize}

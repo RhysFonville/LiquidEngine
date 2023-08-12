@@ -1,0 +1,105 @@
+.TH "DirectX::CommonStates::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::CommonStates::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device) noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBCreateBlendState\fP (D3D11_BLEND srcBlend, D3D11_BLEND destBlend, _Outptr_ ID3D11BlendState **pResult)"
+.br
+.ti -1c
+.RI "HRESULT \fBCreateDepthStencilState\fP (bool enable, bool writeEnable, bool reverseZ, _Outptr_ ID3D11DepthStencilState **pResult)"
+.br
+.ti -1c
+.RI "HRESULT \fBCreateRasterizerState\fP (D3D11_CULL_MODE cullMode, D3D11_FILL_MODE fillMode, _Outptr_ ID3D11RasterizerState **pResult)"
+.br
+.ti -1c
+.RI "HRESULT \fBCreateSamplerState\fP (D3D11_FILTER filter, D3D11_TEXTURE_ADDRESS_MODE addressMode, _Outptr_ ID3D11SamplerState **pResult)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< ID3D11Device > \fBmDevice\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11BlendState > \fBopaque\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11BlendState > \fBalphaBlend\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11BlendState > \fBadditive\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11BlendState > \fBnonPremultiplied\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11DepthStencilState > \fBdepthNone\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11DepthStencilState > \fBdepthDefault\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11DepthStencilState > \fBdepthRead\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11DepthStencilState > \fBdepthReverseZ\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11DepthStencilState > \fBdepthReadReverseZ\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11RasterizerState > \fBcullNone\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11RasterizerState > \fBcullClockwise\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11RasterizerState > \fBcullCounterClockwise\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11RasterizerState > \fBwireframe\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBpointWrap\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBpointClamp\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBlinearWrap\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBlinearClamp\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBanisotropicWrap\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11SamplerState > \fBanisotropicClamp\fP"
+.br
+.ti -1c
+.RI "std::mutex \fBmutex\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBSharedResourcePool\fP< ID3D11Device *, \fBImpl\fP > \fBinstancePool\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

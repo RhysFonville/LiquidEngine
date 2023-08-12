@@ -1,0 +1,50 @@
+.TH "DirectX::IEffectSkinning" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IEffectSkinning
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::SkinnedDGSLEffect\fP, \fBDirectX::SkinnedEffect\fP, \fBDirectX::SkinnedNormalMapEffect\fP, and \fBDirectX::SkinnedPBREffect\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectSkinning\fP (const \fBIEffectSkinning\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectSkinning\fP & \fBoperator=\fP (const \fBIEffectSkinning\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetWeightsPerVertex\fP (int value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetBoneTransforms\fP (_In_reads_(count) XMMATRIX const *value, size_t count)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBResetBoneTransforms\fP ()=0"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxBones\fP = 72"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectSkinning\fP (\fBIEffectSkinning\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectSkinning\fP & \fBoperator=\fP (\fBIEffectSkinning\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

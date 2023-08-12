@@ -1,0 +1,31 @@
+.TH "DirectX::GeometricPrimitive::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GeometricPrimitive::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitialize\fP (_In_ ID3D11DeviceContext *deviceContext, const VertexCollection &vertices, const IndexCollection &indices)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, FXMVECTOR color, _In_opt_ ID3D11ShaderResourceView *texture, bool wireframe, const std::function< void()> &setCustomState) const"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (_In_ \fBIEffect\fP *effect, _In_ ID3D11InputLayout *inputLayout, bool alpha, bool wireframe, const std::function< void()> &setCustomState) const"
+.br
+.ti -1c
+.RI "void \fBDrawInstanced\fP (_In_ \fBIEffect\fP *effect, _In_ ID3D11InputLayout *inputLayout, uint32_t instanceCount, bool alpha, bool wireframe, uint32_t startInstanceLocation, const std::function< void()> &setCustomState) const"
+.br
+.ti -1c
+.RI "void \fBCreateInputLayout\fP (_In_ \fBIEffect\fP *effect, _Outptr_ ID3D11InputLayout **inputLayout) const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

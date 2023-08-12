@@ -1,0 +1,90 @@
+.TH "DirectX::ModelMeshPart" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ModelMeshPart
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBCollection\fP = std::vector< std::unique_ptr< \fBModelMeshPart\fP > >"
+.br
+.ti -1c
+.RI "using \fBInputLayoutCollection\fP = std::vector< D3D11_INPUT_ELEMENT_DESC >"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBModelMeshPart\fP (\fBModelMeshPart\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModelMeshPart\fP & \fBoperator=\fP (\fBModelMeshPart\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModelMeshPart\fP (\fBModelMeshPart\fP const &)=default"
+.br
+.ti -1c
+.RI "\fBModelMeshPart\fP & \fBoperator=\fP (\fBModelMeshPart\fP const &)=default"
+.br
+.ti -1c
+.RI "void __cdecl \fBDraw\fP (_In_ ID3D11DeviceContext *deviceContext, _In_ \fBIEffect\fP *ieffect, _In_ ID3D11InputLayout *iinputLayout, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBDrawInstanced\fP (_In_ ID3D11DeviceContext *deviceContext, _In_ \fBIEffect\fP *ieffect, _In_ ID3D11InputLayout *iinputLayout, uint32_t instanceCount, uint32_t startInstanceLocation=0, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBCreateInputLayout\fP (_In_ ID3D11Device *device, _In_ \fBIEffect\fP *ieffect, _Outptr_ ID3D11InputLayout **iinputLayout) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBModifyEffect\fP (_In_ ID3D11Device *device, _In_ const std::shared_ptr< \fBIEffect\fP > &ieffect, bool isalpha=false)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBindexCount\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBstartIndex\fP"
+.br
+.ti -1c
+.RI "int32_t \fBvertexOffset\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBvertexStride\fP"
+.br
+.ti -1c
+.RI "D3D_PRIMITIVE_TOPOLOGY \fBprimitiveType\fP"
+.br
+.ti -1c
+.RI "DXGI_FORMAT \fBindexFormat\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11InputLayout > \fBinputLayout\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11Buffer > \fBindexBuffer\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11Buffer > \fBvertexBuffer\fP"
+.br
+.ti -1c
+.RI "std::shared_ptr< \fBIEffect\fP > \fBeffect\fP"
+.br
+.ti -1c
+.RI "std::shared_ptr< InputLayoutCollection > \fBvbDecl\fP"
+.br
+.ti -1c
+.RI "bool \fBisAlpha\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

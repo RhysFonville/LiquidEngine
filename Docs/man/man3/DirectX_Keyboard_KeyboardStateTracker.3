@@ -1,0 +1,44 @@
+.TH "DirectX::Keyboard::KeyboardStateTracker" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Keyboard::KeyboardStateTracker
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void __cdecl \fBUpdate\fP (const \fBState\fP &state) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBReset\fP () noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsKeyPressed\fP (Keys key) const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsKeyReleased\fP (Keys key) const noexcept"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetLastState\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBState\fP \fBreleased\fP"
+.br
+.ti -1c
+.RI "\fBState\fP \fBpressed\fP"
+.br
+.ti -1c
+.RI "\fBState\fP \fBlastState\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

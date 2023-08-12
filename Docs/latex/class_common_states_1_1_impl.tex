@@ -1,0 +1,97 @@
+\hypertarget{class_common_states_1_1_impl}{}\doxysection{DirectX\+::Common\+States\+::Impl Class Reference}
+\label{class_common_states_1_1_impl}\index{DirectX::CommonStates::Impl@{DirectX::CommonStates::Impl}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a3061cb6906d51071b70f59e6e4f810a3}\label{class_common_states_1_1_impl_a3061cb6906d51071b70f59e6e4f810a3}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device) noexcept
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a1182ee0ad38e191d37ee474488f819bc}\label{class_common_states_1_1_impl_a1182ee0ad38e191d37ee474488f819bc}} 
+HRESULT {\bfseries Create\+Blend\+State} (D3\+D11\+\_\+\+BLEND src\+Blend, D3\+D11\+\_\+\+BLEND dest\+Blend, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Blend\+State $\ast$$\ast$p\+Result)
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a6080b43e32e7311f4616c951200fc8d1}\label{class_common_states_1_1_impl_a6080b43e32e7311f4616c951200fc8d1}} 
+HRESULT {\bfseries Create\+Depth\+Stencil\+State} (bool enable, bool write\+Enable, bool reverseZ, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Depth\+Stencil\+State $\ast$$\ast$p\+Result)
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_aded8508e9507266c3971783f0ad25f9a}\label{class_common_states_1_1_impl_aded8508e9507266c3971783f0ad25f9a}} 
+HRESULT {\bfseries Create\+Rasterizer\+State} (D3\+D11\+\_\+\+CULL\+\_\+\+MODE cull\+Mode, D3\+D11\+\_\+\+FILL\+\_\+\+MODE fill\+Mode, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Rasterizer\+State $\ast$$\ast$p\+Result)
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a51e0276dc2b4e6d50e8b70bbc1e46500}\label{class_common_states_1_1_impl_a51e0276dc2b4e6d50e8b70bbc1e46500}} 
+HRESULT {\bfseries Create\+Sampler\+State} (D3\+D11\+\_\+\+FILTER filter, D3\+D11\+\_\+\+TEXTURE\+\_\+\+ADDRESS\+\_\+\+MODE address\+Mode, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Sampler\+State $\ast$$\ast$p\+Result)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a1baf6b4ce11f59a6706aed234c5b5107}\label{class_common_states_1_1_impl_a1baf6b4ce11f59a6706aed234c5b5107}} 
+Com\+Ptr$<$ ID3\+D11\+Device $>$ {\bfseries m\+Device}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a9fcad366e02e7c251c7328e1dbecd723}\label{class_common_states_1_1_impl_a9fcad366e02e7c251c7328e1dbecd723}} 
+Com\+Ptr$<$ ID3\+D11\+Blend\+State $>$ {\bfseries opaque}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_abffb3c80ff12940d52f410bab9b7c601}\label{class_common_states_1_1_impl_abffb3c80ff12940d52f410bab9b7c601}} 
+Com\+Ptr$<$ ID3\+D11\+Blend\+State $>$ {\bfseries alpha\+Blend}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a2f41c55357cb697131423b2fd4b8d693}\label{class_common_states_1_1_impl_a2f41c55357cb697131423b2fd4b8d693}} 
+Com\+Ptr$<$ ID3\+D11\+Blend\+State $>$ {\bfseries additive}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_aeb2059680e014bbaa18a0dee550564a1}\label{class_common_states_1_1_impl_aeb2059680e014bbaa18a0dee550564a1}} 
+Com\+Ptr$<$ ID3\+D11\+Blend\+State $>$ {\bfseries non\+Premultiplied}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a1ead89df2f1702854d3889eb63e5a7fb}\label{class_common_states_1_1_impl_a1ead89df2f1702854d3889eb63e5a7fb}} 
+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+State $>$ {\bfseries depth\+None}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_aa5f319b5716b387e6308f9d6c006ff42}\label{class_common_states_1_1_impl_aa5f319b5716b387e6308f9d6c006ff42}} 
+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+State $>$ {\bfseries depth\+Default}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_aa8d96d73f445c212015064ca02df6d3e}\label{class_common_states_1_1_impl_aa8d96d73f445c212015064ca02df6d3e}} 
+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+State $>$ {\bfseries depth\+Read}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a6e51b6b4524f82e34d1ce9df88c2e1a0}\label{class_common_states_1_1_impl_a6e51b6b4524f82e34d1ce9df88c2e1a0}} 
+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+State $>$ {\bfseries depth\+ReverseZ}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a7764ae7f925f7b9d8e02949deb2390da}\label{class_common_states_1_1_impl_a7764ae7f925f7b9d8e02949deb2390da}} 
+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+State $>$ {\bfseries depth\+Read\+ReverseZ}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_af95fd7f3cd98b93bc2a10f984c393e20}\label{class_common_states_1_1_impl_af95fd7f3cd98b93bc2a10f984c393e20}} 
+Com\+Ptr$<$ ID3\+D11\+Rasterizer\+State $>$ {\bfseries cull\+None}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a0833fee691ec2e7d675bdf22aa6afc16}\label{class_common_states_1_1_impl_a0833fee691ec2e7d675bdf22aa6afc16}} 
+Com\+Ptr$<$ ID3\+D11\+Rasterizer\+State $>$ {\bfseries cull\+Clockwise}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a7bde57101926cca863411a6b7723ebfa}\label{class_common_states_1_1_impl_a7bde57101926cca863411a6b7723ebfa}} 
+Com\+Ptr$<$ ID3\+D11\+Rasterizer\+State $>$ {\bfseries cull\+Counter\+Clockwise}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a44522031ff2ae05e0291a051657bdaf8}\label{class_common_states_1_1_impl_a44522031ff2ae05e0291a051657bdaf8}} 
+Com\+Ptr$<$ ID3\+D11\+Rasterizer\+State $>$ {\bfseries wireframe}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a5d0c6c458e6814f36ae0eebbd0f6cfd8}\label{class_common_states_1_1_impl_a5d0c6c458e6814f36ae0eebbd0f6cfd8}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries point\+Wrap}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a844bec6d627f3121e3a6487d44212929}\label{class_common_states_1_1_impl_a844bec6d627f3121e3a6487d44212929}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries point\+Clamp}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a8b4fac058605d115c457e436f734c0e5}\label{class_common_states_1_1_impl_a8b4fac058605d115c457e436f734c0e5}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries linear\+Wrap}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_ab3c2b96395ba74e5759bd7433f9d99e4}\label{class_common_states_1_1_impl_ab3c2b96395ba74e5759bd7433f9d99e4}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries linear\+Clamp}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a1fa38de9c412eade743847ec89a36baf}\label{class_common_states_1_1_impl_a1fa38de9c412eade743847ec89a36baf}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries anisotropic\+Wrap}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a57c00994da65edb046c62b312f15d791}\label{class_common_states_1_1_impl_a57c00994da65edb046c62b312f15d791}} 
+Com\+Ptr$<$ ID3\+D11\+Sampler\+State $>$ {\bfseries anisotropic\+Clamp}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a324a2ceb4eee4c2aeeadbdccc78ecba1}\label{class_common_states_1_1_impl_a324a2ceb4eee4c2aeeadbdccc78ecba1}} 
+std\+::mutex {\bfseries mutex}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_common_states_1_1_impl_a14c9e5d9bf99dee117dafb4527b54019}\label{class_common_states_1_1_impl_a14c9e5d9bf99dee117dafb4527b54019}} 
+static \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{Shared\+Resource\+Pool}}$<$ ID3\+D11\+Device $\ast$, \mbox{\hyperlink{class_common_states_1_1_impl}{Impl}} $>$ {\bfseries instance\+Pool}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Common\+States.\+cpp\end{DoxyCompactItemize}

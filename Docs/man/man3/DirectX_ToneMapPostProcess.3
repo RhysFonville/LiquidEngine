@@ -1,0 +1,108 @@
+.TH "DirectX::ToneMapPostProcess" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ToneMapPostProcess
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IPostProcess\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBOperator\fP : unsigned int { \fBNone\fP, \fBSaturate\fP, \fBReinhard\fP, \fBACESFilmic\fP, \fBOperator_Max\fP }"
+.br
+.ti -1c
+.RI "enum \fBTransferFunction\fP : unsigned int { \fBLinear\fP, \fBSRGB\fP, \fBST2084\fP, \fBTransferFunction_Max\fP }"
+.br
+.ti -1c
+.RI "enum \fBColorPrimaryRotation\fP : unsigned int { \fBHDTV_to_UHDTV\fP, \fBDCI_P3_D65_to_UHDTV\fP, \fBHDTV_to_DCI_P3_D65\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBToneMapPostProcess\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBToneMapPostProcess\fP (\fBToneMapPostProcess\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBToneMapPostProcess\fP & \fBoperator=\fP (\fBToneMapPostProcess\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBToneMapPostProcess\fP (\fBToneMapPostProcess\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBToneMapPostProcess\fP & \fBoperator=\fP (\fBToneMapPostProcess\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBProcess\fP (_In_ ID3D11DeviceContext *deviceContext, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetOperator\fP (Operator op)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetTransferFunction\fP (TransferFunction func)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetHDRSourceTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetColorRotation\fP (ColorPrimaryRotation value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetColorRotation\fP (CXMMATRIX value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetExposure\fP (float exposureValue)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetST2084Parameter\fP (float paperWhiteNits)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IPostProcess\fP
+.in +1c
+.ti -1c
+.RI "\fBIPostProcess\fP (const \fBIPostProcess\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIPostProcess\fP & \fBoperator=\fP (const \fBIPostProcess\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBProcess\fP (_In_ ID3D11DeviceContext *deviceContext, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr)=0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Member Functions inherited from \fBDirectX::IPostProcess\fP
+.in +1c
+.ti -1c
+.RI "\fBIPostProcess\fP (\fBIPostProcess\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIPostProcess\fP & \fBoperator=\fP (\fBIPostProcess\fP &&)=default"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void ToneMapPostProcess::Process (_In_ ID3D11DeviceContext * deviceContext, _In_opt_ std::function< void __cdecl()> setCustomState = \fCnullptr\fP)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IPostProcess\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

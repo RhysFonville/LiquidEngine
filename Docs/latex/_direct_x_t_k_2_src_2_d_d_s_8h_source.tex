@@ -1,0 +1,296 @@
+\hypertarget{_direct_x_t_k_2_src_2_d_d_s_8h_source}{}\doxysection{DDS.\+h}
+\label{_direct_x_t_k_2_src_2_d_d_s_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/DDS.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/DDS.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ DDS.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ This\ header\ defines\ constants\ and\ structures\ that\ are\ useful\ when\ parsing}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ DDS\ files.\ \ DDS\ files\ were\ originally\ designed\ to\ use\ several\ structures}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ and\ constants\ that\ are\ native\ to\ DirectDraw\ and\ are\ defined\ in\ ddraw.h,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ such\ as\ DDSURFACEDESC2\ and\ DDSCAPS2.\ \ This\ file\ defines\ similar}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ (compatible)\ constants\ and\ structures\ so\ that\ one\ can\ use\ DDS\ files}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ without\ needing\ to\ include\ ddraw.h.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#pragma\ pack(push,1)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ DDS\_MAGIC\ =\ 0x20534444;\ \textcolor{comment}{//\ "{}DDS\ "{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ size;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ flags;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ fourCC;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ RGBBitCount;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ RBitMask;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ GBitMask;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ BBitMask;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ ABitMask;}
+\DoxyCodeLine{00040\ \ \ \ \ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ DDS\_FOURCC\ \ \ \ \ \ 0x00000004\ \ }\textcolor{comment}{//\ DDPF\_FOURCC}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ DDS\_RGB\ \ \ \ \ \ \ \ \ 0x00000040\ \ }\textcolor{comment}{//\ DDPF\_RGB}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ DDS\_RGBA\ \ \ \ \ \ \ \ 0x00000041\ \ }\textcolor{comment}{//\ DDPF\_RGB\ |\ DDPF\_ALPHAPIXELS}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ DDS\_LUMINANCE\ \ \ 0x00020000\ \ }\textcolor{comment}{//\ DDPF\_LUMINANCE}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ DDS\_LUMINANCEA\ \ 0x00020001\ \ }\textcolor{comment}{//\ DDPF\_LUMINANCE\ |\ DDPF\_ALPHAPIXELS}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DDS\_ALPHAPIXELS\ 0x00000001\ \ }\textcolor{comment}{//\ DDPF\_ALPHAPIXELS}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ DDS\_ALPHA\ \ \ \ \ \ \ 0x00000002\ \ }\textcolor{comment}{//\ DDPF\_ALPHA}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DDS\_PAL8\ \ \ \ \ \ \ \ 0x00000020\ \ }\textcolor{comment}{//\ DDPF\_PALETTEINDEXED8}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DDS\_PAL8A\ \ \ \ \ \ \ 0x00000021\ \ }\textcolor{comment}{//\ DDPF\_PALETTEINDEXED8\ |\ DDPF\_ALPHAPIXELS}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ DDS\_BUMPDUDV\ \ \ \ 0x00080000\ \ }\textcolor{comment}{//\ DDPF\_BUMPDUDV}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ DDS\_BUMPLUMINANCE\ 0x00040000}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifndef\ MAKEFOURCC}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MAKEFOURCC(ch0,\ ch1,\ ch2,\ ch3)\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch0))\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch1))\ <<\ 8)\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch2))\ <<\ 16)\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch3))\ <<\ 24))}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MAKEFOURCC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifndef\ DDSGLOBALCONST}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#if\ defined(\_\_GNUC\_\_)\ \&\&\ !defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ DDSGLOBALCONST\ extern\ const\ \_\_attribute\_\_((weak))}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ DDSGLOBALCONST\ extern\ const\ \_\_declspec(selectany)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ DDSGLOBALCONST\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_direct_x_1_1_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DXT1\ =}
+\DoxyCodeLine{00071\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'T'},\textcolor{charliteral}{'1'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DXT2\ =}
+\DoxyCodeLine{00074\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'T'},\textcolor{charliteral}{'2'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DXT3\ =}
+\DoxyCodeLine{00077\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'T'},\textcolor{charliteral}{'3'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DXT4\ =}
+\DoxyCodeLine{00080\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'T'},\textcolor{charliteral}{'4'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DXT5\ =}
+\DoxyCodeLine{00083\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'T'},\textcolor{charliteral}{'5'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_BC4\_UNORM\ =}
+\DoxyCodeLine{00086\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'B'},\textcolor{charliteral}{'C'},\textcolor{charliteral}{'4'},\textcolor{charliteral}{'U'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_BC4\_SNORM\ =}
+\DoxyCodeLine{00089\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'B'},\textcolor{charliteral}{'C'},\textcolor{charliteral}{'4'},\textcolor{charliteral}{'S'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_BC5\_UNORM\ =}
+\DoxyCodeLine{00092\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'B'},\textcolor{charliteral}{'C'},\textcolor{charliteral}{'5'},\textcolor{charliteral}{'U'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_BC5\_SNORM\ =}
+\DoxyCodeLine{00095\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'B'},\textcolor{charliteral}{'C'},\textcolor{charliteral}{'5'},\textcolor{charliteral}{'S'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_R8G8\_B8G8\ =}
+\DoxyCodeLine{00098\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'R'},\textcolor{charliteral}{'G'},\textcolor{charliteral}{'B'},\textcolor{charliteral}{'G'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_G8R8\_G8B8\ =}
+\DoxyCodeLine{00101\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'G'},\textcolor{charliteral}{'R'},\textcolor{charliteral}{'G'},\textcolor{charliteral}{'B'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_YUY2\ =}
+\DoxyCodeLine{00104\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'Y'},\textcolor{charliteral}{'U'},\textcolor{charliteral}{'Y'},\textcolor{charliteral}{'2'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_UYVY\ =}
+\DoxyCodeLine{00107\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'U'},\textcolor{charliteral}{'Y'},\textcolor{charliteral}{'V'},\textcolor{charliteral}{'Y'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8R8G8B8\ =}
+\DoxyCodeLine{00110\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 32,\ 0x00ff0000,\ 0x0000ff00,\ 0x000000ff,\ 0xff000000\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_X8R8G8B8\ =}
+\DoxyCodeLine{00113\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ \ 0,\ 32,\ 0x00ff0000,\ 0x0000ff00,\ 0x000000ff,\ 0\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8B8G8R8\ =}
+\DoxyCodeLine{00116\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 32,\ 0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0xff000000\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_X8B8G8R8\ =}
+\DoxyCodeLine{00119\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ \ 0,\ 32,\ 0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_G16R16\ =}
+\DoxyCodeLine{00122\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ \ 0,\ 32,\ 0x0000ffff,\ 0xffff0000,\ 0,\ 0\ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_R5G6B5\ =}
+\DoxyCodeLine{00125\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 16,\ 0xf800,\ 0x07e0,\ 0x001f,\ 0\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A1R5G5B5\ =}
+\DoxyCodeLine{00128\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 16,\ 0x7c00,\ 0x03e0,\ 0x001f,\ 0x8000\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_X1R5G5B5\ =}
+\DoxyCodeLine{00131\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 16,\ 0x7c00,\ 0x03e0,\ 0x001f,\ 0\ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A4R4G4B4\ =}
+\DoxyCodeLine{00134\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 16,\ 0x0f00,\ 0x00f0,\ 0x000f,\ 0xf000\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_X4R4G4B4\ =}
+\DoxyCodeLine{00137\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 16,\ 0x0f00,\ 0x00f0,\ 0x000f,\ 0\ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_R8G8B8\ =}
+\DoxyCodeLine{00140\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 24,\ 0xff0000,\ 0x00ff00,\ 0x0000ff,\ 0\ \};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8R3G3B2\ =}
+\DoxyCodeLine{00143\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 16,\ 0x00e0,\ 0x001c,\ 0x0003,\ 0xff00\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_R3G3B2\ =}
+\DoxyCodeLine{00146\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 8,\ 0xe0,\ 0x1c,\ 0x03,\ 0\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A4L4\ =}
+\DoxyCodeLine{00149\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_LUMINANCEA,\ 0,\ 8,\ 0x0f,\ 0,\ 0,\ 0xf0\ \};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_L8\ =}
+\DoxyCodeLine{00152\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_LUMINANCE,\ 0,\ 8,\ 0xff,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_L16\ =}
+\DoxyCodeLine{00155\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_LUMINANCE,\ 0,\ 16,\ 0xffff,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8L8\ =}
+\DoxyCodeLine{00158\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_LUMINANCEA,\ 0,\ 16,\ 0x00ff,\ 0,\ 0,\ 0xff00\ \};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8L8\_ALT\ =}
+\DoxyCodeLine{00161\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_LUMINANCEA,\ 0,\ 8,\ 0x00ff,\ 0,\ 0,\ 0xff00\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_L8\_NVTT1\ =}
+\DoxyCodeLine{00164\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 8,\ 0xff,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_L16\_NVTT1\ =}
+\DoxyCodeLine{00167\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGB,\ 0,\ 16,\ 0xffff,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8L8\_NVTT1\ =}
+\DoxyCodeLine{00170\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 16,\ 0x00ff,\ 0,\ 0,\ 0xff00\ \};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A8\ =}
+\DoxyCodeLine{00173\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_ALPHA,\ 0,\ 8,\ 0,\ 0,\ 0,\ 0xff\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_V8U8\ =}
+\DoxyCodeLine{00176\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_BUMPDUDV,\ 0,\ 16,\ 0x00ff,\ 0xff00,\ 0,\ 0\ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_Q8W8V8U8\ =}
+\DoxyCodeLine{00179\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_BUMPDUDV,\ 0,\ 32,\ 0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0xff000000\ \};}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_V16U16\ =}
+\DoxyCodeLine{00182\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_BUMPDUDV,\ 0,\ 32,\ 0x0000ffff,\ 0xffff0000,\ 0,\ 0\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ D3DFMT\_A2R10G10B10/D3DFMT\_A2B10G10R10\ should\ be\ written\ using\ DX10\ extension\ to\ avoid\ D3DX\ 10:10:10:2\ reversal\ issue}}
+\DoxyCodeLine{00185\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A2R10G10B10\ =}
+\DoxyCodeLine{00186\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 32,\ 0x000003ff,\ 0x000ffc00,\ 0x3ff00000,\ 0xc0000000\ \};}
+\DoxyCodeLine{00187\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_A2B10G10R10\ =}
+\DoxyCodeLine{00188\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_RGBA,\ 0,\ 32,\ 0x3ff00000,\ 0x000ffc00,\ 0x000003ff,\ 0xc0000000\ \};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{//\ We\ do\ not\ support\ the\ following\ legacy\ Direct3D\ 9\ formats:}}
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ DDSPF\_A2W10V10U10\ =\ \{\ sizeof(DDS\_PIXELFORMAT),\ DDS\_BUMPDUDV,\ 0,\ 32,\ 0x3ff00000,\ 0x000ffc00,\ 0x000003ff,\ 0xc0000000\ \};}}
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ DDSPF\_L6V5U5\ =\ \{\ sizeof(DDS\_PIXELFORMAT),\ DDS\_BUMPLUMINANCE,\ 0,\ 16,\ 0x001f,\ 0x03e0,\ 0xfc00,\ 0\ \};}}
+\DoxyCodeLine{00193\ \textcolor{comment}{//\ DDSPF\_X8L8V8U8\ =\ \{\ sizeof(DDS\_PIXELFORMAT),\ DDS\_BUMPLUMINANCE,\ 0,\ 32,\ 0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0\ \};}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ This\ indicates\ the\ DDS\_HEADER\_DXT10\ extension\ is\ present\ (the\ format\ is\ in\ dxgiFormat)}}
+\DoxyCodeLine{00196\ \ \ \ \ DDSGLOBALCONST\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ DDSPF\_DX10\ =}
+\DoxyCodeLine{00197\ \ \ \ \ \{\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}),\ DDS\_FOURCC,\ MAKEFOURCC(\textcolor{charliteral}{'D'},\textcolor{charliteral}{'X'},\textcolor{charliteral}{'1'},\textcolor{charliteral}{'0'}),\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ DDS\_HEADER\_FLAGS\_TEXTURE\ \ \ \ \ \ \ \ 0x00001007\ \ }\textcolor{comment}{//\ DDSD\_CAPS\ |\ DDSD\_HEIGHT\ |\ DDSD\_WIDTH\ |\ DDSD\_PIXELFORMAT}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ DDS\_HEADER\_FLAGS\_MIPMAP\ \ \ \ \ \ \ \ \ 0x00020000\ \ }\textcolor{comment}{//\ DDSD\_MIPMAPCOUNT}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ DDS\_HEADER\_FLAGS\_VOLUME\ \ \ \ \ \ \ \ \ 0x00800000\ \ }\textcolor{comment}{//\ DDSD\_DEPTH}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ DDS\_HEADER\_FLAGS\_PITCH\ \ \ \ \ \ \ \ \ \ 0x00000008\ \ }\textcolor{comment}{//\ DDSD\_PITCH}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ DDS\_HEADER\_FLAGS\_LINEARSIZE\ \ \ \ \ 0x00080000\ \ }\textcolor{comment}{//\ DDSD\_LINEARSIZE}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ DDS\_HEIGHT\ 0x00000002\ }\textcolor{comment}{//\ DDSD\_HEIGHT}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ DDS\_WIDTH\ \ 0x00000004\ }\textcolor{comment}{//\ DDSD\_WIDTH}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ DDS\_SURFACE\_FLAGS\_TEXTURE\ 0x00001000\ }\textcolor{comment}{//\ DDSCAPS\_TEXTURE}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ DDS\_SURFACE\_FLAGS\_MIPMAP\ \ 0x00400008\ }\textcolor{comment}{//\ DDSCAPS\_COMPLEX\ |\ DDSCAPS\_MIPMAP}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ DDS\_SURFACE\_FLAGS\_CUBEMAP\ 0x00000008\ }\textcolor{comment}{//\ DDSCAPS\_COMPLEX}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_POSITIVEX\ 0x00000600\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_POSITIVEX}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_NEGATIVEX\ 0x00000a00\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_NEGATIVEX}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_POSITIVEY\ 0x00001200\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_POSITIVEY}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_NEGATIVEY\ 0x00002200\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_NEGATIVEY}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_POSITIVEZ\ 0x00004200\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_POSITIVEZ}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_NEGATIVEZ\ 0x00008200\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP\ |\ DDSCAPS2\_CUBEMAP\_NEGATIVEZ}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\_ALLFACES\ (\ DDS\_CUBEMAP\_POSITIVEX\ |\ DDS\_CUBEMAP\_NEGATIVEX\ |\(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DDS\_CUBEMAP\_POSITIVEY\ |\ DDS\_CUBEMAP\_NEGATIVEY\ |\(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DDS\_CUBEMAP\_POSITIVEZ\ |\ DDS\_CUBEMAP\_NEGATIVEZ\ )}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ DDS\_CUBEMAP\ 0x00000200\ }\textcolor{comment}{//\ DDSCAPS2\_CUBEMAP}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ DDS\_FLAGS\_VOLUME\ 0x00200000\ }\textcolor{comment}{//\ DDSCAPS2\_VOLUME}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ Subset\ here\ matches\ D3D10\_RESOURCE\_DIMENSION\ and\ D3D11\_RESOURCE\_DIMENSION}}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_RESOURCE\_DIMENSION\ :\ uint32\_t}
+\DoxyCodeLine{00229\ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ DDS\_DIMENSION\_TEXTURE1D\ =\ 2,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ DDS\_DIMENSION\_TEXTURE2D\ =\ 3,}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ DDS\_DIMENSION\_TEXTURE3D\ =\ 4,}
+\DoxyCodeLine{00233\ \ \ \ \ \};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{//\ Subset\ here\ matches\ D3D10\_RESOURCE\_MISC\_FLAG\ and\ D3D11\_RESOURCE\_MISC\_FLAG}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_RESOURCE\_MISC\_FLAG\ :\ uint32\_t}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ DDS\_RESOURCE\_MISC\_TEXTURECUBE\ =\ 0x4L,}
+\DoxyCodeLine{00239\ \ \ \ \ \};}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_MISC\_FLAGS2\ :\ uint32\_t}
+\DoxyCodeLine{00242\ \ \ \ \ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ DDS\_MISC\_FLAGS2\_ALPHA\_MODE\_MASK\ =\ 0x7L,}
+\DoxyCodeLine{00244\ \ \ \ \ \};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#ifndef\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_ALPHA\_MODE\ :\ uint32\_t}
+\DoxyCodeLine{00249\ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_UNKNOWN\ =\ 0,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_STRAIGHT\ =\ 1,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_PREMULTIPLIED\ =\ 2,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_OPAQUE\ =\ 3,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_CUSTOM\ =\ 4,}
+\DoxyCodeLine{00255\ \ \ \ \ \};}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}}
+\DoxyCodeLine{00259\ \ \ \ \ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ size;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ flags;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ height;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ width;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ pitchOrLinearSize;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ depth;\ \textcolor{comment}{//\ only\ if\ DDS\_HEADER\_FLAGS\_VOLUME\ is\ set\ in\ flags}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ mipMapCount;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ reserved1[11];}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\ ddspf;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ caps;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ caps2;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ caps3;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ caps4;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ reserved2;}
+\DoxyCodeLine{00274\ \ \ \ \ \};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}}}
+\DoxyCodeLine{00277\ \ \ \ \ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \ \ \ \ dxgiFormat;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ resourceDimension;}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ miscFlag;\ \textcolor{comment}{//\ see\ D3D11\_RESOURCE\_MISC\_FLAG}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ arraySize;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ miscFlags2;\ \textcolor{comment}{//\ see\ DDS\_MISC\_FLAGS2}}
+\DoxyCodeLine{00283\ \ \ \ \ \};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})\ ==\ 124,\ \textcolor{stringliteral}{"{}DDS\ Header\ size\ mismatch"{}});}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}})\ ==\ 20,\ \textcolor{stringliteral}{"{}DDS\ DX10\ Extended\ Header\ size\ mismatch"{}});}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \}\ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

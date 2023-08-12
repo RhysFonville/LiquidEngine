@@ -1,0 +1,96 @@
+.TH "DirectX::Model" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Model
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBModel\fP (\fBModel\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModel\fP & \fBoperator=\fP (\fBModel\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModel\fP (\fBModel\fP const &other)"
+.br
+.ti -1c
+.RI "\fBModel\fP & \fBoperator=\fP (\fBModel\fP const &rhs)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (_In_ ID3D11DeviceContext *deviceContext, const \fBCommonStates\fP &states, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (_In_ ID3D11DeviceContext *deviceContext, const \fBCommonStates\fP &states, size_t nbones, _In_reads_(nbones) const XMMATRIX *boneTransforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawSkinned\fP (_In_ ID3D11DeviceContext *deviceContext, const \fBCommonStates\fP &states, size_t nbones, _In_reads_(nbones) const XMMATRIX *boneTransforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBCopyAbsoluteBoneTransformsTo\fP (size_t nbones, _Out_writes_(nbones) XMMATRIX *boneTransforms) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBCopyAbsoluteBoneTransforms\fP (size_t nbones, _In_reads_(nbones) const XMMATRIX *inBoneTransforms, _Out_writes_(nbones) XMMATRIX *outBoneTransforms) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBCopyBoneTransformsFrom\fP (size_t nbones, _In_reads_(nbones) const XMMATRIX *boneTransforms)"
+.br
+.ti -1c
+.RI "void __cdecl \fBCopyBoneTransformsTo\fP (size_t nbones, _Out_writes_(nbones) XMMATRIX *boneTransforms) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBModified\fP () noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBUpdateEffects\fP (_In_ std::function< void __cdecl(\fBIEffect\fP *)> setEffect)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromCMO\fP (_In_ ID3D11Device *device, _In_reads_bytes_(dataSize) const uint8_t *meshData, size_t dataSize, _In_ \fBIEffectFactory\fP &fxFactory, ModelLoaderFlags flags=ModelLoader_CounterClockwise, _Out_opt_ size_t *animsOffset=nullptr)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromCMO\fP (_In_ ID3D11Device *device, _In_z_ const wchar_t *szFileName, _In_ \fBIEffectFactory\fP &fxFactory, ModelLoaderFlags flags=ModelLoader_CounterClockwise, _Out_opt_ size_t *animsOffset=nullptr)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromSDKMESH\fP (_In_ ID3D11Device *device, _In_reads_bytes_(dataSize) const uint8_t *meshData, _In_ size_t dataSize, _In_ \fBIEffectFactory\fP &fxFactory, ModelLoaderFlags flags=ModelLoader_Clockwise)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromSDKMESH\fP (_In_ ID3D11Device *device, _In_z_ const wchar_t *szFileName, _In_ \fBIEffectFactory\fP &fxFactory, ModelLoaderFlags flags=ModelLoader_Clockwise)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromVBO\fP (_In_ ID3D11Device *device, _In_reads_bytes_(dataSize) const uint8_t *meshData, _In_ size_t dataSize, _In_opt_ std::shared_ptr< \fBIEffect\fP > ieffect=nullptr, ModelLoaderFlags flags=ModelLoader_Clockwise)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBModel\fP > __cdecl \fBCreateFromVBO\fP (_In_ ID3D11Device *device, _In_z_ const wchar_t *szFileName, _In_opt_ std::shared_ptr< \fBIEffect\fP > ieffect=nullptr, ModelLoaderFlags flags=ModelLoader_Clockwise)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ModelMesh::Collection \fBmeshes\fP"
+.br
+.ti -1c
+.RI "ModelBone::Collection \fBbones\fP"
+.br
+.ti -1c
+.RI "ModelBone::TransformArray \fBboneMatrices\fP"
+.br
+.ti -1c
+.RI "ModelBone::TransformArray \fBinvBindPoseMatrices\fP"
+.br
+.ti -1c
+.RI "std::wstring \fBname\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

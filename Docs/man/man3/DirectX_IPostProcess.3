@@ -1,0 +1,37 @@
+.TH "DirectX::IPostProcess" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IPostProcess
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::BasicPostProcess\fP, \fBDirectX::DualPostProcess\fP, and \fBDirectX::ToneMapPostProcess\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIPostProcess\fP (const \fBIPostProcess\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIPostProcess\fP & \fBoperator=\fP (const \fBIPostProcess\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBProcess\fP (_In_ ID3D11DeviceContext *deviceContext, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr)=0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIPostProcess\fP (\fBIPostProcess\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIPostProcess\fP & \fBoperator=\fP (\fBIPostProcess\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

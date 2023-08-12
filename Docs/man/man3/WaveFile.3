@@ -1,0 +1,44 @@
+.TH "WaveFile" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WaveFile
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWaveFile\fP (\fBWaveFile\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBWaveFile\fP & \fBoperator=\fP (\fBWaveFile\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBWaveFile\fP (\fBWaveFile\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBWaveFile\fP & \fBoperator=\fP (\fBWaveFile\fP &&)=default"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBDirectX::WAVData\fP \fBdata\fP"
+.br
+.ti -1c
+.RI "size_t \fBconv\fP"
+.br
+.ti -1c
+.RI "MINIWAVEFORMAT \fBminiFmt\fP"
+.br
+.ti -1c
+.RI "std::unique_ptr< uint8_t[]> \fBwaveData\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

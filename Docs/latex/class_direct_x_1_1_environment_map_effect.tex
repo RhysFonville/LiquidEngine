@@ -1,0 +1,407 @@
+\hypertarget{class_direct_x_1_1_environment_map_effect}{}\doxysection{DirectX\+::Environment\+Map\+Effect Class Reference}
+\label{class_direct_x_1_1_environment_map_effect}\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+Inheritance diagram for DirectX\+::Environment\+Map\+Effect\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.421320cm]{class_direct_x_1_1_environment_map_effect}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_environment_map_effect_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a6752ca27ff639268930c941622e0000f}\label{class_direct_x_1_1_environment_map_effect_a6752ca27ff639268930c941622e0000f}} 
+enum {\bfseries Mapping} \{ {\bfseries Mapping\+\_\+\+Cube} = 0
+, {\bfseries Mapping\+\_\+\+Sphere}
+, {\bfseries Mapping\+\_\+\+Dual\+Parabola}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_af65552c5a260bf9a6823a2823250d285}\label{class_direct_x_1_1_environment_map_effect_af65552c5a260bf9a6823a2823250d285}} 
+{\bfseries Environment\+Map\+Effect} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a8220476df57fd0e1879c427c7f92bcd4}\label{class_direct_x_1_1_environment_map_effect_a8220476df57fd0e1879c427c7f92bcd4}} 
+{\bfseries Environment\+Map\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a3f582a2244a0bad5e057ab7ded6443f3}\label{class_direct_x_1_1_environment_map_effect_a3f582a2244a0bad5e057ab7ded6443f3}} 
+\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_ae0cab8d8a2b6d7c93e61abbd0501bbad}\label{class_direct_x_1_1_environment_map_effect_ae0cab8d8a2b6d7c93e61abbd0501bbad}} 
+{\bfseries Environment\+Map\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a821d28b38e8edc0308cfb0582d63110e}\label{class_direct_x_1_1_environment_map_effect_a821d28b38e8edc0308cfb0582d63110e}} 
+\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_environment_map_effect}{Environment\+Map\+Effect}} const \&)=delete
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a0797fe0af36a17709078201cada8310e}{Apply}} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a262c1ab2158e17e47881ae523d38d112}{Get\+Vertex\+Shader\+Bytecode}} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a58de6d82678ca04eb029f3a101930f4f}{Set\+World}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a5d0251066475ad019e0273a9a22fb94a}{Set\+View}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a8eb69eb2bd89d35a2dc01329c046041a}{Set\+Projection}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a22e73117d44590042e2bdab48241de4b}{Set\+Matrices}} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a4c41f0ff123d6ac9b3c1e977d1fc9f28}\label{class_direct_x_1_1_environment_map_effect_a4c41f0ff123d6ac9b3c1e977d1fc9f28}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Diffuse\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_ab7608bdff2f79aba2d2ef4718a88160e}\label{class_direct_x_1_1_environment_map_effect_ab7608bdff2f79aba2d2ef4718a88160e}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Emissive\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a8daf22f55a734ad4333aafaf298d8ed2}\label{class_direct_x_1_1_environment_map_effect_a8daf22f55a734ad4333aafaf298d8ed2}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Alpha} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a1b14c84ba440f344400cdfb7d225147b}\label{class_direct_x_1_1_environment_map_effect_a1b14c84ba440f344400cdfb7d225147b}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Color\+And\+Alpha} (FXMVECTOR value)
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_aac07ca97a03aa0b0ea76c60e3a66abc1}{Set\+Ambient\+Light\+Color}} (FXMVECTOR value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a72bfafdebc1da0c45deacce46b8bcb64}{Set\+Per\+Pixel\+Lighting}} (bool value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_ae62d30797bb09b76887473d2837eb616}{Set\+Light\+Enabled}} (int which\+Light, bool value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a29b7b32d32da01484e02ccb3535473f8}{Set\+Light\+Direction}} (int which\+Light, FXMVECTOR value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a56a6695d681c50a71ca9d645399c74b2}{Set\+Light\+Diffuse\+Color}} (int which\+Light, FXMVECTOR value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_a355cbb70054f9f29690ccb3e02a69e97}{Enable\+Default\+Lighting}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_abaefc297aec9177d0d2977ec99758b77}{Set\+Fog\+Enabled}} (bool value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_ae2536b34594ac3524dd4423dec8de23c}{Set\+Fog\+Start}} (float value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_ad341ea7faaea033932e78b0d343b7cc8}{Set\+Fog\+End}} (float value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_environment_map_effect_aa2287bdf26b281964935a2a8a9918269}{Set\+Fog\+Color}} (FXMVECTOR value) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a3365d1de4aa07ee13b7d31d659f57ea4}\label{class_direct_x_1_1_environment_map_effect_a3365d1de4aa07ee13b7d31d659f57ea4}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Texture} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a8381d4b828c9b267b2c3a8cc8a46adc7}\label{class_direct_x_1_1_environment_map_effect_a8381d4b828c9b267b2c3a8cc8a46adc7}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Environment\+Map} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a62cb98e74b0f9ad0f9760351ed9e580c}\label{class_direct_x_1_1_environment_map_effect_a62cb98e74b0f9ad0f9760351ed9e580c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Mode} (Mapping mapping)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a880719beb426d01c1c22c7b25a1cbca3}\label{class_direct_x_1_1_environment_map_effect_a880719beb426d01c1c22c7b25a1cbca3}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Environment\+Map\+Amount} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a9c01e38f11dd3e63afcc0e68be3e6a4f}\label{class_direct_x_1_1_environment_map_effect_a9c01e38f11dd3e63afcc0e68be3e6a4f}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Environment\+Map\+Specular} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a05bc24909b89640379238cdf10c2a91a}\label{class_direct_x_1_1_environment_map_effect_a05bc24909b89640379238cdf10c2a91a}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Fresnel\+Factor} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a7b267bef8661aa8e9a0a5811905b827a}\label{class_direct_x_1_1_environment_map_effect_a7b267bef8661aa8e9a0a5811905b827a}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Biased\+Vertex\+Normals} (bool value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}\label{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}} 
+{\bfseries IEffect} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}\label{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}\label{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Apply} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}\label{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Get\+Vertex\+Shader\+Bytecode} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}\label{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}} 
+{\bfseries IEffect\+Matrices} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}\label{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}\label{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+World} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}\label{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+View} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}\label{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Projection} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}\label{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Matrices} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a343666cbc435dccd8685692fe5b1bd0a}\label{class_direct_x_1_1_i_effect_lights_a343666cbc435dccd8685692fe5b1bd0a}} 
+{\bfseries IEffect\+Lights} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a36afc3fea028e5de413302e5b33ffc59}\label{class_direct_x_1_1_i_effect_lights_a36afc3fea028e5de413302e5b33ffc59}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_aa0aaa42e0016733d7754fab8f2964c84}\label{class_direct_x_1_1_i_effect_lights_aa0aaa42e0016733d7754fab8f2964c84}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Lighting\+Enabled} (bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_acc9640c80f58a9cf78bc0a179b0d530c}\label{class_direct_x_1_1_i_effect_lights_acc9640c80f58a9cf78bc0a179b0d530c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Per\+Pixel\+Lighting} (bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a78885ee7033d5e354ce2861068e673b7}\label{class_direct_x_1_1_i_effect_lights_a78885ee7033d5e354ce2861068e673b7}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Ambient\+Light\+Color} (FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_af1226d7de50462eaadb51490a7658595}\label{class_direct_x_1_1_i_effect_lights_af1226d7de50462eaadb51490a7658595}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Light\+Enabled} (int which\+Light, bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a436e3e5076e917f1481a46e378dbfc9c}\label{class_direct_x_1_1_i_effect_lights_a436e3e5076e917f1481a46e378dbfc9c}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Direction} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_aa0f69168c5358fd15ccd2cd1dee1eccf}\label{class_direct_x_1_1_i_effect_lights_aa0f69168c5358fd15ccd2cd1dee1eccf}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Diffuse\+Color} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a62ee94ce64d32e6428bfad419b7070b2}\label{class_direct_x_1_1_i_effect_lights_a62ee94ce64d32e6428bfad419b7070b2}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Specular\+Color} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_ad51effb2e427bc4b46992d8786f46d11}\label{class_direct_x_1_1_i_effect_lights_ad51effb2e427bc4b46992d8786f46d11}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Enable\+Default\+Lighting} ()=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_a509269c88e231911ff7b1506081a17de}\label{class_direct_x_1_1_i_effect_fog_a509269c88e231911ff7b1506081a17de}} 
+{\bfseries IEffect\+Fog} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_a3f6e645adfb5630ffda53f5a1ae49577}\label{class_direct_x_1_1_i_effect_fog_a3f6e645adfb5630ffda53f5a1ae49577}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_a4d2be188bb6af55de7d8ea4d54eebb67}\label{class_direct_x_1_1_i_effect_fog_a4d2be188bb6af55de7d8ea4d54eebb67}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Fog\+Enabled} (bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_aa1b4fdd11af67fc05c2da0a6ab2c804d}\label{class_direct_x_1_1_i_effect_fog_aa1b4fdd11af67fc05c2da0a6ab2c804d}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Fog\+Start} (float value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_a2da3413ed2cb15258026eec422aaed0c}\label{class_direct_x_1_1_i_effect_fog_a2da3413ed2cb15258026eec422aaed0c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Fog\+End} (float value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_a9bfebfc5c37aece456cb52732b8573af}\label{class_direct_x_1_1_i_effect_fog_a9bfebfc5c37aece456cb52732b8573af}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Fog\+Color} (FXMVECTOR value)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Static Public Attributes inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_ab154708a880afcb3edc81857735caa75}\label{class_direct_x_1_1_i_effect_lights_ab154708a880afcb3edc81857735caa75}} 
+static constexpr int {\bfseries Max\+Directional\+Lights} = 3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}\label{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}} 
+{\bfseries IEffect} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}\label{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}\label{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}} 
+{\bfseries IEffect\+Matrices} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}\label{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a7db90198c35c1b334b406ce5a6dd58f6}\label{class_direct_x_1_1_i_effect_lights_a7db90198c35c1b334b406ce5a6dd58f6}} 
+{\bfseries IEffect\+Lights} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a3411cc5d9b0a96227f421f0cb46984ac}\label{class_direct_x_1_1_i_effect_lights_a3411cc5d9b0a96227f421f0cb46984ac}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_ab809eccf218803fee2133b0b44bc9c0b}\label{class_direct_x_1_1_i_effect_fog_ab809eccf218803fee2133b0b44bc9c0b}} 
+{\bfseries IEffect\+Fog} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_fog_aa9a422b8317526df195d5015115d2ae1}\label{class_direct_x_1_1_i_effect_fog_aa9a422b8317526df195d5015115d2ae1}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{IEffect\+Fog}} \&\&)=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a0797fe0af36a17709078201cada8310e}\label{class_direct_x_1_1_environment_map_effect_a0797fe0af36a17709078201cada8310e}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!Apply@{Apply}}
+\index{Apply@{Apply}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{Apply()}{Apply()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Apply (\begin{DoxyParamCaption}\item[{\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$}]{device\+Context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a355cbb70054f9f29690ccb3e02a69e97}\label{class_direct_x_1_1_environment_map_effect_a355cbb70054f9f29690ccb3e02a69e97}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!EnableDefaultLighting@{EnableDefaultLighting}}
+\index{EnableDefaultLighting@{EnableDefaultLighting}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{EnableDefaultLighting()}{EnableDefaultLighting()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Enable\+Default\+Lighting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a262c1ab2158e17e47881ae523d38d112}\label{class_direct_x_1_1_environment_map_effect_a262c1ab2158e17e47881ae523d38d112}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!GetVertexShaderBytecode@{GetVertexShaderBytecode}}
+\index{GetVertexShaderBytecode@{GetVertexShaderBytecode}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{GetVertexShaderBytecode()}{GetVertexShaderBytecode()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Get\+Vertex\+Shader\+Bytecode (\begin{DoxyParamCaption}\item[{\+\_\+\+Out\+\_\+ void const $\ast$$\ast$}]{p\+Shader\+Byte\+Code,  }\item[{\+\_\+\+Out\+\_\+ size\+\_\+t $\ast$}]{p\+Byte\+Code\+Length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_aac07ca97a03aa0b0ea76c60e3a66abc1}\label{class_direct_x_1_1_environment_map_effect_aac07ca97a03aa0b0ea76c60e3a66abc1}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetAmbientLightColor@{SetAmbientLightColor}}
+\index{SetAmbientLightColor@{SetAmbientLightColor}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetAmbientLightColor()}{SetAmbientLightColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Ambient\+Light\+Color (\begin{DoxyParamCaption}\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_aa2287bdf26b281964935a2a8a9918269}\label{class_direct_x_1_1_environment_map_effect_aa2287bdf26b281964935a2a8a9918269}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetFogColor@{SetFogColor}}
+\index{SetFogColor@{SetFogColor}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetFogColor()}{SetFogColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Fog\+Color (\begin{DoxyParamCaption}\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_abaefc297aec9177d0d2977ec99758b77}\label{class_direct_x_1_1_environment_map_effect_abaefc297aec9177d0d2977ec99758b77}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetFogEnabled@{SetFogEnabled}}
+\index{SetFogEnabled@{SetFogEnabled}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetFogEnabled()}{SetFogEnabled()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Set\+Fog\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_ad341ea7faaea033932e78b0d343b7cc8}\label{class_direct_x_1_1_environment_map_effect_ad341ea7faaea033932e78b0d343b7cc8}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetFogEnd@{SetFogEnd}}
+\index{SetFogEnd@{SetFogEnd}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetFogEnd()}{SetFogEnd()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Set\+Fog\+End (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_ae2536b34594ac3524dd4423dec8de23c}\label{class_direct_x_1_1_environment_map_effect_ae2536b34594ac3524dd4423dec8de23c}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetFogStart@{SetFogStart}}
+\index{SetFogStart@{SetFogStart}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetFogStart()}{SetFogStart()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Set\+Fog\+Start (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_fog}{Direct\+X\+::\+IEffect\+Fog}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a56a6695d681c50a71ca9d645399c74b2}\label{class_direct_x_1_1_environment_map_effect_a56a6695d681c50a71ca9d645399c74b2}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetLightDiffuseColor@{SetLightDiffuseColor}}
+\index{SetLightDiffuseColor@{SetLightDiffuseColor}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightDiffuseColor()}{SetLightDiffuseColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Light\+Diffuse\+Color (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a29b7b32d32da01484e02ccb3535473f8}\label{class_direct_x_1_1_environment_map_effect_a29b7b32d32da01484e02ccb3535473f8}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetLightDirection@{SetLightDirection}}
+\index{SetLightDirection@{SetLightDirection}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightDirection()}{SetLightDirection()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Light\+Direction (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_ae62d30797bb09b76887473d2837eb616}\label{class_direct_x_1_1_environment_map_effect_ae62d30797bb09b76887473d2837eb616}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetLightEnabled@{SetLightEnabled}}
+\index{SetLightEnabled@{SetLightEnabled}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightEnabled()}{SetLightEnabled()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Set\+Light\+Enabled (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a22e73117d44590042e2bdab48241de4b}\label{class_direct_x_1_1_environment_map_effect_a22e73117d44590042e2bdab48241de4b}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetMatrices@{SetMatrices}}
+\index{SetMatrices@{SetMatrices}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetMatrices()}{SetMatrices()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Matrices (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{world,  }\item[{CXMMATRIX}]{view,  }\item[{CXMMATRIX}]{projection }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a72bfafdebc1da0c45deacce46b8bcb64}\label{class_direct_x_1_1_environment_map_effect_a72bfafdebc1da0c45deacce46b8bcb64}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetPerPixelLighting@{SetPerPixelLighting}}
+\index{SetPerPixelLighting@{SetPerPixelLighting}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetPerPixelLighting()}{SetPerPixelLighting()}}
+{\footnotesize\ttfamily void Environment\+Map\+Effect\+::\+Set\+Per\+Pixel\+Lighting (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a8eb69eb2bd89d35a2dc01329c046041a}\label{class_direct_x_1_1_environment_map_effect_a8eb69eb2bd89d35a2dc01329c046041a}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetProjection@{SetProjection}}
+\index{SetProjection@{SetProjection}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetProjection()}{SetProjection()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+Projection (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a5d0251066475ad019e0273a9a22fb94a}\label{class_direct_x_1_1_environment_map_effect_a5d0251066475ad019e0273a9a22fb94a}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetView@{SetView}}
+\index{SetView@{SetView}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetView()}{SetView()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+View (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_environment_map_effect_a58de6d82678ca04eb029f3a101930f4f}\label{class_direct_x_1_1_environment_map_effect_a58de6d82678ca04eb029f3a101930f4f}} 
+\index{DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}!SetWorld@{SetWorld}}
+\index{SetWorld@{SetWorld}!DirectX::EnvironmentMapEffect@{DirectX::EnvironmentMapEffect}}
+\doxysubsubsection{\texorpdfstring{SetWorld()}{SetWorld()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Environment\+Map\+Effect\+::\+Set\+World (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Effects.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Environment\+Map\+Effect.\+cpp\end{DoxyCompactItemize}

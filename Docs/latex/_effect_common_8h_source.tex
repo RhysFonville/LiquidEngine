@@ -1,0 +1,312 @@
+\hypertarget{_effect_common_8h_source}{}\doxysection{Effect\+Common.\+h}
+\label{_effect_common_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/EffectCommon.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/EffectCommon.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ EffectCommon.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}Effects.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}AlignedNew.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}BufferHelpers.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}DirectXHelpers.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}PlatformHelpers.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}SharedResourcePool.h"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ BasicEffect,\ SkinnedEffect,\ et\ al,\ have\ many\ things\ in\ common,\ but\ also\ significant}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ differences\ (for\ instance,\ not\ all\ the\ effects\ support\ lighting).\ This\ header\ breaks}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ out\ common\ functionality\ into\ a\ set\ of\ helpers\ which\ can\ be\ assembled\ in\ different}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ combinations\ to\ build\ up\ whatever\ subset\ is\ needed\ by\ each\ effect.}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Bitfield\ tracks\ which\ derived\ parameter\ values\ need\ to\ be\ recomputed.}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{namespace\ }EffectDirtyFlags}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ ConstantBuffer\ =\ 0x01;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ WorldViewProj\ =\ 0x02;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ WorldInverseTranspose\ =\ 0x04;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ EyePosition\ =\ 0x08;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaterialColor\ =\ 0x10;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ FogVector\ =\ 0x20;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ FogEnable\ =\ 0x40;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ AlphaTest\ =\ 0x80;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Helper\ stores\ matrix\ parameter\ values,\ and\ computes\ derived\ matrices.}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_effect_matrices}{EffectMatrices}}}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_matrices}{EffectMatrices}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ XMMATRIX\ world;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ XMMATRIX\ view;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ XMMATRIX\ projection;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ XMMATRIX\ worldView;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetConstants(\_Inout\_\ \textcolor{keywordtype}{int}\&\ dirtyFlags,\ \_Inout\_\ XMMATRIX\&\ worldViewProjConstant);}
+\DoxyCodeLine{00055\ \ \ \ \ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ Helper\ stores\ the\ current\ fog\ settings,\ and\ computes\ derived\ shader\ parameters.}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_effect_fog}{EffectFog}}}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_fog}{EffectFog}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ enabled;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ start;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ end;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetConstants(\_Inout\_\ \textcolor{keywordtype}{int}\&\ dirtyFlags,\ \_In\_\ FXMMATRIX\ worldView,\ \_Inout\_\ XMVECTOR\&\ fogVectorConstant);}
+\DoxyCodeLine{00068\ \ \ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ Helper\ stores\ material\ color\ settings,\ and\ computes\ derived\ parameters\ for\ shaders\ that\ do\ not\ support\ realtime\ lighting.}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_effect_color}{EffectColor}}}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_color}{EffectColor}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ XMVECTOR\ diffuseColor;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ alpha;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetConstants(\_Inout\_\ \textcolor{keywordtype}{int}\&\ dirtyFlags,\ \_Inout\_\ XMVECTOR\&\ diffuseColorConstant);}
+\DoxyCodeLine{00080\ \ \ \ \ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Helper\ stores\ the\ current\ light\ settings,\ and\ computes\ derived\ shader\ parameters.}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_effect_lights}{EffectLights}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_direct_x_1_1_effect_color}{EffectColor}}}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_lights}{EffectLights}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MaxDirectionalLights\ =\ IEffectLights::MaxDirectionalLights;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fields.}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ XMVECTOR\ emissiveColor;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ XMVECTOR\ ambientLightColor;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ lightEnabled[MaxDirectionalLights];}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ XMVECTOR\ lightDiffuseColor[MaxDirectionalLights];}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ XMVECTOR\ lightSpecularColor[MaxDirectionalLights];}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Methods.}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ InitializeConstants(\_Out\_\ XMVECTOR\&\ specularColorAndPowerConstant,\ \_Out\_writes\_all\_(MaxDirectionalLights)\ XMVECTOR*\ lightDirectionConstant,\ \_Out\_writes\_all\_(MaxDirectionalLights)\ XMVECTOR*\ lightDiffuseConstant,\ \_Out\_writes\_all\_(MaxDirectionalLights)\ XMVECTOR*\ lightSpecularConstant)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetConstants(\_Inout\_\ \textcolor{keywordtype}{int}\&\ dirtyFlags,\ \_In\_\ \mbox{\hyperlink{struct_direct_x_1_1_effect_matrices}{EffectMatrices}}\ \textcolor{keyword}{const}\&\ matrices,\ \_Inout\_\ XMMATRIX\&\ worldConstant,\ \_Inout\_updates\_(3)\ XMVECTOR\ worldInverseTransposeConstant[3],\ \_Inout\_\ XMVECTOR\&\ eyePositionConstant,\ \_Inout\_\ XMVECTOR\&\ diffuseColorConstant,\ \_Inout\_\ XMVECTOR\&\ emissiveColorConstant,\ \textcolor{keywordtype}{bool}\ lightingEnabled);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ SetLightEnabled(\textcolor{keywordtype}{int}\ whichLight,\ \textcolor{keywordtype}{bool}\ value,\ \_Inout\_updates\_(MaxDirectionalLights)\ XMVECTOR*\ lightDiffuseConstant,\ \_Inout\_updates\_(MaxDirectionalLights)\ XMVECTOR*\ lightSpecularConstant);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ XM\_CALLCONV\ SetLightDiffuseColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value,\ \_Inout\_updates\_(MaxDirectionalLights)\ XMVECTOR*\ lightDiffuseConstant);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ XM\_CALLCONV\ SetLightSpecularColor(\textcolor{keywordtype}{int}\ whichLight,\ FXMVECTOR\ value,\ \_Inout\_updates\_(MaxDirectionalLights)\ XMVECTOR*\ lightSpecularConstant);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ValidateLightIndex(\textcolor{keywordtype}{int}\ whichLight);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ EnableDefaultLighting(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffectLights}}*\ effect);}
+\DoxyCodeLine{00110\ \ \ \ \ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ Points\ to\ a\ precompiled\ vertex\ or\ pixel\ shader\ program.}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}*\ code;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length;}
+\DoxyCodeLine{00118\ \ \ \ \ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ Factory\ for\ lazily\ instantiating\ shaders.\ BasicEffect\ supports\ many\ different}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ shader\ permutations,\ so\ we\ only\ bother\ creating\ the\ ones\ that\ are\ actually\ used.}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_effect_device_resources}{EffectDeviceResources}}}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_device_resources}{EffectDeviceResources}}(\_In\_\ ID3D11Device*\ device)\ noexcept}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ :\ mDevice(device)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ ID3D11VertexShader*\ DemandCreateVertexShader(\_Inout\_\ Microsoft::WRL::ComPtr<ID3D11VertexShader>\&\ vertexShader,\ \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}\ \textcolor{keyword}{const}\&\ bytecode);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ ID3D11PixelShader\ *\ DemandCreatePixelShader(\_Inout\_\ Microsoft::WRL::ComPtr<ID3D11PixelShader>\ \&\ pixelShader,\ \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}\ \textcolor{keyword}{const}\&\ bytecode);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultTexture();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultNormalTexture();}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ D3D\_FEATURE\_LEVEL\ GetDeviceFeatureLevel()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Device>\ mDevice;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ mDefaultTexture;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ mDefaultNormalTexture;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ std::mutex\ mMutex;}
+\DoxyCodeLine{00143\ \ \ \ \ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{comment}{//\ Templated\ base\ class\ provides\ functionality\ common\ to\ all\ the\ built-\/in\ effects.}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Traits>}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_direct_x_1_1_aligned_new}{AlignedNew}}<typename\ Traits::ConstantBufferType>}
+\DoxyCodeLine{00149\ \ \ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructor.}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}(\_In\_\ ID3D11Device*\ device)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ :\ constants\{\},}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ dirtyFlags(INT\_MAX),}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ mConstantBuffer(device),}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ mDeviceResources(deviceResourcesPool.DemandCreate(device))}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ SetDebugObjectName(mConstantBuffer.GetBuffer(),\ \textcolor{stringliteral}{"{}Effect"{}});}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}(\mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}(\mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_effect_base}{EffectBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fields.}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ Traits::ConstantBufferType\ constants;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_matrices}{EffectMatrices}}\ matrices;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_effect_fog}{EffectFog}}\ fog;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ texture;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dirtyFlags;}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ looks\ up\ the\ bytecode\ for\ the\ specified\ vertex\ shader\ permutation.}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Client\ code\ needs\ this\ in\ order\ to\ create\ matching\ input\ layouts.}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ GetVertexShaderBytecode(\textcolor{keywordtype}{int}\ permutation,\ \_Out\_\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{const}**\ pShaderByteCode,\ \_Out\_\ \textcolor{keywordtype}{size\_t}*\ pByteCodeLength)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ assert(pShaderByteCode\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ pByteCodeLength\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ assert(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ shaderIndex\ =\ VertexShaderIndices[permutation];}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ assert(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::VertexShaderCount);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::VertexShaderCount);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}\ \textcolor{keyword}{const}\&\ bytecode\ =\ VertexShaderBytecode[shaderIndex];}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ *pShaderByteCode\ =\ bytecode.code;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ *pByteCodeLength\ =\ bytecode.length;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ sets\ our\ shaders\ and\ constant\ buffers\ onto\ the\ D3D\ device.}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ApplyShaders(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{int}\ permutation)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ shaders.}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vertexShader\ =\ mDeviceResources-\/>GetVertexShader(permutation);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pixelShader\ =\ mDeviceResources-\/>GetPixelShader(permutation);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContext-\/>VSSetShader(vertexShader,\ \textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContext-\/>PSSetShader(pixelShader,\ \textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *grfxMemory;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ mConstantBuffer.SetData(deviceContext,\ constants,\ \&grfxMemory);}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11DeviceContextX>\ deviceContextX;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(deviceContext-\/>QueryInterface(IID\_GRAPHICS\_PPV\_ARGS(deviceContextX.GetAddressOf())));}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ buffer\ =\ mConstantBuffer.GetBuffer();}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContextX-\/>VSSetPlacementConstantBuffer(0,\ buffer,\ grfxMemory);}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContextX-\/>PSSetPlacementConstantBuffer(0,\ buffer,\ grfxMemory);}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ the\ constant\ buffer\ is\ up\ to\ date.}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dirtyFlags\ \&\ EffectDirtyFlags::ConstantBuffer)}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mConstantBuffer.SetData(deviceContext,\ constants);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dirtyFlags\ \&=\ \string~EffectDirtyFlags::ConstantBuffer;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ the\ constant\ buffer.}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11Buffer*\ buffer\ =\ mConstantBuffer.GetBuffer();}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContext-\/>VSSetConstantBuffers(0,\ 1,\ \&buffer);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ deviceContext-\/>PSSetConstantBuffers(0,\ 1,\ \&buffer);}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helpers}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultTexture()\ \{\ \textcolor{keywordflow}{return}\ mDeviceResources-\/>GetDefaultTexture();\ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultNormalTexture()\ \{\ \textcolor{keywordflow}{return}\ mDeviceResources-\/>GetDefaultNormalTexture();\ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ D3D\_FEATURE\_LEVEL\ GetDeviceFeatureLevel()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mDeviceResources-\/>GetDeviceFeatureLevel();\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Static\ arrays\ hold\ all\ the\ precompiled\ shader\ permutations.}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}\ VertexShaderBytecode[Traits::VertexShaderCount];}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{ShaderBytecode}}\ PixelShaderBytecode[Traits::PixelShaderCount];}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ VertexShaderIndices[Traits::ShaderPermutationCount];}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PixelShaderIndices[Traits::ShaderPermutationCount];}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ D3D\ constant\ buffer\ holds\ a\ copy\ of\ the\ same\ data\ as\ the\ public\ 'constants'\ field.}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_constant_buffer}{ConstantBuffer<typename\ Traits::ConstantBufferType>}}\ mConstantBuffer;}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Only\ one\ of\ these\ helpers\ is\ allocated\ per\ D3D\ device,\ even\ if\ there\ are\ multiple\ effect\ instances.}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }DeviceResources\ :\ \textcolor{keyword}{protected}\ \mbox{\hyperlink{class_direct_x_1_1_effect_device_resources}{EffectDeviceResources}}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ DeviceResources(\_In\_\ ID3D11Device*\ device)\ noexcept}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_direct_x_1_1_effect_device_resources}{EffectDeviceResources}}(device),}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mVertexShaders\{\},}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mPixelShaders\{\}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Gets\ or\ lazily\ creates\ the\ specified\ vertex\ shader\ permutation.}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11VertexShader*\ GetVertexShader(\textcolor{keywordtype}{int}\ permutation)}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ shaderIndex\ =\ VertexShaderIndices[permutation];}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::VertexShaderCount);}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::VertexShaderCount);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DemandCreateVertexShader(mVertexShaders[shaderIndex],\ VertexShaderBytecode[shaderIndex]);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Gets\ or\ lazily\ creates\ the\ specified\ pixel\ shader\ permutation.}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11PixelShader*\ GetPixelShader(\textcolor{keywordtype}{int}\ permutation)}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(permutation\ >=\ 0\ \&\&\ permutation\ <\ Traits::ShaderPermutationCount);}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ shaderIndex\ =\ PixelShaderIndices[permutation];}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::PixelShaderCount);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(shaderIndex\ >=\ 0\ \&\&\ shaderIndex\ <\ Traits::PixelShaderCount);}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DemandCreatePixelShader(mPixelShaders[shaderIndex],\ PixelShaderBytecode[shaderIndex]);}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helpers}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultTexture()\ \{\ \textcolor{keywordflow}{return}\ EffectDeviceResources::GetDefaultTexture();\ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ GetDefaultNormalTexture()\ \{\ \textcolor{keywordflow}{return}\ EffectDeviceResources::GetDefaultNormalTexture();\ \}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ D3D\_FEATURE\_LEVEL\ GetDeviceFeatureLevel()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ EffectDeviceResources::GetDeviceFeatureLevel();\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11VertexShader>\ mVertexShaders[Traits::VertexShaderCount];}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11PixelShader>\ mPixelShaders[Traits::PixelShaderCount];}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Per-\/device\ resources.}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ std::shared\_ptr<DeviceResources>\ mDeviceResources;}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool<ID3D11Device*,\ DeviceResources>}}\ deviceResourcesPool;}
+\DoxyCodeLine{00305\ \ \ \ \ \};}
+\DoxyCodeLine{00306\ \}}
+
+\end{DoxyCode}

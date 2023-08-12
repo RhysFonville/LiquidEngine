@@ -1,0 +1,41 @@
+.TH "Transform" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Transform
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTransform\fP (\fBFVector3\fP position, \fBFVector3\fP rotation)"
+.br
+.ti -1c
+.RI "\fBTransform\fP (\fBFVector3\fP position, \fBFVector3\fP rotation, \fBFVector3\fP size)"
+.br
+.ti -1c
+.RI "\fBoperator XMMATRIX\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBTransform\fP &transform) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBFVector3\fP \fBposition\fP = { 0, 0, 0 }"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBrotation\fP = { 0, 0, 0 }"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBsize\fP = { 1, 1, 1 }"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

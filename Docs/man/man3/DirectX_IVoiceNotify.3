@@ -1,0 +1,54 @@
+.TH "DirectX::IVoiceNotify" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IVoiceNotify
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::DynamicSoundEffectInstance::Impl\fP, \fBDirectX::SoundEffect::Impl\fP, \fBDirectX::SoundEffectInstance::Impl\fP, \fBDirectX::SoundStreamInstance::Impl\fP, \fBDirectX::SoundStreamInstance::Impl::BufferNotify\fP, and \fBDirectX::WaveBank::Impl\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIVoiceNotify\fP (const \fBIVoiceNotify\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP & \fBoperator=\fP (const \fBIVoiceNotify\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP (\fBIVoiceNotify\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP & \fBoperator=\fP (\fBIVoiceNotify\fP &&)=default"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnBufferEnd\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnCriticalError\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnReset\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnUpdate\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnDestroyEngine\fP () noexcept=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnTrim\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGatherStatistics\fP (\fBAudioStatistics\fP &stats) const =0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnDestroyParent\fP () noexcept=0"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

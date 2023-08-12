@@ -1,0 +1,1055 @@
+\hypertarget{_loader_helpers_8h_source}{}\doxysection{Loader\+Helpers.\+h}
+\label{_loader_helpers_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/LoaderHelpers.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/LoaderHelpers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ LoaderHelpers.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Helper\ functions\ for\ texture\ loaders\ and\ screen\ grabber}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}DDS.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}DDSTextureLoader.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}PlatformHelpers.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{namespace\ }LoaderHelpers}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Return\ the\ BPP\ for\ a\ particular\ format}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ BitsPerPixel(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (fmt)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32A32\_TYPELESS:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32A32\_FLOAT:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32A32\_UINT:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32A32\_SINT:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 128;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32\_TYPELESS:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32\_FLOAT:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32\_UINT:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32\_SINT:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 96;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_TYPELESS:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_FLOAT:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_UNORM:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_UINT:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_SNORM:}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_SINT:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32\_TYPELESS:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32\_FLOAT:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32\_UINT:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32\_SINT:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G8X24\_TYPELESS:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D32\_FLOAT\_S8X24\_UINT:}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_FLOAT\_X8X24\_TYPELESS:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_X32\_TYPELESS\_G8X24\_UINT:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y416:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y210:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y216:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 64;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10A2\_TYPELESS:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10A2\_UNORM:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10A2\_UINT:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R11G11B10\_FLOAT:}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_TYPELESS:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_UINT:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_SNORM:}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_SINT:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_TYPELESS:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_FLOAT:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_UNORM:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_UINT:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_SNORM:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_SINT:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_TYPELESS:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D32\_FLOAT:}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_FLOAT:}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_UINT:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_SINT:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R24G8\_TYPELESS:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D24\_UNORM\_S8\_UINT:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R24\_UNORM\_X8\_TYPELESS:}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_X24\_TYPELESS\_G8\_UINT:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R9G9B9E5\_SHAREDEXP:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_B8G8\_UNORM:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_G8R8\_G8B8\_UNORM:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10\_XR\_BIAS\_A2\_UNORM:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8A8\_TYPELESS:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM\_SRGB:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8X8\_TYPELESS:}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM\_SRGB:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_AYUV:}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y410:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_YUY2:}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10\_7E3\_A2\_FLOAT:}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10\_6E4\_A2\_FLOAT:}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10\_SNORM\_A2\_UNORM:}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 32;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P010:}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P016:}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN10)}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_V408:}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D16\_UNORM\_S8\_UINT:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_UNORM\_X8\_TYPELESS:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_X16\_TYPELESS\_G8\_UINT:}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 24;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_TYPELESS:}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_UNORM:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_UINT:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_SNORM:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_SINT:}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_TYPELESS:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_FLOAT:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D16\_UNORM:}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_UNORM:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_UINT:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_SNORM:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_SINT:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B5G6R5\_UNORM:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B5G5R5A1\_UNORM:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_A8P8:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B4G4R4A4\_UNORM:}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN10)}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P208:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_V208:}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 16;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_NV12:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_420\_OPAQUE:}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_NV11:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 12;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_TYPELESS:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_UNORM:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_UINT:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_SNORM:}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_SINT:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_A8\_UNORM:}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_TYPELESS:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM:}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM\_SRGB:}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_TYPELESS:}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM\_SRGB:}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_TYPELESS:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_UNORM:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_SNORM:}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_TYPELESS:}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_UF16:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_SF16:}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_TYPELESS:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM:}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM\_SRGB:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_AI44:}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_IA44:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P8:}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R4G4\_UNORM:}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 8;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R1\_UNORM:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_TYPELESS:}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM:}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM\_SRGB:}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_TYPELESS:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_UNORM:}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_SNORM:}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_UNKNOWN:}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_FORCE\_UINT:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ DXGI\_FORMAT\ MakeSRGB(\_In\_\ DXGI\_FORMAT\ format)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (format)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM:}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB;}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC1\_UNORM\_SRGB;}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM:}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC2\_UNORM\_SRGB;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM:}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC3\_UNORM\_SRGB;}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM\_SRGB;}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM\_SRGB;}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM:}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC7\_UNORM\_SRGB;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ format;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsCompressed(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (fmt)}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_TYPELESS:}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM:}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM\_SRGB:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_TYPELESS:}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM:}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM\_SRGB:}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_TYPELESS:}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM:}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM\_SRGB:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_TYPELESS:}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_UNORM:}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_SNORM:}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_TYPELESS:}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_UNORM:}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_SNORM:}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_TYPELESS:}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_UF16:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_SF16:}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_TYPELESS:}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM:}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM\_SRGB:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ DXGI\_FORMAT\ EnsureNotTypeless(DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assumes\ UNORM\ or\ FLOAT;\ doesn't\ use\ UINT\ or\ SINT}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (fmt)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32A32\_TYPELESS:\ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32G32B32A32\_FLOAT;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32B32\_TYPELESS:\ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32G32B32\_FLOAT;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16B16A16\_TYPELESS:\ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16B16A16\_UNORM;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32G32\_TYPELESS:\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32G32\_FLOAT;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R10G10B10A2\_TYPELESS:\ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R10G10B10A2\_UNORM;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8B8A8\_TYPELESS:\ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16G16\_TYPELESS:\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16\_UNORM;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R32\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32\_FLOAT;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_TYPELESS:\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_UNORM;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16\_UNORM;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8\_UNORM;}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC1\_UNORM;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC2\_UNORM;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC3\_UNORM;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC4\_UNORM;}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC5\_UNORM;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8A8\_TYPELESS:\ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM;}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_B8G8R8X8\_TYPELESS:\ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_TYPELESS:\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC7\_UNORM;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fmt;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ HRESULT\ LoadTextureDataFromMemory(}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(ddsDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}**\ header,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t**\ bitData,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}*\ bitSize)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!header\ ||\ !bitData\ ||\ !bitSize)}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_POINTER;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ *bitSize\ =\ 0;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ddsDataSize\ >\ UINT32\_MAX)}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ddsDataSize\ <\ (\textcolor{keyword}{sizeof}(uint32\_t)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})))}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DDS\ files\ always\ start\ with\ the\ same\ magic\ number\ ("{}DDS\ "{})}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dwMagicNumber\ =\ *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint32\_t*\textcolor{keyword}{>}(ddsData);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dwMagicNumber\ !=\ DDS\_MAGIC)}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hdr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}*\textcolor{keyword}{>}(ddsData\ +\ \textcolor{keyword}{sizeof}(uint32\_t));}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Verify\ header\ to\ validate\ DDS\ file}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hdr-\/>size\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})\ ||}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hdr-\/>ddspf.size\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}))}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ DX10\ extension}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ bDXT10Header\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((hdr-\/>ddspf.flags\ \&\ DDS\_FOURCC)\ \&\&}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'1'},\ \textcolor{charliteral}{'0'})\ ==\ hdr-\/>ddspf.fourCC))}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Must\ be\ long\ enough\ for\ both\ headers\ and\ magic\ value}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ddsDataSize\ <\ (\textcolor{keyword}{sizeof}(uint32\_t)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}})))}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bDXT10Header\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ setup\ the\ pointers\ in\ the\ process\ request}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ *header\ =\ hdr;}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ offset\ =\ \textcolor{keyword}{sizeof}(uint32\_t)}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (bDXT10Header\ ?\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}})\ :\ 0u);}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ *bitData\ =\ ddsData\ +\ offset;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ *bitSize\ =\ ddsDataSize\ -\/\ offset;}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ S\_OK;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ HRESULT\ LoadTextureDataFromFile(}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ ddsData,}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}**\ header,}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t**\ bitData,}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}*\ bitSize)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!header\ ||\ !bitData\ ||\ !bitSize)}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_POINTER;}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ *bitSize\ =\ 0;}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ open\ the\ file}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN8)}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ ScopedHandle\ hFile(safe\_handle(CreateFile2(}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fileName,}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GENERIC\_READ,\ FILE\_SHARE\_READ,\ OPEN\_EXISTING,}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr})));}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ ScopedHandle\ hFile(safe\_handle(CreateFileW(}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fileName,}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GENERIC\_READ,\ FILE\_SHARE\_READ,}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OPEN\_EXISTING,\ FILE\_ATTRIBUTE\_NORMAL,}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr})));}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!hFile)}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ HRESULT\_FROM\_WIN32(GetLastError());}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ file\ size}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_STANDARD\_INFO\ fileInfo;}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!GetFileInformationByHandleEx(hFile.get(),\ FileStandardInfo,\ \&fileInfo,\ \textcolor{keyword}{sizeof}(fileInfo)))}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ HRESULT\_FROM\_WIN32(GetLastError());}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ File\ is\ too\ big\ for\ 32-\/bit\ allocation,\ so\ reject\ read}}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fileInfo.EndOfFile.HighPart\ >\ 0)}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ at\ least\ enough\ data\ to\ fill\ the\ header\ and\ magic\ number\ to\ be\ a\ valid\ DDS}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fileInfo.EndOfFile.LowPart\ <\ (\textcolor{keyword}{sizeof}(uint32\_t)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})))}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ enough\ space\ for\ the\ file\ data}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset(\textcolor{keyword}{new}\ (std::nothrow)\ uint8\_t[fileInfo.EndOfFile.LowPart]);}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ddsData)}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_OUTOFMEMORY;}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ read\ the\ data\ in}}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ DWORD\ bytesRead\ =\ 0;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ReadFile(hFile.get(),}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.get(),}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fileInfo.EndOfFile.LowPart,}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&bytesRead,}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ ))}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset();}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ HRESULT\_FROM\_WIN32(GetLastError());}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bytesRead\ <\ fileInfo.EndOfFile.LowPart)}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset();}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DDS\ files\ always\ start\ with\ the\ same\ magic\ number\ ("{}DDS\ "{})}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dwMagicNumber\ =\ *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint32\_t*\textcolor{keyword}{>}(ddsData.get());}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dwMagicNumber\ !=\ DDS\_MAGIC)}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset();}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hdr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}*\textcolor{keyword}{>}(ddsData.get()\ +\ \textcolor{keyword}{sizeof}(uint32\_t));}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Verify\ header\ to\ validate\ DDS\ file}}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hdr-\/>size\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})\ ||}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hdr-\/>ddspf.size\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}))}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset();}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ DX10\ extension}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ bDXT10Header\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((hdr-\/>ddspf.flags\ \&\ DDS\_FOURCC)\ \&\&}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'1'},\ \textcolor{charliteral}{'0'})\ ==\ hdr-\/>ddspf.fourCC))}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Must\ be\ long\ enough\ for\ both\ headers\ and\ magic\ value}}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fileInfo.EndOfFile.LowPart\ <\ (\textcolor{keyword}{sizeof}(uint32\_t)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}})))}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ddsData.reset();}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bDXT10Header\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ setup\ the\ pointers\ in\ the\ process\ request}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ *header\ =\ hdr;}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ offset\ =\ \textcolor{keyword}{sizeof}(uint32\_t)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}})}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (bDXT10Header\ ?\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}})\ :\ 0u);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ *bitData\ =\ ddsData.get()\ +\ offset;}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ *bitSize\ =\ fileInfo.EndOfFile.LowPart\ -\/\ offset;}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ S\_OK;}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ surface\ information\ for\ a\ particular\ format}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ HRESULT\ GetSurfaceInfo(}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ fmt,}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{size\_t}*\ outNumBytes,}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{size\_t}*\ outRowBytes,}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{size\_t}*\ outNumRows)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ numBytes\ =\ 0;}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ rowBytes\ =\ 0;}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ numRows\ =\ 0;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ bc\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ packed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ planar\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bpe\ =\ 0;}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (fmt)}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_TYPELESS:}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM:}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC1\_UNORM\_SRGB:}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_TYPELESS:}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_UNORM:}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC4\_SNORM:}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bc\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 8;}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_TYPELESS:}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM:}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC2\_UNORM\_SRGB:}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_TYPELESS:}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM:}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC3\_UNORM\_SRGB:}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_TYPELESS:}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_UNORM:}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC5\_SNORM:}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_TYPELESS:}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_UF16:}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC6H\_SF16:}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_TYPELESS:}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM:}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_BC7\_UNORM\_SRGB:}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bc\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 16;}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R8G8\_B8G8\_UNORM:}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_G8R8\_G8B8\_UNORM:}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_YUY2:}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ packed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 4;}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y210:}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_Y216:}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ packed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 8;}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_NV12:}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_420\_OPAQUE:}
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN10)}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P208:}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ planar\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 2;}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P010:}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_P016:}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ planar\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 4;}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_D16\_UNORM\_S8\_UINT:}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_R16\_UNORM\_X8\_TYPELESS:}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DXGI\_FORMAT\_X16\_TYPELESS\_G8\_UINT:}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ planar\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bpe\ =\ 4;}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bc)}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ numBlocksWide\ =\ 0;}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (width\ >\ 0)}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBlocksWide\ =\ std::max<uint64\_t>(1u,\ (uint64\_t(width)\ +\ 3u)\ /\ 4u);}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ numBlocksHigh\ =\ 0;}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (height\ >\ 0)}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBlocksHigh\ =\ std::max<uint64\_t>(1u,\ (uint64\_t(height)\ +\ 3u)\ /\ 4u);}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rowBytes\ =\ numBlocksWide\ *\ bpe;}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numRows\ =\ numBlocksHigh;}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBytes\ =\ rowBytes\ *\ numBlocksHigh;}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (packed)}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rowBytes\ =\ ((uint64\_t(width)\ +\ 1u)\ >>\ 1)\ *\ bpe;}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numRows\ =\ uint64\_t(height);}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBytes\ =\ rowBytes\ *\ height;}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (fmt\ ==\ DXGI\_FORMAT\_NV11)}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rowBytes\ =\ ((uint64\_t(width)\ +\ 3u)\ >>\ 2)\ *\ 4u;}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numRows\ =\ uint64\_t(height)\ *\ 2u;\ \textcolor{comment}{//\ Direct3D\ makes\ this\ simplifying\ assumption,\ although\ it\ is\ larger\ than\ the\ 4:1:1\ data}}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBytes\ =\ rowBytes\ *\ numRows;}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (planar)}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rowBytes\ =\ ((uint64\_t(width)\ +\ 1u)\ >>\ 1)\ *\ bpe;}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBytes\ =\ (rowBytes\ *\ uint64\_t(height))\ +\ ((rowBytes\ *\ uint64\_t(height)\ +\ 1u)\ >>\ 1);}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numRows\ =\ height\ +\ ((uint64\_t(height)\ +\ 1u)\ >>\ 1);}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bpp\ =\ BitsPerPixel(fmt);}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!bpp)}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_INVALIDARG;}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rowBytes\ =\ (uint64\_t(width)\ *\ bpp\ +\ 7u)\ /\ 8u;\ \textcolor{comment}{//\ round\ up\ to\ nearest\ byte}}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numRows\ =\ uint64\_t(height);}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numBytes\ =\ rowBytes\ *\ height;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_M\_IX86)\ ||\ defined(\_M\_ARM)\ ||\ defined(\_M\_HYBRID\_X86\_ARM64)}}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(size\_t)\ ==\ 4,\ \textcolor{stringliteral}{"{}Not\ a\ 32-\/bit\ platform!"{}});}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (numBytes\ >\ UINT32\_MAX\ ||\ rowBytes\ >\ UINT32\_MAX\ ||\ numRows\ >\ UINT32\_MAX)}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ HRESULT\_FROM\_WIN32(ERROR\_ARITHMETIC\_OVERFLOW);}
+\DoxyCodeLine{00617\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(size\_t)\ ==\ 8,\ \textcolor{stringliteral}{"{}Not\ a\ 64-\/bit\ platform!"{}});}
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outNumBytes)}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *outNumBytes\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(numBytes);}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outRowBytes)}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *outRowBytes\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(rowBytes);}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outNumRows)}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *outNumRows\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(numRows);}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ S\_OK;}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\ \ \ \ \#define\ ISBITMASK(\ r,g,b,a\ )\ (\ ddpf.RBitMask\ ==\ r\ \&\&\ ddpf.GBitMask\ ==\ g\ \&\&\ ddpf.BBitMask\ ==\ b\ \&\&\ ddpf.ABitMask\ ==\ a\ )}}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ DXGI\_FORMAT\ GetDXGIFormat(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_d_d_s___p_i_x_e_l_f_o_r_m_a_t}{DDS\_PIXELFORMAT}}\&\ ddpf)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ddpf.flags\ \&\ DDS\_RGB)}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ that\ sRGB\ formats\ are\ written\ using\ the\ "{}DX10"{}\ extended\ header}}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ddpf.RGBBitCount)}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 32:}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0xff000000))}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8B8A8\_UNORM;}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff0000,\ 0x0000ff00,\ 0x000000ff,\ 0xff000000))}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8A8\_UNORM;}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff0000,\ 0x0000ff00,\ 0x000000ff,\ 0))}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B8G8R8X8\_UNORM;}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x000000ff,0x0000ff00,0x00ff0000,0)\ aka\ D3DFMT\_X8B8G8R8}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ that\ many\ common\ DDS\ reader/writers\ (including\ D3DX)\ swap\ the}}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ RED/BLUE\ masks\ for\ 10:10:10:2\ formats.\ We\ assume}}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ below\ that\ the\ 'backwards'\ header\ mask\ is\ being\ used\ since\ it\ is\ most}}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ likely\ written\ by\ D3DX.\ The\ more\ robust\ solution\ is\ to\ use\ the\ 'DX10'}}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ header\ extension\ and\ specify\ the\ DXGI\_FORMAT\_R10G10B10A2\_UNORM\ format\ directly}}
+\DoxyCodeLine{00671\ }
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ 'correct'\ writers,\ this\ should\ be\ 0x000003ff,0x000ffc00,0x3ff00000\ for\ RGB\ data}}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x3ff00000,\ 0x000ffc00,\ 0x000003ff,\ 0xc0000000))}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R10G10B10A2\_UNORM;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x000003ff,0x000ffc00,0x3ff00000,0xc0000000)\ aka\ D3DFMT\_A2R10G10B10}}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x0000ffff,\ 0xffff0000,\ 0,\ 0))}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16\_UNORM;}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xffffffff,\ 0,\ 0,\ 0))}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Only\ 32-\/bit\ color\ channel\ format\ in\ D3D9\ was\ R32F}}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32\_FLOAT;\ \textcolor{comment}{//\ D3DX\ writes\ this\ out\ as\ a\ FourCC\ of\ 114}}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 24:}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ 24bpp\ DXGI\ formats\ aka\ D3DFMT\_R8G8B8}}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00695\ }
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x7c00,\ 0x03e0,\ 0x001f,\ 0x8000))}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B5G5R5A1\_UNORM;}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xf800,\ 0x07e0,\ 0x001f,\ 0))}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B5G6R5\_UNORM;}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x7c00,0x03e0,0x001f,0)\ aka\ D3DFMT\_X1R5G5B5}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x0f00,\ 0x00f0,\ 0x000f,\ 0xf000))}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_B4G4R4A4\_UNORM;}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NVTT\ versions\ 1.x\ wrote\ this\ as\ RGB\ instead\ of\ LUMINANCE}}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff,\ 0,\ 0,\ 0xff00))}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_UNORM;}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xffff,\ 0,\ 0,\ 0))}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16\_UNORM;}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x0f00,0x00f0,0x000f,0)\ aka\ D3DFMT\_X4R4G4B4}}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ 3:3:2:8\ or\ paletted\ DXGI\ formats\ aka\ D3DFMT\_A8R3G3B2,\ D3DFMT\_A8P8,\ etc.}}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NVTT\ versions\ 1.x\ wrote\ this\ as\ RGB\ instead\ of\ LUMINANCE}}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xff,\ 0,\ 0,\ 0))}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8\_UNORM;}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ 3:3:2\ or\ paletted\ DXGI\ formats\ aka\ D3DFMT\_R3G3B2,\ D3DFMT\_P8}}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ddpf.flags\ \&\ DDS\_LUMINANCE)}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ddpf.RGBBitCount)}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xffff,\ 0,\ 0,\ 0))}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16\_UNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff,\ 0,\ 0,\ 0xff00))}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_UNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0xff,\ 0,\ 0,\ 0))}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8\_UNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00759\ }
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x0f,0,0,0xf0)\ aka\ D3DFMT\_A4L4}}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff,\ 0,\ 0,\ 0xff00))}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_UNORM;\ \textcolor{comment}{//\ Some\ DDS\ writers\ assume\ the\ bitcount\ should\ be\ 8\ instead\ of\ 16}}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ddpf.flags\ \&\ DDS\_ALPHA)}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (8\ ==\ ddpf.RGBBitCount)}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_A8\_UNORM;}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ddpf.flags\ \&\ DDS\_BUMPDUDV)}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ddpf.RGBBitCount)}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 32:}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x000000ff,\ 0x0000ff00,\ 0x00ff0000,\ 0xff000000))}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8B8A8\_SNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x0000ffff,\ 0xffff0000,\ 0,\ 0))}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16\_SNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ ISBITMASK(0x3ff00000,\ 0x000ffc00,\ 0x000003ff,\ 0xc0000000)\ aka\ D3DFMT\_A2W10V10U10}}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ISBITMASK(0x00ff,\ 0xff00,\ 0,\ 0))}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_SNORM;\ \textcolor{comment}{//\ D3DX10/11\ writes\ this\ out\ as\ DX10\ extension}}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00800\ }
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ DDPF\_BUMPLUMINANCE\ aka\ D3DFMT\_L6V5U5,\ D3DFMT\_X8L8V8U8}}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ddpf.flags\ \&\ DDS\_FOURCC)}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'1'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC1\_UNORM;}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'3'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC2\_UNORM;}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'5'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC3\_UNORM;}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00817\ }
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ While\ pre-\/multiplied\ alpha\ isn't\ directly\ supported\ by\ the\ DXGI\ formats,}}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ they\ are\ basically\ the\ same\ as\ these\ BC\ formats\ so\ they\ can\ be\ mapped}}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'2'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC2\_UNORM;}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'4'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC3\_UNORM;}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'A'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'I'},\ \textcolor{charliteral}{'1'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC4\_UNORM;}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'B'},\ \textcolor{charliteral}{'C'},\ \textcolor{charliteral}{'4'},\ \textcolor{charliteral}{'U'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC4\_UNORM;}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'B'},\ \textcolor{charliteral}{'C'},\ \textcolor{charliteral}{'4'},\ \textcolor{charliteral}{'S'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC4\_SNORM;}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'A'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'I'},\ \textcolor{charliteral}{'2'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC5\_UNORM;}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'B'},\ \textcolor{charliteral}{'C'},\ \textcolor{charliteral}{'5'},\ \textcolor{charliteral}{'U'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC5\_UNORM;}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'B'},\ \textcolor{charliteral}{'C'},\ \textcolor{charliteral}{'5'},\ \textcolor{charliteral}{'S'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_BC5\_SNORM;}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC6H\ and\ BC7\ are\ written\ using\ the\ "{}DX10"{}\ extended\ header}}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'R'},\ \textcolor{charliteral}{'G'},\ \textcolor{charliteral}{'B'},\ \textcolor{charliteral}{'G'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R8G8\_B8G8\_UNORM;}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'G'},\ \textcolor{charliteral}{'R'},\ \textcolor{charliteral}{'G'},\ \textcolor{charliteral}{'B'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_G8R8\_G8B8\_UNORM;}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00865\ }
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'Y'},\ \textcolor{charliteral}{'U'},\ \textcolor{charliteral}{'Y'},\ \textcolor{charliteral}{'2'})\ ==\ ddpf.fourCC)}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_YUY2;}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ D3DFORMAT\ enums\ being\ set\ here}}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ddpf.fourCC)}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 36:\ \textcolor{comment}{//\ D3DFMT\_A16B16G16R16}}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16B16A16\_UNORM;}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 110:\ \textcolor{comment}{//\ D3DFMT\_Q16W16V16U16}}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16B16A16\_SNORM;}
+\DoxyCodeLine{00879\ }
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 111:\ \textcolor{comment}{//\ D3DFMT\_R16F}}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16\_FLOAT;}
+\DoxyCodeLine{00882\ }
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 112:\ \textcolor{comment}{//\ D3DFMT\_G16R16F}}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16\_FLOAT;}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 113:\ \textcolor{comment}{//\ D3DFMT\_A16B16G16R16F}}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R16G16B16A16\_FLOAT;}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 114:\ \textcolor{comment}{//\ D3DFMT\_R32F}}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32\_FLOAT;}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 115:\ \textcolor{comment}{//\ D3DFMT\_G32R32F}}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32G32\_FLOAT;}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 116:\ \textcolor{comment}{//\ D3DFMT\_A32B32G32R32F}}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_R32G32B32A32\_FLOAT;}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ DXGI\ format\ maps\ to\ D3DFMT\_CxV8U8}}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_FORMAT\_UNKNOWN;}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00904\ }
+\DoxyCodeLine{00905\ \textcolor{preprocessor}{\ \ \ \ \#undef\ ISBITMASK}}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ DirectX::DDS\_ALPHA\_MODE\ GetAlphaMode(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}*\ header)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (header-\/>ddspf.flags\ \&\ DDS\_FOURCC)}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'1'},\ \textcolor{charliteral}{'0'})\ ==\ header-\/>ddspf.fourCC)}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d3d10ext\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r___d_x_t10}{DDS\_HEADER\_DXT10}}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint8\_t*\textcolor{keyword}{>}(header)\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_d_s___h_e_a_d_e_r}{DDS\_HEADER}}));}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mode\ =\ \textcolor{keyword}{static\_cast<}DDS\_ALPHA\_MODE\textcolor{keyword}{>}(d3d10ext-\/>miscFlags2\ \&\ DDS\_MISC\_FLAGS2\_ALPHA\_MODE\_MASK);}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (mode)}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DDS\_ALPHA\_MODE\_STRAIGHT:}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DDS\_ALPHA\_MODE\_PREMULTIPLIED:}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DDS\_ALPHA\_MODE\_OPAQUE:}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DDS\_ALPHA\_MODE\_CUSTOM:}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mode;}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DDS\_ALPHA\_MODE\_UNKNOWN:}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'2'})\ ==\ header-\/>ddspf.fourCC)}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (MAKEFOURCC(\textcolor{charliteral}{'D'},\ \textcolor{charliteral}{'X'},\ \textcolor{charliteral}{'T'},\ \textcolor{charliteral}{'4'})\ ==\ header-\/>ddspf.fourCC))}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DDS\_ALPHA\_MODE\_PREMULTIPLIED;}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DDS\_ALPHA\_MODE\_UNKNOWN;}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}(HANDLE\ hFile)\ noexcept\ :\ m\_handle(hFile)\ \{\}}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00947\ }
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{auto\_delete\_file}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00950\ }
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file}{\string~auto\_delete\_file}}()}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_handle)}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_DISPOSITION\_INFO\ info\ =\ \{\};}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ info.DeleteFile\ =\ TRUE;}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ SetFileInformationByHandle(m\_handle,\ FileDispositionInfo,\ \&info,\ \textcolor{keyword}{sizeof}(info));}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \textcolor{keyword}{noexcept}\ \{\ m\_handle\ =\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00962\ }
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ HANDLE\ m\_handle;}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}(Microsoft::WRL::ComPtr<IWICStream>\&\ hFile,\ LPCWSTR\ szFile)\ noexcept\ :\ m\_filename(szFile),\ m\_handle(hFile)\ \{\}}
+\DoxyCodeLine{00971\ }
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{auto\_delete\_file\_wic}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_loader_helpers_1_1auto__delete__file__wic}{\string~auto\_delete\_file\_wic}}()}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_filename)}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_handle.Reset();}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DeleteFileW(m\_filename);}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00986\ }
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \textcolor{keyword}{noexcept}\ \{\ m\_filename\ =\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \ \ \ \ LPCWSTR\ m\_filename;}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<IWICStream>\&\ m\_handle;}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00993\ }
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ CountMips(uint32\_t\ width,\ uint32\_t\ height)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (width\ ==\ 0\ ||\ height\ ==\ 0)}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00998\ }
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ count\ =\ 1;}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (width\ >\ 1\ ||\ height\ >\ 1)}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width\ >>=\ 1;}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ height\ >>=\ 1;}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ count++;}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01008\ }
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FitPowerOf2(UINT\ origx,\ UINT\ origy,\ \_Inout\_\ UINT\&\ targetx,\ \_Inout\_\ UINT\&\ targety,\ \textcolor{keywordtype}{size\_t}\ maxsize)}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ origAR\ =\ float(origx)\ /\ float(origy);}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (origx\ >\ origy)}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ x;}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (x\ =\ maxsize;\ x\ >\ 1;\ x\ >>=\ 1)\ \{\ \textcolor{keywordflow}{if}\ (x\ <=\ targetx)\ \textcolor{keywordflow}{break};\ \}}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetx\ =\ UINT(x);}
+\DoxyCodeLine{01018\ }
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bestScore\ =\ FLT\_MAX;}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ y\ =\ maxsize;\ y\ >\ 0;\ y\ >>=\ 1)}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ score\ =\ fabsf((\textcolor{keywordtype}{float}(x)\ /\ \textcolor{keywordtype}{float}(y))\ -\/\ origAR);}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (score\ <\ bestScore)}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bestScore\ =\ score;}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targety\ =\ UINT(y);}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ y;}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (y\ =\ maxsize;\ y\ >\ 1;\ y\ >>=\ 1)\ \{\ \textcolor{keywordflow}{if}\ (y\ <=\ targety)\ \textcolor{keywordflow}{break};\ \}}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targety\ =\ UINT(y);}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bestScore\ =\ FLT\_MAX;}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ x\ =\ maxsize;\ x\ >\ 0;\ x\ >>=\ 1)}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ score\ =\ fabsf((\textcolor{keywordtype}{float}(x)\ /\ \textcolor{keywordtype}{float}(y))\ -\/\ origAR);}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (score\ <\ bestScore)}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bestScore\ =\ score;}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetx\ =\ UINT(x);}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01048\ \ \ \ \ \}}
+\DoxyCodeLine{01049\ \}}
+
+\end{DoxyCode}

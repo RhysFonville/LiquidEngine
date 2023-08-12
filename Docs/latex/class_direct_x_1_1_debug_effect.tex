@@ -1,0 +1,195 @@
+\hypertarget{class_direct_x_1_1_debug_effect}{}\doxysection{DirectX\+::Debug\+Effect Class Reference}
+\label{class_direct_x_1_1_debug_effect}\index{DirectX::DebugEffect@{DirectX::DebugEffect}}
+Inheritance diagram for DirectX\+::Debug\+Effect\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_direct_x_1_1_debug_effect}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_debug_effect_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a0f129d9513e5fda2f2cb656e58b156e1}\label{class_direct_x_1_1_debug_effect_a0f129d9513e5fda2f2cb656e58b156e1}} 
+enum {\bfseries Mode} \{ {\bfseries Mode\+\_\+\+Default} = 0
+, {\bfseries Mode\+\_\+\+Normals}
+, {\bfseries Mode\+\_\+\+Tangents}
+, {\bfseries Mode\+\_\+\+Bi\+Tangents}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a1f88cd97d203ba220fd44dfd5c1dfd45}\label{class_direct_x_1_1_debug_effect_a1f88cd97d203ba220fd44dfd5c1dfd45}} 
+{\bfseries Debug\+Effect} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_aec214e2b9c9b96025640471d9c538e6b}\label{class_direct_x_1_1_debug_effect_aec214e2b9c9b96025640471d9c538e6b}} 
+{\bfseries Debug\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a479cb629552e3cbafa7b0011277adf6e}\label{class_direct_x_1_1_debug_effect_a479cb629552e3cbafa7b0011277adf6e}} 
+\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_ae78c4e2eff5e18c4e1b7ce17a203a393}\label{class_direct_x_1_1_debug_effect_ae78c4e2eff5e18c4e1b7ce17a203a393}} 
+{\bfseries Debug\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_abb17730a949623b6f6131a1ab7ceb7fd}\label{class_direct_x_1_1_debug_effect_abb17730a949623b6f6131a1ab7ceb7fd}} 
+\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_debug_effect}{Debug\+Effect}} const \&)=delete
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_debug_effect_aa9290d3723694d8cb551dc95408c81fe}{Apply}} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_debug_effect_a0079e6e5c9a9de6f78695f61cc80571a}{Get\+Vertex\+Shader\+Bytecode}} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_debug_effect_ae6b1cc38f747740c2cbcdb1de14b4975}{Set\+World}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_debug_effect_a2047173e21d919b00d82c28911cff15e}{Set\+View}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_debug_effect_a0ada96255e74b0d65dee1c50f66d011c}{Set\+Projection}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_debug_effect_a75a387f991e781d727a8c5f3e131a9d9}{Set\+Matrices}} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_aa25e18707087d52d798bedfee549dad8}\label{class_direct_x_1_1_debug_effect_aa25e18707087d52d798bedfee549dad8}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Mode} (Mode debug\+Mode)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a561569e7a22ce337304c42d3bf3e686b}\label{class_direct_x_1_1_debug_effect_a561569e7a22ce337304c42d3bf3e686b}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Hemispherical\+Ambient\+Color} (FXMVECTOR upper, FXMVECTOR lower)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_ab06f5c6e762e67e96ff44f85e13eec75}\label{class_direct_x_1_1_debug_effect_ab06f5c6e762e67e96ff44f85e13eec75}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Alpha} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a61ba889902fcaf91901ef0ff837c7b70}\label{class_direct_x_1_1_debug_effect_a61ba889902fcaf91901ef0ff837c7b70}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Vertex\+Color\+Enabled} (bool value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a794aa6ab879d07762c1984bb5b44ba92}\label{class_direct_x_1_1_debug_effect_a794aa6ab879d07762c1984bb5b44ba92}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Biased\+Vertex\+Normals} (bool value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a1f8596211b75870283bcc3d0c89360d4}\label{class_direct_x_1_1_debug_effect_a1f8596211b75870283bcc3d0c89360d4}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Instancing\+Enabled} (bool value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}\label{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}} 
+{\bfseries IEffect} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}\label{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}\label{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Apply} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}\label{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Get\+Vertex\+Shader\+Bytecode} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}\label{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}} 
+{\bfseries IEffect\+Matrices} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}\label{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}\label{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+World} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}\label{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+View} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}\label{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Projection} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}\label{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Matrices} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}\label{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}} 
+{\bfseries IEffect} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}\label{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}\label{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}} 
+{\bfseries IEffect\+Matrices} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}\label{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_aa9290d3723694d8cb551dc95408c81fe}\label{class_direct_x_1_1_debug_effect_aa9290d3723694d8cb551dc95408c81fe}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!Apply@{Apply}}
+\index{Apply@{Apply}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{Apply()}{Apply()}}
+{\footnotesize\ttfamily void Debug\+Effect\+::\+Apply (\begin{DoxyParamCaption}\item[{\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$}]{device\+Context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a0079e6e5c9a9de6f78695f61cc80571a}\label{class_direct_x_1_1_debug_effect_a0079e6e5c9a9de6f78695f61cc80571a}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!GetVertexShaderBytecode@{GetVertexShaderBytecode}}
+\index{GetVertexShaderBytecode@{GetVertexShaderBytecode}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{GetVertexShaderBytecode()}{GetVertexShaderBytecode()}}
+{\footnotesize\ttfamily void Debug\+Effect\+::\+Get\+Vertex\+Shader\+Bytecode (\begin{DoxyParamCaption}\item[{\+\_\+\+Out\+\_\+ void const $\ast$$\ast$}]{p\+Shader\+Byte\+Code,  }\item[{\+\_\+\+Out\+\_\+ size\+\_\+t $\ast$}]{p\+Byte\+Code\+Length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a75a387f991e781d727a8c5f3e131a9d9}\label{class_direct_x_1_1_debug_effect_a75a387f991e781d727a8c5f3e131a9d9}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!SetMatrices@{SetMatrices}}
+\index{SetMatrices@{SetMatrices}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{SetMatrices()}{SetMatrices()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Debug\+Effect\+::\+Set\+Matrices (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{world,  }\item[{CXMMATRIX}]{view,  }\item[{CXMMATRIX}]{projection }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a0ada96255e74b0d65dee1c50f66d011c}\label{class_direct_x_1_1_debug_effect_a0ada96255e74b0d65dee1c50f66d011c}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!SetProjection@{SetProjection}}
+\index{SetProjection@{SetProjection}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{SetProjection()}{SetProjection()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Debug\+Effect\+::\+Set\+Projection (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_a2047173e21d919b00d82c28911cff15e}\label{class_direct_x_1_1_debug_effect_a2047173e21d919b00d82c28911cff15e}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!SetView@{SetView}}
+\index{SetView@{SetView}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{SetView()}{SetView()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Debug\+Effect\+::\+Set\+View (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_debug_effect_ae6b1cc38f747740c2cbcdb1de14b4975}\label{class_direct_x_1_1_debug_effect_ae6b1cc38f747740c2cbcdb1de14b4975}} 
+\index{DirectX::DebugEffect@{DirectX::DebugEffect}!SetWorld@{SetWorld}}
+\index{SetWorld@{SetWorld}!DirectX::DebugEffect@{DirectX::DebugEffect}}
+\doxysubsubsection{\texorpdfstring{SetWorld()}{SetWorld()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV Debug\+Effect\+::\+Set\+World (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Effects.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Debug\+Effect.\+cpp\end{DoxyCompactItemize}

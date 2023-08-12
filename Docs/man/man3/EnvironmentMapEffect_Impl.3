@@ -1,0 +1,139 @@
+.TH "DirectX::EnvironmentMapEffect::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::EnvironmentMapEffect::Impl
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::EffectBase< EnvironmentMapEffectTraits >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "int \fBGetCurrentShaderPermutation\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::EffectBase< EnvironmentMapEffectTraits >\fP
+.in +1c
+.ti -1c
+.RI "\fBEffectBase\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBEffectBase\fP (\fBEffectBase\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBEffectBase\fP (\fBEffectBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBEffectBase\fP & \fBoperator=\fP (\fBEffectBase\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBEffectBase\fP & \fBoperator=\fP (\fBEffectBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBGetVertexShaderBytecode\fP (int permutation, _Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) noexcept"
+.br
+.ti -1c
+.RI "void \fBApplyShaders\fP (_In_ ID3D11DeviceContext *deviceContext, int permutation)"
+.br
+.ti -1c
+.RI "ID3D11ShaderResourceView * \fBGetDefaultTexture\fP ()"
+.br
+.ti -1c
+.RI "ID3D11ShaderResourceView * \fBGetDefaultNormalTexture\fP ()"
+.br
+.ti -1c
+.RI "D3D_FEATURE_LEVEL \fBGetDeviceFeatureLevel\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBpreferPerPixelLighting\fP"
+.br
+.ti -1c
+.RI "bool \fBfresnelEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBspecularEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBbiasedVertexNormals\fP"
+.br
+.ti -1c
+.RI "EnvironmentMapEffect::Mapping \fBmapping\fP"
+.br
+.ti -1c
+.RI "\fBEffectLights\fP \fBlights\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBenvironmentMap\fP"
+.br
+.in -1c
+
+Public Attributes inherited from \fBDirectX::EffectBase< EnvironmentMapEffectTraits >\fP
+.in +1c
+.ti -1c
+.RI "Traits::ConstantBufferType \fBconstants\fP"
+.br
+.ti -1c
+.RI "\fBEffectMatrices\fP \fBmatrices\fP"
+.br
+.ti -1c
+.RI "\fBEffectFog\fP \fBfog\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11ShaderResourceView > \fBtexture\fP"
+.br
+.ti -1c
+.RI "int \fBdirtyFlags\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Member Functions inherited from \fBDirectX::AlignedNew< Traits::ConstantBufferType >\fP
+.in +1c
+.ti -1c
+.RI "static void * \fBoperator new\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete\fP (void *ptr)"
+.br
+.ti -1c
+.RI "static void * \fBoperator new[]\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete[]\fP (void *ptr)"
+.br
+.in -1c
+
+Static Protected Attributes inherited from \fBDirectX::EffectBase< EnvironmentMapEffectTraits >\fP
+.in +1c
+.ti -1c
+.RI "static const \fBShaderBytecode\fP \fBVertexShaderBytecode\fP [Traits::VertexShaderCount]"
+.br
+.ti -1c
+.RI "static const \fBShaderBytecode\fP \fBPixelShaderBytecode\fP [Traits::PixelShaderCount]"
+.br
+.ti -1c
+.RI "static const int \fBVertexShaderIndices\fP [Traits::ShaderPermutationCount]"
+.br
+.ti -1c
+.RI "static const int \fBPixelShaderIndices\fP [Traits::ShaderPermutationCount]"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

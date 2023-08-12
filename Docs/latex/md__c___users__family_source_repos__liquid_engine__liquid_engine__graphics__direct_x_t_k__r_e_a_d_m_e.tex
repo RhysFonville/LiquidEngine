@@ -1,0 +1,96 @@
+\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md92}{}\doxysection{Direct\+X Tool Kit for Direct\+X 11}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md92}
+\href{http://go.microsoft.com/fwlink/?LinkId=248929}{\texttt{ http\+://go.\+microsoft.\+com/fwlink/?\+Link\+Id=248929}}
+
+Copyright (c) Microsoft Corporation.
+
+{\bfseries{June 15, 2022}}
+
+This package contains the \char`\"{}\+Direct\+X Tool Kit\char`\"{}, a collection of helper classes for writing Direct3D 11 C++ code for Universal Windows Platform (UWP) apps for Windows 11, Windows 10, Xbox One, and Win32 desktop applications for Windows 7 Service Pack 1 or later.
+
+This code is designed to build with Visual Studio 2019 (16.\+9 or later), Visual Studio 2022, or clang for Windows v11 or later. Use of the Windows 10 May 2020 Update SDK (\href{https://walbourn.github.io/windows-10-may-2020-update-sdk/}{\texttt{ 19041}}) or later is required.
+
+These components are designed to work without requiring any content from the legacy DirectX SDK. For details, see \href{https://aka.ms/dxsdk}{\texttt{ Where is the DirectX SDK?}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md93}{}\doxysubsection{Directory Layout}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md93}
+
+\begin{DoxyItemize}
+\item {\ttfamily Inc\textbackslash{}}
+\begin{DoxyItemize}
+\item Public Header Files (in the DirectX C++ namespace)\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_audio_8h_source}{Audio.\+h}} -\/ low-\/level audio API using XAudio2 (Direct\+XTK for Audio public header)
+\item \mbox{\hyperlink{_buffer_helpers_8h_source}{Buffer\+Helpers.\+h}} -\/ C++ helpers for creating D3D resources from CPU data
+\item \mbox{\hyperlink{_common_states_8h_source}{Common\+States.\+h}} -\/ factory providing commonly used D3D state objects
+\item \mbox{\hyperlink{_d_d_s_texture_loader_8h_source}{DDSTexture\+Loader.\+h}} -\/ light-\/weight DDS file texture loader
+\item \mbox{\hyperlink{_direct_x_helpers_8h_source}{Direct\+XHelpers.\+h}} -\/ misc C++ helpers for D3D programming
+\item \mbox{\hyperlink{_effects_8h_source}{Effects.\+h}} -\/ set of built-\/in shaders for common rendering tasks
+\item \mbox{\hyperlink{_game_pad_8h_source}{Game\+Pad.\+h}} -\/ gamepad controller helper using XInput, Windows.\+Gaming.\+Input, or Game\+Input
+\item \mbox{\hyperlink{_geometric_primitive_8h_source}{Geometric\+Primitive.\+h}} -\/ draws basic shapes such as cubes and spheres
+\item \mbox{\hyperlink{_graphics_memory_8h_source}{Graphics\+Memory.\+h}} -\/ helper for managing dynamic graphics memory allocation
+\item \mbox{\hyperlink{_keyboard_8h_source}{Keyboard.\+h}} -\/ keyboard state tracking helper
+\item \mbox{\hyperlink{_model_8h_source}{Model.\+h}} -\/ draws meshes loaded from .CMO, .SDKMESH, or .VBO files
+\item \mbox{\hyperlink{_mouse_8h_source}{Mouse.\+h}} -\/ mouse helper
+\item \mbox{\hyperlink{_post_process_8h_source}{Post\+Process.\+h}} -\/ set of built-\/in shaders for common post-\/processing operations
+\item \mbox{\hyperlink{_primitive_batch_8h_source}{Primitive\+Batch.\+h}} -\/ simple and efficient way to draw user primitives
+\item \mbox{\hyperlink{_screen_grab_8h_source}{Screen\+Grab.\+h}} -\/ light-\/weight screen shot saver
+\item \mbox{\hyperlink{_simple_math_8h_source}{Simple\+Math.\+h}} -\/ simplified C++ wrapper for Direct\+XMath
+\item \mbox{\hyperlink{_sprite_batch_8h_source}{Sprite\+Batch.\+h}} -\/ simple \& efficient 2D sprite rendering
+\item \mbox{\hyperlink{_sprite_font_8h_source}{Sprite\+Font.\+h}} -\/ bitmap based text rendering
+\item \mbox{\hyperlink{_vertex_types_8h_source}{Vertex\+Types.\+h}} -\/ structures for commonly used vertex data formats
+\item \mbox{\hyperlink{_w_i_c_texture_loader_8h_source}{WICTexture\+Loader.\+h}} -\/ WIC-\/based image file texture loader
+\item \mbox{\hyperlink{_xbox_d_d_s_texture_loader_8h_source}{Xbox\+DDSTexture\+Loader.\+h}} -\/ Xbox One exclusive apps variant of DDSTexture\+Loader
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily Src\textbackslash{}}
+\begin{DoxyItemize}
+\item Direct\+XTK source files and internal implementation headers
+\end{DoxyItemize}
+\item {\ttfamily Audio\textbackslash{}}
+\begin{DoxyItemize}
+\item Direct\+XTK for Audio source files and internal implementation headers
+\end{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}}\textbackslash{}}
+\begin{DoxyItemize}
+\item Command line tool used to generate binary resources for use with Sprite\+Font
+\end{DoxyItemize}
+\item {\ttfamily XWBTool\textbackslash{}}
+\begin{DoxyItemize}
+\item Command line tool for building XACT-\/style wave banks for use with Direct\+XTK for Audio\textquotesingle{}s Wave\+Bank class
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md94}{}\doxysection{Documentation}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md94}
+Documentation is available on the \href{https://github.com/Microsoft/DirectXTK/wiki}{\texttt{ Git\+Hub wiki}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md95}{}\doxysubsection{Notices}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md95}
+All content and source code for this package are subject to the terms of the \href{https://github.com/microsoft/DirectXTK/blob/main/LICENSE}{\texttt{ MIT License}}.
+
+For the latest version of Direct\+XTK, bug reports, etc. please visit the project site on \href{https://github.com/microsoft/DirectXTK}{\texttt{ Git\+Hub}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md96}{}\doxysubsection{Release Notes}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md96}
+
+\begin{DoxyItemize}
+\item As of the March 2022 release, legacy Xbox One XDK support requires the XDK April 2018 release or later.
+\item As of the October 2021 release, the DGSLEffect no longer directly supports skinning. Instead, make use of {\bfseries{Skinned\+DGSLEffect}} which is derived from DGSLEffect.
+\item As of the August 2021 release, {\bfseries{\mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}}}} requires the .NET version 4.\+7.\+2 targeting pack to be installed to build.
+\item Starting with the June 2020 release, this library makes use of \href{https://walbourn.github.io/modern-c++-bitmask-types/}{\texttt{ typed enum bitmask flags}} per the recommendation of the {\itshape C++ Standard} section {\itshape 17.\+5.\+2.\+1.\+3 Bitmask types}. This may have {\itshape breaking change} impacts to client code\+:
+\begin{DoxyItemize}
+\item You cannot pass the {\ttfamily 0} literal as your flags value. Instead you must make use of the appropriate default enum value\+: {\ttfamily Audio\+Engine\+\_\+\+Default}, {\ttfamily Sound\+Effect\+Instance\+\_\+\+Default}, {\ttfamily Model\+Loader\+\_\+\+Clockwise}, or {\ttfamily WIC\+\_\+\+LOADER\+\_\+\+DEFAULT}.
+\item Use the enum type instead of {\ttfamily DWORD} if building up flags values locally with bitmask operations. For example, {\ttfamily WIC\+\_\+\+LOADER\+\_\+\+FLAGS flags = WIC\+\_\+\+LOADER\+\_\+\+DEFAULT; if (...) flags $\vert$= WIC\+\_\+\+LOADER\+\_\+\+FORCE\+\_\+\+SRGB;}
+\end{DoxyItemize}
+\item The UWP projects and the Win10 classic desktop project include configurations for the ARM64 platform. Building these requires installing the ARM64 toolset.
+\item When using clang/\+LLVM for the ARM64 platform, the Windows 11 SDK (\href{https://walbourn.github.io/windows-sdk-for-windows-11/}{\texttt{ 22000}}) is required.
+\item The {\ttfamily Compile\+Shaders.\+cmd} script must have Windows-\/style (CRLF) line-\/endings. If it is changed to Linux-\/style (LF) line-\/endings, it can fail to build all the required shaders.
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md97}{}\doxysubsection{Support}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md97}
+For questions, consider using \href{https://stackoverflow.com/questions/tagged/directxtk}{\texttt{ Stack Overflow}} with the {\itshape directxtk} tag, or the \href{https://discord.gg/directx}{\texttt{ DirectX Discord Server}} in the {\itshape dx9-\/dx11-\/developers} channel.
+
+For bug reports and feature requests, please use Git\+Hub \href{https://github.com/microsoft/DirectXTK/issues}{\texttt{ issues}} for this project.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md98}{}\doxysubsection{Contributing}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md98}
+This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit \href{https://cla.opensource.microsoft.com}{\texttt{ https\+://cla.\+opensource.\+microsoft.\+com}}.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.\+g., status check, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the \href{https://opensource.microsoft.com/codeofconduct/}{\texttt{ Microsoft Open Source Code of Conduct}}. For more information see the \href{https://opensource.microsoft.com/codeofconduct/faq/}{\texttt{ Code of Conduct FAQ}} or contact \href{mailto:opencode@microsoft.com}{\texttt{ opencode@microsoft.\+com}} with any additional questions or comments.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md99}{}\doxysubsection{Trademarks}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md99}
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow \href{https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general}{\texttt{ Microsoft\textquotesingle{}s Trademark \& Brand Guidelines}}. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-\/party trademarks or logos are subject to those third-\/party\textquotesingle{}s policies.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md100}{}\doxysubsection{Credits}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e_autotoc_md100}
+The {\itshape DirectX Tool Kit} is the work of Shawn Hargreaves and Chuck Walbourn, with contributions from Aaron Rodriguez Hernandez, and Dani Roman.
+
+Thanks to Shanon Drone for the SDKMESH file format.
+
+Thanks to Adrian Tsai for the geodesic sphere implementation.
+
+Thanks to Garrett Serack for his help in creating the Nu\+Get packages for DirectX Tool Kit.
+
+Thanks to Roberto Sonnino for his help with the {\ttfamily CMO}, DGSL rendering, and the VS Starter Kit animation.
+
+Thanks to Pete Lewis and Justin Saunders for the normal-\/mapped and PBR shaders implementation. 

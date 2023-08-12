@@ -1,0 +1,65 @@
+.TH "DirectX::TexMetadata" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::TexMetadata
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "size_t __cdecl \fBComputeIndex\fP (_In_ size_t mip, _In_ size_t item, _In_ size_t slice) const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsCubemap\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsPMAlpha\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetAlphaMode\fP (TEX_ALPHA_MODE mode) noexcept"
+.br
+.ti -1c
+.RI "TEX_ALPHA_MODE __cdecl \fBGetAlphaMode\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsVolumemap\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBwidth\fP"
+.br
+.ti -1c
+.RI "size_t \fBheight\fP"
+.br
+.ti -1c
+.RI "size_t \fBdepth\fP"
+.br
+.ti -1c
+.RI "size_t \fBarraySize\fP"
+.br
+.ti -1c
+.RI "size_t \fBmipLevels\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmiscFlags\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmiscFlags2\fP"
+.br
+.ti -1c
+.RI "DXGI_FORMAT \fBformat\fP"
+.br
+.ti -1c
+.RI "TEX_DIMENSION \fBdimension\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

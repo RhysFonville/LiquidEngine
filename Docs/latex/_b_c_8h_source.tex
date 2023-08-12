@@ -1,0 +1,346 @@
+\hypertarget{_b_c_8h_source}{}\doxysection{BC.\+h}
+\label{_b_c_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/BC.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/BC.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ BC.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Block-\/compression\ (BC)\ functionality}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <DirectXPackedVector.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Macros}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Because\ these\ are\ used\ in\ SAL\ annotations,\ they\ need\ to\ remain\ macros\ rather\ than\ const\ values}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ NUM\_PIXELS\_PER\_BLOCK\ 16}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ Constants}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{enum}\ BC\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ BC\_FLAGS\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ BC\_FLAGS\_DITHER\_RGB\ =\ 0x10000,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ dithering\ for\ RGB\ colors\ for\ BC1-\/3}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ BC\_FLAGS\_DITHER\_A\ =\ 0x20000,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ dithering\ for\ Alpha\ channel\ for\ BC1-\/3}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ BC\_FLAGS\_UNIFORM\ =\ 0x40000,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ By\ default,\ uses\ perceptual\ weighting\ for\ BC1-\/3;\ this\ flag\ makes\ it\ a\ uniform\ weighting}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ BC\_FLAGS\_USE\_3SUBSETS\ =\ 0x80000,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ By\ default,\ BC7\ skips\ mode\ 0\ \&\ 2;\ this\ flag\ adds\ those\ modes\ back}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ BC\_FLAGS\_FORCE\_BC7\_MODE6\ =\ 0x100000,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC7\ should\ only\ use\ mode\ 6;\ skip\ other\ modes}}
+\DoxyCodeLine{00048\ \ \ \ \ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ Structures}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{class\ }LDRColorA;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r,\ g,\ b,\ a;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(\textcolor{keywordtype}{float}\ \_r,\ \textcolor{keywordtype}{float}\ \_g,\ \textcolor{keywordtype}{float}\ \_b,\ \textcolor{keywordtype}{float}\ \_a)\ noexcept\ :\ r(\_r),\ g(\_g),\ b(\_b),\ a(\_a)\ \{\}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ noexcept\ :\ r(c.r),\ g(c.g),\ b(c.b),\ a(c.a)\ \{\}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ binary\ operators}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ operator\ +\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(r\ +\ c.r,\ g\ +\ c.g,\ b\ +\ c.b,\ a\ +\ c.a);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ operator\ -\/\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(r\ -\/\ c.r,\ g\ -\/\ c.g,\ b\ -\/\ c.b,\ a\ -\/\ c.a);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ operator\ *\ (\textcolor{keywordtype}{float}\ f)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(r\ *\ f,\ g\ *\ f,\ b\ *\ f,\ a\ *\ f);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ operator\ /\ (\textcolor{keywordtype}{float}\ f)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fInv\ =\ 1.0f\ /\ f;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(r\ *\ fInv,\ g\ *\ fInv,\ b\ *\ fInv,\ a\ *\ fInv);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ operator\ *\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\ *\ c.r\ +\ g\ *\ c.g\ +\ b\ *\ c.b\ +\ a\ *\ c.a;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ assignment\ operators}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ operator\ +=\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ r\ +=\ c.r;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ g\ +=\ c.g;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ b\ +=\ c.b;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ a\ +=\ c.a;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ operator\ -\/=\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ c)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ r\ -\/=\ c.r;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ g\ -\/=\ c.g;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ b\ -\/=\ c.b;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ a\ -\/=\ c.a;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ operator\ *=\ (\textcolor{keywordtype}{float}\ f)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ r\ *=\ f;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ g\ *=\ f;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ b\ *=\ f;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ a\ *=\ f;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ operator\ /=\ (\textcolor{keywordtype}{float}\ f)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fInv\ =\ 1.0f\ /\ f;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ r\ *=\ fInv;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ g\ *=\ fInv;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ b\ *=\ fInv;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ a\ *=\ fInv;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ Clamp(\_In\_\ \textcolor{keywordtype}{float}\ fMin,\ \_In\_\ \textcolor{keywordtype}{float}\ fMax)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ r\ =\ std::min<float>(fMax,\ std::max<float>(fMin,\ r));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ g\ =\ std::min<float>(fMax,\ std::max<float>(fMin,\ g));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ std::min<float>(fMax,\ std::max<float>(fMin,\ b));}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ std::min<float>(fMax,\ std::max<float>(fMin,\ a));}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}}\&\ c)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\&\ operator\ =\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}}\&\ c)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}}\ ToLDRColorA()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00142\ \ \ \ \ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}*\ HDRColorALerp(\_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ *pOut,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ *pC1,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}}\ *pC2,\ \_In\_\ \textcolor{keywordtype}{float}\ s)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00145\ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ pOut-\/>r\ =\ pC1-\/>r\ +\ s\ *\ (pC2-\/>r\ -\/\ pC1-\/>r);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ pOut-\/>g\ =\ pC1-\/>g\ +\ s\ *\ (pC2-\/>g\ -\/\ pC1-\/>g);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ pOut-\/>b\ =\ pC1-\/>b\ +\ s\ *\ (pC2-\/>b\ -\/\ pC1-\/>b);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ pOut-\/>a\ =\ pC1-\/>a\ +\ s\ *\ (pC2-\/>a\ -\/\ pC1-\/>a);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pOut;}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#pragma\ pack(push,1)}}
+\DoxyCodeLine{00154\ \textcolor{comment}{//\ BC1/DXT1\ compression\ (4\ bits\ per\ texel)}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d3_d_x___b_c1}{D3DX\_BC1}}}
+\DoxyCodeLine{00156\ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ uint16\_t\ \ \ \ rgb[2];\ \textcolor{comment}{//\ 565\ colors}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ bitmap;\ \textcolor{comment}{//\ 2bpp\ rgb\ bitmap}}
+\DoxyCodeLine{00159\ \ \ \ \ \};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{comment}{//\ BC2/DXT2/3\ compression\ (8\ bits\ per\ texel)}}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d3_d_x___b_c2}{D3DX\_BC2}}}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ bitmap[2];\ \ \textcolor{comment}{//\ 4bpp\ alpha\ bitmap}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_d3_d_x___b_c1}{D3DX\_BC1}}\ \ \ \ bc1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC1\ rgb\ data}}
+\DoxyCodeLine{00166\ \ \ \ \ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{comment}{//\ BC3/DXT4/5\ compression\ (8\ bits\ per\ texel)}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_d3_d_x___b_c3}{D3DX\_BC3}}}
+\DoxyCodeLine{00170\ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ uint8\_t\ \ \ \ \ alpha[2];\ \ \ \textcolor{comment}{//\ alpha\ values}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ uint8\_t\ \ \ \ \ bitmap[6];\ \ \textcolor{comment}{//\ 3bpp\ alpha\ bitmap}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_d3_d_x___b_c1}{D3DX\_BC1}}\ \ \ \ bc1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC1\ rgb\ data}}
+\DoxyCodeLine{00174\ \ \ \ \ \};}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00178\ \textcolor{comment}{//\ Templates}}
+\DoxyCodeLine{00179\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4127)}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{bool}\ bRange>\ \textcolor{keywordtype}{void}\ OptimizeAlpha(\textcolor{keywordtype}{float}\ *pX,\ \textcolor{keywordtype}{float}\ *pY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *pPoints,\ uint32\_t\ cSteps)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00183\ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pC6[]\ =\ \{\ 5.0f\ /\ 5.0f,\ 4.0f\ /\ 5.0f,\ 3.0f\ /\ 5.0f,\ 2.0f\ /\ 5.0f,\ 1.0f\ /\ 5.0f,\ 0.0f\ /\ 5.0f\ \};}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pD6[]\ =\ \{\ 0.0f\ /\ 5.0f,\ 1.0f\ /\ 5.0f,\ 2.0f\ /\ 5.0f,\ 3.0f\ /\ 5.0f,\ 4.0f\ /\ 5.0f,\ 5.0f\ /\ 5.0f\ \};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pC8[]\ =\ \{\ 7.0f\ /\ 7.0f,\ 6.0f\ /\ 7.0f,\ 5.0f\ /\ 7.0f,\ 4.0f\ /\ 7.0f,\ 3.0f\ /\ 7.0f,\ 2.0f\ /\ 7.0f,\ 1.0f\ /\ 7.0f,\ 0.0f\ /\ 7.0f\ \};}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ pD8[]\ =\ \{\ 0.0f\ /\ 7.0f,\ 1.0f\ /\ 7.0f,\ 2.0f\ /\ 7.0f,\ 3.0f\ /\ 7.0f,\ 4.0f\ /\ 7.0f,\ 5.0f\ /\ 7.0f,\ 6.0f\ /\ 7.0f,\ 7.0f\ /\ 7.0f\ \};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *pC\ =\ (6\ ==\ cSteps)\ ?\ pC6\ :\ pC8;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *pD\ =\ (6\ ==\ cSteps)\ ?\ pD6\ :\ pD8;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ MAX\_VALUE\ =\ 1.0f;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ MIN\_VALUE\ =\ (bRange)\ ?\ -\/1.0f\ :\ 0.0f;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ Min\ and\ Max\ points,\ as\ starting\ point}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fX\ =\ MAX\_VALUE;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fY\ =\ MIN\_VALUE;}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (8\ ==\ cSteps)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iPoint\ =\ 0;\ iPoint\ <\ NUM\_PIXELS\_PER\_BLOCK;\ iPoint++)}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pPoints[iPoint]\ <\ fX)}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fX\ =\ pPoints[iPoint];}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pPoints[iPoint]\ >\ fY)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fY\ =\ pPoints[iPoint];}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iPoint\ =\ 0;\ iPoint\ <\ NUM\_PIXELS\_PER\_BLOCK;\ iPoint++)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pPoints[iPoint]\ <\ fX\ \&\&\ pPoints[iPoint]\ >\ MIN\_VALUE)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fX\ =\ pPoints[iPoint];}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pPoints[iPoint]\ >\ fY\ \&\&\ pPoints[iPoint]\ <\ MAX\_VALUE)}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fY\ =\ pPoints[iPoint];}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fX\ ==\ fY)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fY\ =\ MAX\_VALUE;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ Newton's\ Method\ to\ find\ local\ minima\ of\ sum-\/of-\/squares\ error.}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ fSteps\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(cSteps\ -\/\ 1);}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iIteration\ =\ 0;\ iIteration\ <\ 8;\ iIteration++)}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((fY\ -\/\ fX)\ <\ (1.0f\ /\ 256.0f))}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \textcolor{keyword}{const}\ fScale\ =\ fSteps\ /\ (fY\ -\/\ fX);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ new\ steps}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ pSteps[8];}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iStep\ =\ 0;\ iStep\ <\ cSteps;\ iStep++)}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pSteps[iStep]\ =\ pC[iStep]\ *\ fX\ +\ pD[iStep]\ *\ fY;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (6\ ==\ cSteps)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pSteps[6]\ =\ MIN\_VALUE;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pSteps[7]\ =\ MAX\_VALUE;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluate\ function,\ and\ derivatives}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dX\ =\ 0.0f;}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dY\ =\ 0.0f;}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2X\ =\ 0.0f;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d2Y\ =\ 0.0f;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iPoint\ =\ 0;\ iPoint\ <\ NUM\_PIXELS\_PER\_BLOCK;\ iPoint++)}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fDot\ =\ (pPoints[iPoint]\ -\/\ fX)\ *\ fScale;}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ iStep;}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fDot\ <=\ 0.0f)}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ D3DX10\ /\ D3DX11\ didn't\ take\ into\ account\ the\ proper\ minimum\ value\ for\ the\ bRange\ (BC4S/BC5S)\ case}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iStep\ =\ ((6\ ==\ cSteps)\ \&\&\ (pPoints[iPoint]\ <=\ (fX\ +\ MIN\_VALUE)\ *\ 0.5f))\ ?\ 6u\ :\ 0u;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (fDot\ >=\ fSteps)}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iStep\ =\ ((6\ ==\ cSteps)\ \&\&\ (pPoints[iPoint]\ >=\ (fY\ +\ MAX\_VALUE)\ *\ 0.5f))\ ?\ 7u\ :\ (cSteps\ -\/\ 1);}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iStep\ =\ uint32\_t(fDot\ +\ 0.5f);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iStep\ <\ cSteps)}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ D3DX\ had\ this\ computation\ backwards\ (pPoints[iPoint]\ -\/\ pSteps[iStep])}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ this\ fix\ improves\ RMS\ of\ the\ alpha\ component}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fDiff\ =\ pSteps[iStep]\ -\/\ pPoints[iPoint];}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dX\ +=\ pC[iStep]\ *\ fDiff;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d2X\ +=\ pC[iStep]\ *\ pC[iStep];}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dY\ +=\ pD[iStep]\ *\ fDiff;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d2Y\ +=\ pD[iStep]\ *\ pD[iStep];}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ endpoints}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2X\ >\ 0.0f)}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fX\ -\/=\ dX\ /\ d2X;}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d2Y\ >\ 0.0f)}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fY\ -\/=\ dY\ /\ d2Y;}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fX\ >\ fY)}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ f\ =\ fX;\ fX\ =\ fY;\ fY\ =\ f;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((dX\ *\ dX\ <\ (1.0f\ /\ 64.0f))\ \&\&\ (dY\ *\ dY\ <\ (1.0f\ /\ 64.0f)))}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ *pX\ =\ (fX\ <\ MIN\_VALUE)\ ?\ MIN\_VALUE\ :\ (fX\ >\ MAX\_VALUE)\ ?\ MAX\_VALUE\ :\ fX;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ *pY\ =\ (fY\ <\ MIN\_VALUE)\ ?\ MIN\_VALUE\ :\ (fY\ >\ MAX\_VALUE)\ ?\ MAX\_VALUE\ :\ fY;}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ Functions}}
+\DoxyCodeLine{00311\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keyword}{typedef}\ void\ (*BC\_DECODE)(XMVECTOR\ *pColor,\ \textcolor{keyword}{const}\ uint8\_t\ *pBC);}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keyword}{typedef}\ void\ (*BC\_ENCODE)(uint8\_t\ *pDXT,\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ uint32\_t\ flags);}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC1(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(8)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC2(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC3(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC4U(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(8)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC4S(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(8)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC5U(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC5S(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC6HU(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC6HS(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXDecodeBC7(\_Out\_writes\_(NUM\_PIXELS\_PER\_BLOCK)\ XMVECTOR\ *pColor,\ \_In\_reads\_(16)\ \textcolor{keyword}{const}\ uint8\_t\ *pBC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC1(\_Out\_writes\_(8)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC1\ requires\ one\ additional\ parameter,\ so\ it\ doesn't\ match\ signature\ of\ BC\_ENCODE\ above}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC2(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC3(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC4U(\_Out\_writes\_(8)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC4S(\_Out\_writes\_(8)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC5U(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC5S(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC6HU(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC6HS(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordtype}{void}\ D3DXEncodeBC7(\_Out\_writes\_(16)\ uint8\_t\ *pBC,\ \_In\_reads\_(NUM\_PIXELS\_PER\_BLOCK)\ \textcolor{keyword}{const}\ XMVECTOR\ *pColor,\ \_In\_\ uint32\_t\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \}\ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

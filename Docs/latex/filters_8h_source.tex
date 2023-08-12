@@ -1,0 +1,428 @@
+\hypertarget{filters_8h_source}{}\doxysection{filters.\+h}
+\label{filters_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/filters.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/filters.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ filters.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Utility\ header\ with\ helpers\ for\ implementing\ image\ filters}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <DirectXPackedVector.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}scoped.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{namespace\ }Filters}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Box\ filtering\ helpers}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ XMGLOBALCONST\ XMVECTORF32\ g\_boxScale\ =\ \{\ \{\ \{\ 0.25f,\ 0.25f,\ 0.25f,\ 0.25f\ \}\ \}\ \};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ XMGLOBALCONST\ XMVECTORF32\ g\_boxScale3D\ =\ \{\ \{\ \{\ 0.125f,\ 0.125f,\ 0.125f,\ 0.125f\ \}\ \}\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ \#define\ AVERAGE4(\ res,\ p0,\ p1,\ p2,\ p3\ )\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ XMVECTOR\ v\ =\ XMVectorAdd((p0),\ (p1));\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p2));\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p3));\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ res\ =\ XMVectorMultiply(v,\ g\_boxScale);\ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \#define\ AVERAGE8(\ res,\ p0,\ p1,\ p2,\ p3,\ p4,\ p5,\ p6,\ p7)\ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ XMVECTOR\ v\ =\ XMVectorAdd((p0),\ (p1));\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p2));\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p3));\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p4));\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p5));\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p6));\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ v\ =\ XMVectorAdd(v,\ (p7));\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ res\ =\ XMVectorMultiply(v,\ g\_boxScale3D);\ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Linear\ filtering\ helpers}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_linear_filter}{LinearFilter}}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u0;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ weight0;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u1;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ weight1;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ CreateLinearFilter(\_In\_\ \textcolor{keywordtype}{size\_t}\ source,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ dest,\ \_In\_\ \textcolor{keywordtype}{bool}\ wrap,\ \_Out\_writes\_(dest)\ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_linear_filter}{LinearFilter}}*\ lf)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ assert(source\ >\ 0);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ assert(dest\ >\ 0);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ assert(lf\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scale\ =\ float(source)\ /\ float(dest);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mirror\ is\ the\ same\ case\ as\ clamp\ for\ linear}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ u\ =\ 0;\ u\ <\ dest;\ ++u)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ srcB\ =\ (float(u)\ +\ 0.5f)\ *\ scale\ +\ 0.5f;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptrdiff\_t\ isrcB\ =\ ptrdiff\_t(srcB);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptrdiff\_t\ isrcA\ =\ isrcB\ -\/\ 1;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ weight\ =\ 1.0f\ +\ float(isrcB)\ -\/\ srcB;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isrcA\ <\ 0)}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isrcA\ =\ (wrap)\ ?\ (ptrdiff\_t(source)\ -\/\ 1)\ :\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{size\_t}(isrcB)\ >=\ source)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isrcB\ =\ (wrap)\ ?\ 0\ :\ (ptrdiff\_t(source)\ -\/\ 1);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ entry\ =\ lf[u];}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u0\ =\ size\_t(isrcA);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.weight0\ =\ weight;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u1\ =\ size\_t(isrcB);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.weight1\ =\ 1.0f\ -\/\ weight;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \#define\ BILINEAR\_INTERPOLATE(\ res,\ x,\ y,\ r0,\ r1\ )\ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ res\ =\ XMVectorAdd(XMVectorScale(XMVectorAdd(XMVectorScale((r0)[\ x.u0\ ],\ x.weight0),\ XMVectorScale((r0)[\ x.u1\ ],\ x.weight1)),\ y.weight0),\ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVectorScale(XMVectorAdd(XMVectorScale((r1)[\ x.u0\ ],\ x.weight0),\ XMVectorScale((r1)[\ x.u1\ ],\ x.weight1)),\ y.weight1)\ );}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \#define\ TRILINEAR\_INTERPOLATE(\ res,\ x,\ y,\ z,\ r0,\ r1,\ r2,\ r3\ )\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\{\(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a0\ =\ XMVectorScale(XMVectorAdd(XMVectorScale((r0)[\ x.u0\ ],\ x.weight0\ ),\ XMVectorScale((r0)[\ x.u1\ ],\ x.weight1)),\ y.weight0);\ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a1\ =\ XMVectorScale(XMVectorAdd(XMVectorScale((r1)[\ x.u0\ ],\ x.weight0\ ),\ XMVectorScale((r1)[\ x.u1\ ],\ x.weight1)),\ y.weight1);\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a2\ =\ XMVectorScale(XMVectorAdd(XMVectorScale((r2)[\ x.u0\ ],\ x.weight0\ ),\ XMVectorScale((r2)[\ x.u1\ ],\ x.weight1)),\ y.weight0);\ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a3\ =\ XMVectorScale(XMVectorAdd(XMVectorScale((r3)[\ x.u0\ ],\ x.weight0\ ),\ XMVectorScale((r3)[\ x.u1\ ],\ x.weight1)),\ y.weight1);\ \(\backslash\)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ res\ =\ XMVectorAdd(XMVectorScale(XMVectorAdd(a0,\ a1),\ z.weight0),\ XMVectorScale(XMVectorAdd(a2,\ a3),\ z.weight1));\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cubic\ filtering\ helpers}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ XMGLOBALCONST\ XMVECTORF32\ g\_cubicThird\ =\ \{\ \{\ \{\ 1.f\ /\ 3.f,\ 1.f\ /\ 3.f,\ 1.f\ /\ 3.f,\ 1.f\ /\ 3.f\ \}\ \}\ \};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ XMGLOBALCONST\ XMVECTORF32\ g\_cubicSixth\ =\ \{\ \{\ \{\ 1.f\ /\ 6.f,\ 1.f\ /\ 6.f,\ 1.f\ /\ 6.f,\ 1.f\ /\ 6.f\ \}\ \}\ \};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ XMGLOBALCONST\ XMVECTORF32\ g\_cubicHalf\ =\ \{\ \{\ \{\ 1.f\ /\ 2.f,\ 1.f\ /\ 2.f,\ 1.f\ /\ 2.f,\ 1.f\ /\ 2.f\ \}\ \}\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ ptrdiff\_t\ bounduvw(ptrdiff\_t\ u,\ ptrdiff\_t\ maxu,\ \textcolor{keywordtype}{bool}\ wrap,\ \textcolor{keywordtype}{bool}\ mirror)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wrap)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ <\ 0)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ maxu\ +\ u\ +\ 1;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (u\ >\ maxu)}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ u\ -\/\ maxu\ -\/\ 1;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mirror)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ <\ 0)}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ (-\/u)\ -\/\ 1;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (u\ >\ maxu)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ maxu\ -\/\ (u\ -\/\ maxu\ -\/\ 1);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handles\ clamp,\ but\ also\ a\ safety\ factor\ for\ degenerate\ images\ for\ wrap/mirror}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ std::min<ptrdiff\_t>(u,\ maxu);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ std::max<ptrdiff\_t>(u,\ 0);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ u;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_cubic_filter}{CubicFilter}}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u0;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u1;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u2;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ u3;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ x;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ CreateCubicFilter(\_In\_\ \textcolor{keywordtype}{size\_t}\ source,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ dest,\ \_In\_\ \textcolor{keywordtype}{bool}\ wrap,\ \_In\_\ \textcolor{keywordtype}{bool}\ mirror,\ \_Out\_writes\_(dest)\ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_cubic_filter}{CubicFilter}}*\ cf)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ assert(source\ >\ 0);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ assert(dest\ >\ 0);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ assert(cf\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scale\ =\ float(source)\ /\ float(dest);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ u\ =\ 0;\ u\ <\ dest;\ ++u)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ srcB\ =\ (float(u)\ +\ 0.5f)\ *\ scale\ -\/\ 0.5f;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ptrdiff\_t\ isrcB\ =\ bounduvw(ptrdiff\_t(srcB),\ ptrdiff\_t(source)\ -\/\ 1,\ wrap,\ mirror);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ptrdiff\_t\ isrcA\ =\ bounduvw(isrcB\ -\/\ 1,\ ptrdiff\_t(source)\ -\/\ 1,\ wrap,\ mirror);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ptrdiff\_t\ isrcC\ =\ bounduvw(isrcB\ +\ 1,\ ptrdiff\_t(source)\ -\/\ 1,\ wrap,\ mirror);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ptrdiff\_t\ isrcD\ =\ bounduvw(isrcB\ +\ 2,\ ptrdiff\_t(source)\ -\/\ 1,\ wrap,\ mirror);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ entry\ =\ cf[u];}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u0\ =\ size\_t(isrcA);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u1\ =\ size\_t(isrcB);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u2\ =\ size\_t(isrcC);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.u3\ =\ size\_t(isrcD);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x\ =\ srcB\ -\/\ float(isrcB);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entry.x\ =\ x;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ \#define\ CUBIC\_INTERPOLATE(\ res,\ dx,\ p0,\ p1,\ p2,\ p3\ )\ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a0\ =\ (p1);\ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ d0\ =\ XMVectorSubtract(p0,\ a0);\ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ d2\ =\ XMVectorSubtract(p2,\ a0);\ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ d3\ =\ XMVectorSubtract(p3,\ a0);\ \(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ XMVECTOR\ a1\ =\ XMVectorSubtract(d2,\ XMVectorMultiply(g\_cubicThird,\ d0));\ \(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ a1\ =\ XMVectorSubtract(a1,\ XMVectorMultiply(g\_cubicSixth,\ d3));\ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ a2\ =\ XMVectorAdd(XMVectorMultiply(g\_cubicHalf,\ d0),\ XMVectorMultiply(g\_cubicHalf,\ d2));\ \(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ \ \ XMVECTOR\ a3\ =\ XMVectorSubtract(XMVectorMultiply(g\_cubicSixth,\ d3),\ XMVectorMultiply(g\_cubicSixth,\ d0));\ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ \ \ a3\ =\ XMVectorSubtract(a3,\ XMVectorMultiply(g\_cubicHalf,\ d2));\ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ vdx\ =\ XMVectorReplicate(dx);\ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ vdx2\ =\ XMVectorMultiply(vdx,\ vdx);\ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ const\ XMVECTOR\ vdx3\ =\ XMVectorMultiply(vdx2,\ vdx);\ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ res\ =\ XMVectorAdd(XMVectorAdd(XMVectorAdd(a0,\ XMVectorMultiply(a1,\ vdx)),\ XMVectorMultiply(a2,\ vdx2)),\ XMVectorMultiply(a3,\ vdx3));\ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Triangle\ filtering\ helpers}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_to}{FilterTo}}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ u;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ weight;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_from}{FilterFrom}}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ count;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ sizeInBytes;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_to}{FilterTo}}\ \ \ \ to[1];\ \textcolor{comment}{//\ variable-\/sized\ array}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter}{Filter}}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ sizeInBytes;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ totalSize;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_from}{FilterFrom}}\ \ from[1];\ \textcolor{comment}{//\ variable-\/sized\ array}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_triangle_row}{TriangleRow}}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ remaining;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_triangle_row}{TriangleRow}}*\ next;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ ScopedAlignedArrayXMVECTOR\ \ scanline;}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_triangle_row}{TriangleRow}}()\ noexcept\ :\ remaining(0),\ next(\textcolor{keyword}{nullptr})\ \{\}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ TF\_FILTER\_SIZE\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter}{Filter}})\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_from}{FilterFrom}});}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ TF\_FROM\_SIZE\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_from}{FilterFrom}})\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_to}{FilterTo}});}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ TF\_TO\_SIZE\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_direct_x_1_1_filters_1_1_filter_to}{FilterTo}});}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ TF\_EPSILON\ =\ 0.00001f;}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ HRESULT\ CreateTriangleFilter(\_In\_\ \textcolor{keywordtype}{size\_t}\ source,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ dest,\ \_In\_\ \textcolor{keywordtype}{bool}\ wrap,\ \_Inout\_\ std::unique\_ptr<Filter>\&\ tf)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ assert(source\ >\ 0);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ assert(dest\ >\ 0);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scale\ =\ float(dest)\ /\ float(source);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scaleInv\ =\ 0.5f\ /\ scale;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Determine\ storage\ required\ for\ filter\ and\ allocate\ memory\ if\ needed}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ totalSize\ =\ TF\_FILTER\_SIZE\ +\ TF\_FROM\_SIZE\ +\ TF\_TO\_SIZE;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ repeat\ =\ (wrap)\ ?\ 1.f\ :\ 0.f;}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ u\ =\ 0;\ u\ <\ source;\ ++u)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ src\ =\ float(u)\ -\/\ 0.5f;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ destMin\ =\ src\ *\ scale;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ destMax\ =\ destMin\ +\ scale;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ t\ =\ destMax\ -\/\ destMin\ +\ repeat\ +\ 1.f;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalSize\ +=\ TF\_FROM\_SIZE\ +\ TF\_TO\_SIZE\ +\ size\_t(t)\ *\ TF\_TO\_SIZE\ *\ 2;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t*\ pFilter\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tf)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ if\ existing\ filter\ memory\ block\ is\ large\ enough\ to\ reuse}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tf-\/>totalSize\ >=\ totalSize)}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pFilter\ =\ \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(tf.get());}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ reallocate\ filter\ memory\ block}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.reset(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!tf)}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate\ filter\ memory\ block}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pFilter\ =\ \textcolor{keyword}{new}\ (std::nothrow)\ uint8\_t[totalSize];}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!pFilter)}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_OUTOFMEMORY;}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.reset(\textcolor{keyword}{reinterpret\_cast<}Filter*\textcolor{keyword}{>}(pFilter));}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf-\/>totalSize\ =\ totalSize;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ assert(pFilter\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \_Analysis\_assume\_(pFilter\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filter\ setup}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ sizeInBytes\ =\ TF\_FILTER\_SIZE;}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ accumU\ =\ 0;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ accumWeight\ =\ 0.f;}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ u\ =\ 0;\ u\ <\ source;\ ++u)}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Setup\ from\ entry}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ sizeFrom\ =\ sizeInBytes;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pFrom\ =\ \textcolor{keyword}{reinterpret\_cast<}FilterFrom*\textcolor{keyword}{>}(pFilter\ +\ sizeInBytes);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeInBytes\ +=\ TF\_FROM\_SIZE;}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizeInBytes\ >\ totalSize)}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ toCount\ =\ 0;}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ two\ passes\ to\ capture\ the\ influences\ from\ both\ sides}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ 2;\ ++j)}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ src\ =\ float(u\ +\ j)\ -\/\ 0.5f;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ destMin\ =\ src\ *\ scale;}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ destMax\ =\ destMin\ +\ scale;}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!wrap)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clamp}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (destMin\ <\ 0.f)}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destMin\ =\ 0.f;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (destMax\ >\ \textcolor{keywordtype}{float}(dest))}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destMax\ =\ float(dest);}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ k\ =\ \textcolor{keyword}{static\_cast<}ptrdiff\_t\textcolor{keyword}{>}(floorf(destMin));\ float(k)\ <\ destMax;\ ++k)}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d0\ =\ float(k);}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d1\ =\ d0\ +\ 1.f;}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ u0;}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ <\ 0)}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ wrap}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u0\ =\ size\_t(k\ +\ ptrdiff\_t(dest));}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (k\ >=\ ptrdiff\_t(dest))}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ wrap}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u0\ =\ size\_t(k\ -\/\ ptrdiff\_t(dest));}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u0\ =\ size\_t(k);}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ previous\ accumulated\ weight\ (if\ any)}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u0\ !=\ accumU)}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (accumWeight\ >\ TF\_EPSILON)}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pTo\ =\ \textcolor{keyword}{reinterpret\_cast<}FilterTo*\textcolor{keyword}{>}(pFilter\ +\ sizeInBytes);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeInBytes\ +=\ TF\_TO\_SIZE;}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++toCount;}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizeInBytes\ >\ totalSize)}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pTo-\/>u\ =\ accumU;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pTo-\/>weight\ =\ accumWeight;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumWeight\ =\ 0.f;}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumU\ =\ u0;}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clip\ destination}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d0\ <\ destMin)}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d0\ =\ destMin;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d1\ >\ destMax)}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d1\ =\ destMax;}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ average\ weight\ over\ destination\ pixel}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ weight;}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!wrap\ \&\&\ src\ <\ 0.f)}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\ =\ 1.f;}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!wrap\ \&\&\ ((src\ +\ 1.f)\ >=\ \textcolor{keywordtype}{float}(source)))}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\ =\ 0.f;}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\ =\ (d0\ +\ d1)\ *\ scaleInv\ -\/\ src;}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumWeight\ +=\ (d1\ -\/\ d0)\ *\ (j\ ?\ (1.f\ -\/\ weight)\ :\ weight);}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ accumulated\ weight}}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (accumWeight\ >\ TF\_EPSILON)}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pTo\ =\ \textcolor{keyword}{reinterpret\_cast<}FilterTo*\textcolor{keyword}{>}(pFilter\ +\ sizeInBytes);}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeInBytes\ +=\ TF\_TO\_SIZE;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++toCount;}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizeInBytes\ >\ totalSize)}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ E\_FAIL;}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pTo-\/>u\ =\ accumU;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pTo-\/>weight\ =\ accumWeight;}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumWeight\ =\ 0.f;}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Finalize\ from\ entry}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pFrom-\/>count\ =\ toCount;}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pFrom-\/>sizeInBytes\ =\ sizeInBytes\ -\/\ sizeFrom;}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ tf-\/>sizeInBytes\ =\ sizeInBytes;}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ S\_OK;}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ Filters}}
+\DoxyCodeLine{00422\ \}\ \textcolor{comment}{//\ namespace\ DirectX}}
+
+\end{DoxyCode}

@@ -1,0 +1,54 @@
+.TH "GraphicsPipeline::RootSignature" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline::RootSignature
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBConstantBuffer\fP"
+.br
+.ti -1c
+.RI "class \fBDescriptorTable\fP"
+.br
+.ti -1c
+.RI "class \fBRootArgument\fP"
+.br
+.ti -1c
+.RI "class \fBRootConstants\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device)"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
+.br
+.ti -1c
+.RI "void \fBbind_constant_buffer\fP (\fBConstantBuffer\fP &cb, D3D12_SHADER_VISIBILITY shader)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBbind_root_constants\fP (T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< ID3D12RootSignature > \fBsignature\fP = nullptr"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

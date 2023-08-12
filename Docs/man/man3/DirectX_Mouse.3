@@ -1,0 +1,73 @@
+.TH "DirectX::Mouse" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Mouse
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBButtonStateTracker\fP"
+.br
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.ti -1c
+.RI "struct \fBState\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBMode\fP { \fBMODE_ABSOLUTE\fP = 0, \fBMODE_RELATIVE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMouse\fP (\fBMouse\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBMouse\fP & \fBoperator=\fP (\fBMouse\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBMouse\fP (\fBMouse\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBMouse\fP & \fBoperator=\fP (\fBMouse\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetState\fP () const"
+.br
+.ti -1c
+.RI "void __cdecl \fBResetScrollWheelValue\fP () noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetMode\fP (Mode mode)"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsConnected\fP () const"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsVisible\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVisible\fP (bool visible)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBMouse\fP &__cdecl \fBGet\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

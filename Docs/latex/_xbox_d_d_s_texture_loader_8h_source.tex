@@ -1,0 +1,73 @@
+\hypertarget{_xbox_d_d_s_texture_loader_8h_source}{}\doxysection{Xbox\+DDSTexture\+Loader.\+h}
+\label{_xbox_d_d_s_texture_loader_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/XboxDDSTextureLoader.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/XboxDDSTextureLoader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ XboxDDSTextureLoader.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Functions\ for\ loading\ a\ DDS\ texture\ using\ the\ XBOX\ extended\ header\ and\ creating\ a}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Direct3D11.X\ runtime\ resource\ for\ it\ via\ the\ CreatePlacement\ APIs}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note\ these\ functions\ will\ not\ load\ standard\ DDS\ files.\ Use\ the\ DDSTextureLoader}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ module\ in\ the\ DirectXTex\ package\ or\ as\ part\ of\ the\ DirectXTK\ library\ to\ load}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ these\ files\ which\ use\ standard\ Direct3D\ resource\ creation\ APIs.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ !defined(\_XBOX\_ONE)\ ||\ !defined(\_TITLE)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#error\ This\ module\ only\ supports\ Xbox\ One\ exclusive\ apps}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_ALPHA\_MODE\ :\ uint32\_t}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_UNKNOWN\ =\ 0,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_STRAIGHT\ =\ 1,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_PREMULTIPLIED\ =\ 2,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_OPAQUE\ =\ 3,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_CUSTOM\ =\ 4,}
+\DoxyCodeLine{00040\ \ \ \ \ \};}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }Xbox}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{using\ }DirectX::DDS\_ALPHA\_MODE;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateDDSTextureFromMemory(}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceX*\ d3dDevice,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keywordtype}{void}**\ grfxMemory,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB\ =\ \textcolor{keyword}{false})\ noexcept;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateDDSTextureFromFile(\ \_In\_\ ID3D11DeviceX*\ d3dDevice,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keywordtype}{void}**\ grfxMemory,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keywordtype}{nullptr},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB\ =\ false)\ noexcept;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ FreeDDSTextureMemory(\ \_In\_opt\_\ \textcolor{keywordtype}{void}*\ grfxMemory\ )\ noexcept;}
+\DoxyCodeLine{00067\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,150 @@
+.TH "DirectX::DynamicSoundEffectInstance::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DynamicSoundEffectInstance::Impl
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IVoiceNotify\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ \fBAudioEngine\fP *engine, _In_ \fBDynamicSoundEffectInstance\fP *object, std::function< void(\fBDynamicSoundEffectInstance\fP *)> &bufferNeeded, int sampleRate, int channels, int sampleBits, SOUND_EFFECT_INSTANCE_FLAGS flags)"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBPlay\fP ()"
+.br
+.ti -1c
+.RI "void \fBResume\fP ()"
+.br
+.ti -1c
+.RI "void \fBSubmitBuffer\fP (_In_reads_bytes_(audioBytes) const uint8_t *pAudioData, uint32_t offset, size_t audioBytes)"
+.br
+.ti -1c
+.RI "const WAVEFORMATEX * \fBGetFormat\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnBufferEnd\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnCriticalError\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnReset\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnUpdate\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnDestroyEngine\fP () noexcept override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnTrim\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBGatherStatistics\fP (\fBAudioStatistics\fP &stats) const noexcept override"
+.br
+.ti -1c
+.RI "void __cdecl \fBOnDestroyParent\fP () noexcept override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IVoiceNotify\fP
+.in +1c
+.ti -1c
+.RI "\fBIVoiceNotify\fP (const \fBIVoiceNotify\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP & \fBoperator=\fP (const \fBIVoiceNotify\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP (\fBIVoiceNotify\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIVoiceNotify\fP & \fBoperator=\fP (\fBIVoiceNotify\fP &&)=default"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnBufferEnd\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnCriticalError\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnReset\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnUpdate\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnDestroyEngine\fP () noexcept=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnTrim\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGatherStatistics\fP (\fBAudioStatistics\fP &stats) const =0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBOnDestroyParent\fP () noexcept=0"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoundEffectInstanceBase\fP \fBmBase\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::GatherStatistics (\fBAudioStatistics\fP & stats) const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnBufferEnd ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnCriticalError ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnDestroyEngine ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnDestroyParent ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnReset ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void __cdecl DirectX::DynamicSoundEffectInstance::Impl::OnTrim ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+.SS "void DirectX::DynamicSoundEffectInstance::Impl::OnUpdate ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IVoiceNotify\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

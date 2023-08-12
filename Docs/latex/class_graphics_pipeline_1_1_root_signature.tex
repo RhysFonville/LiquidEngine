@@ -1,0 +1,43 @@
+\hypertarget{class_graphics_pipeline_1_1_root_signature}{}\doxysection{Graphics\+Pipeline\+::Root\+Signature Class Reference}
+\label{class_graphics_pipeline_1_1_root_signature}\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Root\+Argument}}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aec1db438824630a85d6791527f1cd51b}\label{class_graphics_pipeline_1_1_root_signature_aec1db438824630a85d6791527f1cd51b}} 
+void {\bfseries compile} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_adceccd4304cc2d5c4ad0bf3b0ea9ad33}\label{class_graphics_pipeline_1_1_root_signature_adceccd4304cc2d5c4ad0bf3b0ea9ad33}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}\label{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}} \&root\+\_\+signature) const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}\label{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}} 
+void {\bfseries bind\+\_\+constant\+\_\+buffer} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a5ce7103941aec303b15587bc9af79366}\label{class_graphics_pipeline_1_1_root_signature_a5ce7103941aec303b15587bc9af79366}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+root\+\_\+constants} (T \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}\label{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}} 
+Com\+Ptr$<$ ID3\+D12\+Root\+Signature $>$ {\bfseries signature} = nullptr
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}

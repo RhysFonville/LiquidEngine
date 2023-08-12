@@ -1,0 +1,70 @@
+\hypertarget{_mesh_8h_source}{}\doxysection{Mesh.\+h}
+\label{_mesh_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Mesh.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Mesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}globalutil.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ vertex\_index\_offset\ =\ 0;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ texcoord\_index\_offset\ =\ 0;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ normal\_index\_offset\ =\ 0;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}()\ \{\ \}}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}(\textcolor{keywordtype}{size\_t}\ vio,\ \textcolor{keywordtype}{size\_t}\ tcio,\ \textcolor{keywordtype}{size\_t}\ nio)}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ :\ vertex\_index\_offset(vio),\ texcoord\_index\_offset(tcio),}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ normal\_index\_offset(nio)\ \{\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}\ \&lhs)\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ vertex\_index\_offset\ +=\ lhs.vertex\_index\_offset;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ texcoord\_index\_offset\ +=\ lhs.texcoord\_index\_offset;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ normal\_index\_offset\ +=\ lhs.normal\_index\_offset;}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_read_obj_file_data_input}{ReadObjFileDataInput}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<std::string>\ contents;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}\ offsets;}
+\DoxyCodeLine{00025\ \ \ \ \ std::wstring\ file\_name;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_input}{ReadObjFileDataInput}}()\ \{\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_input}{ReadObjFileDataInput}}(std::vector<std::string>\ contents,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}\ offsets\ =\ \mbox{\hyperlink{struct_read_obj_file_data_output}{ReadObjFileDataOutput}}(),\ std::wstring\ file\_name\ =\ L\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ :\ contents(contents),\ offsets(offsets),\ file\_name(file\_name)\ \{\ \}}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh}{Mesh}}\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}()\ \{\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&vertices,\ \textcolor{keyword}{const}\ std::vector<UINT>\ \&indices);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&vertices);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ GET\ \mbox{\hyperlink{struct_simple_box}{SimpleBox}}\ get\_bounding\_box()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::vector<Vertex>\ \&\ get\_vertices()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00046\ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::vector<Triangle>\ \&\ get\_triangles()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00047\ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::vector<SimpleVertex>\ \&\ get\_physics\_vertices()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00048\ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::vector<SimpleTriangle>\ \&\ get\_physics\_triangles()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_vertices(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&new\_verts,\ \textcolor{keywordtype}{size\_t}\ physics\_verts\_chunk\_divisor\ =\ 3);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//ReadObjFileDataOutput\ read\_obj\_file(const\ ReadObjFileDataInput\ \&read);}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<UINT>\ indices;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ std::vector<Vertex>\ vertices;}
+\DoxyCodeLine{00058\ \ \ \ \ std::vector<Triangle>\ triangles;}
+\DoxyCodeLine{00059\ \ \ \ \ std::vector<SimpleVertex>\ physics\_vertices;}
+\DoxyCodeLine{00060\ \ \ \ \ std::vector<SimpleTriangle>\ physics\_triangles;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{struct_simple_box}{SimpleBox}}\ bounding\_box;}
+\DoxyCodeLine{00064\ \};}
+
+\end{DoxyCode}

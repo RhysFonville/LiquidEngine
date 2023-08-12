@@ -1,0 +1,108 @@
+.TH "DirectX::DGSLEffectFactory" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DGSLEffectFactory
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IEffectFactory\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBDGSLEffectInfo\fP"
+.br
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDGSLEffectFactory\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBDGSLEffectFactory\fP (\fBDGSLEffectFactory\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDGSLEffectFactory\fP & \fBoperator=\fP (\fBDGSLEffectFactory\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDGSLEffectFactory\fP (\fBDGSLEffectFactory\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBDGSLEffectFactory\fP & \fBoperator=\fP (\fBDGSLEffectFactory\fP const &)=delete"
+.br
+.ti -1c
+.RI "std::shared_ptr< \fBIEffect\fP > __cdecl \fBCreateEffect\fP (_In_ const \fBEffectInfo\fP &info, _In_opt_ ID3D11DeviceContext *deviceContext) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBCreateTexture\fP (_In_z_ const wchar_t *name, _In_opt_ ID3D11DeviceContext *deviceContext, _Outptr_ ID3D11ShaderResourceView **textureView) override"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBIEffect\fP > __cdecl \fBCreateDGSLEffect\fP (_In_ const \fBDGSLEffectInfo\fP &info, _In_opt_ ID3D11DeviceContext *deviceContext)"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBCreatePixelShader\fP (_In_z_ const wchar_t *shader, _Outptr_ ID3D11PixelShader **pixelShader)"
+.br
+.ti -1c
+.RI "void __cdecl \fBReleaseCache\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetSharing\fP (bool enabled) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBEnableForceSRGB\fP (bool forceSRGB) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetDirectory\fP (_In_opt_z_ const wchar_t *path) noexcept"
+.br
+.ti -1c
+.RI "ID3D11Device * \fBGetDevice\fP () const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectFactory\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFactory\fP (const \fBIEffectFactory\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectFactory\fP & \fBoperator=\fP (const \fBIEffectFactory\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBIEffect\fP > __cdecl \fBCreateEffect\fP (_In_ const \fBEffectInfo\fP &info, _In_opt_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBCreateTexture\fP (_In_z_ const wchar_t *name, _In_opt_ ID3D11DeviceContext *deviceContext, _Outptr_ ID3D11ShaderResourceView **textureView)=0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Member Functions inherited from \fBDirectX::IEffectFactory\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFactory\fP (\fBIEffectFactory\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectFactory\fP & \fBoperator=\fP (\fBIEffectFactory\fP &&)=default"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "_Use_decl_annotations_ std::shared_ptr< \fBIEffect\fP > DGSLEffectFactory::CreateEffect (_In_ const \fBEffectInfo\fP & info, _In_opt_ ID3D11DeviceContext * deviceContext)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFactory\fP\&.
+.SS "_Use_decl_annotations_ void DGSLEffectFactory::CreateTexture (_In_z_ const wchar_t * name, _In_opt_ ID3D11DeviceContext * deviceContext, _Outptr_ ID3D11ShaderResourceView ** textureView)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFactory\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

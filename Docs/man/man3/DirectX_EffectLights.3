@@ -1,0 +1,86 @@
+.TH "DirectX::EffectLights" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::EffectLights
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::EffectColor\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitializeConstants\fP (_Out_ XMVECTOR &specularColorAndPowerConstant, _Out_writes_all_(MaxDirectionalLights) XMVECTOR *lightDirectionConstant, _Out_writes_all_(MaxDirectionalLights) XMVECTOR *lightDiffuseConstant, _Out_writes_all_(MaxDirectionalLights) XMVECTOR *lightSpecularConstant) const"
+.br
+.ti -1c
+.RI "void \fBSetConstants\fP (_Inout_ int &dirtyFlags, _In_ \fBEffectMatrices\fP const &matrices, _Inout_ XMMATRIX &worldConstant, _Inout_updates_(3) XMVECTOR worldInverseTransposeConstant[3], _Inout_ XMVECTOR &eyePositionConstant, _Inout_ XMVECTOR &diffuseColorConstant, _Inout_ XMVECTOR &emissiveColorConstant, bool lightingEnabled)"
+.br
+.ti -1c
+.RI "int \fBSetLightEnabled\fP (int whichLight, bool value, _Inout_updates_(MaxDirectionalLights) XMVECTOR *lightDiffuseConstant, _Inout_updates_(MaxDirectionalLights) XMVECTOR *lightSpecularConstant)"
+.br
+.ti -1c
+.RI "int XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value, _Inout_updates_(MaxDirectionalLights) XMVECTOR *lightDiffuseConstant)"
+.br
+.ti -1c
+.RI "int XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value, _Inout_updates_(MaxDirectionalLights) XMVECTOR *lightSpecularConstant)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::EffectColor\fP
+.in +1c
+.ti -1c
+.RI "void \fBSetConstants\fP (_Inout_ int &dirtyFlags, _Inout_ XMVECTOR &diffuseColorConstant)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBValidateLightIndex\fP (int whichLight)"
+.br
+.ti -1c
+.RI "static void \fBEnableDefaultLighting\fP (_In_ \fBIEffectLights\fP *effect)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "XMVECTOR \fBemissiveColor\fP"
+.br
+.ti -1c
+.RI "XMVECTOR \fBambientLightColor\fP"
+.br
+.ti -1c
+.RI "bool \fBlightEnabled\fP [MaxDirectionalLights]"
+.br
+.ti -1c
+.RI "XMVECTOR \fBlightDiffuseColor\fP [MaxDirectionalLights]"
+.br
+.ti -1c
+.RI "XMVECTOR \fBlightSpecularColor\fP [MaxDirectionalLights]"
+.br
+.in -1c
+
+Public Attributes inherited from \fBDirectX::EffectColor\fP
+.in +1c
+.ti -1c
+.RI "XMVECTOR \fBdiffuseColor\fP"
+.br
+.ti -1c
+.RI "float \fBalpha\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxDirectionalLights\fP = IEffectLights::MaxDirectionalLights"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

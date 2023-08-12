@@ -1,0 +1,94 @@
+\hypertarget{class_direct_x_1_1_wave_bank}{}\doxysection{DirectX\+::Wave\+Bank Class Reference}
+\label{class_direct_x_1_1_wave_bank}\index{DirectX::WaveBank@{DirectX::WaveBank}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a644f8c772bd7362be041cbfd3ba3e1c0}\label{class_direct_x_1_1_wave_bank_a644f8c772bd7362be041cbfd3ba3e1c0}} 
+{\bfseries Wave\+Bank} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$wb\+File\+Name)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_ab59e547e37a06b486f45757ff962b28a}\label{class_direct_x_1_1_wave_bank_ab59e547e37a06b486f45757ff962b28a}} 
+{\bfseries Wave\+Bank} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a69842d040f46f58ca5c1a1b6c3975ee5}\label{class_direct_x_1_1_wave_bank_a69842d040f46f58ca5c1a1b6c3975ee5}} 
+\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a2b209f10871e4b9e80525bfaef85dc9f}\label{class_direct_x_1_1_wave_bank_a2b209f10871e4b9e80525bfaef85dc9f}} 
+{\bfseries Wave\+Bank} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a7acaeaefdbe4fa3af66bd142fac7bd01}\label{class_direct_x_1_1_wave_bank_a7acaeaefdbe4fa3af66bd142fac7bd01}} 
+\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{Wave\+Bank}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a0370ec81cf3558a13e59514c3c0656f6}\label{class_direct_x_1_1_wave_bank_a0370ec81cf3558a13e59514c3c0656f6}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} (unsigned int index)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_ac8be843a8347d79040c80f00a51fd58c}\label{class_direct_x_1_1_wave_bank_ac8be843a8347d79040c80f00a51fd58c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} (unsigned int index, float volume, float pitch, float pan)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_aecd4c615bf7cdd5bd76f647fab307044}\label{class_direct_x_1_1_wave_bank_aecd4c615bf7cdd5bd76f647fab307044}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a65da279226550d209513fcfe2b504d83}\label{class_direct_x_1_1_wave_bank_a65da279226550d209513fcfe2b504d83}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name, float volume, float pitch, float pan)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_af88c851d618c5c1cc308374a20f54e08}\label{class_direct_x_1_1_wave_bank_af88c851d618c5c1cc308374a20f54e08}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{Sound\+Effect\+Instance}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Instance} (unsigned int index, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags=Sound\+Effect\+Instance\+\_\+\+Default)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a4dfa9dae06948dbd64598e25a91c96a5}\label{class_direct_x_1_1_wave_bank_a4dfa9dae06948dbd64598e25a91c96a5}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{Sound\+Effect\+Instance}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Instance} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags=Sound\+Effect\+Instance\+\_\+\+Default)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a3cadbda58a5cb5041f5fd8e19d2673af}\label{class_direct_x_1_1_wave_bank_a3cadbda58a5cb5041f5fd8e19d2673af}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{Sound\+Stream\+Instance}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Stream\+Instance} (unsigned int index, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags=Sound\+Effect\+Instance\+\_\+\+Default)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a02f157bdd6b323a31194a50d903fc438}\label{class_direct_x_1_1_wave_bank_a02f157bdd6b323a31194a50d903fc438}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{Sound\+Stream\+Instance}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Stream\+Instance} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags=Sound\+Effect\+Instance\+\_\+\+Default)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_abd3222932693984f054c4413b55d24b4}\label{class_direct_x_1_1_wave_bank_abd3222932693984f054c4413b55d24b4}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+Prepared} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_abda73aa159ce1f1cd29293d4ab2a63a2}\label{class_direct_x_1_1_wave_bank_abda73aa159ce1f1cd29293d4ab2a63a2}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+In\+Use} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a1e54138f5cbc87a0d6a5f4d2226d1679}\label{class_direct_x_1_1_wave_bank_a1e54138f5cbc87a0d6a5f4d2226d1679}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+Streaming\+Bank} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a0677ac68c94ca229b5ddeef2b1cc7ecc}\label{class_direct_x_1_1_wave_bank_a0677ac68c94ca229b5ddeef2b1cc7ecc}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+Advanced\+Format} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a36c7c98046d6e860da68d184e8959efb}\label{class_direct_x_1_1_wave_bank_a36c7c98046d6e860da68d184e8959efb}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Size\+In\+Bytes} (unsigned int index) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_aaed856ce698c1b7480be7ea7dfa182dd}\label{class_direct_x_1_1_wave_bank_aaed856ce698c1b7480be7ea7dfa182dd}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Duration} (unsigned int index) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_ad8dbdb9f10665a1de3cd2d2898a24728}\label{class_direct_x_1_1_wave_bank_ad8dbdb9f10665a1de3cd2d2898a24728}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Duration\+MS} (unsigned int index) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_ad79fd9e7c7e09b13553c513a180210df}\label{class_direct_x_1_1_wave_bank_ad79fd9e7c7e09b13553c513a180210df}} 
+const WAVEFORMATEX $\ast$\+\_\+\+\_\+cdecl {\bfseries Get\+Format} (unsigned int index, \+\_\+\+Out\+\_\+writes\+\_\+bytes\+\_\+(maxsize) WAVEFORMATEX $\ast$wfx, size\+\_\+t maxsize) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_aceb2be4b8bb009821d83c5df2ff19da9}\label{class_direct_x_1_1_wave_bank_aceb2be4b8bb009821d83c5df2ff19da9}} 
+int \+\_\+\+\_\+cdecl {\bfseries Find} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a6f626df94efb4b3452affac32b2c692b}\label{class_direct_x_1_1_wave_bank_a6f626df94efb4b3452affac32b2c692b}} 
+void \+\_\+\+\_\+cdecl {\bfseries Fill\+Submit\+Buffer} (unsigned int index, \+\_\+\+Out\+\_\+ XAUDIO2\+\_\+\+BUFFER \&buffer) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_a9b5afdabbe90b9767b513fc9e32d91da}\label{class_direct_x_1_1_wave_bank_a9b5afdabbe90b9767b513fc9e32d91da}} 
+void \+\_\+\+\_\+cdecl {\bfseries Unregister\+Instance} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} $\ast$instance)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_adf910d2131403aff63eece1a62673f8a}\label{class_direct_x_1_1_wave_bank_adf910d2131403aff63eece1a62673f8a}} 
+HANDLE \+\_\+\+\_\+cdecl {\bfseries Get\+Async\+Handle} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_ababdc921e8f1068da16f73a009c85aac}\label{class_direct_x_1_1_wave_bank_ababdc921e8f1068da16f73a009c85aac}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Get\+Private\+Data} (unsigned int index, \+\_\+\+Out\+\_\+writes\+\_\+bytes\+\_\+(datasize) void $\ast$data, size\+\_\+t datasize)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Audio.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Wave\+Bank.\+cpp\end{DoxyCompactItemize}

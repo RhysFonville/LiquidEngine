@@ -1,0 +1,934 @@
+\hypertarget{_direct_x_tex_8h_source}{}\doxysection{Direct\+XTex.\+h}
+\label{_direct_x_tex_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/DirectXTex.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/DirectXTex.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ DirectXTex.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ DirectX\ Texture\ Library}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ !defined(\_\_d3d11\_h\_\_)\ \&\&\ !defined(\_\_d3d11\_x\_h\_\_)\ \&\&\ !defined(\_\_d3d12\_h\_\_)\ \&\&\ !defined(\_\_d3d12\_x\_h\_\_)\ \&\&\ !defined(\_\_XBOX\_D3D12\_X\_\_)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ \_GAMING\_XBOX\_SCARLETT}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <d3d12\_xs.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#elif\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <d3d12\_x.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#elif\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !WIN32}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <directx/dxgiformat.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <wsl/winadapter.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#if\ defined(NTDDI\_WIN10\_FE)\ ||\ defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <ocidl.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <OCIdl.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }IWICImagingFactory;}
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }IWICMetadataQueryReader;}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DIRECTX\_TEX\_VERSION\ 196}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ DXGI\ Format\ Utilities}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsValid(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsCompressed(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsPacked(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsVideo(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsPlanar(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsPalettized(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsDepthStencil(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsSRGB(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsBGR(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsTypeless(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{bool}\ partialTypeless\ =\ \textcolor{keyword}{true})\ noexcept;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ HasAlpha(\_In\_\ DXGI\_FORMAT\ fmt)\ noexcept;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ BitsPerPixel(\_In\_\ DXGI\_FORMAT\ fmt)\ noexcept;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ BitsPerColor(\_In\_\ DXGI\_FORMAT\ fmt)\ noexcept;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ enum\ FORMAT\_TYPE}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_TYPELESS,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_FLOAT,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_UNORM,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_SNORM,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_UINT,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ FORMAT\_TYPE\_SINT,}
+\DoxyCodeLine{00083\ \ \ \ \ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ FORMAT\_TYPE\ \_\_cdecl\ FormatDataType(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{enum}\ CP\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ CP\_FLAGS\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normal\ operation}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ CP\_FLAGS\_LEGACY\_DWORD\ =\ 0x1,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ DWORD\ aligned\ instead\ of\ BYTE\ aligned}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ CP\_FLAGS\_PARAGRAPH\ =\ 0x2,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ 16-\/byte\ aligned\ instead\ of\ BYTE\ aligned}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ CP\_FLAGS\_YMM\ =\ 0x4,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ 32-\/byte\ aligned\ instead\ of\ BYTE\ aligned}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ CP\_FLAGS\_ZMM\ =\ 0x8,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ 64-\/byte\ aligned\ instead\ of\ BYTE\ aligned}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ CP\_FLAGS\_PAGE4K\ =\ 0x200,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ 4096-\/byte\ aligned\ instead\ of\ BYTE\ aligned}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ CP\_FLAGS\_BAD\_DXTN\_TAILS\ =\ 0x1000,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BC\ formats\ with\ malformed\ mipchain\ blocks\ smaller\ than\ 4x4}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ CP\_FLAGS\_24BPP\ =\ 0x10000,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Override\ with\ a\ legacy\ 24\ bits-\/per-\/pixel\ format\ size}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ CP\_FLAGS\_16BPP\ =\ 0x20000,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Override\ with\ a\ legacy\ 16\ bits-\/per-\/pixel\ format\ size}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ CP\_FLAGS\_8BPP\ =\ 0x40000,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Override\ with\ a\ legacy\ 8\ bits-\/per-\/pixel\ format\ size}}
+\DoxyCodeLine{00118\ \ \ \ \ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ HRESULT\ \_\_cdecl\ ComputePitch(}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \_Out\_\ \textcolor{keywordtype}{size\_t}\&\ rowPitch,\ \_Out\_\ \textcolor{keywordtype}{size\_t}\&\ slicePitch,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ ComputeScanlines(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ DXGI\_FORMAT\ \_\_cdecl\ MakeSRGB(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00127\ \ \ \ \ DXGI\_FORMAT\ \_\_cdecl\ MakeTypeless(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00128\ \ \ \ \ DXGI\_FORMAT\ \_\_cdecl\ MakeTypelessUNORM(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00129\ \ \ \ \ DXGI\_FORMAT\ \_\_cdecl\ MakeTypelessFLOAT(\_In\_\ DXGI\_FORMAT\ fmt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ Texture\ metadata}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_DIMENSION}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subset\ here\ matches\ D3D10\_RESOURCE\_DIMENSION\ and\ D3D11\_RESOURCE\_DIMENSION}}
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ TEX\_DIMENSION\_TEXTURE1D\ =\ 2,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ TEX\_DIMENSION\_TEXTURE2D\ =\ 3,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ TEX\_DIMENSION\_TEXTURE3D\ =\ 4,}
+\DoxyCodeLine{00139\ \ \ \ \ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_MISC\_FLAG\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subset\ here\ matches\ D3D10\_RESOURCE\_MISC\_FLAG\ and\ D3D11\_RESOURCE\_MISC\_FLAG}}
+\DoxyCodeLine{00143\ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ TEX\_MISC\_TEXTURECUBE\ =\ 0x4L,}
+\DoxyCodeLine{00145\ \ \ \ \ \};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_MISC\_FLAG2\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ TEX\_MISC2\_ALPHA\_MODE\_MASK\ =\ 0x7L,}
+\DoxyCodeLine{00150\ \ \ \ \ \};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_ALPHA\_MODE}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Matches\ DDS\_ALPHA\_MODE,\ encoded\ in\ MISC\_FLAGS2}}
+\DoxyCodeLine{00154\ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\_UNKNOWN\ =\ 0,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\_STRAIGHT\ =\ 1,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\_PREMULTIPLIED\ =\ 2,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\_OPAQUE\ =\ 3,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\_CUSTOM\ =\ 4,}
+\DoxyCodeLine{00160\ \ \ \ \ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ width;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ height;\ \ \ \ \ \textcolor{comment}{//\ Should\ be\ 1\ for\ 1D\ textures}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ depth;\ \ \ \ \ \ \textcolor{comment}{//\ Should\ be\ 1\ for\ 1D\ or\ 2D\ textures}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ arraySize;\ \ \textcolor{comment}{//\ For\ cubemap,\ this\ is\ a\ multiple\ of\ 6}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ mipLevels;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ miscFlags;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ miscFlags2;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \ \ \ \ format;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ TEX\_DIMENSION\ \ \ dimension;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ ComputeIndex(\_In\_\ \textcolor{keywordtype}{size\_t}\ mip,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ item,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ slice)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ size\_t(-\/1)\ to\ indicate\ an\ out-\/of-\/range\ error}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsCubemap()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (miscFlags\ \&\ TEX\_MISC\_TEXTURECUBE)\ !=\ 0;\ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ miscFlags}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsPMAlpha()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ ((miscFlags2\ \&\ TEX\_MISC2\_ALPHA\_MODE\_MASK)\ ==\ TEX\_ALPHA\_MODE\_PREMULTIPLIED)\ !=\ 0;\ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetAlphaMode(TEX\_ALPHA\_MODE\ mode)\ \textcolor{keyword}{noexcept}\ \{\ miscFlags2\ =\ (miscFlags2\ \&\ \string~static\_cast<uint32\_t>(TEX\_MISC2\_ALPHA\_MODE\_MASK))\ |\ \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(mode);\ \}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ TEX\_ALPHA\_MODE\ \_\_cdecl\ GetAlphaMode()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}TEX\_ALPHA\_MODE\textcolor{keyword}{>}(miscFlags2\ \&\ TEX\_MISC2\_ALPHA\_MODE\_MASK);\ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helpers\ for\ miscFlags2}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsVolumemap()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (dimension\ ==\ TEX\_DIMENSION\_TEXTURE3D);\ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ dimension}}
+\DoxyCodeLine{00187\ \ \ \ \ \};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00190\ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_LEGACY\_DWORD\ =\ 0x1,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ pitch\ is\ DWORD\ aligned\ instead\ of\ BYTE\ aligned\ (used\ by\ some\ legacy\ DDS\ files)}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_NO\_LEGACY\_EXPANSION\ =\ 0x2,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Do\ not\ implicitly\ convert\ legacy\ formats\ that\ result\ in\ larger\ pixel\ sizes\ (24\ bpp,\ 3:3:2,\ A8L8,\ A4L4,\ P8,\ A8P8)}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_NO\_R10B10G10A2\_FIXUP\ =\ 0x4,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Do\ not\ use\ work-\/around\ for\ long-\/standing\ D3DX\ DDS\ file\ format\ issue\ which\ reversed\ the\ 10:10:10:2\ color\ order\ masks}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_FORCE\_RGB\ =\ 0x8,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ DXGI\ 1.1\ BGR\ formats\ to\ DXGI\_FORMAT\_R8G8B8A8\_UNORM\ to\ avoid\ use\ of\ optional\ WDDM\ 1.1\ formats}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_NO\_16BPP\ =\ 0x10,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Conversions\ avoid\ use\ of\ 565,\ 5551,\ and\ 4444\ formats\ and\ instead\ expand\ to\ 8888\ to\ avoid\ use\ of\ optional\ WDDM\ 1.2\ formats}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_EXPAND\_LUMINANCE\ =\ 0x20,}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ loading\ legacy\ luminance\ formats\ expand\ replicating\ the\ color\ channels\ rather\ than\ leaving\ them\ packed\ (L8,\ L16,\ A8L8)}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_BAD\_DXTN\_TAILS\ =\ 0x40,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Some\ older\ DXTn\ DDS\ files\ incorrectly\ handle\ mipchain\ tails\ for\ blocks\ smaller\ than\ 4x4}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_FORCE\_DX10\_EXT\ =\ 0x10000,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Always\ use\ the\ 'DX10'\ header\ extension\ for\ DDS\ writer\ (i.e.\ don't\ try\ to\ write\ DX9\ compatible\ DDS\ files)}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_FORCE\_DX10\_EXT\_MISC2\ =\ 0x20000,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DDS\_FLAGS\_FORCE\_DX10\_EXT\ including\ miscFlags2\ information\ (result\ may\ not\ be\ compatible\ with\ D3DX10\ or\ D3DX11)}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_FORCE\_DX9\_LEGACY\ =\ 0x40000,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Force\ use\ of\ legacy\ header\ for\ DDS\ writer\ (will\ fail\ if\ unable\ to\ write\ as\ such)}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ DDS\_FLAGS\_ALLOW\_LARGE\_FILES\ =\ 0x1000000,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ the\ loader\ to\ read\ large\ dimension\ .dds\ files\ (i.e.\ greater\ than\ known\ hardware\ requirements)}}
+\DoxyCodeLine{00225\ \ \ \ \ \};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{enum}\ TGA\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00228\ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_BGR\ =\ 0x1,}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 24bpp\ files\ are\ returned\ as\ BGRX;\ 32bpp\ files\ are\ returned\ as\ BGRA}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_ALLOW\_ALL\_ZERO\_ALPHA\ =\ 0x2,}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ loaded\ image\ has\ an\ all\ zero\ alpha\ channel,\ normally\ we\ assume\ it\ should\ be\ opaque.\ This\ flag\ leaves\ it\ alone.}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_IGNORE\_SRGB\ =\ 0x10,}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ignores\ sRGB\ TGA\ 2.0\ metadata\ if\ present\ in\ the\ file}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_FORCE\_SRGB\ =\ 0x20,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Writes\ sRGB\ metadata\ into\ the\ file\ reguardless\ of\ format\ (TGA\ 2.0\ only)}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_FORCE\_LINEAR\ =\ 0x40,}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Writes\ linear\ gamma\ metadata\ into\ the\ file\ reguardless\ of\ format\ (TGA\ 2.0\ only)}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ TGA\_FLAGS\_DEFAULT\_SRGB\ =\ 0x80,}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ no\ colorspace\ is\ specified\ in\ TGA\ 2.0\ metadata,\ assume\ sRGB}}
+\DoxyCodeLine{00248\ \ \ \ \ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{enum}\ WIC\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00251\ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FORCE\_RGB\ =\ 0x1,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ DXGI\ 1.1\ BGR\ formats\ as\ DXGI\_FORMAT\_R8G8B8A8\_UNORM\ to\ avoid\ use\ of\ optional\ WDDM\ 1.1\ formats}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_NO\_X2\_BIAS\ =\ 0x2,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ DXGI\ 1.1\ X2\ 10:10:10:2\ format\ as\ DXGI\_FORMAT\_R10G10B10A2\_UNORM}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_NO\_16BPP\ =\ 0x4,}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ 565,\ 5551,\ and\ 4444\ formats\ as\ 8888\ to\ avoid\ use\ of\ optional\ WDDM\ 1.2\ formats}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_ALLOW\_MONO\ =\ 0x8,}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ 1-\/bit\ monochrome\ (black\ \&\ white)\ as\ R1\_UNORM\ rather\ than\ 8-\/bit\ grayscale}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_ALL\_FRAMES\ =\ 0x10,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ all\ images\ in\ a\ multi-\/frame\ file,\ converting/resizing\ to\ match\ the\ first\ frame\ as\ needed,\ defaults\ to\ 0th\ frame\ otherwise}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_IGNORE\_SRGB\ =\ 0x20,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ignores\ sRGB\ metadata\ if\ present\ in\ the\ file}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FORCE\_SRGB\ =\ 0x40,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Writes\ sRGB\ metadata\ into\ the\ file\ reguardless\ of\ format}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FORCE\_LINEAR\ =\ 0x80,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Writes\ linear\ gamma\ metadata\ into\ the\ file\ reguardless\ of\ format}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_DEFAULT\_SRGB\ =\ 0x100,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ no\ colorspace\ is\ specified,\ assume\ sRGB}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_DITHER\ =\ 0x10000,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ ordered\ 4x4\ dithering\ for\ any\ required\ conversions}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_DITHER\_DIFFUSION\ =\ 0x20000,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ error-\/diffusion\ dithering\ for\ any\ required\ conversions}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FILTER\_POINT\ =\ 0x100000,}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FILTER\_LINEAR\ =\ 0x200000,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FILTER\_CUBIC\ =\ 0x300000,}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ WIC\_FLAGS\_FILTER\_FANT\ =\ 0x400000,\ \textcolor{comment}{//\ Combination\ of\ Linear\ and\ Box\ filter}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtering\ mode\ to\ use\ for\ any\ required\ image\ resizing\ (only\ needed\ when\ loading\ arrays\ of\ differently\ sized\ images;\ defaults\ to\ Fant)}}
+\DoxyCodeLine{00292\ \ \ \ \ \};}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromDDSMemory(}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00298\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromDDSFile(}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromHDRMemory(}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00306\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromHDRFile(}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromTGAMemory(}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00314\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromTGAFile(}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00320\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromWICMemory(}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_FLAGS\ flags,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IWICMetadataQueryReader*)>\ getMQR\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromWICFile(}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_FLAGS\ flags,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IWICMetadataQueryReader*)>\ getMQR\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{comment}{//\ Compatability\ helpers}}
+\DoxyCodeLine{00334\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromTGAMemory(}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00337\ \ \ \ \ HRESULT\ \_\_cdecl\ GetMetadataFromTGAFile(}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \_Out\_\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{comment}{//\ Bitmap\ image\ container}}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}}
+\DoxyCodeLine{00344\ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ width;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ height;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format;}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ rowPitch;}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ slicePitch;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ uint8\_t*\ \ \ \ pixels;}
+\DoxyCodeLine{00351\ \ \ \ \ \};}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}}
+\DoxyCodeLine{00354\ \ \ \ \ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}()\ noexcept}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_nimages(0),\ m\_size(0),\ m\_metadata\{\},\ m\_image(\textcolor{keyword}{nullptr}),\ m\_memory(\textcolor{keyword}{nullptr})\ \{\}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}(\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\&\ moveFrom)\ noexcept}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_nimages(0),\ m\_size(0),\ m\_metadata\{\},\ m\_image(\textcolor{keyword}{nullptr}),\ m\_memory(\textcolor{keyword}{nullptr})\ \{\ *\textcolor{keyword}{this}\ =\ std::move(moveFrom);\ \}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{\string~ScratchImage}}()\ \{\ Release();\ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ \_\_cdecl\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\&\ moveFrom)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}\&\ mdata,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize1D(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ length,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ arraySize,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ mipLevels,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize2D(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ arraySize,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ mipLevels,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize3D(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ depth,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ mipLevels,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ InitializeCube(\_In\_\ DXGI\_FORMAT\ fmt,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nCubes,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ mipLevels,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ InitializeFromImage(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ srcImage,\ \_In\_\ \textcolor{keywordtype}{bool}\ allow1D\ =\ \textcolor{keyword}{false},\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ InitializeArrayFromImages(\_In\_reads\_(nImages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nImages,\ \_In\_\ \textcolor{keywordtype}{bool}\ allow1D\ =\ \textcolor{keyword}{false},\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ InitializeCubeFromImages(\_In\_reads\_(nImages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nImages,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize3DFromImages(\_In\_reads\_(depth)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ depth,\ \_In\_\ CP\_FLAGS\ flags\ =\ CP\_FLAGS\_NONE)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Release()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ OverrideFormat(\_In\_\ DXGI\_FORMAT\ f)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}\&\ \_\_cdecl\ GetMetadata()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_metadata;\ \}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ \_\_cdecl\ GetImage(\_In\_\ \textcolor{keywordtype}{size\_t}\ mip,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ item,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ slice)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ \_\_cdecl\ GetImages()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_image;\ \}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetImageCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_nimages;\ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ uint8\_t*\ \_\_cdecl\ GetPixels()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_memory;\ \}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetPixelsSize()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_size;\ \}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsAlphaAllOpaque()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ m\_nimages;}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ m\_size;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}\ m\_metadata;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ \ \ \ \ \ m\_image;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ uint8\_t*\ \ \ \ m\_memory;}
+\DoxyCodeLine{00400\ \ \ \ \ \};}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{comment}{//\ Memory\ blob\ (allocated\ buffer\ pointer\ is\ always\ 16-\/byte\ aligned)}}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}}
+\DoxyCodeLine{00405\ \ \ \ \ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}()\ noexcept\ :\ m\_buffer(\textcolor{keyword}{nullptr}),\ m\_size(0)\ \{\}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}(\mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\&\ moveFrom)\ noexcept\ :\ m\_buffer(\textcolor{keyword}{nullptr}),\ m\_size(0)\ \{\ *\textcolor{keyword}{this}\ =\ std::move(moveFrom);\ \}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{\string~Blob}}()\ \{\ Release();\ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ \_\_cdecl\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\&\ moveFrom)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Initialize(\_In\_\ \textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Release()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\_\_cdecl\ GetBufferPointer()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_buffer;\ \}}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetBufferSize()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_size;\ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Resize(\textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reallocate\ for\ a\ new\ size}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ Trim(\textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Shorten\ size\ without\ reallocation}}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ m\_buffer;}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ m\_size;}
+\DoxyCodeLine{00432\ \ \ \ \ \};}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{comment}{//\ Image\ I/O}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{comment}{//\ DDS\ operations}}
+\DoxyCodeLine{00438\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromDDSMemory(}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00442\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromDDSFile(}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToDDSMemory(}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00451\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToDDSMemory(}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}\&\ metadata,}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToDDSFile(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_In\_\ DDS\_FLAGS\ flags,\ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00457\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToDDSFile(}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}\&\ metadata,}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \_In\_\ DDS\_FLAGS\ flags,\ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{comment}{//\ HDR\ operations}}
+\DoxyCodeLine{00462\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromHDRMemory(}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00465\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromHDRFile(}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToHDRMemory(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00470\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToHDRFile(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{comment}{//\ TGA\ operations}}
+\DoxyCodeLine{00473\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromTGAMemory(}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00477\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromTGAFile(}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToTGAMemory(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob,\ \_In\_opt\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata\ =\ \textcolor{keyword}{nullptr})\ noexcept;}
+\DoxyCodeLine{00485\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToTGAFile(\_In\_\ const\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \_In\_\ TGA\_FLAGS\ flags,}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFile,\ \_In\_opt\_\ const\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata\ =\ \textcolor{keywordtype}{nullptr})\ noexcept;}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{comment}{//\ WIC\ operations}}
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00491\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromWICMemory(}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_FLAGS\ flags,}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image,}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IWICMetadataQueryReader*)>\ getMQR\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00496\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromWICFile(}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,\ \_In\_\ WIC\_FLAGS\ flags,}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image,}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IWICMetadataQueryReader*)>\ getMQR\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToWICMemory(}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_In\_\ WIC\_FLAGS\ flags,\ \_In\_\ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob,\ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00505\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToWICMemory(}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \_In\_count\_(nimages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_FLAGS\ flags,\ \_In\_\ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob,\ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToWICFile(}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_In\_\ WIC\_FLAGS\ flags,\ \_In\_\ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,\ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00515\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToWICFile(}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \_In\_count\_(nimages)\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_FLAGS\ flags,\ \_In\_\ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,\ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIN32}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{comment}{//\ Compatability\ helpers}}
+\DoxyCodeLine{00523\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromTGAMemory(}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00526\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadFromTGAFile(}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFile,}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_scratch_image}{ScratchImage}}\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToTGAMemory(\_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_Out\_\ \mbox{\hyperlink{class_direct_x_1_1_blob}{Blob}}\&\ blob,\ \_In\_opt\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata\ =\ \textcolor{keyword}{nullptr})\ noexcept;}
+\DoxyCodeLine{00531\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveToTGAFile(\_In\_\ const\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ image,\ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFile,\ \_In\_opt\_\ const\ \mbox{\hyperlink{struct_direct_x_1_1_tex_metadata}{TexMetadata}}*\ metadata\ =\ \textcolor{keywordtype}{nullptr})\ noexcept;}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{comment}{//\ Texture\ conversion,\ resizing,\ mipmap\ generation,\ and\ block\ compression}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ enum\ TEX\_FR\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00537\ \ \ \ \ \{}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ TEX\_FR\_ROTATE0\ =\ 0x0,}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ TEX\_FR\_ROTATE90\ =\ 0x1,}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ TEX\_FR\_ROTATE180\ =\ 0x2,}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ TEX\_FR\_ROTATE270\ =\ 0x3,}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ TEX\_FR\_FLIP\_HORIZONTAL\ =\ 0x08,}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ TEX\_FR\_FLIP\_VERTICAL\ =\ 0x10,}
+\DoxyCodeLine{00544\ \ \ \ \ \};}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00547\ \ \ \ \ HRESULT\ \_\_cdecl\ FlipRotate(\_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ TEX\_FR\_FLAGS\ flags,\ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00548\ \ \ \ \ HRESULT\ \_\_cdecl\ FlipRotate(}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FR\_FLAGS\ flags,\ \_Out\_\ ScratchImage\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Flip\ and/or\ rotate\ image}}
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_FILTER\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00555\ \ \ \ \ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ TEX\_FILTER\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ TEX\_FILTER\_WRAP\_U\ =\ 0x1,}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ TEX\_FILTER\_WRAP\_V\ =\ 0x2,}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ TEX\_FILTER\_WRAP\_W\ =\ 0x4,}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ TEX\_FILTER\_WRAP\ =\ (TEX\_FILTER\_WRAP\_U\ |\ TEX\_FILTER\_WRAP\_V\ |\ TEX\_FILTER\_WRAP\_W),}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ TEX\_FILTER\_MIRROR\_U\ =\ 0x10,}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ TEX\_FILTER\_MIRROR\_V\ =\ 0x20,}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ TEX\_FILTER\_MIRROR\_W\ =\ 0x40,}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ TEX\_FILTER\_MIRROR\ =\ (TEX\_FILTER\_MIRROR\_U\ |\ TEX\_FILTER\_MIRROR\_V\ |\ TEX\_FILTER\_MIRROR\_W),}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wrap\ vs.\ Mirror\ vs.\ Clamp\ filtering\ options}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ TEX\_FILTER\_SEPARATE\_ALPHA\ =\ 0x100,}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Resize\ color\ and\ alpha\ channel\ independently}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ TEX\_FILTER\_FLOAT\_X2BIAS\ =\ 0x200,}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enable\ *2\ -\/\ 1\ conversion\ cases\ for\ unorm<-\/>float\ and\ positive-\/only\ float\ formats}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ TEX\_FILTER\_RGB\_COPY\_RED\ =\ 0x1000,}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ TEX\_FILTER\_RGB\_COPY\_GREEN\ =\ 0x2000,}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ TEX\_FILTER\_RGB\_COPY\_BLUE\ =\ 0x4000,}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ converting\ RGB\ to\ R,\ defaults\ to\ using\ grayscale.\ These\ flags\ indicate\ copying\ a\ specific\ channel\ instead}}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ converting\ RGB\ to\ RG,\ defaults\ to\ copying\ RED\ |\ GREEN.\ These\ flags\ control\ which\ channels\ are\ selected\ instead.}}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ TEX\_FILTER\_DITHER\ =\ 0x10000,}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ ordered\ 4x4\ dithering\ for\ any\ required\ conversions}}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ TEX\_FILTER\_DITHER\_DIFFUSION\ =\ 0x20000,}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ error-\/diffusion\ dithering\ for\ any\ required\ conversions}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ TEX\_FILTER\_POINT\ =\ 0x100000,}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ TEX\_FILTER\_LINEAR\ =\ 0x200000,}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ TEX\_FILTER\_CUBIC\ =\ 0x300000,}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ TEX\_FILTER\_BOX\ =\ 0x400000,}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ TEX\_FILTER\_FANT\ =\ 0x400000,\ \textcolor{comment}{//\ Equiv\ to\ Box\ filtering\ for\ mipmap\ generation}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ TEX\_FILTER\_TRIANGLE\ =\ 0x500000,}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtering\ mode\ to\ use\ for\ any\ required\ image\ resizing}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ TEX\_FILTER\_SRGB\_IN\ =\ 0x1000000,}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ TEX\_FILTER\_SRGB\_OUT\ =\ 0x2000000,}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ TEX\_FILTER\_SRGB\ =\ (TEX\_FILTER\_SRGB\_IN\ |\ TEX\_FILTER\_SRGB\_OUT),}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sRGB\ <-\/>\ RGB\ for\ use\ in\ conversion\ operations}}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ input\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_IN\ is\ on\ by\ default}}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ output\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_OUT\ is\ on\ by\ default}}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ TEX\_FILTER\_FORCE\_NON\_WIC\ =\ 0x10000000,}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Forces\ use\ of\ the\ non-\/WIC\ path\ when\ both\ are\ an\ option}}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ TEX\_FILTER\_FORCE\_WIC\ =\ 0x20000000,}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Forces\ use\ of\ the\ WIC\ path\ even\ when\ logic\ would\ have\ picked\ a\ non-\/WIC\ path\ when\ both\ are\ an\ option}}
+\DoxyCodeLine{00605\ \ \ \ \ \};}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ TEX\_FILTER\_DITHER\_MASK\ =\ 0xF0000;}
+\DoxyCodeLine{00608\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ TEX\_FILTER\_MODE\_MASK\ =\ 0xF00000;}
+\DoxyCodeLine{00609\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ TEX\_FILTER\_SRGB\_MASK\ =\ 0xF000000;}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ HRESULT\ \_\_cdecl\ Resize(}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FILTER\_FLAGS\ filter,}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00615\ \ \ \ \ HRESULT\ \_\_cdecl\ Resize(}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_Out\_\ ScratchImage\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Resize\ the\ image\ to\ width\ x\ height.\ Defaults\ to\ Fant\ filtering.}}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ for\ a\ complex\ resize,\ the\ result\ will\ always\ have\ mipLevels\ ==\ 1}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ TEX\_THRESHOLD\_DEFAULT\ =\ 0.5f;}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Default\ value\ for\ alpha\ threshold\ used\ when\ converting\ to\ 1-\/bit\ alpha}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \ \ \ \ HRESULT\ \_\_cdecl\ Convert(}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold,}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00627\ \ \ \ \ HRESULT\ \_\_cdecl\ Convert(}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold,\ \_Out\_\ ScratchImage\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ the\ image\ to\ a\ new\ format}}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertToSinglePlane(\_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00633\ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertToSinglePlane(}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Converts\ the\ image\ from\ a\ planar\ format\ to\ an\ equivalent\ non-\/planar\ format}}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \ \ \ \ HRESULT\ \_\_cdecl\ GenerateMipMaps(}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ baseImage,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ levels,}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \_Inout\_\ ScratchImage\&\ mipChain,\ \_In\_\ \textcolor{keywordtype}{bool}\ allow1D\ =\ \textcolor{keyword}{false})\ noexcept;}
+\DoxyCodeLine{00641\ \ \ \ \ HRESULT\ \_\_cdecl\ GenerateMipMaps(}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ const\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ const\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ levels,\ \_Inout\_\ ScratchImage\&\ mipChain);}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ levels\ of\ '0'\ indicates\ a\ full\ mipchain,\ otherwise\ is\ generates\ that\ number\ of\ total\ levels\ (including\ the\ source\ base\ image)}}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Defaults\ to\ Fant\ filtering\ which\ is\ equivalent\ to\ a\ box\ filter}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ HRESULT\ \_\_cdecl\ GenerateMipMaps3D(}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \_In\_reads\_(depth)\ const\ Image*\ baseImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ depth,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ levels,}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ mipChain)\ noexcept;}
+\DoxyCodeLine{00650\ \ \ \ \ HRESULT\ \_\_cdecl\ GenerateMipMaps3D(}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ const\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ const\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ levels,\ \_Out\_\ ScratchImage\&\ mipChain);}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ levels\ of\ '0'\ indicates\ a\ full\ mipchain,\ otherwise\ is\ generates\ that\ number\ of\ total\ levels\ (including\ the\ source\ base\ image)}}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Defaults\ to\ Fant\ filtering\ which\ is\ equivalent\ to\ a\ box\ filter}}
+\DoxyCodeLine{00655\ }
+\DoxyCodeLine{00656\ \ \ \ \ HRESULT\ \_\_cdecl\ ScaleMipMapsAlphaForCoverage(}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ const\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ const\ TexMetadata\&\ metadata,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ item,}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{float}\ alphaReference,\ \_Inout\_\ ScratchImage\&\ mipChain)\ noexcept;}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \ \ enum\ TEX\_PMALPHA\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00662\ \ \ \ \ \{}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_IGNORE\_SRGB\ =\ 0x1,}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ignores\ sRGB\ colorspace\ conversions}}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_REVERSE\ =\ 0x2,}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ converts\ from\ premultiplied\ alpha\ back\ to\ straight\ alpha}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_SRGB\_IN\ =\ 0x1000000,}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_SRGB\_OUT\ =\ 0x2000000,}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ TEX\_PMALPHA\_SRGB\ =\ (TEX\_PMALPHA\_SRGB\_IN\ |\ TEX\_PMALPHA\_SRGB\_OUT),}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ input\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_IN\ is\ on\ by\ default}}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ output\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_OUT\ is\ on\ by\ default}}
+\DoxyCodeLine{00676\ \ \ \ \ \};}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ HRESULT\ \_\_cdecl\ PremultiplyAlpha(\_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ TEX\_PMALPHA\_FLAGS\ flags,\ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00679\ \ \ \ \ HRESULT\ \_\_cdecl\ PremultiplyAlpha(}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_PMALPHA\_FLAGS\ flags,\ \_Out\_\ ScratchImage\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Converts\ to/from\ a\ premultiplied\ alpha\ version\ of\ the\ texture}}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keyword}{enum}\ TEX\_COMPRESS\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00685\ \ \ \ \ \{}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_RGB\_DITHER\ =\ 0x10000,}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ dithering\ RGB\ colors\ for\ BC1-\/3\ compression}}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_A\_DITHER\ =\ 0x20000,}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ dithering\ alpha\ for\ BC1-\/3\ compression}}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_DITHER\ =\ 0x30000,}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ both\ RGB\ and\ alpha\ dithering\ for\ BC1-\/3\ compression}}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_UNIFORM\ =\ 0x40000,}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Uniform\ color\ weighting\ for\ BC1-\/3\ compression;\ by\ default\ uses\ perceptual\ weighting}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_BC7\_USE\_3SUBSETS\ =\ 0x80000,}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ exhaustive\ search\ for\ BC7\ compress\ for\ mode\ 0\ and\ 2;\ by\ default\ skips\ trying\ these\ modes}}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_BC7\_QUICK\ =\ 0x100000,}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Minimal\ modes\ (usually\ mode\ 6)\ for\ BC7\ compression}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_SRGB\_IN\ =\ 0x1000000,}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_SRGB\_OUT\ =\ 0x2000000,}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_SRGB\ =\ (TEX\_COMPRESS\_SRGB\_IN\ |\ TEX\_COMPRESS\_SRGB\_OUT),}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ input\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_IN\ is\ on\ by\ default}}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ output\ format\ type\ is\ IsSRGB(),\ then\ SRGB\_OUT\ is\ on\ by\ default}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ TEX\_COMPRESS\_PARALLEL\ =\ 0x10000000,}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compress\ is\ free\ to\ use\ multithreading\ to\ improve\ performance\ (by\ default\ it\ does\ not\ use\ multithreading)}}
+\DoxyCodeLine{00714\ \ \ \ \ \};}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00716\ \ \ \ \ HRESULT\ \_\_cdecl\ Compress(}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_COMPRESS\_FLAGS\ compress,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold,}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ cImage)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00719\ \ \ \ \ HRESULT\ \_\_cdecl\ Compress(}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_COMPRESS\_FLAGS\ compress,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold,\ \_Out\_\ ScratchImage\&\ cImages)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ that\ threshold\ is\ only\ used\ by\ BC1.\ TEX\_THRESHOLD\_DEFAULT\ is\ a\ typical\ value\ to\ use}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \textcolor{preprocessor}{\#if\ defined(\_\_d3d11\_h\_\_)\ ||\ defined(\_\_d3d11\_x\_h\_\_)}}
+\DoxyCodeLine{00725\ \ \ \ \ HRESULT\ \_\_cdecl\ Compress(}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_COMPRESS\_FLAGS\ compress,}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{float}\ alphaWeight,\ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00728\ \ \ \ \ HRESULT\ \_\_cdecl\ Compress(}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_COMPRESS\_FLAGS\ compress,\ \_In\_\ \textcolor{keywordtype}{float}\ alphaWeight,\ \_Out\_\ ScratchImage\&\ cImages)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DirectCompute-\/based\ compression\ (alphaWeight\ is\ only\ used\ by\ BC7.\ 1.0\ is\ the\ typical\ value\ to\ use)}}
+\DoxyCodeLine{00732\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \ \ \ \ HRESULT\ \_\_cdecl\ Decompress(\_In\_\ \textcolor{keyword}{const}\ Image\&\ cImage,\ \_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ ScratchImage\&\ image)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00735\ \ \ \ \ HRESULT\ \_\_cdecl\ Decompress(}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ cImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ ScratchImage\&\ images)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00740\ \ \ \ \ \textcolor{comment}{//\ Normal\ map\ operations}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \ \ \ \ \textcolor{keyword}{enum}\ CNMAP\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00743\ \ \ \ \ \{}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ CNMAP\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ CNMAP\_CHANNEL\_RED\ =\ 0x1,}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ CNMAP\_CHANNEL\_GREEN\ =\ 0x2,}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ CNMAP\_CHANNEL\_BLUE\ =\ 0x3,}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ CNMAP\_CHANNEL\_ALPHA\ =\ 0x4,}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ CNMAP\_CHANNEL\_LUMINANCE\ =\ 0x5,}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Channel\ selection\ when\ evaluting\ color\ value\ for\ height}}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Luminance\ is\ a\ combination\ of\ red,\ green,\ and\ blue}}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ CNMAP\_MIRROR\_U\ =\ 0x1000,}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ CNMAP\_MIRROR\_V\ =\ 0x2000,}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ CNMAP\_MIRROR\ =\ 0x3000,}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ mirror\ semantics\ for\ scanline\ references\ (defaults\ to\ wrap)}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ CNMAP\_INVERT\_SIGN\ =\ 0x4000,}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Inverts\ normal\ sign}}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ CNMAP\_COMPUTE\_OCCLUSION\ =\ 0x8000,}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Computes\ a\ crude\ occlusion\ term\ stored\ in\ the\ alpha\ channel}}
+\DoxyCodeLine{00764\ \ \ \ \ \};}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \ \ \ \ HRESULT\ \_\_cdecl\ ComputeNormalMap(}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ srcImage,\ \_In\_\ CNMAP\_FLAGS\ flags,\ \_In\_\ \textcolor{keywordtype}{float}\ amplitude,}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ ScratchImage\&\ normalMap)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00769\ \ \ \ \ HRESULT\ \_\_cdecl\ ComputeNormalMap(}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \_In\_\ CNMAP\_FLAGS\ flags,\ \_In\_\ \textcolor{keywordtype}{float}\ amplitude,\ \_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ ScratchImage\&\ normalMaps)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00774\ \ \ \ \ \textcolor{comment}{//\ Misc\ image\ operations}}
+\DoxyCodeLine{00775\ }
+\DoxyCodeLine{00776\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_rect}{Rect}}}
+\DoxyCodeLine{00777\ \ \ \ \ \{}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ x;}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ y;}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ w;}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ h;}
+\DoxyCodeLine{00782\ }
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_rect}{Rect}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_rect}{Rect}}(\textcolor{keywordtype}{size\_t}\ \_x,\ \textcolor{keywordtype}{size\_t}\ \_y,\ \textcolor{keywordtype}{size\_t}\ \_w,\ \textcolor{keywordtype}{size\_t}\ \_h)\ noexcept\ :\ x(\_x),\ y(\_y),\ w(\_w),\ h(\_h)\ \{\}}
+\DoxyCodeLine{00785\ \ \ \ \ \};}
+\DoxyCodeLine{00786\ }
+\DoxyCodeLine{00787\ \ \ \ \ HRESULT\ \_\_cdecl\ CopyRectangle(}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ srcImage,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_rect}{Rect}}\&\ srcRect,\ \_In\_\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ dstImage,}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FILTER\_FLAGS\ filter,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ xOffset,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ yOffset)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \ \ \ \ \textcolor{keyword}{enum}\ CMSE\_FLAGS\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{00792\ \ \ \ \ \{}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ CMSE\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ CMSE\_IMAGE1\_SRGB\ =\ 0x1,}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ CMSE\_IMAGE2\_SRGB\ =\ 0x2,}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Indicates\ that\ image\ needs\ gamma\ correction\ before\ comparision}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ CMSE\_IGNORE\_RED\ =\ 0x10,}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ CMSE\_IGNORE\_GREEN\ =\ 0x20,}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ CMSE\_IGNORE\_BLUE\ =\ 0x40,}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ CMSE\_IGNORE\_ALPHA\ =\ 0x80,}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ignore\ the\ channel\ when\ computing\ MSE}}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ CMSE\_IMAGE1\_X2\_BIAS\ =\ 0x100,}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ CMSE\_IMAGE2\_X2\_BIAS\ =\ 0x200,}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Indicates\ that\ image\ should\ be\ scaled\ and\ biased\ before\ comparison\ (i.e.\ UNORM\ -\/>\ SNORM)}}
+\DoxyCodeLine{00808\ \ \ \ \ \};}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \ \ \ \ HRESULT\ \_\_cdecl\ ComputeMSE(\_In\_\ \textcolor{keyword}{const}\ Image\&\ image1,\ \_In\_\ \textcolor{keyword}{const}\ Image\&\ image2,\ \_Out\_\ \textcolor{keywordtype}{float}\&\ mse,\ \_Out\_writes\_opt\_(4)\ \textcolor{keywordtype}{float}*\ mseV,\ \_In\_\ CMSE\_FLAGS\ flags\ =\ CMSE\_DEFAULT)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00812\ \ \ \ \ HRESULT\ \_\_cdecl\ EvaluateImage(}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ image,}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \_In\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\_In\_reads\_(width)\ \textcolor{keyword}{const}\ XMVECTOR*\ pixels,\ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ y)>\ pixelFunc);}
+\DoxyCodeLine{00815\ \ \ \ \ HRESULT\ \_\_cdecl\ EvaluateImage(}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \_In\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\_In\_reads\_(width)\ \textcolor{keyword}{const}\ XMVECTOR*\ pixels,\ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ y)>\ pixelFunc);}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \ \ \ \ HRESULT\ \_\_cdecl\ TransformImage(}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ Image\&\ image,}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \_In\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\_Out\_writes\_(width)\ XMVECTOR*\ outPixels,}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(width)\ \textcolor{keyword}{const}\ XMVECTOR*\ inPixels,\ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ y)>\ pixelFunc,}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ ScratchImage\&\ result);}
+\DoxyCodeLine{00824\ \ \ \ \ HRESULT\ \_\_cdecl\ TransformImage(}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \_In\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\_Out\_writes\_(width)\ XMVECTOR*\ outPixels,}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(width)\ \textcolor{keyword}{const}\ XMVECTOR*\ inPixels,\ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ y)>\ pixelFunc,}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ ScratchImage\&\ result);}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00830\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00831\ \ \ \ \ \textcolor{comment}{//\ WIC\ utility\ code}}
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00833\ \ \ \ \ \textcolor{keyword}{enum}\ WICCodecs}
+\DoxyCodeLine{00834\ \ \ \ \ \{}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ WIC\_CODEC\_BMP\ =\ 1,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Windows\ Bitmap\ (.bmp)}}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ WIC\_CODEC\_JPEG,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Joint\ Photographic\ Experts\ Group\ (.jpg,\ .jpeg)}}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ WIC\_CODEC\_PNG,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Portable\ Network\ Graphics\ (.png)}}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ WIC\_CODEC\_TIFF,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tagged\ Image\ File\ Format\ \ (.tif,\ .tiff)}}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ WIC\_CODEC\_GIF,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Graphics\ Interchange\ Format\ \ (.gif)}}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ WIC\_CODEC\_WMP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Windows\ Media\ Photo\ /\ HD\ Photo\ /\ JPEG\ XR\ (.hdp,\ .jxr,\ .wdp)}}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ WIC\_CODEC\_ICO,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Windows\ Icon\ (.ico)}}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ WIC\_CODEC\_HEIF,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ High\ Efficiency\ Image\ File\ (.heif,\ .heic)}}
+\DoxyCodeLine{00843\ \ \ \ \ \};}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \ \ \ \ REFGUID\ \_\_cdecl\ GetWICCodec(\_In\_\ WICCodecs\ codec)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \ \ \ \ IWICImagingFactory*\ \_\_cdecl\ GetWICFactory(\textcolor{keywordtype}{bool}\&\ iswic2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00848\ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWICFactory(\_In\_opt\_\ IWICImagingFactory*\ pWIC)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00849\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00850\ }
+\DoxyCodeLine{00851\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00852\ \ \ \ \ \textcolor{comment}{//\ DDS\ helper\ functions}}
+\DoxyCodeLine{00853\ \ \ \ \ HRESULT\ \_\_cdecl\ EncodeDDSHeader(}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,\ DDS\_FLAGS\ flags,}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \_Out\_writes\_bytes\_to\_opt\_(maxsize,\ required)\ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \_Out\_\ \textcolor{keywordtype}{size\_t}\&\ required)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00857\ }
+\DoxyCodeLine{00858\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00859\ \ \ \ \ \textcolor{comment}{//\ Direct3D\ 11\ functions}}
+\DoxyCodeLine{00860\ \textcolor{preprocessor}{\#if\ defined(\_\_d3d11\_h\_\_)\ ||\ defined(\_\_d3d11\_x\_h\_\_)}}
+\DoxyCodeLine{00861\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsSupportedTexture(\_In\_\ ID3D11Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00863\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTexture(}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D11Resource**\ ppResource)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00866\ }
+\DoxyCodeLine{00867\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateShaderResourceView(}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D11ShaderResourceView**\ ppSRV)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureEx(}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,\ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB,}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D11Resource**\ ppResource)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00876\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateShaderResourceViewEx(}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ pDevice,\ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,\ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,\ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB,}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D11ShaderResourceView**\ ppSRV)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \ \ \ \ HRESULT\ \_\_cdecl\ CaptureTexture(\_In\_\ ID3D11Device*\ pDevice,\ \_In\_\ ID3D11DeviceContext*\ pContext,\ \_In\_\ ID3D11Resource*\ pSource,\ \_Out\_\ ScratchImage\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00882\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00883\ }
+\DoxyCodeLine{00884\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{comment}{//\ Direct3D\ 12\ functions}}
+\DoxyCodeLine{00886\ \textcolor{preprocessor}{\#if\ defined(\_\_d3d12\_h\_\_)\ ||\ defined(\_\_d3d12\_x\_h\_\_)\ ||\ defined(\_\_XBOX\_D3D12\_X\_\_)}}
+\DoxyCodeLine{00887\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsSupportedTexture(\_In\_\ ID3D12Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTexture(}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ ppResource)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00893\ \ \ \ \ HRESULT\ \_\_cdecl\ CreateTextureEx(}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ pDevice,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \_In\_\ D3D12\_RESOURCE\_FLAGS\ resFlags,\ \_In\_\ \textcolor{keywordtype}{bool}\ forceSRGB,}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ ppResource)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ \ \ HRESULT\ \_\_cdecl\ PrepareUpload(}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ pDevice,}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ \textcolor{keyword}{const}\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\&\ subresources);}
+\DoxyCodeLine{00902\ }
+\DoxyCodeLine{00903\ \ \ \ \ HRESULT\ \_\_cdecl\ CaptureTexture(}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12CommandQueue*\ pCommandQueue,\ \_In\_\ ID3D12Resource*\ pSource,\ \_In\_\ \textcolor{keywordtype}{bool}\ isCubeMap,}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \_Out\_\ ScratchImage\&\ result,}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \_In\_\ D3D12\_RESOURCE\_STATES\ beforeState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET,}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \_In\_\ D3D12\_RESOURCE\_STATES\ afterState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00908\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00911\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00912\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wcovered-\/switch-\/default"{}}}
+\DoxyCodeLine{00913\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00914\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wswitch-\/enum"{}}}
+\DoxyCodeLine{00915\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00918\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4619\ 4616\ 4061)}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \textcolor{preprocessor}{\#include\ "{}DirectXTex.inl"{}}}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00925\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00926\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \}\ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

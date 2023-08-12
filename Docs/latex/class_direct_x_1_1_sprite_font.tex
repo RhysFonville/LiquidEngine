@@ -1,0 +1,102 @@
+\hypertarget{class_direct_x_1_1_sprite_font}{}\doxysection{DirectX\+::Sprite\+Font Class Reference}
+\label{class_direct_x_1_1_sprite_font}\index{DirectX::SpriteFont@{DirectX::SpriteFont}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_direct_x_1_1_sprite_font_1_1_glyph}{Glyph}}
+\item 
+class \mbox{\hyperlink{class_sprite_font_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a5439a5a1303acc3115148ae1a6860001}\label{class_direct_x_1_1_sprite_font_a5439a5a1303acc3115148ae1a6860001}} 
+{\bfseries Sprite\+Font} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$file\+Name, bool force\+SRGB=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a1cfb2d7b7282a9abffc17f5c9db682b1}\label{class_direct_x_1_1_sprite_font_a1cfb2d7b7282a9abffc17f5c9db682b1}} 
+{\bfseries Sprite\+Font} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(data\+Size) uint8\+\_\+t const $\ast$data\+Blob, \+\_\+\+In\+\_\+ size\+\_\+t data\+Size, bool force\+SRGB=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_ae18a44915a5478c20fe910f43f3d3086}\label{class_direct_x_1_1_sprite_font_ae18a44915a5478c20fe910f43f3d3086}} 
+{\bfseries Sprite\+Font} (\+\_\+\+In\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture, \+\_\+\+In\+\_\+reads\+\_\+(glyph\+Count) \mbox{\hyperlink{struct_direct_x_1_1_sprite_font_1_1_glyph}{Glyph}} const $\ast$glyphs, \+\_\+\+In\+\_\+ size\+\_\+t glyph\+Count, \+\_\+\+In\+\_\+ float line\+Spacing)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a64942cfbadea331baf74e51dbe0dfbe5}\label{class_direct_x_1_1_sprite_font_a64942cfbadea331baf74e51dbe0dfbe5}} 
+{\bfseries Sprite\+Font} (\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_ac73a59770d5d1949d73c0eef5d86d7a5}\label{class_direct_x_1_1_sprite_font_ac73a59770d5d1949d73c0eef5d86d7a5}} 
+\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a5763e30273384a2e7a36eff14dcee18f}\label{class_direct_x_1_1_sprite_font_a5763e30273384a2e7a36eff14dcee18f}} 
+{\bfseries Sprite\+Font} (\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_ae268742974c1ea5d66ceafbf044d0962}\label{class_direct_x_1_1_sprite_font_ae268742974c1ea5d66ceafbf044d0962}} 
+\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sprite_font}{Sprite\+Font}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a8e3c4afc6cecb95700184c6ad46d7c74}\label{class_direct_x_1_1_sprite_font_a8e3c4afc6cecb95700184c6ad46d7c74}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, XMFLOAT2 const \&position, FXMVECTOR color=Colors\+::\+White, float rotation=0, XMFLOAT2 const \&origin=Float2\+Zero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a3bc122abf1366043f0acc0e4659bba37}\label{class_direct_x_1_1_sprite_font_a3bc122abf1366043f0acc0e4659bba37}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, XMFLOAT2 const \&position, FXMVECTOR color, float rotation, XMFLOAT2 const \&origin, XMFLOAT2 const \&scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a1af59fc014548c419ee326dfecae7c24}\label{class_direct_x_1_1_sprite_font_a1af59fc014548c419ee326dfecae7c24}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, FXMVECTOR position, FXMVECTOR color=Colors\+::\+White, float rotation=0, FXMVECTOR origin=g\+\_\+\+XMZero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a7b651e00b68bd7178e87345bf146d961}\label{class_direct_x_1_1_sprite_font_a7b651e00b68bd7178e87345bf146d961}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a8502e4614938cded53efbe5247c39149}\label{class_direct_x_1_1_sprite_font_a8502e4614938cded53efbe5247c39149}} 
+XMVECTOR XM\+\_\+\+CALLCONV {\bfseries Measure\+String} (\+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a68209dc01fb4e1337407470c7104093c}\label{class_direct_x_1_1_sprite_font_a68209dc01fb4e1337407470c7104093c}} 
+RECT \+\_\+\+\_\+cdecl {\bfseries Measure\+Draw\+Bounds} (\+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, XMFLOAT2 const \&position, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a61d7f31c76f3d2344b0f1e8e1160ad83}\label{class_direct_x_1_1_sprite_font_a61d7f31c76f3d2344b0f1e8e1160ad83}} 
+RECT XM\+\_\+\+CALLCONV {\bfseries Measure\+Draw\+Bounds} (\+\_\+\+In\+\_\+z\+\_\+ wchar\+\_\+t const $\ast$text, FXMVECTOR position, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a5de05692685ee12405e99cec91f3db7f}\label{class_direct_x_1_1_sprite_font_a5de05692685ee12405e99cec91f3db7f}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, XMFLOAT2 const \&position, FXMVECTOR color=Colors\+::\+White, float rotation=0, XMFLOAT2 const \&origin=Float2\+Zero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_acf46f6c7ab858fd5095c906ab903eb69}\label{class_direct_x_1_1_sprite_font_acf46f6c7ab858fd5095c906ab903eb69}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, XMFLOAT2 const \&position, FXMVECTOR color, float rotation, XMFLOAT2 const \&origin, XMFLOAT2 const \&scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a66c99256af6cd845ef5984985d23af99}\label{class_direct_x_1_1_sprite_font_a66c99256af6cd845ef5984985d23af99}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, FXMVECTOR position, FXMVECTOR color=Colors\+::\+White, float rotation=0, FXMVECTOR origin=g\+\_\+\+XMZero, float scale=1, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a15ab22b3de2a4192115a224be89a1fb1}\label{class_direct_x_1_1_sprite_font_a15ab22b3de2a4192115a224be89a1fb1}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+String} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{Sprite\+Batch}} $\ast$sprite\+Batch, \+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, Sprite\+Effects effects=Sprite\+Effects\+\_\+\+None, float layer\+Depth=0) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a0738f0a255d2bb1b478d91e1ed7e3b38}\label{class_direct_x_1_1_sprite_font_a0738f0a255d2bb1b478d91e1ed7e3b38}} 
+XMVECTOR XM\+\_\+\+CALLCONV {\bfseries Measure\+String} (\+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_abcf28608e69e1f72fc4699bcdef27843}\label{class_direct_x_1_1_sprite_font_abcf28608e69e1f72fc4699bcdef27843}} 
+RECT \+\_\+\+\_\+cdecl {\bfseries Measure\+Draw\+Bounds} (\+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, XMFLOAT2 const \&position, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a7bd54e658f5a4ee6e30a491a3bbc0fbb}\label{class_direct_x_1_1_sprite_font_a7bd54e658f5a4ee6e30a491a3bbc0fbb}} 
+RECT XM\+\_\+\+CALLCONV {\bfseries Measure\+Draw\+Bounds} (\+\_\+\+In\+\_\+z\+\_\+ char const $\ast$text, FXMVECTOR position, bool ignore\+Whitespace=true) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_ad6e5a9b386fe609addffcca5f0803881}\label{class_direct_x_1_1_sprite_font_ad6e5a9b386fe609addffcca5f0803881}} 
+float \+\_\+\+\_\+cdecl {\bfseries Get\+Line\+Spacing} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a06bb08f96efb175fcd2dc6b21774a2e5}\label{class_direct_x_1_1_sprite_font_a06bb08f96efb175fcd2dc6b21774a2e5}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Line\+Spacing} (float spacing)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a4e933d836b7a5c3593eac85b86d3f3f8}\label{class_direct_x_1_1_sprite_font_a4e933d836b7a5c3593eac85b86d3f3f8}} 
+wchar\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Default\+Character} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a8a2d28a029a90391e25057e9b79fd7e5}\label{class_direct_x_1_1_sprite_font_a8a2d28a029a90391e25057e9b79fd7e5}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Default\+Character} (wchar\+\_\+t character)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a74d31a9ba812302d1732d52a422dd028}\label{class_direct_x_1_1_sprite_font_a74d31a9ba812302d1732d52a422dd028}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Contains\+Character} (wchar\+\_\+t character) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_af0cf70c0f8def156ee3a1d32ce81511c}\label{class_direct_x_1_1_sprite_font_af0cf70c0f8def156ee3a1d32ce81511c}} 
+\mbox{\hyperlink{struct_direct_x_1_1_sprite_font_1_1_glyph}{Glyph}} const $\ast$\+\_\+\+\_\+cdecl {\bfseries Find\+Glyph} (wchar\+\_\+t character) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sprite_font_a43e848c7122c0e9f6011079453bf734f}\label{class_direct_x_1_1_sprite_font_a43e848c7122c0e9f6011079453bf734f}} 
+void \+\_\+\+\_\+cdecl {\bfseries Get\+Sprite\+Sheet} (ID3\+D11\+Shader\+Resource\+View $\ast$$\ast$texture) const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Sprite\+Font.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Sprite\+Font.\+cpp\end{DoxyCompactItemize}

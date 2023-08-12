@@ -1,0 +1,56 @@
+.TH "Mesh" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Mesh
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMesh\fP (const std::vector< \fBVertex\fP > &vertices, const std::vector< UINT > &indices)"
+.br
+.ti -1c
+.RI "\fBMesh\fP (const std::vector< \fBVertex\fP > &vertices)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBMesh\fP &mesh) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBMesh\fP &mesh) noexcept"
+.br
+.ti -1c
+.RI "GET \fBSimpleBox\fP \fBget_bounding_box\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET const std::vector< \fBVertex\fP > & \fBget_vertices\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET const std::vector< \fBTriangle\fP > & \fBget_triangles\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET const std::vector< \fBSimpleVertex\fP > & \fBget_physics_vertices\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET const std::vector< \fBSimpleTriangle\fP > & \fBget_physics_triangles\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_vertices\fP (const std::vector< \fBVertex\fP > &new_verts, size_t physics_verts_chunk_divisor=3)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< UINT > \fBindices\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

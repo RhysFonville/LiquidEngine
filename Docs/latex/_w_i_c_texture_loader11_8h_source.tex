@@ -1,0 +1,154 @@
+\hypertarget{_w_i_c_texture_loader11_8h_source}{}\doxysection{WICTexture\+Loader11.\+h}
+\label{_w_i_c_texture_loader11_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader11.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader11.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ WICTextureLoader11.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Function\ for\ loading\ a\ WIC\ image\ and\ creating\ a\ Direct3D\ runtime\ texture\ for\ it}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ (auto-\/generating\ mipmaps\ if\ possible)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note:\ Assumes\ application\ has\ already\ called\ CoInitializeEx}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Warning:\ CreateWICTexture*\ functions\ are\ not\ thread-\/safe\ if\ given\ a\ d3dContext\ instance\ for}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ auto-\/gen\ mipmap\ support.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ for\ images\ created\ as\ simple\ 2D\ textures.\ For}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ more\ complex\ resources,\ DDSTextureLoader\ is\ an\ excellent\ light-\/weight\ runtime\ loader.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ For\ a\ full-\/featured\ DDS\ file\ reader,\ writer,\ and\ texture\ processing\ pipeline\ see}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}dxguid.lib"{}})}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}windowscodecs.lib"{}})}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifndef\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{enum}\ WIC\_LOADER\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ WIC\_LOADER\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FORCE\_SRGB\ =\ 0x1,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ WIC\_LOADER\_IGNORE\_SRGB\ =\ 0x2,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ WIC\_LOADER\_SRGB\_DEFAULT\ =\ 0x4,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FIT\_POW2\ =\ 0x20,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MAKE\_SQUARE\ =\ 0x40,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FORCE\_RGBA32\ =\ 0x80,}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(WIC\_LOADER\_FLAGS);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Standard\ version}}
+\DoxyCodeLine{00062\ \ \ \ \ HRESULT\ CreateWICTextureFromMemory(}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ HRESULT\ CreateWICTextureFromFile(}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Standard\ version\ with\ optional\ auto-\/gen\ mipmap\ support}}
+\DoxyCodeLine{00078\ \ \ \ \ HRESULT\ CreateWICTextureFromMemory(}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11DeviceContext*\ d3dContext,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ const\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ HRESULT\ CreateWICTextureFromFile(}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11DeviceContext*\ d3dContext,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ Extended\ version}}
+\DoxyCodeLine{00096\ \ \ \ \ HRESULT\ CreateWICTextureFromMemoryEx(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ const\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView)\ noexcept;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ HRESULT\ CreateWICTextureFromFileEx(}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView)\ noexcept;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ Extended\ version\ with\ optional\ auto-\/gen\ mipmap\ support}}
+\DoxyCodeLine{00122\ \ \ \ \ HRESULT\ CreateWICTextureFromMemoryEx(}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11DeviceContext*\ d3dContext,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ const\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView)\ noexcept;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ HRESULT\ CreateWICTextureFromFileEx(}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ d3dDevice,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11DeviceContext*\ d3dContext,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \_In\_\ D3D11\_USAGE\ usage,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bindFlags,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpuAccessFlags,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ miscFlags,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11Resource**\ texture,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \_Outptr\_opt\_\ ID3D11ShaderResourceView**\ textureView)\ noexcept;}
+\DoxyCodeLine{00148\ \}}
+
+\end{DoxyCode}

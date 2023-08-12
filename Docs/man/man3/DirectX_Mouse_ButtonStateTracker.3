@@ -1,0 +1,51 @@
+.TH "DirectX::Mouse::ButtonStateTracker" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Mouse::ButtonStateTracker
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBButtonState\fP { \fBUP\fP = 0, \fBHELD\fP = 1, \fBRELEASED\fP = 2, \fBPRESSED\fP = 3 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void __cdecl \fBUpdate\fP (const \fBState\fP &state) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBReset\fP () noexcept"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetLastState\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ButtonState \fBleftButton\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBmiddleButton\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightButton\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBxButton1\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBxButton2\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

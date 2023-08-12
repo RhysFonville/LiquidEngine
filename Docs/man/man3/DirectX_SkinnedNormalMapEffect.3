@@ -1,0 +1,361 @@
+.TH "DirectX::SkinnedNormalMapEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SkinnedNormalMapEffect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::NormalMapEffect\fP, and \fBDirectX::IEffectSkinning\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSkinnedNormalMapEffect\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBSkinnedNormalMapEffect\fP (\fBSkinnedNormalMapEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBSkinnedNormalMapEffect\fP & \fBoperator=\fP (\fBSkinnedNormalMapEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBSkinnedNormalMapEffect\fP (\fBSkinnedNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBSkinnedNormalMapEffect\fP & \fBoperator=\fP (\fBSkinnedNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetWeightsPerVertex\fP (int value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBoneTransforms\fP (_In_reads_(count) XMMATRIX const *value, size_t count) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBResetBoneTransforms\fP () override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::NormalMapEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBNormalMapEffect\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP (\fBNormalMapEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP & \fBoperator=\fP (\fBNormalMapEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP (\fBNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP & \fBoperator=\fP (\fBNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetView\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetDiffuseColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetEmissiveColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetSpecularColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetSpecularPower\fP (float value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBDisableSpecular\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetAlpha\fP (float value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetColorAndAlpha\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetAmbientLightColor\fP (FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetLightEnabled\fP (int whichLight, bool value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightDirection\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBEnableDefaultLighting\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnabled\fP (bool value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogStart\fP (float value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnd\fP (float value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVertexColorEnabled\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetNormalTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetSpecularTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBiasedVertexNormals\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetInstancingEnabled\fP (bool value)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength)=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetView\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightingEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetPerPixelLighting\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetAmbientLightColor\fP (FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightEnabled\fP (int whichLight, bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDirection\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBEnableDefaultLighting\fP ()=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogStart\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnd\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value)=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectSkinning\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectSkinning\fP (const \fBIEffectSkinning\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectSkinning\fP & \fBoperator=\fP (const \fBIEffectSkinning\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetWeightsPerVertex\fP (int value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetBoneTransforms\fP (_In_reads_(count) XMMATRIX const *value, size_t count)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBResetBoneTransforms\fP ()=0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Attributes inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxDirectionalLights\fP = 3"
+.br
+.in -1c
+
+Static Public Attributes inherited from \fBDirectX::IEffectSkinning\fP
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxBones\fP = 72"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::NormalMapEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBNormalMapEffect\fP (_In_ ID3D11Device *device, bool skinningEnabled)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetLightingEnabled\fP (bool value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetPerPixelLighting\fP (bool value) override"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (\fBIEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (\fBIEffect\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (\fBIEffectLights\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (\fBIEffectLights\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (\fBIEffectFog\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (\fBIEffectFog\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectSkinning\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectSkinning\fP (\fBIEffectSkinning\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectSkinning\fP & \fBoperator=\fP (\fBIEffectSkinning\fP &&)=default"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBDirectX::NormalMapEffect\fP
+.in +1c
+.ti -1c
+.RI "std::unique_ptr< \fBImpl\fP > \fBpImpl\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void SkinnedNormalMapEffect::ResetBoneTransforms ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectSkinning\fP\&.
+.SS "void SkinnedNormalMapEffect::SetBoneTransforms (_In_reads_(count) XMMATRIX const * value, size_t count)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectSkinning\fP\&.
+.SS "void SkinnedNormalMapEffect::SetWeightsPerVertex (int value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectSkinning\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

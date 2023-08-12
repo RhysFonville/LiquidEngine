@@ -1,0 +1,54 @@
+.TH "Material" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Material
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBMaterialData\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMaterial\fP (\fBColor\fP ks, \fBColor\fP kd, \fBColor\fP ka, float a)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBread_mtl_file\fP (std::vector< std::string > contents) noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBMaterial\fP &material) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBMaterial\fP &material) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBMaterial::MaterialData\fP \fBdata\fP"
+.br
+.ti -1c
+.RI "\fBGraphicsPipeline\fP \fBpipeline\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,631 @@
+\href{http://go.microsoft.com/fwlink/?LinkId=248926}{\texttt{ http\+://go.\+microsoft.\+com/fwlink/?\+Link\+Id=248926}}
+
+Release available for download on \href{https://github.com/microsoft/DirectXTex/releases}{\texttt{ Git\+Hub}}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md106}{}\doxysection{Release History}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md106}
+\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md107}{}\doxysubsection{May 9, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md107}
+
+\begin{DoxyItemize}
+\item TGA reader updated to support 24-\/bit paletted uncompressed color-\/mapped images (used by a DCC application)
+\item Added {\ttfamily Is\+BGR} utility method
+\item Workaround for driver issue on some systems using DirectX 11 {\ttfamily Capture} method
+\item Fix for problem with resizing/mipmaps generation for HDR content using box/fant filter which should avoid going through WIC code paths
+\item Minor updates for VS 2022 (17.\+2)
+\item CMake project updates (now supports MSVC, clang/\+LLVM, and Min\+GW)
+\item Updated D3\+DX12 internal copy with latest changes from Direct\+X-\/\+Headers Git\+Hub
+\item Retired VS 2017 projects
+\item Code cleanup
+\item Reformat source using updated .editorconfig settings
+\item texconv\+: Improve {\ttfamily -\/nmap} handling for 16-\/bit sources going to BC formats
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md108}{}\doxysubsection{March 24, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md108}
+
+\begin{DoxyItemize}
+\item Fixed end-\/point bounds issue with BC6H CPU compressor if none of the pixels are in 0-\/1 range
+\item Fixed bug in alpha-\/to-\/coverage computation
+\item Add support for installable WIC codecs for HEIF and WEBP (if present)
+\item Update build switches for SDL recommendations
+\item CMake project updates and UWP platform CMake\+Presets
+\item Code cleaup for tools
+\item Optional C++17 usage in a few places
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md109}{}\doxysubsection{February 28, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md109}
+
+\begin{DoxyItemize}
+\item Updated D3\+DX12 internal copy with latest changes from Git\+Hub
+\item Code and project review including fixing clang v13 warnings
+\item Added CMake\+Presets.\+json
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md110}{}\doxysubsection{November 8, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md110}
+
+\begin{DoxyItemize}
+\item VS 2022 support
+\item Updated D3\+DX12 internal copy with latest change from Git\+Hubf
+\item Minor code and project review
+\item VS 2017 projects updated to require the Windows 10 SDK (19401)
+\item texassemble/texconv\+: Updated with 12.\+2 for {\ttfamily -\/fl} switch
+\item texassemble/texconv/texdiag\+: Fixed potential locale issue with {\ttfamily -\/flist}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md111}{}\doxysubsection{September 28, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md111}
+
+\begin{DoxyItemize}
+\item Minor code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md112}{}\doxysubsection{August 1, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md112}
+
+\begin{DoxyItemize}
+\item Fixed weighting bug in custom linear filtering for wrap/mirroring
+\item Added VS 2022 Preview projects
+\item texconv\+: Made default output extension to be lower-\/case like most Windows applications
+\item texconv\+: updated colorspace rotation names for -\/rotatecolor switch
+\item texassemble, texconv\+: Order of operations fix for -\/swizzle using 0, 1
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md113}{}\doxysubsection{June 9, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md113}
+
+\begin{DoxyItemize}
+\item Minor bug fix for metadata behavior when using {\ttfamily DDS\+\_\+\+FLAGS\+\_\+\+NO\+\_\+16\+BPP} flag for B5\+G6\+R5 content
+\item texdiag\+: added {\ttfamily -\/c} and {\ttfamily -\/t} switches for diff command
+\item texconv\+: Fixed bug in {\ttfamily -\/m} switch handling when resizing changes the max mipmap count
+\item texconv et al\+: improved {\ttfamily -\/flist} switch to support wildcards and file exclusions
+\item texconv et al\+: Added \textquotesingle{}BGR\textquotesingle{} alias to {\ttfamily -\/f} switch for the B8\+G8\+R8\+X8\+\_\+\+UNORM format
+\item WICTexture\+Loader / DDSTexture\+Loader12 updated to use typed enum bitmask flags for load\+Flags parameter
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md114}{}\doxysubsection{April 6, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md114}
+
+\begin{DoxyItemize}
+\item DDS reader updated to accept n\+Vidia \mbox{\hyperlink{class_texture}{Texture}} Tool v1 single-\/channel and dual-\/channel files marked as RGB instead of LUMINANCE
+\item Fixed TGA reader regression with files smaller than 26 bytes total
+\item Removed use of {\ttfamily Create\+Stream\+On\+HGlobal}, {\ttfamily Create\+Stream\+Over\+Random\+Access\+Stream}, and {\ttfamily SHCreate\+Mem\+Stream} for WICTo\+Memory functions
+\item Fix for the DirectX 12 {\ttfamily Capture\+Texture} for reserved and MSAA resources
+\item Minor code and project cleanup
+\item texassemble\+: added {\ttfamily -\/stripmips} switch
+\item texassemble, texconv\+: the {\ttfamily swizzle} switch now accepts {\ttfamily 0} and {\ttfamily 1} values in swizzle masks
+\item texconv\+: added \char`\"{}709to\+Display\+P3\char`\"{} and \char`\"{}\+Display\+P3to709\char`\"{} to {\ttfamily -\/rotatecolor} switch
+\item texconv\+: Fixed {\ttfamily -\/reconstructz} for UNORM formats
+\item texassemble, texconv, texdiag\+: Updated with descriptions for HRESULT failure codes, and always uses exit code 1 on failure
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md115}{}\doxysubsection{January 9, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md115}
+
+\begin{DoxyItemize}
+\item Windows Subsystem for Linux support
+\item Code review for improved conformance
+\item CMake updated to support package install
+\item texassemble\+: Merge command now supports {\ttfamily -\/swizzle} option
+\item texconv\+: Updated with {\ttfamily -\/r\+:keep} and {\ttfamily -\/swizzle} options
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md116}{}\doxysubsection{November 11, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md116}
+
+\begin{DoxyItemize}
+\item Use {\ttfamily SHCreate\+Mem\+Stream} instead of {\ttfamily Create\+Stream\+On\+HGlobal} for Win32 on Windows 8.\+x or Windows 10
+\item Updated D3\+DX12 internal copy with latest change from Git\+Hub
+\item Minor code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md117}{}\doxysubsection{September 30, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md117}
+
+\begin{DoxyItemize}
+\item Added {\ttfamily TGA\+\_\+\+FLAGS} \href{https://github.com/microsoft/DirectXTex/wiki/TGA-I-O-Functions\#related-flags}{\texttt{ flags}} to TGA reader/writer to control RGB vs. BGR, handling for all zero alpha channels, and TGA 2.\+0 colorspace metadata
+\begin{DoxyItemize}
+\item TGA reader will now return a {\ttfamily DXGI\+\_\+\+FORMAT\+\_\+$\ast$\+\_\+\+SRGB} format if TGA 2.\+0 colorspace metadata contains 2.\+2 or 2.\+4 gamma
+\item Added forwarders for existing non-\/flags TGA functions, so there are no breaking changes
+\end{DoxyItemize}
+\item {\ttfamily R16\+\_\+\+SNORM} and {\ttfamily R8\+\_\+\+SNORM} pixel write code updated to round instead of truncate to better match Direct\+XMath behavior
+\item Fixed bug in standalone WICTexture\+Loader for DX11/\+DX12 that resulted in {\ttfamily WINCODEC\+\_\+\+ERR\+\_\+\+INSUFFICIENTBUFFER} for some resize requests
+\item Added {\ttfamily Ex} variants for DDSTexture\+Loader/\+WICTexture\+Loader for DX9 to support loading resources for non-\/\+DEFAULT pools
+\item Minor code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md118}{}\doxysubsection{August 15, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md118}
+
+\begin{DoxyItemize}
+\item Added {\ttfamily DDS\+\_\+\+FLAGS\+\_\+\+ALLOW\+\_\+\+LARGE\+\_\+\+FILES} flag for DDS loader to allow textures with dimensions that are too big for Direct3D
+\item Added {\ttfamily Format\+Data\+Type} function
+\item Fixed bug with DX12 {\ttfamily Capture} with \textquotesingle{}small alignment\textquotesingle{} textures
+\item Code review and project updates
+\item Added GDK projects
+\item texassemble\+: updated with {\ttfamily -\/fl} switch for feature level based warning
+\item texconv\+: updated with {\ttfamily -\/reconstructz} switch for BC5 compressed normal map view conversion
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md119}{}\doxysubsection{July 2, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md119}
+
+\begin{DoxyItemize}
+\item Minor warning fixes for VS 2019 (16.\+7)
+\item CMake updates
+\item texassemble\+: Fixed animated gif handling with transparency
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md120}{}\doxysubsection{June 15, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md120}
+
+\begin{DoxyItemize}
+\item Code cleanup for some new VC++ 16.\+7 warnings and static code analysis
+\item texconv\+: Updated with support for Portable Pix Map (ppm) \& Portable Float Map (pfm) file formats
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md121}{}\doxysubsection{June 1, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md121}
+
+\begin{DoxyItemize}
+\item Converted to typed enum bitmask flags (see release notes for details on this potential {\itshape breaking change})
+\begin{DoxyItemize}
+\item {\bfseries{Compute\+Pitch}}, {\bfseries{xxx\+DDSxxx}}, {\bfseries{xxx\+WICxxx}}, {\bfseries{Flip\+Rotate}}, {\bfseries{Resize}}, {\bfseries{Convert}}, {\bfseries{Generate\+Mip\+Maps}}, {\bfseries{Generate\+Mip\+Maps3D}}, {\bfseries{Premultiply\+Alpha}}, {\bfseries{Compress}}, {\bfseries{Compute\+Normal\+Map}}, {\bfseries{Copy\+Rectangle}}, {\bfseries{Compute\+MSE}}
+\end{DoxyItemize}
+\item {\ttfamily WIC\+\_\+\+FLAGS\+\_\+\+DEFAULT\+\_\+\+SRGB} / {\ttfamily WIC\+\_\+\+LOADER\+\_\+\+SRGB\+\_\+\+DEFAULT} flag added when loading image via WIC without explicit colorspace metadata
+\item WIC loader for {\ttfamily PNG} codec now checks {\ttfamily g\+AMA} chunk to determine colorspace if the {\ttfamily s\+RGB} chunk is not found for legacy s\+RGB detection.
+\item Fixed conformance issues when using {\ttfamily /\+Zc\+:preprocessor}
+\item CMake project updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md122}{}\doxysubsection{May 10, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md122}
+
+\begin{DoxyItemize}
+\item HDR (RGBE Radiance) file format writer updated to accept half16 input
+\item Code cleanup
+\item Updated D3\+DX12 internal copy to Windows 10 SDK (19041) version
+\item texassemble, texconv, texdiag\+: Updated with {\ttfamily -\/l} switch for case-\/sensitive file systems
+\item texconv\+: Added {\ttfamily -\/dx9} switch to force legacy compatible DDS files
+\item texconv\+: Collapsed {\ttfamily -\/bcuniform}, {\ttfamily -\/bcdither}, {\ttfamily -\/bcquick}, and {\ttfamily -\/bcmax} into one {\ttfamily -\/bc} switch
+\item Updates to {\bfseries{DDSTexture\+Loader}}, {\bfseries{Screen\+Grab}}, and {\bfseries{WICTexture\+Loader}} including new DX9 version
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md123}{}\doxysubsection{April 3, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md123}
+
+\begin{DoxyItemize}
+\item Updated D3\+DX12 internal copy to latest version
+\item DDS loader updated for another BC7 Four\+CC variant
+\item Code review ({\ttfamily constexpr} / {\ttfamily noexcept} usage)
+\item CMake updated for PCH usage with 3.\+16 or later
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md124}{}\doxysubsection{February 14, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md124}
+
+\begin{DoxyItemize}
+\item Fixed quality bug in BC4\+S/\+BC5S compressor
+\item Guard for divide-\/by-\/zero case in {\bfseries{Premultiply\+Alpha}}
+\item texconv\+: added {\ttfamily -\/at} switch for alpha threshold value with BC1 compression
+\item texconv\+: Fixed {\ttfamily -\/nmap} when outputting compressed UNORM formats
+\item Code and project cleaup
+\item Retired VS 2015 projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md125}{}\doxysubsection{December 17, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md125}
+
+\begin{DoxyItemize}
+\item Added ARM64 platform to VS 2019 Win32 desktop Win10 project
+\item Updated CMake project
+\item Code cleaup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md126}{}\doxysubsection{October 17, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md126}
+
+\begin{DoxyItemize}
+\item Codec readers updated to return {\ttfamily TEX\+\_\+\+ALPHA\+\_\+\+MODE\+\_\+\+OPAQUE} if reader returned an alpha channel due to conversion
+\item Added DDS reader support for \textquotesingle{}non-\/standard\textquotesingle{} BC6\+H/\+BC7 Four\+CC codes used by n\+Vidia texture tools
+\item TGA codec updated for TGA 2.\+0
+\item Minor code review
+\item Updated Screen\+Grab module
+\item texconv\+: Added {\ttfamily -\/fixbc4x4switch}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md127}{}\doxysubsection{August 21, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md127}
+
+\begin{DoxyItemize}
+\item Updated D3\+DX12 internal copy to latest version
+\item Added texassemble, texconv, and texdiag to CMake project
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md128}{}\doxysubsection{June 30, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md128}
+
+\begin{DoxyItemize}
+\item Additional validation for Direct3D 11 texture loaders
+\item Clang/\+LLVM warning cleanup
+\item Renamed {\ttfamily Direct\+XTex\+\_\+\+Windows10.\+vcxproj} to {\ttfamily \+\_\+\+Windows10\+\_\+2017.\+vcxproj}
+\item Added VS 2019 UWP project
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md129}{}\doxysubsection{May 30, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md129}
+
+\begin{DoxyItemize}
+\item Regenerated shaders using Windows 10 April 2019 Update SDK (18362)
+\item Added CMake project files
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md130}{}\doxysubsection{April 26, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md130}
+
+\begin{DoxyItemize}
+\item Added VS 2019 desktop projects
+\item Code cleanup for texture loaders
+\item Officially dropped Windows Vista support
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md131}{}\doxysubsection{February 7, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md131}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Scale\+Mip\+Maps\+Alpha\+For\+Coverage}} function to the library
+\item WIC Writer now has two new flags\+: {\ttfamily WIC\+\_\+\+FLAGS\+\_\+\+FORCE\+\_\+\+SRGB} and {\ttfamily WIC\+\_\+\+FLAGS\+\_\+\+FORCE\+\_\+\+LINEAR}
+\item texassemble\+: added {\ttfamily array-\/strip} command
+\item texconv\+: added {\ttfamily -\/inverty}, {\ttfamily -\/keepcoverage} switches
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md132}{}\doxysubsection{November 16, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md132}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows 10 October 2018 Update SDK (17763)
+\item ARM64 platform configurations added to UWP projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md133}{}\doxysubsection{October 25, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md133}
+
+\begin{DoxyItemize}
+\item Use UTF-\/8 instead of ANSI for narrow strings
+\item Updated D3\+DX12 internal copy to latest version
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md134}{}\doxysubsection{August 17, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md134}
+
+\begin{DoxyItemize}
+\item Fixed problem loading legacy DDS files containing FOURCC pixel formats with {\ttfamily ALPHAPIXELS} also set
+\item Fixed {\ttfamily Flip\+Rotate} bug when doing 180 degree rotation
+\item Updated for VS 2017 15.\+8
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md135}{}\doxysubsection{August 5, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md135}
+
+\begin{DoxyItemize}
+\item Improved support and validation for 16k textures (requires x64 native)
+\item {\ttfamily Compute\+Pitch} now returns an HRESULT
+\item Fix BC7 GPU shaders on WARP device
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md136}{}\doxysubsection{July 3, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md136}
+
+\begin{DoxyItemize}
+\item BC7 CPU codec fix for 3subsets/{\ttfamily -\/bcmax} and minor optimization
+\item BC7 GPU codec quantize fix and pbit optimization
+\item BC6H CPU codec bounds checking fix
+\item Code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md137}{}\doxysubsection{May 31, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md137}
+
+\begin{DoxyItemize}
+\item Fix for {\bfseries{Is\+Alpha\+All\+Opaque}} for \textquotesingle{}near opaque\textquotesingle{} values
+\item VS 2017 updated for Windows 10 April 2018 Update SDK (17134)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md138}{}\doxysubsection{May 11, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md138}
+
+\begin{DoxyItemize}
+\item Workaround for WIC issue doing FP32-\/\texorpdfstring{$>$}{>}FP16 conversions
+\item Updated for VS 2017 15.\+7 update warnings
+\item Code and project cleanup
+\item Retired VS 2013 projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md139}{}\doxysubsection{April 23, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md139}
+
+\begin{DoxyItemize}
+\item Code cleanup
+\item texconv\+: Updated with support reading \char`\"{}\+Extended BMP\char`\"{} files using DXTn
+\item texconv\+: Updated to handle non-\/power-\/of-\/2 volume textures with mipmaps
+\item texassemble, texconv, texdiag\+: support format name aliases like DXT3, RGBA, BGRA, FP16, etc. in addition to truncated {\ttfamily DXGI\+\_\+\+FORMAT\+\_\+} values
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md140}{}\doxysubsection{February 9, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md140}
+
+\begin{DoxyItemize}
+\item HDR (RGBE Radiance) file format reader updated to support {\ttfamily \#?RGBE} signature
+\item texconv\+: Added {\ttfamily -\/rotatecolor} and {\ttfamily -\/nits} switches
+\item texassemble\+: Added merge and gif commands
+\item texdiag\+: added dumpdds command
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md141}{}\doxysubsection{February 7, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md141}
+
+\begin{DoxyItemize}
+\item Fixed bug with GPU BC7 encoding (mode 1, fixup 6)
+\item Updated for a few more VS 2017 warnings
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md142}{}\doxysubsection{December 13, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md142}
+
+\begin{DoxyItemize}
+\item Updated for VS 2017 15.\+5 update warnings
+\item Support building library with {\ttfamily \+\_\+\+XM\+\_\+\+NO\+\_\+\+XMVECTOR\+\_\+\+OVERLOADS\+\_\+}
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md143}{}\doxysubsection{November 1, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md143}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows 10 Fall Creators Update SDK (16299)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md144}{}\doxysubsection{September 22, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md144}
+
+\begin{DoxyItemize}
+\item Updated for VS 2017 15.\+3 update {\ttfamily /permissive-\/} changes
+\item WIC writer and Screen\+Grab updated to use non-\/s\+RGB metadata for PNG
+\item texassemble, texconv, texdiag\+: added {\ttfamily -\/flist} option
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md145}{}\doxysubsection{July 26, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md145}
+
+\begin{DoxyItemize}
+\item Support for reading non-\/standard DDS files written by n\+Vidia \mbox{\hyperlink{class_texture}{Texture}} Tools (NVTT)
+\item Fix for {\bfseries{Compute\+MSE}} when using {\ttfamily CMSE\+\_\+\+IMAGE2\+\_\+\+X2\+\_\+\+BIAS}
+\item Fix for WIC writer then codec target format requires a palette ~\newline
+
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md146}{}\doxysubsection{April 24, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md146}
+
+\begin{DoxyItemize}
+\item VS 2017 project updates
+\item Regenerated shaders using Windows 10 Creators Update SDK (15063)
+\item Updated D3\+DX12 internal copy to latest version
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md147}{}\doxysubsection{April 7, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md147}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows Creators Update SDK (15063)
+\item texassemble\+: {\ttfamily -\/tonemap} switch
+\item texconv\+: {\ttfamily -\/wicmulti} switch
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md148}{}\doxysubsection{January 31, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md148}
+
+\begin{DoxyItemize}
+\item DirectX 12 versions of {\bfseries{Is\+Supported}}, {\bfseries{Create\+Texture}} (Prepare\+Upload), and {\bfseries{Capture\+Texture}}
+\item Update to DirectX 11 version of {\bfseries{Is\+Supported}}
+\item WIC format 40bpp\+CMYKAlpha should be converted to RGBA8 rather than RGBA16
+\item DDS support for L8\+A8 with bit-\/count 8 rather than 16
+\item {\ttfamily DXGI\+\_\+\+FORMAT\+\_\+\+R32\+G8\+X24\+\_\+\+TYPELESS} and {\ttfamily DXGI\+\_\+\+FORMAT\+\_\+\+R24\+G8\+\_\+\+TYPELESS} should be Is\+Depth\+Stencil formats
+\item Updates to DDSTexture\+Loader, Screen\+Grab, and WICTexture\+Loader
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md149}{}\doxysubsection{December 5, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md149}
+
+\begin{DoxyItemize}
+\item Fixed over-\/validation in DDS header parsing
+\item VS 2017 RC projects added
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md150}{}\doxysubsection{October 5, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md150}
+
+\begin{DoxyItemize}
+\item {\itshape breaking change} Renamed Evaluate to {\bfseries{Evaluate\+Image}}, \mbox{\hyperlink{struct_transform}{Transform}} to {\bfseries{Transform\+Image}}
+\item texdiag\+: new command-\/line tool for texture debugging
+\item texconv\+: {\ttfamily -\/bcmax}, {\ttfamily -\/bcquick}, {\ttfamily -\/tonemap}, and {\ttfamily -\/x2bias} switches
+\item texconv\+: overwrite writing and {\ttfamily -\/y} switch
+\item texconv/texassemble\+: optional Open\+EXR support
+\item texassemble\+: command syntax with support for generating strip and cross images from cubemap
+\item Updates to DDSTexture\+Loader, WICTexture\+Loader, and Screen\+Grab
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md151}{}\doxysubsection{September 14, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md151}
+
+\begin{DoxyItemize}
+\item \href{https://en.wikipedia.org/wiki/RGBE_image_format}{\texttt{ HDR (RGBE Radiance)}} file format reader and writer
+\item {\bfseries{Evaluate}} and {\bfseries{\mbox{\hyperlink{struct_transform}{Transform}}}} functions for computing user-\/defined functions on images
+\item Fix BC6H GPU shaders on WARP device
+\item Fix for alignment issues on ARM devices in software compression codec
+\item Added {\ttfamily TEX\+\_\+\+THRESHOLD\+\_\+\+DEFAULT} (0.\+5f) constant default alpha threshold value for Convert \& Compress
+\item Minor {\bfseries{Capture\+Texture}} optimization
+\item texconv/texassemble\+: Support for .hdr file format
+\item texconv\+: added {\ttfamily -\/gpu} switch to specify adapter to use for GPU-\/based compression codecs
+\item texconv\+: added {\ttfamily -\/badtails} switch to enable loading of legacy DXTn DDS files with incomplete mipchain tails
+\item texconv\+: added {\ttfamily -\/c} switch for old-\/school colorkey/chromakey transparency to alpha conversion
+\item texconv\+: added {\ttfamily -\/alpha} switch for reverse premultiply along with {\ttfamily TEX\+\_\+\+PMALPHA\+\_\+\+REVERSE} flag
+\item texconv\+: added wildcard support for input filename and optional {\ttfamily -\/r} switch for recursive search
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md152}{}\doxysubsection{August 4, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md152}
+
+\begin{DoxyItemize}
+\item {\ttfamily Compile\+Shader} script updated to build external pdbs
+\item Regenerated shaders using Windows 10 Anniversary Update SDK (14393)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md153}{}\doxysubsection{August 2, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md153}
+
+\begin{DoxyItemize}
+\item Updated for VS 2015 Update 3 and Windows 10 SDK (14393)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md154}{}\doxysubsection{August 1, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md154}
+
+\begin{DoxyItemize}
+\item Workaround for bug in XMStore\+Float3\+SE (impacts conversions to {\ttfamily DXGI\+\_\+\+FORMAT\+\_\+\+R9\+G9\+B9\+E5\+\_\+\+SHAREDEXP})
+\item {\bfseries{DDSTexture\+Loader12}}, {\bfseries{WICTexture\+Loader12}}, and {\bfseries{Screen\+Grab12}} for Direct3D 12 support
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md155}{}\doxysubsection{June 27, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md155}
+
+\begin{DoxyItemize}
+\item texconv command-\/line tool {\ttfamily -\/wicq} and {\ttfamily -\/wiclossless} switches
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md156}{}\doxysubsection{April 26, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md156}
+
+\begin{DoxyItemize}
+\item Optional callback from WIC reader functions to query additional metadata
+\item Retired obsolete adapter code
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md157}{}\doxysubsection{February 23, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md157}
+
+\begin{DoxyItemize}
+\item Fix to clean up partial or zero-\/length image files on failed write
+\item Retired VS 2012 projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md158}{}\doxysubsection{November 30, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md158}
+
+\begin{DoxyItemize}
+\item texconv command-\/line tool {\ttfamily -\/fl} switch now supports 12.\+0 and 12.\+1 feature levels
+\item Updated for VS 2015 Update 1 and Windows 10 SDK (10586)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md159}{}\doxysubsection{October 30, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md159}
+
+\begin{DoxyItemize}
+\item DDS support for legacy bumpmap formats (V8\+U8, Q8\+W8\+V8\+U8, V16\+U16)
+\item Fix for buffer overread in BC CPU compressor
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md160}{}\doxysubsection{August 18, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md160}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Get\+WICFactory}} and {\bfseries{Set\+WICFactory}}
+\item Updates for new DXGI 1.\+3 types
+\item Xbox One platform updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md161}{}\doxysubsection{July 29, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md161}
+
+\begin{DoxyItemize}
+\item Fixed rounding problem with 32-\/bit RGBA/\+BGRA format conversions
+\item texconv\+: use CPU parallel compression for BC1-\/\+BC5 ({\ttfamily -\/singleproc} disables)
+\item Updated for VS 2015 and Windows 10 SDK RTM
+\item Retired VS 2010 and Windows 8.\+0 Store projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md162}{}\doxysubsection{June 18, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md162}
+
+\begin{DoxyItemize}
+\item New {\ttfamily BC\+\_\+\+FLAGS\+\_\+\+USE\+\_\+3\+SUBSETS} option for BC7 compressors; now defaults to skipping 3 subset blocks
+\item Fixed bug with {\bfseries{Make\+Typeless}} and {\ttfamily A8\+\_\+\+UNORM}
+\item Fixed file length validation problem in {\bfseries{Load\+DDSFrom\+File}}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md163}{}\doxysubsection{March 27, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md163}
+
+\begin{DoxyItemize}
+\item Added projects for Windows apps Technical Preview
+\item Fixed bug with WIC-\/based mipmap generation for non-\/\+WIC supported formats
+\item Fixed bug with WIC multiframe loader when resizing required
+\item texconv\+: Added {\ttfamily -\/nmap}/{\ttfamily -\/nmapamp} for generating normal maps from height maps
+\item texconv/texassemble\+: Updated to load multiframe WIC files (tiff, gif)
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md164}{}\doxysubsection{November 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md164}
+
+\begin{DoxyItemize}
+\item Updates for Visual Studio 2015 Technical Preview
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md165}{}\doxysubsection{September 22, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md165}
+
+\begin{DoxyItemize}
+\item Format conversion improvements and bug fixes (depth/stencil, alpha-\/only, float16, RGB -\/\texorpdfstring{$>$}{>} 1 channel)
+\item Fixed issue when BC decompressing non-\/standard compressed row\+Pitch images
+\item Explicit calling-\/convention annotation for all \textquotesingle{}public\textquotesingle{} functions
+\item Code cleanup
+\item Xbox One platform updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md166}{}\doxysubsection{July 15, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md166}
+
+\begin{DoxyItemize}
+\item texconv command-\/line tool fixes
+\item Fixed problem with \textquotesingle{}wide\textquotesingle{} images with CPU {\bfseries{Compress}}
+\item Updates to Xbox One platform support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md167}{}\doxysubsection{April 3, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md167}
+
+\begin{DoxyItemize}
+\item Windows phone 8.\+1 platform support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md168}{}\doxysubsection{February 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md168}
+
+\begin{DoxyItemize}
+\item Direct3D 11 video and Xbox One extended format support
+\item New APIs\+: {\bfseries{Is\+Planar}}, {\bfseries{Is\+Palettized}}, {\bfseries{Is\+Depth\+Stencil}}, {\bfseries{Convert\+To\+Single\+Plane}}
+\item Added \textquotesingle{}alpha\+Weight\textquotesingle{} parameter to GPU {\bfseries{Compress}} {\itshape breaking change}
+\item texconv {\ttfamily -\/aw} switch to control the alpha weighting for the BC7 GPU compressor
+\item Fixed bug with ordered dithering in non-\/\+WIC conversion codepaths
+\item Fixed {\bfseries{Save\+To\+DDSxxx}} functions when using arbitrary row pitch values
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md169}{}\doxysubsection{January 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md169}
+
+\begin{DoxyItemize}
+\item Added s\+RGB flags for {\bfseries{Compress}} ({\ttfamily TEX\+\_\+\+COMPRESS\+\_\+\+SRGB$\ast$})
+\item Added \textquotesingle{}compress\textquotesingle{} flag parameter to GPU versions of {\bfseries{Compress}} {\itshape breaking change}
+\item Minor fix for potential rounding problem in GPU {\bfseries{Compress}}
+\item Code cleanup (removed {\ttfamily DXGI\+\_\+1\+\_\+2\+\_\+\+FORMATS} control define; {\ttfamily Scoped\+Object} typedef removed)
+\item Dropped VS 2010 support without the Windows 8.\+1 SDK (removed {\ttfamily USE\+\_\+\+XNAMATH} control define)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md170}{}\doxysubsection{December 24, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md170}
+
+\begin{DoxyItemize}
+\item texconv updated with {\ttfamily -\/fl} and {\ttfamily -\/pow2} command-\/line switches
+\item Fixed bug in {\bfseries{Resize}} when doing custom filtering which occurred when exactly doubling the image size
+\item Added move operators to {\bfseries{Scratch\+Image}} and {\bfseries{Blob}} classes
+\item Xbox One platform support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md171}{}\doxysubsection{October 21, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md171}
+
+\begin{DoxyItemize}
+\item Updated for Visual Studio 2013 and Windows 8.\+1 SDK RTM
+\item {\bfseries{Premultiply\+Alpha}} updated with new \textquotesingle{}flags\textquotesingle{} parameter and to use s\+RGB correct blending
+\item Fixed colorspace conversion issue with Direct\+Compute compressor when compressing for BC7 SRGB
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md172}{}\doxysubsection{August 13, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md172}
+
+\begin{DoxyItemize}
+\item Direct\+Compute 4.\+0 BC6\+H/\+BC7 compressor integration
+\item texconv utility uses Direct\+Compute compression by default for BC6\+H/\+BC7, {\ttfamily -\/nogpu} disables use of Direct\+Compute
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md173}{}\doxysubsection{August 1, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md173}
+
+\begin{DoxyItemize}
+\item Support for BC compression/decompression of non-\/power-\/of-\/2 mipmapped textures
+\item Fixes for BC6H / BC7 codecs to better match published standard
+\item Fix for BC4 / BC5 codecs when compressing RGB images
+\item Minor fix for the BC1-\/3 codec
+\item New optional flags for {\bfseries{Compute\+MSE}} to compare UNORM vs. SNORM images
+\item New WIC loading flag added to control use of WIC metadata to return s\+RGB vs. non-\/s\+RGB formats
+\item Code cleanup and /analyze fixes
+\item Project file cleanup
+\item texconv utility uses parallel BC compression by default for BC6\+H/\+BC7, {\ttfamily -\/singleproc} disables multithreaded behavior
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md174}{}\doxysubsection{July 1, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md174}
+
+\begin{DoxyItemize}
+\item VS 2013 Preview projects added
+\item Save\+To\+WIC functions updated with new optional {\ttfamily set\+Custom\+Props} parameter
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md175}{}\doxysubsection{June 15, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md175}
+
+\begin{DoxyItemize}
+\item Custom filtering implementation for {\bfseries{Resize}} \& {\bfseries{Generate\+Mip\+Maps(3\+D)}} -\/ Point, \mbox{\hyperlink{struct_box}{Box}}, Linear, Cubic, and \mbox{\hyperlink{struct_triangle}{Triangle}}
+\begin{DoxyItemize}
+\item {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+TRIANGLE} finite low-\/pass triangle filter
+\item {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+WRAP}, {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+MIRROR} texture semantics for custom filtering
+\item {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+BOX} alias for {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+FANT WIC}
+\end{DoxyItemize}
+\item Ordered and error diffusion dithering for non-\/\+WIC conversion
+\item s\+RGB gamma correct custom filtering and conversion
+\item {\ttfamily DDS\+\_\+\+FLAGS\+\_\+\+EXPAND\+\_\+\+LUMINANCE} -\/ Reader conversion option for L8, L16, and A8\+L8 legacy DDS files
+\item Added use of WIC metadata for s\+RGB pixel formats
+\item Added {\bfseries{Bits\+Per\+Color}} utility function
+\item Fixed {\bfseries{Convert}} threshold parameter usage
+\item Non-\/power-\/of-\/2 volume map support, fixed bug with non-\/square volume maps
+\item texconv utility update with {\ttfamily -\/xlum}, {\ttfamily -\/wrap}, and {\ttfamily -\/mirror} options; reworked {\ttfamily -\/if} options for improved dithering
+\item texassemble utility for creating cubemaps, volume maps, and texture arrays
+\item DDSTexture\+Loader and WICTexture\+Loader sync\textquotesingle{}d with Direct\+XTK versions
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md176}{}\doxysubsection{April 16, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md176}
+
+\begin{DoxyItemize}
+\item Updated alpha-\/mode metadata details in .DDS files
+\item Added new control flags for {\bfseries{Convert}}
+\item Added new optional flags for {\bfseries{Compute\+MSE}}
+\item Fixed conversion handling for s\+RGB formats
+\item Fixed internal routines for handling {\ttfamily R10\+G10\+B10\+\_\+\+XR\+\_\+\+BIAS\+\_\+\+A2\+\_\+\+UNORM}, {\ttfamily R9\+G9\+B9\+E5\+\_\+\+SHAREDEXP}, and {\ttfamily FORMAT\+\_\+\+R1\+\_\+\+UNORM}
+\item Fixed WIC I/O for {\ttfamily GUID\+\_\+\+WICPixel\+Format32bpp\+RGBE}4 pixel format files (HD Photo)
+\item Fixed non-\/square image handling in {\bfseries{Generate\+Mip\+Maps3D}}
+\item Fixed some error handling in the DDS load code
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md177}{}\doxysubsection{March 22, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md177}
+
+\begin{DoxyItemize}
+\item Supports reading and writing alpha-\/mode (straight, premultiplied, etc.) metadata in .DDS files
+\item Added build option to use WICCreate\+Imaging\+Factory\+\_\+\+Proxy instead of {\ttfamily Co\+Create\+Instance} to obtain WIC factory
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md178}{}\doxysubsection{January 29, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md178}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Premultiply\+Alpha}} to Direct\+XTex; {\ttfamily -\/pmalpha} switch for texconv command-\/line tool
+\item Fixed problem with force\+SRGB implementation for Ex versions of Create\+Texture, Create\+Shader\+Resource\+View, DDSTexture\+Loader and WICTexture\+Loader
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md179}{}\doxysubsection{December 11, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md179}
+
+\begin{DoxyItemize}
+\item Ex versions of {\bfseries{Create\+Texture}}, {\bfseries{Create\+Shader\+Resource\+View}}, {\bfseries{DDSTexture\+Loader}} and {\bfseries{WICTexture\+Loader}}
+\item Fixed BC2 and BC3 decompression issue for unusual color encoding case
+\item Converted annotation to SAL2 for improved VS 2012 /analyze experience
+\item Updated Direct\+XTex, DDSView, and Texconv with VS 2010 + Windows 8.\+0 SDK project using official \textquotesingle{}property sheets\textquotesingle{}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md180}{}\doxysubsection{November 15, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md180}
+
+\begin{DoxyItemize}
+\item Added support for WIC2 when available on Windows 8 and Windows 7 with KB 2670838
+\item Added optional {\ttfamily target\+GUID} parameter to Save\+WIC$\ast$ APIs to influence final container pixel format choice
+\item Fixed bug in {\bfseries{Save\+DDSxxx}} which was generating invalid DDS files for 1D dimension textures
+\item Improved robustness of {\bfseries{Capture\+Texture}} when resolving MSAA source textures
+\item Sync\textquotesingle{}d DDSTexture\+Loader, Screen\+Grab, and WICTexture\+Loader standalone versions with latest Direct\+XTK release
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md181}{}\doxysubsection{September 28, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md181}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Screen\+Grab}} module for creating runtime screenshots
+\item Renamed project files for better naming consistency
+\item New Typeless utilities for Direct\+XTex
+\item Some minor code cleanup for Direct\+XTex\textquotesingle{}s WIC writer function
+\item Bug fixes and new {\ttfamily -\/tu}/{\ttfamily -\/tf} options for texconv
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md182}{}\doxysubsection{June 22, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md182}
+
+\begin{DoxyItemize}
+\item Moved to using XNA Math 2.\+05 instead of XNA Math 2.\+04 for {\ttfamily USE\+\_\+\+XNAMATH} builds
+\item Fixed BGR vs. RGB color channel swizzle problem with 24bpp legacy .DDS files in Direct\+XTex
+\item Update to Direct\+XTex WIC and WICTexture\+Loader for additional 96bpp float format handling on Windows 8
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md183}{}\doxysubsection{May 31, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md183}
+
+\begin{DoxyItemize}
+\item Minor fix for DDSTexture\+Loader\textquotesingle{}s retry fallback that can happen with 10level9 feature levels
+\item Switched to use {\ttfamily \+\_\+\+DEBUG} instead of {\ttfamily DEBUG} and cleaned up debug warnings
+\item added Windows Store style application project files for Direct\+XTex
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md184}{}\doxysubsection{April 20, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md184}
+
+\begin{DoxyItemize}
+\item Direct\+Tex\textquotesingle{}s WIC-\/based writer opts-\/in for the Windows 8 BMP encoder option for writing 32 bpp RGBA files with the {\ttfamily BITMAPV5\+HEADER}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md185}{}\doxysubsection{March 30, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md185}
+
+\begin{DoxyItemize}
+\item WICTexture\+Loader updated with Windows 8 WIC pixel formats
+\item Direct\+XTex updated with limited non-\/power-\/of-\/2 texture support and {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+SEPARATE\+\_\+\+ALPHA} option
+\item Texconv updated with {\ttfamily -\/sepalpha} command-\/line option
+\item Added {\ttfamily USE\+\_\+\+XNAMATH} control define to build Direct\+XTex using either XNAMath or Direct\+XMath
+\item Added VS 2012 project files (which use Direct\+XMath instead of XNAMath and define {\ttfamily DXGI\+\_\+1\+\_\+2\+\_\+\+FORMATS})
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md186}{}\doxysubsection{March 15, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md186}
+
+\begin{DoxyItemize}
+\item Fix for resource leak in {\bfseries{Create\+Shader\+Resource\+View}} Direct3D 11 helper function in Direct\+XTex
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md187}{}\doxysubsection{March 5, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md187}
+
+\begin{DoxyItemize}
+\item Fix for too much temp memory allocated by WICTexture\+Loader; cleaned up legacy \textquotesingle{}min/max\textquotesingle{} macro usage in Direct\+XTex
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md188}{}\doxysubsection{February 21, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md188}
+
+\begin{DoxyItemize}
+\item WICTexture\+Loader updated to handle systems and device drivers without BGRA or 16bpp format support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md189}{}\doxysubsection{February 20, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md189}
+
+\begin{DoxyItemize}
+\item Some code cleanup for Direct\+XTex and DDSTexture\+Loader
+\item Fixed bug in 10\+:10\+:10\+:2 format fixup in the {\bfseries{Load\+DDSFrom\+Memory}} function
+\item Fixed bugs in \char`\"{}non-\/zero alpha\char`\"{} special-\/case handling in {\bfseries{Load\+TGAFrom\+File}}
+\item Fixed bug in {\ttfamily \+\_\+\+Swizzle\+Scanline} when copying alpha channel for BGRA\texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>}RGBA swizzling
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md190}{}\doxysubsection{February 11, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md190}
+
+\begin{DoxyItemize}
+\item Update of DDSTexture\+Loader to also build in Windows Store style apps; added {\bfseries{WICTexture\+Loader}}
+\item Added CMYK WIC pixel formats to the Direct\+XTex conversion table
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md191}{}\doxysubsection{January 30, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md191}
+
+\begin{DoxyItemize}
+\item Minor code-\/cleanup for Direct\+XTex to enable use of PCH through \textquotesingle{}\mbox{\hyperlink{_direct_x_tex_p_8h_source}{directxtexp.\+h}}\textquotesingle{} header
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md192}{}\doxysubsection{January 24, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md192}
+
+\begin{DoxyItemize}
+\item Some code-\/cleanup for Direct\+XTex
+\item Added DXGI 1.\+2 implementation for DDSTexture\+Loader and Direct\+XTex guarded with {\ttfamily DXGI\+\_\+1\+\_\+2\+\_\+\+FORMATS} compilation define
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md193}{}\doxysubsection{December 16, 2011}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md193}
+
+\begin{DoxyItemize}
+\item Fixed x64 compilation warnings in DDSTexture\+Loader
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md194}{}\doxysubsection{November 30, 2011}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md194}
+
+\begin{DoxyItemize}
+\item Fixed some of the constants used in {\bfseries{Is\+Supported\+Texture}}
+\item added ability to strip off top levels of mips in DDSTexture\+Loader
+\item changed Direct\+XTex to use Co\+Create\+Instance rather than Load\+Library to obtain the WIC factory
+\item a few minor {\ttfamily /analyze} related annotations for Direct\+XTex
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md195}{}\doxysubsection{October 27, 2011}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__h_i_s_t_o_r_y_autotoc_md195}
+
+\begin{DoxyItemize}
+\item Original release 
+\end{DoxyItemize}

@@ -1,0 +1,222 @@
+.TH "DirectX::DualTextureEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DualTextureEffect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IEffect\fP, \fBDirectX::IEffectMatrices\fP, and \fBDirectX::IEffectFog\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDualTextureEffect\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBDualTextureEffect\fP (\fBDualTextureEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDualTextureEffect\fP & \fBoperator=\fP (\fBDualTextureEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDualTextureEffect\fP (\fBDualTextureEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBDualTextureEffect\fP & \fBoperator=\fP (\fBDualTextureEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetView\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetDiffuseColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetAlpha\fP (float value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetColorAndAlpha\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnabled\fP (bool value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogStart\fP (float value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnd\fP (float value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVertexColorEnabled\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetTexture2\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength)=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetView\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogStart\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnd\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value)=0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (\fBIEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (\fBIEffect\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (\fBIEffectFog\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (\fBIEffectFog\fP &&)=default"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void DualTextureEffect::Apply (_In_ ID3D11DeviceContext * deviceContext)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void DualTextureEffect::GetVertexShaderBytecode (_Out_ void const ** pShaderByteCode, _Out_ size_t * pByteCodeLength)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void XM_CALLCONV DualTextureEffect::SetFogColor (FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void DualTextureEffect::SetFogEnabled (bool value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void DualTextureEffect::SetFogEnd (float value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void DualTextureEffect::SetFogStart (float value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void XM_CALLCONV DualTextureEffect::SetMatrices (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DualTextureEffect::SetProjection (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DualTextureEffect::SetView (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DualTextureEffect::SetWorld (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

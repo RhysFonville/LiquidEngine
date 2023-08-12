@@ -1,0 +1,117 @@
+.TH "DirectX::SimpleMath::Rectangle" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Rectangle
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBRectangle\fP (long ix, long iy, long iw, long ih) noexcept"
+.br
+.ti -1c
+.RI "\fBRectangle\fP (const RECT &rct) noexcept"
+.br
+.ti -1c
+.RI "\fBRectangle\fP (const \fBRectangle\fP &)=default"
+.br
+.ti -1c
+.RI "\fBRectangle\fP & \fBoperator=\fP (const \fBRectangle\fP &)=default"
+.br
+.ti -1c
+.RI "\fBRectangle\fP (\fBRectangle\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBRectangle\fP & \fBoperator=\fP (\fBRectangle\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator RECT\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRectangle\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBRectangle\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const RECT &rct) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const RECT &rct) const noexcept"
+.br
+.ti -1c
+.RI "\fBRectangle\fP & \fBoperator=\fP (_In_ const RECT &rct) noexcept"
+.br
+.ti -1c
+.RI "\fBVector2\fP \fBLocation\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector2\fP \fBCenter\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIsEmpty\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (long ix, long iy) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const \fBVector2\fP &point) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const \fBRectangle\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const RECT &rct) const noexcept"
+.br
+.ti -1c
+.RI "void \fBInflate\fP (long horizAmount, long vertAmount) noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const \fBRectangle\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const RECT &rct) const noexcept"
+.br
+.ti -1c
+.RI "void \fBOffset\fP (long ox, long oy) noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRectangle\fP \fBIntersect\fP (const \fBRectangle\fP &ra, const \fBRectangle\fP &rb) noexcept"
+.br
+.ti -1c
+.RI "static RECT \fBIntersect\fP (const RECT &rcta, const RECT &rctb) noexcept"
+.br
+.ti -1c
+.RI "static \fBRectangle\fP \fBUnion\fP (const \fBRectangle\fP &ra, const \fBRectangle\fP &rb) noexcept"
+.br
+.ti -1c
+.RI "static RECT \fBUnion\fP (const RECT &rcta, const RECT &rctb) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "long \fBx\fP"
+.br
+.ti -1c
+.RI "long \fBy\fP"
+.br
+.ti -1c
+.RI "long \fBwidth\fP"
+.br
+.ti -1c
+.RI "long \fBheight\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

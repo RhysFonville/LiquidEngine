@@ -1,0 +1,89 @@
+\hypertarget{_wave_bank_reader_8h_source}{}\doxysection{Wave\+Bank\+Reader.\+h}
+\label{_wave_bank_reader_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/WaveBankReader.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/WaveBankReader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ WaveBankReader.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Functions\ for\ loading\ audio\ data\ from\ Wave\ Banks}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <objbase.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <mmreg.h>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}(\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}(\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{WaveBankReader}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{\string~WaveBankReader}}();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ HRESULT\ Open(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ uint32\_t\ Find(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ IsPrepared()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WaitOnPrepare()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ HasNames()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ IsStreamingBank()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ HasXMA()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ BankName()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ uint32\_t\ Count()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ uint32\_t\ BankAudioSize()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ HRESULT\ GetFormat(\_In\_\ uint32\_t\ index,\ \_Out\_writes\_bytes\_(maxsize)\ WAVEFORMATEX*\ pFormat,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ HRESULT\ GetWaveData(\_In\_\ uint32\_t\ index,\ \_Outptr\_\ \textcolor{keyword}{const}\ uint8\_t**\ pData,\ \_Out\_\ uint32\_t\&\ dataSize)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ HRESULT\ GetSeekTable(\_In\_\ uint32\_t\ index,\ \_Out\_\ \textcolor{keyword}{const}\ uint32\_t**\ pData,\ \_Out\_\ uint32\_t\&\ dataCount,\ \_Out\_\ uint32\_t\&\ tag)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ HANDLE\ GetAsyncHandle()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ uint32\_t\ GetWaveAlignment()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_wave_bank_reader_1_1_metadata}{Metadata}}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ duration;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ loopStart;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ loopLength;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ offsetBytes;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ lengthBytes;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ HRESULT\ GetMetadata(\_In\_\ uint32\_t\ index,\ \_Out\_\ \mbox{\hyperlink{struct_direct_x_1_1_wave_bank_reader_1_1_metadata}{Metadata}}\&\ metadata)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00082\ \ \ \ \ \};}
+\DoxyCodeLine{00083\ \}}
+
+\end{DoxyCode}

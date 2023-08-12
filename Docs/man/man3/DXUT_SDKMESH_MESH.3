@@ -1,0 +1,64 @@
+.TH "DXUT::SDKMESH_MESH" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DXUT::SDKMESH_MESH
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char \fBName\fP [MAX_MESH_NAME]"
+.br
+.ti -1c
+.RI "uint8_t \fBNumVertexBuffers\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBVertexBuffers\fP [MAX_VERTEX_STREAMS]"
+.br
+.ti -1c
+.RI "uint32_t \fBIndexBuffer\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBNumSubsets\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBNumFrameInfluences\fP"
+.br
+.ti -1c
+.RI "DirectX::XMFLOAT3 \fBBoundingBoxCenter\fP"
+.br
+.ti -1c
+.RI "DirectX::XMFLOAT3 \fBBoundingBoxExtents\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint64_t \fBSubsetOffset\fP"
+.br
+.ti -1c
+.RI "   INT * \fBpSubsets\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   uint64_t \fBFrameInfluenceOffset\fP"
+.br
+.ti -1c
+.RI "   uint32_t * \fBpFrameInfluences\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,775 @@
+\hypertarget{_audio_8h_source}{}\doxysection{Audio.\+h}
+\label{_audio_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Audio.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Audio.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Audio.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ DirectXTK\ for\ Audio\ header}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <objbase.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <mmreg.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <Audioclient.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <xma2defs.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}acphal.lib"{}})}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ XAUDIO2\_HELPER\_FUNCTIONS}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ XAUDIO2\_HELPER\_FUNCTIONS}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#if\ defined(USING\_XAUDIO2\_REDIST)\ ||\ (\_WIN32\_WINNT\ >=\ 0x0A00\ }\textcolor{comment}{/*\_WIN32\_WINNT\_WIN10*/}\textcolor{preprocessor}{)\ ||\ defined(\_XBOX\_ONE)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ USING\_XAUDIO2\_9}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#elif\ (\_WIN32\_WINNT\ >=\ 0x0602\ }\textcolor{comment}{/*\_WIN32\_WINNT\_WIN8*/}\textcolor{preprocessor}{)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ USING\_XAUDIO2\_8}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#elif\ (\_WIN32\_WINNT\ >=\ 0x0601\ }\textcolor{comment}{/*\_WIN32\_WINNT\_WIN7*/}\textcolor{preprocessor}{)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#error\ Windows\ 7\ SP1\ requires\ the\ XAudio2Redist\ NuGet\ package\ https:}\textcolor{comment}{//aka.ms/xaudio2redist}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#error\ DirectX\ Tool\ Kit\ for\ Audio\ not\ supported\ on\ this\ platform}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <xaudio2.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <xaudio2fx.h>}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4619\ 4616\ 5246)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <x3daudio.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <xapofx.h>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifndef\ USING\_XAUDIO2\_REDIST}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ defined(USING\_XAUDIO2\_8)\ \&\&\ defined(NTDDI\_WIN10)\ \&\&\ !defined(\_M\_IX86)}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ The\ xaudio2\_8.lib\ in\ the\ Windows\ 10\ SDK\ for\ x86\ is\ incorrectly\ annotated\ as\ \_\_cdecl\ instead\ of\ \_\_stdcall,\ so\ avoid\ using\ it\ in\ this\ case.}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}xaudio2\_8.lib"{}})}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}xaudio2.lib"{}})}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{class\ }SoundEffectInstance;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{class\ }SoundStreamInstance;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{AudioStatistics}}}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ playingOneShots;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ one-\/shot\ sounds\ currently\ playing}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ playingInstances;\ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ sound\ effect\ instances\ currently\ playing}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ allocatedInstances;\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ SoundEffectInstance\ allocated}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ allocatedVoices;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ XAudio2\ voices\ allocated\ (standard,\ 3D,\ one-\/shots,\ and\ idle\ one-\/shots)}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ allocatedVoices3d;\ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ XAudio2\ voices\ allocated\ for\ 3D}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ allocatedVoicesOneShot;\ \textcolor{comment}{//\ Number\ of\ XAudio2\ voices\ allocated\ for\ one-\/shot\ sounds}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ allocatedVoicesIdle;\ \ \ \ \textcolor{comment}{//\ Number\ of\ XAudio2\ voices\ allocated\ for\ one-\/shot\ sounds\ but\ not\ currently\ in\ use}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ audioBytes;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ wave\ data\ (in\ bytes)\ in\ SoundEffects\ and\ in-\/memory\ WaveBanks}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ xmaAudioBytes;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ wave\ data\ (in\ bytes)\ in\ SoundEffects\ and\ in-\/memory\ WaveBanks\ allocated\ with\ ApuAlloc}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ streamingBytes;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ size\ of\ streaming\ buffers\ (in\ bytes)\ in\ streaming\ WaveBanks}}
+\DoxyCodeLine{00087\ \ \ \ \ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{\string~IVoiceNotify}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}(\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnBufferEnd()\ =\ 0;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notfication\ that\ a\ voice\ buffer\ has\ finished}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ this\ is\ called\ from\ XAudio2's\ worker\ thread,\ so\ it\ should\ perform\ very\ minimal\ and\ thread-\/safe\ operations}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnCriticalError()\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notification\ that\ the\ audio\ engine\ encountered\ a\ critical\ error}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnReset()\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notification\ of\ an\ audio\ engine\ reset}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnUpdate()\ =\ 0;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notification\ of\ an\ audio\ engine\ per-\/frame\ update\ (opt-\/in)}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnDestroyEngine()\ \textcolor{keyword}{noexcept}\ =\ 0;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notification\ that\ the\ audio\ engine\ is\ being\ destroyed}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnTrim()\ =\ 0;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notification\ of\ a\ request\ to\ trim\ the\ voice\ pool}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ GatherStatistics(\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{AudioStatistics}}\&\ stats)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Contribute\ to\ statistics\ request}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ OnDestroyParent()\ \textcolor{keyword}{noexcept}\ =\ 0;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Optional\ notification\ used\ by\ some\ objects}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00129\ \ \ \ \ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{enum}\ AUDIO\_ENGINE\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00133\ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ AudioEngine\_Default\ =\ 0x0,}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ AudioEngine\_EnvironmentalReverb\ =\ 0x1,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ AudioEngine\_ReverbUseFilters\ =\ 0x2,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ AudioEngine\_UseMasteringLimiter\ =\ 0x4,}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ AudioEngine\_Debug\ =\ 0x10000,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ AudioEngine\_ThrowOnNoAudioHW\ =\ 0x20000,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ AudioEngine\_DisableVoiceReuse\ =\ 0x40000,}
+\DoxyCodeLine{00143\ \ \ \ \ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{enum}\ SOUND\_EFFECT\_INSTANCE\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ SoundEffectInstance\_Default\ =\ 0x0,}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ SoundEffectInstance\_Use3D\ =\ 0x1,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ SoundEffectInstance\_ReverbUseFilters\ =\ 0x2,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ SoundEffectInstance\_NoSetPitch\ =\ 0x4,}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ SoundEffectInstance\_UseRedirectLFE\ =\ 0x10000,}
+\DoxyCodeLine{00154\ \ \ \ \ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{enum}\ AUDIO\_ENGINE\_REVERB\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00157\ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ Reverb\_Off,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ Reverb\_Default,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ Reverb\_Generic,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ Reverb\_Forest,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ Reverb\_PaddedCell,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ Reverb\_Room,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ Reverb\_Bathroom,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ Reverb\_LivingRoom,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ Reverb\_StoneRoom,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ Reverb\_Auditorium,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ Reverb\_ConcertHall,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ Reverb\_Cave,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ Reverb\_Arena,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ Reverb\_Hangar,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ Reverb\_CarpetedHallway,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Reverb\_Hallway,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ Reverb\_StoneCorridor,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ Reverb\_Alley,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ Reverb\_City,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ Reverb\_Mountains,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ Reverb\_Quarry,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ Reverb\_Plain,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ Reverb\_ParkingLot,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ Reverb\_SewerPipe,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ Reverb\_Underwater,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ Reverb\_SmallRoom,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ Reverb\_MediumRoom,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ Reverb\_LargeRoom,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ Reverb\_MediumHall,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ Reverb\_LargeHall,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ Reverb\_Plate,}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ Reverb\_MAX}
+\DoxyCodeLine{00190\ \ \ \ \ \};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{enum}\ SoundState}
+\DoxyCodeLine{00193\ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ STOPPED\ =\ 0,}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ PLAYING,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ PAUSED}
+\DoxyCodeLine{00197\ \ \ \ \ \};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}}
+\DoxyCodeLine{00202\ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}(}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ AUDIO\_ENGINE\_FLAGS\ flags\ =\ AudioEngine\_Default,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ deviceId\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ AUDIO\_STREAM\_CATEGORY\ category\ =\ AudioCategory\_GameEffects)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}(\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}(\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{\string~AudioEngine}}();}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ Update();}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Performs\ per-\/frame\ processing\ for\ the\ audio\ engine,\ returns\ false\ if\ in\ 'silent\ mode'}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ Reset(\_In\_opt\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx\ =\ \textcolor{keyword}{nullptr},\ \_In\_opt\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ deviceId\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ audio\ engine\ from\ critical\ error/silent\ mode\ using\ a\ new\ device;\ can\ also\ 'migrate'\ the\ graph}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ true\ if\ succesfully\ reset,\ false\ if\ in\ 'silent\ mode'\ due\ to\ no\ default\ device}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note:\ One\ shots\ are\ lost,\ all\ SoundEffectInstances\ are\ in\ the\ STOPPED\ state\ after\ successful\ reset}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Suspend()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Resume();}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Suspend/resumes\ audio\ processing\ (i.e.\ global\ pause/resume)}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \_\_cdecl\ GetMasterVolume()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMasterVolume(\textcolor{keywordtype}{float}\ volume);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Master\ volume\ property\ for\ all\ sounds}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetReverb(AUDIO\_ENGINE\_REVERB\ reverb);}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetReverb(\_In\_opt\_\ \textcolor{keyword}{const}\ XAUDIO2FX\_REVERB\_PARAMETERS*\ native);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ environmental\ reverb\ for\ 3D\ positional\ audio\ (if\ active)}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMasteringLimit(\textcolor{keywordtype}{int}\ release,\ \textcolor{keywordtype}{int}\ loudness);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ the\ mastering\ volume\ limiter\ properties\ (if\ active)}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{AudioStatistics}}\ \_\_cdecl\ GetStatistics()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Gathers\ audio\ engine\ statistics}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ WAVEFORMATEXTENSIBLE\ \_\_cdecl\ GetOutputFormat()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ format\ consumed\ by\ the\ mastering\ voice\ (which\ is\ the\ same\ as\ the\ device\ output\ if\ defaults\ are\ used)}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ uint32\_t\ \_\_cdecl\ GetChannelMask()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ output\ channel\ mask}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_\_cdecl\ GetOutputChannels()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ output\ channels}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsAudioDevicePresent()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ audio\ graph\ is\ operating\ normally,\ false\ if\ in\ 'silent\ mode'}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsCriticalError()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ audio\ graph\ is\ halted\ due\ to\ a\ critical\ error\ (which\ also\ places\ the\ engine\ into\ 'silent\ mode')}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Voice\ pool\ management.}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetDefaultSampleRate(\textcolor{keywordtype}{int}\ sampleRate);}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sample\ rate\ for\ voices\ in\ the\ reuse\ pool\ (defaults\ to\ 44100)}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMaxVoicePool(\textcolor{keywordtype}{size\_t}\ maxOneShots,\ \textcolor{keywordtype}{size\_t}\ maxInstances);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ number\ of\ voices\ to\ allocate\ for\ one-\/shots\ and\ instances}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note:\ one-\/shots\ over\ this\ limit\ are\ ignored;\ too\ many\ instance\ voices\ throws\ an\ exception}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ TrimVoicePool();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Releases\ any\ currently\ unused\ voices}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Internal-\/use\ functions}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ AllocateVoice(\_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags,\ \textcolor{keywordtype}{bool}\ oneshot,\ \_Outptr\_result\_maybenull\_\ IXAudio2SourceVoice**\ voice);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DestroyVoice(\_In\_\ IXAudio2SourceVoice*\ voice)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Should\ only\ be\ called\ for\ instance\ voices,\ not\ one-\/shots}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ RegisterNotify(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ notify,\ \textcolor{keywordtype}{bool}\ usesUpdate);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ UnregisterNotify(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ notify,\ \textcolor{keywordtype}{bool}\ usesOneShots,\ \textcolor{keywordtype}{bool}\ usesUpdate);}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ XAudio2\ interface\ access}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ IXAudio2*\ \_\_cdecl\ GetInterface()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ IXAudio2MasteringVoice*\ \_\_cdecl\ GetMasterVoice()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ IXAudio2SubmixVoice*\ \_\_cdecl\ GetReverbVoice()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ X3DAUDIO\_HANDLE\&\ \_\_cdecl\ Get3DHandle()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Static\ functions}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_audio_engine_1_1_renderer_detail}{RendererDetail}}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ std::wstring\ deviceId;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ std::wstring\ description;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::vector<RendererDetail>\ \_\_cdecl\ GetRendererDetails();}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ a\ list\ of\ valid\ audio\ endpoint\ devices}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}};}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00300\ \ \ \ \ \};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}}
+\DoxyCodeLine{00305\ \ \ \ \ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ wbFileName);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}(\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}(\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{\string~WaveBank}}();}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{float}\ volume,\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{float}\ volume,\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ std::unique\_ptr<SoundEffectInstance>\ \_\_cdecl\ CreateInstance(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ std::unique\_ptr<SoundEffectInstance>\ \_\_cdecl\ CreateInstance(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ std::unique\_ptr<SoundStreamInstance>\ \_\_cdecl\ CreateStreamInstance(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ std::unique\_ptr<SoundStreamInstance>\ \_\_cdecl\ CreateStreamInstance(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsPrepared()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsInUse()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsStreamingBank()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsAdvancedFormat()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleSizeInBytes(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ size\ of\ wave\ audio\ data}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDuration(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ duration\ in\ samples}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDurationMS(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ duration\ in\ milliseconds}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ WAVEFORMATEX*\ \_\_cdecl\ GetFormat(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \_Out\_writes\_bytes\_(maxsize)\ WAVEFORMATEX*\ wfx,\ \textcolor{keywordtype}{size\_t}\ maxsize)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_cdecl\ Find(\_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USING\_XAUDIO2\_9}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ FillSubmitBuffer(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \_Out\_\ XAUDIO2\_BUFFER\&\ buffer,\ \_Out\_\ XAUDIO2\_BUFFER\_WMA\&\ wmaBuffer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ FillSubmitBuffer(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \_Out\_\ XAUDIO2\_BUFFER\&\ buffer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ UnregisterInstance(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ instance);}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ HANDLE\ \_\_cdecl\ GetAsyncHandle()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ GetPrivateData(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \_Out\_writes\_bytes\_(datasize)\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{size\_t}\ datasize);}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}};}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00368\ \ \ \ \ \};}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}}
+\DoxyCodeLine{00373\ \ \ \ \ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ waveFileName);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_Inout\_\ std::unique\_ptr<uint8\_t[]>\&\ wavData,}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx,\ \_In\_reads\_bytes\_(audioBytes)\ \textcolor{keyword}{const}\ uint8\_t*\ startAudio,\ \textcolor{keywordtype}{size\_t}\ audioBytes);}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_Inout\_\ std::unique\_ptr<uint8\_t[]>\&\ wavData,}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx,\ \_In\_reads\_bytes\_(audioBytes)\ \textcolor{keyword}{const}\ uint8\_t*\ startAudio,\ \textcolor{keywordtype}{size\_t}\ audioBytes,}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ loopStart,\ uint32\_t\ loopLength);}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USING\_XAUDIO2\_9}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_Inout\_\ std::unique\_ptr<uint8\_t[]>\&\ wavData,}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx,\ \_In\_reads\_bytes\_(audioBytes)\ \textcolor{keyword}{const}\ uint8\_t*\ startAudio,\ \textcolor{keywordtype}{size\_t}\ audioBytes,}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(seekCount)\ \textcolor{keyword}{const}\ uint32\_t*\ seekTable,\ \textcolor{keywordtype}{size\_t}\ seekCount);}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{\string~SoundEffect}}();}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play();}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\textcolor{keywordtype}{float}\ volume,\ \textcolor{keywordtype}{float}\ pitch,\ \textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ std::unique\_ptr<SoundEffectInstance>\ \_\_cdecl\ CreateInstance(SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsInUse()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleSizeInBytes()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ size\ of\ wave\ audio\ data}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDuration()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ duration\ in\ samples}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDurationMS()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ duration\ in\ milliseconds}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ WAVEFORMATEX*\ \_\_cdecl\ GetFormat()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USING\_XAUDIO2\_9}}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ FillSubmitBuffer(\_Out\_\ XAUDIO2\_BUFFER\&\ buffer,\ \_Out\_\ XAUDIO2\_BUFFER\_WMA\&\ wmaBuffer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ FillSubmitBuffer(\_Out\_\ XAUDIO2\_BUFFER\&\ buffer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ UnregisterInstance(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ instance);}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sound_effect_1_1_impl}{Impl}};}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00431\ \ \ \ \ \};}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_audio_listener}{AudioListener}}\ :\ \textcolor{keyword}{public}\ X3DAUDIO\_LISTENER}
+\DoxyCodeLine{00436\ \ \ \ \ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_audio_listener}{AudioListener}}()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ memset(\textcolor{keyword}{this},\ 0,\ \textcolor{keyword}{sizeof}(X3DAUDIO\_LISTENER));}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.z\ =\ -\/1.f;}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ OrientTop.y\ =\ 1.f;}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetPosition(FXMVECTOR\ v)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Position),\ v);}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPosition(\textcolor{keyword}{const}\ XMFLOAT3\&\ pos)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ Position.x\ =\ pos.x;}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ Position.y\ =\ pos.y;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ Position.z\ =\ pos.z;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetVelocity(FXMVECTOR\ v)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Velocity),\ v);}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVelocity(\textcolor{keyword}{const}\ XMFLOAT3\&\ vel)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.x\ =\ vel.x;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.y\ =\ vel.y;}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.z\ =\ vel.z;}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetOrientation(FXMVECTOR\ forward,\ FXMVECTOR\ up)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ forward);}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ up);}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetOrientation(\textcolor{keyword}{const}\ XMFLOAT3\&\ forward,\ \textcolor{keyword}{const}\ XMFLOAT3\&\ up)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.x\ =\ forward.x;\ \ OrientTop.x\ =\ up.x;}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.y\ =\ forward.y;\ \ OrientTop.y\ =\ up.y;}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.z\ =\ forward.z;\ \ OrientTop.z\ =\ up.z;}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetOrientationFromQuaternion(FXMVECTOR\ quat)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ forward\ =\ XMVector3Rotate(g\_XMIdentityR2,\ quat);}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ forward);}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ up\ =\ XMVector3Rotate(g\_XMIdentityR1,\ quat);}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ up);}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Update(FXMVECTOR\ newPos,\ XMVECTOR\ upDir,\ \textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Updates\ velocity\ and\ orientation\ by\ tracking\ changes\ in\ position\ over\ time...}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dt\ >\ 0.f)}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ lastPos\ =\ XMLoadFloat3(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }XMFLOAT3*\textcolor{keyword}{>}(\&Position));}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVECTOR\ vDelta\ =\ XMVectorSubtract(newPos,\ lastPos);}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ vt\ =\ XMVectorReplicate(dt);}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVECTOR\ v\ =\ XMVectorDivide(vDelta,\ vt);}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Velocity),\ v);}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vDelta\ =\ XMVector3Normalize(vDelta);}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ vDelta);}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Cross(upDir,\ vDelta);}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Normalize(v);}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Cross(vDelta,\ v);}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Normalize(v);}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ v);}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Position),\ newPos);}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00514\ \ \ \ \ \};}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_audio_emitter}{AudioEmitter}}\ :\ \textcolor{keyword}{public}\ X3DAUDIO\_EMITTER}
+\DoxyCodeLine{00519\ \ \ \ \ \{}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ EmitterAzimuths[XAUDIO2\_MAX\_AUDIO\_CHANNELS];}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_audio_emitter}{AudioEmitter}}()\ noexcept\ :}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ EmitterAzimuths\{\}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ memset(\textcolor{keyword}{this},\ 0,\ \textcolor{keyword}{sizeof}(X3DAUDIO\_EMITTER));}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.z\ =\ -\/1.f;}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ OrientTop.y\ =}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChannelRadius\ =}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CurveDistanceScaler\ =}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DopplerScaler\ =\ 1.f;}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ ChannelCount\ =\ 1;}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ pChannelAzimuths\ =\ EmitterAzimuths;}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ InnerRadiusAngle\ =\ X3DAUDIO\_PI\ /\ 4.0f;}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetPosition(FXMVECTOR\ v)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Position),\ v);}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPosition(\textcolor{keyword}{const}\ XMFLOAT3\&\ pos)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ Position.x\ =\ pos.x;}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ Position.y\ =\ pos.y;}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ Position.z\ =\ pos.z;}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetVelocity(FXMVECTOR\ v)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Velocity),\ v);}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVelocity(\textcolor{keyword}{const}\ XMFLOAT3\&\ vel)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.x\ =\ vel.x;}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.y\ =\ vel.y;}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ Velocity.z\ =\ vel.z;}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetOrientation(FXMVECTOR\ forward,\ FXMVECTOR\ up)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ forward);}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ up);}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetOrientation(\textcolor{keyword}{const}\ XMFLOAT3\&\ forward,\ \textcolor{keyword}{const}\ XMFLOAT3\&\ up)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.x\ =\ forward.x;\ \ OrientTop.x\ =\ up.x;}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.y\ =\ forward.y;\ \ OrientTop.y\ =\ up.y;}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ OrientFront.z\ =\ forward.z;\ \ OrientTop.z\ =\ up.z;}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ SetOrientationFromQuaternion(FXMVECTOR\ quat)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ forward\ =\ XMVector3Rotate(g\_XMIdentityR2,\ quat);}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ forward);}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ up\ =\ XMVector3Rotate(g\_XMIdentityR1,\ quat);}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ up);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Update(FXMVECTOR\ newPos,\ XMVECTOR\ upDir,\ \textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Updates\ velocity\ and\ orientation\ by\ tracking\ changes\ in\ position\ over\ time...}}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dt\ >\ 0.f)}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ lastPos\ =\ XMLoadFloat3(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }XMFLOAT3*\textcolor{keyword}{>}(\&Position));}
+\DoxyCodeLine{00589\ }
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVECTOR\ vDelta\ =\ XMVectorSubtract(newPos,\ lastPos);}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ vt\ =\ XMVectorReplicate(dt);}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVECTOR\ v\ =\ XMVectorDivide(vDelta,\ vt);}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Velocity),\ v);}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vDelta\ =\ XMVector3Normalize(vDelta);}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientFront),\ vDelta);}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Cross(upDir,\ vDelta);}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Normalize(v);}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Cross(vDelta,\ v);}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ XMVector3Normalize(v);}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&OrientTop),\ v);}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMStoreFloat3(\textcolor{keyword}{reinterpret\_cast<}XMFLOAT3*\textcolor{keyword}{>}(\&Position),\ newPos);}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ EnableDefaultMultiChannel(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{float}\ radius\ =\ 1.f);}
+\DoxyCodeLine{00610\ \ \ \ \ \};}
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}}
+\DoxyCodeLine{00615\ \ \ \ \ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{\string~SoundEffectInstance}}();}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\textcolor{keywordtype}{bool}\ loop\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Stop(\textcolor{keywordtype}{bool}\ immediate\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Pause()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Resume();}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVolume(\textcolor{keywordtype}{float}\ volume);}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPitch(\textcolor{keywordtype}{float}\ pitch);}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPan(\textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply3D(\textcolor{keyword}{const}\ X3DAUDIO\_LISTENER\&\ listener,\ \textcolor{keyword}{const}\ X3DAUDIO\_EMITTER\&\ emitter,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLooped()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ SoundState\ \_\_cdecl\ GetState()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_\_cdecl\ GetChannelCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ \_\_cdecl\ GetVoiceNotify()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sound_effect_instance_1_1_impl}{Impl}};}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00649\ }
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ constructors}}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_sound_effect}{SoundEffect}}*\ effect,\ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags);}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{SoundEffectInstance}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}*\ effect,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags);}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::unique\_ptr<SoundEffectInstance>\ \_\_cdecl\ SoundEffect::CreateInstance(SOUND\_EFFECT\_INSTANCE\_FLAGS);}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::unique\_ptr<SoundEffectInstance>\ \_\_cdecl\ WaveBank::CreateInstance(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int},\ SOUND\_EFFECT\_INSTANCE\_FLAGS);}
+\DoxyCodeLine{00656\ \ \ \ \ \};}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00660\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}}
+\DoxyCodeLine{00661\ \ \ \ \ \{}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}(\mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}(\mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00668\ }
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{\string~SoundStreamInstance}}();}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play(\textcolor{keywordtype}{bool}\ loop\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Stop(\textcolor{keywordtype}{bool}\ immediate\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Pause()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Resume();}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVolume(\textcolor{keywordtype}{float}\ volume);}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPitch(\textcolor{keywordtype}{float}\ pitch);}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPan(\textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply3D(\textcolor{keyword}{const}\ X3DAUDIO\_LISTENER\&\ listener,\ \textcolor{keyword}{const}\ X3DAUDIO\_EMITTER\&\ emitter,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLooped()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ SoundState\ \_\_cdecl\ GetState()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00685\ }
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_\_cdecl\ GetChannelCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoiceNotify}}*\ \_\_cdecl\ GetVoiceNotify()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sound_stream_instance_1_1_impl}{Impl}};}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00695\ }
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ constructors}}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_stream_instance}{SoundStreamInstance}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,\ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_wave_bank}{WaveBank}}*\ effect,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags);}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::unique\_ptr<SoundStreamInstance>\ \_\_cdecl\ WaveBank::CreateStreamInstance(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int},\ SOUND\_EFFECT\_INSTANCE\_FLAGS);}
+\DoxyCodeLine{00700\ \ \ \ \ \};}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00704\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}}
+\DoxyCodeLine{00705\ \ \ \ \ \{}
+\DoxyCodeLine{00706\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ engine,}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}*)>\ bufferNeeded,}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{int}\ sampleBits\ =\ 16,}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags\ =\ SoundEffectInstance\_Default);}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}(\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}(\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{DynamicSoundEffectInstance}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{\string~DynamicSoundEffectInstance}}();}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Play();}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Stop(\textcolor{keywordtype}{bool}\ immediate\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Pause()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Resume();}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVolume(\textcolor{keywordtype}{float}\ volume);}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPitch(\textcolor{keywordtype}{float}\ pitch);}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetPan(\textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Apply3D(\textcolor{keyword}{const}\ X3DAUDIO\_LISTENER\&\ listener,\ \textcolor{keyword}{const}\ X3DAUDIO\_EMITTER\&\ emitter,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SubmitBuffer(\_In\_reads\_bytes\_(audioBytes)\ \textcolor{keyword}{const}\ uint8\_t*\ pAudioData,\ \textcolor{keywordtype}{size\_t}\ audioBytes);}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SubmitBuffer(\_In\_reads\_bytes\_(audioBytes)\ \textcolor{keyword}{const}\ uint8\_t*\ pAudioData,\ uint32\_t\ offset,\ \textcolor{keywordtype}{size\_t}\ audioBytes);}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ SoundState\ \_\_cdecl\ GetState()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDuration(\textcolor{keywordtype}{size\_t}\ bytes)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ duration\ in\ samples\ of\ a\ buffer\ of\ a\ given\ size}}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleDurationMS(\textcolor{keywordtype}{size\_t}\ bytes)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ duration\ in\ milliseconds\ of\ a\ buffer\ of\ a\ given\ size}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_\_cdecl\ GetSampleSizeInBytes(uint64\_t\ duration)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Returns\ size\ of\ a\ buffer\ for\ a\ duration\ given\ in\ milliseconds}}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_\_cdecl\ GetPendingBufferCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ WAVEFORMATEX*\ \_\_cdecl\ GetFormat()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_\_cdecl\ GetChannelCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}};}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00756\ \ \ \ \ \};}
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00761\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00762\ }
+\DoxyCodeLine{00763\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(AUDIO\_ENGINE\_FLAGS);}
+\DoxyCodeLine{00764\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(SOUND\_EFFECT\_INSTANCE\_FLAGS);}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00769\ \}}
+
+\end{DoxyCode}

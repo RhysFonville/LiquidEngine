@@ -1,0 +1,53 @@
+\hypertarget{class_direct_x_1_1_simple_math_1_1_ray}{}\doxysection{DirectX\+::Simple\+Math\+::Ray Class Reference}
+\label{class_direct_x_1_1_simple_math_1_1_ray}\index{DirectX::SimpleMath::Ray@{DirectX::SimpleMath::Ray}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a60e23de459124630a9e97b03ee68e5a0}\label{class_direct_x_1_1_simple_math_1_1_ray_a60e23de459124630a9e97b03ee68e5a0}} 
+{\bfseries Ray} (const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} \&pos, const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} \&dir) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a7d109323db538cec7066770d11c67b9a}\label{class_direct_x_1_1_simple_math_1_1_ray_a7d109323db538cec7066770d11c67b9a}} 
+{\bfseries Ray} (const \mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_ab27a2e40ddd90b484d531ee6ad7f68f9}\label{class_direct_x_1_1_simple_math_1_1_ray_ab27a2e40ddd90b484d531ee6ad7f68f9}} 
+\mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_ac7c294b46a4430e4cabdb5f75a7ab3eb}\label{class_direct_x_1_1_simple_math_1_1_ray_ac7c294b46a4430e4cabdb5f75a7ab3eb}} 
+{\bfseries Ray} (\mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_aa9014c25f421635e4926471ff312d75b}\label{class_direct_x_1_1_simple_math_1_1_ray_aa9014c25f421635e4926471ff312d75b}} 
+\mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a04547973df85d63230e3b75e23a7dffd}\label{class_direct_x_1_1_simple_math_1_1_ray_a04547973df85d63230e3b75e23a7dffd}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&r) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_ae23dd89bd3c11ef73d1afd6726f73251}\label{class_direct_x_1_1_simple_math_1_1_ray_ae23dd89bd3c11ef73d1afd6726f73251}} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{class_direct_x_1_1_simple_math_1_1_ray}{Ray}} \&r) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_af27a1cbf6bfeb6077ec487965f828302}\label{class_direct_x_1_1_simple_math_1_1_ray_af27a1cbf6bfeb6077ec487965f828302}} 
+bool {\bfseries Intersects} (const Bounding\+Sphere \&sphere, \+\_\+\+Out\+\_\+ float \&Dist) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a460562e8eb98a1d9639959b84d9a2282}\label{class_direct_x_1_1_simple_math_1_1_ray_a460562e8eb98a1d9639959b84d9a2282}} 
+bool {\bfseries Intersects} (const Bounding\+Box \&box, \+\_\+\+Out\+\_\+ float \&Dist) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_ada5b164a8e1ff29b4bdc99fb80c919af}\label{class_direct_x_1_1_simple_math_1_1_ray_ada5b164a8e1ff29b4bdc99fb80c919af}} 
+bool {\bfseries Intersects} (const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} \&tri0, const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} \&tri1, const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} \&tri2, \+\_\+\+Out\+\_\+ float \&Dist) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a79e640620cd6b0968d10fd443297ebf4}\label{class_direct_x_1_1_simple_math_1_1_ray_a79e640620cd6b0968d10fd443297ebf4}} 
+bool {\bfseries Intersects} (const \mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_plane}{Plane}} \&plane, \+\_\+\+Out\+\_\+ float \&Dist) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_a25a50dc1fe4a77af6e8ce8c7461cf93b}\label{class_direct_x_1_1_simple_math_1_1_ray_a25a50dc1fe4a77af6e8ce8c7461cf93b}} 
+\mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} {\bfseries position}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_simple_math_1_1_ray_ad11358c6d9b624da293fb4f2f94d6ce8}\label{class_direct_x_1_1_simple_math_1_1_ray_ad11358c6d9b624da293fb4f2f94d6ce8}} 
+\mbox{\hyperlink{struct_direct_x_1_1_simple_math_1_1_vector3}{Vector3}} {\bfseries direction}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Simple\+Math.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Simple\+Math.\+inl\end{DoxyCompactItemize}

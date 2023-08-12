@@ -1,0 +1,77 @@
+.TH "DirectX::WaveBankReader::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::WaveBankReader::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "HRESULT \fBOpen\fP (_In_z_ const wchar_t *szFileName) noexcept(false)"
+.br
+.ti -1c
+.RI "void \fBClose\fP () noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetFormat\fP (_In_ uint32_t index, _Out_writes_bytes_(maxsize) WAVEFORMATEX *pFormat, _In_ size_t maxsize) const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetWaveData\fP (_In_ uint32_t index, _Outptr_ const uint8_t **pData, _Out_ uint32_t &dataSize) const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetSeekTable\fP (_In_ uint32_t index, _Out_ const uint32_t **pData, _Out_ uint32_t &dataCount, _Out_ uint32_t &tag) const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetMetadata\fP (_In_ uint32_t index, _Out_ \fBMetadata\fP &metadata) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBUpdatePrepared\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBClear\fP () noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "HANDLE \fBm_async\fP"
+.br
+.ti -1c
+.RI "ScopedHandle \fBm_event\fP"
+.br
+.ti -1c
+.RI "OVERLAPPED \fBm_request\fP"
+.br
+.ti -1c
+.RI "bool \fBm_prepared\fP"
+.br
+.ti -1c
+.RI "HEADER \fBm_header\fP"
+.br
+.ti -1c
+.RI "BANKDATA \fBm_data\fP"
+.br
+.ti -1c
+.RI "std::map< std::string, uint32_t > \fBm_names\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

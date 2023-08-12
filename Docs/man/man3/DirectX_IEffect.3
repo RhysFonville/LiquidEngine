@@ -1,0 +1,40 @@
+.TH "DirectX::IEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IEffect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::AlphaTestEffect\fP, \fBDirectX::BasicEffect\fP, \fBDirectX::DGSLEffect\fP, \fBDirectX::DebugEffect\fP, \fBDirectX::DualTextureEffect\fP, \fBDirectX::EnvironmentMapEffect\fP, \fBDirectX::NormalMapEffect\fP, \fBDirectX::PBREffect\fP, and \fBDirectX::SkinnedEffect\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength)=0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (\fBIEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (\fBIEffect\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

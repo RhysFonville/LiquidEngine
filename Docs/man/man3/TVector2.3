@@ -1,0 +1,56 @@
+.TH "TVector2<>" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TVector2<>
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTVector2\fP (T x, T y)"
+.br
+.ti -1c
+.RI "\fBTVector2\fP (XMVECTOR vector)"
+.br
+.ti -1c
+.RI "bool \fBis_zero\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector2\fP \fBoperator+\fP (\fBTVector2\fP vector)"
+.br
+.ti -1c
+.RI "void \fBoperator+=\fP (\fBTVector2\fP vector)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBTVector2\fP &vector) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBTVector2\fP &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const"
+.br
+.ti -1c
+.RI "\fBoperator XMFLOAT2\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBTVector2\fP< T > &vector) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "T \fBx\fP = 0"
+.br
+.ti -1c
+.RI "T \fBy\fP = 0"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

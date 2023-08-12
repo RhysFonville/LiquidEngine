@@ -1,0 +1,75 @@
+\hypertarget{class_direct_x_1_1_wave_bank_reader}{}\doxysection{DirectX\+::Wave\+Bank\+Reader Class Reference}
+\label{class_direct_x_1_1_wave_bank_reader}\index{DirectX::WaveBankReader@{DirectX::WaveBankReader}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}}
+\item 
+struct \mbox{\hyperlink{struct_direct_x_1_1_wave_bank_reader_1_1_metadata}{Metadata}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_ab99be709b127f6e024d88bd10668672b}\label{class_direct_x_1_1_wave_bank_reader_ab99be709b127f6e024d88bd10668672b}} 
+{\bfseries Wave\+Bank\+Reader} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a86b2375a09e88ec857fb187afdc5f0d7}\label{class_direct_x_1_1_wave_bank_reader_a86b2375a09e88ec857fb187afdc5f0d7}} 
+\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a6a5c8e66cdf9eda3fd37b84689ab0d72}\label{class_direct_x_1_1_wave_bank_reader_a6a5c8e66cdf9eda3fd37b84689ab0d72}} 
+{\bfseries Wave\+Bank\+Reader} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a5829d53f6a9f17f18c156d1f8df924a9}\label{class_direct_x_1_1_wave_bank_reader_a5829d53f6a9f17f18c156d1f8df924a9}} 
+\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a2ec9adf03d35e11cf51a13b12c54b6b2}\label{class_direct_x_1_1_wave_bank_reader_a2ec9adf03d35e11cf51a13b12c54b6b2}} 
+HRESULT {\bfseries Open} (\+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$sz\+File\+Name) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_adcf1feede1070887cfdcb6fbc3416a7c}\label{class_direct_x_1_1_wave_bank_reader_adcf1feede1070887cfdcb6fbc3416a7c}} 
+uint32\+\_\+t {\bfseries Find} (\+\_\+\+In\+\_\+z\+\_\+ const char $\ast$name) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a3555288de20069e25eaecc85dd256555}\label{class_direct_x_1_1_wave_bank_reader_a3555288de20069e25eaecc85dd256555}} 
+bool {\bfseries Is\+Prepared} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a3a1e4c9f86b27da3d51dbff448fffd09}\label{class_direct_x_1_1_wave_bank_reader_a3a1e4c9f86b27da3d51dbff448fffd09}} 
+void {\bfseries Wait\+On\+Prepare} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a134f8ace8cde4cab12e64f0abbb685e1}\label{class_direct_x_1_1_wave_bank_reader_a134f8ace8cde4cab12e64f0abbb685e1}} 
+bool {\bfseries Has\+Names} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_aaa5e6b8e0e0e80a143499c9481f3d460}\label{class_direct_x_1_1_wave_bank_reader_aaa5e6b8e0e0e80a143499c9481f3d460}} 
+bool {\bfseries Is\+Streaming\+Bank} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_ab584b9653c114a5ab1f3f194c08db471}\label{class_direct_x_1_1_wave_bank_reader_ab584b9653c114a5ab1f3f194c08db471}} 
+const char $\ast$ {\bfseries Bank\+Name} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a519664a5a3e389664a5192e026e418b5}\label{class_direct_x_1_1_wave_bank_reader_a519664a5a3e389664a5192e026e418b5}} 
+uint32\+\_\+t {\bfseries Count} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a2ad7b1978f51ae2e2cea7481afec441a}\label{class_direct_x_1_1_wave_bank_reader_a2ad7b1978f51ae2e2cea7481afec441a}} 
+uint32\+\_\+t {\bfseries Bank\+Audio\+Size} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a50ed0b658fddf6af82f9fc74e96c5b7a}\label{class_direct_x_1_1_wave_bank_reader_a50ed0b658fddf6af82f9fc74e96c5b7a}} 
+HRESULT {\bfseries Get\+Format} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+writes\+\_\+bytes\+\_\+(maxsize) WAVEFORMATEX $\ast$p\+Format, \+\_\+\+In\+\_\+ size\+\_\+t maxsize) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a744a2c4bd5b6d690be26424c16786836}\label{class_direct_x_1_1_wave_bank_reader_a744a2c4bd5b6d690be26424c16786836}} 
+HRESULT {\bfseries Get\+Wave\+Data} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Outptr\+\_\+ const uint8\+\_\+t $\ast$$\ast$p\+Data, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&data\+Size) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_aca78da05279aab92f0b0f83d65f4c1cf}\label{class_direct_x_1_1_wave_bank_reader_aca78da05279aab92f0b0f83d65f4c1cf}} 
+HRESULT {\bfseries Get\+Seek\+Table} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+ const uint32\+\_\+t $\ast$$\ast$p\+Data, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&data\+Count, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&tag) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_a65814e765c107e614830b939bdbe4c86}\label{class_direct_x_1_1_wave_bank_reader_a65814e765c107e614830b939bdbe4c86}} 
+HANDLE {\bfseries Get\+Async\+Handle} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_ae647f20c65eba2ffb7113a0666c88ea4}\label{class_direct_x_1_1_wave_bank_reader_ae647f20c65eba2ffb7113a0666c88ea4}} 
+uint32\+\_\+t {\bfseries Get\+Wave\+Alignment} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_wave_bank_reader_ae3e4fedea9f72088cf9241b08f622312}\label{class_direct_x_1_1_wave_bank_reader_ae3e4fedea9f72088cf9241b08f622312}} 
+HRESULT {\bfseries Get\+Metadata} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+ \mbox{\hyperlink{struct_direct_x_1_1_wave_bank_reader_1_1_metadata}{Metadata}} \&metadata) const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Wave\+Bank\+Reader.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Wave\+Bank\+Reader.\+cpp\end{DoxyCompactItemize}

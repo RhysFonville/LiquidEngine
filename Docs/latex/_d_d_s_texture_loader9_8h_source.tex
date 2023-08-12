@@ -1,0 +1,151 @@
+\hypertarget{_d_d_s_texture_loader9_8h_source}{}\doxysection{DDSTexture\+Loader9.\+h}
+\label{_d_d_s_texture_loader9_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DDSTextureLoader/DDSTextureLoader9.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DDSTextureLoader/DDSTextureLoader9.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ DDSTextureLoader9.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Functions\ for\ loading\ a\ DDS\ texture\ and\ creating\ a\ Direct3D\ runtime\ resource\ for\ it}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ as\ a\ light-\/weight\ runtime\ loader\ for\ DDS\ files.\ For}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ a\ full-\/featured\ DDS\ file\ reader,\ writer,\ and\ texture\ processing\ pipeline\ see}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ DIRECT3D\_VERSION}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ DIRECT3D\_VERSION\ 0x900}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <d3d9.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Standard\ version}}
+\DoxyCodeLine{00031\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemory(}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DBASETEXTURE9*\ texture,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing\ =\ \textcolor{keyword}{false})\ noexcept;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ HRESULT\ CreateDDSTextureFromFile(}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DBASETEXTURE9*\ texture,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing\ =\ false)\ noexcept;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Extended\ version}}
+\DoxyCodeLine{00045\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemoryEx(}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DBASETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ HRESULT\ CreateDDSTextureFromFileEx(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DBASETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ Type-\/specific\ standard\ versions}}
+\DoxyCodeLine{00063\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemory(}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing\ =\ false)\ noexcept;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ HRESULT\ CreateDDSTextureFromFile(}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing\ =\ false)\ noexcept;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemory(}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DCUBETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ HRESULT\ CreateDDSTextureFromFile(}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DCUBETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemory(}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DVOLUMETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ HRESULT\ CreateDDSTextureFromFile(}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DVOLUMETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ Type-\/specific\ extended\ versions}}
+\DoxyCodeLine{00099\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemoryEx(}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ HRESULT\ CreateDDSTextureFromFileEx(}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ generateMipsIfMissing,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemoryEx(}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DCUBETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ HRESULT\ CreateDDSTextureFromFileEx(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DCUBETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ HRESULT\ CreateDDSTextureFromMemoryEx(}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ const\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DVOLUMETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ HRESULT\ CreateDDSTextureFromFileEx(}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DVOLUMETEXTURE9*\ texture)\ noexcept;}
+\DoxyCodeLine{00145\ \}}
+
+\end{DoxyCode}

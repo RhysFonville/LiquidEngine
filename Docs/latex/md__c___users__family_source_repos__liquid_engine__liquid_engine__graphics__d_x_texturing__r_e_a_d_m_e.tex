@@ -1,0 +1,93 @@
+\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md196}{}\doxysection{Direct\+XTex texture processing library}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md196}
+\href{http://go.microsoft.com/fwlink/?LinkId=248926}{\texttt{ http\+://go.\+microsoft.\+com/fwlink/?\+Link\+Id=248926}}
+
+Copyright (c) Microsoft Corporation.
+
+{\bfseries{May 9, 2022}}
+
+This package contains Direct\+XTex, a shared source library for reading and writing {\ttfamily .DDS} files, and performing various texture content processing operations including resizing, format conversion, mip-\/map generation, block compression for Direct3D runtime texture resources, and height-\/map to normal-\/map conversion. This library makes use of the Windows Image \mbox{\hyperlink{class_component}{Component}} (WIC) APIs. It also includes {\ttfamily .TGA} and {\ttfamily .HDR} readers and writers since these image file formats are commonly used for texture content processing pipelines, but are not currently supported by a built-\/in WIC codec.
+
+This code is designed to build with Visual Studio 2019 (16.\+9 or later), Visual Studio 2022, or clang for Windows v11 or later. Use of the Windows 10 May 2020 Update SDK (\href{https://walbourn.github.io/windows-10-may-2020-update-sdk/}{\texttt{ 19041}}) or later is required.
+
+These components are designed to work without requiring any content from the legacy DirectX SDK. For details, see \href{https://aka.ms/dxsdk}{\texttt{ Where is the DirectX SDK?}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md197}{}\doxysubsection{Directory Layout}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md197}
+
+\begin{DoxyItemize}
+\item {\ttfamily Direct\+XTex\textbackslash{}}
+\begin{DoxyItemize}
+\item This contains the Direct\+XTex library. This includes a full-\/featured DDS reader and writer including legacy format conversions, a TGA reader and writer, a HDR reader and writer, a WIC-\/based bitmap reader and writer (BMP, JPEG, PNG, TIFF, and HD Photo), and various texture processing functions. This is intended primarily for tool usage.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{quote}
+The majority of the header files here are intended for internal implementation of the library only ({\ttfamily \mbox{\hyperlink{_b_c_8h_source}{BC.\+h}}}, {\ttfamily \mbox{\hyperlink{_b_c_direct_compute_8h_source}{BCDirect\+Compute.\+h}}}, {\ttfamily DDS.\+h}, {\ttfamily \mbox{\hyperlink{_direct_x_tex_p_8h_source}{Direct\+XTex\+P.\+h}}}, etc.). Only {\ttfamily \mbox{\hyperlink{_direct_x_tex_8h_source}{Direct\+XTex.\+h}}} and {\ttfamily Direct\+XTex.\+inl} are meant as the \textquotesingle{}public\textquotesingle{} header for the library. \end{quote}
+
+\begin{DoxyItemize}
+\item {\ttfamily Texconv\textbackslash{}}
+\begin{DoxyItemize}
+\item This Direct\+XTex sample is an implementation of the \href{https://github.com/Microsoft/DirectXTex/wiki/Texconv}{\texttt{ texconv}} command-\/line texture utility from the DirectX SDK utilizing Direct\+XTex rather than D3\+DX.
+
+It supports the same arguments as the {\itshape \mbox{\hyperlink{class_texture}{Texture}} Conversion Tool Extended} ({\ttfamily texconvex.\+exe}) legacy DirectX SDK utility. The primary differences are the {\ttfamily -\/10} and {\ttfamily -\/11} arguments are not applicable and the filter names ({\ttfamily POINT}, {\ttfamily LINEAR}, {\ttfamily CUBIC}, {\ttfamily FANT} or {\ttfamily BOX}, {\ttfamily TRIANGLE}, {\ttfamily $\ast$\+\_\+\+DITHER}, {\ttfamily $\ast$\+\_\+\+DITHER\+\_\+\+DIFFUSION}). This also includes support for the JPEG XR (HD Photo) bitmap format.
+\end{DoxyItemize}
+\item {\ttfamily Texassemble\textbackslash{}}
+\begin{DoxyItemize}
+\item This Direct\+XTex sample is a \href{https://github.com/Microsoft/DirectXTex/wiki/Texassemble}{\texttt{ command-\/line utility}} for creating cubemaps, volume maps, or texture arrays from a set of individual input image files.
+\end{DoxyItemize}
+\item {\ttfamily Texdiag\textbackslash{}}
+\begin{DoxyItemize}
+\item This Direct\+XTex sample is a \href{https://github.com/Microsoft/DirectXTex/wiki/Texdiag}{\texttt{ command-\/line utility}} for analyzing image contents, primarily for debugging purposes.
+\end{DoxyItemize}
+\item {\ttfamily DDSView\textbackslash{}}
+\begin{DoxyItemize}
+\item This Direct\+XTex sample is a simple Direct3D 11-\/based viewer for DDS files. For array textures or volume maps, the \char`\"{}$<$\char`\"{} and \char`\"{}$>$\char`\"{} keyboard keys will show different images contained in the DDS. The \char`\"{}1\char`\"{} through \char`\"{}0\char`\"{} keys can also be used to jump to a specific image index.
+\end{DoxyItemize}
+\item {\ttfamily DDSTexture\+Loader\textbackslash{}}
+\begin{DoxyItemize}
+\item This contains a streamlined version of the legacy DirectX SDK sample {\itshape DDSWithout\+D3\+DX11} texture loading code for a simple light-\/weight runtime DDS loader. There are versions for Direct3D 9, Direct3D 11, and Direct3D 12. This performs no runtime pixel data conversions. This is ideal for runtime usage, and supports the full complement of Direct3D texture resources (1D, 2D, volume maps, cubemaps, mipmap levels, texture arrays, BC formats, etc.).
+\end{DoxyItemize}
+\item {\ttfamily Screen\+Grab\textbackslash{}}
+\begin{DoxyItemize}
+\item This contains texture writing modules for Direct3D 9, Direct3D 11, and Direct3D 12 primarily intended for creating screenshots. The images are written as a DDS or as an image file format using WIC.
+\end{DoxyItemize}
+\item {\ttfamily WICTexture\+Loader\textbackslash{}}
+\begin{DoxyItemize}
+\item This contains a Direct3D 9, Direct3D 11 and Direct3D 12 2D texture loader that uses WIC to load a bitmap (BMP, JPEG, PNG, HD Photo, or other WIC supported file container), resize if needed based on the current feature level (or by explicit parameter), format convert to a DXGI\+\_\+\+FORMAT if required, and then create a 2D texture. Note this does not support 1D textures, volume textures, cubemaps, or texture arrays. DDSTexture\+Loader is recommended for fully \char`\"{}precooked\char`\"{} textures for maximum performance and image quality, but this loader can be useful for creating simple 2D texture from standard image files at runtime.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{quote}
+DDSTexture\+Loader11, Screen\+Grab11, and WICTexture\+Loader11 are \textquotesingle{}stand-\/alone\textquotesingle{} versions of the same modules provided in the \href{https://github.com/Microsoft/DirectXTK}{\texttt{ DirectX Tool Kit for DX11}} \end{quote}
+\begin{quote}
+DDSTexture\+Loader12, Screen\+Grab12, and WICTexture\+Loader12 are \textquotesingle{}stand-\/alone\textquotesingle{} versions of the same modules provided in the \href{https://github.com/Microsoft/DirectXTK12}{\texttt{ DirectX Tool Kit for DX12}}. \end{quote}
+\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md198}{}\doxysection{Documentation}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md198}
+Documentation is available on the \href{https://github.com/Microsoft/DirectXTex/wiki}{\texttt{ Git\+Hub wiki}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md199}{}\doxysubsection{Notices}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md199}
+All content and source code for this package are subject to the terms of the \href{https://github.com/microsoft/DirectXTex/blob/main/LICENSE}{\texttt{ MIT License}}.
+
+For the latest version of Direct\+XTex, bug reports, etc. please visit the project site on \href{https://github.com/microsoft/DirectXTex}{\texttt{ Git\+Hub}}.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md200}{}\doxysubsection{Release Notes}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md200}
+
+\begin{DoxyItemize}
+\item Starting with the June 2020 release, this library makes use of typed enum bitmask flags per the recommendation of the {\itshape C++ Standard} section {\itshape 17.\+5.\+2.\+1.\+3 Bitmask types}. This is consistent with Direct3D 12\textquotesingle{}s use of the {\ttfamily DEFINE\+\_\+\+ENUM\+\_\+\+FLAG\+\_\+\+OPERATORS} macro. This may have {\itshape breaking change} impacts to client code\+:
+\begin{DoxyItemize}
+\item You cannot pass the {\ttfamily 0} literal as your flags value. Instead you must make use of the appropriate default enum value\+: {\ttfamily CP\+\_\+\+FLAGS\+\_\+\+NONE}, {\ttfamily DDS\+\_\+\+FLAGS\+\_\+\+NONE}, {\ttfamily WIC\+\_\+\+FLAGS\+\_\+\+NONE}, {\ttfamily TEX\+\_\+\+FR\+\_\+\+ROTATE0}, {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+DEFAULT}, {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+DEFAULT}, {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+DEFAULT}, {\ttfamily CNMAP\+\_\+\+DEFAULT}, or {\ttfamily CNMAP\+\_\+\+DEFAULT}.
+\item Use the enum type instead of {\ttfamily DWORD} if building up flags values locally with bitmask operations. For example, {\ttfamily DDS\+\_\+\+FLAGS flags = DDS\+\_\+\+FLAGS\+\_\+\+NONE; if (...) flags $\vert$= DDS\+\_\+\+FLAGS\+\_\+\+EXPAND\+\_\+\+LUMINANCE;}
+\item In cases where some of the flags overlap, you can use the {\ttfamily $\vert$} to combine the relevant types\+: {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+FLAGS} filter modes combine with {\ttfamily WIC\+\_\+\+FLAGS}, {\ttfamily TEX\+\_\+\+FILTER\+\_\+\+FLAGS} s\+RGB flags combine with {\ttfamily TEX\+\_\+\+PMALPHA\+\_\+\+FLAGS} or {\ttfamily TEX\+\_\+\+COMPRESS\+\_\+\+FLAGS}. No other bitwise operators are defined. For example, {\ttfamily WIC\+\_\+\+FLAGS wic\+Flags = WIC\+\_\+\+FLAGS\+\_\+\+NONE $\vert$ TEX\+\_\+\+FILTER\+\_\+\+CUBIC;}
+\end{DoxyItemize}
+\item Due to the underlying Windows BMP WIC codec, alpha channels are not supported for 16bpp or 32bpp BMP pixel format files. The Windows 8.\+x and Windows 10 version of the Windows BMP WIC codec does support 32bpp pixel formats with alpha when using the {\ttfamily BITMAPV5\+HEADER} file header. Note the updated WIC is available on Windows 7 SP1 with \href{https://walbourn.github.io/directx-11-1-and-windows-7-update/}{\texttt{ KB 2670838}} installed.
+\item While DXGI 1.\+0 and DXGI 1.\+1 include 5\+:6\+:5 ({\ttfamily DXGI\+\_\+\+FORMAT\+\_\+\+B5\+G6\+R5\+\_\+\+UNORM}) and 5\+:5\+:5\+:1 ({\ttfamily DXGI\+\_\+\+FORMAT\+\_\+\+B5\+G5\+R5\+A1\+\_\+\+UNORM}) pixel format enumerations, the DirectX 10.\+x and 11.\+0 Runtimes do not support these formats for use with Direct3D. The DirectX 11.\+1 runtime, DXGI 1.\+2, and the WDDM 1.\+2 driver model fully support 16bpp formats (5\+:6\+:5, 5\+:5\+:5\+:1, and 4\+:4\+:4\+:4).
+\item WICTexture\+Loader cannot load {\ttfamily .TGA} or {\ttfamily .HDR} files unless the system has a 3rd party WIC codec installed. You must use the Direct\+XTex library for TGA/\+HDR file format support without relying on an add-\/on WIC codec.
+\item Loading of 96bpp floating-\/point TIFF files results in a corrupted image prior to Windows 8. This fix is available on Windows 7 SP1 with KB 2670838 installed.
+\item The UWP projects and the Win10 classic desktop project include configurations for the ARM64 platform. Building these requires installing the ARM64 toolset.
+\item When using clang/\+LLVM for the ARM64 platform, the Windows 11 SDK (\href{https://walbourn.github.io/windows-sdk-for-windows-11/}{\texttt{ 22000}}) is required.
+\item The {\ttfamily Compile\+Shaders.\+cmd} script must have Windows-\/style (CRLF) line-\/endings. If it is changed to Linux-\/style (LF) line-\/endings, it can fail to build all the required shaders.
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md201}{}\doxysubsection{Support}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md201}
+For questions, consider using \href{https://stackoverflow.com/questions/tagged/directxtk}{\texttt{ Stack Overflow}} with the {\itshape directxtk} tag, or the \href{https://discord.gg/directx}{\texttt{ DirectX Discord Server}} in the {\itshape dx12-\/developers} or {\itshape dx9-\/dx11-\/developers} channel.
+
+For bug reports and feature requests, please use Git\+Hub \href{https://github.com/microsoft/DirectXTex/issues}{\texttt{ issues}} for this project.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md202}{}\doxysubsection{Contributing}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md202}
+This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit \href{https://cla.opensource.microsoft.com}{\texttt{ https\+://cla.\+opensource.\+microsoft.\+com}}.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.\+g., status check, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the \href{https://opensource.microsoft.com/codeofconduct/}{\texttt{ Microsoft Open Source Code of Conduct}}. For more information see the \href{https://opensource.microsoft.com/codeofconduct/faq/}{\texttt{ Code of Conduct FAQ}} or contact \href{mailto:opencode@microsoft.com}{\texttt{ opencode@microsoft.\+com}} with any additional questions or comments.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md203}{}\doxysubsection{Trademarks}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md203}
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow \href{https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general}{\texttt{ Microsoft\textquotesingle{}s Trademark \& Brand Guidelines}}. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-\/party trademarks or logos are subject to those third-\/party\textquotesingle{}s policies.\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md204}{}\doxysubsection{Credits}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__d_x_texturing__r_e_a_d_m_e_autotoc_md204}
+The Direct\+XTex library is the work of Chuck Walbourn, with contributions from Matt Lee, Xin Huang, Craig Peeper, and the numerous other Microsoft engineers who developed the D3\+DX utility library over the years.
+
+Thanks to Paul Penson for his help with the implementation of {\ttfamily Memory\+Stream\+On\+Blob}. 

@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include "Objects/MyCamera.h"
+#include "Objects/Custom/MyCamera.h"
 #include "Objects/Engine/DefaultCube.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {

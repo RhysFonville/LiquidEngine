@@ -1,0 +1,444 @@
+\hypertarget{_direct_x_tex_p_8h_source}{}\doxysection{Direct\+XTex\+P.\+h}
+\label{_direct_x_tex_p_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/DirectXTexP.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/DirectXTexP.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ DirectXTexP.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ DirectX\ Texture\ Library\ -\/\ Private\ header}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4619\ 4616\ 4061\ 4265\ 4365\ 4571\ 4623\ 4625\ 4626\ 4628\ 4668\ 4710\ 4711\ 4746\ 4774\ 4820\ 4987\ 5026\ 5027\ 5031\ 5032\ 5039\ 5045\ 5219\ 5246\ 26812)}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ C4619/4616\ \#pragma\ warning\ warnings}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ C4061\ enumerator\ 'X'\ in\ switch\ of\ enum\ 'X'\ is\ not\ explicitly\ handled\ by\ a\ case\ label}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ C4265\ class\ has\ virtual\ functions,\ but\ destructor\ is\ not\ virtual}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ C4365\ signed/unsigned\ mismatch}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ C4571\ behavior\ change}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ C4623\ default\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ C4625\ copy\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ C4626\ assignment\ operator\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ C4628\ digraphs\ not\ supported}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ C4668\ not\ defined\ as\ a\ preprocessor\ macro}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ C4710\ function\ not\ inlined}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ C4711\ selected\ for\ automatic\ inline\ expansion}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ C4746\ volatile\ access\ of\ '<expression>'\ is\ subject\ to\ /volatile:<iso|ms>\ setting}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ C4774\ format\ string\ expected\ in\ argument\ 3\ is\ not\ a\ string\ literal}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ C4820\ padding\ added\ after\ data\ member}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ C4987\ nonstandard\ extension\ used}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ C5026\ move\ constructor\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ C5027\ move\ assignment\ operator\ was\ implicitly\ defined\ as\ deleted}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ C5031/5032\ push/pop\ mismatches\ in\ windows\ headers}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ C5039\ pointer\ or\ reference\ to\ potentially\ throwing\ function\ passed\ to\ extern\ C\ function\ under\ -\/\ EHc}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ C5045\ Spectre\ mitigation\ warning}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ C5219\ implicit\ conversion\ from\ 'int'\ to\ 'float',\ possible\ loss\ of\ data}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ C5246\ the\ initialization\ of\ a\ subobject\ should\ be\ wrapped\ in\ braces}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ 26812:\ The\ enum\ type\ 'x'\ is\ unscoped.\ Prefer\ 'enum\ class'\ over\ 'enum'\ (Enum.3).}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Windows\ 8.1\ SDK\ related\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4471\ 4917\ 4986\ 5029)}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ C4471\ forward\ declaration\ of\ an\ unscoped\ enumeration\ must\ have\ an\ underlying\ type}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ C4917\ a\ GUID\ can\ only\ be\ associated\ with\ a\ class,\ interface\ or\ namespace}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ C4986\ exception\ specification\ does\ not\ match\ previous\ declaration}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ C5029\ nonstandard\ extension\ used}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ Xbox\ One\ XDK\ related\ Off\ by\ default\ warnings}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4643)}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ C4643\ Forward\ declaring\ in\ namespace\ std\ is\ not\ permitted\ by\ the\ C++\ Standard}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ \_\_INTEL\_COMPILER}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 161)}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ warning\ \#161:\ unrecognized\ \#pragma}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat-\/pedantic"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wc++98-\/compat-\/local-\/type-\/template-\/args"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wcovered-\/switch-\/default"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wfloat-\/equal"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wglobal-\/constructors"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wgnu-\/anonymous-\/struct"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wlanguage-\/extension-\/token"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wmissing-\/variable-\/declarations"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wnested-\/anon-\/types"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wreserved-\/id-\/macro"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wswitch-\/enum"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wtautological-\/type-\/limit-\/compare"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunknown-\/pragmas"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifndef\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4005)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ NOMINMAX\ 1}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ NODRAWTEXT}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ NOGDI}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ NOBITMAP}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ NOMCX}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ NOSERVICE}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ NOHELP}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#include\ <unknwn.h>}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN10}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN10\ 0x0A00}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifdef\ \_GAMING\_XBOX\_SCARLETT}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#pragma\ warning(disable:\ 5204\ 5249)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#include\ <d3d12\_xs.h>}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#elif\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#pragma\ warning(disable:\ 5204)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#include\ <d3d12\_x.h>}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#elif\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#include\ <d3d12\_x.h>}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#elif\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN10)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#ifdef\ USING\_DIRECTX\_HEADERS}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#include\ <directx/dxgiformat.h>}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#include\ <directx/d3d12.h>}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#include\ <d3d11\_4.h>}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !WIN32}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#include\ <wsl/winadapter.h>}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#include\ <wsl/wrladapter.h>}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#include\ <directx/d3d12.h>}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#include\ <new>}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ \_XM\_NO\_XMVECTOR\_OVERLOADS\_}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#include\ <DirectXPackedVector.h>}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#if\ (DIRECTX\_MATH\_VERSION\ <\ 315)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ XM\_ALIGNED\_DATA(x)\ \_\_declspec(align(x))}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#include\ "{}DirectXTex.h"{}}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#include\ <malloc.h>}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#if\ defined(NTDDI\_WIN10\_FE)\ ||\ defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#include\ <ole2.h>}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#include\ <Ole2.h>}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#include\ <wincodec.h>}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#include\ <wrl\(\backslash\)client.h>}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00167\ \textcolor{keyword}{using\ }WICPixelFormatGUID\ =\ GUID;}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#include\ "{}scoped.h"{}}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_R10G10B10\_7E3\_A2\_FLOAT\ DXGI\_FORMAT(116)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_R10G10B10\_6E4\_A2\_FLOAT\ DXGI\_FORMAT(117)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_D16\_UNORM\_S8\_UINT\ DXGI\_FORMAT(118)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_R16\_UNORM\_X8\_TYPELESS\ DXGI\_FORMAT(119)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_X16\_TYPELESS\_G8\_UINT\ DXGI\_FORMAT(120)}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ WIN10\_DXGI\_FORMAT\_P208\ DXGI\_FORMAT(130)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ WIN10\_DXGI\_FORMAT\_V208\ DXGI\_FORMAT(131)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ WIN10\_DXGI\_FORMAT\_V408\ DXGI\_FORMAT(132)}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#ifndef\ XBOX\_DXGI\_FORMAT\_R10G10B10\_SNORM\_A2\_UNORM}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_R10G10B10\_SNORM\_A2\_UNORM\ DXGI\_FORMAT(189)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ XBOX\_DXGI\_FORMAT\_R4G4\_UNORM\ DXGI\_FORMAT(190)}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#if\ defined(\_\_MINGW32\_\_)\ \&\&\ !defined(E\_BOUNDS)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ E\_BOUNDS\ static\_cast<HRESULT>(0x8000000BL)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_ARITHMETIC\_OVERFLOW)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_ARITHMETIC\_OVERFLOW\ static\_cast<HRESULT>(0x80070216L)}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_NOT\_SUPPORTED)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_NOT\_SUPPORTED\ static\_cast<HRESULT>(0x80070032L)}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_HANDLE\_EOF)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_HANDLE\_EOF\ static\_cast<HRESULT>(0x80070026L)}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_INVALID\_DATA)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_INVALID\_DATA\ static\_cast<HRESULT>(0x8007000DL)}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_FILE\_TOO\_LARGE)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_FILE\_TOO\_LARGE\ static\_cast<HRESULT>(0x800700DFL)}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_CANNOT\_MAKE)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ HRESULT\_E\_CANNOT\_MAKE\ static\_cast<HRESULT>(0x80070052L)}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ HRESULT\_FROM\_WIN32(ERROR\_INSUFFICIENT\_BUFFER)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#ifndef\ E\_NOT\_SUFFICIENT\_BUFFER}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ E\_NOT\_SUFFICIENT\_BUFFER\ static\_cast<HRESULT>(0x8007007AL)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00216\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00217\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{namespace\ }Internal}
+\DoxyCodeLine{00219\ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ WIC\ helper\ functions}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \_\_cdecl\ WICToDXGI(\_In\_\ \textcolor{keyword}{const}\ GUID\&\ guid)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ DXGIToWIC(\_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ GUID\&\ guid,\ \_In\_\ \textcolor{keywordtype}{bool}\ ignoreRGBvsBGR\ =\ \textcolor{keyword}{false})\ noexcept;}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ TEX\_FILTER\_FLAGS\ \_\_cdecl\ CheckWICColorSpace(\_In\_\ const\ GUID\&\ sourceGUID,\ \_In\_\ const\ GUID\&\ targetGUID)\ noexcept;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ inline\ WICBitmapDitherType\ \_\_cdecl\ GetWICDither(\_In\_\ TEX\_FILTER\_FLAGS\ flags)\ noexcept}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(TEX\_FILTER\_DITHER\ ==\ 0x10000,\ \textcolor{stringliteral}{"{}TEX\_FILTER\_DITHER*\ flag\ values\ don't\ match\ mask"{}});}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_DITHER)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_DITHER),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_DITHER*\ should\ match\ WIC\_FLAGS\_DITHER*"{}});}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_DITHER\_DIFFUSION)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_DITHER\_DIFFUSION),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_DITHER*\ should\ match\ WIC\_FLAGS\_DITHER*"{}});}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (flags\ \&\ TEX\_FILTER\_DITHER\_MASK)}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_DITHER:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeOrdered4x4;}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_DITHER\_DIFFUSION:}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeErrorDiffusion;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeNone;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ WICBitmapDitherType\ \_\_cdecl\ GetWICDither(\_In\_\ WIC\_FLAGS\ flags)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (flags\ \&\ TEX\_FILTER\_DITHER\_MASK)}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ WIC\_FLAGS\_DITHER:}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeOrdered4x4;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ WIC\_FLAGS\_DITHER\_DIFFUSION:}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeErrorDiffusion;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapDitherTypeNone;}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ WICBitmapInterpolationMode\ \_\_cdecl\ GetWICInterp(\_In\_\ WIC\_FLAGS\ flags)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(TEX\_FILTER\_POINT\ ==\ 0x100000,\ \textcolor{stringliteral}{"{}TEX\_FILTER\_\ flag\ values\ don't\ match\ TEX\_FILTER\_MASK"{}});}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_POINT)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_FILTER\_POINT),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_*\ flags\ should\ match\ WIC\_FLAGS\_FILTER\_*"{}});}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_LINEAR)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_FILTER\_LINEAR),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_*\ flags\ should\ match\ WIC\_FLAGS\_FILTER\_*"{}});}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_CUBIC)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_FILTER\_CUBIC),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_*\ flags\ should\ match\ WIC\_FLAGS\_FILTER\_*"{}});}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TEX\_FILTER\_FANT)\ ==\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(WIC\_FLAGS\_FILTER\_FANT),\ \textcolor{stringliteral}{"{}TEX\_FILTER\_*\ flags\ should\ match\ WIC\_FLAGS\_FILTER\_*"{}});}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (flags\ \&\ TEX\_FILTER\_MODE\_MASK)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_POINT:}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeNearestNeighbor;}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_LINEAR:}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeLinear;}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_CUBIC:}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeCubic;}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_FANT:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeFant;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ WICBitmapInterpolationMode\ \_\_cdecl\ GetWICInterp(\_In\_\ TEX\_FILTER\_FLAGS\ flags)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (flags\ \&\ TEX\_FILTER\_MODE\_MASK)}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_POINT:}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeNearestNeighbor;}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_LINEAR:}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeLinear;}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_CUBIC:}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeCubic;}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TEX\_FILTER\_FANT:}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WICBitmapInterpolationModeFant;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{//\ WIN32}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Image\ helper\ functions}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ DetermineImageArray(}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,\ \_In\_\ CP\_FLAGS\ cpFlags,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_\ \textcolor{keywordtype}{size\_t}\&\ nImages,\ \_Out\_\ \textcolor{keywordtype}{size\_t}\&\ pixelSize)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ SetupImageArray(}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(pixelSize)\ uint8\_t*\ pMemory,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ pixelSize,}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keyword}{const}\ TexMetadata\&\ metadata,\ \_In\_\ CP\_FLAGS\ cpFlags,}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(nImages)\ Image*\ images,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nImages)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Conversion\ helper\ functions}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ TEXP\_SCANLINE\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ TEXP\_SCANLINE\_NONE\ =\ 0,}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ TEXP\_SCANLINE\_SETALPHA\ =\ 0x1,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ alpha\ channel\ to\ known\ opaque\ value}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ TEXP\_SCANLINE\_LEGACY\ =\ 0x2,}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enables\ specific\ legacy\ format\ conversion\ cases}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ CONVERT\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_FLOAT\ =\ 0x1,}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_UNORM\ =\ 0x2,}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_UINT\ =\ 0x4,}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_SNORM\ =\ 0x8,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_SINT\ =\ 0x10,}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_DEPTH\ =\ 0x20,}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_STENCIL\ =\ 0x40,}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_SHAREDEXP\ =\ 0x80,}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_BGR\ =\ 0x100,}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_XR\ =\ 0x200,}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_PACKED\ =\ 0x400,}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_BC\ =\ 0x800,}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_YUV\ =\ 0x1000,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_POS\_ONLY\ =\ 0x2000,}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_R\ =\ 0x10000,}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_G\ =\ 0x20000,}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_B\ =\ 0x40000,}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_A\ =\ 0x80000,}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_RGB\_MASK\ =\ 0x70000,}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ CONVF\_RGBA\_MASK\ =\ 0xF0000,}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ uint32\_t\ \_\_cdecl\ GetConvertFlags(\_In\_\ DXGI\_FORMAT\ format)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CopyScanline(}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \_When\_(pDestination\ ==\ pSource,\ \_Inout\_updates\_bytes\_(outSize))}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \_When\_(pDestination\ !=\ pSource,\ \_Out\_writes\_bytes\_(outSize))}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ outSize,}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(inSize)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ inSize,}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ uint32\_t\ tflags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SwizzleScanline(}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \_When\_(pDestination\ ==\ pSource,\ \_In\_)}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \_When\_(pDestination\ !=\ pSource,\ \_Out\_writes\_bytes\_(outSize))}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ outSize,}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(inSize)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ inSize,}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ uint32\_t\ tflags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ ExpandScanline(}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_bytes\_(outSize)\ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ outSize,}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ outFormat,}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(inSize)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ inSize,}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ inFormat,\ \_In\_\ uint32\_t\ tflags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ LoadScanline(}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(count)\ XMVECTOR*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ LoadScanlineLinear(}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(count)\ XMVECTOR*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(size)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_In\_\ TEX\_FILTER\_FLAGS\ flags)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ StoreScanline(}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_bytes\_(size)\ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,\ \_In\_\ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(count)\ \textcolor{keyword}{const}\ XMVECTOR*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \_Success\_(return)\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ StoreScanlineLinear(}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_bytes\_(size)\ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,\ \_In\_\ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_updates\_all\_(count)\ XMVECTOR*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ TEX\_FILTER\_FLAGS\ flags,\ \_In\_\ \textcolor{keywordtype}{float}\ threshold\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \_Success\_(return)\ \textcolor{keywordtype}{bool}\ \_\_cdecl\ StoreScanlineDither(}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_bytes\_(size)\ \textcolor{keywordtype}{void}*\ pDestination,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ size,\ \_In\_\ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_updates\_all\_(count)\ XMVECTOR*\ pSource,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{float}\ threshold,\ \textcolor{keywordtype}{size\_t}\ y,\ \textcolor{keywordtype}{size\_t}\ z,}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_updates\_all\_opt\_(count\ +\ 2)\ XMVECTOR*\ pDiffusionErrors)\ noexcept;}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertToR32G32B32A32(\_In\_\ const\ Image\&\ srcImage,\ \_Inout\_\ ScratchImage\&\ image)\ noexcept;}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertFromR32G32B32A32(\_In\_\ const\ Image\&\ srcImage,\ \_In\_\ const\ Image\&\ destImage)\ noexcept;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertFromR32G32B32A32(}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ const\ Image\&\ srcImage,\ \_In\_\ DXGI\_FORMAT\ format,\ \_Inout\_\ ScratchImage\&\ image)\ noexcept;}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertFromR32G32B32A32(}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(nimages)\ const\ Image*\ srcImages,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ nimages,\ \_In\_\ const\ TexMetadata\&\ metadata,}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ format,\ \_Out\_\ ScratchImage\&\ result)\ noexcept;}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertToR16G16B16A16(\_In\_\ const\ Image\&\ srcImage,\ \_Inout\_\ ScratchImage\&\ image)\ noexcept;}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ConvertFromR16G16B16A16(\_In\_\ const\ Image\&\ srcImage,\ \_In\_\ const\ Image\&\ destImage)\ noexcept;}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ConvertScanline(}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_updates\_all\_(count)\ XMVECTOR*\ pBuffer,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count,}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ DXGI\_FORMAT\ outFormat,\ \_In\_\ DXGI\_FORMAT\ inFormat,\ \_In\_\ TEX\_FILTER\_FLAGS\ flags)\ noexcept;}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Misc\ helper\ functions}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsAlphaAllOpaqueBC(\_In\_\ const\ Image\&\ cImage)\ noexcept;}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ CalculateMipLevels(\_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_Inout\_\ \textcolor{keywordtype}{size\_t}\&\ mipLevels)\ noexcept;}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ CalculateMipLevels3D(\_In\_\ \textcolor{keywordtype}{size\_t}\ width,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ height,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ depth,}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_\ \textcolor{keywordtype}{size\_t}\&\ mipLevels)\ noexcept;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ HRESULT\ \_\_cdecl\ ResizeSeparateColorAndAlpha(\_In\_\ IWICImagingFactory*\ pWIC,}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{bool}\ iswic2,}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ IWICBitmap*\ original,}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ newWidth,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ newHeight,\ \_In\_\ TEX\_FILTER\_FLAGS\ filter,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_\ \textcolor{keyword}{const}\ Image*\ img)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ Internal}}
+\DoxyCodeLine{00438\ \}\ \textcolor{comment}{//\ namespace\ DirectX}}
+
+\end{DoxyCode}

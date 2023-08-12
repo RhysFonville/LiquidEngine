@@ -1,0 +1,101 @@
+\hypertarget{_static_mesh_component_8h_source}{}\doxysection{Static\+Mesh\+Component.\+h}
+\label{_static_mesh_component_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/StaticMeshComponent.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/StaticMeshComponent.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}PhysicalComponent.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Graphics/Material.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_physical_component}{PhysicalComponent}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}();}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(ComPtr<ID3D12Device>\ \&device,\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}\ get\_mesh()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_mesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}\ \&\ get\_material()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_material(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}\ \&mesh)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}\ \&component)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::StaticMeshComponent;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}\ mesh\ =\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Front\ Face}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ -\/1.0f,\ 0.0f,\ 1.0f,-\/1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ \ 1.0f,\ -\/1.0f,\ 0.0f,\ 0.0f,-\/1.0f,\ \ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ \ 1.0f,\ -\/1.0f,\ 1.0f,\ 0.0f,\ 1.0f,\ \ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ -\/1.0f,\ 1.0f,\ 1.0f,\ 1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Back\ Face}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ 1.0f,\ 1.0f,\ 1.0f,-\/1.0f,\ -\/1.0f,\ 1.0f),}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ 1.0f,\ 0.0f,\ 1.0f,\ 1.0f,\ -\/1.0f,\ 1.0f),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ \ 1.0f,\ 1.0f,\ 0.0f,\ 0.0f,\ 1.0f,\ \ 1.0f,\ 1.0f),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ \ 1.0f,\ 1.0f,\ 1.0f,\ 0.0f,-\/1.0f,\ \ 1.0f,\ 1.0f),}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Top\ Face}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ 1.0f,\ -\/1.0f,\ 0.0f,\ 1.0f,-\/1.0f,\ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ 1.0f,\ \ 1.0f,\ 0.0f,\ 0.0f,-\/1.0f,\ 1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ 1.0f,\ \ 1.0f,\ 1.0f,\ 0.0f,\ 1.0f,\ 1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ 1.0f,\ -\/1.0f,\ 1.0f,\ 1.0f,\ 1.0f,\ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bottom\ Face}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ -\/1.0f,\ 1.0f,\ 1.0f,-\/1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ -\/1.0f,\ 0.0f,\ 1.0f,\ 1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ \ 1.0f,\ 0.0f,\ 0.0f,\ 1.0f,\ -\/1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ \ 1.0f,\ 1.0f,\ 0.0f,-\/1.0f,\ -\/1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Face}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ \ 1.0f,\ 0.0f,\ 1.0f,-\/1.0f,\ -\/1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ \ 1.0f,\ \ 1.0f,\ 0.0f,\ 0.0f,-\/1.0f,\ \ 1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ \ 1.0f,\ -\/1.0f,\ 1.0f,\ 0.0f,-\/1.0f,\ \ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(-\/1.0f,\ -\/1.0f,\ -\/1.0f,\ 1.0f,\ 1.0f,-\/1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ Face}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ -\/1.0f,\ 0.0f,\ 1.0f,\ 1.0f,\ -\/1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ \ 1.0f,\ -\/1.0f,\ 0.0f,\ 0.0f,\ 1.0f,\ \ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ \ 1.0f,\ \ 1.0f,\ 1.0f,\ 0.0f,\ 1.0f,\ \ 1.0f,\ \ 1.0f),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\ 1.0f,\ -\/1.0f,\ \ 1.0f,\ 1.0f,\ 1.0f,\ 1.0f,\ -\/1.0f,\ \ 1.0f)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Front\ Face}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ \ 1,\ \ 2,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ \ 2,\ \ 3,}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Back\ Face}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ 4,\ \ 5,\ \ 6,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ 4,\ \ 6,\ \ 7,}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Top\ Face}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ 8,\ \ 9,\ 10,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ 8,\ 10,\ 11,}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bottom\ Face}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ 12,\ 13,\ 14,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ 12,\ 14,\ 15,}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Face}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ 16,\ 17,\ 18,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ 16,\ 18,\ 19,}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ Face}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ 21,\ 22,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ 22,\ 23}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}\ material;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ std::shared\_ptr<GraphicsPipelineMeshChangeManager>\ proxy\ =\ std::make\_shared<GraphicsPipelineMeshChangeManager>();}
+\DoxyCodeLine{00095\ \};}
+
+\end{DoxyCode}

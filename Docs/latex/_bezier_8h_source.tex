@@ -1,0 +1,199 @@
+\hypertarget{_bezier_8h_source}{}\doxysection{Bezier.\+h}
+\label{_bezier_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/Bezier.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/Bezier.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Bezier.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }Bezier}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Performs\ a\ cubic\ bezier\ interpolation\ between\ four\ control\ points,}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ returning\ the\ value\ at\ the\ specified\ time\ (t\ ranges\ 0\ to\ 1).}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ T\ CubicInterpolate(T\ \textcolor{keyword}{const}\&\ p1,\ T\ \textcolor{keyword}{const}\&\ p2,\ T\ \textcolor{keyword}{const}\&\ p3,\ T\ \textcolor{keyword}{const}\&\ p4,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p1\ *\ (1\ -\/\ t)\ *\ (1\ -\/\ t)\ *\ (1\ -\/\ t)\ +}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ p2\ *\ 3\ *\ t\ *\ (1\ -\/\ t)\ *\ (1\ -\/\ t)\ +}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ p3\ *\ 3\ *\ t\ *\ t\ *\ (1\ -\/\ t)\ +}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ p4\ *\ t\ *\ t\ *\ t;}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{inline}\ DirectX::XMVECTOR\ CubicInterpolate(DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p1,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p2,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p3,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p4,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T0\ =\ XMVectorReplicate((1\ -\/\ t)\ *\ (1\ -\/\ t)\ *\ (1\ -\/\ t));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T1\ =\ XMVectorReplicate(3\ *\ t\ *\ (1\ -\/\ t)\ *\ (1\ -\/\ t));}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T2\ =\ XMVectorReplicate(3\ *\ t\ *\ t\ *\ (1\ -\/\ t));}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T3\ =\ XMVectorReplicate(t\ *\ t\ *\ t);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ XMVECTOR\ Result\ =\ XMVectorMultiply(p1,\ T0);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p2,\ T1,\ Result);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p3,\ T2,\ Result);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p4,\ T3,\ Result);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Result;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Computes\ the\ tangent\ of\ a\ cubic\ bezier\ curve\ at\ the\ specified\ time.}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{inline}\ T\ CubicTangent(T\ \textcolor{keyword}{const}\&\ p1,\ T\ \textcolor{keyword}{const}\&\ p2,\ T\ \textcolor{keyword}{const}\&\ p3,\ T\ \textcolor{keyword}{const}\&\ p4,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p1\ *\ (-\/1\ +\ 2\ *\ t\ -\/\ t\ *\ t)\ +}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ p2\ *\ (1\ -\/\ 4\ *\ t\ +\ 3\ *\ t\ *\ t)\ +}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ p3\ *\ (2\ *\ t\ -\/\ 3\ *\ t\ *\ t)\ +}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ p4\ *\ (t\ *\ t);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ DirectX::XMVECTOR\ CubicTangent(DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p1,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p2,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p3,\ DirectX::XMVECTOR\ \textcolor{keyword}{const}\&\ p4,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T0\ =\ XMVectorReplicate(-\/1\ +\ 2\ *\ t\ -\/\ t\ *\ t);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T1\ =\ XMVectorReplicate(1\ -\/\ 4\ *\ t\ +\ 3\ *\ t\ *\ t);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T2\ =\ XMVectorReplicate(2\ *\ t\ -\/\ 3\ *\ t\ *\ t);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ T3\ =\ XMVectorReplicate(t\ *\ t);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ XMVECTOR\ Result\ =\ XMVectorMultiply(p1,\ T0);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p2,\ T1,\ Result);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p3,\ T2,\ Result);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Result\ =\ XMVectorMultiplyAdd(p4,\ T3,\ Result);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Result;}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ Creates\ vertices\ for\ a\ patch\ that\ is\ tessellated\ at\ the\ specified\ level.}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ Calls\ the\ specified\ outputVertex\ function\ for\ each\ generated\ vertex,}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ passing\ the\ position,\ normal,\ and\ texture\ coordinate\ as\ parameters.}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TOutputFunc>}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ CreatePatchVertices(\_In\_reads\_(16)\ \textcolor{keyword}{const}\ DirectX::XMVECTOR\ patch[16],\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ isMirrored,\ TOutputFunc\ outputVertex)}
+\DoxyCodeLine{00084\ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <=\ tessellation;\ i++)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ u\ =\ float(i)\ /\ float(tessellation);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <=\ tessellation;\ j++)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ v\ =\ float(j)\ /\ float(tessellation);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ four\ horizontal\ bezier\ interpolations}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ between\ the\ control\ points\ of\ this\ patch.}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ p1\ =\ CubicInterpolate(patch[0],\ patch[1],\ patch[2],\ patch[3],\ u);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ p2\ =\ CubicInterpolate(patch[4],\ patch[5],\ patch[6],\ patch[7],\ u);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ p3\ =\ CubicInterpolate(patch[8],\ patch[9],\ patch[10],\ patch[11],\ u);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ p4\ =\ CubicInterpolate(patch[12],\ patch[13],\ patch[14],\ patch[15],\ u);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ a\ vertical\ interpolation\ between\ the\ results\ of\ the}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ previous\ horizontal\ interpolations,\ to\ compute\ the\ position.}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ position\ =\ CubicInterpolate(p1,\ p2,\ p3,\ p4,\ v);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ another\ four\ bezier\ interpolations\ between\ the\ control}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ points,\ but\ this\ time\ vertically\ rather\ than\ horizontally.}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ q1\ =\ CubicInterpolate(patch[0],\ patch[4],\ patch[8],\ patch[12],\ v);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ q2\ =\ CubicInterpolate(patch[1],\ patch[5],\ patch[9],\ patch[13],\ v);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ q3\ =\ CubicInterpolate(patch[2],\ patch[6],\ patch[10],\ patch[14],\ v);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ q4\ =\ CubicInterpolate(patch[3],\ patch[7],\ patch[11],\ patch[15],\ v);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ vertical\ and\ horizontal\ tangent\ vectors.}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ tangent1\ =\ CubicTangent(p1,\ p2,\ p3,\ p4,\ v);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ tangent2\ =\ CubicTangent(q1,\ q2,\ q3,\ q4,\ u);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cross\ the\ two\ tangent\ vectors\ to\ compute\ the\ normal.}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XMVECTOR\ normal\ =\ XMVector3Cross(tangent1,\ tangent2);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!XMVector3NearEqual(normal,\ XMVectorZero(),\ g\_XMEpsilon))}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normal\ =\ XMVector3Normalize(normal);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ this\ patch\ is\ mirrored,\ we\ must\ invert\ the\ normal.}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isMirrored)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normal\ =\ XMVectorNegate(normal);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ In\ a\ tidy\ and\ well\ constructed\ bezier\ patch,\ the\ preceding}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ normal\ computation\ will\ always\ work.\ But\ the\ classic\ teapot}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ model\ is\ not\ tidy\ or\ well\ constructed!\ At\ the\ top\ and\ bottom}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ of\ the\ teapot,\ it\ contains\ degenerate\ geometry\ where\ a\ patch}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ has\ several\ control\ points\ in\ the\ same\ place,\ which\ causes}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ tangent\ computation\ to\ fail\ and\ produce\ a\ zero\ normal.}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ 'fix'\ these\ cases\ by\ just\ hard-\/coding\ a\ normal\ that\ points}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ either\ straight\ up\ or\ straight\ down,\ depending\ on\ whether\ we}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ are\ on\ the\ top\ or\ bottom\ of\ the\ teapot.\ This\ is\ not\ a\ robust}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ solution\ for\ all\ possible\ degenerate\ bezier\ patches,\ but\ hey,}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ it's\ good\ enough\ to\ make\ the\ teapot\ work\ correctly!}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normal\ =\ XMVectorSelect(g\_XMIdentityR1,\ g\_XMNegIdentityR1,\ XMVectorLess(position,\ XMVectorZero()));}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ texture\ coordinate.}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ mirroredU\ =\ isMirrored\ ?\ 1\ -\/\ u\ :\ u;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ XMVECTOR\ textureCoordinate\ =\ XMVectorSet(mirroredU,\ v,\ 0,\ 0);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output\ this\ vertex.}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outputVertex(position,\ normal,\ textureCoordinate);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ Creates\ indices\ for\ a\ patch\ that\ is\ tessellated\ at\ the\ specified\ level.}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{comment}{//\ Calls\ the\ specified\ outputIndex\ function\ for\ each\ generated\ index\ value.}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TOutputFunc>}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ CreatePatchIndices(\textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ isMirrored,\ TOutputFunc\ outputIndex)}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ stride\ =\ tessellation\ +\ 1;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ tessellation;\ i++)}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ tessellation;\ j++)}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ a\ list\ of\ six\ index\ values\ (two\ triangles).}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<size\_t,\ 6>\ indices\ =}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ stride\ +\ j,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i\ +\ 1)\ *\ stride\ +\ j,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i\ +\ 1)\ *\ stride\ +\ j\ +\ 1,}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ stride\ +\ j,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i\ +\ 1)\ *\ stride\ +\ j\ +\ 1,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ stride\ +\ j\ +\ 1,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ this\ patch\ is\ mirrored,\ reverse\ indices\ to\ fix\ the\ winding\ order.}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isMirrored)}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::reverse(indices.begin(),\ indices.end());}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output\ these\ index\ values.}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::for\_each(indices.begin(),\ indices.end(),\ outputIndex);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \}}
+
+\end{DoxyCode}

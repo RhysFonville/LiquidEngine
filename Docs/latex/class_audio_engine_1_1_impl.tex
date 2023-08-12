@@ -1,0 +1,106 @@
+\hypertarget{class_audio_engine_1_1_impl}{}\doxysection{DirectX\+::Audio\+Engine\+::Impl Class Reference}
+\label{class_audio_engine_1_1_impl}\index{DirectX::AudioEngine::Impl@{DirectX::AudioEngine::Impl}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a2a7e4e6219ca7e342b4d9468a3b424fb}\label{class_audio_engine_1_1_impl_a2a7e4e6219ca7e342b4d9468a3b424fb}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_af93f640d2a70a3b30c2d63287e4c8046}\label{class_audio_engine_1_1_impl_af93f640d2a70a3b30c2d63287e4c8046}} 
+\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a82ddda982676e092b6c35b0d5d39bd31}\label{class_audio_engine_1_1_impl_a82ddda982676e092b6c35b0d5d39bd31}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ae67ebead77b19327f37133388d8860ff}\label{class_audio_engine_1_1_impl_ae67ebead77b19327f37133388d8860ff}} 
+\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_audio_engine_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_af770059965e4b06cdd70c912728ddd60}\label{class_audio_engine_1_1_impl_af770059965e4b06cdd70c912728ddd60}} 
+HRESULT {\bfseries Initialize} (AUDIO\+\_\+\+ENGINE\+\_\+\+FLAGS flags, \+\_\+\+In\+\_\+opt\+\_\+ const WAVEFORMATEX $\ast$wfx, \+\_\+\+In\+\_\+opt\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$device\+Id, AUDIO\+\_\+\+STREAM\+\_\+\+CATEGORY category)
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a1aec1dce05704e86514c9585ba1b2f18}\label{class_audio_engine_1_1_impl_a1aec1dce05704e86514c9585ba1b2f18}} 
+HRESULT {\bfseries Reset} (\+\_\+\+In\+\_\+opt\+\_\+ const WAVEFORMATEX $\ast$wfx, \+\_\+\+In\+\_\+opt\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$device\+Id)
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a15b59a675a834d2982e9730c99365801}\label{class_audio_engine_1_1_impl_a15b59a675a834d2982e9730c99365801}} 
+void {\bfseries Set\+Silent\+Mode} ()
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a664fa4429d8e55ced02821bbc6662b97}\label{class_audio_engine_1_1_impl_a664fa4429d8e55ced02821bbc6662b97}} 
+void {\bfseries Shutdown} () noexcept
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a196d8aa66b131dc37f579b40b616fb8f}\label{class_audio_engine_1_1_impl_a196d8aa66b131dc37f579b40b616fb8f}} 
+bool {\bfseries Update} ()
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a455eb32848687037c65cecf990e4d1c5}\label{class_audio_engine_1_1_impl_a455eb32848687037c65cecf990e4d1c5}} 
+void {\bfseries Set\+Reverb} (\+\_\+\+In\+\_\+opt\+\_\+ const XAUDIO2\+FX\+\_\+\+REVERB\+\_\+\+PARAMETERS $\ast$native) noexcept
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a6be786d646767f5d215408f7485d2273}\label{class_audio_engine_1_1_impl_a6be786d646767f5d215408f7485d2273}} 
+void {\bfseries Set\+Mastering\+Limit} (int release, int loudness)
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_aec984ce5c10362b850fe53010dfd5ee8}\label{class_audio_engine_1_1_impl_aec984ce5c10362b850fe53010dfd5ee8}} 
+\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} {\bfseries Get\+Statistics} () const
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a6585a1be812a0e9bbfb234bc3ddd841f}\label{class_audio_engine_1_1_impl_a6585a1be812a0e9bbfb234bc3ddd841f}} 
+void {\bfseries Trim\+Voice\+Pool} ()
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_aee54a39c04146ee9c2ecd3084623b21b}\label{class_audio_engine_1_1_impl_aee54a39c04146ee9c2ecd3084623b21b}} 
+void {\bfseries Allocate\+Voice} (\+\_\+\+In\+\_\+ const WAVEFORMATEX $\ast$wfx, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags, bool oneshot, \+\_\+\+Outptr\+\_\+result\+\_\+maybenull\+\_\+ IXAudio2\+Source\+Voice $\ast$$\ast$voice)
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a5ac978249427eb26dab59e3831866e01}\label{class_audio_engine_1_1_impl_a5ac978249427eb26dab59e3831866e01}} 
+void {\bfseries Destroy\+Voice} (\+\_\+\+In\+\_\+ IXAudio2\+Source\+Voice $\ast$voice) noexcept
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ae5743ba91680efb426878a7edb1ee8d1}\label{class_audio_engine_1_1_impl_ae5743ba91680efb426878a7edb1ee8d1}} 
+void {\bfseries Register\+Notify} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} $\ast$notify, bool uses\+Update)
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a63ead7c7741a87ae6a29c83aa4da7f08}\label{class_audio_engine_1_1_impl_a63ead7c7741a87ae6a29c83aa4da7f08}} 
+void {\bfseries Unregister\+Notify} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} $\ast$notify, bool oneshots, bool uses\+Update)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ad433e0f00a0cd3ff6449057f9715b8a2}\label{class_audio_engine_1_1_impl_ad433e0f00a0cd3ff6449057f9715b8a2}} 
+Com\+Ptr$<$ IXAudio2 $>$ {\bfseries xaudio2}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a0986e4652d2172492264bd48851027d4}\label{class_audio_engine_1_1_impl_a0986e4652d2172492264bd48851027d4}} 
+IXAudio2\+Mastering\+Voice $\ast$ {\bfseries m\+Master\+Voice}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a110444547361ed996704c40355404fb5}\label{class_audio_engine_1_1_impl_a110444547361ed996704c40355404fb5}} 
+IXAudio2\+Submix\+Voice $\ast$ {\bfseries m\+Reverb\+Voice}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_aca16f7b349e93b2437713bf0327c08de}\label{class_audio_engine_1_1_impl_aca16f7b349e93b2437713bf0327c08de}} 
+uint32\+\_\+t {\bfseries master\+Channel\+Mask}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a18f6dc6bab102c6b3b94b1018697f98c}\label{class_audio_engine_1_1_impl_a18f6dc6bab102c6b3b94b1018697f98c}} 
+uint32\+\_\+t {\bfseries master\+Channels}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ad082badd27a93a1333cc62cdfe85ff35}\label{class_audio_engine_1_1_impl_ad082badd27a93a1333cc62cdfe85ff35}} 
+uint32\+\_\+t {\bfseries master\+Rate}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a1ee7b6dc13483a848eded750feb59afc}\label{class_audio_engine_1_1_impl_a1ee7b6dc13483a848eded750feb59afc}} 
+int {\bfseries default\+Rate}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a0b5554545edc941b662bf9fad7a6d348}\label{class_audio_engine_1_1_impl_a0b5554545edc941b662bf9fad7a6d348}} 
+size\+\_\+t {\bfseries max\+Voice\+Oneshots}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ae6b1554625384370acd1ec6b8a2651a6}\label{class_audio_engine_1_1_impl_ae6b1554625384370acd1ec6b8a2651a6}} 
+size\+\_\+t {\bfseries max\+Voice\+Instances}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a0c71d0340d626a1006b16bb61957f426}\label{class_audio_engine_1_1_impl_a0c71d0340d626a1006b16bb61957f426}} 
+float {\bfseries m\+Master\+Volume}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a466de4d106bc5d2e563fb5b1af63869f}\label{class_audio_engine_1_1_impl_a466de4d106bc5d2e563fb5b1af63869f}} 
+X3\+DAUDIO\+\_\+\+HANDLE {\bfseries m\+X3\+DAudio}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_af4e752879914622aee2f4194efc883d7}\label{class_audio_engine_1_1_impl_af4e752879914622aee2f4194efc883d7}} 
+bool {\bfseries m\+Critical\+Error}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_a13bbd762e665115f5065a2e122af38f5}\label{class_audio_engine_1_1_impl_a13bbd762e665115f5065a2e122af38f5}} 
+bool {\bfseries m\+Reverb\+Enabled}
+\item 
+\mbox{\Hypertarget{class_audio_engine_1_1_impl_ab8b6d80216016327e6ca1a15452f5cf6}\label{class_audio_engine_1_1_impl_ab8b6d80216016327e6ca1a15452f5cf6}} 
+AUDIO\+\_\+\+ENGINE\+\_\+\+FLAGS {\bfseries m\+Engine\+Flags}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Audio\+Engine.\+cpp\end{DoxyCompactItemize}

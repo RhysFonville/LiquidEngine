@@ -1,0 +1,581 @@
+.TH "DirectX::Keyboard::State" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Keyboard::State
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool __cdecl \fBIsKeyDown\fP (Keys key) const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsKeyUp\fP (Keys key) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBReserved0\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBBack\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBTab\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved1\fP: 3"
+.br
+.ti -1c
+.RI "bool \fBEnter\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved2\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBReserved3\fP: 3"
+.br
+.ti -1c
+.RI "bool \fBPause\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBCapsLock\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBKana\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBImeOn\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved4\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved5\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBKanji\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBImeOff\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBEscape\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBImeConvert\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBImeNoConvert\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved7\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBSpace\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPageUp\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPageDown\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBEnd\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBHome\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLeft\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBUp\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBRight\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBDown\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBSelect\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPrint\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBExecute\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPrintScreen\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBInsert\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBDelete\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBHelp\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD0\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD1\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD2\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD3\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD4\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD5\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD6\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD7\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD8\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD9\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved8\fP: 6"
+.br
+.ti -1c
+.RI "bool \fBReserved9\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBA\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBB\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBC\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBD\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBE\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBG\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBH\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBI\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBJ\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBK\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBL\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBM\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBN\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBO\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBP\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBQ\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBR\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBS\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBT\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBU\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBV\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBW\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBX\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBY\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBZ\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLeftWindows\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBRightWindows\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBApps\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved10\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBSleep\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad0\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad1\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad2\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad3\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad4\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad5\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad6\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad7\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad8\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBNumPad9\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBMultiply\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBAdd\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBSeparator\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBSubtract\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBDecimal\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBDivide\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF1\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF2\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF3\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF4\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF5\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF6\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF7\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF8\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF9\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF10\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF11\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF12\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF13\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF14\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF15\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF16\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF17\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF18\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF19\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF20\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF21\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF22\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF23\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBF24\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved11\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBNumLock\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBScroll\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved12\fP: 6"
+.br
+.ti -1c
+.RI "bool \fBReserved13\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBLeftShift\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBRightShift\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLeftControl\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBRightControl\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLeftAlt\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBRightAlt\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserBack\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserForward\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserRefresh\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserStop\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserSearch\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserFavorites\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBBrowserHome\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBVolumeMute\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBVolumeDown\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBVolumeUp\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBMediaNextTrack\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBMediaPreviousTrack\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBMediaStop\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBMediaPlayPause\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLaunchMail\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBSelectMedia\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLaunchApplication1\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBLaunchApplication2\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved14\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBOemSemicolon\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemPlus\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemComma\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemMinus\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemPeriod\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemQuestion\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemTilde\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved15\fP: 7"
+.br
+.ti -1c
+.RI "bool \fBReserved16\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBReserved17\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBReserved18\fP: 3"
+.br
+.ti -1c
+.RI "bool \fBOemOpenBrackets\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemPipe\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemCloseBrackets\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemQuotes\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOem8\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved19\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBOemBackslash\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved20\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBProcessKey\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved21\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBReserved22\fP: 8"
+.br
+.ti -1c
+.RI "bool \fBReserved23\fP: 2"
+.br
+.ti -1c
+.RI "bool \fBOemCopy\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemAuto\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemEnlW\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved24\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBAttn\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBCrsel\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBExsel\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBEraseEof\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPlay\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBZoom\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved25\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBPa1\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBOemClear\fP: 1"
+.br
+.ti -1c
+.RI "bool \fBReserved26\fP: 1"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

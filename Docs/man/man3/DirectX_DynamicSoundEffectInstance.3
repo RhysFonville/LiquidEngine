@@ -1,0 +1,89 @@
+.TH "DirectX::DynamicSoundEffectInstance" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DynamicSoundEffectInstance
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDynamicSoundEffectInstance\fP (_In_ \fBAudioEngine\fP *engine, _In_opt_ std::function< void __cdecl(\fBDynamicSoundEffectInstance\fP *)> bufferNeeded, int sampleRate, int channels, int sampleBits=16, SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "\fBDynamicSoundEffectInstance\fP (\fBDynamicSoundEffectInstance\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDynamicSoundEffectInstance\fP & \fBoperator=\fP (\fBDynamicSoundEffectInstance\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDynamicSoundEffectInstance\fP (\fBDynamicSoundEffectInstance\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBDynamicSoundEffectInstance\fP & \fBoperator=\fP (\fBDynamicSoundEffectInstance\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBStop\fP (bool immediate=true) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBPause\fP () noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBResume\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVolume\fP (float volume)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetPitch\fP (float pitch)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetPan\fP (float pan)"
+.br
+.ti -1c
+.RI "void __cdecl \fBApply3D\fP (const X3DAUDIO_LISTENER &listener, const X3DAUDIO_EMITTER &emitter, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSubmitBuffer\fP (_In_reads_bytes_(audioBytes) const uint8_t *pAudioData, size_t audioBytes)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSubmitBuffer\fP (_In_reads_bytes_(audioBytes) const uint8_t *pAudioData, uint32_t offset, size_t audioBytes)"
+.br
+.ti -1c
+.RI "SoundState __cdecl \fBGetState\fP () noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDuration\fP (size_t bytes) const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDurationMS\fP (size_t bytes) const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleSizeInBytes\fP (uint64_t duration) const noexcept"
+.br
+.ti -1c
+.RI "int __cdecl \fBGetPendingBufferCount\fP () const noexcept"
+.br
+.ti -1c
+.RI "const WAVEFORMATEX *__cdecl \fBGetFormat\fP () const noexcept"
+.br
+.ti -1c
+.RI "unsigned int __cdecl \fBGetChannelCount\fP () const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

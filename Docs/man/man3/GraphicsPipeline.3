@@ -1,0 +1,131 @@
+.TH "GraphicsPipeline" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBConstantBuffer\fP"
+.br
+.ti -1c
+.RI "class \fBInputAssembler\fP"
+.br
+.ti -1c
+.RI "class \fBOutputMerger\fP"
+.br
+.ti -1c
+.RI "class \fBRasterizer\fP"
+.br
+.ti -1c
+.RI "class \fBRootSignature\fP"
+.br
+.ti -1c
+.RI "class \fBShader\fP"
+.br
+.ti -1c
+.RI "class \fBStreamOutput\fP"
+.br
+.ti -1c
+.RI "class \fBTesselator\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsPipeline\fP (ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index)"
+.br
+.ti -1c
+.RI "void \fBrun\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBGraphicsPipeline\fP &pipeline) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBGraphicsPipeline\fP &pipeline) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< ID3D12PipelineState > \fBpipeline_state_object\fP = nullptr"
+.br
+.ti -1c
+.RI "bool \fBcompilation_signal\fP = true"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::InputAssembler\fP \fBinput_assembler\fP"
+.br
+.ti -1c
+.RI "\fBShader\fP \fBvs\fP = \fBShader\fP(Shader::Type::Vertex, 'DefaultVertex\&.hlsl')"
+.br
+.ti -1c
+.RI "\fBShader\fP \fBhs\fP = \fBShader\fP(Shader::Type::Hull)"
+.br
+.ti -1c
+.RI "\fBShader\fP \fBds\fP = \fBShader\fP(Shader::Type::Domain)"
+.br
+.ti -1c
+.RI "\fBShader\fP \fBgs\fP = \fBShader\fP(Shader::Type::Geometry)"
+.br
+.ti -1c
+.RI "\fBShader\fP \fBps\fP = \fBShader\fP(Shader::Type::Pixel, 'LitPixel\&.hlsl')"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::Tesselator\fP \fBtesselator\fP"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::Rasterizer\fP \fBrasterizer\fP"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::OutputMerger\fP \fBoutput_merger\fP"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::StreamOutput\fP \fBstream_output\fP"
+.br
+.ti -1c
+.RI "class \fBGraphicsPipeline::RootSignature\fP \fBroot_signature\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr UINT \fBNUMBER_OF_BUFFERS\fP = 3u"
+.br
+.ti -1c
+.RI "static constexpr D3D12_INPUT_ELEMENT_DESC \fBinput_layout\fP []"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "constexpr D3D12_INPUT_ELEMENT_DESC GraphicsPipeline::input_layout[]\fC [static]\fP, \fC [constexpr]\fP"
+\fBInitial value:\fP.PP
+.nf
+= {
+        { "POSITION",   0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  0,                              D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+        { "TEXCOORD",   0,  DXGI_FORMAT_R32G32_FLOAT,       0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+        { "NORMAL",     0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+        { "TANGENT",    0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+    }
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

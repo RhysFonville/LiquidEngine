@@ -1,0 +1,74 @@
+.TH "DirectX::SoundEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SoundEffect
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoundEffect\fP (_In_ \fBAudioEngine\fP *engine, _In_z_ const wchar_t *waveFileName)"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP (_In_ \fBAudioEngine\fP *engine, _Inout_ std::unique_ptr< uint8_t[]> &wavData, _In_ const WAVEFORMATEX *wfx, _In_reads_bytes_(audioBytes) const uint8_t *startAudio, size_t audioBytes)"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP (_In_ \fBAudioEngine\fP *engine, _Inout_ std::unique_ptr< uint8_t[]> &wavData, _In_ const WAVEFORMATEX *wfx, _In_reads_bytes_(audioBytes) const uint8_t *startAudio, size_t audioBytes, uint32_t loopStart, uint32_t loopLength)"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP (\fBSoundEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP & \fBoperator=\fP (\fBSoundEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP (\fBSoundEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBSoundEffect\fP & \fBoperator=\fP (\fBSoundEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP (float volume, float pitch, float pan)"
+.br
+.ti -1c
+.RI "std::unique_ptr< \fBSoundEffectInstance\fP > __cdecl \fBCreateInstance\fP (SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsInUse\fP () const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleSizeInBytes\fP () const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDuration\fP () const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDurationMS\fP () const noexcept"
+.br
+.ti -1c
+.RI "const WAVEFORMATEX *__cdecl \fBGetFormat\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBFillSubmitBuffer\fP (_Out_ XAUDIO2_BUFFER &buffer) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBUnregisterInstance\fP (_In_ \fBIVoiceNotify\fP *instance)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

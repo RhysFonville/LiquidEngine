@@ -1,0 +1,101 @@
+.TH "DirectX::WaveBank" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::WaveBank
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWaveBank\fP (_In_ \fBAudioEngine\fP *engine, _In_z_ const wchar_t *wbFileName)"
+.br
+.ti -1c
+.RI "\fBWaveBank\fP (\fBWaveBank\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBWaveBank\fP & \fBoperator=\fP (\fBWaveBank\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBWaveBank\fP (\fBWaveBank\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBWaveBank\fP & \fBoperator=\fP (\fBWaveBank\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP (unsigned int index)"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP (unsigned int index, float volume, float pitch, float pan)"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP (_In_z_ const char *name)"
+.br
+.ti -1c
+.RI "void __cdecl \fBPlay\fP (_In_z_ const char *name, float volume, float pitch, float pan)"
+.br
+.ti -1c
+.RI "std::unique_ptr< \fBSoundEffectInstance\fP > __cdecl \fBCreateInstance\fP (unsigned int index, SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "std::unique_ptr< \fBSoundEffectInstance\fP > __cdecl \fBCreateInstance\fP (_In_z_ const char *name, SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "std::unique_ptr< \fBSoundStreamInstance\fP > __cdecl \fBCreateStreamInstance\fP (unsigned int index, SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "std::unique_ptr< \fBSoundStreamInstance\fP > __cdecl \fBCreateStreamInstance\fP (_In_z_ const char *name, SOUND_EFFECT_INSTANCE_FLAGS flags=SoundEffectInstance_Default)"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsPrepared\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsInUse\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsStreamingBank\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsAdvancedFormat\fP () const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleSizeInBytes\fP (unsigned int index) const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDuration\fP (unsigned int index) const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetSampleDurationMS\fP (unsigned int index) const noexcept"
+.br
+.ti -1c
+.RI "const WAVEFORMATEX *__cdecl \fBGetFormat\fP (unsigned int index, _Out_writes_bytes_(maxsize) WAVEFORMATEX *wfx, size_t maxsize) const noexcept"
+.br
+.ti -1c
+.RI "int __cdecl \fBFind\fP (_In_z_ const char *name) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBFillSubmitBuffer\fP (unsigned int index, _Out_ XAUDIO2_BUFFER &buffer) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBUnregisterInstance\fP (_In_ \fBIVoiceNotify\fP *instance)"
+.br
+.ti -1c
+.RI "HANDLE __cdecl \fBGetAsyncHandle\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBGetPrivateData\fP (unsigned int index, _Out_writes_bytes_(datasize) void *data, size_t datasize)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

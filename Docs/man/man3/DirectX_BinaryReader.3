@@ -1,0 +1,41 @@
+.TH "DirectX::BinaryReader" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::BinaryReader
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBinaryReader\fP (_In_z_ wchar_t const *fileName) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBBinaryReader\fP (_In_reads_bytes_(dataSize) uint8_t const *dataBlob, size_t dataSize) noexcept"
+.br
+.ti -1c
+.RI "\fBBinaryReader\fP (\fBBinaryReader\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBBinaryReader\fP & \fBoperator=\fP (\fBBinaryReader\fP const &)=delete"
+.br
+.ti -1c
+.RI "template<typename T > T const & \fBRead\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > T const * \fBReadArray\fP (size_t elementCount)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static HRESULT \fBReadEntireFile\fP (_In_z_ wchar_t const *fileName, _Inout_ std::unique_ptr< uint8_t[]> &data, _Out_ size_t *dataSize)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

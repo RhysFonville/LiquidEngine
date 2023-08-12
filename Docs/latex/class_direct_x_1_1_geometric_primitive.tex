@@ -1,0 +1,133 @@
+\hypertarget{class_direct_x_1_1_geometric_primitive}{}\doxysection{DirectX\+::Geometric\+Primitive Class Reference}
+\label{class_direct_x_1_1_geometric_primitive}\index{DirectX::GeometricPrimitive@{DirectX::GeometricPrimitive}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_geometric_primitive_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a50a1c0945de5f80ee05616a7f44a92da}\label{class_direct_x_1_1_geometric_primitive_a50a1c0945de5f80ee05616a7f44a92da}} 
+using {\bfseries Vertex\+Type} = \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_normal_texture}{Vertex\+Position\+Normal\+Texture}}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a92c36770e02f8dd6fb147c63f32e6024}\label{class_direct_x_1_1_geometric_primitive_a92c36770e02f8dd6fb147c63f32e6024}} 
+using {\bfseries Vertex\+Collection} = std\+::vector$<$ \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_normal_texture}{Vertex\+Type}} $>$
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_af1b94abcd0f0c9caee20597612a38552}\label{class_direct_x_1_1_geometric_primitive_af1b94abcd0f0c9caee20597612a38552}} 
+using {\bfseries Index\+Collection} = std\+::vector$<$ uint16\+\_\+t $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aeb2a91e6e392f9bf7c28c384bc668082}\label{class_direct_x_1_1_geometric_primitive_aeb2a91e6e392f9bf7c28c384bc668082}} 
+{\bfseries Geometric\+Primitive} (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a79942c2dca0b4eb5511462cf347f48b4}\label{class_direct_x_1_1_geometric_primitive_a79942c2dca0b4eb5511462cf347f48b4}} 
+\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a37603161842cdcb8abf48627de7ecd5b}\label{class_direct_x_1_1_geometric_primitive_a37603161842cdcb8abf48627de7ecd5b}} 
+{\bfseries Geometric\+Primitive} (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ab5721135712fb29b2020edc6703809e6}\label{class_direct_x_1_1_geometric_primitive_ab5721135712fb29b2020edc6703809e6}} 
+\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aaf3c60d25c233b210f0e71eae9ad6ce9}\label{class_direct_x_1_1_geometric_primitive_aaf3c60d25c233b210f0e71eae9ad6ce9}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, FXMVECTOR color=Colors\+::\+White, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$texture=nullptr, bool wireframe=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a7f401eb1492143873469ee7e28b6193e}\label{class_direct_x_1_1_geometric_primitive_a7f401eb1492143873469ee7e28b6193e}} 
+void \+\_\+\+\_\+cdecl {\bfseries Draw} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$effect, \+\_\+\+In\+\_\+ ID3\+D11\+Input\+Layout $\ast$input\+Layout, bool alpha=false, bool wireframe=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a830d629f124bec39802d30d6e6ad9c22}\label{class_direct_x_1_1_geometric_primitive_a830d629f124bec39802d30d6e6ad9c22}} 
+void \+\_\+\+\_\+cdecl {\bfseries Draw\+Instanced} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$effect, \+\_\+\+In\+\_\+ ID3\+D11\+Input\+Layout $\ast$input\+Layout, uint32\+\_\+t instance\+Count, bool alpha=false, bool wireframe=false, uint32\+\_\+t start\+Instance\+Location=0, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aa769efd70eef5180778dfbd7493c0463}\label{class_direct_x_1_1_geometric_primitive_aa769efd70eef5180778dfbd7493c0463}} 
+void \+\_\+\+\_\+cdecl {\bfseries Create\+Input\+Layout} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$effect, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Input\+Layout $\ast$$\ast$input\+Layout) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ab2b81057e6b7b54899f8be1f687f45c1}\label{class_direct_x_1_1_geometric_primitive_ab2b81057e6b7b54899f8be1f687f45c1}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Cube} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_af2504efb192c4104e3f2f2d384ba437d}\label{class_direct_x_1_1_geometric_primitive_af2504efb192c4104e3f2f2d384ba437d}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Box} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const XMFLOAT3 \&size, bool rhcoords=true, bool invertn=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aaf002e841375468fdd9c3f974019f8ab}\label{class_direct_x_1_1_geometric_primitive_aaf002e841375468fdd9c3f974019f8ab}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Sphere} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float diameter=1, size\+\_\+t tessellation=16, bool rhcoords=true, bool invertn=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aeeac8c52f01bc4762d685157e9e394a4}\label{class_direct_x_1_1_geometric_primitive_aeeac8c52f01bc4762d685157e9e394a4}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Geo\+Sphere} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float diameter=1, size\+\_\+t tessellation=3, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a228fabd44f2f63a1b9590b9f73a00fef}\label{class_direct_x_1_1_geometric_primitive_a228fabd44f2f63a1b9590b9f73a00fef}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Cylinder} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float height=1, float diameter=1, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a03fd9ec85f66c95cbf15193ac21d01f3}\label{class_direct_x_1_1_geometric_primitive_a03fd9ec85f66c95cbf15193ac21d01f3}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Cone} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float diameter=1, float height=1, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a4fb8260bd4fa16e672d7929f35a86adb}\label{class_direct_x_1_1_geometric_primitive_a4fb8260bd4fa16e672d7929f35a86adb}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Torus} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float diameter=1, float thickness=0.\+333f, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a8ffcb097656b6fd2400369a2476508b7}\label{class_direct_x_1_1_geometric_primitive_a8ffcb097656b6fd2400369a2476508b7}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Tetrahedron} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_abef8f5d4ba5e6d820aa01ee058b2a551}\label{class_direct_x_1_1_geometric_primitive_abef8f5d4ba5e6d820aa01ee058b2a551}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Octahedron} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ae84ff0090c72fb594df98b07b8a6dd26}\label{class_direct_x_1_1_geometric_primitive_ae84ff0090c72fb594df98b07b8a6dd26}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Dodecahedron} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_aa2b04bafb5577bf1c8b10bc9b4bd135a}\label{class_direct_x_1_1_geometric_primitive_aa2b04bafb5577bf1c8b10bc9b4bd135a}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Icosahedron} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a6beee5d63acaa961703c1d70a2cea114}\label{class_direct_x_1_1_geometric_primitive_a6beee5d63acaa961703c1d70a2cea114}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Teapot} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, float size=1, size\+\_\+t tessellation=8, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a66b4e226f2de7c54d10c6e56bb0cf7df}\label{class_direct_x_1_1_geometric_primitive_a66b4e226f2de7c54d10c6e56bb0cf7df}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{Geometric\+Primitive}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Custom} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const Vertex\+Collection \&vertices, const Index\+Collection \&indices)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a8552fde86c5beff215fea544f6b26c31}\label{class_direct_x_1_1_geometric_primitive_a8552fde86c5beff215fea544f6b26c31}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Cube} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ad61b52e6254a734043fdc1c81cabfc37}\label{class_direct_x_1_1_geometric_primitive_ad61b52e6254a734043fdc1c81cabfc37}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Box} (Vertex\+Collection \&vertices, Index\+Collection \&indices, const XMFLOAT3 \&size, bool rhcoords=true, bool invertn=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a49ee3b1979b442716036e7739591293f}\label{class_direct_x_1_1_geometric_primitive_a49ee3b1979b442716036e7739591293f}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Sphere} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float diameter=1, size\+\_\+t tessellation=16, bool rhcoords=true, bool invertn=false)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ac0d986153caed4ccfa8a0ee938a46ff7}\label{class_direct_x_1_1_geometric_primitive_ac0d986153caed4ccfa8a0ee938a46ff7}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Geo\+Sphere} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float diameter=1, size\+\_\+t tessellation=3, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a588849e627af96f8bf7fc17b388cde6b}\label{class_direct_x_1_1_geometric_primitive_a588849e627af96f8bf7fc17b388cde6b}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Cylinder} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float height=1, float diameter=1, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_af72d0f16c1ab0bf242b815d8bc1bb56c}\label{class_direct_x_1_1_geometric_primitive_af72d0f16c1ab0bf242b815d8bc1bb56c}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Cone} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float diameter=1, float height=1, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_af41720ac676d7fccc2fc2a10cf4969f6}\label{class_direct_x_1_1_geometric_primitive_af41720ac676d7fccc2fc2a10cf4969f6}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Torus} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float diameter=1, float thickness=0.\+333f, size\+\_\+t tessellation=32, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a79be1e74f9ac6cffb2df2bc9d616a158}\label{class_direct_x_1_1_geometric_primitive_a79be1e74f9ac6cffb2df2bc9d616a158}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Tetrahedron} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a3814fdad0558880f44ca9f493c6c11c0}\label{class_direct_x_1_1_geometric_primitive_a3814fdad0558880f44ca9f493c6c11c0}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Octahedron} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a6b032a176dcc431b286665fdef33e86a}\label{class_direct_x_1_1_geometric_primitive_a6b032a176dcc431b286665fdef33e86a}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Dodecahedron} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_adcbd597830fb2d77cd583be6c6a89917}\label{class_direct_x_1_1_geometric_primitive_adcbd597830fb2d77cd583be6c6a89917}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Icosahedron} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_ac12d7c40ce2fc4b98f45a89bc3d16f4c}\label{class_direct_x_1_1_geometric_primitive_ac12d7c40ce2fc4b98f45a89bc3d16f4c}} 
+static void \+\_\+\+\_\+cdecl {\bfseries Create\+Teapot} (Vertex\+Collection \&vertices, Index\+Collection \&indices, float size=1, size\+\_\+t tessellation=8, bool rhcoords=true)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_geometric_primitive_a589e3176ac5a37f69e06f6becf7c5704}\label{class_direct_x_1_1_geometric_primitive_a589e3176ac5a37f69e06f6becf7c5704}} 
+static void {\bfseries Set\+Depth\+Buffer\+Mode} (bool reverseZ)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Geometric\+Primitive.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Geometric\+Primitive.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,41 @@
+.TH "GraphicsPipeline::OutputMerger" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline::OutputMerger
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOutputMerger\fP (ComPtr< ID3D12Device > &device, const \fBUVector2\fP &resolution)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (const \fBUVector2\fP &resolution, ComPtr< ID3D12Device > &device)"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (ComPtr< ID3D12GraphicsCommandList > &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle)"
+.br
+.ti -1c
+.RI "void \fBcreate_depth_stencil\fP (const \fBUVector2\fP &resolution, ComPtr< ID3D12Device > &device)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBOutputMerger\fP &output_merger) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< ID3D12Resource > \fBdepth_stencil_buffer\fP = nullptr"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12DescriptorHeap > \fBdepth_stencil_descriptor_heap\fP = nullptr"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,34 @@
+\hypertarget{_graphics_pipeline_mesh_change_manager_8h_source}{}\doxysection{Graphics\+Pipeline\+Mesh\+Change\+Manager.\+h}
+\label{_graphics_pipeline_mesh_change_manager_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipelineMeshChangeManager.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipelineMeshChangeManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Mesh.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{enum\ class}\ GraphicsPipelineMeshChangeInfoType\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ Add,\ Sub}
+\DoxyCodeLine{00007\ \};}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_mesh_change_info}{GraphicsPipelineMeshChangeInfo}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ std::vector<std::pair<Mesh,\ size\_t>>\ additions;}
+\DoxyCodeLine{00011\ \ \ \ \ std::vector<size\_t>\ subtractions;}
+\DoxyCodeLine{00012\ \ \ \ \ std::vector<GraphicsPipelineMeshChangeInfoType>\ order;}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_mesh_change_manager}{GraphicsPipelineMeshChangeManager}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_mesh_change_manager}{GraphicsPipelineMeshChangeManager}}()\ \{\ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_mesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh,\ \textcolor{keywordtype}{size\_t}\ index\ =\ (\textcolor{keywordtype}{size\_t})-\/1);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_mesh(\textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_all\_meshes();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_mesh_change_info}{GraphicsPipelineMeshChangeInfo}}\ get\_changes(\textcolor{keywordtype}{bool}\ clear\_changes);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ clear\_change\_info();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_mesh_change_info}{GraphicsPipelineMeshChangeInfo}}\ changes;}
+\DoxyCodeLine{00028\ \};}
+
+\end{DoxyCode}

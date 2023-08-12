@@ -1,0 +1,67 @@
+\hypertarget{class_direct_x_1_1_sound_effect}{}\doxysection{DirectX\+::Sound\+Effect Class Reference}
+\label{class_direct_x_1_1_sound_effect}\index{DirectX::SoundEffect@{DirectX::SoundEffect}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_sound_effect_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a55f01e1e50754cd4141d5ccba8a091b7}\label{class_direct_x_1_1_sound_effect_a55f01e1e50754cd4141d5ccba8a091b7}} 
+{\bfseries Sound\+Effect} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$wave\+File\+Name)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_ae19f95280da600b50da35ec151ad0288}\label{class_direct_x_1_1_sound_effect_ae19f95280da600b50da35ec151ad0288}} 
+{\bfseries Sound\+Effect} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+Inout\+\_\+ std\+::unique\+\_\+ptr$<$ uint8\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \&wav\+Data, \+\_\+\+In\+\_\+ const WAVEFORMATEX $\ast$wfx, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(audio\+Bytes) const uint8\+\_\+t $\ast$start\+Audio, size\+\_\+t audio\+Bytes)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a7104f27648ebfac2b55853f6456bb8de}\label{class_direct_x_1_1_sound_effect_a7104f27648ebfac2b55853f6456bb8de}} 
+{\bfseries Sound\+Effect} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+Inout\+\_\+ std\+::unique\+\_\+ptr$<$ uint8\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \&wav\+Data, \+\_\+\+In\+\_\+ const WAVEFORMATEX $\ast$wfx, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(audio\+Bytes) const uint8\+\_\+t $\ast$start\+Audio, size\+\_\+t audio\+Bytes, uint32\+\_\+t loop\+Start, uint32\+\_\+t loop\+Length)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a4d9e1e61582a017e14ed9b8cf6c0b12e}\label{class_direct_x_1_1_sound_effect_a4d9e1e61582a017e14ed9b8cf6c0b12e}} 
+{\bfseries Sound\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_aaf09d0d443436585a4e121d469e10a92}\label{class_direct_x_1_1_sound_effect_aaf09d0d443436585a4e121d469e10a92}} 
+\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_ab098a3b5899c0e3b1e2928ec09399c2d}\label{class_direct_x_1_1_sound_effect_ab098a3b5899c0e3b1e2928ec09399c2d}} 
+{\bfseries Sound\+Effect} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_ad23aad3fbda5b0c7a96bc1e800443805}\label{class_direct_x_1_1_sound_effect_ad23aad3fbda5b0c7a96bc1e800443805}} 
+\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect}{Sound\+Effect}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a05f6a7830dbedd67e86abbd378d7887e}\label{class_direct_x_1_1_sound_effect_a05f6a7830dbedd67e86abbd378d7887e}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_ab687855aca0865a4048d44c4bb70a70d}\label{class_direct_x_1_1_sound_effect_ab687855aca0865a4048d44c4bb70a70d}} 
+void \+\_\+\+\_\+cdecl {\bfseries Play} (float volume, float pitch, float pan)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_ab6f641c321b0eeb3e696841f54de5922}\label{class_direct_x_1_1_sound_effect_ab6f641c321b0eeb3e696841f54de5922}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance}{Sound\+Effect\+Instance}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+Instance} (SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags=Sound\+Effect\+Instance\+\_\+\+Default)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a626e2cfa051a8c291d0fdc040781c8f7}\label{class_direct_x_1_1_sound_effect_a626e2cfa051a8c291d0fdc040781c8f7}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+In\+Use} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a0e8b8f4f307a4772b5243284ea02075f}\label{class_direct_x_1_1_sound_effect_a0e8b8f4f307a4772b5243284ea02075f}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Size\+In\+Bytes} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a57e5365f25c8f631a8b4476e04c2c1fa}\label{class_direct_x_1_1_sound_effect_a57e5365f25c8f631a8b4476e04c2c1fa}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Duration} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_adc578d86663c77ebc1d69d642cdece14}\label{class_direct_x_1_1_sound_effect_adc578d86663c77ebc1d69d642cdece14}} 
+size\+\_\+t \+\_\+\+\_\+cdecl {\bfseries Get\+Sample\+Duration\+MS} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a38cf9c28f4cb87ae5567875b823f00dc}\label{class_direct_x_1_1_sound_effect_a38cf9c28f4cb87ae5567875b823f00dc}} 
+const WAVEFORMATEX $\ast$\+\_\+\+\_\+cdecl {\bfseries Get\+Format} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a8d34a2cbe3090651bc10d3436e6161de}\label{class_direct_x_1_1_sound_effect_a8d34a2cbe3090651bc10d3436e6161de}} 
+void \+\_\+\+\_\+cdecl {\bfseries Fill\+Submit\+Buffer} (\+\_\+\+Out\+\_\+ XAUDIO2\+\_\+\+BUFFER \&buffer) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_a976a565539805fe8369fa0d77ddbdba8}\label{class_direct_x_1_1_sound_effect_a976a565539805fe8369fa0d77ddbdba8}} 
+void \+\_\+\+\_\+cdecl {\bfseries Unregister\+Instance} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} $\ast$instance)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Audio.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Sound\+Effect.\+cpp\end{DoxyCompactItemize}

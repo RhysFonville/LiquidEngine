@@ -1,0 +1,77 @@
+\hypertarget{class_basic_post_process_1_1_impl}{}\doxysection{DirectX\+::Basic\+Post\+Process\+::Impl Class Reference}
+\label{class_basic_post_process_1_1_impl}\index{DirectX::BasicPostProcess::Impl@{DirectX::BasicPostProcess::Impl}}
+Inheritance diagram for DirectX\+::Basic\+Post\+Process\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_basic_post_process_1_1_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a572020cf8d307c6b23be26c5c9831809}\label{class_basic_post_process_1_1_impl_a572020cf8d307c6b23be26c5c9831809}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_aeb9655df5095bc36e7b6d5cf9efbbe51}\label{class_basic_post_process_1_1_impl_aeb9655df5095bc36e7b6d5cf9efbbe51}} 
+void {\bfseries Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ \&set\+Custom\+State)
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_ac0eb873a3168b7f05082e3a053654bb4}\label{class_basic_post_process_1_1_impl_ac0eb873a3168b7f05082e3a053654bb4}} 
+void {\bfseries Set\+Constants} (bool value=true) noexcept
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a484ffa6aa451ea8ef60a457825702724}\label{class_basic_post_process_1_1_impl_a484ffa6aa451ea8ef60a457825702724}} 
+void {\bfseries Set\+Dirty\+Flag} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_ad586d29a0259a432fd6051c2ff176fb3}\label{class_basic_post_process_1_1_impl_ad586d29a0259a432fd6051c2ff176fb3}} 
+Post\+Process\+Constants {\bfseries constants}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a43106ec3c29e1d581921d25d01908eff}\label{class_basic_post_process_1_1_impl_a43106ec3c29e1d581921d25d01908eff}} 
+Basic\+Post\+Process\+::\+Effect {\bfseries fx}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_ac05569ccc00d7f318bf7a009a59be250}\label{class_basic_post_process_1_1_impl_ac05569ccc00d7f318bf7a009a59be250}} 
+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ {\bfseries texture}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_adcf48765b409794ce19cdadf3105099e}\label{class_basic_post_process_1_1_impl_adcf48765b409794ce19cdadf3105099e}} 
+unsigned {\bfseries tex\+Width}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a392b35a378496ce2e33c5c81c2cd5141}\label{class_basic_post_process_1_1_impl_a392b35a378496ce2e33c5c81c2cd5141}} 
+unsigned {\bfseries tex\+Height}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a73c16ea8f6eef01fa219c3449cba655f}\label{class_basic_post_process_1_1_impl_a73c16ea8f6eef01fa219c3449cba655f}} 
+float {\bfseries guassian\+Multiplier}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_a06c3bdf41b5829b028a7f0d1687dfe29}\label{class_basic_post_process_1_1_impl_a06c3bdf41b5829b028a7f0d1687dfe29}} 
+float {\bfseries bloom\+Size}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_abc8e44e40d48f7354e8ba3636014ea24}\label{class_basic_post_process_1_1_impl_abc8e44e40d48f7354e8ba3636014ea24}} 
+float {\bfseries bloom\+Brightness}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_abdd4ffa20213d213d73747fabeece50a}\label{class_basic_post_process_1_1_impl_abdd4ffa20213d213d73747fabeece50a}} 
+float {\bfseries bloom\+Threshold}
+\item 
+\mbox{\Hypertarget{class_basic_post_process_1_1_impl_aaf37a05b4dab545ef89112c24598b845}\label{class_basic_post_process_1_1_impl_aaf37a05b4dab545ef89112c24598b845}} 
+bool {\bfseries bloom\+Horizontal}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{struct_direct_x_1_1_aligned_new}{Direct\+X\+::\+Aligned\+New$<$ Post\+Process\+Constants $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}\label{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}} 
+static void $\ast$ {\bfseries operator new} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}\label{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}} 
+static void {\bfseries operator delete} (void $\ast$ptr)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}\label{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}} 
+static void $\ast$ {\bfseries operator new\mbox{[}$\,$\mbox{]}} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}\label{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}} 
+static void {\bfseries operator delete\mbox{[}$\,$\mbox{]}} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Basic\+Post\+Process.\+cpp\end{DoxyCompactItemize}

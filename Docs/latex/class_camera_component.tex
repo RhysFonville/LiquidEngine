@@ -1,0 +1,209 @@
+\hypertarget{class_camera_component}{}\doxysection{Camera\+Component Class Reference}
+\label{class_camera_component}\index{CameraComponent@{CameraComponent}}
+Inheritance diagram for Camera\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_camera_component}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_camera_component_a6efc57e107dfc44cb7aae3a8419553b3}{set\+\_\+position}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} position) noexcept override
+\item 
+void \mbox{\hyperlink{class_camera_component_a263bcd900708e4091b1de545c633d055}{set\+\_\+rotation}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} rotation) noexcept override
+\item 
+void \mbox{\hyperlink{class_camera_component_a8f9bc0c217156bc49470ffe682b48ac3}{rotate}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} rotation) noexcept override
+\item 
+\mbox{\Hypertarget{class_camera_component_a43c4810341a83a5b472d03301eaeaf22}\label{class_camera_component_a43c4810341a83a5b472d03301eaeaf22}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+target} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_af8cb24f44c0029ab5210427b007130e1}\label{class_camera_component_af8cb24f44c0029ab5210427b007130e1}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+forward} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a4533b6197c640c13fee253c4c2f3f1bd}\label{class_camera_component_a4533b6197c640c13fee253c4c2f3f1bd}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+backward} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_aa44b8cd384d7481eefb7961750152c1f}\label{class_camera_component_aa44b8cd384d7481eefb7961750152c1f}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+left} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a39ae8cfc5f5e63d9a423d5d89cf98197}\label{class_camera_component_a39ae8cfc5f5e63d9a423d5d89cf98197}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+right} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a2411f30e84ed52fdc122d8fe668f490b}\label{class_camera_component_a2411f30e84ed52fdc122d8fe668f490b}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+up} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a18c86a41d3c0f615bf07640d871417de}\label{class_camera_component_a18c86a41d3c0f615bf07640d871417de}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+down} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a797b758499ddd5cd88fd35f2afd3d249}\label{class_camera_component_a797b758499ddd5cd88fd35f2afd3d249}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries direction\+\_\+real\+\_\+up} () const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a81acc28641e7b81f1772dc33c957d607}\label{class_camera_component_a81acc28641e7b81f1772dc33c957d607}} 
+void {\bfseries update} (const \mbox{\hyperlink{class_t_vector2}{FVector2}} \&size) noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_ad78d2e944d7d252472ef9e10d6ca8a2c}\label{class_camera_component_ad78d2e944d7d252472ef9e10d6ca8a2c}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_camera_component}{Camera\+Component}} \&component) const noexcept
+\item 
+\mbox{\Hypertarget{class_camera_component_a4515231541544838d423d275c5f748c4}\label{class_camera_component_a4515231541544838d423d275c5f748c4}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_camera_component}{Camera\+Component}} \&component) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_component_ae8ddf8bf56053a058a46dc55d22c7e24}\label{class_graphics_component_ae8ddf8bf56053a058a46dc55d22c7e24}} 
+{\bfseries Graphics\+Component} (Type type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_abf70e104f5e9ae897b60eb12ed02b718}\label{class_component_abf70e104f5e9ae897b60eb12ed02b718}} 
+{\bfseries Component} (const Type \&type)
+\item 
+\mbox{\Hypertarget{class_component_ad62eef8ff436dc1dc1ba4fe55a717c7e}\label{class_component_ad62eef8ff436dc1dc1ba4fe55a717c7e}} 
+virtual void {\bfseries set\+\_\+position} (\mbox{\hyperlink{class_f_vector3}{FVector3}} position) noexcept
+\item 
+\mbox{\Hypertarget{class_component_a0b18309701cf48185b98ac7e69b2530e}\label{class_component_a0b18309701cf48185b98ac7e69b2530e}} 
+virtual void {\bfseries set\+\_\+rotation} (\mbox{\hyperlink{class_f_vector3}{FVector3}} rotation) noexcept
+\item 
+\mbox{\Hypertarget{class_component_ad31714f05616334664fbddf8c6a823b4}\label{class_component_ad31714f05616334664fbddf8c6a823b4}} 
+virtual void {\bfseries set\+\_\+size} (\mbox{\hyperlink{class_f_vector3}{FVector3}} size) noexcept
+\item 
+\mbox{\Hypertarget{class_component_adacd68ec447559a1ab9976a72b8a6321}\label{class_component_adacd68ec447559a1ab9976a72b8a6321}} 
+virtual void {\bfseries translate} (\mbox{\hyperlink{class_f_vector3}{FVector3}} position) noexcept
+\item 
+\mbox{\Hypertarget{class_component_ac44219afbf64bbf666a4e6b6ecde9b28}\label{class_component_ac44219afbf64bbf666a4e6b6ecde9b28}} 
+virtual void {\bfseries rotate} (\mbox{\hyperlink{class_f_vector3}{FVector3}} rotation) noexcept
+\item 
+\mbox{\Hypertarget{class_component_acc791c8d295fa4cc69abeac04f6bde2b}\label{class_component_acc791c8d295fa4cc69abeac04f6bde2b}} 
+virtual void {\bfseries size} (\mbox{\hyperlink{class_f_vector3}{FVector3}} size) noexcept
+\item 
+\mbox{\Hypertarget{class_component_a34dfdb9d90f7901ab7a128a22c5ff726}\label{class_component_a34dfdb9d90f7901ab7a128a22c5ff726}} 
+virtual GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+position} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_ab47002b2fb4f5c8ba7924bf6bef78930}\label{class_component_ab47002b2fb4f5c8ba7924bf6bef78930}} 
+virtual GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+rotation} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_a1d539e99af8fa36cf1b7ae07844b29db}\label{class_component_a1d539e99af8fa36cf1b7ae07844b29db}} 
+virtual GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+size} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_a29426e2f4757adee85c3dcc0cb9940ad}\label{class_component_a29426e2f4757adee85c3dcc0cb9940ad}} 
+virtual void {\bfseries set\+\_\+transform} (\mbox{\hyperlink{struct_transform}{Transform}} transform) noexcept
+\item 
+\mbox{\Hypertarget{class_component_af3eb9daab8edc642d576284e6fd1d91c}\label{class_component_af3eb9daab8edc642d576284e6fd1d91c}} 
+virtual GET \mbox{\hyperlink{struct_transform}{Transform}} {\bfseries get\+\_\+transform} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_a43462843afaec9cd0f7b684ee72bba35}\label{class_component_a43462843afaec9cd0f7b684ee72bba35}} 
+void {\bfseries base\+\_\+clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_component_a6919d21962448f1ca807b8555abf60f1}\label{class_component_a6919d21962448f1ca807b8555abf60f1}} 
+void {\bfseries base\+\_\+compile} ()
+\item 
+\mbox{\Hypertarget{class_component_ade6771d0ec039617881a41d0ddbf25ec}\label{class_component_ade6771d0ec039617881a41d0ddbf25ec}} 
+void {\bfseries base\+\_\+tick} ()
+\item 
+\mbox{\Hypertarget{class_component_aeed0331c9f2d993f54d8b50c7d76981b}\label{class_component_aeed0331c9f2d993f54d8b50c7d76981b}} 
+virtual void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_component_ad0065f83bf87c6ca223fbf882a9626f1}\label{class_component_ad0065f83bf87c6ca223fbf882a9626f1}} 
+virtual void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_component_a236acdbc34d1b9a84d43cf0a640b6f05}\label{class_component_a236acdbc34d1b9a84d43cf0a640b6f05}} 
+virtual void {\bfseries tick} ()
+\item 
+\mbox{\Hypertarget{class_component_ad36e612f3d9decca20d6ca7b03716205}\label{class_component_ad36e612f3d9decca20d6ca7b03716205}} 
+GET Type {\bfseries get\+\_\+type} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_ac7b201bfeeb3717279a540d99789b8d8}\label{class_component_ac7b201bfeeb3717279a540d99789b8d8}} 
+virtual bool {\bfseries operator==} (const \mbox{\hyperlink{class_component}{Component}} \&component) const noexcept
+\item 
+\mbox{\Hypertarget{class_component_a7ab44a3611d3a59682a4b97d22e76a1c}\label{class_component_a7ab44a3611d3a59682a4b97d22e76a1c}} 
+virtual void {\bfseries operator=} (const \mbox{\hyperlink{class_component}{Component}} \&component) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_camera_component_a9566f364b706c38f113c4ac580534227}\label{class_camera_component_a9566f364b706c38f113c4ac580534227}} 
+static const Type {\bfseries component\+\_\+type} = Type\+::\+Camera\+Component
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_camera_component_a70538530bc36e033e360880ef311df61}\label{class_camera_component_a70538530bc36e033e360880ef311df61}} 
+class {\bfseries Renderer}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Public Types inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_afd50861fbf83f7ff7777a5e6dd7b7ca4}\label{class_component_afd50861fbf83f7ff7777a5e6dd7b7ca4}} 
+enum class {\bfseries Type} \{ \newline
+{\bfseries None}
+, {\bfseries Static\+Mesh\+Component}
+, {\bfseries Camera\+Component}
+, {\bfseries Directional\+Light\+Component}
+, \newline
+{\bfseries Point\+Light\+Component}
+, {\bfseries Spotlight\+Component}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_component_a725b9eac4207761803c36bd28fe4513c}\label{class_graphics_component_a725b9eac4207761803c36bd28fe4513c}} 
+{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_component}{Component}}) $>$ }\\static bool {\bfseries is\+\_\+graphics\+\_\+component} (const T \&component)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_add189dc18ca4dd121d7dede5a0dbeab8}\label{class_component_add189dc18ca4dd121d7dede5a0dbeab8}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries parent} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_ad997f65735dd8a4496bbe479446bfd98}\label{class_component_ad997f65735dd8a4496bbe479446bfd98}} 
+\mbox{\hyperlink{struct_transform}{Transform}} {\bfseries transform}
+\item 
+\mbox{\Hypertarget{class_component_a18de93d5a176aa3cd6dc6724788dfacb}\label{class_component_a18de93d5a176aa3cd6dc6724788dfacb}} 
+Type {\bfseries type} = Type\+::\+None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_camera_component_a8f9bc0c217156bc49470ffe682b48ac3}\label{class_camera_component_a8f9bc0c217156bc49470ffe682b48ac3}} 
+\index{CameraComponent@{CameraComponent}!rotate@{rotate}}
+\index{rotate@{rotate}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void Camera\+Component\+::rotate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_vector3}{FVector3}}}]{rotation }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_component}{Component}}.
+
+\mbox{\Hypertarget{class_camera_component_a6efc57e107dfc44cb7aae3a8419553b3}\label{class_camera_component_a6efc57e107dfc44cb7aae3a8419553b3}} 
+\index{CameraComponent@{CameraComponent}!set\_position@{set\_position}}
+\index{set\_position@{set\_position}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{set\_position()}{set\_position()}}
+{\footnotesize\ttfamily void Camera\+Component\+::set\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_vector3}{FVector3}}}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_component}{Component}}.
+
+\mbox{\Hypertarget{class_camera_component_a263bcd900708e4091b1de545c633d055}\label{class_camera_component_a263bcd900708e4091b1de545c633d055}} 
+\index{CameraComponent@{CameraComponent}!set\_rotation@{set\_rotation}}
+\index{set\_rotation@{set\_rotation}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{set\_rotation()}{set\_rotation()}}
+{\footnotesize\ttfamily void Camera\+Component\+::set\+\_\+rotation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_vector3}{FVector3}}}]{rotation }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Components/Camera\+Component.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Components/Camera\+Component.\+cpp\end{DoxyCompactItemize}

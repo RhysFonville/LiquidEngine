@@ -1,0 +1,113 @@
+.TH "DirectX::AudioEngine::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::AudioEngine::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "HRESULT \fBInitialize\fP (AUDIO_ENGINE_FLAGS flags, _In_opt_ const WAVEFORMATEX *wfx, _In_opt_z_ const wchar_t *deviceId, AUDIO_STREAM_CATEGORY category)"
+.br
+.ti -1c
+.RI "HRESULT \fBReset\fP (_In_opt_ const WAVEFORMATEX *wfx, _In_opt_z_ const wchar_t *deviceId)"
+.br
+.ti -1c
+.RI "void \fBSetSilentMode\fP ()"
+.br
+.ti -1c
+.RI "void \fBShutdown\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBUpdate\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetReverb\fP (_In_opt_ const XAUDIO2FX_REVERB_PARAMETERS *native) noexcept"
+.br
+.ti -1c
+.RI "void \fBSetMasteringLimit\fP (int release, int loudness)"
+.br
+.ti -1c
+.RI "\fBAudioStatistics\fP \fBGetStatistics\fP () const"
+.br
+.ti -1c
+.RI "void \fBTrimVoicePool\fP ()"
+.br
+.ti -1c
+.RI "void \fBAllocateVoice\fP (_In_ const WAVEFORMATEX *wfx, SOUND_EFFECT_INSTANCE_FLAGS flags, bool oneshot, _Outptr_result_maybenull_ IXAudio2SourceVoice **voice)"
+.br
+.ti -1c
+.RI "void \fBDestroyVoice\fP (_In_ IXAudio2SourceVoice *voice) noexcept"
+.br
+.ti -1c
+.RI "void \fBRegisterNotify\fP (_In_ \fBIVoiceNotify\fP *notify, bool usesUpdate)"
+.br
+.ti -1c
+.RI "void \fBUnregisterNotify\fP (_In_ \fBIVoiceNotify\fP *notify, bool oneshots, bool usesUpdate)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< IXAudio2 > \fBxaudio2\fP"
+.br
+.ti -1c
+.RI "IXAudio2MasteringVoice * \fBmMasterVoice\fP"
+.br
+.ti -1c
+.RI "IXAudio2SubmixVoice * \fBmReverbVoice\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmasterChannelMask\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmasterChannels\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmasterRate\fP"
+.br
+.ti -1c
+.RI "int \fBdefaultRate\fP"
+.br
+.ti -1c
+.RI "size_t \fBmaxVoiceOneshots\fP"
+.br
+.ti -1c
+.RI "size_t \fBmaxVoiceInstances\fP"
+.br
+.ti -1c
+.RI "float \fBmMasterVolume\fP"
+.br
+.ti -1c
+.RI "X3DAUDIO_HANDLE \fBmX3DAudio\fP"
+.br
+.ti -1c
+.RI "bool \fBmCriticalError\fP"
+.br
+.ti -1c
+.RI "bool \fBmReverbEnabled\fP"
+.br
+.ti -1c
+.RI "AUDIO_ENGINE_FLAGS \fBmEngineFlags\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

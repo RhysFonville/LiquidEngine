@@ -1,0 +1,187 @@
+\hypertarget{class_dynamic_sound_effect_instance_1_1_impl}{}\doxysection{DirectX\+::Dynamic\+Sound\+Effect\+Instance\+::Impl Class Reference}
+\label{class_dynamic_sound_effect_instance_1_1_impl}\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+Inheritance diagram for DirectX\+::Dynamic\+Sound\+Effect\+Instance\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_dynamic_sound_effect_instance_1_1_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a29aa525c7054542f7436d24662ab6fc5}\label{class_dynamic_sound_effect_instance_1_1_impl_a29aa525c7054542f7436d24662ab6fc5}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{Dynamic\+Sound\+Effect\+Instance}} $\ast$object, std\+::function$<$ void(\mbox{\hyperlink{class_direct_x_1_1_dynamic_sound_effect_instance}{Dynamic\+Sound\+Effect\+Instance}} $\ast$)$>$ \&buffer\+Needed, int sample\+Rate, int channels, int sample\+Bits, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags)
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a133678178a156571c5f3a06481ac4a3b}\label{class_dynamic_sound_effect_instance_1_1_impl_a133678178a156571c5f3a06481ac4a3b}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_aa1ffb51d73037332f42ea9466c60f868}\label{class_dynamic_sound_effect_instance_1_1_impl_aa1ffb51d73037332f42ea9466c60f868}} 
+\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a96c5c8832909b9fd213e5c8c5cab6f91}\label{class_dynamic_sound_effect_instance_1_1_impl_a96c5c8832909b9fd213e5c8c5cab6f91}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_aa97663b28ddef9df05f30996f6164f8f}\label{class_dynamic_sound_effect_instance_1_1_impl_aa97663b28ddef9df05f30996f6164f8f}} 
+\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a43d3db1818c4d3992796e186e14badd0}\label{class_dynamic_sound_effect_instance_1_1_impl_a43d3db1818c4d3992796e186e14badd0}} 
+void {\bfseries Play} ()
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a951122c01e0c5c7e9a505abdd599ca5a}\label{class_dynamic_sound_effect_instance_1_1_impl_a951122c01e0c5c7e9a505abdd599ca5a}} 
+void {\bfseries Resume} ()
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_acaf62c49a11c797cab9899de0fc0da45}\label{class_dynamic_sound_effect_instance_1_1_impl_acaf62c49a11c797cab9899de0fc0da45}} 
+void {\bfseries Submit\+Buffer} (\+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(audio\+Bytes) const uint8\+\_\+t $\ast$p\+Audio\+Data, uint32\+\_\+t offset, size\+\_\+t audio\+Bytes)
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a83c9d1694abdae81750383165f5de543}\label{class_dynamic_sound_effect_instance_1_1_impl_a83c9d1694abdae81750383165f5de543}} 
+const WAVEFORMATEX $\ast$ {\bfseries Get\+Format} () const noexcept
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_afb7242eb7fdb016b7c96a85a81d0bb90}{On\+Buffer\+End}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_aad9141f98c20e682ef74bc0e7bd90c15}{On\+Critical\+Error}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_a74f28c6923bc3844810196fa9c4f022e}{On\+Reset}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_ae7042a479c0dcdc79bc8a9590da8a63f}{On\+Update}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_af7ff95fbde429646b435fb21688e11ce}{On\+Destroy\+Engine}} () noexcept override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_a2252e653ac3c4c52d1fc44dc0986da0e}{On\+Trim}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_a8580e3c80ccfb08a5cd127d607dddb83}{Gather\+Statistics}} (\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&stats) const noexcept override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_dynamic_sound_effect_instance_1_1_impl_abcb2325094b2023b47b4d337f6868dbf}{On\+Destroy\+Parent}} () noexcept override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a0bac93b06f7e6963d0bb9be930f76b3f}\label{class_direct_x_1_1_i_voice_notify_a0bac93b06f7e6963d0bb9be930f76b3f}} 
+{\bfseries IVoice\+Notify} (const \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_ae6a6c31b12fbf84e1ca59b6939cee197}\label{class_direct_x_1_1_i_voice_notify_ae6a6c31b12fbf84e1ca59b6939cee197}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a22dc5362aacad85f7dfea82d9b4f8dd3}\label{class_direct_x_1_1_i_voice_notify_a22dc5362aacad85f7dfea82d9b4f8dd3}} 
+{\bfseries IVoice\+Notify} (\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_aa4e5f6ff2d5421b4cef82700395ba665}\label{class_direct_x_1_1_i_voice_notify_aa4e5f6ff2d5421b4cef82700395ba665}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a6cd56756925f7942cb0cdf2ca1a2f572}\label{class_direct_x_1_1_i_voice_notify_a6cd56756925f7942cb0cdf2ca1a2f572}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Buffer\+End} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a3f770c5da8e5706169cac3f758f4dfcb}\label{class_direct_x_1_1_i_voice_notify_a3f770c5da8e5706169cac3f758f4dfcb}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Critical\+Error} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a9684ea91442a8e64c66726b8f9cf29de}\label{class_direct_x_1_1_i_voice_notify_a9684ea91442a8e64c66726b8f9cf29de}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Reset} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_adc02df2620720dde37eadc9debb60fc1}\label{class_direct_x_1_1_i_voice_notify_adc02df2620720dde37eadc9debb60fc1}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Update} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_aa648e82b9d44e3aeed72069d6f1500aa}\label{class_direct_x_1_1_i_voice_notify_aa648e82b9d44e3aeed72069d6f1500aa}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Destroy\+Engine} () noexcept=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_ac1f1e0ce0e0d8817e974e7e3d8f14130}\label{class_direct_x_1_1_i_voice_notify_ac1f1e0ce0e0d8817e974e7e3d8f14130}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Trim} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a8485d7f0d101ced4b316c1f84094176b}\label{class_direct_x_1_1_i_voice_notify_a8485d7f0d101ced4b316c1f84094176b}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Gather\+Statistics} (\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&stats) const =0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a0c4161a2f3863fc9cbf666de247edf19}\label{class_direct_x_1_1_i_voice_notify_a0c4161a2f3863fc9cbf666de247edf19}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Destroy\+Parent} () noexcept=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a4c2c4c1f72216445b0d348198de98ed5}\label{class_dynamic_sound_effect_instance_1_1_impl_a4c2c4c1f72216445b0d348198de98ed5}} 
+\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} {\bfseries m\+Base}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a8580e3c80ccfb08a5cd127d607dddb83}\label{class_dynamic_sound_effect_instance_1_1_impl_a8580e3c80ccfb08a5cd127d607dddb83}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!GatherStatistics@{GatherStatistics}}
+\index{GatherStatistics@{GatherStatistics}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{GatherStatistics()}{GatherStatistics()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+Gather\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&}]{stats }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_afb7242eb7fdb016b7c96a85a81d0bb90}\label{class_dynamic_sound_effect_instance_1_1_impl_afb7242eb7fdb016b7c96a85a81d0bb90}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnBufferEnd@{OnBufferEnd}}
+\index{OnBufferEnd@{OnBufferEnd}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnBufferEnd()}{OnBufferEnd()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Buffer\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_aad9141f98c20e682ef74bc0e7bd90c15}\label{class_dynamic_sound_effect_instance_1_1_impl_aad9141f98c20e682ef74bc0e7bd90c15}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnCriticalError@{OnCriticalError}}
+\index{OnCriticalError@{OnCriticalError}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnCriticalError()}{OnCriticalError()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Critical\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_af7ff95fbde429646b435fb21688e11ce}\label{class_dynamic_sound_effect_instance_1_1_impl_af7ff95fbde429646b435fb21688e11ce}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnDestroyEngine@{OnDestroyEngine}}
+\index{OnDestroyEngine@{OnDestroyEngine}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnDestroyEngine()}{OnDestroyEngine()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Destroy\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_abcb2325094b2023b47b4d337f6868dbf}\label{class_dynamic_sound_effect_instance_1_1_impl_abcb2325094b2023b47b4d337f6868dbf}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnDestroyParent@{OnDestroyParent}}
+\index{OnDestroyParent@{OnDestroyParent}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnDestroyParent()}{OnDestroyParent()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Destroy\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a74f28c6923bc3844810196fa9c4f022e}\label{class_dynamic_sound_effect_instance_1_1_impl_a74f28c6923bc3844810196fa9c4f022e}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnReset@{OnReset}}
+\index{OnReset@{OnReset}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnReset()}{OnReset()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_a2252e653ac3c4c52d1fc44dc0986da0e}\label{class_dynamic_sound_effect_instance_1_1_impl_a2252e653ac3c4c52d1fc44dc0986da0e}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnTrim@{OnTrim}}
+\index{OnTrim@{OnTrim}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnTrim()}{OnTrim()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_dynamic_sound_effect_instance_1_1_impl_ae7042a479c0dcdc79bc8a9590da8a63f}\label{class_dynamic_sound_effect_instance_1_1_impl_ae7042a479c0dcdc79bc8a9590da8a63f}} 
+\index{DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!DirectX::DynamicSoundEffectInstance::Impl@{DirectX::DynamicSoundEffectInstance::Impl}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily void Direct\+X\+::\+Dynamic\+Sound\+Effect\+Instance\+::\+Impl\+::\+On\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Dynamic\+Sound\+Effect\+Instance.\+cpp\end{DoxyCompactItemize}

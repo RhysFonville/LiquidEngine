@@ -1,0 +1,33 @@
+\hypertarget{_physics_body_8h_source}{}\doxysection{Physics\+Body.\+h}
+\label{_physics_body_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsBody.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsBody.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}globalutil.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_physics_body}{PhysicsBody}}\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_physics_body}{PhysicsBody}}();}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_net\_force()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00010\ \ \ \ \ GET\ \textcolor{keywordtype}{float}\ get\_mass()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_mass(\textcolor{keywordtype}{float}\ mass);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ previous\_position\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ velocity\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ acceleration\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ speed\ =\ 0.0f;\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{float}\ kinetic\_energy\ =\ 0.0f;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ momentum\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<Mechanics::Force>\ forces;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ mass\ =\ 20.0f;}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+
+\end{DoxyCode}

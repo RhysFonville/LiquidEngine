@@ -1,0 +1,230 @@
+\hypertarget{_post_process_8h_source}{}\doxysection{Post\+Process.\+h}
+\label{_post_process_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/PostProcess.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/PostProcess.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ PostProcess.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Abstract\ interface\ representing\ a\ post-\/process\ pass}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{\string~IPostProcess}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ Process(\_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ =\ 0;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Basic\ post-\/process}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Effect\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ Copy,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ Monochrome,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ Sepia,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ DownScale\_2x2,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ DownScale\_4x4,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ GaussianBlur\_5x5,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ BloomExtract,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ BloomBlur,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ Effect\_Max}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{BasicPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_basic_post_process}{\string~BasicPostProcess}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IPostProcess\ methods.}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Process(}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Shader\ control}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetEffect(Effect\ fx);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSourceTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ multiplier\ for\ GaussianBlur\_5x5}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetGaussianParameter(\textcolor{keywordtype}{float}\ multiplier);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ parameters\ for\ BloomExtract}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBloomExtractParameter(\textcolor{keywordtype}{float}\ threshold);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ parameters\ for\ BloomBlur}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBloomBlurParameters(\textcolor{keywordtype}{bool}\ horizontal,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{float}\ brightness);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_basic_post_process_1_1_impl}{Impl}};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00099\ \ \ \ \ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ Dual-\/texure\ post-\/process}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Effect\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ Merge,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ BloomCombine,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ Effect\_Max}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{DualPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{\string~DualPostProcess}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IPostProcess\ methods.}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Process(\_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Shader\ control}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetEffect(Effect\ fx);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSourceTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetSourceTexture2(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ parameters\ for\ Merge}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMergeParameters(\textcolor{keywordtype}{float}\ weight1,\ \textcolor{keywordtype}{float}\ weight2);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ parameters\ for\ BloomCombine}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetBloomCombineParameters(\textcolor{keywordtype}{float}\ bloom,\ \textcolor{keywordtype}{float}\ base,\ \textcolor{keywordtype}{float}\ bloomSaturation,\ \textcolor{keywordtype}{float}\ baseSaturation);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dual_post_process_1_1_impl}{Impl}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00146\ \ \ \ \ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Tone-\/map\ post-\/process}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPostProcess}}}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tone-\/mapping\ operator}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Operator\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ None,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pass-\/through}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ Saturate,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clamp\ [0,1]}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ Reinhard,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x/(1+x)}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ ACESFilmic,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ Operator\_Max}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Electro-\/Optical\ Transfer\ Function\ (EOTF)}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ TransferFunction\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ Linear,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pass-\/through}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ SRGB,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sRGB\ (Rec.709\ and\ approximate\ sRGB\ display\ curve)}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ ST2084,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ HDR10\ (Rec.2020\ color\ primaries\ and\ ST.2084\ display\ curve)}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ TransferFunction\_Max}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Color\ Rotation\ Transform\ for\ HDR10}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ ColorPrimaryRotation\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ HDTV\_to\_UHDTV,\ \ \ \ \ \ \ \textcolor{comment}{//\ Rec.709\ to\ Rec.2020}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ DCI\_P3\_D65\_to\_UHDTV,\ \textcolor{comment}{//\ DCI-\/P3-\/D65\ (a.k.a\ Display\ P3\ or\ P3D65)\ to\ Rec.2020}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ HDTV\_to\_DCI\_P3\_D65,\ \ \textcolor{comment}{//\ Rec.709\ to\ DCI-\/P3-\/D65\ (a.k.a\ Display\ P3\ or\ P3D65)}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}(\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{ToneMapPostProcess}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_tone_map_post_process}{\string~ToneMapPostProcess}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ IPostProcess\ methods.}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Process(\_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Shader\ control}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetOperator(Operator\ op);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetTransferFunction(TransferFunction\ func);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Uses\ Multiple\ Render\ Targets\ to\ generate\ both\ HDR10\ and\ GameDVR\ SDR\ signals}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMRTOutput(\textcolor{keywordtype}{bool}\ value\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Properties}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetHDRSourceTexture(\_In\_opt\_\ ID3D11ShaderResourceView*\ value);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ the\ Color\ Rotation\ Transform\ for\ HDR10\ signal\ output}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetColorRotation(ColorPrimaryRotation\ value);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetColorRotation(CXMMATRIX\ value);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ exposure\ value\ for\ LDR\ tonemap\ operators}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetExposure(\textcolor{keywordtype}{float}\ exposureValue);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ ST.2084\ parameter\ for\ how\ bright\ white\ should\ be\ in\ nits}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetST2084Parameter(\textcolor{keywordtype}{float}\ paperWhiteNits);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tone_map_post_process_1_1_impl}{Impl}};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00223\ \ \ \ \ \};}
+\DoxyCodeLine{00224\ \}}
+
+\end{DoxyCode}

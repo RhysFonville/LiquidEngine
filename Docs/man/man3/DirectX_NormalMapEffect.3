@@ -1,0 +1,366 @@
+.TH "DirectX::NormalMapEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::NormalMapEffect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IEffect\fP, \fBDirectX::IEffectMatrices\fP, \fBDirectX::IEffectLights\fP, and \fBDirectX::IEffectFog\fP\&.
+.PP
+Inherited by \fBDirectX::SkinnedNormalMapEffect\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNormalMapEffect\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP (\fBNormalMapEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP & \fBoperator=\fP (\fBNormalMapEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP (\fBNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBNormalMapEffect\fP & \fBoperator=\fP (\fBNormalMapEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetView\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetDiffuseColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetEmissiveColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetSpecularColor\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetSpecularPower\fP (float value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBDisableSpecular\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetAlpha\fP (float value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetColorAndAlpha\fP (FXMVECTOR value)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetAmbientLightColor\fP (FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetLightEnabled\fP (int whichLight, bool value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightDirection\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBEnableDefaultLighting\fP () override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnabled\fP (bool value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogStart\fP (float value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetFogEnd\fP (float value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVertexColorEnabled\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetNormalTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetSpecularTexture\fP (_In_opt_ ID3D11ShaderResourceView *value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBiasedVertexNormals\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetInstancingEnabled\fP (bool value)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength)=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetView\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightingEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetPerPixelLighting\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetAmbientLightColor\fP (FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightEnabled\fP (int whichLight, bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDirection\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBEnableDefaultLighting\fP ()=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (const \fBIEffectFog\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogStart\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetFogEnd\fP (float value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetFogColor\fP (FXMVECTOR value)=0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNormalMapEffect\fP (_In_ ID3D11Device *device, bool skinningEnabled)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetLightingEnabled\fP (bool value) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetPerPixelLighting\fP (bool value) override"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (\fBIEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (\fBIEffect\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (\fBIEffectLights\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (\fBIEffectLights\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectFog\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectFog\fP (\fBIEffectFog\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectFog\fP & \fBoperator=\fP (\fBIEffectFog\fP &&)=default"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::unique_ptr< \fBImpl\fP > \fBpImpl\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Attributes inherited from \fBDirectX::IEffectLights\fP
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxDirectionalLights\fP = 3"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void NormalMapEffect::Apply (_In_ ID3D11DeviceContext * deviceContext)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void NormalMapEffect::EnableDefaultLighting ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void NormalMapEffect::GetVertexShaderBytecode (_Out_ void const ** pShaderByteCode, _Out_ size_t * pByteCodeLength)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetAmbientLightColor (FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetFogColor (FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void NormalMapEffect::SetFogEnabled (bool value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void NormalMapEffect::SetFogEnd (float value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void NormalMapEffect::SetFogStart (float value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectFog\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetLightDiffuseColor (int whichLight, FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetLightDirection (int whichLight, FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void NormalMapEffect::SetLightEnabled (int whichLight, bool value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void NormalMapEffect::SetLightingEnabled (bool value)\fC [override]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetLightSpecularColor (int whichLight, FXMVECTOR value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetMatrices (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBDirectX::IEffectMatrices\fP\&.
+.SS "void NormalMapEffect::SetPerPixelLighting (bool value)\fC [override]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectLights\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetProjection (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetView (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV NormalMapEffect::SetWorld (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

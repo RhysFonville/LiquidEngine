@@ -1,0 +1,142 @@
+.TH "DirectX::GeometricPrimitive" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GeometricPrimitive
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBVertexType\fP = \fBVertexPositionNormalTexture\fP"
+.br
+.ti -1c
+.RI "using \fBVertexCollection\fP = std::vector< \fBVertexType\fP >"
+.br
+.ti -1c
+.RI "using \fBIndexCollection\fP = std::vector< uint16_t >"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGeometricPrimitive\fP (\fBGeometricPrimitive\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBGeometricPrimitive\fP & \fBoperator=\fP (\fBGeometricPrimitive\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBGeometricPrimitive\fP (\fBGeometricPrimitive\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBGeometricPrimitive\fP & \fBoperator=\fP (\fBGeometricPrimitive\fP const &)=delete"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, FXMVECTOR color=Colors::White, _In_opt_ ID3D11ShaderResourceView *texture=nullptr, bool wireframe=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBDraw\fP (_In_ \fBIEffect\fP *effect, _In_ ID3D11InputLayout *inputLayout, bool alpha=false, bool wireframe=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBDrawInstanced\fP (_In_ \fBIEffect\fP *effect, _In_ ID3D11InputLayout *inputLayout, uint32_t instanceCount, bool alpha=false, bool wireframe=false, uint32_t startInstanceLocation=0, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBCreateInputLayout\fP (_In_ \fBIEffect\fP *effect, _Outptr_ ID3D11InputLayout **inputLayout) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateCube\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateBox\fP (_In_ ID3D11DeviceContext *deviceContext, const XMFLOAT3 &size, bool rhcoords=true, bool invertn=false)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateSphere\fP (_In_ ID3D11DeviceContext *deviceContext, float diameter=1, size_t tessellation=16, bool rhcoords=true, bool invertn=false)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateGeoSphere\fP (_In_ ID3D11DeviceContext *deviceContext, float diameter=1, size_t tessellation=3, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateCylinder\fP (_In_ ID3D11DeviceContext *deviceContext, float height=1, float diameter=1, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateCone\fP (_In_ ID3D11DeviceContext *deviceContext, float diameter=1, float height=1, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateTorus\fP (_In_ ID3D11DeviceContext *deviceContext, float diameter=1, float thickness=0\&.333f, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateTetrahedron\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateOctahedron\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateDodecahedron\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateIcosahedron\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateTeapot\fP (_In_ ID3D11DeviceContext *deviceContext, float size=1, size_t tessellation=8, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBGeometricPrimitive\fP > __cdecl \fBCreateCustom\fP (_In_ ID3D11DeviceContext *deviceContext, const VertexCollection &vertices, const IndexCollection &indices)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateCube\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateBox\fP (VertexCollection &vertices, IndexCollection &indices, const XMFLOAT3 &size, bool rhcoords=true, bool invertn=false)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateSphere\fP (VertexCollection &vertices, IndexCollection &indices, float diameter=1, size_t tessellation=16, bool rhcoords=true, bool invertn=false)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateGeoSphere\fP (VertexCollection &vertices, IndexCollection &indices, float diameter=1, size_t tessellation=3, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateCylinder\fP (VertexCollection &vertices, IndexCollection &indices, float height=1, float diameter=1, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateCone\fP (VertexCollection &vertices, IndexCollection &indices, float diameter=1, float height=1, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateTorus\fP (VertexCollection &vertices, IndexCollection &indices, float diameter=1, float thickness=0\&.333f, size_t tessellation=32, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateTetrahedron\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateOctahedron\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateDodecahedron\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateIcosahedron\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void __cdecl \fBCreateTeapot\fP (VertexCollection &vertices, IndexCollection &indices, float size=1, size_t tessellation=8, bool rhcoords=true)"
+.br
+.ti -1c
+.RI "static void \fBSetDepthBufferMode\fP (bool reverseZ)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

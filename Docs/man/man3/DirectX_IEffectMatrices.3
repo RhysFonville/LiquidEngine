@@ -1,0 +1,46 @@
+.TH "DirectX::IEffectMatrices" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IEffectMatrices
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::AlphaTestEffect\fP, \fBDirectX::BasicEffect\fP, \fBDirectX::DGSLEffect\fP, \fBDirectX::DebugEffect\fP, \fBDirectX::DualTextureEffect\fP, \fBDirectX::EnvironmentMapEffect\fP, \fBDirectX::NormalMapEffect\fP, \fBDirectX::PBREffect\fP, and \fBDirectX::SkinnedEffect\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetView\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

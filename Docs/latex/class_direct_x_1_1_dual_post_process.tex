@@ -1,0 +1,98 @@
+\hypertarget{class_direct_x_1_1_dual_post_process}{}\doxysection{DirectX\+::Dual\+Post\+Process Class Reference}
+\label{class_direct_x_1_1_dual_post_process}\index{DirectX::DualPostProcess@{DirectX::DualPostProcess}}
+Inheritance diagram for DirectX\+::Dual\+Post\+Process\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_direct_x_1_1_dual_post_process}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_dual_post_process_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_aac16c0792eb3943904166d7968c5db42}\label{class_direct_x_1_1_dual_post_process_aac16c0792eb3943904166d7968c5db42}} 
+enum {\bfseries Effect} \+: unsigned int \{ {\bfseries Merge}
+, {\bfseries Bloom\+Combine}
+, {\bfseries Effect\+\_\+\+Max}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a1c8211c82dd688a8e06ebddd140ac340}\label{class_direct_x_1_1_dual_post_process_a1c8211c82dd688a8e06ebddd140ac340}} 
+{\bfseries Dual\+Post\+Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a96510c8e1489557cad11194acb910bea}\label{class_direct_x_1_1_dual_post_process_a96510c8e1489557cad11194acb910bea}} 
+{\bfseries Dual\+Post\+Process} (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a27863237290c7dc605ee5c95b87ebb59}\label{class_direct_x_1_1_dual_post_process_a27863237290c7dc605ee5c95b87ebb59}} 
+\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_afc8ed6d6990245e8a9cac27da12e1093}\label{class_direct_x_1_1_dual_post_process_afc8ed6d6990245e8a9cac27da12e1093}} 
+{\bfseries Dual\+Post\+Process} (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_aa0bc8cf2256d4b2930303316f82142a0}\label{class_direct_x_1_1_dual_post_process_aa0bc8cf2256d4b2930303316f82142a0}} 
+\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_dual_post_process}{Dual\+Post\+Process}} const \&)=delete
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_dual_post_process_ac27ddbb208be0c623c5961004a2b4228}{Process}} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a6b7d6b30615cf298e2a73d0d9d1f3fbb}\label{class_direct_x_1_1_dual_post_process_a6b7d6b30615cf298e2a73d0d9d1f3fbb}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Effect} (Effect fx)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a1a200a9b606eb44d231a085095fd5275}\label{class_direct_x_1_1_dual_post_process_a1a200a9b606eb44d231a085095fd5275}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Source\+Texture} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a383e458c57e96c5a627828fa16ea3dbf}\label{class_direct_x_1_1_dual_post_process_a383e458c57e96c5a627828fa16ea3dbf}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Source\+Texture2} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_afa889fde9fafa5f398fe560578e0a365}\label{class_direct_x_1_1_dual_post_process_afa889fde9fafa5f398fe560578e0a365}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Merge\+Parameters} (float weight1, float weight2)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_a962e2bdeb83e6435337747abb753fe90}\label{class_direct_x_1_1_dual_post_process_a962e2bdeb83e6435337747abb753fe90}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Bloom\+Combine\+Parameters} (float bloom, float base, float bloom\+Saturation, float base\+Saturation)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a7784b3ca9d6ef557c0340fe94fc002f1}\label{class_direct_x_1_1_i_post_process_a7784b3ca9d6ef557c0340fe94fc002f1}} 
+{\bfseries IPost\+Process} (const \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a663bc193db4701cae0b373ac08cc0845}\label{class_direct_x_1_1_i_post_process_a663bc193db4701cae0b373ac08cc0845}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a2b775267873c9d6f2d2f3f1b9471a230}\label{class_direct_x_1_1_i_post_process_a2b775267873c9d6f2d2f3f1b9471a230}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Process} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a97b0b25b79cf49551c1f95c616d1eefb}\label{class_direct_x_1_1_i_post_process_a97b0b25b79cf49551c1f95c616d1eefb}} 
+{\bfseries IPost\+Process} (\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_post_process_a44b034f2b42751980532e5c5e978c00f}\label{class_direct_x_1_1_i_post_process_a44b034f2b42751980532e5c5e978c00f}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_post_process}{IPost\+Process}} \&\&)=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_direct_x_1_1_dual_post_process_ac27ddbb208be0c623c5961004a2b4228}\label{class_direct_x_1_1_dual_post_process_ac27ddbb208be0c623c5961004a2b4228}} 
+\index{DirectX::DualPostProcess@{DirectX::DualPostProcess}!Process@{Process}}
+\index{Process@{Process}!DirectX::DualPostProcess@{DirectX::DualPostProcess}}
+\doxysubsubsection{\texorpdfstring{Process()}{Process()}}
+{\footnotesize\ttfamily void Dual\+Post\+Process\+::\+Process (\begin{DoxyParamCaption}\item[{\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$}]{device\+Context,  }\item[{\+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$}]{set\+Custom\+State = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_post_process}{Direct\+X\+::\+IPost\+Process}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Post\+Process.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Dual\+Post\+Process.\+cpp\end{DoxyCompactItemize}

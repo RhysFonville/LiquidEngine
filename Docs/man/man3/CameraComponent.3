@@ -1,0 +1,195 @@
+.TH "CameraComponent" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CameraComponent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBGraphicsComponent\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBset_position\fP (\fBFVector3\fP position) noexcept override"
+.br
+.ti -1c
+.RI "void \fBset_rotation\fP (\fBFVector3\fP rotation) noexcept override"
+.br
+.ti -1c
+.RI "void \fBrotate\fP (\fBFVector3\fP rotation) noexcept override"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_target\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_forward\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_backward\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_left\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_right\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_up\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_down\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBdirection_real_up\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (const \fBFVector2\fP &size) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBCameraComponent\fP &component) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBCameraComponent\fP &component) noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBGraphicsComponent\fP (Type type)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBComponent\fP (const Type &type)"
+.br
+.ti -1c
+.RI "virtual void \fBset_position\fP (\fBFVector3\fP position) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_rotation\fP (\fBFVector3\fP rotation) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_size\fP (\fBFVector3\fP size) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBtranslate\fP (\fBFVector3\fP position) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBrotate\fP (\fBFVector3\fP rotation) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBsize\fP (\fBFVector3\fP size) noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_position\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_rotation\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_size\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_transform\fP (\fBTransform\fP transform) noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBTransform\fP \fBget_transform\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBbase_clean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBbase_compile\fP ()"
+.br
+.ti -1c
+.RI "void \fBbase_tick\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBtick\fP ()"
+.br
+.ti -1c
+.RI "GET Type \fBget_type\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (const \fBComponent\fP &component) const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBoperator=\fP (const \fBComponent\fP &component) noexcept"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const Type \fBcomponent_type\fP = Type::CameraComponent"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBRenderer\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Types inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP }"
+.br
+.in -1c
+
+Static Public Member Functions inherited from \fBGraphicsComponent\fP
+.in +1c
+.ti -1c
+.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > static bool \fBis_graphics_component\fP (const T &component)"
+.br
+.in -1c
+
+Public Attributes inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBComponent\fP * \fBparent\fP = nullptr"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBTransform\fP \fBtransform\fP"
+.br
+.ti -1c
+.RI "Type \fBtype\fP = Type::None"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void CameraComponent::rotate (\fBFVector3\fP rotation)\fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Reimplemented from \fBComponent\fP\&.
+.SS "void CameraComponent::set_position (\fBFVector3\fP position)\fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Reimplemented from \fBComponent\fP\&.
+.SS "void CameraComponent::set_rotation (\fBFVector3\fP rotation)\fC [override]\fP, \fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Reimplemented from \fBComponent\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

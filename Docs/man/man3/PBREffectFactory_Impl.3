@@ -1,0 +1,51 @@
+.TH "DirectX::PBREffectFactory::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::PBREffectFactory::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "std::shared_ptr< \fBIEffect\fP > \fBCreateEffect\fP (_In_ \fBIEffectFactory\fP *factory, _In_ const \fBIEffectFactory::EffectInfo\fP &info, _In_opt_ ID3D11DeviceContext *deviceContext)"
+.br
+.ti -1c
+.RI "void \fBCreateTexture\fP (_In_z_ const wchar_t *texture, _In_opt_ ID3D11DeviceContext *deviceContext, _Outptr_ ID3D11ShaderResourceView **textureView)"
+.br
+.ti -1c
+.RI "void \fBReleaseCache\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetSharing\fP (bool enabled) noexcept"
+.br
+.ti -1c
+.RI "void \fBEnableForceSRGB\fP (bool forceSRGB) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "wchar_t \fBmPath\fP [MAX_PATH]"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11Device > \fBmDevice\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBSharedResourcePool\fP< ID3D11Device *, \fBImpl\fP > \fBinstancePool\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

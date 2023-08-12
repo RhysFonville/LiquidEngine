@@ -1,0 +1,52 @@
+.TH "DirectX::AudioEmitter" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::AudioEmitter
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits X3DAUDIO_EMITTER\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void XM_CALLCONV \fBSetPosition\fP (FXMVECTOR v) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetPosition\fP (const XMFLOAT3 &pos) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetVelocity\fP (FXMVECTOR v) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVelocity\fP (const XMFLOAT3 &vel) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetOrientation\fP (FXMVECTOR forward, FXMVECTOR up) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetOrientation\fP (const XMFLOAT3 &forward, const XMFLOAT3 &up) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetOrientationFromQuaternion\fP (FXMVECTOR quat) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBUpdate\fP (FXMVECTOR newPos, XMVECTOR upDir, float dt) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBEnableDefaultMultiChannel\fP (unsigned int channels, float radius=1\&.f)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBEmitterAzimuths\fP [XAUDIO2_MAX_AUDIO_CHANNELS]"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

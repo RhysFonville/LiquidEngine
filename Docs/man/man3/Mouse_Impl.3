@@ -1,0 +1,76 @@
+.TH "DirectX::Mouse::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Mouse::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (\fBMouse\fP *owner) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBImpl\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBImpl\fP & \fBoperator=\fP (\fBImpl\fP const &)=delete"
+.br
+.ti -1c
+.RI "void \fBGetState\fP (\fBState\fP &state) const"
+.br
+.ti -1c
+.RI "void \fBResetScrollWheelValue\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBSetMode\fP (Mode mode)"
+.br
+.ti -1c
+.RI "bool \fBIsConnected\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIsVisible\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBSetVisible\fP (bool visible)"
+.br
+.ti -1c
+.RI "void \fBSetWindow\fP (HWND window)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBState\fP \fBmState\fP"
+.br
+.ti -1c
+.RI "\fBMouse\fP * \fBmOwner\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBMouse::Impl\fP * \fBs_mouse\fP = nullptr"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "void \fBMouse::ProcessMessage\fP (UINT message, WPARAM wParam, LPARAM lParam)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

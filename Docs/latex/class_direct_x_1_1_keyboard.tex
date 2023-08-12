@@ -1,0 +1,253 @@
+\hypertarget{class_direct_x_1_1_keyboard}{}\doxysection{DirectX\+::Keyboard Class Reference}
+\label{class_direct_x_1_1_keyboard}\index{DirectX::Keyboard@{DirectX::Keyboard}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_keyboard_1_1_impl}{Impl}}
+\item 
+class \mbox{\hyperlink{class_direct_x_1_1_keyboard_1_1_keyboard_state_tracker}{Keyboard\+State\+Tracker}}
+\item 
+struct \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a21dd19235a46fda68f9590e9640b5b7b}\label{class_direct_x_1_1_keyboard_a21dd19235a46fda68f9590e9640b5b7b}} 
+enum {\bfseries Keys} \+: unsigned char \{ \newline
+{\bfseries None} = 0
+, {\bfseries Back} = 0x8
+, {\bfseries Tab} = 0x9
+, {\bfseries Enter} = 0xd
+, \newline
+{\bfseries Pause} = 0x13
+, {\bfseries Caps\+Lock} = 0x14
+, {\bfseries Kana} = 0x15
+, {\bfseries Ime\+On} = 0x16
+, \newline
+{\bfseries Kanji} = 0x19
+, {\bfseries Ime\+Off} = 0x1a
+, {\bfseries Escape} = 0x1b
+, {\bfseries Ime\+Convert} = 0x1c
+, \newline
+{\bfseries Ime\+No\+Convert} = 0x1d
+, {\bfseries Space} = 0x20
+, {\bfseries Page\+Up} = 0x21
+, {\bfseries Page\+Down} = 0x22
+, \newline
+{\bfseries End} = 0x23
+, {\bfseries Home} = 0x24
+, {\bfseries Left} = 0x25
+, {\bfseries Up} = 0x26
+, \newline
+{\bfseries Right} = 0x27
+, {\bfseries Down} = 0x28
+, {\bfseries Select} = 0x29
+, {\bfseries Print} = 0x2a
+, \newline
+{\bfseries Execute} = 0x2b
+, {\bfseries Print\+Screen} = 0x2c
+, {\bfseries Insert} = 0x2d
+, {\bfseries Delete} = 0x2e
+, \newline
+{\bfseries Help} = 0x2f
+, {\bfseries D0} = 0x30
+, {\bfseries D1} = 0x31
+, {\bfseries D2} = 0x32
+, \newline
+{\bfseries D3} = 0x33
+, {\bfseries D4} = 0x34
+, {\bfseries D5} = 0x35
+, {\bfseries D6} = 0x36
+, \newline
+{\bfseries D7} = 0x37
+, {\bfseries D8} = 0x38
+, {\bfseries D9} = 0x39
+, {\bfseries A} = 0x41
+, \newline
+{\bfseries B} = 0x42
+, {\bfseries C} = 0x43
+, {\bfseries D} = 0x44
+, {\bfseries E} = 0x45
+, \newline
+{\bfseries F} = 0x46
+, {\bfseries G} = 0x47
+, {\bfseries H} = 0x48
+, {\bfseries I} = 0x49
+, \newline
+{\bfseries J} = 0x4a
+, {\bfseries K} = 0x4b
+, {\bfseries L} = 0x4c
+, {\bfseries M} = 0x4d
+, \newline
+{\bfseries N} = 0x4e
+, {\bfseries O} = 0x4f
+, {\bfseries P} = 0x50
+, {\bfseries Q} = 0x51
+, \newline
+{\bfseries R} = 0x52
+, {\bfseries S} = 0x53
+, {\bfseries T} = 0x54
+, {\bfseries U} = 0x55
+, \newline
+{\bfseries V} = 0x56
+, {\bfseries W} = 0x57
+, {\bfseries X} = 0x58
+, {\bfseries Y} = 0x59
+, \newline
+{\bfseries Z} = 0x5a
+, {\bfseries Left\+Windows} = 0x5b
+, {\bfseries Right\+Windows} = 0x5c
+, {\bfseries Apps} = 0x5d
+, \newline
+{\bfseries Sleep} = 0x5f
+, {\bfseries Num\+Pad0} = 0x60
+, {\bfseries Num\+Pad1} = 0x61
+, {\bfseries Num\+Pad2} = 0x62
+, \newline
+{\bfseries Num\+Pad3} = 0x63
+, {\bfseries Num\+Pad4} = 0x64
+, {\bfseries Num\+Pad5} = 0x65
+, {\bfseries Num\+Pad6} = 0x66
+, \newline
+{\bfseries Num\+Pad7} = 0x67
+, {\bfseries Num\+Pad8} = 0x68
+, {\bfseries Num\+Pad9} = 0x69
+, {\bfseries Multiply} = 0x6a
+, \newline
+{\bfseries Add} = 0x6b
+, {\bfseries Separator} = 0x6c
+, {\bfseries Subtract} = 0x6d
+, {\bfseries Decimal} = 0x6e
+, \newline
+{\bfseries Divide} = 0x6f
+, {\bfseries F1} = 0x70
+, {\bfseries F2} = 0x71
+, {\bfseries F3} = 0x72
+, \newline
+{\bfseries F4} = 0x73
+, {\bfseries F5} = 0x74
+, {\bfseries F6} = 0x75
+, {\bfseries F7} = 0x76
+, \newline
+{\bfseries F8} = 0x77
+, {\bfseries F9} = 0x78
+, {\bfseries F10} = 0x79
+, {\bfseries F11} = 0x7a
+, \newline
+{\bfseries F12} = 0x7b
+, {\bfseries F13} = 0x7c
+, {\bfseries F14} = 0x7d
+, {\bfseries F15} = 0x7e
+, \newline
+{\bfseries F16} = 0x7f
+, {\bfseries F17} = 0x80
+, {\bfseries F18} = 0x81
+, {\bfseries F19} = 0x82
+, \newline
+{\bfseries F20} = 0x83
+, {\bfseries F21} = 0x84
+, {\bfseries F22} = 0x85
+, {\bfseries F23} = 0x86
+, \newline
+{\bfseries F24} = 0x87
+, {\bfseries Num\+Lock} = 0x90
+, {\bfseries Scroll} = 0x91
+, {\bfseries Left\+Shift} = 0xa0
+, \newline
+{\bfseries Right\+Shift} = 0xa1
+, {\bfseries Left\+Control} = 0xa2
+, {\bfseries Right\+Control} = 0xa3
+, {\bfseries Left\+Alt} = 0xa4
+, \newline
+{\bfseries Right\+Alt} = 0xa5
+, {\bfseries Browser\+Back} = 0xa6
+, {\bfseries Browser\+Forward} = 0xa7
+, {\bfseries Browser\+Refresh} = 0xa8
+, \newline
+{\bfseries Browser\+Stop} = 0xa9
+, {\bfseries Browser\+Search} = 0xaa
+, {\bfseries Browser\+Favorites} = 0xab
+, {\bfseries Browser\+Home} = 0xac
+, \newline
+{\bfseries Volume\+Mute} = 0xad
+, {\bfseries Volume\+Down} = 0xae
+, {\bfseries Volume\+Up} = 0xaf
+, {\bfseries Media\+Next\+Track} = 0xb0
+, \newline
+{\bfseries Media\+Previous\+Track} = 0xb1
+, {\bfseries Media\+Stop} = 0xb2
+, {\bfseries Media\+Play\+Pause} = 0xb3
+, {\bfseries Launch\+Mail} = 0xb4
+, \newline
+{\bfseries Select\+Media} = 0xb5
+, {\bfseries Launch\+Application1} = 0xb6
+, {\bfseries Launch\+Application2} = 0xb7
+, {\bfseries Oem\+Semicolon} = 0xba
+, \newline
+{\bfseries Oem\+Plus} = 0xbb
+, {\bfseries Oem\+Comma} = 0xbc
+, {\bfseries Oem\+Minus} = 0xbd
+, {\bfseries Oem\+Period} = 0xbe
+, \newline
+{\bfseries Oem\+Question} = 0xbf
+, {\bfseries Oem\+Tilde} = 0xc0
+, {\bfseries Oem\+Open\+Brackets} = 0xdb
+, {\bfseries Oem\+Pipe} = 0xdc
+, \newline
+{\bfseries Oem\+Close\+Brackets} = 0xdd
+, {\bfseries Oem\+Quotes} = 0xde
+, {\bfseries Oem8} = 0xdf
+, {\bfseries Oem\+Backslash} = 0xe2
+, \newline
+{\bfseries Process\+Key} = 0xe5
+, {\bfseries Oem\+Copy} = 0xf2
+, {\bfseries Oem\+Auto} = 0xf3
+, {\bfseries Oem\+EnlW} = 0xf4
+, \newline
+{\bfseries Attn} = 0xf6
+, {\bfseries Crsel} = 0xf7
+, {\bfseries Exsel} = 0xf8
+, {\bfseries Erase\+Eof} = 0xf9
+, \newline
+{\bfseries Play} = 0xfa
+, {\bfseries Zoom} = 0xfb
+, {\bfseries Pa1} = 0xfd
+, {\bfseries Oem\+Clear} = 0xfe
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a17ae1d18d78220373c2b9eb48c188efd}\label{class_direct_x_1_1_keyboard_a17ae1d18d78220373c2b9eb48c188efd}} 
+{\bfseries Keyboard} (\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a86c24ca9d389b15cc297b5db9b39b003}\label{class_direct_x_1_1_keyboard_a86c24ca9d389b15cc297b5db9b39b003}} 
+\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a364da4330c1955fa016a2a9808fca90c}\label{class_direct_x_1_1_keyboard_a364da4330c1955fa016a2a9808fca90c}} 
+{\bfseries Keyboard} (\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_ac149bc83491b8e2696f99babe6dd7b34}\label{class_direct_x_1_1_keyboard_ac149bc83491b8e2696f99babe6dd7b34}} 
+\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_addf6b436be4bb4a44601dae6b4e2f807}\label{class_direct_x_1_1_keyboard_addf6b436be4bb4a44601dae6b4e2f807}} 
+\mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}} \+\_\+\+\_\+cdecl {\bfseries Get\+State} () const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_ac127fc629cc84cfc9bc955ae572350b2}\label{class_direct_x_1_1_keyboard_ac127fc629cc84cfc9bc955ae572350b2}} 
+void \+\_\+\+\_\+cdecl {\bfseries Reset} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a5abc7af35d8147620525867a4d9d7573}\label{class_direct_x_1_1_keyboard_a5abc7af35d8147620525867a4d9d7573}} 
+bool \+\_\+\+\_\+cdecl {\bfseries Is\+Connected} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_keyboard_a8d4ef71b42de1929535bb8ca6aeba10b}\label{class_direct_x_1_1_keyboard_a8d4ef71b42de1929535bb8ca6aeba10b}} 
+static \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}} \&\+\_\+\+\_\+cdecl {\bfseries Get} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Keyboard.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Keyboard.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,83 @@
+.TH "DirectX::WaveBankReader" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::WaveBankReader
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.ti -1c
+.RI "struct \fBMetadata\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWaveBankReader\fP (\fBWaveBankReader\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBWaveBankReader\fP & \fBoperator=\fP (\fBWaveBankReader\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBWaveBankReader\fP (\fBWaveBankReader\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBWaveBankReader\fP & \fBoperator=\fP (\fBWaveBankReader\fP const &)=delete"
+.br
+.ti -1c
+.RI "HRESULT \fBOpen\fP (_In_z_ const wchar_t *szFileName) noexcept"
+.br
+.ti -1c
+.RI "uint32_t \fBFind\fP (_In_z_ const char *name) const"
+.br
+.ti -1c
+.RI "bool \fBIsPrepared\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBWaitOnPrepare\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBHasNames\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIsStreamingBank\fP () const noexcept"
+.br
+.ti -1c
+.RI "const char * \fBBankName\fP () const noexcept"
+.br
+.ti -1c
+.RI "uint32_t \fBCount\fP () const noexcept"
+.br
+.ti -1c
+.RI "uint32_t \fBBankAudioSize\fP () const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetFormat\fP (_In_ uint32_t index, _Out_writes_bytes_(maxsize) WAVEFORMATEX *pFormat, _In_ size_t maxsize) const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetWaveData\fP (_In_ uint32_t index, _Outptr_ const uint8_t **pData, _Out_ uint32_t &dataSize) const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetSeekTable\fP (_In_ uint32_t index, _Out_ const uint32_t **pData, _Out_ uint32_t &dataCount, _Out_ uint32_t &tag) const noexcept"
+.br
+.ti -1c
+.RI "HANDLE \fBGetAsyncHandle\fP () const noexcept"
+.br
+.ti -1c
+.RI "uint32_t \fBGetWaveAlignment\fP () const noexcept"
+.br
+.ti -1c
+.RI "HRESULT \fBGetMetadata\fP (_In_ uint32_t index, _Out_ \fBMetadata\fP &metadata) const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

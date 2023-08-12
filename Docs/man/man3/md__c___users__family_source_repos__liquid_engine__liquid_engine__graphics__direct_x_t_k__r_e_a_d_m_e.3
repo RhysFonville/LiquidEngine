@@ -1,0 +1,149 @@
+.TH "md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__r_e_a_d_m_e \- README 
+.PP
+
+.SH "DirectX Tool Kit for DirectX 11"
+.PP
+http://go.microsoft.com/fwlink/?LinkId=248929
+.PP
+Copyright (c) Microsoft Corporation\&.
+.PP
+\fBJune 15, 2022\fP
+.PP
+This package contains the 'DirectX Tool Kit', a collection of helper classes for writing Direct3D 11 C++ code for Universal Windows Platform (UWP) apps for Windows 11, Windows 10, Xbox One, and Win32 desktop applications for Windows 7 Service Pack 1 or later\&.
+.PP
+This code is designed to build with Visual Studio 2019 (16\&.9 or later), Visual Studio 2022, or clang for Windows v11 or later\&. Use of the Windows 10 May 2020 Update SDK (\fC19041\fP) or later is required\&.
+.PP
+These components are designed to work without requiring any content from the legacy DirectX SDK\&. For details, see \fCWhere is the DirectX SDK?\fP\&.
+.SS "Directory Layout"
+.IP "\(bu" 2
+\fCInc\\\fP
+.IP "  \(bu" 4
+Public Header Files (in the DirectX C++ namespace):
+.IP "    \(bu" 6
+\fBAudio\&.h\fP - low-level audio API using XAudio2 (DirectXTK for Audio public header)
+.IP "    \(bu" 6
+\fBBufferHelpers\&.h\fP - C++ helpers for creating D3D resources from CPU data
+.IP "    \(bu" 6
+\fBCommonStates\&.h\fP - factory providing commonly used D3D state objects
+.IP "    \(bu" 6
+\fBDDSTextureLoader\&.h\fP - light-weight DDS file texture loader
+.IP "    \(bu" 6
+\fBDirectXHelpers\&.h\fP - misc C++ helpers for D3D programming
+.IP "    \(bu" 6
+\fBEffects\&.h\fP - set of built-in shaders for common rendering tasks
+.IP "    \(bu" 6
+\fBGamePad\&.h\fP - gamepad controller helper using XInput, Windows\&.Gaming\&.Input, or GameInput
+.IP "    \(bu" 6
+\fBGeometricPrimitive\&.h\fP - draws basic shapes such as cubes and spheres
+.IP "    \(bu" 6
+\fBGraphicsMemory\&.h\fP - helper for managing dynamic graphics memory allocation
+.IP "    \(bu" 6
+\fBKeyboard\&.h\fP - keyboard state tracking helper
+.IP "    \(bu" 6
+\fBModel\&.h\fP - draws meshes loaded from \&.CMO, \&.SDKMESH, or \&.VBO files
+.IP "    \(bu" 6
+\fBMouse\&.h\fP - mouse helper
+.IP "    \(bu" 6
+\fBPostProcess\&.h\fP - set of built-in shaders for common post-processing operations
+.IP "    \(bu" 6
+\fBPrimitiveBatch\&.h\fP - simple and efficient way to draw user primitives
+.IP "    \(bu" 6
+\fBScreenGrab\&.h\fP - light-weight screen shot saver
+.IP "    \(bu" 6
+\fBSimpleMath\&.h\fP - simplified C++ wrapper for DirectXMath
+.IP "    \(bu" 6
+\fBSpriteBatch\&.h\fP - simple & efficient 2D sprite rendering
+.IP "    \(bu" 6
+\fBSpriteFont\&.h\fP - bitmap based text rendering
+.IP "    \(bu" 6
+\fBVertexTypes\&.h\fP - structures for commonly used vertex data formats
+.IP "    \(bu" 6
+\fBWICTextureLoader\&.h\fP - WIC-based image file texture loader
+.IP "    \(bu" 6
+\fBXboxDDSTextureLoader\&.h\fP - Xbox One exclusive apps variant of DDSTextureLoader
+.PP
+
+.PP
+
+.IP "\(bu" 2
+\fCSrc\\\fP
+.IP "  \(bu" 4
+DirectXTK source files and internal implementation headers
+.PP
+
+.IP "\(bu" 2
+\fCAudio\\\fP
+.IP "  \(bu" 4
+DirectXTK for Audio source files and internal implementation headers
+.PP
+
+.IP "\(bu" 2
+\fC\fBMakeSpriteFont\fP\\\fP
+.IP "  \(bu" 4
+Command line tool used to generate binary resources for use with SpriteFont
+.PP
+
+.IP "\(bu" 2
+\fCXWBTool\\\fP
+.IP "  \(bu" 4
+Command line tool for building XACT-style wave banks for use with DirectXTK for Audio's WaveBank class
+.PP
+
+.PP
+.SH "Documentation"
+.PP
+Documentation is available on the \fCGitHub wiki\fP\&.
+.SS "Notices"
+All content and source code for this package are subject to the terms of the \fCMIT License\fP\&.
+.PP
+For the latest version of DirectXTK, bug reports, etc\&. please visit the project site on \fCGitHub\fP\&.
+.SS "Release Notes"
+.IP "\(bu" 2
+As of the March 2022 release, legacy Xbox One XDK support requires the XDK April 2018 release or later\&.
+.IP "\(bu" 2
+As of the October 2021 release, the DGSLEffect no longer directly supports skinning\&. Instead, make use of \fBSkinnedDGSLEffect\fP which is derived from DGSLEffect\&.
+.IP "\(bu" 2
+As of the August 2021 release, \fB\fBMakeSpriteFont\fP\fP requires the \&.NET version 4\&.7\&.2 targeting pack to be installed to build\&.
+.IP "\(bu" 2
+Starting with the June 2020 release, this library makes use of \fCtyped enum bitmask flags\fP per the recommendation of the \fIC++ Standard\fP section \fI17\&.5\&.2\&.1\&.3 Bitmask types\fP\&. This may have \fIbreaking change\fP impacts to client code:
+.IP "  \(bu" 4
+You cannot pass the \fC0\fP literal as your flags value\&. Instead you must make use of the appropriate default enum value: \fCAudioEngine_Default\fP, \fCSoundEffectInstance_Default\fP, \fCModelLoader_Clockwise\fP, or \fCWIC_LOADER_DEFAULT\fP\&.
+.IP "  \(bu" 4
+Use the enum type instead of \fCDWORD\fP if building up flags values locally with bitmask operations\&. For example, \fCWIC_LOADER_FLAGS flags = WIC_LOADER_DEFAULT; if (\&.\&.\&.) flags |= WIC_LOADER_FORCE_SRGB;\fP
+.PP
+
+.IP "\(bu" 2
+The UWP projects and the Win10 classic desktop project include configurations for the ARM64 platform\&. Building these requires installing the ARM64 toolset\&.
+.IP "\(bu" 2
+When using clang/LLVM for the ARM64 platform, the Windows 11 SDK (\fC22000\fP) is required\&.
+.IP "\(bu" 2
+The \fCCompileShaders\&.cmd\fP script must have Windows-style (CRLF) line-endings\&. If it is changed to Linux-style (LF) line-endings, it can fail to build all the required shaders\&.
+.PP
+.SS "Support"
+For questions, consider using \fCStack Overflow\fP with the \fIdirectxtk\fP tag, or the \fCDirectX Discord Server\fP in the \fIdx9-dx11-developers\fP channel\&.
+.PP
+For bug reports and feature requests, please use GitHub \fCissues\fP for this project\&.
+.SS "Contributing"
+This project welcomes contributions and suggestions\&. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution\&. For details, visit https://cla.opensource.microsoft.com\&.
+.PP
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e\&.g\&., status check, comment)\&. Simply follow the instructions provided by the bot\&. You will only need to do this once across all repos using our CLA\&.
+.PP
+This project has adopted the \fCMicrosoft Open Source Code of Conduct\fP\&. For more information see the \fCCode of Conduct FAQ\fP or contact \fCopencode@microsoft\&.com\fP with any additional questions or comments\&.
+.SS "Trademarks"
+This project may contain trademarks or logos for projects, products, or services\&. Authorized use of Microsoft trademarks or logos is subject to and must follow \fCMicrosoft's Trademark & Brand Guidelines\fP\&. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship\&. Any use of third-party trademarks or logos are subject to those third-party's policies\&.
+.SS "Credits"
+The \fIDirectX Tool Kit\fP is the work of Shawn Hargreaves and Chuck Walbourn, with contributions from Aaron Rodriguez Hernandez, and Dani Roman\&.
+.PP
+Thanks to Shanon Drone for the SDKMESH file format\&.
+.PP
+Thanks to Adrian Tsai for the geodesic sphere implementation\&.
+.PP
+Thanks to Garrett Serack for his help in creating the NuGet packages for DirectX Tool Kit\&.
+.PP
+Thanks to Roberto Sonnino for his help with the \fCCMO\fP, DGSL rendering, and the VS Starter Kit animation\&.
+.PP
+Thanks to Pete Lewis and Justin Saunders for the normal-mapped and PBR shaders implementation\&. 

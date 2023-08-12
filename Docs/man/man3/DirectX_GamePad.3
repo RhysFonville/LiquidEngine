@@ -1,0 +1,95 @@
+.TH "DirectX::GamePad" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GamePad
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBButtons\fP"
+.br
+.ti -1c
+.RI "class \fBButtonStateTracker\fP"
+.br
+.ti -1c
+.RI "struct \fBCapabilities\fP"
+.br
+.ti -1c
+.RI "struct \fBDPad\fP"
+.br
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.ti -1c
+.RI "struct \fBState\fP"
+.br
+.ti -1c
+.RI "struct \fBThumbSticks\fP"
+.br
+.ti -1c
+.RI "struct \fBTriggers\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBDeadZone\fP { \fBDEAD_ZONE_INDEPENDENT_AXES\fP = 0, \fBDEAD_ZONE_CIRCULAR\fP, \fBDEAD_ZONE_NONE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGamePad\fP (\fBGamePad\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBGamePad\fP & \fBoperator=\fP (\fBGamePad\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBGamePad\fP (\fBGamePad\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBGamePad\fP & \fBoperator=\fP (\fBGamePad\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetState\fP (int player, DeadZone deadZoneMode=DEAD_ZONE_INDEPENDENT_AXES)"
+.br
+.ti -1c
+.RI "\fBCapabilities\fP __cdecl \fBGetCapabilities\fP (int player)"
+.br
+.ti -1c
+.RI "bool __cdecl \fBSetVibration\fP (int player, float leftMotor, float rightMotor, float leftTrigger=0\&.f, float rightTrigger=0\&.f) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSuspend\fP () noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBResume\fP () noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBGamePad\fP &__cdecl \fBGet\fP ()"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMAX_PLAYER_COUNT\fP = 4"
+.br
+.ti -1c
+.RI "static constexpr int \fBc_MostRecent\fP = \-1"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

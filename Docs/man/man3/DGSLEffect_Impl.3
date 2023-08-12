@@ -1,0 +1,94 @@
+.TH "DirectX::DGSLEffect::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DGSLEffect::Impl
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::AlignedNew< DGSLEffectConstants >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device, _In_opt_ ID3D11PixelShader *pixelShader)"
+.br
+.ti -1c
+.RI "void \fBInitialize\fP (_In_ ID3D11Device *device, bool enableSkinning)"
+.br
+.ti -1c
+.RI "void \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)"
+.br
+.ti -1c
+.RI "void \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "DGSLEffectConstants \fBconstants\fP"
+.br
+.ti -1c
+.RI "XMMATRIX \fBworld\fP"
+.br
+.ti -1c
+.RI "XMMATRIX \fBview\fP"
+.br
+.ti -1c
+.RI "XMMATRIX \fBprojection\fP"
+.br
+.ti -1c
+.RI "bool \fBlightEnabled\fP [MaxDirectionalLights]"
+.br
+.ti -1c
+.RI "XMVECTOR \fBlightDiffuseColor\fP [MaxDirectionalLights]"
+.br
+.ti -1c
+.RI "XMVECTOR \fBlightSpecularColor\fP [MaxDirectionalLights]"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBtextures\fP [MaxTextures]"
+.br
+.ti -1c
+.RI "int \fBdirtyFlags\fP"
+.br
+.ti -1c
+.RI "bool \fBvertexColorEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBtextureEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBspecularEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBalphaDiscardEnabled\fP"
+.br
+.ti -1c
+.RI "int \fBweightsPerVertex\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Member Functions inherited from \fBDirectX::AlignedNew< DGSLEffectConstants >\fP
+.in +1c
+.ti -1c
+.RI "static void * \fBoperator new\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete\fP (void *ptr)"
+.br
+.ti -1c
+.RI "static void * \fBoperator new[]\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete[]\fP (void *ptr)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

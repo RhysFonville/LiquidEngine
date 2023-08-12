@@ -1,0 +1,57 @@
+.TH "DirectX::LDRColorA" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::LDRColorA
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLDRColorA\fP (uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) noexcept"
+.br
+.ti -1c
+.RI "const uint8_t & \fBoperator[]\fP (_In_range_(0, 3) size_t uElement) const noexcept"
+.br
+.ti -1c
+.RI "uint8_t & \fBoperator[]\fP (_In_range_(0, 3) size_t uElement) noexcept"
+.br
+.ti -1c
+.RI "\fBLDRColorA\fP \fBoperator=\fP (_In_ const \fBHDRColorA\fP &c) noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBInterpolateRGB\fP (_In_ const \fBLDRColorA\fP &c0, _In_ const \fBLDRColorA\fP &c1, _In_ size_t wc, _In_ _In_range_(2, 4) size_t wcprec, _Out_ \fBLDRColorA\fP &out) noexcept"
+.br
+.ti -1c
+.RI "static void \fBInterpolateA\fP (_In_ const \fBLDRColorA\fP &c0, _In_ const \fBLDRColorA\fP &c1, _In_ size_t wa, _In_range_(2, 4) _In_ size_t waprec, _Out_ \fBLDRColorA\fP &out) noexcept"
+.br
+.ti -1c
+.RI "static void \fBInterpolate\fP (_In_ const \fBLDRColorA\fP &c0, _In_ const \fBLDRColorA\fP &c1, _In_ size_t wc, _In_ size_t wa, _In_ _In_range_(2, 4) size_t wcprec, _In_ _In_range_(2, 4) size_t waprec, _Out_ \fBLDRColorA\fP &out) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBr\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBg\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBb\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBa\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

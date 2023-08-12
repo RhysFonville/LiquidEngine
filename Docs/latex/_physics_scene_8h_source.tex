@@ -1,0 +1,270 @@
+\hypertarget{_physics_scene_8h_source}{}\doxysection{Physics\+Scene.\+h}
+\label{_physics_scene_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsScene.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#pragma\ once}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#include\ "{}MeshComponent.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#include\ "{}Object.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#define\ CROSS(dest,v1,v2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[0]=v1[1]*v2[2]-\/v1[2]*v2[1];\ \(\backslash\)}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]=v1[2]*v2[0]-\/v1[0]*v2[2];\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]=v1[0]*v2[1]-\/v1[1]*v2[0];}}
+\DoxyCodeLine{00012\ \textcolor{comment}{}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#define\ DOT(v1,v2)\ (v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2])}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#define\ SUB(dest,v1,v2)\ dest[0]=v1[0]-\/v2[0];\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]=v1[1]-\/v2[1];\ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]=v1[2]-\/v2[2];\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#define\ SCALAR(dest,alpha,v)\ dest[0]\ =\ alpha\ *\ v[0];\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]\ =\ alpha\ *\ v[1];\ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]\ =\ alpha\ *\ v[2];}}
+\DoxyCodeLine{00025\ \textcolor{comment}{}}
+\DoxyCodeLine{00026\ \textcolor{comment}{}}
+\DoxyCodeLine{00027\ \textcolor{comment}{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#define\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\ \{\(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ SUB(v1,p2,q1)\(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ SUB(v2,p1,q1)\(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ CROSS(N1,v1,v2)\(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ SUB(v1,q2,q1)\(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ if\ (DOT(v1,N1)\ >\ 0.0f)\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ SUB(v1,p2,p1)\(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ SUB(v2,r1,p1)\(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ CROSS(N1,v1,v2)\(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ SUB(v1,r2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ if\ (DOT(v1,N1)\ >\ 0.0f)\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ else\ return\ 1;\ \}}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{}}
+\DoxyCodeLine{00042\ \textcolor{comment}{}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Permutation\ in\ a\ canonical\ form\ of\ T2's\ vertices}}
+\DoxyCodeLine{00044\ \textcolor{comment}{}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\#define\ TRI\_TRI\_3D(p1,q1,r1,p2,q2,r2,dp2,dq2,dr2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ if\ (dp2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ if\ (dq2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,r2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ \ else\ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ \ \ else\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\ \}\(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ else\ if\ (dp2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ else\ CHECK\_MIN\_MAX(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >=\ 0.0f)\ \ CHECK\_MIN\_MAX(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ \ \ else\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ else\ if\ (dq2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \ \ else\ \ CHECK\_MIN\_MAX(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ else\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ else\ return\ coplanar\_tri\_tri3d(p1,q1,r1,p2,q2,r2,N1);\(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ \}\}\}}}
+\DoxyCodeLine{00068\ \textcolor{comment}{}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\#define\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ SUB(v1,q1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ SUB(v2,r2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ SUB(v,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ if\ (DOT(v,N)\ >\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ \ SUB(v1,r1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ \ if\ (DOT(v,N)\ <=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ \ \ \ SUB(v2,q2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ \ \ if\ (DOT(v,N)\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ SUB(v2,p1,r1)\ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ SUB(source,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ SUB(v2,p2,r2)\ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ SUB(target,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ SUB(v2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ SUB(source,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ SUB(v2,p2,r2)\ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ SUB(target,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ SUB(v2,q2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ if\ (DOT(v,N)\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ \ SUB(v1,r1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ \ if\ (DOT(v,N)\ >=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ SUB(v2,p1,r1)\ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ SUB(source,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ SUB(v2,p1,q1)\ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ SUB(target,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ SUB(v2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ SUB(source,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ SUB(v2,p1,q1)\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ SUB(target,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ \ \ \ \}\}\}\}\ }}
+\DoxyCodeLine{00141\ \textcolor{comment}{}}
+\DoxyCodeLine{00142\ \textcolor{comment}{}}
+\DoxyCodeLine{00143\ \textcolor{comment}{}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\#define\ TRI\_TRI\_INTER\_3D(p1,q1,r1,p2,q2,r2,dp2,dq2,dr2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ if\ (dp2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ \ \ if\ (dq2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,r2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ \ \ else\ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\ \}\(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ else\ if\ (dp2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >=\ 0.0f)\ \ CONSTRUCT\_INTERSECTION(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ \ else\ if\ (dq2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ \ \ \ else\ \ CONSTRUCT\_INTERSECTION(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ \ else\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ \ \ \ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ \ \ \ \ \ *coplanar\ =\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ return\ coplanar\_tri\_tri3d(p1,q1,r1,p2,q2,r2,N1);\(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \}\}\ \}}}
+\DoxyCodeLine{00170\ \textcolor{comment}{}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\#define\ ORIENT\_2D(a,\ b,\ c)\ \ ((a[0]-\/c[0])*(b[1]-\/c[1])-\/(a[1]-\/c[1])*(b[0]-\/c[0]))}}
+\DoxyCodeLine{00172\ \textcolor{comment}{}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\#define\ INTERSECTION\_TEST\_VERTEX(P1,\ Q1,\ R1,\ P2,\ Q2,\ R2)\ \{\(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(R2,P2,Q1)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(R2,Q2,Q1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,P2,Q1)\ >\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(P1,Q2,Q1)\ <=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ \ \ \ \}\ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,P2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ else\ \(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,Q2,Q1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(R2,Q2,R1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,Q2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ \ \ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ \ else\(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(R2,P2,R1)\ >=\ 0.0f)\ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ \ \ \ \ \ if\ (ORIENT\_2D(Q1,R1,R2)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\ return\ 1;\(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ \ \ \ \ \ else\ \(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(Q1,R1,Q2)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(R2,R1,Q2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ \ else\ return\ 0;\ \}\(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ \ \ else\ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ \};}}
+\DoxyCodeLine{00204\ \textcolor{comment}{}}
+\DoxyCodeLine{00205\ \textcolor{comment}{}}
+\DoxyCodeLine{00206\ \textcolor{comment}{}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\#define\ INTERSECTION\_TEST\_EDGE(P1,\ Q1,\ R1,\ P2,\ Q2,\ R2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(R2,P2,Q1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(P1,P2,Q1)\ >=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ \ \ \ \ \ if\ (ORIENT\_2D(P1,Q1,R2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ \ \ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ \ \ \ \ \ if\ (ORIENT\_2D(Q1,R1,P2)\ >=\ 0.0f)\{\ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(R1,P1,P2)\ >=\ 0.0f)\ return\ 1;\ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \}\ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(R2,P2,R1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ \ if\ (ORIENT\_2D(P1,R1,R2)\ >=\ 0.0f)\ return\ 1;\ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,R2)\ >=\ 0.0f)\ return\ 1;\ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ \ \ \ \ \ else\ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\}}}
+\DoxyCodeLine{00231\ \textcolor{comment}{}}
+\DoxyCodeLine{00232\ \textcolor{comment}{class\ PhysicsScene\ \{}}
+\DoxyCodeLine{00233\ \textcolor{comment}{public:}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ \ \ \ PhysicsScene(ObjectVector\ \&objects);}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ \ \ \ PhysicsScene()\ \{\ \};}}
+\DoxyCodeLine{00236\ \textcolor{comment}{}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ \ \ \ void\ tick()\ noexcept;}}
+\DoxyCodeLine{00238\ \textcolor{comment}{}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ \ \ \ void\ clean\_up();}}
+\DoxyCodeLine{00240\ \textcolor{comment}{}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ \ \ \ void\ handle\_mechanics(Object\ \&object);}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ \ \ \ void\ handle\_collision(Object\ \&object1,\ Object\ \&object2);}}
+\DoxyCodeLine{00243\ \textcolor{comment}{}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ \ \ \ static\ bool\ tri\_tri\_overlap\_test\_3d(const\ SimpleTriangle\ \&tri1,\ const\ SimpleTriangle\ \&tri2)\ noexcept;}}
+\DoxyCodeLine{00245\ \textcolor{comment}{}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ \ \ \ static\ bool\ coplanar\_tri\_tri3d(float\ p1[3],\ float\ q1[3],\ float\ r1[3],}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ \ \ \ \ \ float\ p2[3],\ float\ q2[3],\ float\ r2[3],}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ \ \ \ \ \ \ \ float\ normal\_1[3])\ noexcept;}}
+\DoxyCodeLine{00249\ \textcolor{comment}{}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ \ \ \ static\ bool\ tri\_tri\_overlap\_test\_2d(float\ p1[2],\ float\ q1[2],\ float\ r1[2],\ }}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ \ \ \ \ \ float\ p2[2],\ float\ q2[2],\ float\ r2[2])\ noexcept;}}
+\DoxyCodeLine{00252\ \textcolor{comment}{}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ \ \ \ static\ bool\ ccw\_tri\_tri\_intersection\_2d(float\ p1[2],\ float\ q1[2],\ float\ r1[2],\ }}
+\DoxyCodeLine{00254\ \textcolor{comment}{\ \ \ \ \ \ \ \ float\ p2[2],\ float\ q2[2],\ float\ r2[2])\ noexcept;}}
+\DoxyCodeLine{00255\ \textcolor{comment}{}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ \ static\ std::pair<std::vector<SimpleTriangle>,\ std::vector<SimpleTriangle>>\ approximate\_closest\_tris(const\ MeshData\ \&mesh1,\ const\ MeshData\ \&mesh2,\ const\ Transform\ \&obj1\_transform,\ const\ Transform\ \&obj2\_transform);}}
+\DoxyCodeLine{00257\ \textcolor{comment}{}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ \ static\ float\ signed\_tetrahedron\_volume(FVector3\ a,\ FVector3\ b,\ FVector3\ c,\ FVector3\ d)\ noexcept;}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ \ static\ bool\ triangle\_line\_collision(const\ SimpleTriangle\ \&triangle,\ const\ Line\ \&line)\ noexcept;}}
+\DoxyCodeLine{00260\ \textcolor{comment}{}}
+\DoxyCodeLine{00261\ \textcolor{comment}{private:}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ \ \ \ ObjectVector\ objects;}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\};}}
+\DoxyCodeLine{00264\ \textcolor{comment}{*/}}
+
+\end{DoxyCode}

@@ -1,0 +1,173 @@
+.TH "DirectX::SimpleMath::Quaternion" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Quaternion
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits XMFLOAT4\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBQuaternion\fP (float ix, float iy, float iz, float iw) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (const \fBVector3\fP &v, float scalar) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (const \fBVector4\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (_In_reads_(4) const float *pArray) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (FXMVECTOR V) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (const XMFLOAT4 &q) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (const \fBQuaternion\fP &)=default"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator=\fP (const \fBQuaternion\fP &)=default"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP (\fBQuaternion\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator=\fP (\fBQuaternion\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBQuaternion\fP &q) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBQuaternion\fP &q) const noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator=\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator+=\fP (const \fBQuaternion\fP &q) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator\-=\fP (const \fBQuaternion\fP &q) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator*=\fP (const \fBQuaternion\fP &q) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator*=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP & \fBoperator/=\fP (const \fBQuaternion\fP &q) noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP \fBoperator+\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBQuaternion\fP \fBoperator\-\fP () const noexcept"
+.br
+.ti -1c
+.RI "float \fBLength\fP () const noexcept"
+.br
+.ti -1c
+.RI "float \fBLengthSquared\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP (\fBQuaternion\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBConjugate\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBConjugate\fP (\fBQuaternion\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBInverse\fP (\fBQuaternion\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "float \fBDot\fP (const \fBQuaternion\fP &Q) const noexcept"
+.br
+.ti -1c
+.RI "void \fBRotateTowards\fP (const \fBQuaternion\fP &target, float maxAngle) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBRotateTowards\fP (const \fBQuaternion\fP &target, float maxAngle, \fBQuaternion\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBToEuler\fP () const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBQuaternion\fP \fBCreateFromAxisAngle\fP (const \fBVector3\fP &axis, float angle) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBCreateFromYawPitchRoll\fP (float yaw, float pitch, float roll) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBCreateFromYawPitchRoll\fP (const \fBVector3\fP &angles) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBCreateFromRotationMatrix\fP (const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "static void \fBLerp\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2, float t, \fBQuaternion\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBLerp\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBSlerp\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2, float t, \fBQuaternion\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBSlerp\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBConcatenate\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2, \fBQuaternion\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBConcatenate\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2) noexcept"
+.br
+.ti -1c
+.RI "static void __cdecl \fBFromToRotation\fP (const \fBVector3\fP &fromDir, const \fBVector3\fP &toDir, \fBQuaternion\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBFromToRotation\fP (const \fBVector3\fP &fromDir, const \fBVector3\fP &toDir) noexcept"
+.br
+.ti -1c
+.RI "static void __cdecl \fBLookRotation\fP (const \fBVector3\fP &forward, const \fBVector3\fP &up, \fBQuaternion\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBQuaternion\fP \fBLookRotation\fP (const \fBVector3\fP &forward, const \fBVector3\fP &up) noexcept"
+.br
+.ti -1c
+.RI "static float \fBAngle\fP (const \fBQuaternion\fP &q1, const \fBQuaternion\fP &q2) noexcept"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const \fBQuaternion\fP \fBIdentity\fP = { 0\&.f, 0\&.f, 0\&.f, 1\&.f }"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

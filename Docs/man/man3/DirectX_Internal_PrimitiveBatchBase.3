@@ -1,0 +1,53 @@
+.TH "DirectX::Internal::PrimitiveBatchBase" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Internal::PrimitiveBatchBase
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::PrimitiveBatch< TVertex >\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void __cdecl \fBBegin\fP ()"
+.br
+.ti -1c
+.RI "void __cdecl \fBEnd\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBPrimitiveBatchBase\fP (_In_ ID3D11DeviceContext *deviceContext, size_t maxIndices, size_t maxVertices, size_t vertexSize)"
+.br
+.ti -1c
+.RI "\fBPrimitiveBatchBase\fP (\fBPrimitiveBatchBase\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBPrimitiveBatchBase\fP & \fBoperator=\fP (\fBPrimitiveBatchBase\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBPrimitiveBatchBase\fP (\fBPrimitiveBatchBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBPrimitiveBatchBase\fP & \fBoperator=\fP (\fBPrimitiveBatchBase\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBDraw\fP (D3D11_PRIMITIVE_TOPOLOGY topology, bool isIndexed, _In_opt_count_(indexCount) uint16_t const *indices, size_t indexCount, size_t vertexCount, _Out_ void **pMappedVertices)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

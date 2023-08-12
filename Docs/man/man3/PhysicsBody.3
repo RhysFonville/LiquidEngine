@@ -1,0 +1,50 @@
+.TH "PhysicsBody" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+PhysicsBody
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_net_force\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET float \fBget_mass\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_mass\fP (float mass)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBFVector3\fP \fBprevious_position\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBvelocity\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBacceleration\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "float \fBspeed\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBkinetic_energy\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBmomentum\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "std::vector< \fBMechanics::Force\fP > \fBforces\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

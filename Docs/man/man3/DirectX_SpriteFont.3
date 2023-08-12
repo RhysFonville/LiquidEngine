@@ -1,0 +1,110 @@
+.TH "DirectX::SpriteFont" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SpriteFont
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBGlyph\fP"
+.br
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSpriteFont\fP (_In_ ID3D11Device *device, _In_z_ wchar_t const *fileName, bool forceSRGB=false)"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP (_In_ ID3D11Device *device, _In_reads_bytes_(dataSize) uint8_t const *dataBlob, _In_ size_t dataSize, bool forceSRGB=false)"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP (_In_ ID3D11ShaderResourceView *texture, _In_reads_(glyphCount) \fBGlyph\fP const *glyphs, _In_ size_t glyphCount, _In_ float lineSpacing)"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP (\fBSpriteFont\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP & \fBoperator=\fP (\fBSpriteFont\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP (\fBSpriteFont\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBSpriteFont\fP & \fBoperator=\fP (\fBSpriteFont\fP const &)=delete"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ wchar_t const *text, XMFLOAT2 const &position, FXMVECTOR color=Colors::White, float rotation=0, XMFLOAT2 const &origin=Float2Zero, float scale=1, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ wchar_t const *text, XMFLOAT2 const &position, FXMVECTOR color, float rotation, XMFLOAT2 const &origin, XMFLOAT2 const &scale, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ wchar_t const *text, FXMVECTOR position, FXMVECTOR color=Colors::White, float rotation=0, FXMVECTOR origin=g_XMZero, float scale=1, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ wchar_t const *text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "XMVECTOR XM_CALLCONV \fBMeasureString\fP (_In_z_ wchar_t const *text, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "RECT __cdecl \fBMeasureDrawBounds\fP (_In_z_ wchar_t const *text, XMFLOAT2 const &position, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "RECT XM_CALLCONV \fBMeasureDrawBounds\fP (_In_z_ wchar_t const *text, FXMVECTOR position, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ char const *text, XMFLOAT2 const &position, FXMVECTOR color=Colors::White, float rotation=0, XMFLOAT2 const &origin=Float2Zero, float scale=1, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ char const *text, XMFLOAT2 const &position, FXMVECTOR color, float rotation, XMFLOAT2 const &origin, XMFLOAT2 const &scale, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ char const *text, FXMVECTOR position, FXMVECTOR color=Colors::White, float rotation=0, FXMVECTOR origin=g_XMZero, float scale=1, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawString\fP (_In_ \fBSpriteBatch\fP *spriteBatch, _In_z_ char const *text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, SpriteEffects effects=SpriteEffects_None, float layerDepth=0) const"
+.br
+.ti -1c
+.RI "XMVECTOR XM_CALLCONV \fBMeasureString\fP (_In_z_ char const *text, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "RECT __cdecl \fBMeasureDrawBounds\fP (_In_z_ char const *text, XMFLOAT2 const &position, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "RECT XM_CALLCONV \fBMeasureDrawBounds\fP (_In_z_ char const *text, FXMVECTOR position, bool ignoreWhitespace=true) const"
+.br
+.ti -1c
+.RI "float __cdecl \fBGetLineSpacing\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetLineSpacing\fP (float spacing)"
+.br
+.ti -1c
+.RI "wchar_t __cdecl \fBGetDefaultCharacter\fP () const noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetDefaultCharacter\fP (wchar_t character)"
+.br
+.ti -1c
+.RI "bool __cdecl \fBContainsCharacter\fP (wchar_t character) const"
+.br
+.ti -1c
+.RI "\fBGlyph\fP const *__cdecl \fBFindGlyph\fP (wchar_t character) const"
+.br
+.ti -1c
+.RI "void __cdecl \fBGetSpriteSheet\fP (ID3D11ShaderResourceView **texture) const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

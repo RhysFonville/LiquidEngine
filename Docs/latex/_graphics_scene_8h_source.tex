@@ -1,0 +1,160 @@
+\hypertarget{_graphics_scene_8h_source}{}\doxysection{Graphics\+Scene.\+h}
+\label{_graphics_scene_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsScene.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Components/CameraComponent.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Components/DirectionalLightComponent.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Components/PointLightComponent.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Components/SpotlightComponent.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Components/StaticMeshComponent.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ UINT\ MAX\_LIGHTS\_PER\_TYPE\ =\ 16u;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \_declspec(align(16))}
+\DoxyCodeLine{00014\ struct\ DXDLData\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ DXDLData()\ \{\ \}}
+\DoxyCodeLine{00016\ \ \ \ \ DXDLData(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_directional_light_component_1_1_d_l_data}{DirectionalLightComponent::DLData}}\ \&data)}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ :\ direction(data.direction),}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ diffuse(ctofvec(data.diffuse)/255.0f),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ specular(ctofvec(data.specular)/255.0f)\ \{\ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.25f,\ 0.5f,\ -\/1.0f);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{float}\ pad\ =\ 0.0f;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ diffuse\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(1.0f,\ 1.0f,\ 1.0f,\ 1.0f);}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ specular\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(0.0f,\ 0.0f,\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ null\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ pad1\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.0f,\ 0.0f,\ 0.0f);}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \_declspec(align(16))}
+\DoxyCodeLine{00032\ struct\ DXPLData\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ DXPLData()\ \{\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ DXPLData(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point_light_component_1_1_p_l_data}{PointLightComponent::PLData}}\ \&data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&pos)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ :\ range(data.range),\ attenuation(data.attenuation),}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ diffuse(ctofvec(data.diffuse)/255.0f),\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ specular(ctofvec(data.specular)/255.0f),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ position(pos)\ \{\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{float}\ range\ =\ 100.0f;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ attenuation\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.2f,\ 0.2f,\ 0.2f);}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ diffuse\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(1.0f,\ 1.0f,\ 1.0f,\ 1.0f);}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ specular\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(0.0f,\ 0.0f,\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ null\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ position\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.0f,\ 0.0f,\ 0.0f);}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \_declspec(align(16))}
+\DoxyCodeLine{00052\ struct\ DXSLData\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ DXSLData()\ \{\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ DXSLData(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_spotlight_component_1_1_s_l_data}{SpotlightComponent::SLData}}\ \&data)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ :\ direction(data.direction),}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ diffuse(ctofvec(data.diffuse)/255.0f),}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ specular(ctofvec(data.specular)/255.0f)\ \{\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.0f,\ 0.0f,\ 0.0f);}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ diffuse\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(1.0f,\ 1.0f,\ 1.0f,\ 1.0f);}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ specular\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(0.0f,\ 0.0f,\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ null\ =\ 0;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ pad\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.0f,\ 0.0f,\ 0.0f);;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \_declspec(align(16))}
+\DoxyCodeLine{00070\ struct\ DXMatData\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ DXMatData()\ \{\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ DXMatData(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_material_1_1_material_data}{Material::MaterialData}}\ \&data)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ :\ a(data.a),\ ks(color\_to\_fvector(data.ks)/255.0f),}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ kd(color\_to\_fvector(data.kd)/255.0f),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ ka(color\_to\_fvector(data.ka)/255.0f)\ \{\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ ks\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(1.0f,\ 1.0f,\ 1.0f,\ 1.0f);\ \textcolor{comment}{//\ Specular}}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ kd\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(1.0f,\ 1.0f,\ 1.0f,\ 1.0f);\ \textcolor{comment}{//\ Diffuse}}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ ka\ =\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(0.0f,\ 0.0f,\ 0.0f,\ 1.0f);\ \textcolor{comment}{//\ Ambient}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{float}\ a\ =\ 0.5f;\ \textcolor{comment}{//\ Shininess}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \_declspec(align(256))}
+\DoxyCodeLine{00084\ struct\ PerFrameVSCB\ \{\ \textcolor{comment}{//\ b0}}
+\DoxyCodeLine{00085\ \ \ \ \ XMMATRIX\ WVP;}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\_declspec(align(256))}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_per_object_v_s_c_b}{PerObjectVSCB}}\ \{\ \textcolor{comment}{//\ b1}}
+\DoxyCodeLine{00090\ \ \ \ \ XMMATRIX\ transform;}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{//\_declspec(align(256))}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_per_frame_p_s_c_b}{PerFramePSCB}}\ \{\ \textcolor{comment}{//\ b2}}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ camera\_position;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ UINT\ directional\_light\_count\ =\ 0;}
+\DoxyCodeLine{00098\ \ \ \ \ UINT\ point\_light\_count\ =\ 0;}
+\DoxyCodeLine{00099\ \ \ \ \ UINT\ spotlight\_count\ =\ 0;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ DXDLData\ directional\_lights[MAX\_LIGHTS\_PER\_TYPE]\ =\ \{\ \};}
+\DoxyCodeLine{00102\ \ \ \ \ DXPLData\ point\_lights[MAX\_LIGHTS\_PER\_TYPE]\ =\ \{\ \};}
+\DoxyCodeLine{00103\ \ \ \ \ DXSLData\ spotlights[MAX\_LIGHTS\_PER\_TYPE]\ =\ \{\ \};}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{//\_\_declspec(align(256))}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_per_object_p_s_c_b}{PerObjectPSCB}}\ \{\ \textcolor{comment}{//\ b3}}
+\DoxyCodeLine{00108\ \ \ \ \ DXMatData\ material;}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}\ \{}
+\DoxyCodeLine{00112\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}()\ \{\ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ GraphicsComponent)>}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_component(\textcolor{keyword}{const}\ T\ *component)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ Component::Type::CameraComponent)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ camera\ =\ (\mbox{\hyperlink{class_camera_component}{CameraComponent}}*)component;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (LightComponent::is\_light\_component(*component))\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ lights.push\_back((\mbox{\hyperlink{class_light_component}{LightComponent}}*)component);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ Component::Type::StaticMeshComponent)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ static\_meshes.push\_back((\mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}*)component);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ GraphicsComponent)>}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_component(\textcolor{keyword}{const}\ T\ *component)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ Component::Type::StaticMeshComponent)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ static\_meshes\_index\ =\ std::find(static\_meshes.begin(),\ static\_meshes.end(),\ (\mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}*)component);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (static\_meshes\_index\ ==\ static\_meshes.end())\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ static\_meshes.erase(static\_meshes\_index);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ Component::Type::CameraComponent)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\mbox{\hyperlink{class_camera_component}{CameraComponent}}*)component\ ==\ camera)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ camera\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LightComponent::is\_light\_component(*component))\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lights\_index\ =\ std::find(lights.begin(),\ lights.end(),\ (\mbox{\hyperlink{class_light_component}{LightComponent}}*)component);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lights\_index\ ==\ lights.end())\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lights.erase(lights\_index);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_renderer}{Renderer}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ std::vector<StaticMeshComponent*>\ static\_meshes\ =\ \{\ \};}
+\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{class_camera_component}{CameraComponent}}*\ camera\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00153\ \ \ \ \ std::vector<LightComponent*>\ lights\ =\ \{\ \};}
+\DoxyCodeLine{00154\ \};}
+
+\end{DoxyCode}

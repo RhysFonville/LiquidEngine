@@ -1,0 +1,126 @@
+.TH "DirectX::GamePad::ButtonStateTracker" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GamePad::ButtonStateTracker
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBButtonState\fP { \fBUP\fP = 0, \fBHELD\fP = 1, \fBRELEASED\fP = 2, \fBPRESSED\fP = 3 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void __cdecl \fBUpdate\fP (const \fBState\fP &state) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBReset\fP () noexcept"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetLastState\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ButtonState \fBa\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBb\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBx\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBy\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftStick\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightStick\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftShoulder\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightShoulder\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   ButtonState \fBback\fP"
+.br
+.ti -1c
+.RI "   ButtonState \fBview\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   ButtonState \fBstart\fP"
+.br
+.ti -1c
+.RI "   ButtonState \fBmenu\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "ButtonState \fBdpadUp\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBdpadDown\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBdpadLeft\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBdpadRight\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftStickUp\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftStickDown\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftStickLeft\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftStickRight\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightStickUp\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightStickDown\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightStickLeft\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightStickRight\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBleftTrigger\fP"
+.br
+.ti -1c
+.RI "ButtonState \fBrightTrigger\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

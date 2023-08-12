@@ -1,0 +1,28 @@
+.TH "DirectX::Internal::PrimitiveBatchBase::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Internal::PrimitiveBatchBase::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11DeviceContext *deviceContext, size_t maxIndices, size_t maxVertices, size_t vertexSize)"
+.br
+.ti -1c
+.RI "void \fBBegin\fP ()"
+.br
+.ti -1c
+.RI "void \fBEnd\fP ()"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (D3D11_PRIMITIVE_TOPOLOGY topology, bool isIndexed, _In_opt_count_(indexCount) uint16_t const *indices, size_t indexCount, size_t vertexCount, _Out_ void **pMappedVertices)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

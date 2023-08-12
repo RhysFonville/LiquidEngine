@@ -1,0 +1,242 @@
+.TH "DirectX::SimpleMath::Vector3" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Vector3
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits XMFLOAT3\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBVector3\fP (float ix) noexcept"
+.br
+.ti -1c
+.RI "constexpr \fBVector3\fP (float ix, float iy, float iz) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP (_In_reads_(3) const float *pArray) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP (FXMVECTOR V) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP (const XMFLOAT3 &V) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP (const \fBVector3\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator=\fP (const \fBVector3\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVector3\fP (\fBVector3\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator=\fP (\fBVector3\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBVector3\fP &V) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBVector3\fP &V) const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator=\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator+=\fP (const \fBVector3\fP &V) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator\-=\fP (const \fBVector3\fP &V) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator*=\fP (const \fBVector3\fP &V) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator*=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP & \fBoperator/=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBoperator+\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBoperator\-\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBInBounds\fP (const \fBVector3\fP &Bounds) const noexcept"
+.br
+.ti -1c
+.RI "float \fBLength\fP () const noexcept"
+.br
+.ti -1c
+.RI "float \fBLengthSquared\fP () const noexcept"
+.br
+.ti -1c
+.RI "float \fBDot\fP (const \fBVector3\fP &V) const noexcept"
+.br
+.ti -1c
+.RI "void \fBCross\fP (const \fBVector3\fP &V, \fBVector3\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBCross\fP (const \fBVector3\fP &V) const noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBNormalize\fP (\fBVector3\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBClamp\fP (const \fBVector3\fP &vmin, const \fBVector3\fP &vmax) noexcept"
+.br
+.ti -1c
+.RI "void \fBClamp\fP (const \fBVector3\fP &vmin, const \fBVector3\fP &vmax, \fBVector3\fP &result) const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static float \fBDistance\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2) noexcept"
+.br
+.ti -1c
+.RI "static float \fBDistanceSquared\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2) noexcept"
+.br
+.ti -1c
+.RI "static void \fBMin\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBMin\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2) noexcept"
+.br
+.ti -1c
+.RI "static void \fBMax\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBMax\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2) noexcept"
+.br
+.ti -1c
+.RI "static void \fBLerp\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, float t, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBLerp\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBSmoothStep\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, float t, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBSmoothStep\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBBarycentric\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, const \fBVector3\fP &v3, float f, float g, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBBarycentric\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, const \fBVector3\fP &v3, float f, float g) noexcept"
+.br
+.ti -1c
+.RI "static void \fBCatmullRom\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, const \fBVector3\fP &v3, const \fBVector3\fP &v4, float t, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBCatmullRom\fP (const \fBVector3\fP &v1, const \fBVector3\fP &v2, const \fBVector3\fP &v3, const \fBVector3\fP &v4, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBHermite\fP (const \fBVector3\fP &v1, const \fBVector3\fP &t1, const \fBVector3\fP &v2, const \fBVector3\fP &t2, float t, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBHermite\fP (const \fBVector3\fP &v1, const \fBVector3\fP &t1, const \fBVector3\fP &v2, const \fBVector3\fP &t2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBReflect\fP (const \fBVector3\fP &ivec, const \fBVector3\fP &nvec, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBReflect\fP (const \fBVector3\fP &ivec, const \fBVector3\fP &nvec) noexcept"
+.br
+.ti -1c
+.RI "static void \fBRefract\fP (const \fBVector3\fP &ivec, const \fBVector3\fP &nvec, float refractionIndex, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBRefract\fP (const \fBVector3\fP &ivec, const \fBVector3\fP &nvec, float refractionIndex) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBVector3\fP &v, const \fBQuaternion\fP &quat, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBTransform\fP (const \fBVector3\fP &v, const \fBQuaternion\fP &quat) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBVector3\fP &v, const \fBMatrix\fP &m, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBTransform\fP (const \fBVector3\fP &v, const \fBMatrix\fP &m) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (_In_reads_(count) const \fBVector3\fP *varray, size_t count, const \fBMatrix\fP &m, _Out_writes_(count) \fBVector3\fP *resultArray) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBVector3\fP &v, const \fBMatrix\fP &m, \fBVector4\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (_In_reads_(count) const \fBVector3\fP *varray, size_t count, const \fBMatrix\fP &m, _Out_writes_(count) \fBVector4\fP *resultArray) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransformNormal\fP (const \fBVector3\fP &v, const \fBMatrix\fP &m, \fBVector3\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBVector3\fP \fBTransformNormal\fP (const \fBVector3\fP &v, const \fBMatrix\fP &m) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransformNormal\fP (_In_reads_(count) const \fBVector3\fP *varray, size_t count, const \fBMatrix\fP &m, _Out_writes_(count) \fBVector3\fP *resultArray) noexcept"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const \fBVector3\fP \fBZero\fP = { 0\&.f, 0\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBOne\fP = { 1\&.f, 1\&.f, 1\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBUnitX\fP = { 1\&.f, 0\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBUnitY\fP = { 0\&.f, 1\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBUnitZ\fP = { 0\&.f, 0\&.f, 1\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBUp\fP = { 0\&.f, 1\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBDown\fP = { 0\&.f, \-1\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBRight\fP = { 1\&.f, 0\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBLeft\fP = { \-1\&.f, 0\&.f, 0\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBForward\fP = { 0\&.f, 0\&.f, \-1\&.f }"
+.br
+.ti -1c
+.RI "static const \fBVector3\fP \fBBackward\fP = { 0\&.f, 0\&.f, 1\&.f }"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

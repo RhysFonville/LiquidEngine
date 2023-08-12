@@ -1,0 +1,366 @@
+\hypertarget{_s_d_k_mesh_8h_source}{}\doxysection{SDKMesh.\+h}
+\label{_s_d_k_mesh_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/SDKMesh.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/SDKMesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ SDKMesh.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ SDKMESH\ format\ is\ generated\ by\ the\ legacy\ DirectX\ SDK's\ Content\ Exporter\ and}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ originally\ rendered\ by\ the\ DXUT\ helper\ class\ SDKMesh}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=226208}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }DXUT}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ .SDKMESH\ files}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_HEADER}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_VERTEX\_BUFFER\_HEADER\ header-\/>VertexStreamHeadersOffset}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_INDEX\_BUFFER\_HEADER\ \ header-\/>IndexStreamHeadersOffset}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_MESH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>MeshDataOffset}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_SUBSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>SubsetDataOffset}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_FRAME\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>FrameDataOffset}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ SDKMESH\_MATERIAL\ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>MaterialDataOffset}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ [header-\/>NonBufferDataSize]}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ \{\ [\ header-\/>NumVertexBuffers]}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ VB\ data}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ \{\ [\ header-\/>NumIndexBuffers]}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ IB\ data}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ .SDDKANIM\ files}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ SDKANIMATION\_FILE\_HEADER}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ uint8\_t[]\ -\/\ Length\ of\ fileheader-\/>AnimationDataSize}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ .SDKMESH\ uses\ Direct3D\ 9\ decls,\ but\ only\ a\ subset\ of\ these\ is\ ever\ generated\ by\ the\ legacy\ DirectX\ SDK\ Content\ Exporter}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ D3DDECLUSAGE\_POSITION\ /\ D3DDECLTYPE\_FLOAT3}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_BLENDWEIGHT\ /\ D3DDECLTYPE\_UBYTE4N}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ D3DDECLUSAGE\_BLENDINDICES\ /\ D3DDECLTYPE\_UBYTE4)?}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_NORMAL\ /\ D3DDECLTYPE\_FLOAT3,\ D3DDECLTYPE\_FLOAT16\_4,\ D3DDECLTYPE\_SHORT4N,\ D3DDECLTYPE\_UBYTE4N,\ or\ D3DDECLTYPE\_DEC3N)?}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_COLOR\ /\ D3DDECLTYPE\_D3DCOLOR)?}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_TEXCOORD\ /\ D3DDECLTYPE\_FLOAT1,\ D3DDECLTYPE\_FLOAT2\ or\ D3DDECLTYPE\_FLOAT16\_2,\ D3DDECLTYPE\_FLOAT3\ or\ D3DDECLTYPE\_FLOAT16\_4,\ D3DDECLTYPE\_FLOAT4\ or\ D3DDECLTYPE\_FLOAT16\_4)*}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_TANGENT\ /\ same\ as\ D3DDECLUSAGE\_NORMAL)?}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ (D3DDECLUSAGE\_BINORMAL\ /\ same\ as\ D3DDECLUSAGE\_NORMAL)?}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{enum}\ D3DDECLUSAGE}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_POSITION\ =\ 0,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_BLENDWEIGHT\ =\ 1,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_BLENDINDICES\ =\ 2,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_NORMAL\ =\ 3,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_TEXCOORD\ =\ 5,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_TANGENT\ =\ 6,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_BINORMAL\ =\ 7,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ D3DDECLUSAGE\_COLOR\ =\ 10,}
+\DoxyCodeLine{00066\ \ \ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{enum}\ D3DDECLTYPE}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT1\ =\ 0,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1D\ float\ expanded\ to\ (value,\ 0.,\ 0.,\ 1.)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT2\ =\ 1,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2D\ float\ expanded\ to\ (value,\ value,\ 0.,\ 1.)}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT3\ =\ 2,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3D\ float\ expanded\ to\ (value,\ value,\ value,\ 1.)}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT4\ =\ 3,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4D\ float}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_D3DCOLOR\ =\ 4,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4D\ packed\ unsigned\ bytes\ mapped\ to\ 0.\ to\ 1.\ range}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Input\ is\ in\ D3DCOLOR\ format\ (ARGB)\ expanded\ to\ (R,\ G,\ B,\ A)}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_UBYTE4\ =\ 5,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4D\ unsigned\ uint8\_t}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_UBYTE4N\ =\ 8,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ of\ 4\ bytes\ is\ normalized\ by\ dividing\ to\ 255.0}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_SHORT4N\ =\ 10,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4D\ signed\ short\ normalized\ (v[0]/32767.0,v[1]/32767.0,v[2]/32767.0,v[3]/32767.0)}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_DEC3N\ =\ 14,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3D\ signed\ normalized\ (v[0]/511.0,\ v[1]/511.0,\ v[2]/511.0,\ 1.)}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note:\ There\ is\ no\ equivalent\ to\ D3DDECLTYPE\_DEC3N\ (14)\ as\ a\ DXGI\_FORMAT}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT16\_2\ =\ 15,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Two\ 16-\/bit\ floating\ point\ values,\ expanded\ to\ (value,\ value,\ 0,\ 1)}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_FLOAT16\_4\ =\ 16,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Four\ 16-\/bit\ floating\ point\ values}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_UNUSED\ =\ 17,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ When\ the\ type\ field\ in\ a\ decl\ is\ unused.}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ These\ are\ extensions\ for\ DXGI-\/based\ versions\ of\ Direct3D}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_DXGI\_R10G10B10A2\_UNORM\ =\ 32\ +\ DXGI\_FORMAT\_R10G10B10A2\_UNORM,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_DXGI\_R11G11B10\_FLOAT\ =\ 32\ +\ DXGI\_FORMAT\_R11G11B10\_FLOAT,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ D3DDECLTYPE\_DXGI\_R8G8B8A8\_SNORM\ =\ 32\ +\ DXGI\_FORMAT\_R8G8B8A8\_SNORM,}
+\DoxyCodeLine{00112\ \ \ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#pragma\ pack(push,4)}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_d3_d_v_e_r_t_e_x_e_l_e_m_e_n_t9}{D3DVERTEXELEMENT9}}}
+\DoxyCodeLine{00117\ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ uint16\_t\ Stream;\ \ \ \ \ \textcolor{comment}{//\ Stream\ index}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ uint16\_t\ Offset;\ \ \ \ \ \textcolor{comment}{//\ Offset\ in\ the\ stream\ in\ bytes}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ uint8\_t\ \ Type;\ \ \ \ \ \ \ \textcolor{comment}{//\ Data\ type}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ uint8\_t\ \ Method;\ \ \ \ \ \textcolor{comment}{//\ Processing\ method}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ uint8\_t\ \ Usage;\ \ \ \ \ \ \textcolor{comment}{//\ Semantics}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ uint8\_t\ \ UsageIndex;\ \textcolor{comment}{//\ Semantic\ index}}
+\DoxyCodeLine{00124\ \ \ \ \ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ Hard\ Defines\ for\ the\ various\ structures}}
+\DoxyCodeLine{00130\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ SDKMESH\_FILE\_VERSION\ =\ 101;}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ SDKMESH\_FILE\_VERSION\_V2\ =\ 200;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_VERTEX\_ELEMENTS\ =\ 32;}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_VERTEX\_STREAMS\ =\ 16;}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_FRAME\_NAME\ =\ 100;}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_MESH\_NAME\ =\ 100;}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_SUBSET\_NAME\ =\ 100;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_MATERIAL\_NAME\ =\ 100;}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_TEXTURE\_NAME\ =\ MAX\_PATH;}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_MATERIAL\_PATH\ =\ MAX\_PATH;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ INVALID\_FRAME\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ INVALID\_MESH\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ INVALID\_MATERIAL\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ INVALID\_SUBSET\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{constexpr}\ uint32\_t\ INVALID\_ANIMATION\_DATA\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//\ Enumerated\ Types.}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{enum}\ SDKMESH\_PRIMITIVE\_TYPE}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ PT\_TRIANGLE\_LIST\ =\ 0,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ PT\_TRIANGLE\_STRIP,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ PT\_LINE\_LIST,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ PT\_LINE\_STRIP,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ PT\_POINT\_LIST,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ PT\_TRIANGLE\_LIST\_ADJ,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ PT\_TRIANGLE\_STRIP\_ADJ,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ PT\_LINE\_LIST\_ADJ,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ PT\_LINE\_STRIP\_ADJ,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ PT\_QUAD\_PATCH\_LIST,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ PT\_TRIANGLE\_PATCH\_LIST,}
+\DoxyCodeLine{00164\ \ \ \ \ \};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{enum}\ SDKMESH\_INDEX\_TYPE}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ IT\_16BIT\ =\ 0,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ IT\_32BIT,}
+\DoxyCodeLine{00170\ \ \ \ \ \};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{enum}\ FRAME\_TRANSFORM\_TYPE}
+\DoxyCodeLine{00173\ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ FTT\_RELATIVE\ =\ 0,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ FTT\_ABSOLUTE,\ \textcolor{comment}{//\ This\ is\ not\ currently\ used\ but\ is\ here\ to\ support\ absolute\ transformations\ in\ the\ future}}
+\DoxyCodeLine{00176\ \ \ \ \ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ Structures.}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#pragma\ pack(push,8)}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___h_e_a_d_e_r}{SDKMESH\_HEADER}}}
+\DoxyCodeLine{00184\ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Basic\ Info\ and\ sizes}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ uint32\_t\ Version;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ uint8\_t\ \ IsBigEndian;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ uint64\_t\ HeaderSize;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ uint64\_t\ NonBufferDataSize;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ uint64\_t\ BufferDataSize;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Stats}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ uint32\_t\ NumVertexBuffers;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ uint32\_t\ NumIndexBuffers;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ uint32\_t\ NumMeshes;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ uint32\_t\ NumTotalSubsets;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ uint32\_t\ NumFrames;}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ uint32\_t\ NumMaterials;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Offsets\ to\ Data}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ uint64\_t\ VertexStreamHeadersOffset;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ uint64\_t\ IndexStreamHeadersOffset;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ uint64\_t\ MeshDataOffset;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ uint64\_t\ SubsetDataOffset;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ uint64\_t\ FrameDataOffset;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ uint64\_t\ MaterialDataOffset;}
+\DoxyCodeLine{00207\ \ \ \ \ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___v_e_r_t_e_x___b_u_f_f_e_r___h_e_a_d_e_r}{SDKMESH\_VERTEX\_BUFFER\_HEADER}}}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ uint64\_t\ NumVertices;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ uint64\_t\ SizeBytes;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ uint64\_t\ StrideBytes;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_d_x_u_t_1_1_d3_d_v_e_r_t_e_x_e_l_e_m_e_n_t9}{D3DVERTEXELEMENT9}}\ Decl[MAX\_VERTEX\_ELEMENTS];}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ uint64\_t\ DataOffset;}
+\DoxyCodeLine{00216\ \ \ \ \ \};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___i_n_d_e_x___b_u_f_f_e_r___h_e_a_d_e_r}{SDKMESH\_INDEX\_BUFFER\_HEADER}}}
+\DoxyCodeLine{00219\ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ uint64\_t\ NumIndices;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ uint64\_t\ SizeBytes;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ uint32\_t\ IndexType;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ uint64\_t\ DataOffset;}
+\DoxyCodeLine{00224\ \ \ \ \ \};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_e_s_h}{SDKMESH\_MESH}}}
+\DoxyCodeLine{00227\ \ \ \ \ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ Name[MAX\_MESH\_NAME];}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ uint8\_t\ NumVertexBuffers;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ uint32\_t\ VertexBuffers[MAX\_VERTEX\_STREAMS];}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ uint32\_t\ IndexBuffer;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ uint32\_t\ NumSubsets;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ uint32\_t\ NumFrameInfluences;\ \textcolor{comment}{//aka\ bones}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT3\ BoundingBoxCenter;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT3\ BoundingBoxExtents;}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ SubsetOffset;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ INT*\ pSubsets;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ FrameInfluenceOffset;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t*\ pFrameInfluences;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00248\ \ \ \ \ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___s_u_b_s_e_t}{SDKMESH\_SUBSET}}}
+\DoxyCodeLine{00251\ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ Name[MAX\_SUBSET\_NAME];}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ uint32\_t\ MaterialID;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ uint32\_t\ PrimitiveType;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ uint64\_t\ IndexStart;}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ uint64\_t\ IndexCount;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ uint64\_t\ VertexStart;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ uint64\_t\ VertexCount;}
+\DoxyCodeLine{00259\ \ \ \ \ \};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___f_r_a_m_e}{SDKMESH\_FRAME}}}
+\DoxyCodeLine{00262\ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ Name[MAX\_FRAME\_NAME];}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_mesh}{Mesh}};}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ uint32\_t\ ParentFrame;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ uint32\_t\ ChildFrame;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ uint32\_t\ SiblingFrame;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4X4\ Matrix;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ uint32\_t\ AnimationDataIndex;\ \textcolor{comment}{//Used\ to\ index\ which\ set\ of\ keyframes\ transforms\ this\ frame}}
+\DoxyCodeLine{00270\ \ \ \ \ \};}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_a_t_e_r_i_a_l}{SDKMESH\_MATERIAL}}}
+\DoxyCodeLine{00273\ \ \ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ Name[MAX\_MATERIAL\_NAME];}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ MaterialInstancePath}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ MaterialInstancePath[MAX\_MATERIAL\_PATH];}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Or\ fall\ back\ to\ d3d8-\/type\ materials}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ DiffuseTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ NormalTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ SpecularTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4\ Diffuse;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4\ Ambient;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4\ Specular;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4\ Emissive;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ Power;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_1;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_2;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_3;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_4;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_5;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_6;}
+\DoxyCodeLine{00296\ \ \ \ \ \};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_a_t_e_r_i_a_l___v2}{SDKMESH\_MATERIAL\_V2}}}
+\DoxyCodeLine{00299\ \ \ \ \ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ Name[MAX\_MATERIAL\_NAME];}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ PBR\ materials}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ RMATexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ AlbedoTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ NormalTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ EmissiveTexture[MAX\_TEXTURE\_NAME];}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ Alpha;}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ Reserved[60];}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_1;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_2;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_3;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_4;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_5;}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ uint64\_t\ Force64\_6;}
+\DoxyCodeLine{00318\ \ \ \ \ \};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___f_i_l_e___h_e_a_d_e_r}{SDKANIMATION\_FILE\_HEADER}}}
+\DoxyCodeLine{00321\ \ \ \ \ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ uint32\_t\ Version;}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ uint8\_t\ \ IsBigEndian;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ uint32\_t\ FrameTransformType;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ uint32\_t\ NumFrames;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ uint32\_t\ NumAnimationKeys;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ uint32\_t\ AnimationFPS;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ uint64\_t\ AnimationDataSize;}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ uint64\_t\ AnimationDataOffset;}
+\DoxyCodeLine{00330\ \ \ \ \ \};}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___d_a_t_a}{SDKANIMATION\_DATA}}}
+\DoxyCodeLine{00333\ \ \ \ \ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT3\ Translation;}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT4\ Orientation;}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ DirectX::XMFLOAT3\ Scaling;}
+\DoxyCodeLine{00337\ \ \ \ \ \};}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___f_r_a_m_e___d_a_t_a}{SDKANIMATION\_FRAME\_DATA}}}
+\DoxyCodeLine{00340\ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ FrameName[MAX\_FRAME\_NAME];}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ uint64\_t\ DataOffset;}
+\DoxyCodeLine{00343\ \ \ \ \ \};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \}\ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_d3_d_v_e_r_t_e_x_e_l_e_m_e_n_t9}{DXUT::D3DVERTEXELEMENT9}})\ ==\ 8,\ \textcolor{stringliteral}{"{}Direct3D9\ Decl\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00350\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___h_e_a_d_e_r}{DXUT::SDKMESH\_HEADER}})==\ 104,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00351\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___v_e_r_t_e_x___b_u_f_f_e_r___h_e_a_d_e_r}{DXUT::SDKMESH\_VERTEX\_BUFFER\_HEADER}})\ ==\ 288,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00352\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___i_n_d_e_x___b_u_f_f_e_r___h_e_a_d_e_r}{DXUT::SDKMESH\_INDEX\_BUFFER\_HEADER}})\ ==\ 32,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00353\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_e_s_h}{DXUT::SDKMESH\_MESH}})\ ==\ 224,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00354\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___s_u_b_s_e_t}{DXUT::SDKMESH\_SUBSET}})\ ==\ 144,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00355\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___f_r_a_m_e}{DXUT::SDKMESH\_FRAME}})\ ==\ 184,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00356\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_a_t_e_r_i_a_l}{DXUT::SDKMESH\_MATERIAL}})\ ==\ 1256,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00357\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_a_t_e_r_i_a_l___v2}{DXUT::SDKMESH\_MATERIAL\_V2}})\ ==\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_m_e_s_h___m_a_t_e_r_i_a_l}{DXUT::SDKMESH\_MATERIAL}}),\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00358\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___f_i_l_e___h_e_a_d_e_r}{DXUT::SDKANIMATION\_FILE\_HEADER}})\ ==\ 40,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00359\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___d_a_t_a}{DXUT::SDKANIMATION\_DATA}})\ ==\ 40,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+\DoxyCodeLine{00360\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_d_x_u_t_1_1_s_d_k_a_n_i_m_a_t_i_o_n___f_r_a_m_e___d_a_t_a}{DXUT::SDKANIMATION\_FRAME\_DATA}})\ ==\ 112,\ \textcolor{stringliteral}{"{}SDK\ Mesh\ structure\ size\ incorrect"{}});}
+
+\end{DoxyCode}

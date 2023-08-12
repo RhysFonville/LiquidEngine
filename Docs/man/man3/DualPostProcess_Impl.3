@@ -1,0 +1,79 @@
+.TH "DirectX::DualPostProcess::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DualPostProcess::Impl
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::AlignedNew< PostProcessConstants >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "void \fBProcess\fP (_In_ ID3D11DeviceContext *deviceContext, const std::function< void __cdecl()> &setCustomState)"
+.br
+.ti -1c
+.RI "void \fBSetDirtyFlag\fP () noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "PostProcessConstants \fBconstants\fP"
+.br
+.ti -1c
+.RI "DualPostProcess::Effect \fBfx\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBtexture\fP"
+.br
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBtexture2\fP"
+.br
+.ti -1c
+.RI "float \fBmergeWeight1\fP"
+.br
+.ti -1c
+.RI "float \fBmergeWeight2\fP"
+.br
+.ti -1c
+.RI "float \fBbloomIntensity\fP"
+.br
+.ti -1c
+.RI "float \fBbloomBaseIntensity\fP"
+.br
+.ti -1c
+.RI "float \fBbloomSaturation\fP"
+.br
+.ti -1c
+.RI "float \fBbloomBaseSaturation\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Static Public Member Functions inherited from \fBDirectX::AlignedNew< PostProcessConstants >\fP
+.in +1c
+.ti -1c
+.RI "static void * \fBoperator new\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete\fP (void *ptr)"
+.br
+.ti -1c
+.RI "static void * \fBoperator new[]\fP (size_t size)"
+.br
+.ti -1c
+.RI "static void \fBoperator delete[]\fP (void *ptr)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

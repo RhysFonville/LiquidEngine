@@ -1,0 +1,51 @@
+.TH "DirectX::GraphicsMemory" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GraphicsMemory
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsMemory\fP (_In_ ID3D11Device *device, unsigned int backBufferCount=2)"
+.br
+.ti -1c
+.RI "\fBGraphicsMemory\fP (\fBGraphicsMemory\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBGraphicsMemory\fP & \fBoperator=\fP (\fBGraphicsMemory\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBGraphicsMemory\fP (\fBGraphicsMemory\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBGraphicsMemory\fP & \fBoperator=\fP (\fBGraphicsMemory\fP const &)=delete"
+.br
+.ti -1c
+.RI "void *__cdecl \fBAllocate\fP (_In_opt_ ID3D11DeviceContext *context, size_t size, int alignment)"
+.br
+.ti -1c
+.RI "void __cdecl \fBCommit\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBGraphicsMemory\fP &__cdecl \fBGet\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

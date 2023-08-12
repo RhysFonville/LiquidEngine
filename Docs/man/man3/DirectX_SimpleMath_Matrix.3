@@ -1,0 +1,259 @@
+.TH "DirectX::SimpleMath::Matrix" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Matrix
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits XMFLOAT4X4\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBMatrix\fP (float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const \fBVector3\fP &r0, const \fBVector3\fP &r1, const \fBVector3\fP &r2) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const \fBVector4\fP &r0, const \fBVector4\fP &r1, const \fBVector4\fP &r2, const \fBVector4\fP &r3) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const XMFLOAT4X4 &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const XMFLOAT3X3 &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const XMFLOAT4X3 &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (_In_reads_(16) const float *pArray) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (CXMMATRIX M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (const \fBMatrix\fP &)=default"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator=\fP (const \fBMatrix\fP &)=default"
+.br
+.ti -1c
+.RI "\fBMatrix\fP (\fBMatrix\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator=\fP (\fBMatrix\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator XMMATRIX\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBMatrix\fP &M) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBMatrix\fP &M) const noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator=\fP (const XMFLOAT3X3 &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator=\fP (const XMFLOAT4X3 &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator+=\fP (const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator\-=\fP (const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator*=\fP (const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator*=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator/=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP & \fBoperator/=\fP (const \fBMatrix\fP &M) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP \fBoperator+\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP \fBoperator\-\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBUp\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBUp\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBDown\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBDown\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBRight\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBRight\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBLeft\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBLeft\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBForward\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBForward\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBBackward\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBBackward\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBTranslation\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBTranslation\fP (const \fBVector3\fP &v) noexcept"
+.br
+.ti -1c
+.RI "bool \fBDecompose\fP (\fBVector3\fP &scale, \fBQuaternion\fP &rotation, \fBVector3\fP &translation) noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP \fBTranspose\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBTranspose\fP (\fBMatrix\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "\fBMatrix\fP \fBInvert\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBInvert\fP (\fBMatrix\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "float \fBDeterminant\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBToEuler\fP () const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateBillboard\fP (const \fBVector3\fP &object, const \fBVector3\fP &cameraPosition, const \fBVector3\fP &cameraUp, _In_opt_ const \fBVector3\fP *cameraForward=nullptr) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateConstrainedBillboard\fP (const \fBVector3\fP &object, const \fBVector3\fP &cameraPosition, const \fBVector3\fP &rotateAxis, _In_opt_ const \fBVector3\fP *cameraForward=nullptr, _In_opt_ const \fBVector3\fP *objectForward=nullptr) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateTranslation\fP (const \fBVector3\fP &position) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateTranslation\fP (float x, float y, float z) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateScale\fP (const \fBVector3\fP &scales) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateScale\fP (float xs, float ys, float zs) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateScale\fP (float scale) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateRotationX\fP (float radians) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateRotationY\fP (float radians) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateRotationZ\fP (float radians) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateFromAxisAngle\fP (const \fBVector3\fP &axis, float angle) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreatePerspectiveFieldOfView\fP (float fov, float aspectRatio, float nearPlane, float farPlane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreatePerspective\fP (float width, float height, float nearPlane, float farPlane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreatePerspectiveOffCenter\fP (float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateOrthographic\fP (float width, float height, float zNearPlane, float zFarPlane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateOrthographicOffCenter\fP (float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateLookAt\fP (const \fBVector3\fP &position, const \fBVector3\fP &target, const \fBVector3\fP &up) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateWorld\fP (const \fBVector3\fP &position, const \fBVector3\fP &forward, const \fBVector3\fP &up) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateFromQuaternion\fP (const \fBQuaternion\fP &quat) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateFromYawPitchRoll\fP (float yaw, float pitch, float roll) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateFromYawPitchRoll\fP (const \fBVector3\fP &angles) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateShadow\fP (const \fBVector3\fP &lightDir, const \fBPlane\fP &plane) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBCreateReflection\fP (const \fBPlane\fP &plane) noexcept"
+.br
+.ti -1c
+.RI "static void \fBLerp\fP (const \fBMatrix\fP &M1, const \fBMatrix\fP &M2, float t, \fBMatrix\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBLerp\fP (const \fBMatrix\fP &M1, const \fBMatrix\fP &M2, float t) noexcept"
+.br
+.ti -1c
+.RI "static void \fBTransform\fP (const \fBMatrix\fP &M, const \fBQuaternion\fP &rotation, \fBMatrix\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBMatrix\fP \fBTransform\fP (const \fBMatrix\fP &M, const \fBQuaternion\fP &rotation) noexcept"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const \fBMatrix\fP \fBIdentity\fP"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const \fBMatrix\fP DirectX::SimpleMath::Matrix::Identity\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= { 1\&.f, 0\&.f, 0\&.f, 0\&.f,
+                                          0\&.f, 1\&.f, 0\&.f, 0\&.f,
+                                          0\&.f, 0\&.f, 1\&.f, 0\&.f,
+                                          0\&.f, 0\&.f, 0\&.f, 1\&.f }
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

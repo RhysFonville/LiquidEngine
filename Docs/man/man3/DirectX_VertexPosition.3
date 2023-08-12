@@ -1,0 +1,62 @@
+.TH "DirectX::VertexPosition" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::VertexPosition
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVertexPosition\fP (const \fBVertexPosition\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPosition\fP & \fBoperator=\fP (const \fBVertexPosition\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPosition\fP (\fBVertexPosition\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPosition\fP & \fBoperator=\fP (\fBVertexPosition\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPosition\fP (XMFLOAT3 const &iposition) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPosition\fP (FXMVECTOR iposition) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "XMFLOAT3 \fBposition\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr unsigned int \fBInputElementCount\fP = 1"
+.br
+.ti -1c
+.RI "static const D3D11_INPUT_ELEMENT_DESC \fBInputElements\fP [InputElementCount]"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const D3D11_INPUT_ELEMENT_DESC VertexPosition::InputElements\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+=
+{
+    { "SV_Position", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

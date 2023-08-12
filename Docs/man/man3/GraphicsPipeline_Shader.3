@@ -1,0 +1,44 @@
+.TH "GraphicsPipeline::Shader" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipeline::Shader
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBVertex\fP, \fBHull\fP, \fBDomain\fP, \fBGeometry\fP, \fBPixel\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShader\fP (Type type)"
+.br
+.ti -1c
+.RI "\fBShader\fP (Type type, const std::string &file_name)"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBShader\fP &shader)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "GET Type \fBget_type\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_type\fP (Type type) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBShader\fP &shader) const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

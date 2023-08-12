@@ -1,0 +1,49 @@
+\hypertarget{class_direct_x_1_1_l_d_r_color_a}{}\doxysection{DirectX\+::LDRColorA Class Reference}
+\label{class_direct_x_1_1_l_d_r_color_a}\index{DirectX::LDRColorA@{DirectX::LDRColorA}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_a6b6bbe2f93d13f5a5823331776982ea2}\label{class_direct_x_1_1_l_d_r_color_a_a6b6bbe2f93d13f5a5823331776982ea2}} 
+{\bfseries LDRColorA} (uint8\+\_\+t \+\_\+r, uint8\+\_\+t \+\_\+g, uint8\+\_\+t \+\_\+b, uint8\+\_\+t \+\_\+a) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_a41037feaf9e396e7d08446b6feeb98ba}\label{class_direct_x_1_1_l_d_r_color_a_a41037feaf9e396e7d08446b6feeb98ba}} 
+const uint8\+\_\+t \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (\+\_\+\+In\+\_\+range\+\_\+(0, 3) size\+\_\+t u\+Element) const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_aa3b40c8ad1cb44cbae92263725a6b4be}\label{class_direct_x_1_1_l_d_r_color_a_aa3b40c8ad1cb44cbae92263725a6b4be}} 
+uint8\+\_\+t \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (\+\_\+\+In\+\_\+range\+\_\+(0, 3) size\+\_\+t u\+Element) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_aecd87ba0f757cf6d1bfd29770eae752d}\label{class_direct_x_1_1_l_d_r_color_a_aecd87ba0f757cf6d1bfd29770eae752d}} 
+\mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} {\bfseries operator=} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_h_d_r_color_a}{HDRColorA}} \&c) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_ac740e9c768739ebdca929c674c71ef5b}\label{class_direct_x_1_1_l_d_r_color_a_ac740e9c768739ebdca929c674c71ef5b}} 
+static void {\bfseries Interpolate\+RGB} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c0, \+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c1, \+\_\+\+In\+\_\+ size\+\_\+t wc, \+\_\+\+In\+\_\+ \+\_\+\+In\+\_\+range\+\_\+(2, 4) size\+\_\+t wcprec, \+\_\+\+Out\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&out) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_a08ce4e39162c580208cf8f087c2f0578}\label{class_direct_x_1_1_l_d_r_color_a_a08ce4e39162c580208cf8f087c2f0578}} 
+static void {\bfseries InterpolateA} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c0, \+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c1, \+\_\+\+In\+\_\+ size\+\_\+t wa, \+\_\+\+In\+\_\+range\+\_\+(2, 4) \+\_\+\+In\+\_\+ size\+\_\+t waprec, \+\_\+\+Out\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&out) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_a8c880e9eb7f18d79411102b8c80eea89}\label{class_direct_x_1_1_l_d_r_color_a_a8c880e9eb7f18d79411102b8c80eea89}} 
+static void {\bfseries Interpolate} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c0, \+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&c1, \+\_\+\+In\+\_\+ size\+\_\+t wc, \+\_\+\+In\+\_\+ size\+\_\+t wa, \+\_\+\+In\+\_\+ \+\_\+\+In\+\_\+range\+\_\+(2, 4) size\+\_\+t wcprec, \+\_\+\+In\+\_\+ \+\_\+\+In\+\_\+range\+\_\+(2, 4) size\+\_\+t waprec, \+\_\+\+Out\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_l_d_r_color_a}{LDRColorA}} \&out) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_ac00dd922b52b7dc3fa13218a2e0f6e52}\label{class_direct_x_1_1_l_d_r_color_a_ac00dd922b52b7dc3fa13218a2e0f6e52}} 
+uint8\+\_\+t {\bfseries r}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_ad2b9cb4671d4d4a2ac8d5f770d20b614}\label{class_direct_x_1_1_l_d_r_color_a_ad2b9cb4671d4d4a2ac8d5f770d20b614}} 
+uint8\+\_\+t {\bfseries g}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_ac08bbb4ea3bcabe22b12e6a510a57e1f}\label{class_direct_x_1_1_l_d_r_color_a_ac08bbb4ea3bcabe22b12e6a510a57e1f}} 
+uint8\+\_\+t {\bfseries b}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_l_d_r_color_a_a58c4bc1baeeba6b0410c6314e5c8bc8d}\label{class_direct_x_1_1_l_d_r_color_a_a58c4bc1baeeba6b0410c6314e5c8bc8d}} 
+uint8\+\_\+t {\bfseries a}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+DXTexturing/\+Direct\+XTex/BC6\+HBC7.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,74 @@
+\hypertarget{class_direct_x_1_1_model_mesh}{}\doxysection{DirectX\+::Model\+Mesh Class Reference}
+\label{class_direct_x_1_1_model_mesh}\index{DirectX::ModelMesh@{DirectX::ModelMesh}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a6d77a80b296763589b0a75ad49136ab5}\label{class_direct_x_1_1_model_mesh_a6d77a80b296763589b0a75ad49136ab5}} 
+using {\bfseries Collection} = std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_acce10c3bfe32c545171fa0b9e1d14007}\label{class_direct_x_1_1_model_mesh_acce10c3bfe32c545171fa0b9e1d14007}} 
+{\bfseries Model\+Mesh} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a95ea71c9137958a13895239e4e45519f}\label{class_direct_x_1_1_model_mesh_a95ea71c9137958a13895239e4e45519f}} 
+\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a4a6b9a5a5d9ece1dacf8bce861fdfb23}\label{class_direct_x_1_1_model_mesh_a4a6b9a5a5d9ece1dacf8bce861fdfb23}} 
+{\bfseries Model\+Mesh} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} const \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a3881c7c6512c008fceab69bb351953da}\label{class_direct_x_1_1_model_mesh_a3881c7c6512c008fceab69bb351953da}} 
+\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{Model\+Mesh}} const \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_aecb1065c3724865f9257538ed06a36ea}\label{class_direct_x_1_1_model_mesh_aecb1065c3724865f9257538ed06a36ea}} 
+void \+\_\+\+\_\+cdecl {\bfseries Prepare\+For\+Rendering} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const \mbox{\hyperlink{class_direct_x_1_1_common_states}{Common\+States}} \&states, bool alpha=false, bool wireframe=false) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_af12a5e7f5bea72838ec93e2e8d7758d6}\label{class_direct_x_1_1_model_mesh_af12a5e7f5bea72838ec93e2e8d7758d6}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a47acf856d17cd0a104519d938b6c00e9}\label{class_direct_x_1_1_model_mesh_a47acf856d17cd0a104519d938b6c00e9}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$bone\+Transforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_ab545fb41e0a066d2fdc0b8c01b85f462}\label{class_direct_x_1_1_model_mesh_ab545fb41e0a066d2fdc0b8c01b85f462}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+Skinned} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$bone\+Transforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_afa748e4cd086705ee69f3071c4eaaf44}\label{class_direct_x_1_1_model_mesh_afa748e4cd086705ee69f3071c4eaaf44}} 
+static void {\bfseries Set\+Depth\+Buffer\+Mode} (bool reverseZ)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_ad4efe3c0c5827793fd3003d5dc4cb857}\label{class_direct_x_1_1_model_mesh_ad4efe3c0c5827793fd3003d5dc4cb857}} 
+Bounding\+Sphere {\bfseries bounding\+Sphere}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a6834797d607e1944151717a0d837ec36}\label{class_direct_x_1_1_model_mesh_a6834797d607e1944151717a0d837ec36}} 
+Bounding\+Box {\bfseries bounding\+Box}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_adf2cd4a2fb625a0f9bd27329ae822a2a}\label{class_direct_x_1_1_model_mesh_adf2cd4a2fb625a0f9bd27329ae822a2a}} 
+Model\+Mesh\+Part\+::\+Collection {\bfseries mesh\+Parts}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a6d23db4c45a3cac0cf5db86361b6e67f}\label{class_direct_x_1_1_model_mesh_a6d23db4c45a3cac0cf5db86361b6e67f}} 
+uint32\+\_\+t {\bfseries bone\+Index}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a8b2764feef696343f9bd1ed43ddab478}\label{class_direct_x_1_1_model_mesh_a8b2764feef696343f9bd1ed43ddab478}} 
+std\+::vector$<$ uint32\+\_\+t $>$ {\bfseries bone\+Influences}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a95cab6923716beef798e13d97ea58021}\label{class_direct_x_1_1_model_mesh_a95cab6923716beef798e13d97ea58021}} 
+std\+::wstring {\bfseries name}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a132c3ffe249f56dbad253a3f0cb11c6b}\label{class_direct_x_1_1_model_mesh_a132c3ffe249f56dbad253a3f0cb11c6b}} 
+bool {\bfseries ccw}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_a8af000fa5fa37132eed6e0519d471c19}\label{class_direct_x_1_1_model_mesh_a8af000fa5fa37132eed6e0519d471c19}} 
+bool {\bfseries pmalpha}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Model.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Model.\+cpp\end{DoxyCompactItemize}

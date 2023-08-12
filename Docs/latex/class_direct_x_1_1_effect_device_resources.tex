@@ -1,0 +1,44 @@
+\hypertarget{class_direct_x_1_1_effect_device_resources}{}\doxysection{DirectX\+::Effect\+Device\+Resources Class Reference}
+\label{class_direct_x_1_1_effect_device_resources}\index{DirectX::EffectDeviceResources@{DirectX::EffectDeviceResources}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a4c28e2fdcc4a1dda111cdbd8161f267c}\label{class_direct_x_1_1_effect_device_resources_a4c28e2fdcc4a1dda111cdbd8161f267c}} 
+{\bfseries Effect\+Device\+Resources} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_aca5ded6c44bca4fc9c4784c8766182a9}\label{class_direct_x_1_1_effect_device_resources_aca5ded6c44bca4fc9c4784c8766182a9}} 
+ID3\+D11\+Vertex\+Shader $\ast$ {\bfseries Demand\+Create\+Vertex\+Shader} (\+\_\+\+Inout\+\_\+ Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Vertex\+Shader $>$ \&vertex\+Shader, \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{Shader\+Bytecode}} const \&bytecode)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_af93caab68530ef8c964e7d46ed9cd687}\label{class_direct_x_1_1_effect_device_resources_af93caab68530ef8c964e7d46ed9cd687}} 
+ID3\+D11\+Pixel\+Shader $\ast$ {\bfseries Demand\+Create\+Pixel\+Shader} (\+\_\+\+Inout\+\_\+ Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Pixel\+Shader $>$ \&pixel\+Shader, \mbox{\hyperlink{struct_direct_x_1_1_shader_bytecode}{Shader\+Bytecode}} const \&bytecode)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a183a9e3bf9d3e8ae36777e697ff57853}\label{class_direct_x_1_1_effect_device_resources_a183a9e3bf9d3e8ae36777e697ff57853}} 
+ID3\+D11\+Shader\+Resource\+View $\ast$ {\bfseries Get\+Default\+Texture} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a9f1a9d747d7f7663b7dddec818273f26}\label{class_direct_x_1_1_effect_device_resources_a9f1a9d747d7f7663b7dddec818273f26}} 
+ID3\+D11\+Shader\+Resource\+View $\ast$ {\bfseries Get\+Default\+Normal\+Texture} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_acdad338474610006d802344a9295eb53}\label{class_direct_x_1_1_effect_device_resources_acdad338474610006d802344a9295eb53}} 
+D3\+D\+\_\+\+FEATURE\+\_\+\+LEVEL {\bfseries Get\+Device\+Feature\+Level} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a6ef32c5765af77b04c56f33b1c43bac8}\label{class_direct_x_1_1_effect_device_resources_a6ef32c5765af77b04c56f33b1c43bac8}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Device $>$ {\bfseries m\+Device}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_aeef591ed1ff73813d54f8d1d8fe395f7}\label{class_direct_x_1_1_effect_device_resources_aeef591ed1ff73813d54f8d1d8fe395f7}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ {\bfseries m\+Default\+Texture}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a0781e90651bf8c69536e0fe398f0c07d}\label{class_direct_x_1_1_effect_device_resources_a0781e90651bf8c69536e0fe398f0c07d}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ {\bfseries m\+Default\+Normal\+Texture}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_effect_device_resources_a18bbbc8a195ccb4221800350f4435d49}\label{class_direct_x_1_1_effect_device_resources_a18bbbc8a195ccb4221800350f4435d49}} 
+std\+::mutex {\bfseries m\+Mutex}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Effect\+Common.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Effect\+Common.\+cpp\end{DoxyCompactItemize}

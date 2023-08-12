@@ -1,0 +1,89 @@
+\hypertarget{class_direct_x_1_1_model}{}\doxysection{DirectX\+::Model Class Reference}
+\label{class_direct_x_1_1_model}\index{DirectX::Model@{DirectX::Model}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a1335ada199c2dc344aadc3f2b55730ac}\label{class_direct_x_1_1_model_a1335ada199c2dc344aadc3f2b55730ac}} 
+{\bfseries Model} (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_af9a9c01c43527f71b6f217f456027697}\label{class_direct_x_1_1_model_af9a9c01c43527f71b6f217f456027697}} 
+\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_ad8be7fbcff8045bc546fb57dca2cc858}\label{class_direct_x_1_1_model_ad8be7fbcff8045bc546fb57dca2cc858}} 
+{\bfseries Model} (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} const \&other)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a002b25b1a4724e1d67c7f93d2db721e4}\label{class_direct_x_1_1_model_a002b25b1a4724e1d67c7f93d2db721e4}} 
+\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}} const \&rhs)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_aea277814d72ab11a60fcaf9e3241f368}\label{class_direct_x_1_1_model_aea277814d72ab11a60fcaf9e3241f368}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const \mbox{\hyperlink{class_direct_x_1_1_common_states}{Common\+States}} \&states, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_aa21a83e6327d0b01bbdb91301fcbd2d5}\label{class_direct_x_1_1_model_aa21a83e6327d0b01bbdb91301fcbd2d5}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const \mbox{\hyperlink{class_direct_x_1_1_common_states}{Common\+States}} \&states, size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$bone\+Transforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a248abdd7326c551fa46b133f0ee6c245}\label{class_direct_x_1_1_model_a248abdd7326c551fa46b133f0ee6c245}} 
+void XM\+\_\+\+CALLCONV {\bfseries Draw\+Skinned} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, const \mbox{\hyperlink{class_direct_x_1_1_common_states}{Common\+States}} \&states, size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$bone\+Transforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool wireframe=false, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a647ac633204e1424fa42fca6ed46e74a}\label{class_direct_x_1_1_model_a647ac633204e1424fa42fca6ed46e74a}} 
+void \+\_\+\+\_\+cdecl {\bfseries Copy\+Absolute\+Bone\+Transforms\+To} (size\+\_\+t nbones, \+\_\+\+Out\+\_\+writes\+\_\+(nbones) XMMATRIX $\ast$bone\+Transforms) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_aa1744d751c380ee813dc207172b7978c}\label{class_direct_x_1_1_model_aa1744d751c380ee813dc207172b7978c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Copy\+Absolute\+Bone\+Transforms} (size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$in\+Bone\+Transforms, \+\_\+\+Out\+\_\+writes\+\_\+(nbones) XMMATRIX $\ast$out\+Bone\+Transforms) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_ad79d31944f8404f0c093b58e6d30a13d}\label{class_direct_x_1_1_model_ad79d31944f8404f0c093b58e6d30a13d}} 
+void \+\_\+\+\_\+cdecl {\bfseries Copy\+Bone\+Transforms\+From} (size\+\_\+t nbones, \+\_\+\+In\+\_\+reads\+\_\+(nbones) const XMMATRIX $\ast$bone\+Transforms)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a60fcf002017a1159ebd297d59526640c}\label{class_direct_x_1_1_model_a60fcf002017a1159ebd297d59526640c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Copy\+Bone\+Transforms\+To} (size\+\_\+t nbones, \+\_\+\+Out\+\_\+writes\+\_\+(nbones) XMMATRIX $\ast$bone\+Transforms) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a588e1031a442e8785e9591d6f39fe391}\label{class_direct_x_1_1_model_a588e1031a442e8785e9591d6f39fe391}} 
+void \+\_\+\+\_\+cdecl {\bfseries Modified} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a17d3091f89b9ef63268ab0a55732395b}\label{class_direct_x_1_1_model_a17d3091f89b9ef63268ab0a55732395b}} 
+void \+\_\+\+\_\+cdecl {\bfseries Update\+Effects} (\+\_\+\+In\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl(\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$)$>$ set\+Effect)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_acb12c0c181ec35fae9bd188f84fc09c5}\label{class_direct_x_1_1_model_acb12c0c181ec35fae9bd188f84fc09c5}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+CMO} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(data\+Size) const uint8\+\_\+t $\ast$mesh\+Data, size\+\_\+t data\+Size, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffect\+Factory}} \&fx\+Factory, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Counter\+Clockwise, \+\_\+\+Out\+\_\+opt\+\_\+ size\+\_\+t $\ast$anims\+Offset=nullptr)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_ae257b14d2ff64320866868fc154bb3ee}\label{class_direct_x_1_1_model_ae257b14d2ff64320866868fc154bb3ee}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+CMO} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$sz\+File\+Name, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffect\+Factory}} \&fx\+Factory, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Counter\+Clockwise, \+\_\+\+Out\+\_\+opt\+\_\+ size\+\_\+t $\ast$anims\+Offset=nullptr)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a27f5d451d2b0e26c371ae15062c146cb}\label{class_direct_x_1_1_model_a27f5d451d2b0e26c371ae15062c146cb}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+SDKMESH} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(data\+Size) const uint8\+\_\+t $\ast$mesh\+Data, \+\_\+\+In\+\_\+ size\+\_\+t data\+Size, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffect\+Factory}} \&fx\+Factory, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Clockwise)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a5662749ba25b038c4f3296deb7b00800}\label{class_direct_x_1_1_model_a5662749ba25b038c4f3296deb7b00800}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+SDKMESH} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$sz\+File\+Name, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffect\+Factory}} \&fx\+Factory, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Clockwise)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a755ef7c291e4223edf60064bac293baf}\label{class_direct_x_1_1_model_a755ef7c291e4223edf60064bac293baf}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+VBO} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+reads\+\_\+bytes\+\_\+(data\+Size) const uint8\+\_\+t $\ast$mesh\+Data, \+\_\+\+In\+\_\+ size\+\_\+t data\+Size, \+\_\+\+In\+\_\+opt\+\_\+ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ ieffect=nullptr, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Clockwise)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_ae8a23dcb03d397adfdb6a4febbf15735}\label{class_direct_x_1_1_model_ae8a23dcb03d397adfdb6a4febbf15735}} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}} $>$ \+\_\+\+\_\+cdecl {\bfseries Create\+From\+VBO} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$sz\+File\+Name, \+\_\+\+In\+\_\+opt\+\_\+ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ ieffect=nullptr, Model\+Loader\+Flags flags=Model\+Loader\+\_\+\+Clockwise)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_ae07059358b4a22c11a6efc1a2dbffe9a}\label{class_direct_x_1_1_model_ae07059358b4a22c11a6efc1a2dbffe9a}} 
+Model\+Mesh\+::\+Collection {\bfseries meshes}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a20eb11b93b5fa3c1e19e6f8180970023}\label{class_direct_x_1_1_model_a20eb11b93b5fa3c1e19e6f8180970023}} 
+Model\+Bone\+::\+Collection {\bfseries bones}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_a45895cab36d82612f9c83625ccce936f}\label{class_direct_x_1_1_model_a45895cab36d82612f9c83625ccce936f}} 
+Model\+Bone\+::\+Transform\+Array {\bfseries bone\+Matrices}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_abcb872a7b61de5778e69c45a0f94114a}\label{class_direct_x_1_1_model_abcb872a7b61de5778e69c45a0f94114a}} 
+Model\+Bone\+::\+Transform\+Array {\bfseries inv\+Bind\+Pose\+Matrices}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_adbeac60ecb896aeb58543ce5dcf27c9c}\label{class_direct_x_1_1_model_adbeac60ecb896aeb58543ce5dcf27c9c}} 
+std\+::wstring {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Model.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Model.\+cpp\end{DoxyCompactItemize}

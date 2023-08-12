@@ -1,0 +1,59 @@
+.TH "DirectX::SimpleMath::Ray" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Ray
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRay\fP (const \fBVector3\fP &pos, const \fBVector3\fP &dir) noexcept"
+.br
+.ti -1c
+.RI "\fBRay\fP (const \fBRay\fP &)=default"
+.br
+.ti -1c
+.RI "\fBRay\fP & \fBoperator=\fP (const \fBRay\fP &)=default"
+.br
+.ti -1c
+.RI "\fBRay\fP (\fBRay\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBRay\fP & \fBoperator=\fP (\fBRay\fP &&)=default"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRay\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBRay\fP &r) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const BoundingSphere &sphere, _Out_ float &Dist) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const BoundingBox &box, _Out_ float &Dist) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const \fBVector3\fP &tri0, const \fBVector3\fP &tri1, const \fBVector3\fP &tri2, _Out_ float &Dist) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBIntersects\fP (const \fBPlane\fP &plane, _Out_ float &Dist) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBVector3\fP \fBposition\fP"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBdirection\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

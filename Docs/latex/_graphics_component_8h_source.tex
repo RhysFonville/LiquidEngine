@@ -1,0 +1,23 @@
+\hypertarget{_graphics_component_8h_source}{}\doxysection{Graphics\+Component.\+h}
+\label{_graphics_component_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/GraphicsComponent.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/GraphicsComponent.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Component.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}(Type\ type);}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_graphics\_component(\textcolor{keyword}{const}\ T\ \&component)\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((component.get\_type()\ ==\ Component::Type::CameraComponent)\ ||}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::DirectionalLightComponent)\ ||}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::PointLightComponent)\ ||}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SpotlightComponent)\ ||}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::StaticMeshComponent));}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \};}
+
+\end{DoxyCode}

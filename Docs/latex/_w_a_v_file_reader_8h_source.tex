@@ -1,0 +1,64 @@
+\hypertarget{_w_a_v_file_reader_8h_source}{}\doxysection{WAVFile\+Reader.\+h}
+\label{_w_a_v_file_reader_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/WAVFileReader.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/WAVFileReader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ WAVFileReader.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Functions\ for\ loading\ WAV\ audio\ files}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <objbase.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <mmreg.h>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ HRESULT\ LoadWAVAudioInMemory(}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wavDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wavData,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wavDataSize,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keyword}{const}\ WAVEFORMATEX**\ wfx,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keyword}{const}\ uint8\_t**\ startAudio,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \_Out\_\ uint32\_t*\ audioBytes)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ HRESULT\ LoadWAVAudioFromFile(}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \_Inout\_\ std::unique\_ptr<uint8\_t[]>\&\ wavData,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keyword}{const}\ WAVEFORMATEX**\ wfx,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \_Outptr\_\ \textcolor{keyword}{const}\ uint8\_t**\ startAudio,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \_Out\_\ uint32\_t*\ audioBytes)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_w_a_v_data}{WAVData}}}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t*\ startAudio;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ uint32\_t\ audioBytes;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ uint32\_t\ loopStart;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ uint32\_t\ loopLength;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t*\ seek;\ \ \ \ \ \ \ \textcolor{comment}{//\ Note:\ XMA\ Seek\ data\ is\ Big-\/Endian}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ uint32\_t\ seekCount;}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ HRESULT\ LoadWAVAudioInMemoryEx(}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wavDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wavData,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wavDataSize,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{struct_direct_x_1_1_w_a_v_data}{WAVData}}\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ HRESULT\ LoadWAVAudioFromFileEx(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \_Inout\_\ std::unique\_ptr<uint8\_t[]>\&\ wavData,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \_Out\_\ \mbox{\hyperlink{struct_direct_x_1_1_w_a_v_data}{WAVData}}\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ \}}
+
+\end{DoxyCode}

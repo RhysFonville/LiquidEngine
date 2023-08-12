@@ -1,0 +1,112 @@
+.TH "FVector4" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FVector4
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBTVector4< float >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBFVector4\fP (const \fBFVector4\fP &vector)"
+.br
+.ti -1c
+.RI "constexpr \fBFVector4\fP (float x, float y, float z, float w)"
+.br
+.ti -1c
+.RI "\fBoperator TVector4< float >\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator XMFLOAT4\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector4\fP \fBoperator/\fP (float f) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector4\fP \fBpow\fP (float p) noexcept"
+.br
+.ti -1c
+.RI "float \fBmatrix_multiplication\fP (const \fBFVector4\fP &vector) const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBTVector4< float >\fP
+.in +1c
+.ti -1c
+.RI "constexpr \fBTVector4\fP (T x, T y, T z, T w)"
+.br
+.ti -1c
+.RI "constexpr \fBTVector4\fP (\fBTVector3\fP< T > vector, T w)"
+.br
+.ti -1c
+.RI "bool \fBis_zero\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator+\fP (\fBTVector4\fP< T > vector)"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator\-\fP (const \fBTVector4\fP< T > &vector) noexcept"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator*\fP (const \fBTVector4\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator*\fP (T n) const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator/\fP (const \fBTVector4\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector4\fP< T > \fBoperator/\fP (T n) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator+=\fP (const \fBTVector4\fP< T > &vector) noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator\-=\fP (const \fBTVector4\fP< T > &vector) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBTVector4\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBTVector4\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBTVector4\fP< T > &vector) noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const XMVECTOR &vector) noexcept"
+.br
+.ti -1c
+.RI "T & \fBoperator[]\fP (UCHAR index)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Attributes inherited from \fBTVector4< float >\fP
+.in +1c
+.ti -1c
+.RI "T \fBx\fP"
+.br
+.ti -1c
+.RI "T \fBy\fP"
+.br
+.ti -1c
+.RI "T \fBz\fP"
+.br
+.ti -1c
+.RI "T \fBw\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

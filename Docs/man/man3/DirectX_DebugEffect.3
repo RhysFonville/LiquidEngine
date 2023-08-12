@@ -1,0 +1,169 @@
+.TH "DirectX::DebugEffect" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::DebugEffect
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::IEffect\fP, and \fBDirectX::IEffectMatrices\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBMode\fP { \fBMode_Default\fP = 0, \fBMode_Normals\fP, \fBMode_Tangents\fP, \fBMode_BiTangents\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDebugEffect\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBDebugEffect\fP (\fBDebugEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDebugEffect\fP & \fBoperator=\fP (\fBDebugEffect\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBDebugEffect\fP (\fBDebugEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBDebugEffect\fP & \fBoperator=\fP (\fBDebugEffect\fP const &)=delete"
+.br
+.ti -1c
+.RI "void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetView\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value) override"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetMode\fP (Mode debugMode)"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetHemisphericalAmbientColor\fP (FXMVECTOR upper, FXMVECTOR lower)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetAlpha\fP (float value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetVertexColorEnabled\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBiasedVertexNormals\fP (bool value)"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetInstancingEnabled\fP (bool value)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (const \fBIEffect\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBApply\fP (_In_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBGetVertexShaderBytecode\fP (_Out_ void const **pShaderByteCode, _Out_ size_t *pByteCodeLength)=0"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (const \fBIEffectMatrices\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetWorld\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetView\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetProjection\fP (FXMMATRIX value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetMatrices\fP (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Member Functions inherited from \fBDirectX::IEffect\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffect\fP (\fBIEffect\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffect\fP & \fBoperator=\fP (\fBIEffect\fP &&)=default"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBDirectX::IEffectMatrices\fP
+.in +1c
+.ti -1c
+.RI "\fBIEffectMatrices\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectMatrices\fP & \fBoperator=\fP (\fBIEffectMatrices\fP &&)=default"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void DebugEffect::Apply (_In_ ID3D11DeviceContext * deviceContext)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void DebugEffect::GetVertexShaderBytecode (_Out_ void const ** pShaderByteCode, _Out_ size_t * pByteCodeLength)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffect\fP\&.
+.SS "void XM_CALLCONV DebugEffect::SetMatrices (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DebugEffect::SetProjection (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DebugEffect::SetView (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+.SS "void XM_CALLCONV DebugEffect::SetWorld (FXMMATRIX value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDirectX::IEffectMatrices\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

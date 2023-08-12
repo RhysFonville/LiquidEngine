@@ -1,0 +1,70 @@
+.TH "DirectX::VertexPositionDualTexture" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::VertexPositionDualTexture
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP (const \fBVertexPositionDualTexture\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP & \fBoperator=\fP (const \fBVertexPositionDualTexture\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP (\fBVertexPositionDualTexture\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP & \fBoperator=\fP (\fBVertexPositionDualTexture\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP (XMFLOAT3 const &iposition, XMFLOAT2 const &itextureCoordinate0, XMFLOAT2 const &itextureCoordinate1) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionDualTexture\fP (FXMVECTOR iposition, FXMVECTOR itextureCoordinate0, FXMVECTOR itextureCoordinate1) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "XMFLOAT3 \fBposition\fP"
+.br
+.ti -1c
+.RI "XMFLOAT2 \fBtextureCoordinate0\fP"
+.br
+.ti -1c
+.RI "XMFLOAT2 \fBtextureCoordinate1\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr unsigned int \fBInputElementCount\fP = 3"
+.br
+.ti -1c
+.RI "static const D3D11_INPUT_ELEMENT_DESC \fBInputElements\fP [InputElementCount]"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const D3D11_INPUT_ELEMENT_DESC VertexPositionDualTexture::InputElements\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+=
+{
+    { "SV_Position", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,       0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "TEXCOORD",    1, DXGI_FORMAT_R32G32_FLOAT,       0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

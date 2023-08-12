@@ -1,0 +1,510 @@
+\hypertarget{_keyboard_8h_source}{}\doxysection{Keyboard.\+h}
+\label{_keyboard_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Keyboard.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Keyboard.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Keyboard.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ (defined(WINAPI\_FAMILY)\ \&\&\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_APP))\ ||\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ USING\_COREWINDOW}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }ABI\ \{\ \textcolor{keyword}{namespace\ }Windows\ \{\ \textcolor{keyword}{namespace\ }UI\ \{\ \textcolor{keyword}{namespace\ }Core\ \{\ \textcolor{keyword}{struct\ }ICoreWindow;\ \}\ \}\ \}\ \}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunknown-\/pragmas"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}(\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}(\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_keyboard}{Keyboard}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_keyboard}{\string~Keyboard}}();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Keys\ :\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ None\ =\ 0,}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ Back\ =\ 0x8,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ Tab\ =\ 0x9,}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ Enter\ =\ 0xd,}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ Pause\ =\ 0x13,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ CapsLock\ =\ 0x14,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ Kana\ =\ 0x15,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ ImeOn\ =\ 0x16,}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ Kanji\ =\ 0x19,}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ ImeOff\ =\ 0x1a,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ Escape\ =\ 0x1b,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ ImeConvert\ =\ 0x1c,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ ImeNoConvert\ =\ 0x1d,}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ Space\ =\ 0x20,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ PageUp\ =\ 0x21,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ PageDown\ =\ 0x22,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ End\ =\ 0x23,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ Home\ =\ 0x24,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ Left\ =\ 0x25,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ Up\ =\ 0x26,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ Right\ =\ 0x27,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ Down\ =\ 0x28,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ Select\ =\ 0x29,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ Print\ =\ 0x2a,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ Execute\ =\ 0x2b,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ PrintScreen\ =\ 0x2c,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ Insert\ =\ 0x2d,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ Delete\ =\ 0x2e,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ Help\ =\ 0x2f,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ D0\ =\ 0x30,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ D1\ =\ 0x31,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ D2\ =\ 0x32,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ D3\ =\ 0x33,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ D4\ =\ 0x34,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ D5\ =\ 0x35,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ D6\ =\ 0x36,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ D7\ =\ 0x37,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ D8\ =\ 0x38,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ D9\ =\ 0x39,}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ A\ =\ 0x41,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ B\ =\ 0x42,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ C\ =\ 0x43,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ D\ =\ 0x44,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ E\ =\ 0x45,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ F\ =\ 0x46,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ G\ =\ 0x47,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ H\ =\ 0x48,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ I\ =\ 0x49,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ J\ =\ 0x4a,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ K\ =\ 0x4b,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ L\ =\ 0x4c,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ M\ =\ 0x4d,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ N\ =\ 0x4e,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ O\ =\ 0x4f,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ P\ =\ 0x50,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ Q\ =\ 0x51,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ R\ =\ 0x52,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ S\ =\ 0x53,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ T\ =\ 0x54,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ U\ =\ 0x55,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ V\ =\ 0x56,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ W\ =\ 0x57,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ X\ =\ 0x58,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ Y\ =\ 0x59,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ Z\ =\ 0x5a,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ LeftWindows\ =\ 0x5b,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ RightWindows\ =\ 0x5c,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ Apps\ =\ 0x5d,}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ Sleep\ =\ 0x5f,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad0\ =\ 0x60,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad1\ =\ 0x61,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad2\ =\ 0x62,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad3\ =\ 0x63,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad4\ =\ 0x64,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad5\ =\ 0x65,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad6\ =\ 0x66,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad7\ =\ 0x67,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad8\ =\ 0x68,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ NumPad9\ =\ 0x69,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ Multiply\ =\ 0x6a,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ Add\ =\ 0x6b,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ Separator\ =\ 0x6c,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ Subtract\ =\ 0x6d,}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ Decimal\ =\ 0x6e,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ Divide\ =\ 0x6f,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ F1\ =\ 0x70,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ F2\ =\ 0x71,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ F3\ =\ 0x72,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ F4\ =\ 0x73,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ F5\ =\ 0x74,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ F6\ =\ 0x75,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ F7\ =\ 0x76,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ F8\ =\ 0x77,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ F9\ =\ 0x78,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ F10\ =\ 0x79,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ F11\ =\ 0x7a,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ F12\ =\ 0x7b,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ F13\ =\ 0x7c,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ F14\ =\ 0x7d,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ F15\ =\ 0x7e,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ F16\ =\ 0x7f,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ F17\ =\ 0x80,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ F18\ =\ 0x81,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ F19\ =\ 0x82,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ F20\ =\ 0x83,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ F21\ =\ 0x84,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ F22\ =\ 0x85,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ F23\ =\ 0x86,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ F24\ =\ 0x87,}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ NumLock\ =\ 0x90,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ Scroll\ =\ 0x91,}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ LeftShift\ =\ 0xa0,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ RightShift\ =\ 0xa1,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ LeftControl\ =\ 0xa2,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ RightControl\ =\ 0xa3,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ LeftAlt\ =\ 0xa4,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ RightAlt\ =\ 0xa5,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserBack\ =\ 0xa6,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserForward\ =\ 0xa7,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserRefresh\ =\ 0xa8,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserStop\ =\ 0xa9,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserSearch\ =\ 0xaa,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserFavorites\ =\ 0xab,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ BrowserHome\ =\ 0xac,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ VolumeMute\ =\ 0xad,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ VolumeDown\ =\ 0xae,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ VolumeUp\ =\ 0xaf,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ MediaNextTrack\ =\ 0xb0,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ MediaPreviousTrack\ =\ 0xb1,}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ MediaStop\ =\ 0xb2,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ MediaPlayPause\ =\ 0xb3,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ LaunchMail\ =\ 0xb4,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ SelectMedia\ =\ 0xb5,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ LaunchApplication1\ =\ 0xb6,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ LaunchApplication2\ =\ 0xb7,}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ OemSemicolon\ =\ 0xba,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ OemPlus\ =\ 0xbb,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ OemComma\ =\ 0xbc,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ OemMinus\ =\ 0xbd,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ OemPeriod\ =\ 0xbe,}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ OemQuestion\ =\ 0xbf,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ OemTilde\ =\ 0xc0,}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ OemOpenBrackets\ =\ 0xdb,}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ OemPipe\ =\ 0xdc,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ OemCloseBrackets\ =\ 0xdd,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ OemQuotes\ =\ 0xde,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ Oem8\ =\ 0xdf,}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ OemBackslash\ =\ 0xe2,}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ ProcessKey\ =\ 0xe5,}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ OemCopy\ =\ 0xf2,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ OemAuto\ =\ 0xf3,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ OemEnlW\ =\ 0xf4,}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ Attn\ =\ 0xf6,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ Crsel\ =\ 0xf7,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ Exsel\ =\ 0xf8,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ EraseEof\ =\ 0xf9,}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ Play\ =\ 0xfa,}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ Zoom\ =\ 0xfb,}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ Pa1\ =\ 0xfd,}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ OemClear\ =\ 0xfe,}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved0\ :\ 8;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Back\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_BACK,\ 0x8}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Tab\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_TAB,\ 0x9}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved1\ :\ 3;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Enter\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_RETURN,\ 0xD}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved2\ :\ 2;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved3\ :\ 3;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Pause\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PAUSE,\ 0x13}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ CapsLock\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_CAPITAL,\ 0x14}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Kana\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_KANA,\ 0x15}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ImeOn\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_IME\_ON,\ 0x16}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved4\ :\ 1;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved5\ :\ 1;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Kanji\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_KANJI,\ 0x19}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ImeOff\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_IME\_OFF,\ 0X1A}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Escape\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_ESCAPE,\ 0x1B}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ImeConvert\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_CONVERT,\ 0x1C}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ImeNoConvert\ :\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ VK\_NONCONVERT,\ 0x1D}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved7\ :\ 2;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Space\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SPACE,\ 0x20}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ PageUp\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PRIOR,\ 0x21}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ PageDown\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NEXT,\ 0x22}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ End\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_END,\ 0x23}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Home\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_HOME,\ 0x24}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Left\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LEFT,\ 0x25}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Up\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_UP,\ 0x26}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Right\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_RIGHT,\ 0x27}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Down\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_DOWN,\ 0x28}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Select\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SELECT,\ 0x29}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Print\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PRINT,\ 0x2A}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Execute\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_EXECUTE,\ 0x2B}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ PrintScreen\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SNAPSHOT,\ 0x2C}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Insert\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_INSERT,\ 0x2D}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Delete\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_DELETE,\ 0x2E}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Help\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_HELP,\ 0x2F}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D0\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x30}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D1\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x31}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D2\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x32}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D3\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x33}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D4\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x34}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D5\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x35}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D6\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x36}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D7\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x37}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D8\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x38}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D9\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x39}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved8\ :\ 6;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved9\ :\ 1;}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ A\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x41}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ B\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x42}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ C\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x43}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ D\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x44}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ E\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x45}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x46}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ G\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x47}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ H\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x48}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ I\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x49}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ J\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4A}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ K\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4B}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ L\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4C}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ M\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4D}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ N\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4E}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ O\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x4F}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ P\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x50}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Q\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x51}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ R\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x52}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ S\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x53}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ T\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x54}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ U\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x55}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ V\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x56}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ W\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x57}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ X\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x58}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Y\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x59}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Z\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x5A}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LeftWindows\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LWIN,\ 0x5B}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ RightWindows\ :\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ VK\_RWIN,\ 0x5C}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Apps\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_APPS,\ 0x5D}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved10\ :\ 1;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Sleep\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SLEEP,\ 0x5F}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad0\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD0,\ 0x60}}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad1\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD1,\ 0x61}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad2\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD2,\ 0x62}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad3\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD3,\ 0x63}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad4\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD4,\ 0x64}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad5\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD5,\ 0x65}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad6\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD6,\ 0x66}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad7\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD7,\ 0x67}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad8\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD8,\ 0x68}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumPad9\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMPAD9,\ 0x69}}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Multiply\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_MULTIPLY,\ 0x6A}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Add\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_ADD,\ 0x6B}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Separator\ :\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SEPARATOR,\ 0x6C}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Subtract\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SUBTRACT,\ 0x6D}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Decimal\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_DECIMANL,\ 0x6E}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Divide\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_DIVIDE,\ 0x6F}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F1\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F1,\ 0x70}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F2\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F2,\ 0x71}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F3\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F3,\ 0x72}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F4\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F4,\ 0x73}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F5\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F5,\ 0x74}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F6\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F6,\ 0x75}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F7\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F7,\ 0x76}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F8\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F8,\ 0x77}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F9\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F9,\ 0x78}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F10\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F10,\ 0x79}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F11\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F11,\ 0x7A}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F12\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F12,\ 0x7B}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F13\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F13,\ 0x7C}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F14\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F14,\ 0x7D}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F15\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F15,\ 0x7E}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F16\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F16,\ 0x7F}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F17\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F17,\ 0x80}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F18\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F18,\ 0x81}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F19\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F19,\ 0x82}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F20\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F20,\ 0x83}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F21\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F21,\ 0x84}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F22\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F22,\ 0x85}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F23\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F23,\ 0x86}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ F24\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_F24,\ 0x87}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved11\ :\ 8;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NumLock\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_NUMLOCK,\ 0x90}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Scroll\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_SCROLL,\ 0x91}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved12\ :\ 6;}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved13\ :\ 8;}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LeftShift\ :\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LSHIFT,\ 0xA0}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ RightShift\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_RSHIFT,\ 0xA1}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LeftControl\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LCONTROL,\ 0xA2}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ RightControl\ :\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ VK\_RCONTROL,\ 0xA3}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LeftAlt\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LMENU,\ 0xA4}}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ RightAlt\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_RMENU,\ 0xA5}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserBack\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_BACK,\ 0xA6}}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserForward\ :\ 1;\ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_FORWARD,\ 0xA7}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserRefresh\ :\ 1;\ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_REFRESH,\ 0xA8}}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserStop\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_STOP,\ 0xA9}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserSearch\ :\ 1;\ \ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_SEARCH,\ 0xAA}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserFavorites\ :\ 1;\ \ \textcolor{comment}{//\ VK\_BROWSER\_FAVORITES,\ 0xAB}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ BrowserHome\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_BROWSER\_HOME,\ 0xAC}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ VolumeMute\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_VOLUME\_MUTE,\ 0xAD}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ VolumeDown\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_VOLUME\_DOWN,\ 0xAE}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ VolumeUp\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_VOLUME\_UP,\ 0xAF}}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ MediaNextTrack\ :\ 1;\ \ \ \ \textcolor{comment}{//\ VK\_MEDIA\_NEXT\_TRACK,\ 0xB0}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ MediaPreviousTrack\ :\ 1;\textcolor{comment}{//\ VK\_MEDIA\_PREV\_TRACK,\ 0xB1}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ MediaStop\ :\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_MEDIA\_STOP,\ 0xB2}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ MediaPlayPause\ :\ 1;\ \ \ \ \textcolor{comment}{//\ VK\_MEDIA\_PLAY\_PAUSE,\ 0xB3}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LaunchMail\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LAUNCH\_MAIL,\ 0xB4}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ SelectMedia\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_LAUNCH\_MEDIA\_SELECT,\ 0xB5}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LaunchApplication1\ :\ 1;\textcolor{comment}{//\ VK\_LAUNCH\_APP1,\ 0xB6}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ LaunchApplication2\ :\ 1;\textcolor{comment}{//\ VK\_LAUNCH\_APP2,\ 0xB7}}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved14\ :\ 2;}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemSemicolon\ :\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_1,\ 0xBA}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemPlus\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_PLUS,\ 0xBB}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemComma\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_COMMA,\ 0xBC}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemMinus\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_MINUS,\ 0xBD}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemPeriod\ :\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_PERIOD,\ 0xBE}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemQuestion\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_2,\ 0xBF}}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemTilde\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_3,\ 0xC0}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved15\ :\ 7;}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved16\ :\ 8;}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved17\ :\ 8;}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved18\ :\ 3;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemOpenBrackets\ :\ 1;\ \ \ \textcolor{comment}{//\ VK\_OEM\_4,\ 0xDB}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemPipe\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_5,\ 0xDC}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemCloseBrackets\ :\ 1;\ \ \textcolor{comment}{//\ VK\_OEM\_6,\ 0xDD}}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemQuotes\ :\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_7,\ 0xDE}}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Oem8\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_8,\ 0xDF}}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved19\ :\ 2;}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemBackslash\ :\ 1;\ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_102,\ 0xE2}}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved20\ :\ 2;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ProcessKey\ :\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PROCESSKEY,\ 0xE5}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved21\ :\ 2;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved22\ :\ 8;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved23\ :\ 2;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemCopy\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0XF2}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemAuto\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0xF3}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemEnlW\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0xF4}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved24\ :\ 1;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Attn\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_ATTN,\ 0xF6}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Crsel\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_CRSEL,\ 0xF7}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Exsel\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_EXSEL,\ 0xF8}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ EraseEof\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_EREOF,\ 0xF9}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Play\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PLAY,\ 0xFA}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Zoom\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_ZOOM,\ 0xFB}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved25\ :\ 1;}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Pa1\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_PA1,\ 0xFD}}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OemClear\ :\ 1;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VK\_OEM\_CLEAR,\ 0xFE}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Reserved26\ :\ 1;}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsKeyDown(Keys\ key)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ <=\ 0xfe)}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint32\_t*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bf\ =\ 1u\ <<\ (key\ \&\ 0x1f);}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (ptr[(key\ >>\ 5)]\ \&\ bf)\ !=\ 0;}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsKeyUp(Keys\ key)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ <=\ 0xfe)}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint32\_t*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bf\ =\ 1u\ <<\ (key\ \&\ 0x1f);}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (ptr[(key\ >>\ 5)]\ \&\ bf)\ ==\ 0;}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_keyboard_1_1_keyboard_state_tracker}{KeyboardStateTracker}}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\ released;}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\ pressed;}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ prefast(suppress:\ 26495,\ "{}Reset()\ performs\ the\ initialization"{}})}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_keyboard_1_1_keyboard_state_tracker}{KeyboardStateTracker}}()\ \textcolor{keyword}{noexcept}\ \{\ Reset();\ \}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Update(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\&\ state)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Reset()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsKeyPressed(Keys\ key)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ pressed.IsKeyDown(key);\ \}}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsKeyReleased(Keys\ key)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ released.IsKeyDown(key);\ \}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\ \_\_cdecl\ GetLastState()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ lastState;\ \}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\ lastState;}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retrieve\ the\ current\ state\ of\ the\ keyboard}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_keyboard_1_1_state}{State}}\ \_\_cdecl\ GetState()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ the\ keyboard\ state}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Reset()\ noexcept;}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Feature\ detection}}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsConnected()\ const;}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{preprocessor}{\#ifdef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(ABI::Windows::UI::Core::ICoreWindow*\ window);}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cplusplus\_winrt}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(Windows::UI::Core::CoreWindow\string^\ window)}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ https://msdn.microsoft.com/en-\/us/library/hh755802.aspx}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindow(\textcolor{keyword}{reinterpret\_cast<}ABI::Windows::UI::Core::ICoreWindow*\textcolor{keyword}{>}(window));}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ CPPWINRT\_VERSION}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(winrt::Windows::UI::Core::CoreWindow\ window)}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ https://docs.microsoft.com/en-\/us/windows/uwp/cpp-\/and-\/winrt-\/apis/interop-\/winrt-\/abi}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindow(\textcolor{keyword}{reinterpret\_cast<}ABI::Windows::UI::Core::ICoreWindow*\textcolor{keyword}{>}(winrt::get\_abi(window)));}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(WM\_USER)}}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ ProcessMessage(UINT\ message,\ WPARAM\ wParam,\ LPARAM\ lParam);}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Singleton}}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ Keyboard\&\ \_\_cdecl\ Get();}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }Impl;}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00499\ \ \ \ \ \};}
+\DoxyCodeLine{00500\ \}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,130 @@
+\hypertarget{_d_d_s_texture_loader12_8h_source}{}\doxysection{DDSTexture\+Loader12.\+h}
+\label{_d_d_s_texture_loader12_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DDSTextureLoader/DDSTextureLoader12.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DDSTextureLoader/DDSTextureLoader12.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ DDSTextureLoader12.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Functions\ for\ loading\ a\ DDS\ texture\ and\ creating\ a\ Direct3D\ runtime\ resource\ for\ it}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ as\ a\ light-\/weight\ runtime\ loader\ for\ DDS\ files.\ For}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ a\ full-\/featured\ DDS\ file\ reader,\ writer,\ and\ texture\ processing\ pipeline\ see}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <unknwn.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <wsl/winadapter.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <wsl/wrladapter.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(\_WIN32)\ ||\ defined(USING\_DIRECTX\_HEADERS)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <directx/d3d12.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <dxguids/dxguids.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}dxguid.lib"{}})}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ DDS\_ALPHA\_MODE\_DEFINED}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_ALPHA\_MODE\ :\ uint32\_t}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_UNKNOWN\ =\ 0,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_STRAIGHT\ =\ 1,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_PREMULTIPLIED\ =\ 2,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_OPAQUE\ =\ 3,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ DDS\_ALPHA\_MODE\_CUSTOM\ =\ 4,}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifndef\ DDS\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ DDS\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{enum}\ DDS\_LOADER\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ DDS\_LOADER\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ DDS\_LOADER\_FORCE\_SRGB\ =\ 0x1,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ DDS\_LOADER\_MIP\_RESERVE\ =\ 0x8,}
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(DDS\_LOADER\_FLAGS);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ Standard\ version}}
+\DoxyCodeLine{00080\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadDDSTextureFromMemory(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\&\ subresources,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{bool}*\ isCubeMap\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadDDSTextureFromFile(}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ ddsData,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\&\ subresources,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{bool}*\ isCubeMap\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ Extended\ version}}
+\DoxyCodeLine{00101\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadDDSTextureFromMemoryEx(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(ddsDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ ddsData,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ddsDataSize,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_FLAGS\ resFlags,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ DDS\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\&\ subresources,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{bool}*\ isCubeMap\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadDDSTextureFromFileEx(}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_FLAGS\ resFlags,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ DDS\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ ddsData,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\&\ subresources,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ DDS\_ALPHA\_MODE*\ alphaMode\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{bool}*\ isCubeMap\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00124\ \}}
+
+\end{DoxyCode}

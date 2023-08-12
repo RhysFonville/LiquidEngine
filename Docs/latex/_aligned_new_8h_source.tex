@@ -1,0 +1,87 @@
+\hypertarget{_aligned_new_8h_source}{}\doxysection{Aligned\+New.\+h}
+\label{_aligned_new_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/AlignedNew.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/AlignedNew.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ AlignedNew.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <new>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <malloc.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Derive\ from\ this\ to\ customize\ operator\ new\ and\ delete\ for}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ types\ that\ have\ special\ heap\ alignment\ requirements.}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Example\ usage:}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ XM\_ALIGNED\_STRUCT(16)\ MyAlignedType\ :\ public\ AlignedNew<MyAlignedType>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TDerived>}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_aligned_new}{AlignedNew}}}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate\ aligned\ memory.}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}\ (\textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ alignment\ =\ \textcolor{keyword}{alignof}(TDerived);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(alignment\ >\ 8,\ \textcolor{stringliteral}{"{}AlignedNew\ is\ only\ useful\ for\ types\ with\ >\ 8\ byte\ alignment.\ Did\ you\ forget\ a\ \_\_declspec(align)\ on\ TDerived?"{}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(((alignment\ -\/\ 1)\ \&\ alignment)\ ==\ 0,\ \textcolor{stringliteral}{"{}AlignedNew\ only\ works\ with\ power\ of\ two\ alignment"{}});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ ptr\ =\ \_aligned\_malloc(size,\ alignment);}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ C++17\ Standard\ Library\ function\ is\ currently\ NOT}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ implemented\ for\ the\ Microsoft\ Standard\ C++\ Library.}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ ptr\ =\ aligned\_alloc(alignment,\ size);}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ptr)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::bad\_alloc();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Free\ aligned\ memory.}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}\ (\textcolor{keywordtype}{void}*\ ptr)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \_aligned\_free(ptr);}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ free(ptr);}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Array\ overloads.}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}[](\textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}((\textcolor{keyword}{sizeof}(TDerived)\ \%\ \textcolor{keyword}{alignof}(TDerived)\ ==\ 0),\ \textcolor{stringliteral}{"{}AlignedNew\ expects\ type\ to\ be\ padded\ to\ the\ alignment"{}});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}(size);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keywordtype}{void}*\ ptr)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}(ptr);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \};}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}

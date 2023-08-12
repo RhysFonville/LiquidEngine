@@ -1,0 +1,655 @@
+\href{http://go.microsoft.com/fwlink/?LinkId=248929}{\texttt{ http\+://go.\+microsoft.\+com/fwlink/?\+Link\+Id=248929}}
+
+Release available for download on \href{https://github.com/microsoft/DirectXTK/releases}{\texttt{ Git\+Hub}}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md1}{}\doxysection{Release History}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md1}
+\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md2}{}\doxysubsection{June 15, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Game\+Pad, Keyboard, and Mouse updated to use Game\+Input on PC for the Gaming.\+Desktop.\+x64 platform
+\item {\itshape DirectX Tool Kit for Audio} updated for XAudio2\+Redist 1.\+2.\+9
+\item CMake project updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md3}{}\doxysubsection{May 9, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md3}
+
+\begin{DoxyItemize}
+\item C++20 spaceship operator updates for Simple\+Math
+\item Minor updates for VS 2022 (17.\+2)
+\item CMake project updates (now supports MSVC, clang/\+LLVM, and Min\+GW)
+\item Added Microsoft GDK projects using the Gaming.\+Desktop.\+x64 platform
+\item Retired VS 2017 projects
+\item Minor code review
+\item Reformat source using updated .editorconfig settings
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md4}{}\doxysubsection{March 24, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md4}
+
+\begin{DoxyItemize}
+\item Fixed bug in UWP implementation of Mouse that combined vertical/horizontal scroll-\/wheel input
+\item Code refactoring for input classes (Game\+Pad, Keyboard, and Mouse)
+\item Update build switches for SDL recommendations
+\item CMake project updates and UWP platform CMake\+Presets
+\item Dropped support for legacy Xbox One XDK prior to April 2018
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md5}{}\doxysubsection{February 28, 2022}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Simple\+Math Matrix updated with To\+Euler and Vector3 version of Create\+From\+Yaw\+Pitch\+Roll methods
+\item Simple\+Math Quaternion updated with To\+Euler, Rotate\+Towards, From\+To\+Rotation, Look\+Rotation, and Angle methods
+\item Keyboard updated with new IME On/\+Off v-\/keys
+\item Win32 Mouse now uses {\ttfamily WM\+\_\+\+ACTIVATE} for more robust behavior
+\item {\itshape DirectX Tool Kit for Audio} updated for Advanced Format (4Kn) wavebank streaming
+\item Code and project review including fixing clang v13 warnings
+\item Added CMake\+Presets.\+json
+\item xwbtool\+: Added support for Advanced Format (4Kn) streaming wavebanks with {\ttfamily -\/af}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md6}{}\doxysubsection{November 8, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md6}
+
+\begin{DoxyItemize}
+\item VS 2022 support
+\item Minor code and project review
+\item makespritefont\+: Updated with 12.\+2 for Feature\+Level switch
+\item xwbtool\+: Fixed potential locale issue with {\ttfamily -\/flist}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md7}{}\doxysubsection{October 18, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md7}
+
+\begin{DoxyItemize}
+\item Fixed loading of skinned PBR models from SDKMESH v2
+\item {\itshape DirectX Tool Kit for Audio} updated for XAudio2\+Redist 1.\+2.\+8
+\item Minor code review updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md8}{}\doxysubsection{October 13, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md8}
+
+\begin{DoxyItemize}
+\item Added skinning support for {\bfseries{Normal\+Map\+Effect}} and {\bfseries{PBREffect}}
+\item Common states updated with support for reverse z-\/buffer rendering with {\bfseries{Depth\+ReverseZ}} and {\bfseries{Depth\+Read\+ReverseZ}} methods.
+\item Effect factory updates
+\begin{DoxyItemize}
+\item Updated to use {\ttfamily Skinned\+Normal\+Map\+Effect} / {\ttfamily Skinned\+PBREffect} as appropriate.
+\item Automatically disables use of normal mapping on 9.\+x feature levels
+\item PBR now supports \textquotesingle{}untextured\textquotesingle{} models (always requires texture coordinates) with use of diffuse color for constant albedo, and specular power for an estimated constant roughness.
+\end{DoxyItemize}
+\item Model loader updates
+\begin{DoxyItemize}
+\item SDKMESH loader no longer requires precomputed vertex tangents for normal mapping as we don\textquotesingle{}t use them.
+\item Added {\ttfamily Model\+Loader\+\_\+\+Disable\+Skinning} flag when dealing with legacy SDKMESH files with too many skinning bone influences for {\itshape Max\+Bone}
+\end{DoxyItemize}
+\item Minor update for the Mouse implementation for Game\+Input
+\item Project and code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md9}{}\doxysubsection{September 30, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md9}
+
+\begin{DoxyItemize}
+\item Added Model\+Bone support for transformation hierarchies
+\begin{DoxyItemize}
+\item Rigid-\/body \& skinned animation Draw support added to Model
+\end{DoxyItemize}
+\item Added type aliases {\ttfamily Model\+Mesh\+Part\+::\+Input\+Layout\+Collection}, {\ttfamily Geometric\+Primitive\+::\+Vertex\+Collection} and {\ttfamily Index\+Collection}.
+\item Environment\+Map\+Effect and Normal\+Map\+Effect will now use default diffuse/normal textures if none are set
+\item VS 2017 projects updated to require the Windows 10 SDK (19401)
+\item Code review updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md10}{}\doxysubsection{August 1, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md10}
+
+\begin{DoxyItemize}
+\item Debug\+Effect, Normal\+Map\+Effect, and PBREffect updated with instancing support
+\item Geometric\+Primitive updated with Draw\+Instanced method
+\item Tone\+Map\+Post\+Process updated with Set\+Color\+Rotation method
+\item Added VS 2022 Preview projects
+\item \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}} updated to use .NET 4.\+7.\+2
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md11}{}\doxysubsection{June 9, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md11}
+
+\begin{DoxyItemize}
+\item DirectX Tool Kit for Audio updates\+:
+\begin{DoxyItemize}
+\item Fixed mono source panning
+\item Added {\ttfamily Enable\+Default\+Multi\+Channel} helper to Audio\+Emitter for multi-\/channel source setup
+\item Added {\ttfamily Get\+Channel\+Count} accessor to Sound\+Effect\+Instance and Sound\+Stream\+Instance
+\item {\ttfamily Apply3D} can now use X3\+DAUDIO\+\_\+\+LISTENER and X3\+DAUDIO\+\_\+\+EMITTER directly or the library helper structs.
+\end{DoxyItemize}
+\item xwbtool\+: improved {\ttfamily -\/flist} switch to support wildcards and file exclusions
+\item CMake updated to support building with XAudio2\+Redist
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md12}{}\doxysubsection{April 6, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md12}
+
+\begin{DoxyItemize}
+\item DDSTexture\+Loader reader updated to accept n\+Vidia \mbox{\hyperlink{class_texture}{Texture}} Tool v1 single-\/channel and dual-\/channel files marked as RGB instead of LUMINANCE
+\item Minor code and project cleanup
+\item xwbtool\+: Updated with descriptions for HRESULT failure codes
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md13}{}\doxysubsection{January 9, 2021}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md13}
+
+\begin{DoxyItemize}
+\item Code review for improved conformance
+\item CMake updated to support package install
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md14}{}\doxysubsection{November 11, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md14}
+
+\begin{DoxyItemize}
+\item Fixed {\ttfamily /analyze} warnings in Game\+Input usage
+\item Fixed {\itshape DirectX Tool Kit for Audio} use of XAudio 2.\+8 for Windows 8 w/ Windows 10 SDK
+\item Minor code and project cleanup
+\item {\itshape DirectX Tool Kit for Audio} updated for XAudio2\+Redist 1.\+2.\+4
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md15}{}\doxysubsection{September 30, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md15}
+
+\begin{DoxyItemize}
+\item Game\+Pad class updated with {\ttfamily c\+\_\+\+Most\+Recent} constant for {\ttfamily -\/1} player index special behavior
+\item Fixed bug in WICTexture\+Loader that resulted in {\ttfamily WINCODEC\+\_\+\+ERR\+\_\+\+INSUFFICIENTBUFFER} for some resize requests
+\item Fixed {\ttfamily .wav} file reading of MIDILoop chunk
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md16}{}\doxysubsection{August 15, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md16}
+
+\begin{DoxyItemize}
+\item Environment\+Map\+Effect now supports cubemaps, spherical, and dual-\/parabola environment maps
+\item Code review and project updates
+\item {\itshape DirectX Tool Kit for Audio} updated for XAudio2\+Redist 1.\+2.\+3
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md17}{}\doxysubsection{July 2, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md17}
+
+\begin{DoxyItemize}
+\item Improved Sprite\+Font drawing performance in Debug builds
+\item Regenerated shaders using Windows 10 May 2020 Update SDK (19041)
+\item Code cleanup for some new VC++ 16.\+7 warnings and static code analysis
+\item CMake updates
+\item {\itshape DirectX Tool Kit for Audio} updated for XAudio2\+Redist 1.\+2.\+2
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md18}{}\doxysubsection{June 1, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md18}
+
+\begin{DoxyItemize}
+\item Added Buffer\+Helpers header with functions {\bfseries{Create\+Static\+Buffer}} / {\bfseries{Create\+Texture\+From\+Memory}}, and the {\bfseries{Constant\+Buffer}} helper class
+\item Added {\bfseries{Is\+Power\+Of2}} and {\bfseries{Create\+Input\+Layout\+From\+Effect}} helpers to Direct\+XHelpers
+\item Converted to typed enum bitmask flags (see release notes for details on this potential {\itshape breaking change})
+\begin{DoxyItemize}
+\item {\ttfamily AUDIO\+\_\+\+ENGINE\+\_\+\+FLAGS}, {\ttfamily Model\+Loader\+Flags}, {\ttfamily SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS}, and {\ttfamily WIC\+\_\+\+LOADER\+\_\+\+FLAGS}
+\end{DoxyItemize}
+\item WICTexture\+Loader for {\ttfamily PNG} codec now checks {\ttfamily g\+AMA} chunk to determine colorspace if the {\ttfamily s\+RGB} chunk is not found for legacy s\+RGB detection.
+\item {\ttfamily WIC\+\_\+\+LOADER\+\_\+\+SRGB\+\_\+\+DEFAULT} flag added when loading image via WIC without explicit colorspace metadata
+\item Retired XAudio 2.\+7 for {\itshape DirectX Tool Kit for Audio}. Use XAudio 2.\+9, XAudio 2.\+8, or XAudio2\+Redist instead.
+\item CMake project updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md19}{}\doxysubsection{May 10, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md19}
+
+\begin{DoxyItemize}
+\item WICTexture\+Loader updated with new loader flags\+: {\ttfamily FORCE\+\_\+\+RGBA32}, {\ttfamily FIT\+\_\+\+POW2}, and {\ttfamily MAKE\+\_\+\+SQUARE}
+\item Simple\+Math no longer forces use of d3d11.\+h or d3d12.\+h (can be used with d3d9.\+h for example)
+\item {\itshape DirectX Tool Kit for Audio} updated with {\bfseries{Sound\+Stream\+Instance}} class for async I/O playback from XACT-\/style streaming wavebanks
+\item Code cleanup
+\item xwbtool\+: Updated with {\ttfamily -\/l} switch for case-\/sensitive file systems
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md20}{}\doxysubsection{April 3, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md20}
+
+\begin{DoxyItemize}
+\item Sprite\+Font {\bfseries{Measure\+String}} / {\bfseries{Measure\+Draw\+Bounds}} fixes for !ignore\+Whitespace
+\item Code review ({\ttfamily constexpr} / {\ttfamily noexcept} usage)
+\item CMake updated for PCH usage with 3.\+16 or later
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md21}{}\doxysubsection{February 24, 2020}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md21}
+
+\begin{DoxyItemize}
+\item {\itshape breaking change} {\bfseries{Model\+::\+Create\+Fromxxx}} changed to use Model\+Loader\+Flags instead of default bool parameters
+\item DirectX Tool Kit for Audio updated to support XAudio2\+Redist Nu\+Get
+\item Added {\ttfamily ignore\+Whitespace} defaulted parameter to Sprite\+Font Measure methods
+\item Fixed encoding issue with Utilities.\+fxh
+\item Code and project cleanup
+\item Retired VS 2015 projects
+\item xwbtool\+: Changed {\ttfamily -\/n} switch to a more safe {\ttfamily -\/y} switch
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md22}{}\doxysubsection{December 17, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md22}
+
+\begin{DoxyItemize}
+\item Added ARM64 platform to VS 2019 Win32 desktop Win10 project
+\item Added Vector {\ttfamily operator/} by float scalar to Simple\+Math
+\item Updated CMake project
+\item Code cleaup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md23}{}\doxysubsection{October 17, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md23}
+
+\begin{DoxyItemize}
+\item Added optional {\ttfamily force\+SRGB} parameter to {\bfseries{Save\+WICTexture\+To\+File}}
+\item Game\+Pad updated to report VID/\+PID (when supported)
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md24}{}\doxysubsection{August 21, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md24}
+
+\begin{DoxyItemize}
+\item Added xwbtool to CMake project
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md25}{}\doxysubsection{June 30, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md25}
+
+\begin{DoxyItemize}
+\item Additional validation for Ex texture loaders
+\item Clang/\+LLVM warning cleanup
+\item Renamed {\ttfamily Direct\+XTK\+\_\+\+Windows10.\+vcxproj} to {\ttfamily \+\_\+\+Windows10\+\_\+2017.\+vcxproj}
+\item Added VS 2019 UWP project
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md26}{}\doxysubsection{May 30, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md26}
+
+\begin{DoxyItemize}
+\item PBREffect updated with additional set methods
+\item Added CMake project files
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md27}{}\doxysubsection{April 26, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md27}
+
+\begin{DoxyItemize}
+\item Added VS 2019 desktop projects
+\item Fixed guards w.\+r.\+t. to windows.\+h usage in Keyboard/\+Mouse headers
+\item Added C++/\+Win\+RT {\bfseries{Set\+Window}} helper to Keyboard/\+Mouse
+\item Code cleanup for texture loaders
+\item Officially dropped Windows Vista support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md28}{}\doxysubsection{February 7, 2019}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md28}
+
+\begin{DoxyItemize}
+\item Model now supports loading {\itshape SDKMESH v2} models
+\item {\bfseries{PBREffect\+Factory}} added to support PBR materials
+\item PBREffect and Normal\+Map\+Effect shaders updated to support {\ttfamily BC5\+\_\+\+UNORM} compressed normal maps
+\item Sprite\+Font\+: {\bfseries{Draw\+String}} overloads for UTF-\/8 chars in addition to UTF-\/16\+LE wide chars
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md29}{}\doxysubsection{November 16, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md29}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows 10 October 2018 Update SDK (17763)
+\item ARM64 platform configurations added to UWP projects
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md30}{}\doxysubsection{October 31, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md30}
+
+\begin{DoxyItemize}
+\item Model loader for SDKMESH now attempts to use legacy DE3\+CN compressed normals
+\begin{DoxyItemize}
+\item This is an approximation only and emits a warning in debug builds
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md31}{}\doxysubsection{October 25, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md31}
+
+\begin{DoxyItemize}
+\item Use UTF-\/8 instead of ANSI for narrow strings
+\item Minor code review
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md32}{}\doxysubsection{August 17, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md32}
+
+\begin{DoxyItemize}
+\item Improved validation for 16k textures and other large resources
+\item Improved debug output for failed texture loads and screengrabs
+\item Updated for VS 2017 15.\+8
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md33}{}\doxysubsection{July 3, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md33}
+
+\begin{DoxyItemize}
+\item Model\+Mesh\+Part {\bfseries{Draw\+Instanced}} method added
+\item Code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md34}{}\doxysubsection{May 31, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md34}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows 10 April 2018 Update SDK (17134)
+\item Regenerated shaders using Windows 10 April 2018 Update SDK (17134)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md35}{}\doxysubsection{May 14, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md35}
+
+\begin{DoxyItemize}
+\item Updated for VS 2017 15.\+7 update warnings
+\item Code and project cleanup
+\item Retired VS 2013 projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md36}{}\doxysubsection{April 23, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md36}
+
+\begin{DoxyItemize}
+\item {\ttfamily Align\+Up}, {\ttfamily Align\+Down} template functions in \mbox{\hyperlink{_direct_x_helpers_8h_source}{Direct\+XHelpers.\+h}}
+\item Mouse support for cursor visibility
+\item Simple\+Math and Vertex\+Types updated with default copy and move ctors
+\item Simple\+Math updates to use {\ttfamily constexpr}
+\item Effect\+Factory updated with {\bfseries{Get\+Device}} method
+\item Post\+Process updated with \textquotesingle{}big triangle\textquotesingle{} optimization
+\item Fix for {\ttfamily CMO} handling of skinning vertex data
+\item Code and project file cleanup
+\item xwbtool\+: Fixed Windows 7 compatibility issue
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md37}{}\doxysubsection{February 7, 2018}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md37}
+
+\begin{DoxyItemize}
+\item Mouse fix for cursor behavior when using Remote Desktop for Win32
+\item Updated for a few more VS 2017 warnings
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md38}{}\doxysubsection{December 13, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md38}
+
+\begin{DoxyItemize}
+\item {\bfseries{PBREffect}} and {\bfseries{Debug\+Effect}} added
+\item {\bfseries{Normal\+Map\+Effect}} no longer requires or uses explicit vertex tangents
+\item {\itshape breaking change} Normal\+Map\+Effect\+::\+Set\+Biased\+Vertex\+Normals\+And\+Tangents renamed to {\bfseries{Set\+Biased\+Vertex\+Normals}}
+\item PBREffect, Debug\+Effect, \& Normal\+Map\+Effect all require Direct3D hardware feature level 10.\+0 or better
+\item {\bfseries{Vertex\+Type}} typedef added to Geometric\+Primitive as alias for Vertex\+Position\+Normal\+Texture
+\item Updated for VS 2017 15.\+5 update warnings
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md39}{}\doxysubsection{November 1, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md39}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows 10 Fall Creators Update SDK (16299)
+\item Regenerated shaders using Windows 10 Fall Creators Update SDK (16299)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md40}{}\doxysubsection{September 22, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md40}
+
+\begin{DoxyItemize}
+\item Updated for VS 2017 15.\+3 update {\ttfamily /permissive-\/} changes
+\item {\bfseries{Screen\+Grab}} updated to use non-\/s\+RGB metadata for PNG
+\item Mouse use of {\ttfamily WM\+\_\+\+INPUT} updated for Remote Desktop scenarios
+\item Fix for {\ttfamily CMO} load issue when no materials are defined
+\item xwbtool\+: added {\ttfamily -\/flist} option
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md41}{}\doxysubsection{July 28, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md41}
+
+\begin{DoxyItemize}
+\item Fix for WIC writer when codec target format requires a palette
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md42}{}\doxysubsection{June 21, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md42}
+
+\begin{DoxyItemize}
+\item Post-\/processing support with the {\bfseries{Basic\+Post\+Process}}, {\bfseries{Dual\+Post\+Process}}, and {\bfseries{Tone\+Map\+Post\+Process}} classes
+\item SDKMESH loader fix when loading legacy files with all zero materials
+\item Direct\+XTK for Audio\+: Minor fixes for environmental audio
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md43}{}\doxysubsection{April 24, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md43}
+
+\begin{DoxyItemize}
+\item VS 2017 project updates
+\item Regenerated shaders using Windows 10 Creators Update SDK (15063)
+\item Fixed {\bfseries{Normal\+Map\+Effect}} shader selection for specular texture usage
+\item Fixed {\bfseries{Audio\+Engine}} enumeration when using Single Threaded Apartment (STA)
+\item Fixed bug with {\bfseries{Game\+Pad}} (Windows.\+Gaming.\+Input) when no user bound
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md44}{}\doxysubsection{April 7, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md44}
+
+\begin{DoxyItemize}
+\item VS 2017 updated for Windows Creators Update SDK (15063)
+\item Xbox\+DDSTexture\+Loader updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md45}{}\doxysubsection{February 10, 2017}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md45}
+
+\begin{DoxyItemize}
+\item {\bfseries{Game\+Pad}} now supports special value of {\ttfamily -\/1} for \textquotesingle{}most recently connected controller\textquotesingle{}
+\item WIC format 40bpp\+CMYKAlpha should be converted to RGBA8 rather than RGBA16
+\item DDS support for L8\+A8 with bitcount 8 rather than 16
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md46}{}\doxysubsection{December 5, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md46}
+
+\begin{DoxyItemize}
+\item Mouse and Keyboard classes updated with {\bfseries{Is\+Connected}} method
+\item Windows10 project {\ttfamily /\+ZW} switch removed to support use in C++/\+Win\+RT projection apps
+\item VS 2017 RC projects added
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md47}{}\doxysubsection{October 6, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md47}
+
+\begin{DoxyItemize}
+\item SDKMESH loader and Basic\+Effects support for compressed vertex normals with biasing
+\item WICTexture\+Loader Ex bool force\+SRGB parameter is now a {\bfseries{WIC\+\_\+\+LOADER\+\_\+\+FLAGS}} flag
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md48}{}\doxysubsection{September 15, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md48}
+
+\begin{DoxyItemize}
+\item Minor code cleanup
+\item xwbtool\+: added wildcard support for input filename and optional {\ttfamily -\/r} switch for recursive search
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md49}{}\doxysubsection{September 1, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md49}
+
+\begin{DoxyItemize}
+\item Added {\ttfamily force\+SRGB} optional parameter to Sprite\+Font ctor
+\item Effect\+Factory method {\bfseries{Enable\+Force\+SRGB}} added
+\item DGSLEffect now defaults to diffuse/alpha of 1
+\item Removed problematic ABI\+::\+Windows\+::\+Foundation\+::\+Rect interop for Simple\+Math
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md50}{}\doxysubsection{August 4, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md50}
+
+\begin{DoxyItemize}
+\item Regenerated shaders using Windows 10 Anniversary Update SDK (14393)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md51}{}\doxysubsection{August 2, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md51}
+
+\begin{DoxyItemize}
+\item Updated for VS 2015 Update 3 and Windows 10 SDK (14393)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md52}{}\doxysubsection{August 1, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md52}
+
+\begin{DoxyItemize}
+\item Game\+Pad capabilities information updated for Universal Windows and Xbox One platforms
+\item Specular falloff lighting computation fix in shaders
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md53}{}\doxysubsection{July 18, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md53}
+
+\begin{DoxyItemize}
+\item {\bfseries{Normal\+Map\+Effect}} for normal-\/map with optional specular map rendering
+\item {\bfseries{Environment\+Map\+Effect}} now supports per-\/pixel lighting
+\item Effects updated with {\bfseries{Set\+Matrices}} and {\bfseries{Set\+Color\+And\+Alpha}} methods
+\item Simple\+Math\+: improved interop with Direct\+XMath constants
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md54}{}\doxysubsection{June 30, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md54}
+
+\begin{DoxyItemize}
+\item {\bfseries{Measure\+Draw\+String}} added to Sprite\+Font; bad fix to Measure\+String reverted
+\item Game\+Pad tracker updated to track emulated buttons (i.\+e. left\+Stick\+Up)
+\item Effect\+Factory {\bfseries{Set\+Directory}} now checks current working directory (CWD) as well
+\item {\itshape breaking change} must include \texorpdfstring{$<$}{<}d3d11.\+h\texorpdfstring{$>$}{>} before including \texorpdfstring{$<$}{<}\mbox{\hyperlink{_simple_math_8h_source}{Simple\+Math.\+h}}\texorpdfstring{$>$}{>}
+\item Code refactor for sharing some files with DirectX 12 version
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md55}{}\doxysubsection{May 31, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md55}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Vertex\+Position}} and {\bfseries{Vertex\+Position\+Dual\+Texture}} to Vertex\+Types
+\item Xbox One platform fix for Primitive\+Batch
+\item Compile\+Shader script updated to build external pdbs
+\item Code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md56}{}\doxysubsection{April 26, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md56}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Rectangle}} class to Simple\+Math
+\item Fix for SDKMESH loader when loading models with \textquotesingle{}extra\textquotesingle{} texture coordinate sets
+\item Made Simple\+Math\textquotesingle{}s Viewport {\bfseries{Compute\+Title\+Safe\+Area}} less conservative
+\item Added view/menu aliases to Game\+Pad\+::\+Button\+State\+Tracker for Xbox One Controller naming
+\item Retired Windows phone 8.\+0 projects and obsolete adapter code
+\item Minor code and project file cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md57}{}\doxysubsection{February 23, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md57}
+
+\begin{DoxyItemize}
+\item Fixed width computation bug in {\bfseries{Sprite\+Font\+::\+Measure\+String}}
+\item Fix to clean up partial or zero-\/length image files on failed write
+\item Fix to Wave\+Bank\+Reader for UWP platform
+\item Retired VS 2012 projects
+\item Xbox One platform updates
+\item Minor code and project file cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md58}{}\doxysubsection{January 5, 2016}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md58}
+
+\begin{DoxyItemize}
+\item Xbox One platform updates
+\item {\itshape breaking change} Need to add use of {\bfseries{Graphics\+Memory}} class to Xbox One titles
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md59}{}\doxysubsection{November 30, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md59}
+
+\begin{DoxyItemize}
+\item Simple\+Math improvements including Viewport class
+\item Fixed bug with {\bfseries{Keyboard}} for {\ttfamily Open\+Bracket} and later VK codes
+\item Fixed bug with {\bfseries{Mouse}} that reset the scrollwheel on app activate
+\item {\ttfamily \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}}} updated with {\ttfamily /\+Fast\+Pack} and {\ttfamily /\+Feature\+Level} switches
+\item Updated for VS 2015 Update 1 and Windows 10 SDK (10586)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md60}{}\doxysubsection{October 30, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md60}
+
+\begin{DoxyItemize}
+\item Direct\+XTK for Audio 3D updates
+\item {\itshape breaking change} emitters/listeners now use RH coordinates by default
+\item {\bfseries{Geometric\+Primitive}} support for custom geometry
+\item Simple\+Math Matrix class improvements
+\item DDS support for legacy bumpmap formats (V8\+U8, Q8\+W8\+V8\+U8, V16\+U16)
+\item Mouse fix for Win\+RT implementation with multiple buttons pressed
+\item Wireframe {\bfseries{Common\+States}} no longer does backface culling
+\item Xbox One platform updates
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md61}{}\doxysubsection{August 18, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md61}
+
+\begin{DoxyItemize}
+\item Xbox One platform updates
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md62}{}\doxysubsection{July 29, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md62}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Create\+Box}} method to Geometric\+Primitive
+\item Added {\ttfamily invertn} optional parameter to {\bfseries{Create\+Sphere}}
+\item Updates for Keyboard, Mouse class
+\item Fixed bug when loading older SDKMESH models
+\item Updated for VS 2015 and Windows 10 SDK RTM
+\item Retired VS 2010 and Windows Store 8.\+0 projects
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md63}{}\doxysubsection{July 1, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md63}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Keyboard}}, {\bfseries{Mouse}} class
+\item Support for loading pre-\/lit models with SDKMESH
+\item {\bfseries{Game\+Pad}} implemented using {\ttfamily Windows.\+Gaming.\+Input} for Windows 10
+\item Direct\+XTK for Audio updates for x\+WMA support with XAudio 2.\+9
+\item Added {\bfseries{Find\+Glyph}} and {\bfseries{Get\+Sprite\+Sheet}} methods to Sprite\+Font
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md64}{}\doxysubsection{March 27, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md64}
+
+\begin{DoxyItemize}
+\item Added projects for Windows apps Technical Preview
+\item Game\+Pad temporarily uses \textquotesingle{}null\textquotesingle{} device for universal Windows application platform
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md65}{}\doxysubsection{February 25, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md65}
+
+\begin{DoxyItemize}
+\item Direct\+XTK for Audio updates
+\begin{DoxyItemize}
+\item {\itshape breaking change} pitch now defined as -\/1 to 1 with 0 as the default
+\item One-\/shot Play method with volume, pitch, and pan
+\item {\bfseries{Get\+Master\+Volume}} / {\bfseries{Set\+Master\+Volume}} method for Audio\+Engine
+\item Fix for compact wavebank validation
+\item Improved voice cleanup and shutdown
+\end{DoxyItemize}
+\item Minor code cleanup and C++11 {\ttfamily =default}/{\ttfamily =delete} usage
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md66}{}\doxysubsection{January 26, 2015}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md66}
+
+\begin{DoxyItemize}
+\item Game\+Pad class\+: emulate {\ttfamily XInput\+Enable} behavior for XInput 9.\+1.\+0
+\item Direct\+XTK for Audio fix for Stop followed by Play doing a proper restart
+\item Direct\+XTK for Audio fix when using XAudio 2.\+7 on a system with no audio device
+\item Updates for Xbox One platform support
+\item Minor code cleanup and C99 {\ttfamily printf} string conformance
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md67}{}\doxysubsection{November 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md67}
+
+\begin{DoxyItemize}
+\item Simple\+Math fix for Matrix {\ttfamily operator !=}
+\item Direct\+XTK for Audio workaround for XAudio 2.\+7 on Windows 7 problem
+\item Updates for Windows phone 8.\+1 platform support
+\item Updates for Visual Studio 2015 Technical Preview
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md68}{}\doxysubsection{October 28, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md68}
+
+\begin{DoxyItemize}
+\item Model support for loading from {\ttfamily VBO} files
+\item Model render now sets samplers on slots 0,1 by default for dual-\/texture effects
+\item Updates for Xbox One platform support
+\item Minor code cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md69}{}\doxysubsection{September 5, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md69}
+
+\begin{DoxyItemize}
+\item {\bfseries{Game\+Pad}} class\+: gamepad controller helper using XInput on Windows, IGamepad for Xbox One
+\item Simple\+Math updates; Matrix billboard methods; {\itshape breaking change}\+: Matrix\+::\+Identity() -\/\texorpdfstring{$>$}{>} Matrix\+::\+Identity
+\item Sprite\+Batch new optional {\bfseries{Set\+Viewport}} method
+\item Sprite\+Font fix for white-\/space character rendering optimization
+\item DDSTexture\+Loader fix for auto-\/gen mipmaps for volume textures
+\item Explicit calling-\/convention annotation for public headers
+\item Updates for Xbox One platform support
+\item Minor code and project cleanup
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md70}{}\doxysubsection{July 15, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md70}
+
+\begin{DoxyItemize}
+\item Direct\+XTK for Audio and XWBTool fixes
+\item Updates to Xbox One platform support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md71}{}\doxysubsection{April 3, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md71}
+
+\begin{DoxyItemize}
+\item Windows phone 8.\+1 platform support
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md72}{}\doxysubsection{February 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md72}
+
+\begin{DoxyItemize}
+\item Direct\+XHelper\+: new utility header with {\bfseries{Map\+Guard}} and public version of {\bfseries{Set\+Debug\+Object\+Name}} template
+\item DDSTexture\+Loader\+: Optional support for auto-\/gen mipmaps
+\item DDSTexture\+Loader/\+Screen\+Grab\+: support for Direct3D 11 video formats including legacy \char`\"{}\+YUY2\char`\"{} DDS files
+\item Geometric\+Primtive\+: Handedness fix for tetrahedron, octahedron, dodecahedron, and icosahedron
+\item {\ttfamily Sprite\+Batch\+::\+Set\+Rotation(\+DXGI\+\_\+\+MODE\+\_\+\+ROTATION\+\_\+\+UNSPECIFIED)} to disable viewport matrix
+\item Xbox\+DDSTexture\+Loader\+: optional force\+SRGB parameter
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md73}{}\doxysubsection{January 24, 2014}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md73}
+
+\begin{DoxyItemize}
+\item Direct\+XTK for Audio updated with voice management and optional mastering volume limiter
+\item Added orientation rotation support to {\bfseries{Sprite\+Batch}}
+\item Fixed a resource leak with {\ttfamily Get\+Default\+Texture} used by some Effects
+\item Code cleanup (removed {\ttfamily DXGI\+\_\+1\+\_\+2\+\_\+\+FORMATS} control define; d2d1.\+h workaround not needed; Scoped\+Object typedef removed)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md74}{}\doxysubsection{December 24, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md74}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{DirectX Tool Kit for Audio}} using XAudio2
+\item Xbox One platform support
+\item {\ttfamily \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}}} tool updated with more progress feedback when capturing large fonts
+\item Minor updates for {\ttfamily SDKMESH} Model loader
+\item Fixed bug in {\ttfamily CMO} Model loader when handling multiple textures
+\item Improved debugging output
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md75}{}\doxysubsection{October 28, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md75}
+
+\begin{DoxyItemize}
+\item Updated for Visual Studio 2013 and Windows 8.\+1 SDK RTM
+\item Added {\bfseries{DGSLEffect}}, {\bfseries{DGSLEffect\+Factory}}, {\bfseries{Vertex\+Position\+Normal\+Tangent\+Color\+Texture}}, and {\bfseries{Vertex\+Position\+Normal\+Tangent\+Color\+Texture\+Skinning}}
+\item Model loading and effect factories support loading skinned models
+\item {\ttfamily \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}}} now has a smooth vs. sharp antialiasing option\+: /sharp
+\item Model loading from {\ttfamily CMOs} now handles UV transforms for texture coordinates
+\item A number of small fixes for {\bfseries{Effect\+Factory}}
+\item Minor code and project cleanup
+\item Added {\ttfamily NO\+\_\+\+D3\+D11\+\_\+\+DEBUG\+\_\+\+NAME} compilation define to control population of Direct3D debug layer names for debug builds
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md76}{}\doxysubsection{July 1, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md76}
+
+\begin{DoxyItemize}
+\item VS 2013 Preview projects added and updates for Direct\+XMath 3.\+05 {\ttfamily \+\_\+\+\_\+vectorcall}
+\item Added use of s\+RGB WIC metadata for {\ttfamily JPEG}, {\ttfamily PNG}, and {\ttfamily TIFF}
+\item Save\+To\+WIC functions updated with new optional set\+Custom\+Props parameter and error check with optional target\+Format
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md77}{}\doxysubsection{May 30, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md77}
+
+\begin{DoxyItemize}
+\item Added more {\bfseries{Geometric\+Primitives}}\+: Cone, Tetrahedron, Octahedron, Dodecahedron, Icosahedron
+\item Updated to support loading new metadata from DDS files (if present)
+\item Fixed bug with loading of WIC 32bpp RGBE format images
+\item Fixed bug when skipping mipmaps in a 1D or 2D array texture DDS file
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md78}{}\doxysubsection{February 22, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md78}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Simple\+Math}} header
+\item Fixed bug that prevented properly overriding Effect\+Factory\+::\+Create\+Texture
+\item Fixed force\+SRGB logic in DDSTexture\+Loader and WICTexture\+Loader
+\item Break circular reference chains when using Sprite\+Batch with a set\+Custom\+Shaders lambda
+\item Updated projects with {\ttfamily /fp\+:fast} for all configs, {\ttfamily /arch\+:SSE2} for Win32 configs
+\item Sensibly named .pdb output files
+\item Added {\ttfamily WIC\+\_\+\+USE\+\_\+\+FACTORY\+\_\+\+PROXY} build option (uses Windows\+Codecs.\+dll entrypoint rather than Co\+Create\+Instance)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md79}{}\doxysubsection{January 25, 2013}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md79}
+
+\begin{DoxyItemize}
+\item {\bfseries{Geometric\+Primitive}} support for left-\/handed coordinates and drawing with custom effects
+\item Model, Model\+Mesh, and Model\+Mesh\+Part added with loading of rigid non-\/animating models from .CMO and .SDKMESH files
+\item Effect\+Factory helper class added
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md80}{}\doxysubsection{December 11, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md80}
+
+\begin{DoxyItemize}
+\item Ex versions of {\bfseries{DDSTexture\+Loader}} and {\bfseries{WICTexture\+Loader}}
+\item Removed use of ATL\textquotesingle{}s {\ttfamily CCom\+Ptr} in favor of WRL\textquotesingle{}s {\ttfamily Com\+Ptr} for all platforms to support VS Express editions
+\item Updated VS 2010 project for official \textquotesingle{}property sheet\textquotesingle{} integration for Windows 8.\+0 SDK
+\item Minor fix to {\bfseries{Common\+States}} for Feature Level 9.\+1
+\item Tweaked Alpha\+Test\+Effect.\+cpp to work around ARM NEON compiler codegen bug
+\item Added dxguid.\+lib as a default library for Debug builds to resolve GUID link issues
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md81}{}\doxysubsection{November 15, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md81}
+
+\begin{DoxyItemize}
+\item Added support for WIC2 when available on Windows 8 and Windows 7 with KB 2670838
+\item Cleaned up warning level 4 warnings
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md82}{}\doxysubsection{October 30, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md82}
+
+\begin{DoxyItemize}
+\item Added project files for Windows phone 8
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md83}{}\doxysubsection{October 12, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md83}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Primitive\+Batch}} for drawing user primitives
+\item Debug object names for all D3D resources (for PIX and debug layer leak reporting)
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md84}{}\doxysubsection{October 2, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md84}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Screen\+Grab}} module
+\item Added {\bfseries{Create\+Geo\+Sphere}} for drawing a geodesic sphere
+\item Put DDSTexture\+Loader and WICTexture\+Loader into the DirectX C++ namespace
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md85}{}\doxysubsection{September 7, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md85}
+
+\begin{DoxyItemize}
+\item Renamed project files for better naming consistency
+\item Updated WICTexture\+Loader for Windows 8 96bpp floating-\/point formats
+\item Win32 desktop projects updated to use Windows Vista (0x0600) rather than Windows 7 (0x0601) APIs
+\item Tweaked Sprite\+Batch.\+cpp to workaround ARM NEON compiler codegen bug
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md86}{}\doxysubsection{May 31, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md86}
+
+\begin{DoxyItemize}
+\item Updated Windows Store project for Visual Studio 2012 Release Candidate changes
+\item Cleaned up x64 Debug configuration warnings and switched to use {\ttfamily \+\_\+\+DEBUG} instead of {\ttfamily DEBUG}
+\item Minor fix for DDSTexture\+Loader\textquotesingle{}s retry fallback that can happen with 10level9 feature levels
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md87}{}\doxysubsection{May 2, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md87}
+
+\begin{DoxyItemize}
+\item Added {\bfseries{Sprite\+Font}} implementation and the \mbox{\hyperlink{namespace_make_sprite_font}{Make\+Sprite\+Font}} utility
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md88}{}\doxysubsection{March 29, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md88}
+
+\begin{DoxyItemize}
+\item WICTexture\+Loader updated with Windows 8 WIC native pixel formats
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md89}{}\doxysubsection{March 6, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md89}
+
+\begin{DoxyItemize}
+\item Fix for too much temp memory used by WICTexture\+Loader
+\item Add separate Visual Studio 11 projects for Desktop vs. Windows Store builds
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md90}{}\doxysubsection{March 5, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md90}
+
+\begin{DoxyItemize}
+\item Bug fix for Sprite\+Batch with batches \texorpdfstring{$>$}{>} 2048
+\end{DoxyItemize}\hypertarget{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md91}{}\doxysubsection{February 24, 2012}\label{md__c___users__family_source_repos__liquid_engine__liquid_engine__graphics__direct_x_t_k__h_i_s_t_o_r_y_autotoc_md91}
+
+\begin{DoxyItemize}
+\item Original release 
+\end{DoxyItemize}

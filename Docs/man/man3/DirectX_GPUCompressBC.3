@@ -1,0 +1,28 @@
+.TH "DirectX::GPUCompressBC" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GPUCompressBC
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "HRESULT \fBInitialize\fP (_In_ ID3D11Device *pDevice)"
+.br
+.ti -1c
+.RI "HRESULT \fBPrepare\fP (size_t width, size_t height, uint32_t flags, DXGI_FORMAT format, float alphaWeight)"
+.br
+.ti -1c
+.RI "HRESULT \fBCompress\fP (const \fBImage\fP &srcImage, const \fBImage\fP &destImage)"
+.br
+.ti -1c
+.RI "DXGI_FORMAT \fBGetSourceFormat\fP () const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

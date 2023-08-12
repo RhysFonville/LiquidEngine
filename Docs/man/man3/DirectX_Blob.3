@@ -1,0 +1,46 @@
+.TH "DirectX::Blob" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Blob
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBlob\fP (\fBBlob\fP &&moveFrom) noexcept"
+.br
+.ti -1c
+.RI "\fBBlob\fP &__cdecl \fBoperator=\fP (\fBBlob\fP &&moveFrom) noexcept"
+.br
+.ti -1c
+.RI "\fBBlob\fP (const \fBBlob\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBBlob\fP & \fBoperator=\fP (const \fBBlob\fP &)=delete"
+.br
+.ti -1c
+.RI "HRESULT __cdecl \fBInitialize\fP (_In_ size_t size) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBRelease\fP () noexcept"
+.br
+.ti -1c
+.RI "void *__cdecl \fBGetBufferPointer\fP () const noexcept"
+.br
+.ti -1c
+.RI "size_t __cdecl \fBGetBufferSize\fP () const noexcept"
+.br
+.ti -1c
+.RI "HRESULT __cdecl \fBResize\fP (size_t size) noexcept"
+.br
+.ti -1c
+.RI "HRESULT __cdecl \fBTrim\fP (size_t size) noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

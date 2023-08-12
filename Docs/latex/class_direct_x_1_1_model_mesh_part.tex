@@ -1,0 +1,83 @@
+\hypertarget{class_direct_x_1_1_model_mesh_part}{}\doxysection{DirectX\+::Model\+Mesh\+Part Class Reference}
+\label{class_direct_x_1_1_model_mesh_part}\index{DirectX::ModelMeshPart@{DirectX::ModelMeshPart}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a2e762f75b58b8f1c9f2760b20554b38a}\label{class_direct_x_1_1_model_mesh_part_a2e762f75b58b8f1c9f2760b20554b38a}} 
+using {\bfseries Collection} = std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} $>$ $>$
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a90216f94ccfa1a50d5f68a5551efffb7}\label{class_direct_x_1_1_model_mesh_part_a90216f94ccfa1a50d5f68a5551efffb7}} 
+using {\bfseries Input\+Layout\+Collection} = std\+::vector$<$ D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a202b573cd4b80c852ea7ba189e101537}\label{class_direct_x_1_1_model_mesh_part_a202b573cd4b80c852ea7ba189e101537}} 
+{\bfseries Model\+Mesh\+Part} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_aae20ee0cf98fc4cf97a6407f71307e69}\label{class_direct_x_1_1_model_mesh_part_aae20ee0cf98fc4cf97a6407f71307e69}} 
+\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a0d873f38d23f6ac39806e65f7f005665}\label{class_direct_x_1_1_model_mesh_part_a0d873f38d23f6ac39806e65f7f005665}} 
+{\bfseries Model\+Mesh\+Part} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} const \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a839e49d2d9e242edd98ed95dab2be2c1}\label{class_direct_x_1_1_model_mesh_part_a839e49d2d9e242edd98ed95dab2be2c1}} 
+\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{Model\+Mesh\+Part}} const \&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a845bb5db9b19729149aeb16c8753e42c}\label{class_direct_x_1_1_model_mesh_part_a845bb5db9b19729149aeb16c8753e42c}} 
+void \+\_\+\+\_\+cdecl {\bfseries Draw} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$ieffect, \+\_\+\+In\+\_\+ ID3\+D11\+Input\+Layout $\ast$iinput\+Layout, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a89306b750a369f9f3acf15cda8a2e3f8}\label{class_direct_x_1_1_model_mesh_part_a89306b750a369f9f3acf15cda8a2e3f8}} 
+void \+\_\+\+\_\+cdecl {\bfseries Draw\+Instanced} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$ieffect, \+\_\+\+In\+\_\+ ID3\+D11\+Input\+Layout $\ast$iinput\+Layout, uint32\+\_\+t instance\+Count, uint32\+\_\+t start\+Instance\+Location=0, \+\_\+\+In\+\_\+opt\+\_\+ std\+::function$<$ void \+\_\+\+\_\+cdecl()$>$ set\+Custom\+State=nullptr) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a259106964f6e79c02a1115ebbd6c90a4}\label{class_direct_x_1_1_model_mesh_part_a259106964f6e79c02a1115ebbd6c90a4}} 
+void \+\_\+\+\_\+cdecl {\bfseries Create\+Input\+Layout} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $\ast$ieffect, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Input\+Layout $\ast$$\ast$iinput\+Layout) const
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a1fc838d5361baf78231bbc7d86678a11}\label{class_direct_x_1_1_model_mesh_part_a1fc838d5361baf78231bbc7d86678a11}} 
+void \+\_\+\+\_\+cdecl {\bfseries Modify\+Effect} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+ const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ \&ieffect, bool isalpha=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a1c6538192b287536948f93efb9fd9995}\label{class_direct_x_1_1_model_mesh_part_a1c6538192b287536948f93efb9fd9995}} 
+uint32\+\_\+t {\bfseries index\+Count}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_ad04de93f9e69d7a0941f082a6cbdd796}\label{class_direct_x_1_1_model_mesh_part_ad04de93f9e69d7a0941f082a6cbdd796}} 
+uint32\+\_\+t {\bfseries start\+Index}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a8335accd9ac1fcb255d3be1a45d0c892}\label{class_direct_x_1_1_model_mesh_part_a8335accd9ac1fcb255d3be1a45d0c892}} 
+int32\+\_\+t {\bfseries vertex\+Offset}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_ab3cafa9aed16cf18bd092040c5551bc6}\label{class_direct_x_1_1_model_mesh_part_ab3cafa9aed16cf18bd092040c5551bc6}} 
+uint32\+\_\+t {\bfseries vertex\+Stride}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_aa23e351e104e895e79ef2fb16418eadd}\label{class_direct_x_1_1_model_mesh_part_aa23e351e104e895e79ef2fb16418eadd}} 
+D3\+D\+\_\+\+PRIMITIVE\+\_\+\+TOPOLOGY {\bfseries primitive\+Type}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a3ae3b4e0b20ef855846d86904db2cc15}\label{class_direct_x_1_1_model_mesh_part_a3ae3b4e0b20ef855846d86904db2cc15}} 
+DXGI\+\_\+\+FORMAT {\bfseries index\+Format}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a0588831590c8503729ecac5fd3312834}\label{class_direct_x_1_1_model_mesh_part_a0588831590c8503729ecac5fd3312834}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Input\+Layout $>$ {\bfseries input\+Layout}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a954bcaf631ce9af63b36e9b55ad7691f}\label{class_direct_x_1_1_model_mesh_part_a954bcaf631ce9af63b36e9b55ad7691f}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Buffer $>$ {\bfseries index\+Buffer}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a9b7cd87e3fe51497f9556030617dd9d0}\label{class_direct_x_1_1_model_mesh_part_a9b7cd87e3fe51497f9556030617dd9d0}} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Buffer $>$ {\bfseries vertex\+Buffer}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_aca5f87eb45293fa21e1c89bd43789d83}\label{class_direct_x_1_1_model_mesh_part_aca5f87eb45293fa21e1c89bd43789d83}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ {\bfseries effect}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a4c3b6109ef52befa34da34685f173dc9}\label{class_direct_x_1_1_model_mesh_part_a4c3b6109ef52befa34da34685f173dc9}} 
+std\+::shared\+\_\+ptr$<$ Input\+Layout\+Collection $>$ {\bfseries vb\+Decl}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_model_mesh_part_a6c9f7410ee3bf70389fc98c7df372f66}\label{class_direct_x_1_1_model_mesh_part_a6c9f7410ee3bf70389fc98c7df372f66}} 
+bool {\bfseries is\+Alpha}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Model.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Model.\+cpp\end{DoxyCompactItemize}

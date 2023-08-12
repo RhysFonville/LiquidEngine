@@ -1,0 +1,70 @@
+\hypertarget{class_wave_bank_reader_1_1_impl}{}\doxysection{DirectX\+::Wave\+Bank\+Reader\+::Impl Class Reference}
+\label{class_wave_bank_reader_1_1_impl}\index{DirectX::WaveBankReader::Impl@{DirectX::WaveBankReader::Impl}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a01a2f10e6eda89f37affefb6da699155}\label{class_wave_bank_reader_1_1_impl_a01a2f10e6eda89f37affefb6da699155}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a433352975376076ae74a9f9ef2eb891a}\label{class_wave_bank_reader_1_1_impl_a433352975376076ae74a9f9ef2eb891a}} 
+\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a80a89cc50e7d1437e35137f0eed89edb}\label{class_wave_bank_reader_1_1_impl_a80a89cc50e7d1437e35137f0eed89edb}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_aac1686b7eca5df9f50b5d8c9a6a20739}\label{class_wave_bank_reader_1_1_impl_aac1686b7eca5df9f50b5d8c9a6a20739}} 
+\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_wave_bank_reader_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_ae786ae7c68c344b56e9fa7901a62a6fb}\label{class_wave_bank_reader_1_1_impl_ae786ae7c68c344b56e9fa7901a62a6fb}} 
+HRESULT {\bfseries Open} (\+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$sz\+File\+Name) noexcept(false)
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a6562002e1eb7adbbf79abf81f0cc7296}\label{class_wave_bank_reader_1_1_impl_a6562002e1eb7adbbf79abf81f0cc7296}} 
+void {\bfseries Close} () noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a97c95839347c8e53ee541021d718b967}\label{class_wave_bank_reader_1_1_impl_a97c95839347c8e53ee541021d718b967}} 
+HRESULT {\bfseries Get\+Format} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+writes\+\_\+bytes\+\_\+(maxsize) WAVEFORMATEX $\ast$p\+Format, \+\_\+\+In\+\_\+ size\+\_\+t maxsize) const noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a36f2ebfa1756a997d2627c8e5039d822}\label{class_wave_bank_reader_1_1_impl_a36f2ebfa1756a997d2627c8e5039d822}} 
+HRESULT {\bfseries Get\+Wave\+Data} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Outptr\+\_\+ const uint8\+\_\+t $\ast$$\ast$p\+Data, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&data\+Size) const noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_ad18bb2b866fad22bdf54ab4748a5f5b5}\label{class_wave_bank_reader_1_1_impl_ad18bb2b866fad22bdf54ab4748a5f5b5}} 
+HRESULT {\bfseries Get\+Seek\+Table} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+ const uint32\+\_\+t $\ast$$\ast$p\+Data, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&data\+Count, \+\_\+\+Out\+\_\+ uint32\+\_\+t \&tag) const noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a2df251e4ec08b21f4197648a539cbbaa}\label{class_wave_bank_reader_1_1_impl_a2df251e4ec08b21f4197648a539cbbaa}} 
+HRESULT {\bfseries Get\+Metadata} (\+\_\+\+In\+\_\+ uint32\+\_\+t index, \+\_\+\+Out\+\_\+ \mbox{\hyperlink{struct_direct_x_1_1_wave_bank_reader_1_1_metadata}{Metadata}} \&metadata) const noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a8346f9a62338fd734672d89dc9cc6007}\label{class_wave_bank_reader_1_1_impl_a8346f9a62338fd734672d89dc9cc6007}} 
+bool {\bfseries Update\+Prepared} () noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a17913d959f6b1a588b02f942117b56be}\label{class_wave_bank_reader_1_1_impl_a17913d959f6b1a588b02f942117b56be}} 
+void {\bfseries Clear} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_ab8f389a1facf854c0f4732dc13ec367e}\label{class_wave_bank_reader_1_1_impl_ab8f389a1facf854c0f4732dc13ec367e}} 
+HANDLE {\bfseries m\+\_\+async}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_adf56e31e39352f85d3f913f08e0cfc3b}\label{class_wave_bank_reader_1_1_impl_adf56e31e39352f85d3f913f08e0cfc3b}} 
+Scoped\+Handle {\bfseries m\+\_\+event}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a3d37a0db5d9e58a48b896bd4ef8fe13c}\label{class_wave_bank_reader_1_1_impl_a3d37a0db5d9e58a48b896bd4ef8fe13c}} 
+OVERLAPPED {\bfseries m\+\_\+request}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a9e75ee6e869da6ffebb1178ea6cec3ea}\label{class_wave_bank_reader_1_1_impl_a9e75ee6e869da6ffebb1178ea6cec3ea}} 
+bool {\bfseries m\+\_\+prepared}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a6049cfcc1c1c5e6cae8d57ef3671fe3d}\label{class_wave_bank_reader_1_1_impl_a6049cfcc1c1c5e6cae8d57ef3671fe3d}} 
+HEADER {\bfseries m\+\_\+header}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a67df206186ec44d748c0ee8e445dc74b}\label{class_wave_bank_reader_1_1_impl_a67df206186ec44d748c0ee8e445dc74b}} 
+BANKDATA {\bfseries m\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_wave_bank_reader_1_1_impl_a30297e6512c5cfa4d6c8225c01a5a079}\label{class_wave_bank_reader_1_1_impl_a30297e6512c5cfa4d6c8225c01a5a079}} 
+std\+::map$<$ std\+::string, uint32\+\_\+t $>$ {\bfseries m\+\_\+names}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Wave\+Bank\+Reader.\+cpp\end{DoxyCompactItemize}

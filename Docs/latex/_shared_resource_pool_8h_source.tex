@@ -1,0 +1,117 @@
+\hypertarget{_shared_resource_pool_8h_source}{}\doxysection{Shared\+Resource\+Pool.\+h}
+\label{_shared_resource_pool_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/SharedResourcePool.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/SharedResourcePool.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ SharedResourcePool.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}PlatformHelpers.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Pool\ manager\ ensures\ that\ only\ a\ single\ TData\ instance\ is\ created\ for\ each\ unique\ TKey.}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ This\ is\ used\ to\ avoid\ duplicate\ resource\ creation,\ so\ that\ for\ instance\ a\ caller\ can}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ create\ any\ number\ of\ SpriteBatch\ instances,\ but\ these\ can\ internally\ share\ shaders\ and}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ vertex\ buffer\ if\ more\ than\ one\ SpriteBatch\ uses\ the\ same\ underlying\ D3D\ device.}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TKey,\ \textcolor{keyword}{typename}\ TData,\ \textcolor{keyword}{typename}...\ TConstructorArgs>}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ :\ mResourceMap(std::make\_shared<ResourceMap>())}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}(\mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{SharedResourcePool}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocates\ or\ looks\ up\ the\ shared\ TData\ instance\ for\ the\ specified\ key.}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::shared\_ptr<TData>\ DemandCreate(TKey\ key,\ TConstructorArgs...\ args)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(mResourceMap-\/>mutex);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Return\ an\ existing\ instance?}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pos\ =\ mResourceMap-\/>find(key);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ !=\ mResourceMap-\/>end())}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ existingValue\ =\ pos-\/>second.lock();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (existingValue)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ existingValue;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mResourceMap-\/>erase(pos);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate\ a\ new\ instance.}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ newValue\ =\ std::make\_shared<WrappedData>(key,\ mResourceMap,\ args...);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ entry\ =\ std::make\_pair(key,\ newValue);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ mResourceMap-\/>insert(entry);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(newValue);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ track\ of\ all\ allocated\ TData\ instances.}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }ResourceMap\ :\ \textcolor{keyword}{public}\ std::map<TKey,\ std::weak\_ptr<TData>>}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::shared\_ptr<ResourceMap>\ mResourceMap;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wrap\ TData\ with\ our\ own\ subclass,\ so\ we\ can\ hook\ the\ destructor}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ remove\ instances\ from\ our\ pool\ before\ they\ are\ freed.}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }WrappedData\ :\ \textcolor{keyword}{public}\ TData}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ WrappedData(TKey\ key,\ std::shared\_ptr<ResourceMap>\ \textcolor{keyword}{const}\&\ resourceMap,\ TConstructorArgs...\ args)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ TData(key,\ args...),}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mKey(key),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mResourceMap(resourceMap)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ WrappedData(WrappedData\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ WrappedData\&\ operator=\ (WrappedData\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ WrappedData(WrappedData\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ WrappedData\&\ operator=\ (WrappedData\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \string~WrappedData()}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::lock\_guard<std::mutex>\ lock(mResourceMap-\/>mutex);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ pos\ =\ mResourceMap-\/>find(mKey);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ weak\ reference\ expiry\ before\ erasing,\ in\ case\ DemandCreate\ runs\ on}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ a\ different\ thread\ at\ the\ same\ time\ as\ a\ previous\ instance\ is\ being\ destroyed.}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ mustn't\ erase\ replacement\ objects\ that\ have\ just\ been\ added!}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ !=\ mResourceMap-\/>end()\ \&\&\ pos-\/>second.expired())}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mResourceMap-\/>erase(pos);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ TKey\ mKey;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<ResourceMap>\ mResourceMap;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00110\ \ \ \ \ \};}
+\DoxyCodeLine{00111\ \}}
+
+\end{DoxyCode}

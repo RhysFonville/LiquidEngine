@@ -1,0 +1,379 @@
+\hypertarget{class_direct_x_1_1_d_g_s_l_effect}{}\doxysection{DirectX\+::DGSLEffect Class Reference}
+\label{class_direct_x_1_1_d_g_s_l_effect}\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+Inheritance diagram for DirectX\+::DGSLEffect\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_direct_x_1_1_d_g_s_l_effect}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_d_g_s_l_effect_1_1_impl}{Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a2803ea6f90c383176d40219526af53d1}\label{class_direct_x_1_1_d_g_s_l_effect_a2803ea6f90c383176d40219526af53d1}} 
+{\bfseries DGSLEffect} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Pixel\+Shader $\ast$pixel\+Shader=nullptr)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a76015d91b6ef76a5e6d433a427d620cc}\label{class_direct_x_1_1_d_g_s_l_effect_a76015d91b6ef76a5e6d433a427d620cc}} 
+{\bfseries DGSLEffect} (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a548709b2f4c455613d7d9633cb812b55}\label{class_direct_x_1_1_d_g_s_l_effect_a548709b2f4c455613d7d9633cb812b55}} 
+\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} \&\&) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a3f025e70c3aac2cb44e899691f324b47}\label{class_direct_x_1_1_d_g_s_l_effect_a3f025e70c3aac2cb44e899691f324b47}} 
+{\bfseries DGSLEffect} (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a6690340144f57e017e5df2e836763ced}\label{class_direct_x_1_1_d_g_s_l_effect_a6690340144f57e017e5df2e836763ced}} 
+\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect}{DGSLEffect}} const \&)=delete
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a2c68683825c40e52a3a5022835bc5b22}{Apply}} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a1ee5c1f9de3543f07aabde2dd7ac6bbc}{Get\+Vertex\+Shader\+Bytecode}} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a1e39cf35cd2fa87b36502353521b871e}{Set\+World}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_af696cc955b5cce291348bd8b6dea9c25}{Set\+View}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a31ed451b057e87a56eb56fa93f398acc}{Set\+Projection}} (FXMMATRIX value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a29a63161fc0e3ed99b83910f91b24756}{Set\+Matrices}} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection) override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_afbf94f517c66986754c2acac7f375602}\label{class_direct_x_1_1_d_g_s_l_effect_afbf94f517c66986754c2acac7f375602}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Ambient\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a2d2d23d11417aecd91f57b1ce7dfa8f9}\label{class_direct_x_1_1_d_g_s_l_effect_a2d2d23d11417aecd91f57b1ce7dfa8f9}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Diffuse\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a50df1f18f52acdb9668ca9f5bdec393e}\label{class_direct_x_1_1_d_g_s_l_effect_a50df1f18f52acdb9668ca9f5bdec393e}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Emissive\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_abba9acffa7cf75f5d447b19c2961b959}\label{class_direct_x_1_1_d_g_s_l_effect_abba9acffa7cf75f5d447b19c2961b959}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Specular\+Color} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_ab67f1258bac9d6f3aaad8591df6c5c56}\label{class_direct_x_1_1_d_g_s_l_effect_ab67f1258bac9d6f3aaad8591df6c5c56}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Specular\+Power} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a49606a723eaee607cb82f731aa650664}\label{class_direct_x_1_1_d_g_s_l_effect_a49606a723eaee607cb82f731aa650664}} 
+void \+\_\+\+\_\+cdecl {\bfseries Disable\+Specular} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a631338c80aaa3f347e0f109823f46f23}\label{class_direct_x_1_1_d_g_s_l_effect_a631338c80aaa3f347e0f109823f46f23}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Alpha} (float value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a87759525e50f328fe4ff38564659a51e}\label{class_direct_x_1_1_d_g_s_l_effect_a87759525e50f328fe4ff38564659a51e}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+Color\+And\+Alpha} (FXMVECTOR value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_ad7e1155111bfd6401fa3916b47843e35}\label{class_direct_x_1_1_d_g_s_l_effect_ad7e1155111bfd6401fa3916b47843e35}} 
+void XM\+\_\+\+CALLCONV {\bfseries Set\+UVTransform} (FXMMATRIX value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_aac4b75a84b3f9e605894a4aa81019fda}\label{class_direct_x_1_1_d_g_s_l_effect_aac4b75a84b3f9e605894a4aa81019fda}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Viewport} (float width, float height)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a0f31db22cd1a766048d7226161032b48}\label{class_direct_x_1_1_d_g_s_l_effect_a0f31db22cd1a766048d7226161032b48}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Time} (float time)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_aa7d4427da617ee25793c66328a6e1178}\label{class_direct_x_1_1_d_g_s_l_effect_aa7d4427da617ee25793c66328a6e1178}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Alpha\+Discard\+Enable} (bool value)
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a6a51ddc4457514d02dfb89470c254426}{Set\+Lighting\+Enabled}} (bool value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a0630558c1aff985e7edfd9ead4f0daec}{Set\+Ambient\+Light\+Color}} (FXMVECTOR value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a49e4c55d16966a8381fce9d01ca153a5}{Set\+Light\+Enabled}} (int which\+Light, bool value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_ac3a3e40be2b23bb112d3c81de98bf1cd}{Set\+Light\+Direction}} (int which\+Light, FXMVECTOR value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a613cf05808dc16a670edd74b5835e848}{Set\+Light\+Diffuse\+Color}} (int which\+Light, FXMVECTOR value) override
+\item 
+void XM\+\_\+\+CALLCONV \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_a00e9f835b4161f5b820e1e61820d91ea}{Set\+Light\+Specular\+Color}} (int which\+Light, FXMVECTOR value) override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_aeaf4ed4af68ce5ee6b3949026fd90049}{Enable\+Default\+Lighting}} () override
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_abddc21cf7250531acdc8a437e8fd4d85}\label{class_direct_x_1_1_d_g_s_l_effect_abddc21cf7250531acdc8a437e8fd4d85}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Vertex\+Color\+Enabled} (bool value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_ad133e60435e1e6edc8eb567de174d682}\label{class_direct_x_1_1_d_g_s_l_effect_ad133e60435e1e6edc8eb567de174d682}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Texture\+Enabled} (bool value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a407be1e35051da60419f046338ea3d38}\label{class_direct_x_1_1_d_g_s_l_effect_a407be1e35051da60419f046338ea3d38}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Texture} (\+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_afc15f33c2cf59c2a1859f32a4e1ee32a}\label{class_direct_x_1_1_d_g_s_l_effect_afc15f33c2cf59c2a1859f32a4e1ee32a}} 
+void \+\_\+\+\_\+cdecl {\bfseries Set\+Texture} (int which\+Texture, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}\label{class_direct_x_1_1_i_effect_a1103ab0765ba27ddd514891971a3e8be}} 
+{\bfseries IEffect} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}\label{class_direct_x_1_1_i_effect_a6a21f8b99de7aef0529d92e27e52dbb3}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}\label{class_direct_x_1_1_i_effect_a7eccdd439a52e28479f115766b19be56}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Apply} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}\label{class_direct_x_1_1_i_effect_aa3783c65d0ce4a9c40ad94f27451b19c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Get\+Vertex\+Shader\+Bytecode} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}\label{class_direct_x_1_1_i_effect_matrices_a1d538f9bee7aab0909f8e0a84b4a7b14}} 
+{\bfseries IEffect\+Matrices} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}\label{class_direct_x_1_1_i_effect_matrices_a607a9cc1a3b947410a6aa03bb1622dd5}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}\label{class_direct_x_1_1_i_effect_matrices_a2b58a352cd90aa10d12dc1aa7a800888}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+World} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}\label{class_direct_x_1_1_i_effect_matrices_a7bf7a12426a8b082fd2e838911c8f7f2}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+View} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}\label{class_direct_x_1_1_i_effect_matrices_a7d8021a6acb2c4ba954032e8c6975f58}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Projection} (FXMMATRIX value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}\label{class_direct_x_1_1_i_effect_matrices_af39eb9c925f70e80834fdee3f152ba32}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Matrices} (FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a343666cbc435dccd8685692fe5b1bd0a}\label{class_direct_x_1_1_i_effect_lights_a343666cbc435dccd8685692fe5b1bd0a}} 
+{\bfseries IEffect\+Lights} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a36afc3fea028e5de413302e5b33ffc59}\label{class_direct_x_1_1_i_effect_lights_a36afc3fea028e5de413302e5b33ffc59}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_aa0aaa42e0016733d7754fab8f2964c84}\label{class_direct_x_1_1_i_effect_lights_aa0aaa42e0016733d7754fab8f2964c84}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Lighting\+Enabled} (bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_acc9640c80f58a9cf78bc0a179b0d530c}\label{class_direct_x_1_1_i_effect_lights_acc9640c80f58a9cf78bc0a179b0d530c}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Per\+Pixel\+Lighting} (bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a78885ee7033d5e354ce2861068e673b7}\label{class_direct_x_1_1_i_effect_lights_a78885ee7033d5e354ce2861068e673b7}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Ambient\+Light\+Color} (FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_af1226d7de50462eaadb51490a7658595}\label{class_direct_x_1_1_i_effect_lights_af1226d7de50462eaadb51490a7658595}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Set\+Light\+Enabled} (int which\+Light, bool value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a436e3e5076e917f1481a46e378dbfc9c}\label{class_direct_x_1_1_i_effect_lights_a436e3e5076e917f1481a46e378dbfc9c}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Direction} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_aa0f69168c5358fd15ccd2cd1dee1eccf}\label{class_direct_x_1_1_i_effect_lights_aa0f69168c5358fd15ccd2cd1dee1eccf}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Diffuse\+Color} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a62ee94ce64d32e6428bfad419b7070b2}\label{class_direct_x_1_1_i_effect_lights_a62ee94ce64d32e6428bfad419b7070b2}} 
+virtual void XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Specular\+Color} (int which\+Light, FXMVECTOR value)=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_ad51effb2e427bc4b46992d8786f46d11}\label{class_direct_x_1_1_i_effect_lights_ad51effb2e427bc4b46992d8786f46d11}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Enable\+Default\+Lighting} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a28344b1541a9d8a658bef46377f5d7d0}\label{class_direct_x_1_1_d_g_s_l_effect_a28344b1541a9d8a658bef46377f5d7d0}} 
+static constexpr int {\bfseries Max\+Directional\+Lights} = 4
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_af4e2830d06f174a470561cc11f871ae2}\label{class_direct_x_1_1_d_g_s_l_effect_af4e2830d06f174a470561cc11f871ae2}} 
+static constexpr int {\bfseries Max\+Textures} = 8
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_ab154708a880afcb3edc81857735caa75}\label{class_direct_x_1_1_i_effect_lights_ab154708a880afcb3edc81857735caa75}} 
+static constexpr int {\bfseries Max\+Directional\+Lights} = 3
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a5d36b75c320c458f96e14a78205c4ea7}\label{class_direct_x_1_1_d_g_s_l_effect_a5d36b75c320c458f96e14a78205c4ea7}} 
+{\bfseries DGSLEffect} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Pixel\+Shader $\ast$pixel\+Shader, bool skinning\+Enabled)
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_afebe931f89b94ec9a4d178f8949842bb}{Set\+Per\+Pixel\+Lighting}} (bool value) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}\label{class_direct_x_1_1_i_effect_a45c3cf3c8e34d0b2dab4299e2a20caf6}} 
+{\bfseries IEffect} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}\label{class_direct_x_1_1_i_effect_aaef5f5da392c1ead4e430e8b5bb94548}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}\label{class_direct_x_1_1_i_effect_matrices_a3786801664bcb3e386e6c8388d21e73b}} 
+{\bfseries IEffect\+Matrices} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}\label{class_direct_x_1_1_i_effect_matrices_a9e42f0e9b9b5fdcb0d77ec1302cc0a7e}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{IEffect\+Matrices}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a7db90198c35c1b334b406ce5a6dd58f6}\label{class_direct_x_1_1_i_effect_lights_a7db90198c35c1b334b406ce5a6dd58f6}} 
+{\bfseries IEffect\+Lights} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_effect_lights_a3411cc5d9b0a96227f421f0cb46984ac}\label{class_direct_x_1_1_i_effect_lights_a3411cc5d9b0a96227f421f0cb46984ac}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a842901d320a5e95a15cf08cabb46548c}\label{class_direct_x_1_1_d_g_s_l_effect_a842901d320a5e95a15cf08cabb46548c}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_d_g_s_l_effect_1_1_impl}{Impl}} $>$ {\bfseries p\+Impl}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a2c68683825c40e52a3a5022835bc5b22}\label{class_direct_x_1_1_d_g_s_l_effect_a2c68683825c40e52a3a5022835bc5b22}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!Apply@{Apply}}
+\index{Apply@{Apply}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{Apply()}{Apply()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Apply (\begin{DoxyParamCaption}\item[{\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$}]{device\+Context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_aeaf4ed4af68ce5ee6b3949026fd90049}\label{class_direct_x_1_1_d_g_s_l_effect_aeaf4ed4af68ce5ee6b3949026fd90049}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!EnableDefaultLighting@{EnableDefaultLighting}}
+\index{EnableDefaultLighting@{EnableDefaultLighting}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{EnableDefaultLighting()}{EnableDefaultLighting()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Enable\+Default\+Lighting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a1ee5c1f9de3543f07aabde2dd7ac6bbc}\label{class_direct_x_1_1_d_g_s_l_effect_a1ee5c1f9de3543f07aabde2dd7ac6bbc}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!GetVertexShaderBytecode@{GetVertexShaderBytecode}}
+\index{GetVertexShaderBytecode@{GetVertexShaderBytecode}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{GetVertexShaderBytecode()}{GetVertexShaderBytecode()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Get\+Vertex\+Shader\+Bytecode (\begin{DoxyParamCaption}\item[{\+\_\+\+Out\+\_\+ void const $\ast$$\ast$}]{p\+Shader\+Byte\+Code,  }\item[{\+\_\+\+Out\+\_\+ size\+\_\+t $\ast$}]{p\+Byte\+Code\+Length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect}{Direct\+X\+::\+IEffect}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a0630558c1aff985e7edfd9ead4f0daec}\label{class_direct_x_1_1_d_g_s_l_effect_a0630558c1aff985e7edfd9ead4f0daec}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetAmbientLightColor@{SetAmbientLightColor}}
+\index{SetAmbientLightColor@{SetAmbientLightColor}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetAmbientLightColor()}{SetAmbientLightColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Ambient\+Light\+Color (\begin{DoxyParamCaption}\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a613cf05808dc16a670edd74b5835e848}\label{class_direct_x_1_1_d_g_s_l_effect_a613cf05808dc16a670edd74b5835e848}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetLightDiffuseColor@{SetLightDiffuseColor}}
+\index{SetLightDiffuseColor@{SetLightDiffuseColor}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightDiffuseColor()}{SetLightDiffuseColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Light\+Diffuse\+Color (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_ac3a3e40be2b23bb112d3c81de98bf1cd}\label{class_direct_x_1_1_d_g_s_l_effect_ac3a3e40be2b23bb112d3c81de98bf1cd}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetLightDirection@{SetLightDirection}}
+\index{SetLightDirection@{SetLightDirection}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightDirection()}{SetLightDirection()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Light\+Direction (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a49e4c55d16966a8381fce9d01ca153a5}\label{class_direct_x_1_1_d_g_s_l_effect_a49e4c55d16966a8381fce9d01ca153a5}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetLightEnabled@{SetLightEnabled}}
+\index{SetLightEnabled@{SetLightEnabled}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightEnabled()}{SetLightEnabled()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Set\+Light\+Enabled (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a6a51ddc4457514d02dfb89470c254426}\label{class_direct_x_1_1_d_g_s_l_effect_a6a51ddc4457514d02dfb89470c254426}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetLightingEnabled@{SetLightingEnabled}}
+\index{SetLightingEnabled@{SetLightingEnabled}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightingEnabled()}{SetLightingEnabled()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Set\+Lighting\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a00e9f835b4161f5b820e1e61820d91ea}\label{class_direct_x_1_1_d_g_s_l_effect_a00e9f835b4161f5b820e1e61820d91ea}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetLightSpecularColor@{SetLightSpecularColor}}
+\index{SetLightSpecularColor@{SetLightSpecularColor}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetLightSpecularColor()}{SetLightSpecularColor()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Light\+Specular\+Color (\begin{DoxyParamCaption}\item[{int}]{which\+Light,  }\item[{FXMVECTOR}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a29a63161fc0e3ed99b83910f91b24756}\label{class_direct_x_1_1_d_g_s_l_effect_a29a63161fc0e3ed99b83910f91b24756}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetMatrices@{SetMatrices}}
+\index{SetMatrices@{SetMatrices}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetMatrices()}{SetMatrices()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Matrices (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{world,  }\item[{CXMMATRIX}]{view,  }\item[{CXMMATRIX}]{projection }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_afebe931f89b94ec9a4d178f8949842bb}\label{class_direct_x_1_1_d_g_s_l_effect_afebe931f89b94ec9a4d178f8949842bb}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetPerPixelLighting@{SetPerPixelLighting}}
+\index{SetPerPixelLighting@{SetPerPixelLighting}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetPerPixelLighting()}{SetPerPixelLighting()}}
+{\footnotesize\ttfamily void DGSLEffect\+::\+Set\+Per\+Pixel\+Lighting (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{Direct\+X\+::\+IEffect\+Lights}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a31ed451b057e87a56eb56fa93f398acc}\label{class_direct_x_1_1_d_g_s_l_effect_a31ed451b057e87a56eb56fa93f398acc}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetProjection@{SetProjection}}
+\index{SetProjection@{SetProjection}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetProjection()}{SetProjection()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+Projection (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_af696cc955b5cce291348bd8b6dea9c25}\label{class_direct_x_1_1_d_g_s_l_effect_af696cc955b5cce291348bd8b6dea9c25}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetView@{SetView}}
+\index{SetView@{SetView}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetView()}{SetView()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+View (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+\mbox{\Hypertarget{class_direct_x_1_1_d_g_s_l_effect_a1e39cf35cd2fa87b36502353521b871e}\label{class_direct_x_1_1_d_g_s_l_effect_a1e39cf35cd2fa87b36502353521b871e}} 
+\index{DirectX::DGSLEffect@{DirectX::DGSLEffect}!SetWorld@{SetWorld}}
+\index{SetWorld@{SetWorld}!DirectX::DGSLEffect@{DirectX::DGSLEffect}}
+\doxysubsubsection{\texorpdfstring{SetWorld()}{SetWorld()}}
+{\footnotesize\ttfamily void XM\+\_\+\+CALLCONV DGSLEffect\+::\+Set\+World (\begin{DoxyParamCaption}\item[{FXMMATRIX}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_effect_matrices}{Direct\+X\+::\+IEffect\+Matrices}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Effects.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/DGSLEffect.\+cpp\end{DoxyCompactItemize}

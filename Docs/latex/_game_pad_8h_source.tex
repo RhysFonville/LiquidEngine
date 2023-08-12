@@ -1,0 +1,315 @@
+\hypertarget{_game_pad_8h_source}{}\doxysection{Game\+Pad.\+h}
+\label{_game_pad_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/GamePad.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/GamePad.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ GamePad.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_GAMING\_DESKTOP}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <grdk.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ (defined(WINAPI\_FAMILY)\ \&\&\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_GAMES))\ ||\ (defined(\_GAMING\_DESKTOP)\ \&\&\ (\_GRDK\_EDITION\ >=\ 220600))}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#elif\ (\_WIN32\_WINNT\ >=\ 0x0A00\ }\textcolor{comment}{/*\_WIN32\_WINNT\_WIN10*/}\textcolor{preprocessor}{)\ \&\&\ !defined(\_GAMING\_DESKTOP)\ \&\&\ !defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifndef\ USING\_WINDOWS\_GAMING\_INPUT}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ USING\_WINDOWS\_GAMING\_INPUT}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{interface\ }IGameInputDevice;}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#elif\ defined(USING\_WINDOWS\_GAMING\_INPUT)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}runtimeobject.lib"{}})}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#elif\ !defined(\_XBOX\_ONE)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ (\_WIN32\_WINNT\ >=\ 0x0602\ }\textcolor{comment}{/*\_WIN32\_WINNT\_WIN8*/}\textcolor{preprocessor}{\ )}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}xinput.lib"{}})}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}xinput9\_1\_0.lib"{}})}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunknown-\/pragmas"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}(\mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}(\mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{\string~GamePad}}();}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(USING\_GAMEINPUT)\ ||\ defined(USING\_WINDOWS\_GAMING\_INPUT)\ ||\ defined(\_XBOX\_ONE)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MAX\_PLAYER\_COUNT\ =\ 8;}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ MAX\_PLAYER\_COUNT\ =\ 4;}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ c\_MostRecent\ =\ -\/1;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ c\_MergedInput\ =\ -\/2;}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ DeadZone}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ DEAD\_ZONE\_INDEPENDENT\_AXES\ =\ 0,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ DEAD\_ZONE\_CIRCULAR,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ DEAD\_ZONE\_NONE,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_buttons}{Buttons}}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ a;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ b;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ x;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ y;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ leftStick;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ rightStick;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ leftShoulder;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ rightShoulder;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ back;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ view;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ start;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ menu;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_d_pad}{DPad}}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ up;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ down;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ right;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ left;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_thumb_sticks}{ThumbSticks}}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leftX;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leftY;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ rightX;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ rightY;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_triggers}{Triggers}}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ left;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ right;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_state}{State}}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ connected;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \ \ \ packet;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_buttons}{Buttons}}\ \ \ \ \ buttons;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_d_pad}{DPad}}\ \ \ \ \ \ \ \ dpad;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_thumb_sticks}{ThumbSticks}}\ thumbSticks;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_triggers}{Triggers}}\ \ \ \ triggers;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsConnected()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ connected;\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Is\ the\ button\ pressed\ currently?}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsAPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.a;\ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsBPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.b;\ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsXPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.x;\ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsYPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.y;\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftStickPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.leftStick;\ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightStickPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.rightStick;\ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftShoulderPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.leftShoulder;\ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightShoulderPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.rightShoulder;\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsBackPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.back;\ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsViewPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.view;\ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsStartPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.start;\ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsMenuPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ buttons.menu;\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsDPadDownPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ dpad.down;\ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsDPadUpPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ dpad.up;\ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsDPadLeftPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ dpad.left;\ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsDPadRightPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ dpad.right;\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftThumbStickUp()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.leftY\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftThumbStickDown()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.leftY\ <\ -\/0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftThumbStickLeft()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.leftX\ <\ -\/0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftThumbStickRight()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.leftX\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightThumbStickUp()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.rightY\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightThumbStickDown()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.rightY\ <\ -\/0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightThumbStickLeft()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.rightX\ <\ -\/0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightThumbStickRight()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (thumbSticks.rightX\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsLeftTriggerPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (triggers.left\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsRightTriggerPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (triggers.right\ >\ 0.5f)\ !=\ 0;\ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_capabilities}{Capabilities}}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Type}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UNKNOWN\ =\ 0,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GAMEPAD,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEEL,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ARCADE\_STICK,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLIGHT\_STICK,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DANCE\_PAD,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GUITAR,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GUITAR\_ALTERNATE,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DRUM\_KIT,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GUITAR\_BASS\ =\ 11,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ARCADE\_PAD\ =\ 19,}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connected;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gamepadType;}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ APP\_LOCAL\_DEVICE\_ID\ id;}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ defined(USING\_WINDOWS\_GAMING\_INPUT)}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ std::wstring\ \ \ \ \ \ \ \ id;}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \ \ \ \ \ \ \ \ \ \ \ id;}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ vid;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ pid;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_capabilities}{Capabilities}}()\ noexcept\ :\ connected(\textcolor{keyword}{false}),\ gamepadType(UNKNOWN),\ \textcolor{keywordtype}{id}\{\},\ vid(0),\ pid(0)\ \{\}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsConnected()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ connected;\ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_game_pad_1_1_button_state_tracker}{ButtonStateTracker}}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ ButtonState}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP\ =\ 0,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Button\ is\ up}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HELD\ =\ 1,\ \ \ \ \ \ \ \textcolor{comment}{//\ Button\ is\ held\ down}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RELEASED\ =\ 2,\ \ \ \textcolor{comment}{//\ Button\ was\ just\ released}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PRESSED\ =\ 3,\ \ \ \ \textcolor{comment}{//\ Buton\ was\ just\ pressed}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ a;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ b;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ x;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ y;}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftStick;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightStick;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftShoulder;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightShoulder;}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ back;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ view;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ start;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ menu;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ dpadUp;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ dpadDown;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ dpadLeft;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ dpadRight;}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftStickUp;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftStickDown;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftStickLeft;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftStickRight;}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightStickUp;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightStickDown;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightStickLeft;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightStickRight;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftTrigger;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightTrigger;}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ prefast(suppress:\ 26495,\ "{}Reset()\ performs\ the\ initialization"{}})}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_game_pad_1_1_button_state_tracker}{ButtonStateTracker}}()\ \textcolor{keyword}{noexcept}\ \{\ Reset();\ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Update(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_state}{State}}\&\ state)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Reset()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_state}{State}}\ \_\_cdecl\ GetLastState()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ lastState;\ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_state}{State}}\ lastState;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retrieve\ the\ current\ state\ of\ the\ gamepad\ of\ the\ associated\ player\ index}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_state}{State}}\ \_\_cdecl\ GetState(\textcolor{keywordtype}{int}\ player,\ DeadZone\ deadZoneMode\ =\ DEAD\_ZONE\_INDEPENDENT\_AXES);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retrieve\ the\ current\ capabilities\ of\ the\ gamepad\ of\ the\ associated\ player\ index}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_game_pad_1_1_capabilities}{Capabilities}}\ \_\_cdecl\ GetCapabilities(\textcolor{keywordtype}{int}\ player);}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ the\ vibration\ motor\ speeds\ of\ the\ gamepad}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ SetVibration(\textcolor{keywordtype}{int}\ player,\ \textcolor{keywordtype}{float}\ leftMotor,\ \textcolor{keywordtype}{float}\ rightMotor,\ \textcolor{keywordtype}{float}\ leftTrigger\ =\ 0.f,\ \textcolor{keywordtype}{float}\ rightTrigger\ =\ 0.f)\ noexcept;}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ suspending/resuming}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Suspend()\ noexcept;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Resume()\ noexcept;}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{preprocessor}{\#ifdef\ USING\_GAMEINPUT}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ RegisterEvents(\textcolor{keywordtype}{void}*\ ctrlChanged)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Underlying\ device\ access}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \_Success\_(\textcolor{keywordflow}{return})}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ GetDevice(\textcolor{keywordtype}{int}\ player,\ \_Outptr\_\ IGameInputDevice\ *\ *device)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(USING\_WINDOWS\_GAMING\_INPUT)\ ||\ defined(\_XBOX\_ONE)}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ RegisterEvents(\textcolor{keywordtype}{void}*\ ctrlChanged,\ \textcolor{keywordtype}{void}*\ userChanged)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Singleton}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_direct_x_1_1_game_pad}{GamePad}}\&\ \_\_cdecl\ Get();}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_pad_1_1_impl}{Impl}};}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00304\ \ \ \ \ \};}
+\DoxyCodeLine{00305\ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

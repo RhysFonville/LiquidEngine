@@ -1,0 +1,70 @@
+.TH "DirectX::VertexPositionNormalColor" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::VertexPositionNormalColor
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP (const \fBVertexPositionNormalColor\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP & \fBoperator=\fP (const \fBVertexPositionNormalColor\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP (\fBVertexPositionNormalColor\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP & \fBoperator=\fP (\fBVertexPositionNormalColor\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP (XMFLOAT3 const &iposition, XMFLOAT3 const &inormal, XMFLOAT4 const &icolor) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalColor\fP (FXMVECTOR iposition, FXMVECTOR inormal, FXMVECTOR icolor) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "XMFLOAT3 \fBposition\fP"
+.br
+.ti -1c
+.RI "XMFLOAT3 \fBnormal\fP"
+.br
+.ti -1c
+.RI "XMFLOAT4 \fBcolor\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr unsigned int \fBInputElementCount\fP = 3"
+.br
+.ti -1c
+.RI "static const D3D11_INPUT_ELEMENT_DESC \fBInputElements\fP [InputElementCount]"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const D3D11_INPUT_ELEMENT_DESC VertexPositionNormalColor::InputElements\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+=
+{
+    { "SV_Position", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "COLOR",       0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

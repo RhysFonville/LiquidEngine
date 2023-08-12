@@ -1,0 +1,82 @@
+.TH "DirectX::ModelMesh" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ModelMesh
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBCollection\fP = std::vector< std::shared_ptr< \fBModelMesh\fP > >"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBModelMesh\fP (\fBModelMesh\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModelMesh\fP & \fBoperator=\fP (\fBModelMesh\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBModelMesh\fP (\fBModelMesh\fP const &)=default"
+.br
+.ti -1c
+.RI "\fBModelMesh\fP & \fBoperator=\fP (\fBModelMesh\fP const &)=default"
+.br
+.ti -1c
+.RI "void __cdecl \fBPrepareForRendering\fP (_In_ ID3D11DeviceContext *deviceContext, const \fBCommonStates\fP &states, bool alpha=false, bool wireframe=false) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (_In_ ID3D11DeviceContext *deviceContext, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDraw\fP (_In_ ID3D11DeviceContext *deviceContext, size_t nbones, _In_reads_(nbones) const XMMATRIX *boneTransforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBDrawSkinned\fP (_In_ ID3D11DeviceContext *deviceContext, size_t nbones, _In_reads_(nbones) const XMMATRIX *boneTransforms, FXMMATRIX world, CXMMATRIX view, CXMMATRIX projection, bool alpha=false, _In_opt_ std::function< void __cdecl()> setCustomState=nullptr) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBSetDepthBufferMode\fP (bool reverseZ)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "BoundingSphere \fBboundingSphere\fP"
+.br
+.ti -1c
+.RI "BoundingBox \fBboundingBox\fP"
+.br
+.ti -1c
+.RI "ModelMeshPart::Collection \fBmeshParts\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBboneIndex\fP"
+.br
+.ti -1c
+.RI "std::vector< uint32_t > \fBboneInfluences\fP"
+.br
+.ti -1c
+.RI "std::wstring \fBname\fP"
+.br
+.ti -1c
+.RI "bool \fBccw\fP"
+.br
+.ti -1c
+.RI "bool \fBpmalpha\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

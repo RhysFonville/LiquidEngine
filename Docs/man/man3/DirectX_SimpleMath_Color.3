@@ -1,0 +1,184 @@
+.TH "DirectX::SimpleMath::Color" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Color
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits XMFLOAT4\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBColor\fP (float _r, float _g, float _b) noexcept"
+.br
+.ti -1c
+.RI "constexpr \fBColor\fP (float _r, float _g, float _b, float _a) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const \fBVector3\fP &clr) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const \fBVector4\fP &clr) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (_In_reads_(4) const float *pArray) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (FXMVECTOR V) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const XMFLOAT4 &c) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const DirectX::PackedVector::XMCOLOR &Packed) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const DirectX::PackedVector::XMUBYTEN4 &Packed) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP (const \fBColor\fP &)=default"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator=\fP (const \fBColor\fP &)=default"
+.br
+.ti -1c
+.RI "\fBColor\fP (\fBColor\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator=\fP (\fBColor\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator const float *\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBColor\fP &c) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBColor\fP &c) const noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator=\fP (const XMVECTORF32 &F) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator=\fP (const DirectX::PackedVector::XMCOLOR &Packed) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator=\fP (const DirectX::PackedVector::XMUBYTEN4 &Packed) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator+=\fP (const \fBColor\fP &c) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator\-=\fP (const \fBColor\fP &c) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator*=\fP (const \fBColor\fP &c) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator*=\fP (float S) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP & \fBoperator/=\fP (const \fBColor\fP &c) noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP \fBoperator+\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBColor\fP \fBoperator\-\fP () const noexcept"
+.br
+.ti -1c
+.RI "float \fBR\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBR\fP (float r) noexcept"
+.br
+.ti -1c
+.RI "float \fBG\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBG\fP (float g) noexcept"
+.br
+.ti -1c
+.RI "float \fBB\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBB\fP (float b) noexcept"
+.br
+.ti -1c
+.RI "float \fBA\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBA\fP (float a) noexcept"
+.br
+.ti -1c
+.RI "DirectX::PackedVector::XMCOLOR \fBBGRA\fP () const noexcept"
+.br
+.ti -1c
+.RI "DirectX::PackedVector::XMUBYTEN4 \fBRGBA\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBToVector3\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector4\fP \fBToVector4\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBNegate\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBNegate\fP (\fBColor\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBSaturate\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBSaturate\fP (\fBColor\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBPremultiply\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBPremultiply\fP (\fBColor\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBAdjustSaturation\fP (float sat) noexcept"
+.br
+.ti -1c
+.RI "void \fBAdjustSaturation\fP (float sat, \fBColor\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "void \fBAdjustContrast\fP (float contrast) noexcept"
+.br
+.ti -1c
+.RI "void \fBAdjustContrast\fP (float contrast, \fBColor\fP &result) const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBModulate\fP (const \fBColor\fP &c1, const \fBColor\fP &c2, \fBColor\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBColor\fP \fBModulate\fP (const \fBColor\fP &c1, const \fBColor\fP &c2) noexcept"
+.br
+.ti -1c
+.RI "static void \fBLerp\fP (const \fBColor\fP &c1, const \fBColor\fP &c2, float t, \fBColor\fP &result) noexcept"
+.br
+.ti -1c
+.RI "static \fBColor\fP \fBLerp\fP (const \fBColor\fP &c1, const \fBColor\fP &c2, float t) noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

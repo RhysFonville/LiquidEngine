@@ -1,0 +1,95 @@
+.TH "DirectX::CommonStates" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::CommonStates
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCommonStates\fP (_In_ ID3D11Device *device)"
+.br
+.ti -1c
+.RI "\fBCommonStates\fP (\fBCommonStates\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBCommonStates\fP & \fBoperator=\fP (\fBCommonStates\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBCommonStates\fP (\fBCommonStates\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBCommonStates\fP & \fBoperator=\fP (\fBCommonStates\fP const &)=delete"
+.br
+.ti -1c
+.RI "ID3D11BlendState *__cdecl \fBOpaque\fP () const"
+.br
+.ti -1c
+.RI "ID3D11BlendState *__cdecl \fBAlphaBlend\fP () const"
+.br
+.ti -1c
+.RI "ID3D11BlendState *__cdecl \fBAdditive\fP () const"
+.br
+.ti -1c
+.RI "ID3D11BlendState *__cdecl \fBNonPremultiplied\fP () const"
+.br
+.ti -1c
+.RI "ID3D11DepthStencilState *__cdecl \fBDepthNone\fP () const"
+.br
+.ti -1c
+.RI "ID3D11DepthStencilState *__cdecl \fBDepthDefault\fP () const"
+.br
+.ti -1c
+.RI "ID3D11DepthStencilState *__cdecl \fBDepthRead\fP () const"
+.br
+.ti -1c
+.RI "ID3D11DepthStencilState *__cdecl \fBDepthReverseZ\fP () const"
+.br
+.ti -1c
+.RI "ID3D11DepthStencilState *__cdecl \fBDepthReadReverseZ\fP () const"
+.br
+.ti -1c
+.RI "ID3D11RasterizerState *__cdecl \fBCullNone\fP () const"
+.br
+.ti -1c
+.RI "ID3D11RasterizerState *__cdecl \fBCullClockwise\fP () const"
+.br
+.ti -1c
+.RI "ID3D11RasterizerState *__cdecl \fBCullCounterClockwise\fP () const"
+.br
+.ti -1c
+.RI "ID3D11RasterizerState *__cdecl \fBWireframe\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBPointWrap\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBPointClamp\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBLinearWrap\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBLinearClamp\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBAnisotropicWrap\fP () const"
+.br
+.ti -1c
+.RI "ID3D11SamplerState *__cdecl \fBAnisotropicClamp\fP () const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

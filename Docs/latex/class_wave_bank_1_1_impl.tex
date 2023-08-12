@@ -1,0 +1,196 @@
+\hypertarget{class_wave_bank_1_1_impl}{}\doxysection{DirectX\+::Wave\+Bank\+::Impl Class Reference}
+\label{class_wave_bank_1_1_impl}\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+Inheritance diagram for DirectX\+::Wave\+Bank\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_wave_bank_1_1_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a637c520737ff993b9790d43992b4f31d}\label{class_wave_bank_1_1_impl_a637c520737ff993b9790d43992b4f31d}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine)
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_adb14e7303300928300696ed13cf391b4}\label{class_wave_bank_1_1_impl_adb14e7303300928300696ed13cf391b4}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a7e589454bcc9254d9e69da16829d97ab}\label{class_wave_bank_1_1_impl_a7e589454bcc9254d9e69da16829d97ab}} 
+\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a2dfc5a91cec4d735f0c7361500b0c255}\label{class_wave_bank_1_1_impl_a2dfc5a91cec4d735f0c7361500b0c255}} 
+{\bfseries Impl} (\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a43ccd580e61d7fff2c9a6ab1e82d6b11}\label{class_wave_bank_1_1_impl_a43ccd580e61d7fff2c9a6ab1e82d6b11}} 
+\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} \& {\bfseries operator=} (\mbox{\hyperlink{class_wave_bank_1_1_impl}{Impl}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a020a069d17abad54bfba2944d648f643}\label{class_wave_bank_1_1_impl_a020a069d17abad54bfba2944d648f643}} 
+HRESULT {\bfseries Initialize} (\+\_\+\+In\+\_\+ const \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$engine, \+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$wb\+File\+Name) noexcept
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a9b416d76135067fecb866d870461c34f}\label{class_wave_bank_1_1_impl_a9b416d76135067fecb866d870461c34f}} 
+void {\bfseries Play} (unsigned int index, float volume, float pitch, float pan)
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a0a3ac37739eefd92ab9ce615154289ea}{On\+Buffer\+End}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a6521ed4f2d07ad52938b4f42504f502c}{On\+Critical\+Error}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a79a5cebf38d2ea5977fb3ba3fa8cf446}{On\+Reset}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a7d3afd2b6bbc5754841d0ed2c0bddf9a}{On\+Update}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a898cd64b57f3d766b6734d0fa1afdce1}{On\+Destroy\+Engine}} () noexcept override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_acfab1405a556f4c9415fc164844f11bd}{On\+Trim}} () override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a5ffbc166a25333eca450bcfe846a9024}{Gather\+Statistics}} (\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&stats) const noexcept override
+\item 
+void \+\_\+\+\_\+cdecl \mbox{\hyperlink{class_wave_bank_1_1_impl_a037fcad440370a8145e4dd51cd5b18e9}{On\+Destroy\+Parent}} () noexcept override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a0bac93b06f7e6963d0bb9be930f76b3f}\label{class_direct_x_1_1_i_voice_notify_a0bac93b06f7e6963d0bb9be930f76b3f}} 
+{\bfseries IVoice\+Notify} (const \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_ae6a6c31b12fbf84e1ca59b6939cee197}\label{class_direct_x_1_1_i_voice_notify_ae6a6c31b12fbf84e1ca59b6939cee197}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a22dc5362aacad85f7dfea82d9b4f8dd3}\label{class_direct_x_1_1_i_voice_notify_a22dc5362aacad85f7dfea82d9b4f8dd3}} 
+{\bfseries IVoice\+Notify} (\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_aa4e5f6ff2d5421b4cef82700395ba665}\label{class_direct_x_1_1_i_voice_notify_aa4e5f6ff2d5421b4cef82700395ba665}} 
+\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a6cd56756925f7942cb0cdf2ca1a2f572}\label{class_direct_x_1_1_i_voice_notify_a6cd56756925f7942cb0cdf2ca1a2f572}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Buffer\+End} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a3f770c5da8e5706169cac3f758f4dfcb}\label{class_direct_x_1_1_i_voice_notify_a3f770c5da8e5706169cac3f758f4dfcb}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Critical\+Error} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a9684ea91442a8e64c66726b8f9cf29de}\label{class_direct_x_1_1_i_voice_notify_a9684ea91442a8e64c66726b8f9cf29de}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Reset} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_adc02df2620720dde37eadc9debb60fc1}\label{class_direct_x_1_1_i_voice_notify_adc02df2620720dde37eadc9debb60fc1}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Update} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_aa648e82b9d44e3aeed72069d6f1500aa}\label{class_direct_x_1_1_i_voice_notify_aa648e82b9d44e3aeed72069d6f1500aa}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Destroy\+Engine} () noexcept=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_ac1f1e0ce0e0d8817e974e7e3d8f14130}\label{class_direct_x_1_1_i_voice_notify_ac1f1e0ce0e0d8817e974e7e3d8f14130}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Trim} ()=0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a8485d7f0d101ced4b316c1f84094176b}\label{class_direct_x_1_1_i_voice_notify_a8485d7f0d101ced4b316c1f84094176b}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries Gather\+Statistics} (\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&stats) const =0
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_i_voice_notify_a0c4161a2f3863fc9cbf666de247edf19}\label{class_direct_x_1_1_i_voice_notify_a0c4161a2f3863fc9cbf666de247edf19}} 
+virtual void \+\_\+\+\_\+cdecl {\bfseries On\+Destroy\+Parent} () noexcept=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_afef35306bd078d235b57a3956daba6f9}\label{class_wave_bank_1_1_impl_afef35306bd078d235b57a3956daba6f9}} 
+\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$ {\bfseries m\+Engine}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a55fc20bf794127545a9d936a2746a794}\label{class_wave_bank_1_1_impl_a55fc20bf794127545a9d936a2746a794}} 
+std\+::list$<$ \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{IVoice\+Notify}} $\ast$ $>$ {\bfseries m\+Instances}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a4c3f42954dfc7689ec79ce74b7095557}\label{class_wave_bank_1_1_impl_a4c3f42954dfc7689ec79ce74b7095557}} 
+\mbox{\hyperlink{class_direct_x_1_1_wave_bank_reader}{Wave\+Bank\+Reader}} {\bfseries m\+Reader}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a07232b1583a043274203b3ea19ab1fb8}\label{class_wave_bank_1_1_impl_a07232b1583a043274203b3ea19ab1fb8}} 
+uint32\+\_\+t {\bfseries m\+One\+Shots}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a18849cfb7b8b6ba9622457cfca3a1d69}\label{class_wave_bank_1_1_impl_a18849cfb7b8b6ba9622457cfca3a1d69}} 
+bool {\bfseries m\+Prepared}
+\item 
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_ac2d44de3d59e54af4eed1658a662d6f8}\label{class_wave_bank_1_1_impl_ac2d44de3d59e54af4eed1658a662d6f8}} 
+bool {\bfseries m\+Streaming}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a5ffbc166a25333eca450bcfe846a9024}\label{class_wave_bank_1_1_impl_a5ffbc166a25333eca450bcfe846a9024}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!GatherStatistics@{GatherStatistics}}
+\index{GatherStatistics@{GatherStatistics}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{GatherStatistics()}{GatherStatistics()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+Gather\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&}]{stats }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a0a3ac37739eefd92ab9ce615154289ea}\label{class_wave_bank_1_1_impl_a0a3ac37739eefd92ab9ce615154289ea}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnBufferEnd@{OnBufferEnd}}
+\index{OnBufferEnd@{OnBufferEnd}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnBufferEnd()}{OnBufferEnd()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Buffer\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a6521ed4f2d07ad52938b4f42504f502c}\label{class_wave_bank_1_1_impl_a6521ed4f2d07ad52938b4f42504f502c}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnCriticalError@{OnCriticalError}}
+\index{OnCriticalError@{OnCriticalError}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnCriticalError()}{OnCriticalError()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Critical\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a898cd64b57f3d766b6734d0fa1afdce1}\label{class_wave_bank_1_1_impl_a898cd64b57f3d766b6734d0fa1afdce1}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnDestroyEngine@{OnDestroyEngine}}
+\index{OnDestroyEngine@{OnDestroyEngine}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnDestroyEngine()}{OnDestroyEngine()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Destroy\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a037fcad440370a8145e4dd51cd5b18e9}\label{class_wave_bank_1_1_impl_a037fcad440370a8145e4dd51cd5b18e9}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnDestroyParent@{OnDestroyParent}}
+\index{OnDestroyParent@{OnDestroyParent}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnDestroyParent()}{OnDestroyParent()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Destroy\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a79a5cebf38d2ea5977fb3ba3fa8cf446}\label{class_wave_bank_1_1_impl_a79a5cebf38d2ea5977fb3ba3fa8cf446}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnReset@{OnReset}}
+\index{OnReset@{OnReset}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnReset()}{OnReset()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_acfab1405a556f4c9415fc164844f11bd}\label{class_wave_bank_1_1_impl_acfab1405a556f4c9415fc164844f11bd}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnTrim@{OnTrim}}
+\index{OnTrim@{OnTrim}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnTrim()}{OnTrim()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+\mbox{\Hypertarget{class_wave_bank_1_1_impl_a7d3afd2b6bbc5754841d0ed2c0bddf9a}\label{class_wave_bank_1_1_impl_a7d3afd2b6bbc5754841d0ed2c0bddf9a}} 
+\index{DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!DirectX::WaveBank::Impl@{DirectX::WaveBank::Impl}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+cdecl Direct\+X\+::\+Wave\+Bank\+::\+Impl\+::\+On\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_direct_x_1_1_i_voice_notify}{Direct\+X\+::\+IVoice\+Notify}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Wave\+Bank.\+cpp\end{DoxyCompactItemize}

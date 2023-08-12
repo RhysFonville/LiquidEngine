@@ -1,0 +1,98 @@
+\hypertarget{_w_i_c_texture_loader9_8h_source}{}\doxysection{WICTexture\+Loader9.\+h}
+\label{_w_i_c_texture_loader9_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader9.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader9.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ WICTextureLoader9.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Function\ for\ loading\ a\ WIC\ image\ and\ creating\ a\ Direct3D\ runtime\ texture\ for\ it}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ (auto-\/generating\ mipmaps\ if\ possible)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note:\ Assumes\ application\ has\ already\ called\ CoInitializeEx}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ for\ images\ created\ as\ simple\ 2D\ textures.\ For}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ more\ complex\ resources,\ DDSTextureLoader\ is\ an\ excellent\ light-\/weight\ runtime\ loader.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ For\ a\ full-\/featured\ DDS\ file\ reader,\ writer,\ and\ texture\ processing\ pipeline\ see}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifndef\ DIRECT3D\_VERSION}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ DIRECT3D\_VERSION\ 0x900}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <d3d9.h>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}windowscodecs.lib"{}})}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifndef\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{enum}\ WIC\_LOADER\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ WIC\_LOADER\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MIP\_AUTOGEN\ =\ 0x8,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FIT\_POW2\ =\ 0x20,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MAKE\_SQUARE\ =\ 0x40,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FORCE\_RGBA32\ =\ 0x80,}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(WIC\_LOADER\_FLAGS);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Standard\ version}}
+\DoxyCodeLine{00058\ \ \ \ \ HRESULT\ CreateWICTextureFromMemory(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags\ =\ WIC\_LOADER\_DEFAULT)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ HRESULT\ CreateWICTextureFromFile(}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags\ =\ WIC\_LOADER\_DEFAULT)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//\ Extended\ version}}
+\DoxyCodeLine{00074\ \ \ \ \ HRESULT\ CreateWICTextureFromMemoryEx(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ HRESULT\ CreateWICTextureFromFileEx(}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_In\_\ LPDIRECT3DDEVICE9\ d3dDevice,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \_In\_\ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_In\_\ DWORD\ usage,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_In\_\ D3DPOOL\ pool,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_In\_\ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \_Outptr\_\ LPDIRECT3DTEXTURE9*\ texture)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00092\ \}}
+
+\end{DoxyCode}

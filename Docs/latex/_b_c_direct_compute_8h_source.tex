@@ -1,0 +1,70 @@
+\hypertarget{_b_c_direct_compute_8h_source}{}\doxysection{BCDirect\+Compute.\+h}
+\label{_b_c_direct_compute_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/BCDirectCompute.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/DirectXTex/BCDirectCompute.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ BCDirectCompute.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Direct3D\ 11\ Compute\ Shader\ BC\ Compressor}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_g_p_u_compress_b_c}{GPUCompressBC}}}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_g_p_u_compress_b_c}{GPUCompressBC}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ HRESULT\ Initialize(\_In\_\ ID3D11Device*\ pDevice);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ HRESULT\ Prepare(\textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ height,\ uint32\_t\ flags,\ DXGI\_FORMAT\ format,\ \textcolor{keywordtype}{float}\ alphaWeight);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ HRESULT\ Compress(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ srcImage,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_image}{Image}}\&\ destImage);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ GetSourceFormat()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ m\_srcformat;\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_bcformat;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_srcformat;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_alphaWeight;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_bc7\_mode02;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_bc7\_mode137;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_width;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_height;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Device>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_device;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11DeviceContext>\ \ \ \ \ \ \ \ \ m\_context;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_err1;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>\ \ \ m\_err1UAV;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ \ \ \ m\_err1SRV;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_err2;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>\ \ \ m\_err2UAV;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ \ \ \ m\_err2SRV;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_output;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_outputCPU;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>\ \ \ m\_outputUAV;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_constBuffer;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ shader\ library}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC6H\_tryModeG10CS;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC6H\_tryModeLE10CS;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC6H\_encodeBlockCS;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC7\_tryMode456CS;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC7\_tryMode137CS;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC7\_tryMode02CS;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ComputeShader>\ \ \ \ \ \ \ \ \ m\_BC7\_encodeBlockCS;}
+\DoxyCodeLine{00062\ \ \ \ \ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

@@ -1,0 +1,49 @@
+\hypertarget{class_d_g_s_l_effect_factory_1_1_impl}{}\doxysection{DirectX\+::DGSLEffect\+Factory\+::Impl Class Reference}
+\label{class_d_g_s_l_effect_factory_1_1_impl}\index{DirectX::DGSLEffectFactory::Impl@{DirectX::DGSLEffectFactory::Impl}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_ae566ff75d65bf633cbaec2f714e330af}\label{class_d_g_s_l_effect_factory_1_1_impl_ae566ff75d65bf633cbaec2f714e330af}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a9e95015215fe2844a712accd76751863}\label{class_d_g_s_l_effect_factory_1_1_impl_a9e95015215fe2844a712accd76751863}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ {\bfseries Create\+Effect} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffect\+Factory}} $\ast$factory, \+\_\+\+In\+\_\+ const \mbox{\hyperlink{struct_direct_x_1_1_i_effect_factory_1_1_effect_info}{IEffect\+Factory\+::\+Effect\+Info}} \&info, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a2d68e0f4586abe2dc59aef1c7f53b2d8}\label{class_d_g_s_l_effect_factory_1_1_impl_a2d68e0f4586abe2dc59aef1c7f53b2d8}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}} $>$ {\bfseries Create\+DGSLEffect} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_d_g_s_l_effect_factory}{DGSLEffect\+Factory}} $\ast$factory, \+\_\+\+In\+\_\+ const \mbox{\hyperlink{struct_direct_x_1_1_d_g_s_l_effect_factory_1_1_d_g_s_l_effect_info}{DGSLEffect\+Info}} \&info, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a9b6c42b94b7e522a0f63a8cae991dace}\label{class_d_g_s_l_effect_factory_1_1_impl_a9b6c42b94b7e522a0f63a8cae991dace}} 
+void {\bfseries Create\+Texture} (\+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$texture, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Shader\+Resource\+View $\ast$$\ast$texture\+View)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a007620e0e2c88612052d6c2cd8f7c08b}\label{class_d_g_s_l_effect_factory_1_1_impl_a007620e0e2c88612052d6c2cd8f7c08b}} 
+void {\bfseries Create\+Pixel\+Shader} (\+\_\+\+In\+\_\+z\+\_\+ const wchar\+\_\+t $\ast$shader, \+\_\+\+Outptr\+\_\+ ID3\+D11\+Pixel\+Shader $\ast$$\ast$pixel\+Shader)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_aeb3ed2c8e4c250f8f3296a1da9d60593}\label{class_d_g_s_l_effect_factory_1_1_impl_aeb3ed2c8e4c250f8f3296a1da9d60593}} 
+void {\bfseries Release\+Cache} ()
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a688e702a2545064b007c3fdf46661d17}\label{class_d_g_s_l_effect_factory_1_1_impl_a688e702a2545064b007c3fdf46661d17}} 
+void {\bfseries Set\+Sharing} (bool enabled) noexcept
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_af3e85038c32c2b8dab2f1c7bea28ad9b}\label{class_d_g_s_l_effect_factory_1_1_impl_af3e85038c32c2b8dab2f1c7bea28ad9b}} 
+void {\bfseries Enable\+Force\+SRGB} (bool force\+SRGB) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_ab931c59b5cebf68c447dd139263fc6c2}\label{class_d_g_s_l_effect_factory_1_1_impl_ab931c59b5cebf68c447dd139263fc6c2}} 
+wchar\+\_\+t {\bfseries m\+Path} \mbox{[}MAX\+\_\+\+PATH\mbox{]}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_a96a5f57e66e01d6dd57b8b1aea8b0d93}\label{class_d_g_s_l_effect_factory_1_1_impl_a96a5f57e66e01d6dd57b8b1aea8b0d93}} 
+Com\+Ptr$<$ ID3\+D11\+Device $>$ {\bfseries m\+Device}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_factory_1_1_impl_abbfe23cad105ce6678eab0a713eeb19c}\label{class_d_g_s_l_effect_factory_1_1_impl_abbfe23cad105ce6678eab0a713eeb19c}} 
+static \mbox{\hyperlink{class_direct_x_1_1_shared_resource_pool}{Shared\+Resource\+Pool}}$<$ ID3\+D11\+Device $\ast$, \mbox{\hyperlink{class_d_g_s_l_effect_factory_1_1_impl}{Impl}} $>$ {\bfseries instance\+Pool}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/DGSLEffect\+Factory.\+cpp\end{DoxyCompactItemize}

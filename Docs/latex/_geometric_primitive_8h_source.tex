@@ -1,0 +1,114 @@
+\hypertarget{_geometric_primitive_8h_source}{}\doxysection{Geometric\+Primitive.\+h}
+\label{_geometric_primitive_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/GeometricPrimitive.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/GeometricPrimitive.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ GeometricPrimitive.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}VertexTypes.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <DirectXColors.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }IEffect;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}(\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}(\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{struct_direct_x_1_1_vertex_position_normal_texture}{VertexType}}\ =\ \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_normal_texture}{VertexPositionNormalTexture}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }VertexCollection\ =\ std::vector<VertexType>;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }IndexCollection\ =\ std::vector<uint16\_t>;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{\string~GeometricPrimitive}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Factory\ methods.}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateCube(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateBox(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keyword}{const}\ XMFLOAT3\&\ size,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ invertn\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateSphere(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 16,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ invertn\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateGeoSphere(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 3,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateCylinder(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ height\ =\ 1,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateCone(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{float}\ height\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateTorus(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{float}\ thickness\ =\ 0.333f,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateTetrahedron(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateOctahedron(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateDodecahedron(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateIcosahedron(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateTeapot(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 8,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<GeometricPrimitive>\ \_\_cdecl\ CreateCustom(\_In\_\ ID3D11DeviceContext*\ deviceContext,\ \textcolor{keyword}{const}\ VertexCollection\&\ vertices,\ \textcolor{keyword}{const}\ IndexCollection\&\ indices);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateCube(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateBox(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keyword}{const}\ XMFLOAT3\&\ size,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ invertn\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateSphere(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 16,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ invertn\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateGeoSphere(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 3,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateCylinder(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ height\ =\ 1,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateCone(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{float}\ height\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTorus(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter\ =\ 1,\ \textcolor{keywordtype}{float}\ thickness\ =\ 0.333f,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 32,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTetrahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateOctahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateDodecahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateIcosahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateTeapot(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size\ =\ 1,\ \textcolor{keywordtype}{size\_t}\ tessellation\ =\ 8,\ \textcolor{keywordtype}{bool}\ rhcoords\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ primitive.}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ FXMVECTOR\ color\ =\ Colors::White,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11ShaderResourceView*\ texture\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ primitive\ using\ a\ custom\ effect.}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Draw(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ effect,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11InputLayout*\ inputLayout,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DrawInstanced(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ effect,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11InputLayout*\ inputLayout,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ instanceCount,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ startInstanceLocation\ =\ 0,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ input\ layout\ for\ drawing\ with\ a\ custom\ effect.}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateInputLayout(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ effect,\ \_Outptr\_\ ID3D11InputLayout**\ inputLayout)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetDepthBufferMode(\textcolor{keywordtype}{bool}\ reverseZ)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ s\_reversez\ =\ reverseZ;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ s\_reversez;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_geometric_primitive}{GeometricPrimitive}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_geometric_primitive_1_1_impl}{Impl}};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00107\ \ \ \ \ \};}
+\DoxyCodeLine{00108\ \}}
+
+\end{DoxyCode}

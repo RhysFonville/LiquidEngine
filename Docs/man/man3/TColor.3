@@ -1,0 +1,53 @@
+.TH "TColor<>" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TColor<>
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTColor\fP (T r, T g, T b, T a=255)"
+.br
+.ti -1c
+.RI "\fBoperator XMFLOAT3\fP ()"
+.br
+.ti -1c
+.RI "\fBoperator XMFLOAT4\fP ()"
+.br
+.ti -1c
+.RI "\fBoperator DXGI_RGBA\fP ()"
+.br
+.ti -1c
+.RI "\fBTColor\fP \fBoperator/\fP (T divisor) const noexcept"
+.br
+.ti -1c
+.RI "void \fBoperator/=\fP (T divisor) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBTColor\fP< T > &color) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "T \fBr\fP = 255"
+.br
+.ti -1c
+.RI "T \fBg\fP = 255"
+.br
+.ti -1c
+.RI "T \fBb\fP = 255"
+.br
+.ti -1c
+.RI "T \fBa\fP = 255"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

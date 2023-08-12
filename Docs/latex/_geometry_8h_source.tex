@@ -1,0 +1,35 @@
+\hypertarget{_geometry_8h_source}{}\doxysection{Geometry.\+h}
+\label{_geometry_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/Geometry.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/Geometry.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Geometry.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}VertexTypes.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }VertexCollection\ =\ std::vector<DirectX::VertexPositionNormalTexture>;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{using\ }IndexCollection\ =\ std::vector<uint16\_t>;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeBox(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keyword}{const}\ XMFLOAT3\&\ size,\ \textcolor{keywordtype}{bool}\ rhcoords,\ \textcolor{keywordtype}{bool}\ invertn);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeSphere(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords,\ \textcolor{keywordtype}{bool}\ invertn);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeGeoSphere(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeCylinder(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ height,\ \textcolor{keywordtype}{float}\ diameter,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeCone(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter,\ \textcolor{keywordtype}{float}\ height,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeTorus(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ diameter,\ \textcolor{keywordtype}{float}\ thickness,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeTetrahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeOctahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeDodecahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeIcosahedron(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ ComputeTeapot(VertexCollection\&\ vertices,\ IndexCollection\&\ indices,\ \textcolor{keywordtype}{float}\ size,\ \textcolor{keywordtype}{size\_t}\ tessellation,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00029\ \}}
+
+\end{DoxyCode}

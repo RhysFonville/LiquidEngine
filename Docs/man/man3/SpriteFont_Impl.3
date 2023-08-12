@@ -1,0 +1,56 @@
+.TH "DirectX::SpriteFont::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SpriteFont::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11Device *device, _In_ \fBBinaryReader\fP *reader, bool forceSRGB) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBImpl\fP (_In_ ID3D11ShaderResourceView *texture, _In_reads_(glyphCount) \fBGlyph\fP const *glyphs, size_t glyphCount, float lineSpacing) noexcept(false)"
+.br
+.ti -1c
+.RI "\fBGlyph\fP const * \fBFindGlyph\fP (wchar_t character) const"
+.br
+.ti -1c
+.RI "void \fBSetDefaultCharacter\fP (wchar_t character)"
+.br
+.ti -1c
+.RI "template<typename TAction > void \fBForEachGlyph\fP (_In_z_ wchar_t const *text, TAction action, bool ignoreWhitespace) const"
+.br
+.ti -1c
+.RI "void \fBCreateTextureResource\fP (_In_ ID3D11Device *device, uint32_t width, uint32_t height, DXGI_FORMAT format, uint32_t stride, uint32_t rows, _In_reads_(stride *rows) const uint8_t *data) noexcept(false)"
+.br
+.ti -1c
+.RI "const wchar_t * \fBConvertUTF8\fP (_In_z_ const char *text) noexcept(false)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< ID3D11ShaderResourceView > \fBtexture\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBGlyph\fP > \fBglyphs\fP"
+.br
+.ti -1c
+.RI "std::vector< uint32_t > \fBglyphsIndex\fP"
+.br
+.ti -1c
+.RI "\fBGlyph\fP const  * \fBdefaultGlyph\fP"
+.br
+.ti -1c
+.RI "float \fBlineSpacing\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

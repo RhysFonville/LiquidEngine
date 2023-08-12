@@ -1,0 +1,354 @@
+\hypertarget{_model_8h_source}{}\doxysection{Model.\+h}
+\label{_model_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Model.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Model.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Model.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <dxgiformat.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <new>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <malloc.h>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <wrl\(\backslash\)client.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <DirectXCollision.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{class\ }IEffect;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{class\ }IEffectFactory;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{class\ }CommonStates;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{class\ }ModelMesh;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Model\ loading\ options}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{enum}\ ModelLoaderFlags\ :\ uint32\_t}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ ModelLoader\_Clockwise\ =\ 0x0,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ ModelLoader\_CounterClockwise\ =\ 0x1,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ ModelLoader\_PremultipledAlpha\ =\ 0x2,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ ModelLoader\_MaterialColorsSRGB\ =\ 0x4,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ ModelLoader\_AllowLargeModels\ =\ 0x8,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ ModelLoader\_IncludeBones\ =\ 0x10,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ ModelLoader\_DisableSkinning\ =\ 0x20,}
+\DoxyCodeLine{00054\ \ \ \ \ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Frame\ hierarchy\ for\ rigid\ body\ and\ skeletal\ animation}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_model_bone}{ModelBone}}}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_model_bone}{ModelBone}}()\ noexcept\ :}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ parentIndex(c\_Invalid),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ childIndex(c\_Invalid),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ siblingIndex(c\_Invalid)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_model_bone}{ModelBone}}(uint32\_t\ parent,\ uint32\_t\ child,\ uint32\_t\ sibling)\ noexcept\ :}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ parentIndex(parent),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ childIndex(child),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ siblingIndex(sibling)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ parentIndex;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ childIndex;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ siblingIndex;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::wstring\ \ \ \ \ \ \ \ name;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Collection\ =\ std::vector<ModelBone>;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ uint32\_t\ c\_Invalid\ =\ uint32\_t(-\/1);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_model_bone_1_1aligned__deleter}{aligned\_deleter}}\ \{\ \textcolor{keywordtype}{void}\ operator()(\textcolor{keywordtype}{void}*\ p)\ \textcolor{keyword}{noexcept}\ \{\ \_aligned\_free(p);\ \}\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }TransformArray\ =\ std::unique\_ptr<XMMATRIX[],\ aligned\_deleter>;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ TransformArray\ MakeArray(\textcolor{keywordtype}{size\_t}\ count)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ temp\ =\ \_aligned\_malloc(\textcolor{keyword}{sizeof}(XMMATRIX)\ *\ count,\ 16);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!temp)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::bad\_alloc();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TransformArray(\textcolor{keyword}{static\_cast<}XMMATRIX*\textcolor{keyword}{>}(temp));}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ Each\ mesh\ part\ is\ a\ submesh\ with\ a\ single\ effect}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}(\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}(\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{ModelMeshPart}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_model_mesh_part}{\string~ModelMeshPart}}();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Collection\ =\ std::vector<std::unique\_ptr<ModelMeshPart>>;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }InputLayoutCollection\ =\ std::vector<D3D11\_INPUT\_ELEMENT\_DESC>;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indexCount;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startIndex;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ int32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertexOffset;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertexStride;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ D3D\_PRIMITIVE\_TOPOLOGY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ primitiveType;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indexFormat;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11InputLayout>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputLayout;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indexBuffer;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertexBuffer;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ std::shared\_ptr<IEffect>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ effect;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ std::shared\_ptr<InputLayoutCollection>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vbDecl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isAlpha;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ mesh\ part\ with\ custom\ effect}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Draw(}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ ieffect,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11InputLayout*\ iinputLayout,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ DrawInstanced(}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ ieffect,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11InputLayout*\ iinputLayout,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ instanceCount,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ startInstanceLocation\ =\ 0,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ input\ layout\ for\ drawing\ with\ a\ custom\ effect.}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CreateInputLayout(\_In\_\ ID3D11Device*\ device,\ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*\ ieffect,\ \_Outptr\_\ ID3D11InputLayout**\ iinputLayout)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Change\ effect\ used\ by\ part\ and\ regenerate\ input\ layout\ (be\ sure\ to\ call\ Model::Modified\ as\ well)}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ModifyEffect(\_In\_\ ID3D11Device*\ device,\ \_In\_\ \textcolor{keyword}{const}\ std::shared\_ptr<IEffect>\&\ ieffect,\ \textcolor{keywordtype}{bool}\ isalpha\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00148\ \ \ \ \ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{comment}{//\ A\ mesh\ consists\ of\ one\ or\ more\ model\ mesh\ parts}}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}}
+\DoxyCodeLine{00154\ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}(\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}(\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model_mesh}{ModelMesh}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_model_mesh}{\string~ModelMesh}}();}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ BoundingSphere\ \ \ \ \ \ \ \ \ \ \ \ \ \ boundingSphere;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ BoundingBox\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundingBox;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ ModelMeshPart::Collection\ \ \ meshParts;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boneIndex;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ std::vector<uint32\_t>\ \ \ \ \ \ \ boneInfluences;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ std::wstring\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ccw;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pmalpha;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Collection\ =\ std::vector<std::shared\_ptr<ModelMesh>>;}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Setup\ states\ for\ drawing\ mesh}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ PrepareForRendering(}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ states,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ mesh}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ mesh\ using\ model\ bones}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,\ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ boneTransforms,}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ mesh\ using\ skinning}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ DrawSkinned(}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,\ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ boneTransforms,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ alpha\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetDepthBufferMode(\textcolor{keywordtype}{bool}\ reverseZ)}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ s\_reversez\ =\ reverseZ;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ s\_reversez;}
+\DoxyCodeLine{00214\ \ \ \ \ \};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{//\ A\ model\ consists\ of\ one\ or\ more\ meshes}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_model}{Model}}}
+\DoxyCodeLine{00220\ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}}(\mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}}(\mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\ \textcolor{keyword}{const}\&\ other);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_model}{Model}}\ \textcolor{keyword}{const}\&\ rhs);}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_model}{\string~Model}}();}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ ModelMesh::Collection\ \ \ \ \ \ \ meshes;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ ModelBone::Collection\ \ \ \ \ \ \ bones;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ ModelBone::TransformArray\ \ \ boneMatrices;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ ModelBone::TransformArray\ \ \ invBindPoseMatrices;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ std::wstring\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name;}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ all\ the\ meshes\ in\ the\ model}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ states,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ all\ the\ meshes\ using\ model\ bones}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ states,}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,\ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ boneTransforms,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ all\ the\ meshes\ using\ skinning}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ DrawSkinned(}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11DeviceContext*\ deviceContext,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ states,}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,\ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ boneTransforms,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ world,\ CXMMATRIX\ view,\ CXMMATRIX\ projection,}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ wireframe\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomState\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ bone\ positions\ based\ on\ heirarchy\ and\ transform\ matrices}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CopyAbsoluteBoneTransformsTo(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(nbones)\ XMMATRIX*\ boneTransforms)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CopyAbsoluteBoneTransforms(}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ inBoneTransforms,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(nbones)\ XMMATRIX*\ outBoneTransforms)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ bone\ matrices\ to\ a\ set\ of\ relative\ tansforms}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CopyBoneTransformsFrom(}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ boneTransforms);}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copies\ the\ relative\ bone\ matrices\ to\ a\ transform\ array}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ CopyBoneTransformsTo(}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbones,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_writes\_(nbones)\ XMMATRIX*\ boneTransforms)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Notify\ model\ that\ effects,\ parts\ list,\ or\ mesh\ list\ has\ changed}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Modified()\ \textcolor{keyword}{noexcept}\ \{\ mEffectCache.clear();\ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ all\ effects\ used\ by\ the\ model}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ UpdateEffects(\_In\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(\mbox{\hyperlink{class_direct_x_1_1_i_effect}{IEffect}}*)>\ setEffect);}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ a\ model\ from\ a\ Visual\ Studio\ Starter\ Kit\ .CMO\ file}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromCMO(}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(dataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ meshData,\ \textcolor{keywordtype}{size\_t}\ dataSize,}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ fxFactory,}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_CounterClockwise,}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{size\_t}*\ animsOffset\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromCMO(}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ fxFactory,}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_CounterClockwise,}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \_Out\_opt\_\ \textcolor{keywordtype}{size\_t}*\ animsOffset\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ a\ model\ from\ a\ DirectX\ SDK\ .SDKMESH\ file}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromSDKMESH(}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(dataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ meshData,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ dataSize,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ fxFactory,}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_Clockwise);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromSDKMESH(}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ \mbox{\hyperlink{class_direct_x_1_1_i_effect_factory}{IEffectFactory}}\&\ fxFactory,}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_Clockwise);}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loads\ a\ model\ from\ a\ .VBO\ file}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromVBO(}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(dataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ meshData,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ dataSize,}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::shared\_ptr<IEffect>\ ieffect\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_Clockwise);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Model>\ \_\_cdecl\ CreateFromVBO(}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_\ ID3D11Device*\ device,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::shared\_ptr<IEffect>\ ieffect\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ ModelLoaderFlags\ flags\ =\ ModelLoader\_Clockwise);}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ std::set<IEffect*>\ \ mEffectCache;}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ComputeAbsolute(uint32\_t\ index,}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ CXMMATRIX\ local,\ \textcolor{keywordtype}{size\_t}\ nbones,}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_reads\_(nbones)\ \textcolor{keyword}{const}\ XMMATRIX*\ inBoneTransforms,}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \_Inout\_updates\_(nbones)\ XMMATRIX*\ outBoneTransforms,}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\&\ visited)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00336\ \ \ \ \ \};}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(ModelLoaderFlags);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00348\ \}}
+
+\end{DoxyCode}

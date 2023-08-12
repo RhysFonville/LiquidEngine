@@ -1,0 +1,50 @@
+\hypertarget{class_mesh}{}\doxysection{Mesh Class Reference}
+\label{class_mesh}\index{Mesh@{Mesh}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_mesh_a95f7f77889ef899e3e3de84d788a229f}\label{class_mesh_a95f7f77889ef899e3e3de84d788a229f}} 
+{\bfseries Mesh} (const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&vertices, const std\+::vector$<$ UINT $>$ \&indices)
+\item 
+\mbox{\Hypertarget{class_mesh_afd4d455287a2cbddf39d6750fc3951f5}\label{class_mesh_afd4d455287a2cbddf39d6750fc3951f5}} 
+{\bfseries Mesh} (const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&vertices)
+\item 
+\mbox{\Hypertarget{class_mesh_acf24e9bf72cdc514242c6949ed50de2e}\label{class_mesh_acf24e9bf72cdc514242c6949ed50de2e}} 
+void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_mesh_a306cb8d80118141c9a516078791b3f06}\label{class_mesh_a306cb8d80118141c9a516078791b3f06}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_mesh}{Mesh}} \&mesh) const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_a4b83077b9b7dbdf70dd3e41aceafebe9}\label{class_mesh_a4b83077b9b7dbdf70dd3e41aceafebe9}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_mesh}{Mesh}} \&mesh) noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_aabb7662d22062937f36bd359662dd2ee}\label{class_mesh_aabb7662d22062937f36bd359662dd2ee}} 
+GET \mbox{\hyperlink{struct_simple_box}{Simple\+Box}} {\bfseries get\+\_\+bounding\+\_\+box} () const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_a0dff1c28c62d2eaa250c939a6ae11471}\label{class_mesh_a0dff1c28c62d2eaa250c939a6ae11471}} 
+GET const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \& {\bfseries get\+\_\+vertices} () const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_a27077e012e74fb3d95a2973223f8400a}\label{class_mesh_a27077e012e74fb3d95a2973223f8400a}} 
+GET const std\+::vector$<$ \mbox{\hyperlink{struct_triangle}{Triangle}} $>$ \& {\bfseries get\+\_\+triangles} () const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_a2c6f110c3ee2f11ea17c599a93df95ff}\label{class_mesh_a2c6f110c3ee2f11ea17c599a93df95ff}} 
+GET const std\+::vector$<$ \mbox{\hyperlink{struct_simple_vertex}{Simple\+Vertex}} $>$ \& {\bfseries get\+\_\+physics\+\_\+vertices} () const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_ad40d9885bb4c9145fe0814432c7b248d}\label{class_mesh_ad40d9885bb4c9145fe0814432c7b248d}} 
+GET const std\+::vector$<$ \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} $>$ \& {\bfseries get\+\_\+physics\+\_\+triangles} () const noexcept
+\item 
+\mbox{\Hypertarget{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}\label{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}} 
+void {\bfseries set\+\_\+vertices} (const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&new\+\_\+verts, size\+\_\+t physics\+\_\+verts\+\_\+chunk\+\_\+divisor=3)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_mesh_a5cc5d85449aa04a645854490489f7d7b}\label{class_mesh_a5cc5d85449aa04a645854490489f7d7b}} 
+std\+::vector$<$ UINT $>$ {\bfseries indices}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Mesh.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Mesh.\+cpp\end{DoxyCompactItemize}

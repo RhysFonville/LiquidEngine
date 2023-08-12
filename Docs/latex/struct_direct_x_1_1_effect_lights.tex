@@ -1,0 +1,80 @@
+\hypertarget{struct_direct_x_1_1_effect_lights}{}\doxysection{DirectX\+::Effect\+Lights Struct Reference}
+\label{struct_direct_x_1_1_effect_lights}\index{DirectX::EffectLights@{DirectX::EffectLights}}
+Inheritance diagram for DirectX\+::Effect\+Lights\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_direct_x_1_1_effect_lights}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_ab53a1736191595296dcde27bbba13b89}\label{struct_direct_x_1_1_effect_lights_ab53a1736191595296dcde27bbba13b89}} 
+void {\bfseries Initialize\+Constants} (\+\_\+\+Out\+\_\+ XMVECTOR \&specular\+Color\+And\+Power\+Constant, \+\_\+\+Out\+\_\+writes\+\_\+all\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Direction\+Constant, \+\_\+\+Out\+\_\+writes\+\_\+all\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Diffuse\+Constant, \+\_\+\+Out\+\_\+writes\+\_\+all\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Specular\+Constant) const
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_ae72977aeb27472b1553bcc42197f1caa}\label{struct_direct_x_1_1_effect_lights_ae72977aeb27472b1553bcc42197f1caa}} 
+void {\bfseries Set\+Constants} (\+\_\+\+Inout\+\_\+ int \&dirty\+Flags, \+\_\+\+In\+\_\+ \mbox{\hyperlink{struct_direct_x_1_1_effect_matrices}{Effect\+Matrices}} const \&matrices, \+\_\+\+Inout\+\_\+ XMMATRIX \&world\+Constant, \+\_\+\+Inout\+\_\+updates\+\_\+(3) XMVECTOR world\+Inverse\+Transpose\+Constant\mbox{[}3\mbox{]}, \+\_\+\+Inout\+\_\+ XMVECTOR \&eye\+Position\+Constant, \+\_\+\+Inout\+\_\+ XMVECTOR \&diffuse\+Color\+Constant, \+\_\+\+Inout\+\_\+ XMVECTOR \&emissive\+Color\+Constant, bool lighting\+Enabled)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_ad45e5d364dfb4cb3479bdd9b14b3643f}\label{struct_direct_x_1_1_effect_lights_ad45e5d364dfb4cb3479bdd9b14b3643f}} 
+int {\bfseries Set\+Light\+Enabled} (int which\+Light, bool value, \+\_\+\+Inout\+\_\+updates\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Diffuse\+Constant, \+\_\+\+Inout\+\_\+updates\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Specular\+Constant)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a6671fb535d12d30caf8c005f7067cdd9}\label{struct_direct_x_1_1_effect_lights_a6671fb535d12d30caf8c005f7067cdd9}} 
+int XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Diffuse\+Color} (int which\+Light, FXMVECTOR value, \+\_\+\+Inout\+\_\+updates\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Diffuse\+Constant)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_aab0e4770a0602f20d6479fae839cb462}\label{struct_direct_x_1_1_effect_lights_aab0e4770a0602f20d6479fae839cb462}} 
+int XM\+\_\+\+CALLCONV {\bfseries Set\+Light\+Specular\+Color} (int which\+Light, FXMVECTOR value, \+\_\+\+Inout\+\_\+updates\+\_\+(Max\+Directional\+Lights) XMVECTOR $\ast$light\+Specular\+Constant)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_direct_x_1_1_effect_color}{Direct\+X\+::\+Effect\+Color}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_color_a1aeb229e0675a85e4f25f34cf5fe2d7c}\label{struct_direct_x_1_1_effect_color_a1aeb229e0675a85e4f25f34cf5fe2d7c}} 
+void {\bfseries Set\+Constants} (\+\_\+\+Inout\+\_\+ int \&dirty\+Flags, \+\_\+\+Inout\+\_\+ XMVECTOR \&diffuse\+Color\+Constant)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a1fe63d6b8865531211146d1a0c1e736f}\label{struct_direct_x_1_1_effect_lights_a1fe63d6b8865531211146d1a0c1e736f}} 
+static void {\bfseries Validate\+Light\+Index} (int which\+Light)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a0345095c6b724133dc35dce0598a67ef}\label{struct_direct_x_1_1_effect_lights_a0345095c6b724133dc35dce0598a67ef}} 
+static void {\bfseries Enable\+Default\+Lighting} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_i_effect_lights}{IEffect\+Lights}} $\ast$effect)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a3c56e3864a4062807ff799cfc211afd6}\label{struct_direct_x_1_1_effect_lights_a3c56e3864a4062807ff799cfc211afd6}} 
+XMVECTOR {\bfseries emissive\+Color}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a6cf4595f043c51669fff2254ddc855bd}\label{struct_direct_x_1_1_effect_lights_a6cf4595f043c51669fff2254ddc855bd}} 
+XMVECTOR {\bfseries ambient\+Light\+Color}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_af32b31856228b87d2edd729eafb4e1cc}\label{struct_direct_x_1_1_effect_lights_af32b31856228b87d2edd729eafb4e1cc}} 
+bool {\bfseries light\+Enabled} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a1b0c220fb96058620110def595fa9401}\label{struct_direct_x_1_1_effect_lights_a1b0c220fb96058620110def595fa9401}} 
+XMVECTOR {\bfseries light\+Diffuse\+Color} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_a9e6c9fa3f0698529506b72f82752a8b2}\label{struct_direct_x_1_1_effect_lights_a9e6c9fa3f0698529506b72f82752a8b2}} 
+XMVECTOR {\bfseries light\+Specular\+Color} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_direct_x_1_1_effect_color}{Direct\+X\+::\+Effect\+Color}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_color_a3533ae57cc2c352bbe40ba7dfe3663b4}\label{struct_direct_x_1_1_effect_color_a3533ae57cc2c352bbe40ba7dfe3663b4}} 
+XMVECTOR {\bfseries diffuse\+Color}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_color_a76e561dfef7caf65d30321fb1c03a7cd}\label{struct_direct_x_1_1_effect_color_a76e561dfef7caf65d30321fb1c03a7cd}} 
+float {\bfseries alpha}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_effect_lights_ac8021998e4922db5bf4561fffbb97822}\label{struct_direct_x_1_1_effect_lights_ac8021998e4922db5bf4561fffbb97822}} 
+static constexpr int {\bfseries Max\+Directional\+Lights} = IEffect\+Lights\+::\+Max\+Directional\+Lights
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Effect\+Common.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Effect\+Common.\+cpp\end{DoxyCompactItemize}

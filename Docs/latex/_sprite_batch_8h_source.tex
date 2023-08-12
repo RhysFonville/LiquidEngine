@@ -1,0 +1,107 @@
+\hypertarget{_sprite_batch_8h_source}{}\doxysection{Sprite\+Batch.\+h}
+\label{_sprite_batch_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/SpriteBatch.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/SpriteBatch.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ SpriteBatch.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <dxgi1\_2.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <DirectXColors.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{enum}\ SpriteSortMode}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ SpriteSortMode\_Deferred,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ SpriteSortMode\_Immediate,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ SpriteSortMode\_Texture,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ SpriteSortMode\_BackToFront,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ SpriteSortMode\_FrontToBack,}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{enum}\ SpriteEffects\ :\ uint32\_t}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ SpriteEffects\_None\ =\ 0,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ SpriteEffects\_FlipHorizontally\ =\ 1,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ SpriteEffects\_FlipVertically\ =\ 2,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ SpriteEffects\_FlipBoth\ =\ SpriteEffects\_FlipHorizontally\ |\ SpriteEffects\_FlipVertically,}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}(\_In\_\ ID3D11DeviceContext*\ deviceContext);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}(\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}(\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{SpriteBatch}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_sprite_batch}{\string~SpriteBatch}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Begin/End\ a\ batch\ of\ sprite\ drawing\ operations.}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Begin(SpriteSortMode\ sortMode\ =\ SpriteSortMode\_Deferred,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11BlendState*\ blendState\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11SamplerState*\ samplerState\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11DepthStencilState*\ depthStencilState\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ ID3D11RasterizerState*\ rasterizerState\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl()>\ setCustomShaders\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ FXMMATRIX\ transformMatrix\ =\ MatrixIdentity);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ End();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ overloads\ specifying\ position,\ origin\ and\ scale\ as\ XMFLOAT2.}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ position,\ FXMVECTOR\ color\ =\ Colors::White);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ position,\ \_In\_opt\_\ RECT\ \textcolor{keyword}{const}*\ sourceRectangle,\ FXMVECTOR\ color\ =\ Colors::White,\ \textcolor{keywordtype}{float}\ rotation\ =\ 0,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ origin\ =\ Float2Zero,\ \textcolor{keywordtype}{float}\ scale\ =\ 1,\ SpriteEffects\ effects\ =\ SpriteEffects\_None,\ \textcolor{keywordtype}{float}\ layerDepth\ =\ 0);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ position,\ \_In\_opt\_\ RECT\ \textcolor{keyword}{const}*\ sourceRectangle,\ FXMVECTOR\ color,\ \textcolor{keywordtype}{float}\ rotation,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ origin,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ scale,\ SpriteEffects\ effects\ =\ SpriteEffects\_None,\ \textcolor{keywordtype}{float}\ layerDepth\ =\ 0);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ overloads\ specifying\ position,\ origin\ and\ scale\ via\ the\ first\ two\ components\ of\ an\ XMVECTOR.}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ FXMVECTOR\ position,\ FXMVECTOR\ color\ =\ Colors::White);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ FXMVECTOR\ position,\ \_In\_opt\_\ RECT\ \textcolor{keyword}{const}*\ sourceRectangle,\ FXMVECTOR\ color\ =\ Colors::White,\ \textcolor{keywordtype}{float}\ rotation\ =\ 0,\ FXMVECTOR\ origin\ =\ g\_XMZero,\ \textcolor{keywordtype}{float}\ scale\ =\ 1,\ SpriteEffects\ effects\ =\ SpriteEffects\_None,\ \textcolor{keywordtype}{float}\ layerDepth\ =\ 0);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ FXMVECTOR\ position,\ \_In\_opt\_\ RECT\ \textcolor{keyword}{const}*\ sourceRectangle,\ FXMVECTOR\ color,\ \textcolor{keywordtype}{float}\ rotation,\ FXMVECTOR\ origin,\ GXMVECTOR\ scale,\ SpriteEffects\ effects\ =\ SpriteEffects\_None,\ \textcolor{keywordtype}{float}\ layerDepth\ =\ 0);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ overloads\ specifying\ position\ as\ a\ RECT.}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ RECT\ \textcolor{keyword}{const}\&\ destinationRectangle,\ FXMVECTOR\ color\ =\ Colors::White);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ XM\_CALLCONV\ Draw(\_In\_\ ID3D11ShaderResourceView*\ texture,\ RECT\ \textcolor{keyword}{const}\&\ destinationRectangle,\ \_In\_opt\_\ RECT\ \textcolor{keyword}{const}*\ sourceRectangle,\ FXMVECTOR\ color\ =\ Colors::White,\ \textcolor{keywordtype}{float}\ rotation\ =\ 0,\ XMFLOAT2\ \textcolor{keyword}{const}\&\ origin\ =\ Float2Zero,\ SpriteEffects\ effects\ =\ SpriteEffects\_None,\ \textcolor{keywordtype}{float}\ layerDepth\ =\ 0);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotation\ mode\ to\ be\ applied\ to\ the\ sprite\ transformation}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetRotation(DXGI\_MODE\_ROTATION\ mode);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ DXGI\_MODE\_ROTATION\ \_\_cdecl\ GetRotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ viewport\ for\ sprite\ transformation}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetViewport(\textcolor{keyword}{const}\ D3D11\_VIEWPORT\&\ viewPort);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }Impl;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ XMMATRIX\ MatrixIdentity;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ XMFLOAT2\ Float2Zero;}
+\DoxyCodeLine{00100\ \ \ \ \ \};}
+\DoxyCodeLine{00101\ \}}
+
+\end{DoxyCode}

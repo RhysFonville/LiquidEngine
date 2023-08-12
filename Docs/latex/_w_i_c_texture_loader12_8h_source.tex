@@ -1,0 +1,120 @@
+\hypertarget{_w_i_c_texture_loader12_8h_source}{}\doxysection{WICTexture\+Loader12.\+h}
+\label{_w_i_c_texture_loader12_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader12.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/WICTextureLoader/WICTextureLoader12.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ WICTextureLoader12.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Function\ for\ loading\ a\ WIC\ image\ and\ creating\ a\ Direct3D\ runtime\ texture\ for\ it}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ (auto-\/generating\ mipmaps\ if\ possible)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note:\ Assumes\ application\ has\ already\ called\ CoInitializeEx}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ for\ images\ created\ as\ simple\ 2D\ textures.\ For}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ more\ complex\ resources,\ DDSTextureLoader\ is\ an\ excellent\ light-\/weight\ runtime\ loader.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ For\ a\ full-\/featured\ DDS\ file\ reader,\ writer,\ and\ texture\ processing\ pipeline\ see}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#error\ This\ module\ only\ supports\ Windows}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <unknwn.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ USING\_DIRECTX\_HEADERS}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <directx/d3d12.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <dxguids/dxguids.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}dxguid.lib"{}})}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}windowscodecs.lib"{}})}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ WIC\_LOADER\_FLAGS\_DEFINED}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{enum}\ WIC\_LOADER\_FLAGS\ :\ uint32\_t}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ WIC\_LOADER\_DEFAULT\ =\ 0,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FORCE\_SRGB\ =\ 0x1,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ WIC\_LOADER\_IGNORE\_SRGB\ =\ 0x2,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ WIC\_LOADER\_SRGB\_DEFAULT\ =\ 0x4,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MIP\_AUTOGEN\ =\ 0x8,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MIP\_RESERVE\ =\ 0x10,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FIT\_POW2\ =\ 0x20,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ WIC\_LOADER\_MAKE\_SQUARE\ =\ 0x40,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FORCE\_RGBA32\ =\ 0x80,}
+\DoxyCodeLine{00061\ \ \ \ \ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/dynamic-\/exception-\/spec"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ DEFINE\_ENUM\_FLAG\_OPERATORS(WIC\_LOADER\_FLAGS);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ Standard\ version}}
+\DoxyCodeLine{00076\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadWICTextureFromMemory(}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ \textcolor{keyword}{const}\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ decodedData,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ D3D12\_SUBRESOURCE\_DATA\&\ subresource,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadWICTextureFromFile(}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ decodedData,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ D3D12\_SUBRESOURCE\_DATA\&\ subresource,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize\ =\ 0)\ noexcept;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Extended\ version}}
+\DoxyCodeLine{00094\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadWICTextureFromMemoryEx(}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \_In\_reads\_bytes\_(wicDataSize)\ const\ uint8\_t*\ wicData,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ wicDataSize,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_FLAGS\ resFlags,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ decodedData,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ D3D12\_SUBRESOURCE\_DATA\&\ subresource)\ noexcept;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ HRESULT\ \_\_cdecl\ LoadWICTextureFromFileEx(}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Device*\ d3dDevice,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_In\_z\_\ const\ \textcolor{keywordtype}{wchar\_t}*\ szFileName,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxsize,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_FLAGS\ resFlags,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ WIC\_LOADER\_FLAGS\ loadFlags,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_Outptr\_\ ID3D12Resource**\ texture,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\&\ decodedData,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ D3D12\_SUBRESOURCE\_DATA\&\ subresource)\ noexcept;}
+\DoxyCodeLine{00114\ \}}
+
+\end{DoxyCode}

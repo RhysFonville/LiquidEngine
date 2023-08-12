@@ -1,0 +1,151 @@
+.TH "DirectX::VertexPositionNormalTangentColorTextureSkinning" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::VertexPositionNormalTangentColorTextureSkinning
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDirectX::VertexPositionNormalTangentColorTexture\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (const \fBVertexPositionNormalTangentColorTextureSkinning\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP & \fBoperator=\fP (const \fBVertexPositionNormalTangentColorTextureSkinning\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (\fBVertexPositionNormalTangentColorTextureSkinning\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP & \fBoperator=\fP (\fBVertexPositionNormalTangentColorTextureSkinning\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (XMFLOAT3 const &iposition, XMFLOAT3 const &inormal, XMFLOAT4 const &itangent, uint32_t irgba, XMFLOAT2 const &itextureCoordinate, XMUINT4 const &iindices, XMFLOAT4 const &iweights) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (FXMVECTOR iposition, FXMVECTOR inormal, FXMVECTOR itangent, uint32_t irgba, CXMVECTOR itextureCoordinate, XMUINT4 const &iindices, CXMVECTOR iweights) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (XMFLOAT3 const &iposition, XMFLOAT3 const &inormal, XMFLOAT4 const &itangent, XMFLOAT4 const &icolor, XMFLOAT2 const &itextureCoordinate, XMUINT4 const &iindices, XMFLOAT4 const &iweights) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTextureSkinning\fP (FXMVECTOR iposition, FXMVECTOR inormal, FXMVECTOR itangent, CXMVECTOR icolor, CXMVECTOR itextureCoordinate, XMUINT4 const &iindices, CXMVECTOR iweights) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBlendIndices\fP (XMUINT4 const &iindices) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetBlendWeights\fP (XMFLOAT4 const &iweights) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetBlendWeights\fP (FXMVECTOR iweights) noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDirectX::VertexPositionNormalTangentColorTexture\fP
+.in +1c
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (const \fBVertexPositionNormalTangentColorTexture\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP & \fBoperator=\fP (const \fBVertexPositionNormalTangentColorTexture\fP &)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (\fBVertexPositionNormalTangentColorTexture\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP & \fBoperator=\fP (\fBVertexPositionNormalTangentColorTexture\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (XMFLOAT3 const &iposition, XMFLOAT3 const &inormal, XMFLOAT4 const &itangent, uint32_t irgba, XMFLOAT2 const &itextureCoordinate) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (FXMVECTOR iposition, FXMVECTOR inormal, FXMVECTOR itangent, uint32_t irgba, CXMVECTOR itextureCoordinate) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (XMFLOAT3 const &iposition, XMFLOAT3 const &inormal, XMFLOAT4 const &itangent, XMFLOAT4 const &icolor, XMFLOAT2 const &itextureCoordinate) noexcept"
+.br
+.ti -1c
+.RI "\fBVertexPositionNormalTangentColorTexture\fP (FXMVECTOR iposition, FXMVECTOR inormal, FXMVECTOR itangent, CXMVECTOR icolor, CXMVECTOR itextureCoordinate) noexcept"
+.br
+.ti -1c
+.RI "void __cdecl \fBSetColor\fP (XMFLOAT4 const &icolor) noexcept"
+.br
+.ti -1c
+.RI "void XM_CALLCONV \fBSetColor\fP (FXMVECTOR icolor) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBindices\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBweights\fP"
+.br
+.in -1c
+
+Public Attributes inherited from \fBDirectX::VertexPositionNormalTangentColorTexture\fP
+.in +1c
+.ti -1c
+.RI "XMFLOAT3 \fBposition\fP"
+.br
+.ti -1c
+.RI "XMFLOAT3 \fBnormal\fP"
+.br
+.ti -1c
+.RI "XMFLOAT4 \fBtangent\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBcolor\fP"
+.br
+.ti -1c
+.RI "XMFLOAT2 \fBtextureCoordinate\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr unsigned int \fBInputElementCount\fP = 7"
+.br
+.ti -1c
+.RI "static const D3D11_INPUT_ELEMENT_DESC \fBInputElements\fP [InputElementCount]"
+.br
+.in -1c
+
+Static Public Attributes inherited from \fBDirectX::VertexPositionNormalTangentColorTexture\fP
+.in +1c
+.ti -1c
+.RI "static constexpr unsigned int \fBInputElementCount\fP = 5"
+.br
+.ti -1c
+.RI "static const D3D11_INPUT_ELEMENT_DESC \fBInputElements\fP [InputElementCount]"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const D3D11_INPUT_ELEMENT_DESC VertexPositionNormalTangentColorTextureSkinning::InputElements\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+=
+{
+    { "SV_Position", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "TANGENT",     0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "COLOR",       0, DXGI_FORMAT_R8G8B8A8_UNORM,     0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,       0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "BLENDINDICES",0, DXGI_FORMAT_R8G8B8A8_UINT,      0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "BLENDWEIGHT", 0, DXGI_FORMAT_R8G8B8A8_UNORM,     0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

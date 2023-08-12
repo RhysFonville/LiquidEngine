@@ -1,0 +1,399 @@
+\hypertarget{_sound_common_8h_source}{}\doxysection{Sound\+Common.\+h}
+\label{_sound_common_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/SoundCommon.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Audio/SoundCommon.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ SoundCommon.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Audio.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}PlatformHelpers.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ USING\_XAUDIO2\_9}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ DIRECTX\_ENABLE\_XWMA}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ defined(\_GAMING\_XBOX)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ DIRECTX\_ENABLE\_XMA2}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ defined(DIRECTX\_ENABLE\_XWMA)\ ||\ defined(DIRECTX\_ENABLE\_XMA2)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ DIRECTX\_ENABLE\_SEEK\_TABLES}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ getting\ a\ format\ tag\ from\ a\ WAVEFORMATEX}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{inline}\ uint32\_t\ GetFormatTag(\textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wfx-\/>wFormatTag\ ==\ WAVE\_FORMAT\_EXTENSIBLE)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wfx-\/>cbSize\ <\ (\textcolor{keyword}{sizeof}(WAVEFORMATEXTENSIBLE)\ -\/\ \textcolor{keyword}{sizeof}(WAVEFORMATEX)))}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ GUID\ s\_wfexBase\ =\ \{\ 0x00000000,\ 0x0000,\ 0x0010,\ \{\ 0x80,\ 0x00,\ 0x00,\ 0xAA,\ 0x00,\ 0x38,\ 0x9B,\ 0x71\ \}\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ wfex\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }WAVEFORMATEXTENSIBLE*\textcolor{keyword}{>}(wfx);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (memcmp(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }BYTE*\textcolor{keyword}{>}(\&wfex-\/>SubFormat)\ +\ \textcolor{keyword}{sizeof}(DWORD),}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }BYTE*\textcolor{keyword}{>}(\&s\_wfexBase)\ +\ \textcolor{keyword}{sizeof}(DWORD),\ \textcolor{keyword}{sizeof}(GUID)\ -\/\ \textcolor{keyword}{sizeof}(DWORD))\ !=\ 0)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ wfex-\/>SubFormat.Data1;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ wfx-\/>wFormatTag;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ validating\ wave\ format\ structure}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsValid(\_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ getting\ a\ default\ channel\ mask\ from\ channels}}
+\DoxyCodeLine{00062\ \ \ \ \ uint32\_t\ GetDefaultChannelMask(\textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Helpers\ for\ creating\ various\ wave\ format\ structures}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateIntegerPCM(\_Out\_\ WAVEFORMATEX*\ wfx,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{int}\ sampleBits)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateFloatPCM(\_Out\_\ WAVEFORMATEX*\ wfx,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateADPCM(\_Out\_writes\_bytes\_(wfxSize)\ WAVEFORMATEX*\ wfx,\ \textcolor{keywordtype}{size\_t}\ wfxSize,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{int}\ samplesPerBlock)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifdef\ DIRECTX\_ENABLE\_XWMA}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateXWMA(\_Out\_\ WAVEFORMATEX*\ wfx,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{int}\ blockAlign,\ \textcolor{keywordtype}{int}\ avgBytes,\ \textcolor{keywordtype}{bool}\ wma3)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ DIRECTX\_ENABLE\_XMA2}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ CreateXMA2(\_Out\_writes\_bytes\_(wfxSize)\ WAVEFORMATEX*\ wfx,\ \textcolor{keywordtype}{size\_t}\ wfxSize,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sampleRate,\ \textcolor{keywordtype}{int}\ channels,\ \textcolor{keywordtype}{int}\ bytesPerBlock,\ \textcolor{keywordtype}{int}\ blockCount,\ \textcolor{keywordtype}{int}\ samplesEncoded)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ computing\ pan\ volume\ matrix}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ ComputePan(\textcolor{keywordtype}{float}\ pan,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ channels,\ \_Out\_writes\_(16)\ \textcolor{keywordtype}{float}*\ matrix)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ Helper\ class\ for\ implementing\ SoundEffectInstance}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}()\ noexcept\ :}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ voice(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ state(STOPPED),}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ engine(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ mVolume(1.f),}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ mPitch(0.f),}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ mFreqRatio(1.f),}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ mPan(0.f),}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ mFlags(SoundEffectInstance\_Default),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ mDSPSettings\{\}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}(\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{SoundEffectInstanceBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{\string~SoundEffectInstanceBase}}()}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ assert(voice\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Initialize(\_In\_\ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ eng,\ \_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx,\ SOUND\_EFFECT\_INSTANCE\_FLAGS\ flags)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ assert(eng\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ engine\ =\ eng;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice\ =\ eng-\/>GetMasterVoice();}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice\ =\ eng-\/>GetReverbVoice();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (eng-\/>GetChannelMask()\ \&\ SPEAKER\_LOW\_FREQUENCY)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFlags\ =\ flags\ |\ SoundEffectInstance\_UseRedirectLFE;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFlags\ =\ flags\ \&\ \string~SoundEffectInstance\_UseRedirectLFE;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ memset(\&mDSPSettings,\ 0,\ \textcolor{keyword}{sizeof}(X3DAUDIO\_DSP\_SETTINGS));}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ assert(wfx\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ mDSPSettings.SrcChannelCount\ =\ wfx-\/>nChannels;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ mDSPSettings.DstChannelCount\ =\ eng-\/>GetOutputChannels();}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ AllocateVoice(\_In\_\ \textcolor{keyword}{const}\ WAVEFORMATEX*\ wfx)}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ assert(engine\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ engine-\/>AllocateVoice(wfx,\ mFlags,\ \textcolor{keyword}{false},\ \&voice);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DestroyVoice()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(engine\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engine-\/>DestroyVoice(voice);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ Play()\ \textcolor{comment}{//\ Returns\ true\ if\ STOPPED\ -\/>\ PLAYING}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state\ ==\ PAUSED)}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>Start(0);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ PLAYING;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (state\ !=\ PLAYING)}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mVolume\ !=\ 1.f)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>SetVolume(mVolume);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mPitch\ !=\ 0.f)}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFreqRatio\ =\ XAudio2SemitonesToFrequencyRatio(mPitch\ *\ 12.f);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>SetFrequencyRatio(mFreqRatio);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mPan\ !=\ 0.f)}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPan(mPan);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>Start(0);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ PLAYING;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Stop(\textcolor{keywordtype}{bool}\ immediate,\ \textcolor{keywordtype}{bool}\&\ looped)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!voice)}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ STOPPED;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (immediate)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ STOPPED;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>Stop(0);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>FlushSourceBuffers();}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (looped)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ looped\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>ExitLoop();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>Stop(XAUDIO2\_PLAY\_TAILS);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Pause()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice\ \&\&\ state\ ==\ PLAYING)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ PAUSED;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>Stop(0);}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Resume()}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice\ \&\&\ state\ ==\ PAUSED)}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>Start(0);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ PLAYING;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetVolume(\textcolor{keywordtype}{float}\ volume)}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ assert(volume\ >=\ -\/XAUDIO2\_MAX\_VOLUME\_LEVEL\ \&\&\ volume\ <=\ XAUDIO2\_MAX\_VOLUME\_LEVEL);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ mVolume\ =\ volume;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>SetVolume(volume);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetPitch(\textcolor{keywordtype}{float}\ pitch)}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ assert(pitch\ >=\ -\/1.f\ \&\&\ pitch\ <=\ 1.f);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((mFlags\ \&\ SoundEffectInstance\_NoSetPitch)\ \&\&\ pitch\ !=\ 0.f)}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DebugTrace(\textcolor{stringliteral}{"{}ERROR:\ Sound\ effect\ instance\ was\ created\ with\ the\ NoSetPitch\ flag\(\backslash\)n"{}});}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}SetPitch"{}});}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ mPitch\ =\ pitch;}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFreqRatio\ =\ XAudio2SemitonesToFrequencyRatio(mPitch\ *\ 12.f);}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ voice-\/>SetFrequencyRatio(mFreqRatio);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ThrowIfFailed(hr);}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ SetPan(\textcolor{keywordtype}{float}\ pan);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Apply3D(\textcolor{keyword}{const}\ X3DAUDIO\_LISTENER\&\ listener,\ \textcolor{keyword}{const}\ X3DAUDIO\_EMITTER\&\ emitter,\ \textcolor{keywordtype}{bool}\ rhcoords);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ SoundState\ GetState(\textcolor{keywordtype}{bool}\ autostop)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (autostop\ \&\&\ voice\ \&\&\ (state\ ==\ PLAYING))}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ XAUDIO2\_VOICE\_STATE\ xstate;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice-\/>GetState(\&xstate,\ XAUDIO2\_VOICE\_NOSAMPLESPLAYED);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!xstate.BuffersQueued)}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Automatic\ stop\ if\ the\ buffer\ has\ finished\ playing}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>Stop();}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ STOPPED;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ state;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ GetPendingBufferCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!voice)}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ XAUDIO2\_VOICE\_STATE\ xstate;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ voice-\/>GetState(\&xstate,\ XAUDIO2\_VOICE\_NOSAMPLESPLAYED);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(xstate.BuffersQueued);}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ GetChannelCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mDSPSettings.SrcChannelCount;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnCriticalError()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice-\/>DestroyVoice();}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ STOPPED;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReset()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ assert(engine\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice\ =\ engine-\/>GetMasterVoice();}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice\ =\ engine-\/>GetReverbVoice();}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (engine-\/>GetChannelMask()\ \&\ SPEAKER\_LOW\_FREQUENCY)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFlags\ =\ mFlags\ |\ SoundEffectInstance\_UseRedirectLFE;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFlags\ =\ mFlags\ \&\ \string~SoundEffectInstance\_UseRedirectLFE;}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ mDSPSettings.DstChannelCount\ =\ engine-\/>GetOutputChannels();}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDestroy()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>Stop(0);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ignore\ =\ voice-\/>FlushSourceBuffers();}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice-\/>DestroyVoice();}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ STOPPED;}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ engine\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnTrim()}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice\ \&\&\ (state\ ==\ STOPPED))}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engine-\/>DestroyVoice(voice);}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ voice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ GatherStatistics(\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{AudioStatistics}}\&\ stats)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ ++stats.allocatedInstances;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (voice)}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++stats.allocatedVoices;}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mFlags\ \&\ SoundEffectInstance\_Use3D)}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++stats.allocatedVoices3d;}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state\ ==\ PLAYING)}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++stats.playingInstances;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ IXAudio2SourceVoice*\ \ \ \ \ \ \ \ voice;}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ SoundState\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state;}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{AudioEngine}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engine;}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mVolume;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mPitch;}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mFreqRatio;}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mPan;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ SOUND\_EFFECT\_INSTANCE\_FLAGS\ mFlags;}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ IXAudio2Voice*\ \ \ \ \ \ \ \ \ \ \ \ \ \ mDirectVoice;}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ IXAudio2Voice*\ \ \ \ \ \ \ \ \ \ \ \ \ \ mReverbVoice;}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ X3DAUDIO\_DSP\_SETTINGS\ \ \ \ \ \ \ mDSPSettings;}
+\DoxyCodeLine{00385\ \ \ \ \ \};}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_wave_bank_seek_data}{WaveBankSeekData}}}
+\DoxyCodeLine{00388\ \ \ \ \ \{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ seekCount;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t*\ seekTable;}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ tag;}
+\DoxyCodeLine{00392\ \ \ \ \ \};}
+\DoxyCodeLine{00393\ \}}
+
+\end{DoxyCode}

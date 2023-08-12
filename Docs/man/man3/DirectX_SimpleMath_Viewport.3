@@ -1,0 +1,87 @@
+.TH "DirectX::SimpleMath::Viewport" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::SimpleMath::Viewport
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBViewport\fP (float ix, float iy, float iw, float ih, float iminz=0\&.f, float imaxz=1\&.f) noexcept"
+.br
+.ti -1c
+.RI "\fBViewport\fP (const RECT &rct) noexcept"
+.br
+.ti -1c
+.RI "\fBViewport\fP (const \fBViewport\fP &)=default"
+.br
+.ti -1c
+.RI "\fBViewport\fP & \fBoperator=\fP (const \fBViewport\fP &)=default"
+.br
+.ti -1c
+.RI "\fBViewport\fP (\fBViewport\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBViewport\fP & \fBoperator=\fP (\fBViewport\fP &&)=default"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBViewport\fP &vp) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBViewport\fP &vp) const noexcept"
+.br
+.ti -1c
+.RI "\fBViewport\fP & \fBoperator=\fP (const RECT &rct) noexcept"
+.br
+.ti -1c
+.RI "float \fBAspectRatio\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBProject\fP (const \fBVector3\fP &p, const \fBMatrix\fP &proj, const \fBMatrix\fP &view, const \fBMatrix\fP &world) const noexcept"
+.br
+.ti -1c
+.RI "void \fBProject\fP (const \fBVector3\fP &p, const \fBMatrix\fP &proj, const \fBMatrix\fP &view, const \fBMatrix\fP &world, \fBVector3\fP &result) const noexcept"
+.br
+.ti -1c
+.RI "\fBVector3\fP \fBUnproject\fP (const \fBVector3\fP &p, const \fBMatrix\fP &proj, const \fBMatrix\fP &view, const \fBMatrix\fP &world) const noexcept"
+.br
+.ti -1c
+.RI "void \fBUnproject\fP (const \fBVector3\fP &p, const \fBMatrix\fP &proj, const \fBMatrix\fP &view, const \fBMatrix\fP &world, \fBVector3\fP &result) const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static RECT __cdecl \fBComputeTitleSafeArea\fP (UINT backBufferWidth, UINT backBufferHeight) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBx\fP"
+.br
+.ti -1c
+.RI "float \fBy\fP"
+.br
+.ti -1c
+.RI "float \fBwidth\fP"
+.br
+.ti -1c
+.RI "float \fBheight\fP"
+.br
+.ti -1c
+.RI "float \fBminDepth\fP"
+.br
+.ti -1c
+.RI "float \fBmaxDepth\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

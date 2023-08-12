@@ -1,0 +1,98 @@
+\hypertarget{_platform_helpers_8h_source}{}\doxysection{Platform\+Helpers.\+h}
+\label{_platform_helpers_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/PlatformHelpers.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Src/PlatformHelpers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ PlatformHelpers.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4324)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ MAKEFOURCC}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAKEFOURCC(ch0,\ ch1,\ ch2,\ ch3)\ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch0))\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch1))\ <<\ 8)\ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch2))\ <<\ 16)\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (static\_cast<uint32\_t>(static\_cast<uint8\_t>(ch3))\ <<\ 24))}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(MAKEFOURCC)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ See\ https://walbourn.github.io/modern-\/c++-\/bitmask-\/types/}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ ENUM\_FLAGS\_CONSTEXPR}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(NTDDI\_WIN10\_RS1)\ \&\&\ !defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ENUM\_FLAGS\_CONSTEXPR\ constexpr}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ENUM\_FLAGS\_CONSTEXPR\ const}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Helper\ class\ for\ COM\ exceptions}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1com__exception}{com\_exception}}\ :\ \textcolor{keyword}{public}\ std::exception}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1com__exception}{com\_exception}}(HRESULT\ hr)\ noexcept\ :\ result(hr)\ \{\}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ what()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ s\_str[64]\ =\ \{\};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ sprintf\_s(s\_str,\ \textcolor{stringliteral}{"{}Failure\ with\ HRESULT\ of\ \%08X"{}},\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(result));}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ s\_str;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ HRESULT\ get\_result()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ result;\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ HRESULT\ result;}
+\DoxyCodeLine{00054\ \ \ \ \ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Helper\ utility\ converts\ D3D\ API\ failures\ into\ exceptions.}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ThrowIfFailed(HRESULT\ hr)\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false})}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (FAILED(hr))}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_direct_x_1_1com__exception}{com\_exception}}(hr);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ output\ debug\ tracing}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DebugTrace(\_In\_z\_\ \_Printf\_format\_string\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ ...)\ noexcept}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_DEBUG}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ va\_list\ args;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ va\_start(args,\ format);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buff[1024]\ =\ \{\};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ vsprintf\_s(buff,\ format,\ args);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ OutputDebugStringA(buff);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ va\_end(args);}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ UNREFERENCED\_PARAMETER(format);}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ Helper\ smart-\/pointers}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#if\ (\_WIN32\_WINNT\ >=\ \_WIN32\_WINNT\_WIN10)\ ||\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))\ ||\ !defined(WINAPI\_FAMILY)\ ||\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_DESKTOP\_APP)}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1virtual__deleter}{virtual\_deleter}}\ \{\ \textcolor{keywordtype}{void}\ operator()(\textcolor{keywordtype}{void}*\ p)\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{if}\ (p)\ VirtualFree(p,\ 0,\ MEM\_RELEASE);\ \}\ \};}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1handle__closer}{handle\_closer}}\ \{\ \textcolor{keywordtype}{void}\ operator()(HANDLE\ h)\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{if}\ (h)\ CloseHandle(h);\ \}\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{using\ }ScopedHandle\ =\ std::unique\_ptr<void,\ handle\_closer>;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ HANDLE\ safe\_handle(HANDLE\ h)\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ (h\ ==\ INVALID\_HANDLE\_VALUE)\ ?\ nullptr\ :\ h;\ \}}
+\DoxyCodeLine{00092\ \}}
+
+\end{DoxyCode}

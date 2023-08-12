@@ -1,0 +1,50 @@
+.TH "Vertex" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Vertex
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVertex\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "\fBVertex\fP (float x, float y, float z, float u, float v)"
+.br
+.ti -1c
+.RI "\fBVertex\fP (float x, float y, float z, float u, float v, float nx, float ny, float nz)"
+.br
+.ti -1c
+.RI "\fBVertex\fP (\fBFVector3\fP position, \fBFVector2\fP texcoord, \fBFVector3\fP normal)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBVertex\fP &vertex) const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator SimpleVertex\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBFVector3\fP \fBposition\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "\fBFVector2\fP \fBtexcoord\fP = \fBFVector2\fP()"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBnormal\fP = \fBFVector3\fP()"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBtangent\fP = \fBFVector3\fP()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

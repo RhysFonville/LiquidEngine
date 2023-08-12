@@ -1,0 +1,75 @@
+\hypertarget{_common_states_8h_source}{}\doxysection{Common\+States.\+h}
+\label{_common_states_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/CommonStates.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/CommonStates.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ CommonStates.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <d3d11\_x.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d11\_1.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}(\_In\_\ ID3D11Device*\ device);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}(\mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}(\mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_common_states}{CommonStates}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_common_states}{\string~CommonStates}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Blend\ states.}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ID3D11BlendState*\ \_\_cdecl\ Opaque()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ ID3D11BlendState*\ \_\_cdecl\ AlphaBlend()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ ID3D11BlendState*\ \_\_cdecl\ Additive()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ ID3D11BlendState*\ \_\_cdecl\ NonPremultiplied()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Depth\ stencil\ states.}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ID3D11DepthStencilState*\ \_\_cdecl\ DepthNone()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ID3D11DepthStencilState*\ \_\_cdecl\ DepthDefault()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ ID3D11DepthStencilState*\ \_\_cdecl\ DepthRead()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ ID3D11DepthStencilState*\ \_\_cdecl\ DepthReverseZ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ ID3D11DepthStencilState*\ \_\_cdecl\ DepthReadReverseZ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rasterizer\ states.}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ ID3D11RasterizerState*\ \_\_cdecl\ CullNone()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ ID3D11RasterizerState*\ \_\_cdecl\ CullClockwise()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ ID3D11RasterizerState*\ \_\_cdecl\ CullCounterClockwise()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ ID3D11RasterizerState*\ \_\_cdecl\ Wireframe()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sampler\ states.}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ PointWrap()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ PointClamp()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ LinearWrap()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ LinearClamp()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ AnisotropicWrap()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \_\_cdecl\ AnisotropicClamp()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_common_states_1_1_impl}{Impl}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ std::shared\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00068\ \ \ \ \ \};}
+\DoxyCodeLine{00069\ \}}
+
+\end{DoxyCode}

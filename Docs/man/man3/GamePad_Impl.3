@@ -1,0 +1,48 @@
+.TH "DirectX::GamePad::Impl" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::GamePad::Impl
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImpl\fP (\fBGamePad\fP *owner)"
+.br
+.ti -1c
+.RI "void \fBGetState\fP (int player, _Out_ \fBState\fP &state, DeadZone deadZoneMode)"
+.br
+.ti -1c
+.RI "void \fBGetCapabilities\fP (int player, _Out_ \fBCapabilities\fP &caps)"
+.br
+.ti -1c
+.RI "bool \fBSetVibration\fP (int player, float leftMotor, float rightMotor, float leftTrigger, float rightTrigger) noexcept"
+.br
+.ti -1c
+.RI "void \fBSuspend\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBResume\fP () noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBGamePad\fP * \fBmOwner\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBGamePad::Impl\fP * \fBs_gamePad\fP = nullptr"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,66 @@
+.TH "DirectX::ModelBone" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::ModelBone
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBaligned_deleter\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBCollection\fP = std::vector< \fBModelBone\fP >"
+.br
+.ti -1c
+.RI "using \fBTransformArray\fP = std::unique_ptr< XMMATRIX[], \fBaligned_deleter\fP >"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBModelBone\fP (uint32_t parent, uint32_t child, uint32_t sibling) noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static TransformArray \fBMakeArray\fP (size_t count)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBparentIndex\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBchildIndex\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBsiblingIndex\fP"
+.br
+.ti -1c
+.RI "std::wstring \fBname\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr uint32_t \fBc_Invalid\fP = uint32_t(\-1)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

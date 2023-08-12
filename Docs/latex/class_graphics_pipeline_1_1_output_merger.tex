@@ -1,0 +1,35 @@
+\hypertarget{class_graphics_pipeline_1_1_output_merger}{}\doxysection{Graphics\+Pipeline\+::Output\+Merger Class Reference}
+\label{class_graphics_pipeline_1_1_output_merger}\index{GraphicsPipeline::OutputMerger@{GraphicsPipeline::OutputMerger}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_af2dd86b93e413c07ae6de4d0b446edde}\label{class_graphics_pipeline_1_1_output_merger_af2dd86b93e413c07ae6de4d0b446edde}} 
+{\bfseries Output\+Merger} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_a3f7625bdf5a1d3711174ff8471ee7da2}\label{class_graphics_pipeline_1_1_output_merger_a3f7625bdf5a1d3711174ff8471ee7da2}} 
+void {\bfseries compile} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution, Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_abeb239717dd91c885d9a94cad54e31be}\label{class_graphics_pipeline_1_1_output_merger_abeb239717dd91c885d9a94cad54e31be}} 
+void {\bfseries update} (Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const CD3\+DX12\+\_\+\+CPU\+\_\+\+DESCRIPTOR\+\_\+\+HANDLE \&rtv\+\_\+handle)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_adb6ef9a2a15791a4abe3a2f2c303dfeb}\label{class_graphics_pipeline_1_1_output_merger_adb6ef9a2a15791a4abe3a2f2c303dfeb}} 
+void {\bfseries create\+\_\+depth\+\_\+stencil} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution, Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_a399002615a2f9204341506241c001bba}\label{class_graphics_pipeline_1_1_output_merger_a399002615a2f9204341506241c001bba}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_output_merger}{Output\+Merger}} \&output\+\_\+merger) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_ae56c7d517250113cb0317c340860db1d}\label{class_graphics_pipeline_1_1_output_merger_ae56c7d517250113cb0317c340860db1d}} 
+Com\+Ptr$<$ ID3\+D12\+Resource $>$ {\bfseries depth\+\_\+stencil\+\_\+buffer} = nullptr
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_output_merger_a63a7e42cefff034c2088df1541324b0c}\label{class_graphics_pipeline_1_1_output_merger_a63a7e42cefff034c2088df1541324b0c}} 
+Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ {\bfseries depth\+\_\+stencil\+\_\+descriptor\+\_\+heap} = nullptr
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}

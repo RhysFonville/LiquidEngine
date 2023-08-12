@@ -1,0 +1,92 @@
+\hypertarget{class_direct_x_1_1_sound_effect_instance_base}{}\doxysection{DirectX\+::Sound\+Effect\+Instance\+Base Class Reference}
+\label{class_direct_x_1_1_sound_effect_instance_base}\index{DirectX::SoundEffectInstanceBase@{DirectX::SoundEffectInstanceBase}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a528ac5c7c5ed7506282a2ebd96d57598}\label{class_direct_x_1_1_sound_effect_instance_base_a528ac5c7c5ed7506282a2ebd96d57598}} 
+{\bfseries Sound\+Effect\+Instance\+Base} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_aa1db786ef4024cfdb13b1cc9a82e90ed}\label{class_direct_x_1_1_sound_effect_instance_base_aa1db786ef4024cfdb13b1cc9a82e90ed}} 
+\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} \&\&)=default
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_abceef4f9d740d622c730b83dc3e23648}\label{class_direct_x_1_1_sound_effect_instance_base_abceef4f9d740d622c730b83dc3e23648}} 
+{\bfseries Sound\+Effect\+Instance\+Base} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a393edb0d74f94b30fa88b90b4e09a2da}\label{class_direct_x_1_1_sound_effect_instance_base_a393edb0d74f94b30fa88b90b4e09a2da}} 
+\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} \& {\bfseries operator=} (\mbox{\hyperlink{class_direct_x_1_1_sound_effect_instance_base}{Sound\+Effect\+Instance\+Base}} const \&)=delete
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a156ff051813b4b15be4f14fa74b94123}\label{class_direct_x_1_1_sound_effect_instance_base_a156ff051813b4b15be4f14fa74b94123}} 
+void {\bfseries Initialize} (\+\_\+\+In\+\_\+ \mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$eng, \+\_\+\+In\+\_\+ const WAVEFORMATEX $\ast$wfx, SOUND\+\_\+\+EFFECT\+\_\+\+INSTANCE\+\_\+\+FLAGS flags) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a7f3dff150fdc19bb84eb7ba66473259b}\label{class_direct_x_1_1_sound_effect_instance_base_a7f3dff150fdc19bb84eb7ba66473259b}} 
+void {\bfseries Allocate\+Voice} (\+\_\+\+In\+\_\+ const WAVEFORMATEX $\ast$wfx)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_abf2c2a32d031c00acdb23537c758dd41}\label{class_direct_x_1_1_sound_effect_instance_base_abf2c2a32d031c00acdb23537c758dd41}} 
+void {\bfseries Destroy\+Voice} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a36d261f6fad9c88440c16aebe64a8054}\label{class_direct_x_1_1_sound_effect_instance_base_a36d261f6fad9c88440c16aebe64a8054}} 
+bool {\bfseries Play} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a39be6226c44d723e7c444a4e24002836}\label{class_direct_x_1_1_sound_effect_instance_base_a39be6226c44d723e7c444a4e24002836}} 
+void {\bfseries Stop} (bool immediate, bool \&looped) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a4b4f01759226da31bffb601954728f3b}\label{class_direct_x_1_1_sound_effect_instance_base_a4b4f01759226da31bffb601954728f3b}} 
+void {\bfseries Pause} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_ae8828bf774786edd35e27a1c0c84b691}\label{class_direct_x_1_1_sound_effect_instance_base_ae8828bf774786edd35e27a1c0c84b691}} 
+void {\bfseries Resume} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_ae49ebe09d7e8eece3b2c810d04a381d7}\label{class_direct_x_1_1_sound_effect_instance_base_ae49ebe09d7e8eece3b2c810d04a381d7}} 
+void {\bfseries Set\+Volume} (float volume)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_ab6bc08e6a024a101e27186738452277f}\label{class_direct_x_1_1_sound_effect_instance_base_ab6bc08e6a024a101e27186738452277f}} 
+void {\bfseries Set\+Pitch} (float pitch)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a2c9df1681df11ff9451f76bb7ab2bef3}\label{class_direct_x_1_1_sound_effect_instance_base_a2c9df1681df11ff9451f76bb7ab2bef3}} 
+void {\bfseries Set\+Pan} (float pan)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_adc2ae3f9d27e9ea4c328f2e888e1e82c}\label{class_direct_x_1_1_sound_effect_instance_base_adc2ae3f9d27e9ea4c328f2e888e1e82c}} 
+void {\bfseries Apply3D} (const X3\+DAUDIO\+\_\+\+LISTENER \&listener, const X3\+DAUDIO\+\_\+\+EMITTER \&emitter, bool rhcoords)
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_aed0016cc70b36be6770720c73f2a6b3e}\label{class_direct_x_1_1_sound_effect_instance_base_aed0016cc70b36be6770720c73f2a6b3e}} 
+Sound\+State {\bfseries Get\+State} (bool autostop) noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a120c79d8616ba1cdded6d8a62b126678}\label{class_direct_x_1_1_sound_effect_instance_base_a120c79d8616ba1cdded6d8a62b126678}} 
+int {\bfseries Get\+Pending\+Buffer\+Count} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_ad07fb270cf56a615c437b153f440d941}\label{class_direct_x_1_1_sound_effect_instance_base_ad07fb270cf56a615c437b153f440d941}} 
+unsigned int {\bfseries Get\+Channel\+Count} () const noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a3e674c56fd38c4445db352d9a54654b2}\label{class_direct_x_1_1_sound_effect_instance_base_a3e674c56fd38c4445db352d9a54654b2}} 
+void {\bfseries On\+Critical\+Error} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a2b1e0f592575773ee27adca89f6cd3b0}\label{class_direct_x_1_1_sound_effect_instance_base_a2b1e0f592575773ee27adca89f6cd3b0}} 
+void {\bfseries On\+Reset} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_ab47e8f83990a1101354fb085cdd458fe}\label{class_direct_x_1_1_sound_effect_instance_base_ab47e8f83990a1101354fb085cdd458fe}} 
+void {\bfseries On\+Destroy} () noexcept
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a2f3dd390890bd77960540ee5774eaa0f}\label{class_direct_x_1_1_sound_effect_instance_base_a2f3dd390890bd77960540ee5774eaa0f}} 
+void {\bfseries On\+Trim} ()
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a05c39c664d11c06bf5821f369a726951}\label{class_direct_x_1_1_sound_effect_instance_base_a05c39c664d11c06bf5821f369a726951}} 
+void {\bfseries Gather\+Statistics} (\mbox{\hyperlink{struct_direct_x_1_1_audio_statistics}{Audio\+Statistics}} \&stats) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a66ec8b59593ffc69d1e6f67392da7d2d}\label{class_direct_x_1_1_sound_effect_instance_base_a66ec8b59593ffc69d1e6f67392da7d2d}} 
+IXAudio2\+Source\+Voice $\ast$ {\bfseries voice}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_acfde4d82109b8969f3f28c21c789bfcf}\label{class_direct_x_1_1_sound_effect_instance_base_acfde4d82109b8969f3f28c21c789bfcf}} 
+Sound\+State {\bfseries state}
+\item 
+\mbox{\Hypertarget{class_direct_x_1_1_sound_effect_instance_base_a948975be69b97807cd65b16b276a3076}\label{class_direct_x_1_1_sound_effect_instance_base_a948975be69b97807cd65b16b276a3076}} 
+\mbox{\hyperlink{class_direct_x_1_1_audio_engine}{Audio\+Engine}} $\ast$ {\bfseries engine}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Sound\+Common.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Audio/Sound\+Common.\+cpp\end{DoxyCompactItemize}

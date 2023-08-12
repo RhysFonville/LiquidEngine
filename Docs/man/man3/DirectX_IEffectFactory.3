@@ -1,0 +1,47 @@
+.TH "DirectX::IEffectFactory" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IEffectFactory
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::DGSLEffectFactory\fP, \fBDirectX::EffectFactory\fP, and \fBDirectX::PBREffectFactory\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBEffectInfo\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectFactory\fP (const \fBIEffectFactory\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectFactory\fP & \fBoperator=\fP (const \fBIEffectFactory\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBIEffect\fP > __cdecl \fBCreateEffect\fP (_In_ const \fBEffectInfo\fP &info, _In_opt_ ID3D11DeviceContext *deviceContext)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBCreateTexture\fP (_In_z_ const wchar_t *name, _In_opt_ ID3D11DeviceContext *deviceContext, _Outptr_ ID3D11ShaderResourceView **textureView)=0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectFactory\fP (\fBIEffectFactory\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectFactory\fP & \fBoperator=\fP (\fBIEffectFactory\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,139 @@
+.TH "DefaultCube" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DefaultCube
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBObject\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBon_start\fP () override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBObject\fP
+.in +1c
+.ti -1c
+.RI "void \fBset_position\fP (const \fBFVector3\fP &position) noexcept"
+.br
+.ti -1c
+.RI "void \fBset_rotation\fP (const \fBFVector3\fP &rotation) noexcept"
+.br
+.ti -1c
+.RI "void \fBset_size\fP (const \fBFVector3\fP &size) noexcept"
+.br
+.ti -1c
+.RI "void \fBtranslate\fP (const \fBFVector3\fP &position) noexcept"
+.br
+.ti -1c
+.RI "void \fBrotate\fP (const \fBFVector3\fP &rotation) noexcept"
+.br
+.ti -1c
+.RI "void \fBsize\fP (const \fBFVector3\fP &size) noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_position\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_rotation\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_size\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_transform\fP (const \fBTransform\fP &transform) noexcept"
+.br
+.ti -1c
+.RI "GET \fBTransform\fP \fBget_transform\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBObject\fP * \fBget_parent\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBset_parent\fP (\fBObject\fP *parent) noexcept"
+.br
+.ti -1c
+.RI "void \fBremove_parent\fP () noexcept"
+.br
+.ti -1c
+.RI "GET std::vector< \fBObject\fP * > & \fBget_children\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBadd_child\fP (\fBObject\fP *child) noexcept"
+.br
+.ti -1c
+.RI "void \fBbase_clean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBbase_compile\fP ()"
+.br
+.ti -1c
+.RI "void \fBbase_tick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBon_start\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBtick\fP (float dt)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBObject\fP &object) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBObject\fP &object) const noexcept"
+.br
+.ti -1c
+.RI "GET bool \fBhas_component\fP (Component::Type search) const noexcept"
+.br
+.ti -1c
+.RI "template<typename T > GET bool \fBhas_component\fP () const"
+.br
+.ti -1c
+.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > GET T * \fBget_component\fP () noexcept"
+.br
+.ti -1c
+.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > GET std::vector< T * > \fBget_components\fP () noexcept"
+.br
+.ti -1c
+.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > void \fBadd_component\fP (const std::shared_ptr< T > &component)"
+.br
+.ti -1c
+.RI "void \fBremove_component\fP (size_t index)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Attributes inherited from \fBObject\fP
+.in +1c
+.ti -1c
+.RI "std::string \fBname\fP = ''"
+.br
+.ti -1c
+.RI "\fBComponent\fP \fBroot_component\fP"
+.br
+.ti -1c
+.RI "\fBGraphicsScene\fP * \fBgraphics_scene\fP = nullptr"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void DefaultCube::on_start ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBObject\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

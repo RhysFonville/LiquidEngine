@@ -1,0 +1,65 @@
+.TH "DirectX::IEffectLights" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::IEffectLights
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBDirectX::BasicEffect\fP, \fBDirectX::DGSLEffect\fP, \fBDirectX::EnvironmentMapEffect\fP, \fBDirectX::NormalMapEffect\fP, \fBDirectX::PBREffect\fP, and \fBDirectX::SkinnedEffect\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (const \fBIEffectLights\fP &)=delete"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightingEnabled\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetPerPixelLighting\fP (bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetAmbientLightColor\fP (FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBSetLightEnabled\fP (int whichLight, bool value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDirection\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightDiffuseColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void XM_CALLCONV \fBSetLightSpecularColor\fP (int whichLight, FXMVECTOR value)=0"
+.br
+.ti -1c
+.RI "virtual void __cdecl \fBEnableDefaultLighting\fP ()=0"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr int \fBMaxDirectionalLights\fP = 3"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIEffectLights\fP (\fBIEffectLights\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBIEffectLights\fP & \fBoperator=\fP (\fBIEffectLights\fP &&)=default"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

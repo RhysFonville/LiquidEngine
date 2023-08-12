@@ -1,0 +1,50 @@
+.TH "DirectX::EffectDeviceResources" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::EffectDeviceResources
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEffectDeviceResources\fP (_In_ ID3D11Device *device) noexcept"
+.br
+.ti -1c
+.RI "ID3D11VertexShader * \fBDemandCreateVertexShader\fP (_Inout_ Microsoft::WRL::ComPtr< ID3D11VertexShader > &vertexShader, \fBShaderBytecode\fP const &bytecode)"
+.br
+.ti -1c
+.RI "ID3D11PixelShader * \fBDemandCreatePixelShader\fP (_Inout_ Microsoft::WRL::ComPtr< ID3D11PixelShader > &pixelShader, \fBShaderBytecode\fP const &bytecode)"
+.br
+.ti -1c
+.RI "ID3D11ShaderResourceView * \fBGetDefaultTexture\fP ()"
+.br
+.ti -1c
+.RI "ID3D11ShaderResourceView * \fBGetDefaultNormalTexture\fP ()"
+.br
+.ti -1c
+.RI "D3D_FEATURE_LEVEL \fBGetDeviceFeatureLevel\fP () const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11Device > \fBmDevice\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11ShaderResourceView > \fBmDefaultTexture\fP"
+.br
+.ti -1c
+.RI "Microsoft::WRL::ComPtr< ID3D11ShaderResourceView > \fBmDefaultNormalTexture\fP"
+.br
+.ti -1c
+.RI "std::mutex \fBmMutex\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

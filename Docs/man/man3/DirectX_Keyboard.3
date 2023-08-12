@@ -1,0 +1,64 @@
+.TH "DirectX::Keyboard" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DirectX::Keyboard
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBImpl\fP"
+.br
+.ti -1c
+.RI "class \fBKeyboardStateTracker\fP"
+.br
+.ti -1c
+.RI "struct \fBState\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBKeys\fP : unsigned char { \fBNone\fP = 0, \fBBack\fP = 0x8, \fBTab\fP = 0x9, \fBEnter\fP = 0xd, \fBPause\fP = 0x13, \fBCapsLock\fP = 0x14, \fBKana\fP = 0x15, \fBImeOn\fP = 0x16, \fBKanji\fP = 0x19, \fBImeOff\fP = 0x1a, \fBEscape\fP = 0x1b, \fBImeConvert\fP = 0x1c, \fBImeNoConvert\fP = 0x1d, \fBSpace\fP = 0x20, \fBPageUp\fP = 0x21, \fBPageDown\fP = 0x22, \fBEnd\fP = 0x23, \fBHome\fP = 0x24, \fBLeft\fP = 0x25, \fBUp\fP = 0x26, \fBRight\fP = 0x27, \fBDown\fP = 0x28, \fBSelect\fP = 0x29, \fBPrint\fP = 0x2a, \fBExecute\fP = 0x2b, \fBPrintScreen\fP = 0x2c, \fBInsert\fP = 0x2d, \fBDelete\fP = 0x2e, \fBHelp\fP = 0x2f, \fBD0\fP = 0x30, \fBD1\fP = 0x31, \fBD2\fP = 0x32, \fBD3\fP = 0x33, \fBD4\fP = 0x34, \fBD5\fP = 0x35, \fBD6\fP = 0x36, \fBD7\fP = 0x37, \fBD8\fP = 0x38, \fBD9\fP = 0x39, \fBA\fP = 0x41, \fBB\fP = 0x42, \fBC\fP = 0x43, \fBD\fP = 0x44, \fBE\fP = 0x45, \fBF\fP = 0x46, \fBG\fP = 0x47, \fBH\fP = 0x48, \fBI\fP = 0x49, \fBJ\fP = 0x4a, \fBK\fP = 0x4b, \fBL\fP = 0x4c, \fBM\fP = 0x4d, \fBN\fP = 0x4e, \fBO\fP = 0x4f, \fBP\fP = 0x50, \fBQ\fP = 0x51, \fBR\fP = 0x52, \fBS\fP = 0x53, \fBT\fP = 0x54, \fBU\fP = 0x55, \fBV\fP = 0x56, \fBW\fP = 0x57, \fBX\fP = 0x58, \fBY\fP = 0x59, \fBZ\fP = 0x5a, \fBLeftWindows\fP = 0x5b, \fBRightWindows\fP = 0x5c, \fBApps\fP = 0x5d, \fBSleep\fP = 0x5f, \fBNumPad0\fP = 0x60, \fBNumPad1\fP = 0x61, \fBNumPad2\fP = 0x62, \fBNumPad3\fP = 0x63, \fBNumPad4\fP = 0x64, \fBNumPad5\fP = 0x65, \fBNumPad6\fP = 0x66, \fBNumPad7\fP = 0x67, \fBNumPad8\fP = 0x68, \fBNumPad9\fP = 0x69, \fBMultiply\fP = 0x6a, \fBAdd\fP = 0x6b, \fBSeparator\fP = 0x6c, \fBSubtract\fP = 0x6d, \fBDecimal\fP = 0x6e, \fBDivide\fP = 0x6f, \fBF1\fP = 0x70, \fBF2\fP = 0x71, \fBF3\fP = 0x72, \fBF4\fP = 0x73, \fBF5\fP = 0x74, \fBF6\fP = 0x75, \fBF7\fP = 0x76, \fBF8\fP = 0x77, \fBF9\fP = 0x78, \fBF10\fP = 0x79, \fBF11\fP = 0x7a, \fBF12\fP = 0x7b, \fBF13\fP = 0x7c, \fBF14\fP = 0x7d, \fBF15\fP = 0x7e, \fBF16\fP = 0x7f, \fBF17\fP = 0x80, \fBF18\fP = 0x81, \fBF19\fP = 0x82, \fBF20\fP = 0x83, \fBF21\fP = 0x84, \fBF22\fP = 0x85, \fBF23\fP = 0x86, \fBF24\fP = 0x87, \fBNumLock\fP = 0x90, \fBScroll\fP = 0x91, \fBLeftShift\fP = 0xa0, \fBRightShift\fP = 0xa1, \fBLeftControl\fP = 0xa2, \fBRightControl\fP = 0xa3, \fBLeftAlt\fP = 0xa4, \fBRightAlt\fP = 0xa5, \fBBrowserBack\fP = 0xa6, \fBBrowserForward\fP = 0xa7, \fBBrowserRefresh\fP = 0xa8, \fBBrowserStop\fP = 0xa9, \fBBrowserSearch\fP = 0xaa, \fBBrowserFavorites\fP = 0xab, \fBBrowserHome\fP = 0xac, \fBVolumeMute\fP = 0xad, \fBVolumeDown\fP = 0xae, \fBVolumeUp\fP = 0xaf, \fBMediaNextTrack\fP = 0xb0, \fBMediaPreviousTrack\fP = 0xb1, \fBMediaStop\fP = 0xb2, \fBMediaPlayPause\fP = 0xb3, \fBLaunchMail\fP = 0xb4, \fBSelectMedia\fP = 0xb5, \fBLaunchApplication1\fP = 0xb6, \fBLaunchApplication2\fP = 0xb7, \fBOemSemicolon\fP = 0xba, \fBOemPlus\fP = 0xbb, \fBOemComma\fP = 0xbc, \fBOemMinus\fP = 0xbd, \fBOemPeriod\fP = 0xbe, \fBOemQuestion\fP = 0xbf, \fBOemTilde\fP = 0xc0, \fBOemOpenBrackets\fP = 0xdb, \fBOemPipe\fP = 0xdc, \fBOemCloseBrackets\fP = 0xdd, \fBOemQuotes\fP = 0xde, \fBOem8\fP = 0xdf, \fBOemBackslash\fP = 0xe2, \fBProcessKey\fP = 0xe5, \fBOemCopy\fP = 0xf2, \fBOemAuto\fP = 0xf3, \fBOemEnlW\fP = 0xf4, \fBAttn\fP = 0xf6, \fBCrsel\fP = 0xf7, \fBExsel\fP = 0xf8, \fBEraseEof\fP = 0xf9, \fBPlay\fP = 0xfa, \fBZoom\fP = 0xfb, \fBPa1\fP = 0xfd, \fBOemClear\fP = 0xfe }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBKeyboard\fP (\fBKeyboard\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBKeyboard\fP & \fBoperator=\fP (\fBKeyboard\fP &&) noexcept"
+.br
+.ti -1c
+.RI "\fBKeyboard\fP (\fBKeyboard\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBKeyboard\fP & \fBoperator=\fP (\fBKeyboard\fP const &)=delete"
+.br
+.ti -1c
+.RI "\fBState\fP __cdecl \fBGetState\fP () const"
+.br
+.ti -1c
+.RI "void __cdecl \fBReset\fP () noexcept"
+.br
+.ti -1c
+.RI "bool __cdecl \fBIsConnected\fP () const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBKeyboard\fP &__cdecl \fBGet\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

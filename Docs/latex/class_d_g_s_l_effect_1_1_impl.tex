@@ -1,0 +1,89 @@
+\hypertarget{class_d_g_s_l_effect_1_1_impl}{}\doxysection{DirectX\+::DGSLEffect\+::Impl Class Reference}
+\label{class_d_g_s_l_effect_1_1_impl}\index{DirectX::DGSLEffect::Impl@{DirectX::DGSLEffect::Impl}}
+Inheritance diagram for DirectX\+::DGSLEffect\+::Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_d_g_s_l_effect_1_1_impl}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a97172369c16aab74b88e9f83b557ddf7}\label{class_d_g_s_l_effect_1_1_impl_a97172369c16aab74b88e9f83b557ddf7}} 
+{\bfseries Impl} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, \+\_\+\+In\+\_\+opt\+\_\+ ID3\+D11\+Pixel\+Shader $\ast$pixel\+Shader)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_ac0600b2a954b5c7c46380777e90c939a}\label{class_d_g_s_l_effect_1_1_impl_ac0600b2a954b5c7c46380777e90c939a}} 
+void {\bfseries Initialize} (\+\_\+\+In\+\_\+ ID3\+D11\+Device $\ast$device, bool enable\+Skinning)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_ae7fa13eaae4218d8730fcef233915f78}\label{class_d_g_s_l_effect_1_1_impl_ae7fa13eaae4218d8730fcef233915f78}} 
+void {\bfseries Apply} (\+\_\+\+In\+\_\+ ID3\+D11\+Device\+Context $\ast$device\+Context)
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_adede4c4f242de92166aa8a0ea0ca6a72}\label{class_d_g_s_l_effect_1_1_impl_adede4c4f242de92166aa8a0ea0ca6a72}} 
+void {\bfseries Get\+Vertex\+Shader\+Bytecode} (\+\_\+\+Out\+\_\+ void const $\ast$$\ast$p\+Shader\+Byte\+Code, \+\_\+\+Out\+\_\+ size\+\_\+t $\ast$p\+Byte\+Code\+Length) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a34fc9698c292e29214ee3eb9d50c5efe}\label{class_d_g_s_l_effect_1_1_impl_a34fc9698c292e29214ee3eb9d50c5efe}} 
+DGSLEffect\+Constants {\bfseries constants}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a2f2c1d832f379464c82402516ee187ea}\label{class_d_g_s_l_effect_1_1_impl_a2f2c1d832f379464c82402516ee187ea}} 
+XMMATRIX {\bfseries world}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_af29eb53a01d2c3e551e342ef871e3d3f}\label{class_d_g_s_l_effect_1_1_impl_af29eb53a01d2c3e551e342ef871e3d3f}} 
+XMMATRIX {\bfseries view}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a906be5f94a3cb495b8d840dbdae55291}\label{class_d_g_s_l_effect_1_1_impl_a906be5f94a3cb495b8d840dbdae55291}} 
+XMMATRIX {\bfseries projection}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a514af44070896fce6525f5a593a9a875}\label{class_d_g_s_l_effect_1_1_impl_a514af44070896fce6525f5a593a9a875}} 
+bool {\bfseries light\+Enabled} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_ae151669acca93fea0c8349c0fedbb113}\label{class_d_g_s_l_effect_1_1_impl_ae151669acca93fea0c8349c0fedbb113}} 
+XMVECTOR {\bfseries light\+Diffuse\+Color} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a1f2a859f7401c6f609ebd9c67387c0f9}\label{class_d_g_s_l_effect_1_1_impl_a1f2a859f7401c6f609ebd9c67387c0f9}} 
+XMVECTOR {\bfseries light\+Specular\+Color} \mbox{[}Max\+Directional\+Lights\mbox{]}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_af4b34359a929b6ff39d90414c30b95a3}\label{class_d_g_s_l_effect_1_1_impl_af4b34359a929b6ff39d90414c30b95a3}} 
+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ {\bfseries textures} \mbox{[}Max\+Textures\mbox{]}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a6fa62069d259f53da00dca738a2505ef}\label{class_d_g_s_l_effect_1_1_impl_a6fa62069d259f53da00dca738a2505ef}} 
+int {\bfseries dirty\+Flags}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a5f1e3ccad3375ff7fe0ec0f367da89f0}\label{class_d_g_s_l_effect_1_1_impl_a5f1e3ccad3375ff7fe0ec0f367da89f0}} 
+bool {\bfseries vertex\+Color\+Enabled}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_ae60fb1ab3cfe820d95b3b121f8403106}\label{class_d_g_s_l_effect_1_1_impl_ae60fb1ab3cfe820d95b3b121f8403106}} 
+bool {\bfseries texture\+Enabled}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a6344c59ffd422c31ea1af0dff87e79e6}\label{class_d_g_s_l_effect_1_1_impl_a6344c59ffd422c31ea1af0dff87e79e6}} 
+bool {\bfseries specular\+Enabled}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a03c00b932d6404dab571601ade512430}\label{class_d_g_s_l_effect_1_1_impl_a03c00b932d6404dab571601ade512430}} 
+bool {\bfseries alpha\+Discard\+Enabled}
+\item 
+\mbox{\Hypertarget{class_d_g_s_l_effect_1_1_impl_a61b99834d28fcc3ab0f3c16f48729aaa}\label{class_d_g_s_l_effect_1_1_impl_a61b99834d28fcc3ab0f3c16f48729aaa}} 
+int {\bfseries weights\+Per\+Vertex}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{struct_direct_x_1_1_aligned_new}{Direct\+X\+::\+Aligned\+New$<$ DGSLEffect\+Constants $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}\label{struct_direct_x_1_1_aligned_new_ae036233e3881b320263f223d4282a64b}} 
+static void $\ast$ {\bfseries operator new} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}\label{struct_direct_x_1_1_aligned_new_ad5aca8ef5f19fc3622224ec24e79f304}} 
+static void {\bfseries operator delete} (void $\ast$ptr)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}\label{struct_direct_x_1_1_aligned_new_aa78aa76c9ce362d5b20a2dcb7bcac8a8}} 
+static void $\ast$ {\bfseries operator new\mbox{[}$\,$\mbox{]}} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}\label{struct_direct_x_1_1_aligned_new_a893fbda53ec1a56e849e96436e9a63ae}} 
+static void {\bfseries operator delete\mbox{[}$\,$\mbox{]}} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/DGSLEffect.\+cpp\end{DoxyCompactItemize}

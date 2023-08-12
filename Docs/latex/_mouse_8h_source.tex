@@ -1,0 +1,157 @@
+\hypertarget{_mouse_8h_source}{}\doxysection{Mouse.\+h}
+\label{_mouse_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Mouse.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DirectXTK/Inc/Mouse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ Mouse.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248929}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ (defined(WINAPI\_FAMILY)\ \&\&\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_APP))\ ||\ (defined(\_XBOX\_ONE)\ \&\&\ defined(\_TITLE))}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ USING\_COREWINDOW}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }ABI\ \{\ \textcolor{keyword}{namespace\ }Windows\ \{\ \textcolor{keyword}{namespace\ }UI\ \{\ \textcolor{keyword}{namespace\ }Core\ \{\ \textcolor{keyword}{struct\ }ICoreWindow;\ \}\ \}\ \}\ \}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wunknown-\/pragmas"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}()\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}(\mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\&\ operator=\ (\mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\&\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}(\mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\&\ operator=(\mbox{\hyperlink{class_direct_x_1_1_mouse}{Mouse}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_direct_x_1_1_mouse}{\string~Mouse}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Mode}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ MODE\_ABSOLUTE\ =\ 0,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ MODE\_RELATIVE,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_direct_x_1_1_mouse_1_1_state}{State}}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ leftButton;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ middleButton;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ rightButton;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ xButton1;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ xButton2;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ x;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ y;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ scrollWheelValue;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ Mode\ \ \ \ positionMode;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_direct_x_1_1_mouse_1_1_button_state_tracker}{ButtonStateTracker}}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ ButtonState}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UP\ =\ 0,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Button\ is\ up}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HELD\ =\ 1,\ \ \ \ \ \ \ \textcolor{comment}{//\ Button\ is\ held\ down}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RELEASED\ =\ 2,\ \ \ \textcolor{comment}{//\ Button\ was\ just\ released}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PRESSED\ =\ 3,\ \ \ \ \textcolor{comment}{//\ Buton\ was\ just\ pressed}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ leftButton;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ middleButton;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ rightButton;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ xButton1;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ ButtonState\ xButton2;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ prefast(suppress:\ 26495,\ "{}Reset()\ performs\ the\ initialization"{}})}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_direct_x_1_1_mouse_1_1_button_state_tracker}{ButtonStateTracker}}()\ \textcolor{keyword}{noexcept}\ \{\ Reset();\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Update(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_direct_x_1_1_mouse_1_1_state}{State}}\&\ state)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ Reset()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_mouse_1_1_state}{State}}\ \_\_cdecl\ GetLastState()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ lastState;\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_mouse_1_1_state}{State}}\ lastState;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retrieve\ the\ current\ state\ of\ the\ mouse}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_x_1_1_mouse_1_1_state}{State}}\ \_\_cdecl\ GetState()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Resets\ the\ accumulated\ scroll\ wheel\ value}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ ResetScrollWheelValue()\ noexcept;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ mouse\ mode\ (defaults\ to\ absolute)}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetMode(Mode\ mode);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Feature\ detection}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsConnected()\ const;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cursor\ visibility}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_cdecl\ IsVisible()\ const\ noexcept;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetVisible(\textcolor{keywordtype}{bool}\ visible);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{preprocessor}{\#ifdef\ USING\_COREWINDOW}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(ABI::Windows::UI::Core::ICoreWindow*\ window);}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cplusplus\_winrt}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(Windows::UI::Core::CoreWindow\string^\ window)}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ https://msdn.microsoft.com/en-\/us/library/hh755802.aspx}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindow(\textcolor{keyword}{reinterpret\_cast<}ABI::Windows::UI::Core::ICoreWindow*\textcolor{keyword}{>}(window));}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ CPPWINRT\_VERSION}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(winrt::Windows::UI::Core::CoreWindow\ window)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ https://docs.microsoft.com/en-\/us/windows/uwp/cpp-\/and-\/winrt-\/apis/interop-\/winrt-\/abi}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ SetWindow(\textcolor{keyword}{reinterpret\_cast<}ABI::Windows::UI::Core::ICoreWindow*\textcolor{keyword}{>}(winrt::get\_abi(window)));}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetDpi(\textcolor{keywordtype}{float}\ dpi);}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(WM\_USER)}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetWindow(HWND\ window);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ ProcessMessage(UINT\ message,\ WPARAM\ wParam,\ LPARAM\ lParam);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_GAMING\_XBOX}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_cdecl\ SetResolution(\textcolor{keywordtype}{float}\ scale);}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Singleton}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ Mouse\&\ \_\_cdecl\ Get();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Private\ implementation.}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }Impl;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ std::unique\_ptr<Impl>\ pImpl;}
+\DoxyCodeLine{00146\ \ \ \ \ \};}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

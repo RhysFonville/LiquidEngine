@@ -1,0 +1,75 @@
+\hypertarget{_screen_grab12_8h_source}{}\doxysection{Screen\+Grab12.\+h}
+\label{_screen_grab12_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/ScreenGrab/ScreenGrab12.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/DXTexturing/ScreenGrab/ScreenGrab12.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ ScreenGrab12.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Function\ for\ capturing\ a\ 2D\ texture\ and\ saving\ it\ to\ a\ file\ (aka\ a\ 'screenshot'}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ when\ used\ on\ a\ Direct3D\ 12\ Render\ Target).}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Note\ these\ functions\ are\ useful\ as\ a\ light-\/weight\ runtime\ screen\ grabber.\ For}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ full-\/featured\ texture\ capture,\ DDS\ writer,\ and\ texture\ processing\ pipeline,}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ see\ the\ 'Texconv'\ sample\ and\ the\ 'DirectXTex'\ library.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Licensed\ under\ the\ MIT\ License.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkId=248926}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ http://go.microsoft.com/fwlink/?LinkID=615561}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <unknwn.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <wsl/winadapter.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <wsl/wrladapter.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ !defined(\_WIN32)\ ||\ defined(USING\_DIRECTX\_HEADERS)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <directx/d3d12.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <dxguids/dxguids.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#pragma\ comment(lib,"{}dxguid.lib"{}})}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(NTDDI\_WIN10\_FE)\ ||\ defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <ocidl.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <OCIdl.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{namespace\ }DirectX}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveDDSTextureToFile(}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12CommandQueue*\ pCommandQueue,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Resource*\ pSource,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_STATES\ beforeState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_STATES\ afterState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00058\ \ \ \ \ HRESULT\ \_\_cdecl\ SaveWICTextureToFile(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12CommandQueue*\ pCommandQ,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \_In\_\ ID3D12Resource*\ pSource,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ REFGUID\ guidContainerFormat,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \_In\_z\_\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ fileName,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_STATES\ beforeState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_STATES\ afterState\ =\ D3D12\_RESOURCE\_STATE\_RENDER\_TARGET,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \_In\_opt\_\ \textcolor{keyword}{const}\ GUID*\ targetFormat\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \_In\_opt\_\ std::function<\textcolor{keywordtype}{void}\ \_\_cdecl(IPropertyBag2*)>\ setCustomProps\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ forceSRGB\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ \}}
+
+\end{DoxyCode}

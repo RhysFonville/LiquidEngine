@@ -1,0 +1,64 @@
+\hypertarget{struct_direct_x_1_1_vertex_position_color}{}\doxysection{DirectX\+::Vertex\+Position\+Color Struct Reference}
+\label{struct_direct_x_1_1_vertex_position_color}\index{DirectX::VertexPositionColor@{DirectX::VertexPositionColor}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_a763e4fcf074e51889cb53d0afee6f391}\label{struct_direct_x_1_1_vertex_position_color_a763e4fcf074e51889cb53d0afee6f391}} 
+{\bfseries Vertex\+Position\+Color} (const \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \&)=default
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_aaccf82a198bcb6e80a78d616303dea5a}\label{struct_direct_x_1_1_vertex_position_color_aaccf82a198bcb6e80a78d616303dea5a}} 
+\mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \& {\bfseries operator=} (const \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \&)=default
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_ab4c28ed06f2f63ec6071a64884f92d1b}\label{struct_direct_x_1_1_vertex_position_color_ab4c28ed06f2f63ec6071a64884f92d1b}} 
+{\bfseries Vertex\+Position\+Color} (\mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \&\&)=default
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_ad75e0e74eac9d519e8b3f9c10fc31e2f}\label{struct_direct_x_1_1_vertex_position_color_ad75e0e74eac9d519e8b3f9c10fc31e2f}} 
+\mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \& {\bfseries operator=} (\mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color}{Vertex\+Position\+Color}} \&\&)=default
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_a3456fc73b9ec56e65a0c4ee0c1a9a261}\label{struct_direct_x_1_1_vertex_position_color_a3456fc73b9ec56e65a0c4ee0c1a9a261}} 
+{\bfseries Vertex\+Position\+Color} (XMFLOAT3 const \&iposition, XMFLOAT4 const \&icolor) noexcept
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_a12e118352dae53bab6888445653e1e85}\label{struct_direct_x_1_1_vertex_position_color_a12e118352dae53bab6888445653e1e85}} 
+{\bfseries Vertex\+Position\+Color} (FXMVECTOR iposition, FXMVECTOR icolor) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_a08cbb5d60fccce71a50091cd0e2d7a5a}\label{struct_direct_x_1_1_vertex_position_color_a08cbb5d60fccce71a50091cd0e2d7a5a}} 
+XMFLOAT3 {\bfseries position}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_a200affa2f66036f49f5a8a97b76be89c}\label{struct_direct_x_1_1_vertex_position_color_a200affa2f66036f49f5a8a97b76be89c}} 
+XMFLOAT4 {\bfseries color}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_ae89d42e3dd5a4327de699bfee2f52e81}\label{struct_direct_x_1_1_vertex_position_color_ae89d42e3dd5a4327de699bfee2f52e81}} 
+static constexpr unsigned int {\bfseries Input\+Element\+Count} = 2
+\item 
+static const D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC \mbox{\hyperlink{struct_direct_x_1_1_vertex_position_color_ae9e5f039b8065c2ce1fd8fb7dc063c17}{Input\+Elements}} \mbox{[}Input\+Element\+Count\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_direct_x_1_1_vertex_position_color_ae9e5f039b8065c2ce1fd8fb7dc063c17}\label{struct_direct_x_1_1_vertex_position_color_ae9e5f039b8065c2ce1fd8fb7dc063c17}} 
+\index{DirectX::VertexPositionColor@{DirectX::VertexPositionColor}!InputElements@{InputElements}}
+\index{InputElements@{InputElements}!DirectX::VertexPositionColor@{DirectX::VertexPositionColor}}
+\doxysubsubsection{\texorpdfstring{InputElements}{InputElements}}
+{\footnotesize\ttfamily const D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC Vertex\+Position\+Color\+::\+Input\+Elements\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \{\ \textcolor{stringliteral}{"{}SV\_Position"{}},\ 0,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ D3D11\_APPEND\_ALIGNED\_ELEMENT,\ D3D11\_INPUT\_PER\_VERTEX\_DATA,\ 0\ \},}
+\DoxyCodeLine{\ \ \ \ \{\ \textcolor{stringliteral}{"{}COLOR"{}},\ \ \ \ \ \ \ 0,\ DXGI\_FORMAT\_R32G32B32A32\_FLOAT,\ 0,\ D3D11\_APPEND\_ALIGNED\_ELEMENT,\ D3D11\_INPUT\_PER\_VERTEX\_DATA,\ 0\ \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Inc/Vertex\+Types.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Direct\+XTK/\+Src/Vertex\+Types.\+cpp\end{DoxyCompactItemize}
