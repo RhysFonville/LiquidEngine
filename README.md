@@ -1,72 +1,161 @@
-<h2>Template Behavior Class</h2>
+<h1>Liquid Engine</h1>
+<p>This engine is very epic.</p>
+
+<h2>Example Usage</h2>
 
 <h3>main.cpp</h3>
 
 ```
 #include "Engine.h"
-#include "MyBehavior.h"
-#include "CameraController.h"
+#include "Objects/MyCamera.h"
+#include "Objects/Engine/DefaultCube.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	Engine engine(hInstance);
 
-	Object camera("Camera");
-	camera.add_component(CameraComponent());
-	engine.scene.add_object(camera);
+	engine.world.active_scene->add_object(std::make_shared<MyCamera>());
+	engine.world.active_scene->add_object(std::make_shared<DefaultCube>());
 
-	engine.scene.graphics_scene.camera = camera.get_component<CameraComponent>();
-
-	Object light("Light");
-	light.add_component(DirectionalLightComponent());
-	engine.scene.add_object(light);
-
-	engine.scene.graphics_scene.lights.push_back((Component*)light.get_component<DirectionalLightComponent>());
-
-	HPE(engine.scene.read_obj_file("bunny.obj"));
-
-	engine.scene.get_objects()[2].add_component(AppearanceComponent(
-		engine.scene.get_objects()[2].get_component<MeshComponent>()
-	));
-
-	engine.scene.behavior_manager.object_behaviors.push_back(
-		std::make_shared<CameraController>(&engine.scene.get_objects()[0])
-	);
-
-	engine.scene.behavior_manager.object_behaviors.push_back(
-		std::make_shared<MyBehavior>(&engine.scene.get_objects()[2])
-	);
-
-	engine.scene.compile();
-
+	engine.compile();
 	engine.loop();
 }
 
 ```
 
-<h3>MyBehavior.h</h3>
+<h3>MyCamera.h</h3>
 
 ```
 #pragma once
 
-#include "ObjectBehavior.h"
+#include "../Object.h"
+#include "../Components/CameraComponent.h"
+#include "../Components/PointLightComponent.h"
 
-class MyBehavior : public ObjectBehavior {
+class MyCamera : public Object {
 public:
-	MyBehavior(Object* object);
+	MyCamera();
 
+	void on_start() override;
 	void tick(float dt) override;
+
+private:
+	POINT previous_cursor_pos = { 0, 0 };
+	int wait = 0;
+
+	int speed = 3;
+
+	std::shared_ptr<CameraComponent> camera;
+	std::shared_ptr<PointLightComponent> light;
+};
+
+```
+
+<h3>MyCamera.cpp</h3>
+
+```
+#include "MyCamera.h"
+
+MyCamera::MyCamera()
+	: camera(std::make_shared<CameraComponent>()),
+	light(std::make_shared<PointLightComponent>()) { }
+
+void MyCamera::on_start() {
+	add_component(camera);
+	add_component(light);
 }
-```
 
-<h3>MyBehavior.cpp</h3>
+void MyCamera::tick(float dt) {
+	if (GetKeyState(0x57) & 0x8000) { // W
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(camera->direction_forward() * dt * speed / 2.0f);
+		} else {
+			translate(camera->direction_forward() * dt * speed);
+		}
+	}
+	if (GetKeyState(0x41) & 0x8000) { // A
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(camera->direction_left() * dt * speed / 2.0f);
+		} else {
+			translate(camera->direction_left() * dt * speed);
+		}
+	}
+	if (GetKeyState(0x53) & 0x8000) { // S
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(camera->direction_backward() * dt * speed / 2.0f);
+		} else {
+			translate(camera->direction_backward() * dt * speed);
+		}
+	}
+	if (GetKeyState(0x44) & 0x8000) { // D
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(camera->direction_right() * dt * speed / 2.0f);
+		} else {
+			translate(camera->direction_right() * dt * speed);
+		}
+	}
+	if (GetKeyState(0x51) & 0x8000) { // Q
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed / 2.0f);
+		} else {
+			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed);
+		}
+	}
+	if (GetKeyState(0x45) & 0x8000) { // E
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed / 2.0f);
+		} else {
+			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed);
+		}
+	}
 
-```
-#include "MyBehavior.h"
+	POINT current_cursor_pos;
+	if (GetCursorPos(&current_cursor_pos)) {
+		if (GetKeyState(0x02) & 0x8000) { // Right Mouse Button
+			if (previous_cursor_pos.x != 0 && previous_cursor_pos.y != 0) {
+				POINT diff = { current_cursor_pos.x - previous_cursor_pos.x,
+							   current_cursor_pos.y - previous_cursor_pos.y };
+				rotate(FVector3((float)diff.y / 7, (float)diff.x / 7, 0.0f));
+			}
+		}
+	}
+	previous_cursor_pos = current_cursor_pos;
 
-MyBehavior::MyBehavior(Object* object) : ObjectBehavior(object) { }
-
-void MyBehavior::tick(float dt) {
-	object->rotate(FVector3(1.0f, 1.0f, 1.0f) * dt);
+	if (GetKeyState(0x52) & 0x8000) { // R
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.r--;
+			} else {
+				light->data.diffuse.r++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
+	if (GetKeyState(0x47) & 0x8000) { // G
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.g--;
+			} else {
+				light->data.diffuse.g++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
+	if (GetKeyState(0x42) & 0x8000) { // B
+		if (wait == 100) {
+			if (GetKeyState(VK_LSHIFT) & 0x8000) {
+				light->data.diffuse.b--;
+			} else {
+				light->data.diffuse.b++;
+			}
+			wait = 0;
+		} else {
+			wait++;
+		}
+	}
 }
 
 ```
