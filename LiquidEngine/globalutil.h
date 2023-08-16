@@ -8,6 +8,7 @@
 #include <numbers>
 #include <chrono>
 #include <functional>
+#include <filesystem>
 
 #include <wrl.h>
 #include <d3d12.h>
@@ -86,10 +87,10 @@ static std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 static void append_to_file(const std::string &message, const std::string &path = "out.log") {
-	std::ofstream file_out;
-	file_out.open(path, std::ios_base::app);
+	std::ofstream file;
+	file.open(path, std::ios_base::app);
 
-	file_out << message.c_str() << std::endl;
+	file << message << std::endl;
 }
 
 static FVector3 cross(const FVector3 &a, const FVector3 &b) {
@@ -320,12 +321,12 @@ static std::string format_time_point(const std::chrono::time_point<std::chrono::
 	return std::format("{0:%F %R %Z}", floor<std::chrono::milliseconds>(time_point));
 }
 
-static bool operator==(const D3D12_RECT &lhs, const D3D12_RECT &rhs) noexcept {
-	return (lhs.left == rhs.left &&
-		lhs.right == rhs.right &&
-		lhs.top == rhs.top &&
-		lhs.bottom == rhs.bottom);
-}
+//static bool operator==(const D3D12_RECT &lhs, const D3D12_RECT &rhs) noexcept {
+//	return (lhs.left == rhs.left &&
+//		lhs.right == rhs.right &&
+//		lhs.top == rhs.top &&
+//		lhs.bottom == rhs.bottom);
+//}
 
 static bool operator==(const D3D12_VERTEX_BUFFER_VIEW &lhs, const D3D12_VERTEX_BUFFER_VIEW &rhs) noexcept {
 	return (lhs.BufferLocation == rhs.BufferLocation &&

@@ -70,10 +70,11 @@ _declspec(align(16))
 struct DXMatData {
 	DXMatData() { }
 	DXMatData(const Material::MaterialData &data)
-		: a(data.a), ks(color_to_fvector(data.ks)/255.0f),
+		: has_texture(1), a(data.a), ks(color_to_fvector(data.ks)/255.0f),
 		kd(color_to_fvector(data.kd)/255.0f),
 		ka(color_to_fvector(data.ka)/255.0f) { }
 
+	int has_texture = 1;
 	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient

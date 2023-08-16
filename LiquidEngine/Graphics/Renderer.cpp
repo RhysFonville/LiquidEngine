@@ -44,6 +44,7 @@ void Renderer::create_adapter_and_device() {
 	}
 
 	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&device)));
+	device->SetName(L"Main Device");
 
 	device->QueryInterface(IID_PPV_ARGS(&debug_device));
 }
@@ -52,6 +53,7 @@ void Renderer::create_command_queue() {
 	D3D12_COMMAND_QUEUE_DESC command_queue_desc = { }; // we will be using all the default values
 
 	HPEW(device->CreateCommandQueue(&command_queue_desc, IID_PPV_ARGS(&command_queue))); // create the command queue
+	command_queue->SetName(L"Main Command Queue");
 
 	command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue));
 }
@@ -76,7 +78,6 @@ void Renderer::create_swap_chain() {
 	swap_chain_desc.Windowed = !fullscreen;
 
 	IDXGISwapChain* temp_swap_chain;
-
 	factory->CreateSwapChain(
 		command_queue.Get(), // the queue will be flushed once the swap chain is created
 		&swap_chain_desc, // give it the swap chain desc we created above
@@ -118,6 +119,7 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 
 		// the we "create" a render target view which binds the swap chain buffer (ID3D12Resource[n]) to the rtv handle
 		device->CreateRenderTargetView(render_targets[i].Get(), nullptr, rtv_handle);
+		render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str());
 
 		// we increment the rtv handle by the rtv descriptor size we got above
 		rtv_handle.Offset(1, rtv_descriptor_size);
@@ -127,12 +129,14 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 void Renderer::create_command_allocators() {
 	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocators[i])));
+		command_allocators[i]->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str());
 	}
 }
 
 void Renderer::create_command_list() {
 	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocators[0].Get(), NULL, IID_PPV_ARGS(&command_list)));
+	command_list->SetName(L"Main command list");
 
 	command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list));
 }
@@ -141,6 +145,8 @@ void Renderer::create_fences_and_fences_event() {
 	// create the fences
 	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
+		fences[i]->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str());
+
 		fence_values[i] = 0; // set the initial fences value to 0
 	}
 

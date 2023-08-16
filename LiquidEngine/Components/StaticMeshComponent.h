@@ -9,7 +9,7 @@ public:
 
 	void clean_up() override;
 
-	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept;
+	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept;
 	void compile() noexcept override;
 
 	Mesh get_mesh() const noexcept;

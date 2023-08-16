@@ -4,7 +4,7 @@ StaticMeshComponent::StaticMeshComponent() : PhysicalComponent(Type::StaticMeshC
 	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
-void StaticMeshComponent::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
+void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
 	material.compile(device, command_list, sample_desc, resolution);
 
 	mesh.compile();

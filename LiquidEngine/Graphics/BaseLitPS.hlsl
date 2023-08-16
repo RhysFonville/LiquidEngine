@@ -26,8 +26,8 @@ struct Spotlight {
 };
 
 struct Material {
-	/*bool has_texture;
-	bool has_normal_map;*/
+	int has_texture;
+	//int has_normal_map;
 	float4 ks;
 	float4 kd;
 	float4 ka;
@@ -50,10 +50,9 @@ cbuffer PerObjectPSCB : register(b3) {
 	Material material;
 }
 
-Texture2D object_texture : register(t4);
-Texture2D normal_map : register(t5);
-SamplerState texture_sampler_state;
-SamplerState normal_map_sampler_state;
+Texture2D object_texture : register(t0);
+//Texture2D normal_map : register(t5);
+SamplerState texture_sampler_state : register(s0);
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
@@ -69,8 +68,8 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	float4 ka = material.ka;
 	float a = material.a;
 
-	/*if (material.has_texture)
-	kd = object_texture.Sample(texture_sampler_state, input.texcoord);*/
+	if (material.has_texture)
+		kd = object_texture.Sample(texture_sampler_state, ps_in.texcoord);
 
 	float4 final_color = material.ka*ia;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);

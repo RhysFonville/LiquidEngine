@@ -6,6 +6,7 @@
 #include "../Throw.h"
 #include "D3DCompiler.h"
 #include "GraphicsPipelineMeshChangeManager.h"
+#include "DirectXTex.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
@@ -14,14 +15,14 @@
 class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
-	GraphicsPipeline(ComPtr<ID3D12Device> &device,
+	GraphicsPipeline(const ComPtr<ID3D12Device> &device,
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
-	void run(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
+	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
-	void compile(ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 
 	void clean_up();
 
@@ -45,11 +46,11 @@ public:
 	public:
 		InputAssembler() { }
 
-		void add_mesh(const Mesh &mesh, ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
+		void add_mesh(const Mesh &mesh, const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
 		void remove_mesh(size_t index);
 		void remove_all_meshes();
 
-		void update(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
 		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChangeManager> &change_manager) {
 			this->change_manager = change_manager;
@@ -216,7 +217,7 @@ public:
 			set_viewing_settings(resolution);
 		}
 
-		void update(ComPtr<ID3D12GraphicsCommandList> &command_list) {
+		void update(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 			command_list->RSSetViewports(1, &viewport); // set the viewports
 			command_list->RSSetScissorRects(1, &scissor_rect); // set the scissor rects
 		}
@@ -224,7 +225,7 @@ public:
 		bool operator==(const Rasterizer &rasterizer) const noexcept {
 			return (
 				viewport == rasterizer.viewport &&
-				scissor_rect == rasterizer.scissor_rect &&
+				//scissor_rect == rasterizer.scissor_rect &&
 				desc == rasterizer.desc
 			);
 		}
@@ -249,15 +250,15 @@ public:
 	class OutputMerger {
 	public:
 		OutputMerger() { }
-		OutputMerger(ComPtr<ID3D12Device> &device, const UVector2 &resolution) {
+		OutputMerger(const ComPtr<ID3D12Device> &device, const UVector2 &resolution) {
 			create_depth_stencil(resolution, device);
 		}
 
-		void compile(const UVector2 &resolution, ComPtr<ID3D12Device> &device) {
+		void compile(const UVector2 &resolution, const ComPtr<ID3D12Device> &device) {
 			create_depth_stencil(resolution, device);
 		}
 
-		void update(ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
+		void update(const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
 			command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 			// get a handle to the depth/stencil buffer
@@ -267,7 +268,7 @@ public:
 			command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
 		}
 
-		void create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device);
+		void create_depth_stencil(const UVector2 &resolution, const ComPtr<ID3D12Device> &device);
 
 		bool operator==(const OutputMerger &output_merger) const noexcept {
 			return (
@@ -401,7 +402,7 @@ public:
 				}
 			}*/
 
-			void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
 				// create a resource heap, descriptor heap, and pointer to cbv for each frame
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
@@ -415,12 +416,12 @@ public:
 						nullptr, // we do not have use an optimized clear value for constant buffers
 						IID_PPV_ARGS(&upload_heaps[i])));
 
-					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = {};
+					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = { };
 					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
 					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
 
 					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
-					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 					device->CreateConstantBufferView(&view_desc, handle);
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
@@ -439,25 +440,46 @@ public:
 
 			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
 
-			UINT index = 0u;
+			UINT heap_index = 0u;
 
 			mutable std::string name = "";
+		};
+		class ShaderResourceView {
+		public:
+			ShaderResourceView() { }
+			ShaderResourceView(const DirectX::TexMetadata &metadata, const DirectX::ScratchImage &scratch_image);
+
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
+			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+
+			Microsoft::WRL::ComPtr<ID3D12Resource> default_heap = nullptr;
+			D3D12_RESOURCE_DESC heap_desc = { };
+
+			std::vector<D3D12_SUBRESOURCE_DATA> subresources = { };
+
+			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc = { };
+
+			UINT index = 0u;
+			UINT heap_index = 0u;
+
+			bool update_signal = false;
 		};
 
 		RootSignature() { }
 
-		void compile(ComPtr<ID3D12Device> &device);
+		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-		void update(const ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
+		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
-		
+		void bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader);
+
 		template <typename T>
 		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			RootConstants rc(index);
+			RootConstants rc(index + (UINT)shader_resource_views.size());
 			rc.compile<T>(obj, shader, index, number_of_values);
 			root_constants.push_back(rc);
 		}
@@ -470,6 +492,7 @@ public:
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
 		std::vector<RootConstants> root_constants = { };
+		std::vector<ShaderResourceView*> shader_resource_views = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 	} root_signature;

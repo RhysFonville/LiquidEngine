@@ -1,21 +1,30 @@
 #pragma once
 
-#include "WICTextureLoader.h"
+#include "DirectXTex.h"
 #include "../Throw.h"
 #include "../globalutil.h"
+#include "GraphicsPipeline.h"
 
 class Texture {
 public:
 	Texture();
-	Texture(std::string file_name);
+	Texture(const std::string &file);
 
+	void compile();
 	void clean_up();
 
 	bool operator==(const Texture &texture) const noexcept;
 
-	/*ComPtr<ID3D11Resource> texture = nullptr;
-	ComPtr<ID3D11ShaderResourceView> texture_view = nullptr;
-	ComPtr<ID3D11SamplerState> sampler_state = nullptr;*/
+	void set_texture(const std::string &file);
+	
+	// Informations about the texture resource
+	DirectX::TexMetadata metadata;
 
-	std::string file_name = "";
+	// Content of the texture resource
+	DirectX::ScratchImage scratch_image;
+
+	GraphicsPipeline::RootSignature::ShaderResourceView srv;
+
+private:
+	std::string file;
 };

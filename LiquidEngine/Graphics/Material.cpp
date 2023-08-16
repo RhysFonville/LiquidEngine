@@ -1,9 +1,10 @@
 #include "Material.h"
 
-void Material::compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+void Material::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
 	compile();
+	pipeline.compile(device, command_list, sample_desc, resolution);
+
 	pipeline.compilation_signal = false;
-	pipeline.compile(device, sample_desc, resolution);
 }
 
 void Material::compile() {
@@ -12,6 +13,14 @@ void Material::compile() {
 	pipeline.ds = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Domain, ds);
 	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, gs);
 	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
+
+	if (data.has_texture) {
+		data.diffuse_texture.compile();
+		pipeline.root_signature.bind_shader_resource_view(
+			data.diffuse_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
 
 	pipeline.compilation_signal = true;
 }
@@ -75,7 +84,7 @@ void Material::operator=(const Material &material) noexcept {
 	gs = material.gs;
 	ps = material.ps;
 
-	data = material.data;
+	//data = material.data;
 }
 
 bool Material::operator==(const Material &material) const noexcept {

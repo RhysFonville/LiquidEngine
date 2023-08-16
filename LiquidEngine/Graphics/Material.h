@@ -2,17 +2,16 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-//#include "Texture.h"
+#include "Texture.h"
 #include "../Throw.h"
-#include "GraphicsPipeline.h"
 
 class Material {
 public:
 	Material() { }
 	Material(Color ks, Color kd, Color ka, float a)
-		: data({ ks, kd, ka, a }) { }
+		: data({ true, Texture("texture.jpg"), ks, kd, ka, a }) { }
 
-	void compile(ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 	void compile();
 	
 	void clean_up();
@@ -24,8 +23,10 @@ public:
 
 	//__declspec(align(256))
 	struct MaterialData {
-		/*BOOL has_texture;
-		BOOL has_normal_map;*/
+		bool has_texture = true;
+		//BOOL has_normal_map;
+
+		Texture diffuse_texture = Texture("texture.jpg");
 
 		Color ks = Color(0, 0, 0, 255); // Specular
 		Color kd = Color(255, 255, 255, 255); // Diffuse
