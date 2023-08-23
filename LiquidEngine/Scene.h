@@ -17,8 +17,6 @@ public:
 
 	void compile();
 
-	//void read_obj_file(std::string obj_file_path);
-
 	GET std::vector<std::shared_ptr<Object>> & get_objects() noexcept;
 	void add_object(const std::shared_ptr<Object> &object) noexcept;
 

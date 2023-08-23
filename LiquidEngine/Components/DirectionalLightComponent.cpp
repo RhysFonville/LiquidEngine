@@ -1,14 +1,17 @@
 #include "DirectionalLightComponent.h"
 
 DirectionalLightComponent::DirectionalLightComponent()
-	: LightComponent(Type::DirectionalLightComponent), data({ }) { }
+	: LightComponent(Type::DirectionalLightComponent) { }
 
 bool DirectionalLightComponent::operator==(const DirectionalLightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&
-		data.direction == component.data.direction &&
-		data.diffuse == component.data.diffuse);
+		direction == component.direction &&
+		diffuse == component.diffuse);
 }
 
 void DirectionalLightComponent::operator=(const DirectionalLightComponent &component) noexcept {
-	data = component.data;
+	direction = component.direction;
+	diffuse = component.diffuse;
+	specular = component.specular;
+	null = component.null;
 }

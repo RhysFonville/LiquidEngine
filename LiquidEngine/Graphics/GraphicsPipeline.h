@@ -495,6 +495,8 @@ public:
 		std::vector<ShaderResourceView*> shader_resource_views = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
+
+		std::vector<D3D12_ROOT_PARAMETER> compilation_params = { };
 	} root_signature;
 
 	template <typename T>

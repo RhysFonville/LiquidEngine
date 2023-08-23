@@ -186,32 +186,32 @@ void Renderer::update() {
 		cbs.per_frame_ps.obj->camera_position = scene.camera->get_position();
 	}
 
-	std::vector<DXDLData> dl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXPLData> pl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXSLData> sl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXDLight> dl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXPLight> pl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXSLight> sl(MAX_LIGHTS_PER_TYPE);
 	UINT dl_count = 0;
 	UINT pl_count = 0;
 	UINT sl_count = 0;
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
-		dl[i].null = 1;
-		pl[i].null = 1;
-		sl[i].null = 1;
+		dl[i].null = true;
+		pl[i].null = true;
+		sl[i].null = true;
 	}
 	
 	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < scene.lights.size(); i++) {
 		if (scene.lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			auto data = ((DirectionalLightComponent*)scene.lights[i])->data;
-			dl[dl_count] = DXDLData(data);
+			auto light = ((DirectionalLightComponent*)scene.lights[i]);
+			dl[dl_count] = DXDLight(*light);
 			dl_count++;
 		}
 		if (scene.lights[i]->get_type() == Component::Type::PointLightComponent) {
-			auto data = ((PointLightComponent*)scene.lights[i])->data;
-			pl[pl_count] = DXPLData(data, scene.lights[i]->get_position());
+			auto light = ((PointLightComponent*)scene.lights[i]);
+			pl[pl_count] = DXPLight(*light, scene.lights[i]->get_position());
 			pl_count++;
 		}
 		if (scene.lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			auto data = ((SpotlightComponent*)scene.lights[i])->data;
-			sl[sl_count] = DXSLData(data);
+			auto light = ((SpotlightComponent*)scene.lights[i]);
+			sl[sl_count] = DXSLight(*light);
 			sl_count++;
 		}
 	}
@@ -253,7 +253,7 @@ void Renderer::update() {
 
 	for (StaticMeshComponent *mesh : scene.static_meshes) {
 		cbs.per_object_vs.transform = mesh->get_transform();
-		cbs.per_object_ps.obj->material = mesh->get_material().data;
+		cbs.per_object_ps.obj->material = (DXMaterial)mesh->get_material();
 		mesh->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 	}
 

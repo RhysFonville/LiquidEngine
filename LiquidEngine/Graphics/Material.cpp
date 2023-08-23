@@ -14,10 +14,18 @@ void Material::compile() {
 	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, gs);
 	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
 
-	if (data.has_texture) {
-		data.diffuse_texture.compile();
+	if (has_texture()) {
+		diffuse_texture.compile();
 		pipeline.root_signature.bind_shader_resource_view(
-			data.diffuse_texture.srv,
+			diffuse_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
+
+	if (has_normal_map()) {
+		normal_map.compile();
+		pipeline.root_signature.bind_shader_resource_view(
+			normal_map.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 	}
@@ -30,12 +38,12 @@ void Material::clean_up() { }
 void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 	for (std::string line : contents) {
 		if (line.substr(0, 2) == "Ns") {
-			data.a = std::stof(line.substr(3)) / 900.0f;
+			shininess = std::stof(line.substr(3)) / 900.0f;
 		}
 		if (line.substr(0, 2) == "Ka") {
 			std::vector<std::string> colors = split(line, ' ');
 
-			data.ka = Color({
+			ambient = Color({
 						(UCHAR)(std::stof(colors[1]) * 255.0f),
 						(UCHAR)(std::stof(colors[2]) * 255.0f),
 						(UCHAR)(std::stof(colors[3]) * 255.0f),
@@ -45,7 +53,7 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 		if (line.substr(0, 2) == "Kd") {
 			std::vector<std::string> colors = split(line, ' ');
 
-			data.kd = Color({
+			diffuse = Color({
 						(UCHAR)(std::stof(colors[1]) * 255.0f),
 						(UCHAR)(std::stof(colors[2]) * 255.0f),
 						(UCHAR)(std::stof(colors[3]) * 255.0f),
@@ -55,7 +63,7 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 		if (line.substr(0, 2) == "Ks") {
 			std::vector<std::string> colors = split(line, ' ');
 
-			data.ks = Color({
+			specular = Color({
 				(UCHAR)(std::stof(colors[1]) * 255.0f),
 				(UCHAR)(std::stof(colors[2]) * 255.0f),
 				(UCHAR)(std::stof(colors[3]) * 255.0f),
@@ -63,7 +71,7 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 				});
 		}
 		if (line.substr(0, 2) == "d ") {
-			data.kd.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
+			diffuse.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
 		}
 
 		/*if (line.substr(0, 6) == "map_Kd") {
@@ -73,8 +81,16 @@ void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
 			normal_map = Texture(line.substr(9));
 		}*/
 	}
-	data.a *= 13;
-	data.ks /= 6;
+	shininess *= 13;
+	specular /= 6;
+}
+
+bool Material::has_texture() const noexcept {
+	return texture_exists(diffuse_texture);
+}
+
+bool Material::has_normal_map() const noexcept {
+	return texture_exists(normal_map);
 }
 
 void Material::operator=(const Material &material) noexcept {
@@ -94,5 +110,8 @@ bool Material::operator==(const Material &material) const noexcept {
 		gs == material.gs &&
 		ps == material.ps &&
 		
-		data == material.data);
+		specular == material.specular &&
+		diffuse == material.diffuse &&
+		ambient == material.ambient &&
+		shininess == material.shininess);
 }

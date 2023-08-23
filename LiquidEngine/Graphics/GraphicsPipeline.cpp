@@ -62,13 +62,14 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
 	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
-	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blent state.
+	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blend state.
 	pso_desc.NumRenderTargets = 1; // we are only binding one render target
 	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	//pso_desc.Flags = D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG;
 
 	// create the pso
 	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
+	pipeline_state_object->SetName(L"Main PSO");
 }
 
 void GraphicsPipeline::clean_up() {
@@ -209,6 +210,7 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
 	dsv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
+	depth_stencil_descriptor_heap->SetName(L"Depth Stencil Descriptor Heap");
 
 	D3D12_DEPTH_STENCIL_VIEW_DESC depth_stencil_desc = {};
 	depth_stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
@@ -230,23 +232,21 @@ void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolu
 		&depth_clear_value,
 		IID_PPV_ARGS(&depth_stencil_buffer)
 	);
-
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
 
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
 void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	std::vector<D3D12_ROOT_PARAMETER> params;
-
+	compilation_params.clear();
 	for (int i = 0; i < descriptor_tables.size()+root_constants.size(); i++) {
 		for (const DescriptorTable &table : descriptor_tables) {
 			if (table.parameter_index == i)
-				params.push_back(table.root_parameters[0]);
+				compilation_params.push_back(table.root_parameters[0]);
 		}
 		for (const RootConstants &constants : root_constants) {
 			if (constants.parameter_index == i)
-				params.push_back(constants.root_parameters[0]);
+				compilation_params.push_back(constants.root_parameters[0]);
 		}
 	}
 
@@ -266,7 +266,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	sampler.RegisterSpace = 0u;
 	sampler.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 
-	signature_desc.Init((UINT)params.size(), (params.empty() ? nullptr : &params[0]), 1u, &sampler,
+	signature_desc.Init((UINT)compilation_params.size(), (compilation_params.empty() ? nullptr : &compilation_params[0]), 1u, &sampler,
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | // we can deny shader stages here for better performance
 		D3D12_ROOT_SIGNATURE_FLAG_DENY_HULL_SHADER_ROOT_ACCESS |
 		D3D12_ROOT_SIGNATURE_FLAG_DENY_DOMAIN_SHADER_ROOT_ACCESS |
@@ -277,6 +277,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	HPEW(D3D12SerializeRootSignature(&signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature_blob, &error_buf), HPEW_ERR_BLOB_PARAM(error_buf));
 
 	HPEW(device->CreateRootSignature(0, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
+	signature->SetName(L"Main Root Signature");
 
 	// Create a constant buffer descriptor heap for each frame
 	// this is the descriptor heap that will store our constant buffer descriptor
@@ -289,6 +290,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 			heap_desc.NodeMask = 0u;
 
 			HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
+			descriptor_heaps[i]->SetName(string_to_wstring("CBV/SRV/UAV Descriptor Heap #" + std::to_string(i)).c_str());
 		}
 	}
 

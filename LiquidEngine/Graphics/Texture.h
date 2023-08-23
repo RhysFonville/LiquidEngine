@@ -17,6 +17,8 @@ public:
 
 	void set_texture(const std::string &file);
 	
+	GET std::string get_file() const noexcept { return file; }
+
 	// Informations about the texture resource
 	DirectX::TexMetadata metadata;
 

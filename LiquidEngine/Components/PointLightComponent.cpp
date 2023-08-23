@@ -1,15 +1,19 @@
 #include "PointLightComponent.h"
 
 PointLightComponent::PointLightComponent()
-	: LightComponent(Component::Type::PointLightComponent), data({ }) { }
+	: LightComponent(Component::Type::PointLightComponent) { }
 
 bool PointLightComponent::operator==(const PointLightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&
-		data.attenuation == component.data.attenuation &&
-		data.range == component.data.range &&
-		data.diffuse == component.data.diffuse);
+		attenuation == component.attenuation &&
+		range == component.range &&
+		diffuse == component.diffuse);
 }
 
 void PointLightComponent::operator=(const PointLightComponent &light) noexcept {
-	data = light.data;
+	range = light.range;
+	attenuation = light.attenuation;
+	diffuse = light.diffuse;
+	specular = light.specular;
+	null = light.null;
 }

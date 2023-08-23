@@ -17,56 +17,6 @@ enum class RotationUnit {
 	Degrees
 };
 
-template<ACCEPT_DIGIT_ONLY(typename T)>
-struct TColor {
-	T r = 255, g = 255, b = 255, a = 255;
-
-	TColor(T r, T g, T b, T a = 255) : r(r), g(g), b(b), a(a) { }
-
-	operator XMFLOAT3() {
-		return XMFLOAT3(r, g, b);
-	}
-
-	operator XMFLOAT4() {
-		return XMFLOAT4(r, g, b, a);
-	}
-
-	operator DXGI_RGBA() {
-		return DXGI_RGBA({ r, g, b, a });
-	}
-
-	TColor operator/(T divisor) const noexcept {
-		return TColor(
-					(T)(r / divisor), (T)(g / divisor),
-					(T)(b / divisor), (T)(a / divisor)
-				);
-	}
-
-	void operator/=(T divisor) noexcept {
-		*this = *this / divisor;
-	}
-
-	bool operator==(const TColor<T> &color) const noexcept {
-		return (r == color.r &&
-			g == color.g &&
-			b == color.b);
-	}
-};
-
-using Color = TColor<UCHAR>;
-using FColor = TColor<float>;
-
-static XMFLOAT4 color_to_xmfloat4(const Color &color, bool normalize = true) noexcept {
-	if (normalize)
-		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
-	else
-		return XMFLOAT4(color.r, color.g, color.b, color.a);
-}
-
-static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
-	return color_to_xmfloat4(color, normalize);
-}
-
 //struct FColor {
 //	float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
 //
@@ -401,8 +351,66 @@ public:
 	}
 };
 
+template<ACCEPT_DIGIT_ONLY(typename T)>
+struct TColor {
+	T r = 255, g = 255, b = 255, a = 255;
+
+	TColor(T r, T g, T b, T a = 255) : r(r), g(g), b(b), a(a) { }
+
+	operator XMFLOAT3() const noexcept {
+		return XMFLOAT3(r, g, b);
+	}
+
+	operator XMFLOAT4() const noexcept {
+		return XMFLOAT4(r, g, b, a);
+	}
+
+	operator DXGI_RGBA() const noexcept {
+		return DXGI_RGBA({ r, g, b, a });
+	}
+
+	operator FVector4() const noexcept {
+		return FVector4(r, g, b, a);
+	}
+
+	FVector4 to_vec_normalized() const noexcept {
+		return (FVector4)*this / 255.0f;
+	}
+
+	TColor operator/(T divisor) const noexcept {
+		return TColor(
+			(T)(r / divisor), (T)(g / divisor),
+			(T)(b / divisor), (T)(a / divisor)
+		);
+	}
+
+	void operator/=(T divisor) noexcept {
+		*this = *this / divisor;
+	}
+
+	bool operator==(const TColor<T> &color) const noexcept {
+		return (r == color.r &&
+			g == color.g &&
+			b == color.b);
+	}
+};
+
+using Color = TColor<UCHAR>;
+using FColor = TColor<float>;
+
+static XMFLOAT4 color_to_xmfloat4(const Color &color, bool normalize = true) noexcept {
+	if (normalize)
+		return XMFLOAT4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+	else
+		return XMFLOAT4(color.r, color.g, color.b, color.a);
+}
+
+static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
+	return color_to_xmfloat4(color, normalize);
+}
+
 static FVector4 color_to_fvector(const Color &color) noexcept {
-	return FVector4(color.r, color.g, color.b, color.a);
+	
 }
 
 static FVector4 ctofvec(const Color &color) noexcept {

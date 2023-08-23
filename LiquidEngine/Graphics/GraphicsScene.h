@@ -10,71 +10,79 @@
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
-_declspec(align(16))
-struct DXDLData {
-	DXDLData() { }
-	DXDLData(const DirectionalLightComponent::DLData &data)
-		: direction(data.direction),
-		diffuse(ctofvec(data.diffuse)/255.0f),
-		specular(ctofvec(data.specular)/255.0f) { }
+//_declspec(align(16))
+//class DXLight {
+//public:
+//	DXLight() { }
+//	DXLight(const LightComponent &light)
+//		: diffuse(light.diffuse.to_vec_normalized()),
+//		specular(light.specular.to_vec_normalized()) { }
+//
+//	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+//	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
+//	int null = 0;
+//};
 
-	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
-	float pad = 0.0f;
+_declspec(align(16))
+class DXDLight /*: DXLight*/ {
+public:
+	DXDLight() { }
+	DXDLight(const DirectionalLightComponent &light)
+		: diffuse(light.diffuse.to_vec_normalized()),
+		specular(light.specular.to_vec_normalized()),
+		direction(light.get_rotation()), null(0) { }
+
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-
-	int null = false;
-
-	FVector3 pad1 = FVector3(0.0f, 0.0f, 0.0f);
+	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
+	int null = true;
 };
 
 _declspec(align(16))
-struct DXPLData {
-	DXPLData() { }
-	DXPLData(const PointLightComponent::PLData &data, const FVector3 &pos)
-		: range(data.range), attenuation(data.attenuation),
-		diffuse(ctofvec(data.diffuse)/255.0f), 
-		specular(ctofvec(data.specular)/255.0f),
-		position(pos) { }
+class DXPLight /*: DXLight*/ {
+public:
+	DXPLight() { }
+	DXPLight(const PointLightComponent &light, const FVector3 &pos)
+		: diffuse(light.diffuse.to_vec_normalized()),
+		specular(light.specular.to_vec_normalized()), range(light.range),
+		attenuation(light.attenuation), position(pos), null(0) { }
 
-
-	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-
+	float range = 100.0f;
+	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
 	int null = false;
-
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
 _declspec(align(16))
-struct DXSLData {
-	DXSLData() { }
-	DXSLData(const SpotlightComponent::SLData &data)
-		: direction(data.direction),
-		diffuse(ctofvec(data.diffuse)/255.0f),
-		specular(ctofvec(data.specular)/255.0f) { }
+class DXSLight /*: DXLight*/ {
+public:
+	DXSLight() { }
+	DXSLight(const SpotlightComponent &light)
+		: diffuse(light.diffuse.to_vec_normalized()),
+		specular(light.specular.to_vec_normalized()),
+		direction(light.get_rotation()), null(0) { }
 
-
-	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
 	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-
+	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
 	int null = 0;
-
-	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);;
 };
 
 _declspec(align(16))
-struct DXMatData {
-	DXMatData() { }
-	DXMatData(const Material::MaterialData &data)
-		: has_texture(1), a(data.a), ks(color_to_fvector(data.ks)/255.0f),
-		kd(color_to_fvector(data.kd)/255.0f),
-		ka(color_to_fvector(data.ka)/255.0f) { }
+class DXMaterial {
+public:
+	DXMaterial() { }
+	DXMaterial(const Material &material)
+		: has_texture(material.has_texture()), has_normal_map(material.has_normal_map()),
+		a(material.shininess), ks(material.specular.to_vec_normalized()),
+		kd(material.diffuse.to_vec_normalized()),
+		ka(material.ambient.to_vec_normalized()) { }
 
 	int has_texture = 1;
+	int has_normal_map = 1;
+	FVector2 pad = FVector2(0.0f, 0.0f);
 	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
@@ -99,14 +107,14 @@ struct PerFramePSCB { // b2
 	UINT point_light_count = 0;
 	UINT spotlight_count = 0;
 
-	DXDLData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	DXPLData point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	DXSLData spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	DXDLight directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	DXPLight point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	DXSLight spotlights[MAX_LIGHTS_PER_TYPE] = { };
 };
 
 //__declspec(align(256))
 struct PerObjectPSCB { // b3
-	DXMatData material;
+	DXMaterial material;
 };
 
 class GraphicsScene {

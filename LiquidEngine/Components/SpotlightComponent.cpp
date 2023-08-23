@@ -5,11 +5,13 @@ SpotlightComponent::SpotlightComponent()
 
 bool SpotlightComponent::operator==(const SpotlightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&
-		data.direction == component.data.direction &&
-		data.diffuse == component.data.diffuse &&
-		data.specular == component.data.specular);
+		direction == component.direction &&
+		diffuse == component.diffuse &&
+		specular == component.specular);
 }
 
 void SpotlightComponent::operator=(const SpotlightComponent &component) noexcept {
-	data = component.data;
+	direction = component.direction;
+	diffuse = component.diffuse;
+	specular = component.specular;
 }

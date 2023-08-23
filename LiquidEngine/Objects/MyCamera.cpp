@@ -68,9 +68,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x52) & 0x8000) { // R
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.r--;
+				light->diffuse.r--;
 			} else {
-				light->data.diffuse.r++;
+				light->diffuse.r++;
 			}
 			wait = 0;
 		} else {
@@ -80,9 +80,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x47) & 0x8000) { // G
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.g--;
+				light->diffuse.g--;
 			} else {
-				light->data.diffuse.g++;
+				light->diffuse.g++;
 			}
 			wait = 0;
 		} else {
@@ -92,9 +92,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x42) & 0x8000) { // B
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.b--;
+				light->diffuse.b--;
 			} else {
-				light->data.diffuse.b++;
+				light->diffuse.b++;
 			}
 			wait = 0;
 		} else {
