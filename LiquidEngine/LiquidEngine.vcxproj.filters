@@ -197,4 +197,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Graphics\mipmapcs.hlsl" />
+  </ItemGroup>
 </Project>

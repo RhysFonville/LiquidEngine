@@ -252,7 +252,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 
 	// create a static sampler
 	D3D12_STATIC_SAMPLER_DESC sampler = { };
-	sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT;
+	sampler.Filter = D3D12_FILTER_COMPARISON_ANISOTROPIC; //D3D12_FILTER_MIN_MAG_MIP_POINT;
 	sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
