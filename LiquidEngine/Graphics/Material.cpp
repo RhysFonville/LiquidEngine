@@ -35,54 +35,60 @@ void Material::compile() {
 
 void Material::clean_up() { }
 
-void Material::read_mtl_file(std::vector<std::string> contents) noexcept {
-	for (std::string line : contents) {
-		if (line.substr(0, 2) == "Ns") {
-			shininess = std::stof(line.substr(3)) / 900.0f;
-		}
-		if (line.substr(0, 2) == "Ka") {
-			std::vector<std::string> colors = split(line, ' ');
+void Material::set_data(const std::string &file) {
+	std::ifstream read(file);
+	if (read.is_open()) {
+		std::string line;
+		while (std::getline(read, line)) {
+			if (line.substr(0, 2) == "Ns") {
+				shininess = std::stof(line.substr(3)) / 900.0f;
+			}
+			if (line.substr(0, 2) == "Ka") {
+				std::vector<std::string> colors = split(line, ' ');
 
-			ambient = Color({
-						(UCHAR)(std::stof(colors[1]) * 255.0f),
-						(UCHAR)(std::stof(colors[2]) * 255.0f),
-						(UCHAR)(std::stof(colors[3]) * 255.0f),
-						(UCHAR)255
+				ambient = Color({
+					(UCHAR)(std::stof(colors[1]) * 255.0f),
+					(UCHAR)(std::stof(colors[2]) * 255.0f),
+					(UCHAR)(std::stof(colors[3]) * 255.0f),
+					(UCHAR)255
 				});
-		}
-		if (line.substr(0, 2) == "Kd") {
-			std::vector<std::string> colors = split(line, ' ');
+			}
+			if (line.substr(0, 2) == "Kd") {
+				std::vector<std::string> colors = split(line, ' ');
 
-			diffuse = Color({
-						(UCHAR)(std::stof(colors[1]) * 255.0f),
-						(UCHAR)(std::stof(colors[2]) * 255.0f),
-						(UCHAR)(std::stof(colors[3]) * 255.0f),
-						(UCHAR)255
+				diffuse = Color({
+					(UCHAR)(std::stof(colors[1]) * 255.0f),
+					(UCHAR)(std::stof(colors[2]) * 255.0f),
+					(UCHAR)(std::stof(colors[3]) * 255.0f),
+					(UCHAR)255
 				});
-		}
-		if (line.substr(0, 2) == "Ks") {
-			std::vector<std::string> colors = split(line, ' ');
+			}
+			if (line.substr(0, 2) == "Ks") {
+				std::vector<std::string> colors = split(line, ' ');
 
-			specular = Color({
-				(UCHAR)(std::stof(colors[1]) * 255.0f),
-				(UCHAR)(std::stof(colors[2]) * 255.0f),
-				(UCHAR)(std::stof(colors[3]) * 255.0f),
-				(UCHAR)255
+				specular = Color({
+					(UCHAR)(std::stof(colors[1]) * 255.0f),
+					(UCHAR)(std::stof(colors[2]) * 255.0f),
+					(UCHAR)(std::stof(colors[3]) * 255.0f),
+					(UCHAR)255
 				});
-		}
-		if (line.substr(0, 2) == "d ") {
-			diffuse.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
-		}
+			}
+			if (line.substr(0, 2) == "d ") {
+				diffuse.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
+			}
 
-		/*if (line.substr(0, 6) == "map_Kd") {
-			texture = Texture(line.substr(7));
+			/*if (line.substr(0, 6) == "map_Kd") {
+				texture = Texture(line.substr(7));
+			}
+			if (line.substr(0, 8) == "map_Bump") {
+				normal_map = Texture(line.substr(9));
+			}*/
 		}
-		if (line.substr(0, 8) == "map_Bump") {
-			normal_map = Texture(line.substr(9));
-		}*/
+		shininess *= 13;
+		specular /= 6;
+	} else {
+		throw std::exception("Material set_data file could not be opened.");
 	}
-	shininess *= 13;
-	specular /= 6;
 }
 
 bool Material::has_texture() const noexcept {

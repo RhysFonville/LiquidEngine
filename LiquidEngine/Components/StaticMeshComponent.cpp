@@ -1,6 +1,7 @@
 #include "StaticMeshComponent.h"
 
-StaticMeshComponent::StaticMeshComponent() : PhysicalComponent(Type::StaticMeshComponent) {
+StaticMeshComponent::StaticMeshComponent(Mesh mesh)
+	: PhysicalComponent(Type::StaticMeshComponent), mesh(mesh) {
 	material.pipeline.input_assembler.set_proxy(proxy);
 }
 

@@ -98,7 +98,7 @@
     <ClInclude Include="Objects\MyCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Engine\DefaultCube.h">
+    <ClInclude Include="Shapes\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\GraphicsComponent.h">
@@ -181,7 +181,7 @@
     <ClCompile Include="Objects\MyCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Engine\DefaultCube.cpp">
+    <ClCompile Include="Shapes\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\GraphicsComponent.cpp">

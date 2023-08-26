@@ -14,7 +14,7 @@ public:
 	
 	void clean_up();
 
-	void read_mtl_file(std::vector<std::string> contents) noexcept;
+	void set_data(const std::string &file);
 
 	bool has_texture() const noexcept;
 	bool has_normal_map() const noexcept;

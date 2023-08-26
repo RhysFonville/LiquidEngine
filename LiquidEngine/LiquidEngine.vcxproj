@@ -161,7 +161,7 @@
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
     <ClInclude Include="Components\StaticMeshComponent.h" />
-    <ClInclude Include="Objects\Engine\DefaultCube.h" />
+    <ClInclude Include="Shapes\Cube.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="globalstructs.h" />
     <ClInclude Include="globalutil.h" />
@@ -193,7 +193,7 @@
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
     <ClCompile Include="Components\StaticMeshComponent.cpp" />
-    <ClCompile Include="Objects\Engine\DefaultCube.cpp" />
+    <ClCompile Include="Shapes\Cube.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsPipelineMeshChangeManager.cpp" />
