@@ -155,6 +155,7 @@
     <ClInclude Include="Components\DirectionalLightComponent.h" />
     <ClInclude Include="Components\PhysicalComponent.h" />
     <ClInclude Include="Components\GraphicsComponent.h" />
+    <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="PhysicsBody.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Components\DirectionalLightComponent.cpp" />
     <ClCompile Include="Components\PhysicalComponent.cpp" />
     <ClCompile Include="Components\GraphicsComponent.cpp" />
+    <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />

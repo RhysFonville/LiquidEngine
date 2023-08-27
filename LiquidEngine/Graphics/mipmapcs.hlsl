@@ -63,7 +63,7 @@ void store_color(uint index, float4 color) {
 }
 
 float4 load_color(uint index) {
-	return float4(gs_R[index], gs_G[index], gs_B[Iidex], gs_A[index]);
+	return float4(gs_R[index], gs_G[index], gs_B[index], gs_A[index]);
 }
 
 // https://en.wikipedia.org/wiki/SRGB#The_reverse_transformation
@@ -86,8 +86,8 @@ float4 pack_color(float4 x) {
 	}
 }
 
-[RootSignature(GenerateMips_RootSignature)]
-[numthreads(BLOCK_SIZE, BLOCK_SIZE, 1)]
+//[RootSignature(GenerateMips_RootSignature)]
+[numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void main(ComputeShaderInput cs_in) {
 	float4 src1 = (float4)0;
 	
