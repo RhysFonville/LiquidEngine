@@ -1,6 +1,5 @@
 #pragma once
 
-#include <d3d12.h>
 #include "d3dx12.h"
 #include "../globalutil.h"
 #include "../Throw.h"
@@ -11,6 +10,14 @@
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
+
+struct alignas(16) GenerateMipsCB {
+	UINT src_mip_level; // Texture level of source mip
+	UINT num_mip_levels; // Number of OutMips to write: [1-4]
+	UINT src_dimension; // Width and height of the source texture are even or odd.
+	bool is_srgb; // Must apply gamma correction to sRGB textures.
+	FVector2 texel_size; // 1.0 / OutMip1.Dimensions
+};
 
 class GraphicsPipeline {
 public:
