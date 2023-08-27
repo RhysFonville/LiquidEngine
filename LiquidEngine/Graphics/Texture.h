@@ -7,7 +7,7 @@
 
 class Texture {
 public:
-	Texture();
+	Texture() { }
 	Texture(const std::string &file);
 
 	void compile();

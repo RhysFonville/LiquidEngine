@@ -1,7 +1,5 @@
 #include "Texture.h"
 
-Texture::Texture() { }
-
 Texture::Texture(const std::string &file) {
 	set_texture(file);
 }
@@ -22,13 +20,7 @@ void Texture::clean_up() {
 }
 
 bool Texture::operator==(const Texture &texture) const noexcept {
-	if (/*this->texture.Get() == texture.texture.Get() &&
-		texture_view.Get() == texture.texture_view.Get() &&
-		sampler_state.Get() == texture.sampler_state.Get() &&*/
-		file == texture.file)
-		return true;
-	else
-		return false;
+	return (file == texture.file);
 }
 
 void Texture::set_texture(const std::string &file) {

@@ -20,6 +20,14 @@
 #define GET_WITH_REASON(x) [[nodiscard(x)]]
 #define GET [[nodiscard]]
 
+#if defined(min)
+	#undef min
+#endif
+
+#if defined(max)
+	#undef max
+#endif
+
 namespace fs = std::filesystem;
 
 using Microsoft::WRL::ComPtr;
