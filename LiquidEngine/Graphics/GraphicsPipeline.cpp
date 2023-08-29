@@ -44,8 +44,8 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	// fill out an input layout desc structure
 	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
 
-	input_layout_desc.NumElements = sizeof(input_layout) / sizeof(D3D12_INPUT_ELEMENT_DESC);
-	input_layout_desc.pInputElementDescs = input_layout;
+	input_layout_desc.NumElements = (UINT)input_layout.size();
+	input_layout_desc.pInputElementDescs = &input_layout[0];
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
 	pso_desc.pRootSignature = root_signature.signature.Get(); // the root signature that describes the input data this pso needs
@@ -405,49 +405,80 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		name == cb.name);
 }
 
-GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const DirectX::TexMetadata &metadata, const DirectX::ScratchImage &scratch_image)
+GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, D3D12_SRV_DIMENSION view_dimension)
 	: subresources(std::vector<D3D12_SUBRESOURCE_DATA>(scratch_image.GetImageCount())) {
+	
+	/*bool error = false;
+
+	ScratchImage error_scratch_image;
+	if (metadata.format == DXGI_FORMAT_UNKNOWN || metadata.width == 0u || metadata.height == 0u) {
+		error = true;
+		
+		DirectX::LoadFromWICFile(
+			string_to_wstring("ErrorTexture.jpg").c_str(),
+			WIC_FLAGS_FORCE_RGB,
+			&metadata,
+			error_scratch_image
+		);
+	}*/
+
 	heap_desc = CD3DX12_RESOURCE_DESC::Tex2D(
 		metadata.format,
-		static_cast<UINT64>(metadata.width),
-		static_cast<UINT>(metadata.height),
-		static_cast<UINT16>(metadata.arraySize)
+		(UINT64)metadata.width,
+		(UINT)metadata.height,
+		(UINT16)metadata.arraySize
 	);
 
-	const Image* images = scratch_image.GetImages();
+	const Image* images = nullptr;
+	/*if (error) {
+		images = error_scratch_image.GetImages();
+	} else {*/
+		images = scratch_image.GetImages();
+	//}
+
 	for (int i = 0; i < scratch_image.GetImageCount(); i++) {
 		auto &subresource = subresources[i];
 		subresource.RowPitch = images[i].rowPitch;
 		subresource.SlicePitch = images[i].slicePitch;
 		subresource.pData = images[i].pixels;
 	}
-
+	
 	srv_desc.Format = metadata.format;
 	srv_desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srv_desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-	srv_desc.Texture2D.MipLevels = (UINT)metadata.mipLevels;
+	srv_desc.ViewDimension = view_dimension;
+
+	switch (view_dimension) {
+		case D3D12_SRV_DIMENSION_TEXTURECUBE:
+			srv_desc.TextureCube.MipLevels = (UINT)metadata.mipLevels;
+			break;
+		case D3D12_SRV_DIMENSION_TEXTURE2D:
+			srv_desc.Texture2D.MipLevels = (UINT)metadata.mipLevels;
+			break;
+	}
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
-	auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	device->CreateCommittedResource(
-		&props,
-		D3D12_HEAP_FLAG_NONE,
-		&heap_desc,
-		//D3D12_RESOURCE_STATE_COMMON,
-		D3D12_RESOURCE_STATE_COPY_DEST,
-		nullptr,
-		IID_PPV_ARGS(&default_heap)
-	);
-	default_heap->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str());
+	if (heap_desc.Width != 0 && heap_desc.Height != 0) {
+		auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		device->CreateCommittedResource(
+			&props,
+			D3D12_HEAP_FLAG_NONE,
+			&heap_desc,
+			//D3D12_RESOURCE_STATE_COMMON,
+			D3D12_RESOURCE_STATE_COPY_DEST,
+			nullptr,
+			IID_PPV_ARGS(&default_heap)
+		);
+		default_heap->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str());
 
-	update(device, command_list);
+		update(device, command_list);
 
-	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		// Taking the first descriptor of the heap as a simple example  
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
-		handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); 
-		device->CreateShaderResourceView(default_heap.Get(), &srv_desc, handle);
+		for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+			// Taking the first descriptor of the heap as a simple example  
+			D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
+			handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); 
+			device->CreateShaderResourceView(default_heap.Get(), &srv_desc, handle);
+		}
 	}
 }
 

@@ -167,6 +167,11 @@ void Renderer::compile() {
 		mesh->compile(device, command_list, sample_desc, resolution);
 	}
 
+	scene.skybox.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.skybox.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.skybox.pipeline.root_signature.bind_root_constants<SkyboxPSCB>(cbs.skybox_ps, D3D12_SHADER_VISIBILITY_PIXEL);
+	scene.skybox.compile(device, command_list, sample_desc, resolution);
+
 	HPEW(command_list->Close());
 
 	ID3D12CommandList* command_lists[] = { command_list.Get() };
@@ -250,6 +255,14 @@ void Renderer::update() {
 	const float color[4] = { background_color.r, background_color.g,
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
+
+	Transform skybox_transform;
+	if (scene.camera != nullptr) {
+		skybox_transform.position = scene.camera->get_position();
+	}
+	cbs.per_object_vs.transform = skybox_transform;
+
+	scene.skybox.pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
 	for (StaticMeshComponent *mesh : scene.static_meshes) {
 		cbs.per_object_vs.transform = mesh->get_transform();

@@ -15,20 +15,20 @@ void Material::compile() {
 	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
 
 	if (has_texture()) {
-		diffuse_texture.compile();
-		pipeline.root_signature.bind_shader_resource_view(
-			diffuse_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
+		albedo_texture.compile();
 	}
+	pipeline.root_signature.bind_shader_resource_view(
+		albedo_texture.srv,
+		D3D12_SHADER_VISIBILITY_PIXEL
+	);
 
 	if (has_normal_map()) {
 		normal_map.compile();
-		pipeline.root_signature.bind_shader_resource_view(
-			normal_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
 	}
+	pipeline.root_signature.bind_shader_resource_view(
+		normal_map.srv,
+		D3D12_SHADER_VISIBILITY_PIXEL
+	);
 
 	pipeline.compilation_signal = true;
 }
@@ -56,7 +56,7 @@ void Material::set_data(const std::string &file) {
 			if (line.substr(0, 2) == "Kd") {
 				std::vector<std::string> colors = split(line, ' ');
 
-				diffuse = Color({
+				albedo = Color({
 					(UCHAR)(std::stof(colors[1]) * 255.0f),
 					(UCHAR)(std::stof(colors[2]) * 255.0f),
 					(UCHAR)(std::stof(colors[3]) * 255.0f),
@@ -74,7 +74,7 @@ void Material::set_data(const std::string &file) {
 				});
 			}
 			if (line.substr(0, 2) == "d ") {
-				diffuse.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
+				albedo.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
 			}
 
 			/*if (line.substr(0, 6) == "map_Kd") {
@@ -92,11 +92,11 @@ void Material::set_data(const std::string &file) {
 }
 
 bool Material::has_texture() const noexcept {
-	return texture_exists(diffuse_texture);
+	return albedo_texture.exists();
 }
 
 bool Material::has_normal_map() const noexcept {
-	return texture_exists(normal_map);
+	return normal_map.exists();
 }
 
 void Material::operator=(const Material &material) noexcept {
@@ -117,7 +117,7 @@ bool Material::operator==(const Material &material) const noexcept {
 		ps == material.ps &&
 		
 		specular == material.specular &&
-		diffuse == material.diffuse &&
+		albedo == material.albedo &&
 		ambient == material.ambient &&
 		shininess == material.shininess);
 }

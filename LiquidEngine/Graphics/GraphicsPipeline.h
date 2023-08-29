@@ -42,7 +42,7 @@ public:
 	
 	bool compilation_signal = true;
 
-	static constexpr D3D12_INPUT_ELEMENT_DESC input_layout[] = {
+	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
 		{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
@@ -454,7 +454,7 @@ public:
 		class ShaderResourceView {
 		public:
 			ShaderResourceView() { }
-			ShaderResourceView(const DirectX::TexMetadata &metadata, const DirectX::ScratchImage &scratch_image);
+			ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, D3D12_SRV_DIMENSION view_dimension = D3D12_SRV_DIMENSION_TEXTURE2D);
 
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);

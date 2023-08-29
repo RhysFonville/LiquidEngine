@@ -119,6 +119,9 @@
     <ClInclude Include="Graphics\ComputePipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -202,8 +205,15 @@
     <ClCompile Include="Graphics\ComputePipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Graphics\mipmapcs.hlsl" />
+    <FxCompile Include="Graphics\SkyboxPS.hlsl" />
+    <FxCompile Include="Graphics\SkyboxVS.hlsl" />
+    <FxCompile Include="Graphics\BaseObjectVS.hlsl" />
+    <FxCompile Include="Graphics\WVPVS.hlsl" />
   </ItemGroup>
 </Project>

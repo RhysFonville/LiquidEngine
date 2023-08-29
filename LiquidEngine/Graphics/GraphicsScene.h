@@ -6,6 +6,7 @@
 #include "../Components/PointLightComponent.h"
 #include "../Components/SpotlightComponent.h"
 #include "../Components/StaticMeshComponent.h"
+#include "Skybox.h"
 #include "../globalutil.h"
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
@@ -15,10 +16,10 @@ static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 //public:
 //	DXLight() { }
 //	DXLight(const LightComponent &light)
-//		: diffuse(light.diffuse.to_vec_normalized()),
+//		: albedo(light.albedo.to_vec_normalized()),
 //		specular(light.specular.to_vec_normalized()) { }
 //
-//	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+//	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 //	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 //	int null = 0;
 //};
@@ -28,11 +29,11 @@ class DXDLight /*: DXLight*/ {
 public:
 	DXDLight() { }
 	DXDLight(const DirectionalLightComponent &light)
-		: diffuse(light.diffuse.to_vec_normalized()),
+		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()),
 		direction(light.get_rotation()), null(0) { }
 
-	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
 	int null = true;
@@ -43,11 +44,11 @@ class DXPLight /*: DXLight*/ {
 public:
 	DXPLight() { }
 	DXPLight(const PointLightComponent &light, const FVector3 &pos)
-		: diffuse(light.diffuse.to_vec_normalized()),
+		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()), range(light.range),
 		attenuation(light.attenuation), position(pos), null(0) { }
 
-	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 	float range = 100.0f;
 	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
@@ -60,11 +61,11 @@ class DXSLight /*: DXLight*/ {
 public:
 	DXSLight() { }
 	DXSLight(const SpotlightComponent &light)
-		: diffuse(light.diffuse.to_vec_normalized()),
+		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()),
 		direction(light.get_rotation()), null(0) { }
 
-	FVector4 diffuse = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
 	int null = 0;
@@ -77,7 +78,7 @@ public:
 	DXMaterial(const Material &material)
 		: has_texture(material.has_texture()), has_normal_map(material.has_normal_map()),
 		a(material.shininess), ks(material.specular.to_vec_normalized()),
-		kd(material.diffuse.to_vec_normalized()),
+		kd(material.albedo.to_vec_normalized()),
 		ka(material.ambient.to_vec_normalized()) { }
 
 	int has_texture = 1;
@@ -89,17 +90,17 @@ public:
 	float a = 0.5f; // Shininess
 };
 
-_declspec(align(256))
+_declspec(align(16))
 struct PerFrameVSCB { // b0
 	XMMATRIX WVP;
 };
 
-//_declspec(align(256))
+_declspec(align(16))
 struct PerObjectVSCB { // b1
 	XMMATRIX transform;
 };
 
-//_declspec(align(256))
+_declspec(align(16))
 struct PerFramePSCB { // b2
 	FVector3 camera_position;
 
@@ -112,9 +113,20 @@ struct PerFramePSCB { // b2
 	DXSLight spotlights[MAX_LIGHTS_PER_TYPE] = { };
 };
 
-//__declspec(align(256))
+__declspec(align(16))
 struct PerObjectPSCB { // b3
 	DXMaterial material;
+};
+
+__declspec(align(16))
+struct SkyboxPSCB { // b4
+	SkyboxPSCB() { }
+	SkyboxPSCB(const Skybox &skybox) : has_texture(skybox.has_texture()),
+		albedo(skybox.albedo) { }
+
+	int has_texture = true;
+	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);
+	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
 class GraphicsScene {
@@ -154,6 +166,9 @@ public:
 			}
 		}
 	}
+
+	Skybox skybox;
+
 private:
 	friend class Renderer;
 

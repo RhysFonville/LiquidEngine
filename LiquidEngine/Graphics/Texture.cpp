@@ -5,12 +5,7 @@ Texture::Texture(const std::string &file) {
 }
 
 void Texture::compile() {
-	DirectX::LoadFromWICFile(
-		string_to_wstring(file).c_str(),
-		WIC_FLAGS_FORCE_RGB,
-		&metadata,
-		scratch_image
-	);
+	load_texture(file, metadata, scratch_image);
 }
 
 void Texture::clean_up() {
@@ -25,7 +20,7 @@ bool Texture::operator==(const Texture &texture) const noexcept {
 
 void Texture::set_texture(const std::string &file) {
 	this->file = file;
-	if (fs::exists(file)) {
+	if (exists()) {
 		compile();
 		srv = GraphicsPipeline::RootSignature::ShaderResourceView(metadata, scratch_image);
 	}

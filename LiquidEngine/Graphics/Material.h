@@ -22,10 +22,10 @@ public:
 	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
-	Texture diffuse_texture = Texture();
+	Texture albedo_texture = Texture("texture.jpg");
 	Texture normal_map = Texture();
 	Color specular = Color(0, 0, 0, 255); // ks
-	Color diffuse = Color(255, 255, 255, 255); // kd
+	Color albedo = Color(255, 255, 255, 255); // kd
 	Color ambient = Color(0, 0, 0, 255); // ka
 	float shininess = 0.5f; // a
 
@@ -37,10 +37,4 @@ private:
 	std::string ds = "";
 	std::string gs = "";
 	std::string ps = "Graphics/LitPixel.hlsl";
-
-	bool texture_exists(const Texture &texture) const noexcept {
-		return (texture.get_file() != "" &&
-			(texture.metadata.width != 0 &&
-			texture.metadata.height != 0));
-	}
 };

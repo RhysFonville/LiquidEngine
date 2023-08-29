@@ -7,13 +7,13 @@ bool PointLightComponent::operator==(const PointLightComponent &component) const
 	return ((Component*)this == (Component*)&component &&
 		attenuation == component.attenuation &&
 		range == component.range &&
-		diffuse == component.diffuse);
+		albedo == component.albedo);
 }
 
 void PointLightComponent::operator=(const PointLightComponent &light) noexcept {
 	range = light.range;
 	attenuation = light.attenuation;
-	diffuse = light.diffuse;
+	albedo = light.albedo;
 	specular = light.specular;
 	null = light.null;
 }

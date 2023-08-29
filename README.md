@@ -123,9 +123,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x52) & 0x8000) { // R
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.r--;
+				light->data.albedo.r--;
 			} else {
-				light->data.diffuse.r++;
+				light->data.albedo.r++;
 			}
 			wait = 0;
 		} else {
@@ -135,9 +135,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x47) & 0x8000) { // G
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.g--;
+				light->data.albedo.g--;
 			} else {
-				light->data.diffuse.g++;
+				light->data.albedo.g++;
 			}
 			wait = 0;
 		} else {
@@ -147,9 +147,9 @@ void MyCamera::tick(float dt) {
 	if (GetKeyState(0x42) & 0x8000) { // B
 		if (wait == 100) {
 			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->data.diffuse.b--;
+				light->data.albedo.b--;
 			} else {
-				light->data.diffuse.b++;
+				light->data.albedo.b++;
 			}
 			wait = 0;
 		} else {
