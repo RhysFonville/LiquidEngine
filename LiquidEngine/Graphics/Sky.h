@@ -3,16 +3,18 @@
 #include "GraphicsPipeline.h"
 #include "Texture.h"
 
-class Skybox {
+class Sky {
 public:
-	Skybox() { }
+	Sky() { }
 
 	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
 	void compile();
 
 	bool has_texture() const noexcept;
 
-	Texture albedo_texture = Texture("Skybox.png");
+	static Mesh create_sphere(UINT lat_lines, UINT long_lines);
+
+	Texture albedo_texture = Texture("texture.png");
 	Color albedo = Color(0, 0, 0, 255);
 	
 	GraphicsPipeline pipeline;

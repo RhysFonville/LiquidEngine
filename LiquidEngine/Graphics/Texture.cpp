@@ -25,3 +25,19 @@ void Texture::set_texture(const std::string &file) {
 		srv = GraphicsPipeline::RootSignature::ShaderResourceView(metadata, scratch_image);
 	}
 }
+
+void Texture::load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image) {
+	if (fs::exists(file)) {
+		std::string type = to_lower(file.substr(file.find('.')+1));
+		if (type == "png" || type == "jpg" || type == "bmp" || type == "gif" || type == "tiff" || type == "jpeg") {
+			DirectX::LoadFromWICFile(
+				string_to_wstring(file).c_str(),
+				WIC_FLAGS_FORCE_SRGB,
+				&metadata,
+				scratch_image
+			);
+		} else {
+			throw std::exception("Unsupported file type when loading texture.");
+		}
+	}
+}

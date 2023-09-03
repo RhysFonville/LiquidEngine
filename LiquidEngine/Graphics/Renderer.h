@@ -72,7 +72,7 @@ private:
 		PerObjectVSCB per_object_vs = PerObjectVSCB();
 		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps = PerFramePSCB();
 		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
-		SkyboxPSCB skybox_ps = SkyboxPSCB();
+		SkyPSCB sky_ps = SkyPSCB();
 	} cbs;
 
 	UINT frame_index = 0u;

@@ -405,23 +405,8 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		name == cb.name);
 }
 
-GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, D3D12_SRV_DIMENSION view_dimension)
+GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, bool is_texture_cube)
 	: subresources(std::vector<D3D12_SUBRESOURCE_DATA>(scratch_image.GetImageCount())) {
-	
-	/*bool error = false;
-
-	ScratchImage error_scratch_image;
-	if (metadata.format == DXGI_FORMAT_UNKNOWN || metadata.width == 0u || metadata.height == 0u) {
-		error = true;
-		
-		DirectX::LoadFromWICFile(
-			string_to_wstring("ErrorTexture.jpg").c_str(),
-			WIC_FLAGS_FORCE_RGB,
-			&metadata,
-			error_scratch_image
-		);
-	}*/
-
 	heap_desc = CD3DX12_RESOURCE_DESC::Tex2D(
 		metadata.format,
 		(UINT64)metadata.width,
@@ -429,12 +414,7 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX:
 		(UINT16)metadata.arraySize
 	);
 
-	const Image* images = nullptr;
-	/*if (error) {
-		images = error_scratch_image.GetImages();
-	} else {*/
-		images = scratch_image.GetImages();
-	//}
+	const Image* images = scratch_image.GetImages();
 
 	for (int i = 0; i < scratch_image.GetImageCount(); i++) {
 		auto &subresource = subresources[i];
@@ -445,15 +425,12 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX:
 	
 	srv_desc.Format = metadata.format;
 	srv_desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srv_desc.ViewDimension = view_dimension;
+	srv_desc.ViewDimension = (is_texture_cube ? D3D12_SRV_DIMENSION_TEXTURECUBE : D3D12_SRV_DIMENSION_TEXTURE2D);
 
-	switch (view_dimension) {
-		case D3D12_SRV_DIMENSION_TEXTURECUBE:
-			srv_desc.TextureCube.MipLevels = (UINT)metadata.mipLevels;
-			break;
-		case D3D12_SRV_DIMENSION_TEXTURE2D:
-			srv_desc.Texture2D.MipLevels = (UINT)metadata.mipLevels;
-			break;
+	if (is_texture_cube) {
+		srv_desc.TextureCube.MipLevels = (UINT)metadata.mipLevels;
+	} else {
+		srv_desc.Texture2D.MipLevels = (UINT)metadata.mipLevels;
 	}
 }
 
@@ -464,8 +441,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			&props,
 			D3D12_HEAP_FLAG_NONE,
 			&heap_desc,
-			//D3D12_RESOURCE_STATE_COMMON,
-			D3D12_RESOURCE_STATE_COPY_DEST,
+			D3D12_RESOURCE_STATE_COMMON,
 			nullptr,
 			IID_PPV_ARGS(&default_heap)
 		);
@@ -483,16 +459,19 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	UINT64 required_size = GetRequiredIntermediateSize(default_heap.Get(), 0u, (UINT)subresources.size());
+	// Resource must be in the copy-destination state.
+	CD3DX12_RESOURCE_BARRIER transition_barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		default_heap.Get(),
+		D3D12_RESOURCE_STATE_COMMON,
+		D3D12_RESOURCE_STATE_COPY_DEST
+	);
+	command_list->ResourceBarrier(1, &transition_barrier);
 
-	//// Resource must be in the copy-destination state.
-	//CD3DX12_RESOURCE_BARRIER transition_barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-	//	default_heap.Get(),
-	//	D3D12_RESOURCE_STATE_COMMON,
-	//	D3D12_RESOURCE_STATE_COPY_DEST
-	//);
-	//command_list->ResourceBarrier(1, &transition_barrier);
-	
+	//UINT64 required_size = GetRequiredIntermediateSize(default_heap.Get(), 0u, (UINT)subresources.size());
+	//UINT64 required_size = ((((width * numBytesPerPixel) + 255) & ~255) * (height - 1)) + (width * numBytesPerPixel);
+	//UINT64 required_size = ((subresources[0].RowPitch + 255) & ~255) *  ((subresources[0].SlicePitch / subresources[0].SlicePitch + 255) & ~255);
+	UINT64 required_size = ((heap_desc.Width * 4 * heap_desc.Height + heap_desc.Width * 4) + 255) & ~255;
+
 	// Create a temporary (intermediate) resource for uploading the subresources
 	ID3D12Resource* upload_heap;
 
@@ -508,7 +487,8 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 	);
 	default_heap->SetName(string_to_wstring("SRV Upload Heap of index " + std::to_string(index)).c_str());
 
-	UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap, 0u, 0u, (UINT)subresources.size(), subresources.data());
+	//UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap, 0u, 0u, (UINT)subresources.size(), &subresources[0]);
+	UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap, 0, 0, subresources.size(), subresources.data());
 }
 
 // -- DYNAMIC MESHES -- //

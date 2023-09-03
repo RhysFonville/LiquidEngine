@@ -6,7 +6,7 @@
 #include "../Components/PointLightComponent.h"
 #include "../Components/SpotlightComponent.h"
 #include "../Components/StaticMeshComponent.h"
-#include "Skybox.h"
+#include "Sky.h"
 #include "../globalutil.h"
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
@@ -119,10 +119,10 @@ struct PerObjectPSCB { // b3
 };
 
 __declspec(align(16))
-struct SkyboxPSCB { // b4
-	SkyboxPSCB() { }
-	SkyboxPSCB(const Skybox &skybox) : has_texture(skybox.has_texture()),
-		albedo(skybox.albedo) { }
+struct SkyPSCB { // b4
+	SkyPSCB() { }
+	SkyPSCB(const Sky &sky) : has_texture(sky.has_texture()),
+		albedo(sky.albedo) { }
 
 	int has_texture = true;
 	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);
@@ -167,7 +167,7 @@ public:
 		}
 	}
 
-	Skybox skybox;
+	Sky sky;
 
 private:
 	friend class Renderer;

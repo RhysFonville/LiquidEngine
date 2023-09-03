@@ -454,7 +454,7 @@ public:
 		class ShaderResourceView {
 		public:
 			ShaderResourceView() { }
-			ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, D3D12_SRV_DIMENSION view_dimension = D3D12_SRV_DIMENSION_TEXTURE2D);
+			ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, bool is_texture_cube = false);
 
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);

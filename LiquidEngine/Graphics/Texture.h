@@ -21,14 +21,7 @@ public:
 
 	bool exists() const noexcept { return fs::exists(file); }
 
-	static void load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image) {
-		DirectX::LoadFromWICFile(
-			string_to_wstring(file).c_str(),
-			WIC_FLAGS_FORCE_RGB,
-			&metadata,
-			scratch_image
-		);
-	}
+	static void load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image);
 
 	// Informations about the texture resource
 	DirectX::TexMetadata metadata;
