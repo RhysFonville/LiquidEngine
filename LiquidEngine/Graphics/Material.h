@@ -22,10 +22,10 @@ public:
 	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
-	Texture albedo_texture = Texture("texture.png");
+	Texture albedo_texture = Texture();
 	Texture normal_map = Texture();
-	Color specular = Color(0, 0, 0, 255); // ks
-	Color albedo = Color(255, 255, 255, 255); // kd
+	Color specular = Color(30, 30, 30, 255); // ks
+	Color albedo = Color(100, 100, 100, 100); // kd
 	Color ambient = Color(0, 0, 0, 255); // ka
 	float shininess = 0.5f; // a
 

@@ -2,6 +2,17 @@
 
 Engine::Engine(HINSTANCE hInstance)
 	: world(World()), window(Window(hInstance)) {
+	// Init COM
+//#if (_WIN32_WINNT >= 0x0A00 /*_WIN32_WINNT_WIN10*/)
+//	Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
+//	if (FAILED(initialize))
+//		throw std::exception("Failed to initialize COM");
+//#else
+	//HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+	//if (FAILED(hr))
+		//throw std::exception("Failed to initialize COM");
+//#endif
+
 	window.set_up_window();
 	renderer = Renderer(window.get_window());
 

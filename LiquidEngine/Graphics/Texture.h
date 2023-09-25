@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DirectXTex.h"
+#include <DirectXTex.h>
 #include "../Throw.h"
 #include "../globalutil.h"
 #include "GraphicsPipeline.h"
@@ -21,13 +21,14 @@ public:
 
 	bool exists() const noexcept { return fs::exists(file); }
 
-	static void load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image);
+	static void load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image, DirectX::ScratchImage &mip_chain);
 
 	// Informations about the texture resource
 	DirectX::TexMetadata metadata;
 
 	// Content of the texture resource
 	DirectX::ScratchImage scratch_image;
+	DirectX::ScratchImage mip_chain;
 
 	GraphicsPipeline::RootSignature::ShaderResourceView srv;
 

@@ -252,10 +252,10 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 
 	// create a static sampler
 	D3D12_STATIC_SAMPLER_DESC sampler = { };
-	sampler.Filter = D3D12_FILTER_COMPARISON_ANISOTROPIC; //D3D12_FILTER_MIN_MAG_MIP_POINT;
-	sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
-	sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
-	sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+	sampler.Filter = D3D12_FILTER_MINIMUM_ANISOTROPIC;
+	sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
+	sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
+	sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	sampler.MipLODBias = 0.0f;
 	sampler.MaxAnisotropy = 0u;
 	sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
@@ -405,32 +405,52 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		name == cb.name);
 }
 
-GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, bool is_texture_cube)
+GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, const DirectX::ScratchImage &mip_chain, bool is_texture_cube)
 	: subresources(std::vector<D3D12_SUBRESOURCE_DATA>(scratch_image.GetImageCount())) {
-	heap_desc = CD3DX12_RESOURCE_DESC::Tex2D(
-		metadata.format,
-		(UINT64)metadata.width,
-		(UINT)metadata.height,
-		(UINT16)metadata.arraySize
-	);
 
-	const Image* images = scratch_image.GetImages();
+	const Image &chain_base = *mip_chain.GetImages();
+	heap_desc = D3D12_RESOURCE_DESC{
+		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
+		.Width = (UINT)chain_base.width,
+		.Height = (UINT)chain_base.height,
+		.DepthOrArraySize = 1,
+		.MipLevels = (UINT16)mip_chain.GetImageCount(),
+		.Format = chain_base.format,
+		.SampleDesc = {.Count = 1 },
+		.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
+		.Flags = D3D12_RESOURCE_FLAG_NONE,
+	};
+
+	// collect subresource data 
+	subresources = std::ranges::views::iota(0, (int)mip_chain.GetImageCount()) |
+		std::ranges::views::transform([&](int i) {
+		const auto img = mip_chain.GetImage(i, 0, 0);
+		return D3D12_SUBRESOURCE_DATA{
+			.pData = img->pixels,
+			.RowPitch = (LONG_PTR)img->rowPitch,
+			.SlicePitch = (LONG_PTR)img->slicePitch,
+		};
+	}) | std::ranges::to<std::vector>();
+
+
+
+	/*const Image* images = scratch_image.GetImages();
 
 	for (int i = 0; i < scratch_image.GetImageCount(); i++) {
 		auto &subresource = subresources[i];
 		subresource.RowPitch = images[i].rowPitch;
 		subresource.SlicePitch = images[i].slicePitch;
 		subresource.pData = images[i].pixels;
-	}
+	}*/
 	
 	srv_desc.Format = metadata.format;
 	srv_desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srv_desc.ViewDimension = (is_texture_cube ? D3D12_SRV_DIMENSION_TEXTURECUBE : D3D12_SRV_DIMENSION_TEXTURE2D);
 
 	if (is_texture_cube) {
-		srv_desc.TextureCube.MipLevels = (UINT)metadata.mipLevels;
+		srv_desc.TextureCube.MipLevels = (UINT)mip_chain.GetImageCount();
 	} else {
-		srv_desc.Texture2D.MipLevels = (UINT)metadata.mipLevels;
+		srv_desc.Texture2D.MipLevels = (UINT)mip_chain.GetImageCount();
 	}
 }
 
@@ -441,7 +461,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			&props,
 			D3D12_HEAP_FLAG_NONE,
 			&heap_desc,
-			D3D12_RESOURCE_STATE_COMMON,
+			D3D12_RESOURCE_STATE_COPY_DEST,
 			nullptr,
 			IID_PPV_ARGS(&default_heap)
 		);
@@ -460,20 +480,16 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	// Resource must be in the copy-destination state.
-	CD3DX12_RESOURCE_BARRIER transition_barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+	/*CD3DX12_RESOURCE_BARRIER transition_barrier = CD3DX12_RESOURCE_BARRIER::Transition(
 		default_heap.Get(),
 		D3D12_RESOURCE_STATE_COMMON,
 		D3D12_RESOURCE_STATE_COPY_DEST
 	);
-	command_list->ResourceBarrier(1, &transition_barrier);
+	command_list->ResourceBarrier(1, &transition_barrier);*/
 
-	//UINT64 required_size = GetRequiredIntermediateSize(default_heap.Get(), 0u, (UINT)subresources.size());
-	//UINT64 required_size = ((((width * numBytesPerPixel) + 255) & ~255) * (height - 1)) + (width * numBytesPerPixel);
-	//UINT64 required_size = ((subresources[0].RowPitch + 255) & ~255) *  ((subresources[0].SlicePitch / subresources[0].SlicePitch + 255) & ~255);
-	UINT64 required_size = ((heap_desc.Width * 4 * heap_desc.Height + heap_desc.Width * 4) + 255) & ~255;
+	UINT64 required_size = GetRequiredIntermediateSize(default_heap.Get(), 0u, (UINT)subresources.size());
 
 	// Create a temporary (intermediate) resource for uploading the subresources
-	ID3D12Resource* upload_heap;
 
 	auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	auto buf = CD3DX12_RESOURCE_DESC::Buffer(required_size);
@@ -487,8 +503,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 	);
 	default_heap->SetName(string_to_wstring("SRV Upload Heap of index " + std::to_string(index)).c_str());
 
-	//UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap, 0u, 0u, (UINT)subresources.size(), &subresources[0]);
-	UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap, 0, 0, subresources.size(), subresources.data());
+	UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap.Get(), 0u, 0u, (UINT)subresources.size(), subresources.data());
 }
 
 // -- DYNAMIC MESHES -- //

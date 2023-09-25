@@ -5,7 +5,7 @@ Texture::Texture(const std::string &file) {
 }
 
 void Texture::compile() {
-	load_texture(file, metadata, scratch_image);
+	load_texture(file, metadata, scratch_image, mip_chain);
 }
 
 void Texture::clean_up() {
@@ -22,20 +22,26 @@ void Texture::set_texture(const std::string &file) {
 	this->file = file;
 	if (exists()) {
 		compile();
-		srv = GraphicsPipeline::RootSignature::ShaderResourceView(metadata, scratch_image);
+		srv = GraphicsPipeline::RootSignature::ShaderResourceView(metadata, scratch_image, mip_chain);
 	}
 }
 
-void Texture::load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image) {
+void Texture::load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image, DirectX::ScratchImage &mip_chain) {
 	if (fs::exists(file)) {
 		std::string type = to_lower(file.substr(file.find('.')+1));
-		if (type == "png" || type == "jpg" || type == "bmp" || type == "gif" || type == "tiff" || type == "jpeg") {
-			DirectX::LoadFromWICFile(
+		if (type == "png" || type == "jpg" || type == "jpeg" || type == "bmp" || type == "gif" || type == "tiff" || type == "jpeg") {
+			HPEW(DirectX::LoadFromWICFile(
 				string_to_wstring(file).c_str(),
-				WIC_FLAGS_FORCE_SRGB,
+				WIC_FLAGS_NONE,
 				&metadata,
 				scratch_image
-			);
+			));
+			HPEW(DirectX::GenerateMipMaps(
+				*scratch_image.GetImages(),
+				DirectX::TEX_FILTER_BOX,
+				0,
+				mip_chain
+			));
 		} else {
 			throw std::exception("Unsupported file type when loading texture.");
 		}

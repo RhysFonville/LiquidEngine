@@ -4,10 +4,6 @@
 #include "GraphicsPipeline.h"
 #include "GraphicsScene.h"
 
-#pragma comment(lib,"D3D12.lib")
-#pragma comment (lib, "D3DCompiler.lib")
-#pragma comment(lib, "dxgi.lib")
-
 class Renderer {
 public:
 	Renderer() { }

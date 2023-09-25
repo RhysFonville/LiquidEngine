@@ -158,6 +158,10 @@ void Renderer::create_fences_and_fences_event() {
 }
 
 void Renderer::compile() {
+	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
+	
 	for (StaticMeshComponent *mesh : scene.static_meshes) {
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
@@ -167,9 +171,6 @@ void Renderer::compile() {
 		mesh->compile(device, command_list, sample_desc, resolution);
 	}
 
-	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
 	scene.sky.compile(device, command_list, sample_desc, resolution);
 
 	HPEW(command_list->Close());

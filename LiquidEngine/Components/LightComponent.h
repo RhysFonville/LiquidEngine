@@ -14,5 +14,5 @@ public:
 	}
 
 	Color albedo = Color(255, 255, 255, 255);
-	Color specular = Color(0, 0, 0, 255);
+	Color specular = Color(255, 255, 255, 255);
 };
