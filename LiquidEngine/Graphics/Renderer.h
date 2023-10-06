@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <dxgi1_6.h>
 #include "GraphicsPipeline.h"
 #include "GraphicsScene.h"
 
@@ -19,6 +20,8 @@ public:
 	void wait_for_fence_gpu(); // wait for fences incrementation on gpu side
 	void wait_for_previous_frame(); // wait for command list completion
 
+	void execute_command_list();
+
 	void compile();
 
 	void set_fullscreen(bool fullscreen);
@@ -33,9 +36,9 @@ public:
 private:
 	friend class Window;
 
-	ComPtr<ID3D12Device> device = nullptr;
+	ComPtr<ID3D12Device2> device = nullptr;
 	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
-	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
+	ComPtr<IDXGISwapChain4> swap_chain = nullptr;
 	ComPtr<ID3D12CommandAllocator> command_allocators[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
 	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
 	ComPtr<ID3D12Fence> fences[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
@@ -50,7 +53,7 @@ private:
 	ComPtr<IDXGIAdapter1> adapter = nullptr;
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
-	ComPtr<ID3D12Debug> debug_interface = nullptr;
+	ComPtr<ID3D12Debug1> debug_interface = nullptr;
 	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
 	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
 	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
@@ -80,7 +83,7 @@ private:
 
 	bool fullscreen = false;
 
-	UVector2 resolution = UVector2(3840, 2160);
+	UVector2 resolution = UVector2(1920, 1080);
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
 };

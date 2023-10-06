@@ -2,6 +2,7 @@
 
 void Sky::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
 	compile();
+
 	pipeline.compile(device, command_list, sample_desc, resolution);
 
 	pipeline.compilation_signal = false;

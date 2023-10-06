@@ -21,17 +21,14 @@ public:
 
 	bool exists() const noexcept { return fs::exists(file); }
 
-	static void load_texture(const std::string &file, DirectX::TexMetadata &metadata, DirectX::ScratchImage &scratch_image, DirectX::ScratchImage &mip_chain);
-
-	// Informations about the texture resource
-	DirectX::TexMetadata metadata;
+	static void load_texture(const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain);
 
 	// Content of the texture resource
-	DirectX::ScratchImage scratch_image;
+	DirectX::ScratchImage image;
 	DirectX::ScratchImage mip_chain;
 
 	GraphicsPipeline::RootSignature::ShaderResourceView srv;
 
 private:
-	std::string file;
+	std::string file = "";
 };

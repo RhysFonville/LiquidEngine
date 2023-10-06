@@ -294,24 +294,22 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 		}
 	}
 
-	for (ConstantBuffer* cb : constant_buffers) {
-		cb->compile(device, descriptor_heaps);
-	}
-
 	for (ShaderResourceView *srv : shader_resource_views) {
 		srv->compile(device, command_list, descriptor_heaps);
+	}
+	for (ConstantBuffer* cb : constant_buffers) {
+		cb->compile(device, descriptor_heaps);
 	}
 }
 
 void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
-	for (ConstantBuffer* cb : constant_buffers) {
-		cb->apply(frame_index);
-	}
-	
 	for (ShaderResourceView* srv : shader_resource_views) {
 		if (srv->update_signal) {
 			srv->update(device, command_list);
 		}
+	}
+	for (ConstantBuffer* cb : constant_buffers) {
+		cb->apply(frame_index);
 	}
 
 	// set constant buffer descriptor heap
@@ -405,11 +403,9 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		name == cb.name);
 }
 
-GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX::TexMetadata metadata, const DirectX::ScratchImage &scratch_image, const DirectX::ScratchImage &mip_chain, bool is_texture_cube)
-	: subresources(std::vector<D3D12_SUBRESOURCE_DATA>(scratch_image.GetImageCount())) {
-
+GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
 	const Image &chain_base = *mip_chain.GetImages();
-	heap_desc = D3D12_RESOURCE_DESC{
+	heap_desc = D3D12_RESOURCE_DESC {
 		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
 		.Width = (UINT)chain_base.width,
 		.Height = (UINT)chain_base.height,
@@ -425,27 +421,21 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX:
 	subresources = std::ranges::views::iota(0, (int)mip_chain.GetImageCount()) |
 		std::ranges::views::transform([&](int i) {
 		const auto img = mip_chain.GetImage(i, 0, 0);
-		return D3D12_SUBRESOURCE_DATA{
+		return D3D12_SUBRESOURCE_DATA {
 			.pData = img->pixels,
 			.RowPitch = (LONG_PTR)img->rowPitch,
 			.SlicePitch = (LONG_PTR)img->slicePitch,
 		};
-	}) | std::ranges::to<std::vector>();
-
-
-
-	/*const Image* images = scratch_image.GetImages();
-
-	for (int i = 0; i < scratch_image.GetImageCount(); i++) {
-		auto &subresource = subresources[i];
-		subresource.RowPitch = images[i].rowPitch;
-		subresource.SlicePitch = images[i].slicePitch;
-		subresource.pData = images[i].pixels;
-	}*/
+	}) |
+		std::ranges::to<std::vector>();
 	
-	srv_desc.Format = metadata.format;
-	srv_desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srv_desc.ViewDimension = (is_texture_cube ? D3D12_SRV_DIMENSION_TEXTURECUBE : D3D12_SRV_DIMENSION_TEXTURE2D);
+	srv_desc = D3D12_SHADER_RESOURCE_VIEW_DESC {
+		.Format = heap_desc.Format,
+		.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D,
+		.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING,
+		.Texture2D{.MipLevels = heap_desc.MipLevels },
+	};
+
 
 	if (is_texture_cube) {
 		srv_desc.TextureCube.MipLevels = (UINT)mip_chain.GetImageCount();
@@ -454,18 +444,18 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(DirectX:
 	}
 }
 
-void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
+void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {	
 	if (heap_desc.Width != 0 && heap_desc.Height != 0) {
 		auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-		device->CreateCommittedResource(
+		HPEW(device->CreateCommittedResource(
 			&props,
 			D3D12_HEAP_FLAG_NONE,
 			&heap_desc,
 			D3D12_RESOURCE_STATE_COPY_DEST,
 			nullptr,
 			IID_PPV_ARGS(&default_heap)
-		);
-		default_heap->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str());
+		));
+		HPEW(default_heap->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str()));
 
 		update(device, command_list);
 
@@ -479,31 +469,39 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	// Resource must be in the copy-destination state.
-	/*CD3DX12_RESOURCE_BARRIER transition_barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		default_heap.Get(),
-		D3D12_RESOURCE_STATE_COMMON,
-		D3D12_RESOURCE_STATE_COPY_DEST
+	// create the intermediate upload buffer 
+	ID3D12Resource* upload_buffer;
+	const CD3DX12_HEAP_PROPERTIES heapProps{ D3D12_HEAP_TYPE_UPLOAD };
+	const auto uploadBufferSize = GetRequiredIntermediateSize(
+		default_heap.Get(), 0, (UINT)subresources.size()
 	);
-	command_list->ResourceBarrier(1, &transition_barrier);*/
-
-	UINT64 required_size = GetRequiredIntermediateSize(default_heap.Get(), 0u, (UINT)subresources.size());
-
-	// Create a temporary (intermediate) resource for uploading the subresources
-
-	auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	auto buf = CD3DX12_RESOURCE_DESC::Buffer(required_size);
-	device->CreateCommittedResource(
-		&props,
+	const auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(uploadBufferSize);
+	HPEW(device->CreateCommittedResource(
+		&heapProps,
 		D3D12_HEAP_FLAG_NONE,
-		&buf,
+		&resourceDesc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
-		IID_PPV_ARGS(&upload_heap)
-	);
-	default_heap->SetName(string_to_wstring("SRV Upload Heap of index " + std::to_string(index)).c_str());
+		IID_PPV_ARGS(&upload_buffer)
+	));
 
-	UpdateSubresources(command_list.Get(), default_heap.Get(), upload_heap.Get(), 0u, 0u, (UINT)subresources.size(), subresources.data());
+	// write commands to copy data to upload texture (copying each subresource) 
+	UpdateSubresources(
+		command_list.Get(),
+		default_heap.Get(),
+		upload_buffer,
+		0, 0,
+		(UINT)subresources.size(),
+		subresources.data()
+	);
+
+	// write command to transition texture to texture state  
+	/*{
+		const auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+			default_heap.Get(),
+			D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+		command_list->ResourceBarrier(1, &barrier);
+	}*/
 }
 
 // -- DYNAMIC MESHES -- //

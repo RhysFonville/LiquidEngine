@@ -4,6 +4,9 @@ Renderer::Renderer(HWND window) : window(window) {
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
 	debug_interface->EnableDebugLayer();
+	//debug_interface->SetEnableGPUBasedValidation(true);
+
+	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 
 	create_adapter_and_device();
 	create_command_queue();
@@ -15,8 +18,6 @@ Renderer::Renderer(HWND window) : window(window) {
 }
 
 void Renderer::create_adapter_and_device() {
-	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
-
 	int adapter_index = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
 	bool adapter_found = false; // set this to true when a good one was found
 
@@ -43,16 +44,21 @@ void Renderer::create_adapter_and_device() {
 		throw std::exception("Adapter (GPU) not found.");
 	}
 
-	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&device)));
+	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device)));
 	device->SetName(L"Main Device");
 
 	device->QueryInterface(IID_PPV_ARGS(&debug_device));
 }
 
 void Renderer::create_command_queue() {
-	D3D12_COMMAND_QUEUE_DESC command_queue_desc = { }; // we will be using all the default values
+	const D3D12_COMMAND_QUEUE_DESC desc = {
+		.Type = D3D12_COMMAND_LIST_TYPE_DIRECT,
+		.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL,
+		.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE,
+		.NodeMask = 0,
+	};
 
-	HPEW(device->CreateCommandQueue(&command_queue_desc, IID_PPV_ARGS(&command_queue))); // create the command queue
+	HPEW(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&command_queue))); // create the command queue
 	command_queue->SetName(L"Main Command Queue");
 
 	command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue));
@@ -66,25 +72,50 @@ void Renderer::create_swap_chain() {
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
-	// Describe and create the swap chain.
-	DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
-	swap_chain_desc.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of buffers we have
-	swap_chain_desc.BufferDesc = back_buffer_desc; // our back buffer desc
-	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // this says the pipeline will render to this swap chain
-	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // dxgi will discard the buffer (data) after we call present
-	swap_chain_desc.OutputWindow = window; // handle to our window
-	swap_chain_desc.SampleDesc = sample_desc; // our multi-sampling desc
-	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-	swap_chain_desc.Windowed = !fullscreen;
+	//// Describe and create the swap chain.
+	//DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
+	//swap_chain_desc.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of buffers we have
+	//swap_chain_desc.BufferDesc = back_buffer_desc; // our back buffer desc
+	//swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // this says the pipeline will render to this swap chain
+	//swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // dxgi will discard the buffer (data) after we call present
+	//swap_chain_desc.OutputWindow = window; // handle to our window
+	//swap_chain_desc.SampleDesc = sample_desc; // our multi-sampling desc
+	//swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	//swap_chain_desc.Windowed = !fullscreen;
 
-	IDXGISwapChain* temp_swap_chain;
-	factory->CreateSwapChain(
-		command_queue.Get(), // the queue will be flushed once the swap chain is created
-		&swap_chain_desc, // give it the swap chain desc we created above
-		&temp_swap_chain // store the created swap chain in a temp IDXGISwapChain interface
-	);
+	//IDXGISwapChain* temp_swap_chain;
+	//factory->CreateSwapChain(
+	//	command_queue.Get(), // the queue will be flushed once the swap chain is created
+	//	&swap_chain_desc, // give it the swap chain desc we created above
+	//	&temp_swap_chain // store the created swap chain in a temp IDXGISwapChain interface
+	//);
 
-	swap_chain = static_cast<IDXGISwapChain3*>(temp_swap_chain);
+	//swap_chain = static_cast<IDXGISwapChain3*>(temp_swap_chain);
+
+	const DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
+		.Width = resolution.x,
+		.Height = resolution.y,
+		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
+		.Stereo = false,
+		.SampleDesc = sample_desc,
+		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
+		.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS,
+		.Scaling = DXGI_SCALING_STRETCH,
+		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
+		.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED,
+		.Flags = 0,
+	};
+
+	ComPtr<IDXGISwapChain1> swap_chain1;
+	HPEW(factory->CreateSwapChainForHwnd(
+		command_queue.Get(),
+		window,
+		&swapChainDesc,
+		nullptr,
+		nullptr,
+		&swap_chain1
+	));
+	HPEW(swap_chain1.As(&swap_chain));
 
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
 
@@ -139,6 +170,8 @@ void Renderer::create_command_list() {
 	command_list->SetName(L"Main command list");
 
 	command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list));
+
+	command_list->Close();
 }
 
 void Renderer::create_fences_and_fences_event() {
@@ -158,10 +191,16 @@ void Renderer::create_fences_and_fences_event() {
 }
 
 void Renderer::compile() {
+	// reset command list and allocator   
+	HPEW(command_allocators[frame_index]->Reset());
+	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
+
 	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 	scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
-	
+
+	scene.sky.compile(device, command_list, sample_desc, resolution);
+
 	for (StaticMeshComponent *mesh : scene.static_meshes) {
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
@@ -170,15 +209,10 @@ void Renderer::compile() {
 
 		mesh->compile(device, command_list, sample_desc, resolution);
 	}
-
-	scene.sky.compile(device, command_list, sample_desc, resolution);
-
+ 
 	HPEW(command_list->Close());
+	execute_command_list();
 
-	ID3D12CommandList* command_lists[] = { command_list.Get() };
-	command_queue->ExecuteCommandLists(_countof(command_lists), command_lists);
-
-	// increment the fence value now, otherwise the buffer might not be uploaded by the time we start drawing
 	increment_fence();
 }
 
@@ -280,11 +314,7 @@ void Renderer::update() {
 }
 
 void Renderer::render() {
-	// create an array of command lists (only one command list here)
-	ID3D12CommandList* command_lists[] = { command_list.Get() };
-
-	// execute the array of command lists
-	command_queue->ExecuteCommandLists(_countof(command_lists), command_lists);
+	execute_command_list();
 
 	// this command goes in at the end of our command queue. we will know when our command queue 
 	// has finished because the fences value will be set to "fence_values" from the GPU since the command
@@ -354,6 +384,14 @@ void Renderer::wait_for_previous_frame() {
 
 	// increment fence_values for next frame
 	fence_values[frame_index]++;
+}
+
+void Renderer::execute_command_list() {
+	// create an array of command lists (only one command list here)
+	ID3D12CommandList* const commandLists[] = { command_list.Get() };
+
+	// execute the array of command lists
+	command_queue->ExecuteCommandLists((UINT)std::size(commandLists), commandLists);
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {

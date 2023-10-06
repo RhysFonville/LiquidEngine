@@ -10,9 +10,9 @@
 #include <functional>
 #include <filesystem>
 
-#include <wrl.h>
 #include <initguid.h>
 #include <d3d12.h>
+#include <wrl.h>
 
 #include "globalstructs.h"
 

@@ -14,7 +14,7 @@ public:
 
 	static Mesh create_sphere(UINT lat_lines, UINT long_lines);
 
-	Texture albedo_texture = Texture("Skybox - Copy.png");
+	Texture albedo_texture = Texture();
 	Color albedo = Color(0, 0, 0, 255);
 	
 	GraphicsPipeline pipeline;
