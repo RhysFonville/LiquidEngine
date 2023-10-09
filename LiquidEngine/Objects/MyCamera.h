@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Object.h"
+#include "../Character.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/PointLightComponent.h"
 
-class MyCamera : public Object {
+class MyCamera : public Character {
 public:
 	MyCamera();
 
