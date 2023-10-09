@@ -11,7 +11,6 @@ public:
 	Texture(const std::string &file);
 
 	void compile();
-	void clean_up();
 
 	bool operator==(const Texture &texture) const noexcept;
 

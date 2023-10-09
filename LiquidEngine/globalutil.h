@@ -29,6 +29,8 @@
 	#undef max
 #endif
 
+#define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
+
 namespace fs = std::filesystem;
 
 using Microsoft::WRL::ComPtr;

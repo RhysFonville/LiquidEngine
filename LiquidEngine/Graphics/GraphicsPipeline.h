@@ -1,15 +1,18 @@
 #pragma once
 
 #include <ranges>
+#pragma warning(push)
+#pragma warning(disable : 26495)
 #include "d3dx12.h"
+#pragma warning(pop)
+#include <D3DCompiler.h>
+#include <DirectXTex.h>
+#include "GraphicsPipelineMeshChangeManager.h"
 #include "../globalutil.h"
 #include "../Throw.h"
-#include <D3DCompiler.h>
-#include "GraphicsPipelineMeshChangeManager.h"
-#include <DirectXTex.h>
+#include "ResourceManager.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
-#define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
 struct alignas(16) GenerateMipsCB {
@@ -414,6 +417,8 @@ public:
 				// create a resource heap, descriptor heap, and pointer to cbv for each frame
 
 				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					ID3D12Resource* upload_buffer;
+
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size*64u);
 					HPEW(device->CreateCommittedResource(
@@ -422,10 +427,13 @@ public:
 						&buf, // size of the resource heap. Must be a multiple of 64KB for single-textures and constant buffers
 						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
 						nullptr, // we do not have use an optimized clear value for constant buffers
-						IID_PPV_ARGS(&upload_heaps[i])));
+						IID_PPV_ARGS(&upload_buffer)));
+
+					ResourceManager::Release::resources.push_back(upload_buffer);
+					upload_buffer->SetName(L"CB upload buffer");
 
 					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = { };
-					view_desc.BufferLocation = upload_heaps[i]->GetGPUVirtualAddress();
+					view_desc.BufferLocation = upload_buffer->GetGPUVirtualAddress();
 					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
 
 					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
@@ -433,7 +441,7 @@ public:
 					device->CreateConstantBufferView(&view_desc, handle);
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
-					HPEW(upload_heaps[i]->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
+					HPEW(upload_buffer->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
 				}
 			}
 
@@ -445,8 +453,6 @@ public:
 			size_t obj_size = 0u;
 
 			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
-
-			ComPtr<ID3D12Resource> upload_heaps[NUMBER_OF_BUFFERS] = { }; // Memory on the gpu where our constant buffer will be placed.
 
 			UINT heap_index = 0u;
 
@@ -460,8 +466,7 @@ public:
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-			ComPtr<ID3D12Resource> default_heap = nullptr;
-			ComPtr<ID3D12Resource> upload_heap = nullptr;
+			ComPtr<ID3D12Resource> default_buffer = nullptr;
 			D3D12_RESOURCE_DESC heap_desc = { };
 
 			std::vector<D3D12_SUBRESOURCE_DATA> subresources = { };

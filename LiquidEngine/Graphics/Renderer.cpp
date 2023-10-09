@@ -14,7 +14,7 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_back_buffers_and_rtv_with_descriptor_heap();
 	create_command_allocators();
 	create_command_list();
-	create_fences_and_fences_event();
+	create_fences_and_fence_event();
 }
 
 void Renderer::create_adapter_and_device() {
@@ -71,26 +71,6 @@ void Renderer::create_swap_chain() {
 
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
-
-	//// Describe and create the swap chain.
-	//DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
-	//swap_chain_desc.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of buffers we have
-	//swap_chain_desc.BufferDesc = back_buffer_desc; // our back buffer desc
-	//swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // this says the pipeline will render to this swap chain
-	//swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // dxgi will discard the buffer (data) after we call present
-	//swap_chain_desc.OutputWindow = window; // handle to our window
-	//swap_chain_desc.SampleDesc = sample_desc; // our multi-sampling desc
-	//swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-	//swap_chain_desc.Windowed = !fullscreen;
-
-	//IDXGISwapChain* temp_swap_chain;
-	//factory->CreateSwapChain(
-	//	command_queue.Get(), // the queue will be flushed once the swap chain is created
-	//	&swap_chain_desc, // give it the swap chain desc we created above
-	//	&temp_swap_chain // store the created swap chain in a temp IDXGISwapChain interface
-	//);
-
-	//swap_chain = static_cast<IDXGISwapChain3*>(temp_swap_chain);
 
 	const DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
 		.Width = resolution.x,
@@ -174,7 +154,7 @@ void Renderer::create_command_list() {
 	command_list->Close();
 }
 
-void Renderer::create_fences_and_fences_event() {
+void Renderer::create_fences_and_fence_event() {
 	// create the fences
 	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
@@ -184,8 +164,8 @@ void Renderer::create_fences_and_fences_event() {
 	}
 
 	// create a handle to a fences event
-	fences_event = CreateEventA(nullptr, false, false, nullptr);
-	if (fences_event == nullptr) {
+	fence_event = CreateEventA(nullptr, false, false, nullptr);
+	if (fence_event == nullptr) {
 		throw std::exception("Failed to create fences event.");
 	}
 }
@@ -214,6 +194,8 @@ void Renderer::compile() {
 	execute_command_list();
 
 	increment_fence();
+
+	ResourceManager::Release::release_all_resources();
 }
 
 void Renderer::update() {
@@ -331,26 +313,41 @@ void Renderer::tick() {
 }
 
 void Renderer::clean_up() {
-	// wait for the gpu to finish all frames
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
-		frame_index = i;
-		wait_for_previous_frame();
-	}
+	wait_for_previous_frame();
+
+	CloseHandle(fence_event);
+
+	flush_gpu();
 
 	// get swapchain out of full screen before exiting
 	if (is_fullscreen())
 		set_fullscreen(false);
 
-	SAFE_RELEASE(device);
-	SAFE_RELEASE(swap_chain);
-	SAFE_RELEASE(command_queue);
-	SAFE_RELEASE(rtv_descriptor_heap);
-	SAFE_RELEASE(command_list);
+	scene.clean_up();
 
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; ++i) {
-		SAFE_RELEASE(render_targets[i]);
-		SAFE_RELEASE(command_allocators[i]);
-		SAFE_RELEASE(fences[i]);
+	ResourceManager::Release::release_all_resources();
+
+	adapter_output.Reset();
+	adapter.Reset();
+
+	factory.Reset();
+
+	debug_device.Reset();
+	debug_command_list.Reset();
+	debug_command_list.Reset();
+	debug_command_queue.Reset();
+	debug_interface.Reset();
+
+	device.Reset();
+	swap_chain.Reset();
+	command_queue.Reset();
+	rtv_descriptor_heap.Reset();
+	command_list.Reset();
+
+	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+		render_targets[i].Reset();
+		command_allocators[i].Reset();
+		fences[i].Reset();
 	}
 }
 
@@ -364,16 +361,30 @@ void Renderer::wait_for_fence_cpu() {
 	// the command queue since it has not reached the "commandQueue->Signal(fences, fencesValue)" command
 	if (fences[frame_index]->GetCompletedValue() < fence_values[frame_index]) {
 		// we have the fences create an event which is signaled once the fences's current value is "fence_values"
-		HPEW(fences[frame_index]->SetEventOnCompletion(fence_values[frame_index], fences_event));
+		HPEW(fences[frame_index]->SetEventOnCompletion(fence_values[frame_index], fence_event));
 
 		// We will wait until the fences has triggered the event that it's current value has reached "fence_values". once it's value
 		// has reached "fencesValue", we know the command queue has finished executing
-		WaitForSingleObject(fences_event, INFINITE);
+		WaitForSingleObject(fence_event, INFINITE);
 	}
 }
 
 void Renderer::wait_for_fence_gpu() {
 	HPEW(command_queue->Wait(fences[frame_index].Get(), fence_values[frame_index]));
+}
+
+void Renderer::flush_gpu() {
+	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+		uint64_t fenceValueForSignal = ++fence_values[i];
+		command_queue->Signal(fences[i].Get(), fenceValueForSignal);
+		if (fences[i]->GetCompletedValue() < fence_values[i])
+		{
+			fences[i]->SetEventOnCompletion(fenceValueForSignal, fence_event);
+			WaitForSingleObject(fence_event, INFINITE);
+		}
+	}
+	frame_index = 0;
+	// Thank you gamedev
 }
 
 void Renderer::wait_for_previous_frame() {
@@ -412,17 +423,24 @@ UVector2 Renderer::get_resolution() const noexcept {
 	return resolution;
 }
 
-void Renderer::set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings) {
-	this->resolution = resolution;
+//! Doesn't work
+void Renderer::set_resolution(const UVector2 &resolution, bool stretch) {
+	/*this->resolution = resolution;
 	
 	back_buffer_desc.Width = resolution.x;
 	back_buffer_desc.Height = resolution.y;
 
+	create_back_buffers_and_rtv_with_descriptor_heap();
+
+	if (stretch) {
+		HPEW(swap_chain->SetSourceSize(back_buffer_desc.Width, back_buffer_desc.Height));
+	}
+
 	HPEW(swap_chain->ResizeTarget(&back_buffer_desc));
 
-	if (reset_om_viewing_settings) {
-		// dfslkfgjhsdf
-	}
+	for (StaticMeshComponent *mesh : scene.static_meshes) {
+		mesh->get_material().pipeline.output_merger.compile(resolution, device);
+	}*/
 }
 
 //std::shared_ptr<CameraComponent> Renderer::camera() const {
