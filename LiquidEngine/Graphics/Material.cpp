@@ -33,7 +33,9 @@ void Material::compile() {
 	pipeline.compilation_signal = true;
 }
 
-void Material::clean_up() { }
+void Material::clean_up() {
+	pipeline.clean_up();
+}
 
 void Material::set_data(const std::string &file) {
 	std::ifstream read(file);

@@ -16,7 +16,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	engine.world.active_scene->add_object(model);
 	model->add_component(std::make_shared<StaticMeshComponent>(Mesh("statue.obj")));
 	model->get_component<StaticMeshComponent>()->set_size(FVector3(0.3f, 0.3f, 0.3f));
-	model->get_component<StaticMeshComponent>()->get_material().albedo_texture = Texture("mipmaptest.png");
+	model->get_component<StaticMeshComponent>()->get_material().albedo_texture = Texture("texture.png");
 
 	engine.renderer.scene.sky.albedo_texture = Texture("Skybox.png");
 

@@ -167,6 +167,8 @@ public:
 		}
 	}
 
+	void clean_up();
+
 	Sky sky;
 
 private:

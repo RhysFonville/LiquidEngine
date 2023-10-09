@@ -33,6 +33,9 @@ void Engine::loop() {
 			dt.tp1 = dt.tp2;
 			dt.dt = elapsed_time.count();
 
+			world.tick(dt.dt);
+			renderer.tick();
+
 			if (EngineToggles::terminate) {
 				EngineToggles::terminate = false;
 				throw;
@@ -41,18 +44,15 @@ void Engine::loop() {
 			window.check_input();
 			if (!window.is_running()) {
 				running = false;
-				//clean_up();
+				clean_up();
 				return;
 			}
-
-			world.tick(dt.dt);
-			renderer.tick();
 		}
 	} catch (const std::exception &e) {
 		if (!std::string(e.what()).empty()) OutputDebugStringA(e.what());
 		running = false;
 		SendMessageA(window.get_window(), WM_QUIT, 0, 0);
-		//clean_up();
+		clean_up();
 	}
 }
 

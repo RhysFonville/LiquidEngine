@@ -18,6 +18,7 @@ public:
 	void increment_fence(); // increment fences
 	void wait_for_fence_cpu(); // wait for fences incrementation on cpu side
 	void wait_for_fence_gpu(); // wait for fences incrementation on gpu side
+	void flush_gpu();
 	void wait_for_previous_frame(); // wait for command list completion
 
 	void execute_command_list();
@@ -29,7 +30,7 @@ public:
 	GET bool is_fullscreen() const noexcept;
 
 	GET UVector2 get_resolution() const noexcept;
-	void set_resolution(const UVector2 &resolution, bool reset_om_viewing_settings = true);
+	void set_resolution(const UVector2 &resolution, bool stretch = true);
 
 	GraphicsScene scene;
 
@@ -42,7 +43,7 @@ private:
 	ComPtr<ID3D12CommandAllocator> command_allocators[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
 	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
 	ComPtr<ID3D12Fence> fences[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
-	HANDLE fences_event = nullptr;
+	HANDLE fence_event = nullptr;
 	ULONGLONG fence_values[GraphicsPipeline::NUMBER_OF_BUFFERS] = { };
 	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap = nullptr;
 	UINT rtv_descriptor_size = 0u; // size of the rtv descriptor on the device (all front and back buffers will be the same size)
@@ -64,7 +65,7 @@ private:
 	void create_back_buffers_and_rtv_with_descriptor_heap();
 	void create_command_allocators();
 	void create_command_list();
-	void create_fences_and_fences_event();
+	void create_fences_and_fence_event();
 
 	struct CBS {
 		PerFrameVSCB per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb

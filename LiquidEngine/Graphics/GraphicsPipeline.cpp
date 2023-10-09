@@ -73,12 +73,13 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 }
 
 void GraphicsPipeline::clean_up() {
+	input_assembler.change_manager.reset();
 	for (auto &buffer : input_assembler.vertex_buffers) {
-		SAFE_RELEASE(buffer);
+		buffer.Reset();
 	}
 
-	SAFE_RELEASE(output_merger.depth_stencil_buffer);
-	SAFE_RELEASE(output_merger.depth_stencil_descriptor_heap);
+	output_merger.depth_stencil_buffer.Reset();
+	output_merger.depth_stencil_descriptor_heap.Reset();
 }
 
 bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexcept {
@@ -135,6 +136,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 		nullptr,
 		IID_PPV_ARGS(&vertex_buffer_upload));
 
+	ResourceManager::Release::resources.push_back(vertex_buffer_upload);
 	vertex_buffer_upload->SetName(L"Vertex Buffer Upload Resource Heap");
 
 	void* p = nullptr;
@@ -395,7 +397,7 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::apply(int frame_index) noe
 
 bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantBuffer &cb) const noexcept {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		if (gpu_addresses[i] != cb.gpu_addresses[i] && upload_heaps[i] == cb.upload_heaps[i]) return false;
+		if (gpu_addresses[i] != cb.gpu_addresses[i]) return false;
 	}
 	
 	return (//obj == cb.obj &&						std::equal_to<void> no matching call operator found
@@ -453,9 +455,9 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			&heap_desc,
 			D3D12_RESOURCE_STATE_COPY_DEST,
 			nullptr,
-			IID_PPV_ARGS(&default_heap)
+			IID_PPV_ARGS(&default_buffer)
 		));
-		HPEW(default_heap->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str()));
+		HPEW(default_buffer->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str()));
 
 		update(device, command_list);
 
@@ -463,7 +465,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			// Taking the first descriptor of the heap as a simple example  
 			D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
 			handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); 
-			device->CreateShaderResourceView(default_heap.Get(), &srv_desc, handle);
+			device->CreateShaderResourceView(default_buffer.Get(), &srv_desc, handle);
 		}
 	}
 }
@@ -473,7 +475,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 	ID3D12Resource* upload_buffer;
 	const CD3DX12_HEAP_PROPERTIES heapProps{ D3D12_HEAP_TYPE_UPLOAD };
 	const auto uploadBufferSize = GetRequiredIntermediateSize(
-		default_heap.Get(), 0, (UINT)subresources.size()
+		default_buffer.Get(), 0, (UINT)subresources.size()
 	);
 	const auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(uploadBufferSize);
 	HPEW(device->CreateCommittedResource(
@@ -485,10 +487,13 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 		IID_PPV_ARGS(&upload_buffer)
 	));
 
+	ResourceManager::Release::resources.push_back(upload_buffer);
+	upload_buffer->SetName(L"Shader resource view upload buffer");
+
 	// write commands to copy data to upload texture (copying each subresource) 
 	UpdateSubresources(
 		command_list.Get(),
-		default_heap.Get(),
+		default_buffer.Get(),
 		upload_buffer,
 		0, 0,
 		(UINT)subresources.size(),
