@@ -2,7 +2,9 @@
 
 MyCamera::MyCamera()
 	: camera(std::make_shared<CameraComponent>()),
-	light(std::make_shared<PointLightComponent>()) { }
+	light(std::make_shared<PointLightComponent>()) {
+	
+}
 
 void MyCamera::on_start() {
 	add_component(camera);
