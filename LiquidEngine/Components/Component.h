@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../globalutil.h"
+#include "../Controllable.h"
 
 class Component : public Controllable {
 public:

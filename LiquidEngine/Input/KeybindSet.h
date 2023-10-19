@@ -2,20 +2,27 @@
 
 #include <Windows.h>
 #include <functional>
+#include <string>
 #include "KeyCodes.h"
 
 namespace Input {
+enum class CallbackEvent {
+	IsPressed,
+	IsNotPressed
+};
+
 class KeybindSet {
 public:
-	class Category {
+	struct Category {
 		std::string name;
 
-		class Action {
+		struct Action {
 			std::string name;
 
-			class Bind {
+			struct Bind {
 				WindowsKeyCode key;
-				std::function<void()> callback;
+				std::function<void(float)> callback;
+				CallbackEvent callback_event;
 			};
 			std::vector<Bind> binds;
 		};

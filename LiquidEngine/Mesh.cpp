@@ -188,6 +188,18 @@ void Mesh::set_vertices(const std::string &file, size_t physics_verts_chunk_divi
 				} else if (words[0] == "f") {
 					std::vector<std::string> words_in_face_line(words.begin()+1, words.end());
 					for (std::string vertex : words_in_face_line) {
+						size_t i = vertex.find('/');
+						while (i != std::string::npos) {
+							if (i >= vertex.size()-1) {
+								throw std::exception(("\"" + file + "\" is formatted incorrectly. Unexpected \"/\" at end of line.").c_str());
+							}
+							if (vertex[i+1] == '/') {
+								vertex.erase(vertex.begin()+i);
+							}
+
+							i = vertex.find('/', i+1);
+						}
+
 						std::vector<std::string> vertex_components = split(vertex, '/');
 
 						if (vertex_components.size() == 3) {
@@ -212,11 +224,11 @@ void Mesh::set_vertices(const std::string &file, size_t physics_verts_chunk_divi
 								texcoords[(unsigned)std::stoi(vertex_components[1])-1],
 								normals[(unsigned)std::stoi(vertex_components[2])-1]
 							));
-						} else if (vertex_components.size() == 3) {
+						} else if (vertex_components.size() == 2) {
 							final_verts.push_back(Vertex(
-								vertices[std::stoi(vertex_components[0])],
+								vertices[std::stoi(vertex_components[0])-1],
 								FVector2(0.0f, 0.0f),
-								normals[std::stoi(vertex_components[1])]
+								normals[std::stoi(vertex_components[1])-1]
 							));
 						} else {
 							throw std::exception(

@@ -124,9 +124,9 @@ void Object::base_tick(float dt) {
 		child->base_tick(dt);
 	}
 
-	root_component.base_tick();
+	root_component.base_tick(dt);
 	for (const std::shared_ptr<Component> &comp : components) {
-		comp->base_tick();
+		comp->base_tick(dt);
 	}
 
 	tick(dt);

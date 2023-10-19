@@ -4,6 +4,54 @@ MyCamera::MyCamera()
 	: camera(std::make_shared<CameraComponent>()),
 	light(std::make_shared<PointLightComponent>()) {
 	
+	keybind_set.categories.push_back({ "Category" });
+	keybind_set.categories[0].actions.push_back({ "Move" });
+
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::W,
+		std::function<void(float)>([&](float dt) { on_forward(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::A,
+		std::function<void(float)>([&](float dt) { on_left(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::S,
+		std::function<void(float)>([&](float dt) { on_backward(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::D,
+		std::function<void(float)>([&](float dt) { on_right(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::Q,
+		std::function<void(float)>([&](float dt) { on_down(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::E,
+		std::function<void(float)>([&](float dt) { on_up(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::LeftShift,
+		std::function<void(float)>([&](float dt) { on_slow(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::LeftShift,
+		std::function<void(float)>([&](float dt) { on_not_slow(dt); }),
+		Input::CallbackEvent::IsNotPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::RightMouseButton,
+		std::function<void(float)>([&](float dt) { on_turn(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
 }
 
 void MyCamera::on_start() {
@@ -12,95 +60,47 @@ void MyCamera::on_start() {
 }
 
 void MyCamera::tick(float dt) {
-	if (GetKeyState(0x57) & 0x8000) { // W
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera->direction_forward() * dt * speed / 2.0f);
-		} else {
-			translate(camera->direction_forward() * dt * speed);
-		}
-	}
-	if (GetKeyState(0x41) & 0x8000) { // A
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera->direction_left() * dt * speed / 2.0f);
-		} else {
-			translate(camera->direction_left() * dt * speed);
-		}
-	}
-	if (GetKeyState(0x53) & 0x8000) { // S
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera->direction_backward() * dt * speed / 2.0f);
-		} else {
-			translate(camera->direction_backward() * dt * speed);
-		}
-	}
-	if (GetKeyState(0x44) & 0x8000) { // D
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(camera->direction_right() * dt * speed / 2.0f);
-		} else {
-			translate(camera->direction_right() * dt * speed);
-		}
-	}
-	if (GetKeyState(0x51) & 0x8000) { // Q
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed / 2.0f);
-		} else {
-			translate(FVector3(0.0f, -1.0f, 0.0f) * dt * speed);
-		}
-	}
-	if (GetKeyState(0x45) & 0x8000) { // E
-		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed / 2.0f);
-		} else {
-			translate(FVector3(0.0f, 1.0f, 0.0f) * dt * speed);
-		}
-	}
-
-	POINT current_cursor_pos;
 	if (GetCursorPos(&current_cursor_pos)) {
-		if (GetKeyState(0x02) & 0x8000) { // Right Mouse Button
-			if (previous_cursor_pos.x != 0 && previous_cursor_pos.y != 0) {
-				POINT diff = { current_cursor_pos.x - previous_cursor_pos.x,
-							   current_cursor_pos.y - previous_cursor_pos.y };
-				rotate(FVector3((float)diff.y / 7, (float)diff.x / 7, 0.0f));
-			}
-		}
+		cursor_diff = { current_cursor_pos.x - previous_cursor_pos.x,
+			current_cursor_pos.y - previous_cursor_pos.y };
 	}
 	previous_cursor_pos = current_cursor_pos;
+}
 
-	if (GetKeyState(0x52) & 0x8000) { // R
-		if (wait == 100) {
-			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->albedo.r--;
-			} else {
-				light->albedo.r++;
-			}
-			wait = 0;
-		} else {
-			wait++;
-		}
+void MyCamera::on_turn(float dt) {
+	if (cursor_diff.x != 0 || cursor_diff.y != 0) {
+		rotate(FVector3((float)cursor_diff.y / 7, (float)cursor_diff.x / 7, 0.0f));
 	}
-	if (GetKeyState(0x47) & 0x8000) { // G
-		if (wait == 100) {
-			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->albedo.g--;
-			} else {
-				light->albedo.g++;
-			}
-			wait = 0;
-		} else {
-			wait++;
-		}
-	}
-	if (GetKeyState(0x42) & 0x8000) { // B
-		if (wait == 100) {
-			if (GetKeyState(VK_LSHIFT) & 0x8000) {
-				light->albedo.b--;
-			} else {
-				light->albedo.b++;
-			}
-			wait = 0;
-		} else {
-			wait++;
-		}
-	}
+}
+
+void MyCamera::on_forward(float dt) {
+	translate(camera->direction_forward() * dt * current_speed);
+}
+
+void MyCamera::on_backward(float dt) {
+	translate(camera->direction_backward() * dt * current_speed);
+}
+
+void MyCamera::on_left(float dt) {
+	translate(camera->direction_left() * dt * current_speed);
+}
+
+void MyCamera::on_right(float dt) {
+	translate(camera->direction_right() * dt * current_speed);
+}
+
+void MyCamera::on_up(float dt) {
+	translate(FVector3(0.0f, 1.0f, 0.0f) * dt * current_speed);
+}
+
+void MyCamera::on_down(float dt) {
+	translate(FVector3(0.0f, -1.0f, 0.0f) * dt * current_speed);
+}
+
+void MyCamera::on_slow(float dt) {
+	current_speed = slow_speed;
+}
+
+void MyCamera::on_not_slow(float dt) {
+	current_speed = regular_speed;
 }

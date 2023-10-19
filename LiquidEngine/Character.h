@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Object.h"
-#include "KeybindSet.h"
+#include "Input/KeybindSet.h"
 
 class Character : public Object {
 public:
-	KeybindSet keybinds;
+	Input::KeybindSet keybind_set;
+
 };
 

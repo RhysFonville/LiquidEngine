@@ -161,7 +161,9 @@
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Graphics\ResourceManager.h" />
-    <ClInclude Include="KeybindSet.h" />
+    <ClInclude Include="Input\InputListener.h" />
+    <ClInclude Include="Input\KeybindSet.h" />
+    <ClInclude Include="Input\KeyCodes.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
@@ -198,7 +200,8 @@
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
-    <ClCompile Include="KeybindSet.cpp" />
+    <ClCompile Include="Input\InputListener.cpp" />
+    <ClCompile Include="Input\KeybindSet.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
