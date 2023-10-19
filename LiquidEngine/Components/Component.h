@@ -1,8 +1,9 @@
 #pragma once
 
 #include "../globalutil.h"
+#include "../Controllable.h"
 
-class Component {
+class Component : public Controllable {
 public:
 	enum class Type {
 		None,
@@ -30,20 +31,6 @@ public:
 
 	virtual void set_transform(Transform transform) noexcept;
 	virtual GET Transform get_transform() const noexcept;
-
-	void base_clean_up() {
-		clean_up();
-	}
-	void base_compile() {
-		compile();
-	}
-	void base_tick() {
-		tick();
-	}
-
-	virtual void clean_up() { }
-	virtual void compile() { }
-	virtual void tick() { }
 
 	GET Type get_type() const noexcept;
 

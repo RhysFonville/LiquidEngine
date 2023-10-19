@@ -1,21 +1,35 @@
 #pragma once
 
-#include "../Object.h"
+#include "../Character.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/PointLightComponent.h"
 
-class MyCamera : public Object {
+class MyCamera : public Character {
 public:
 	MyCamera();
 
 	void on_start() override;
 	void tick(float dt) override;
 
-private:
-	POINT previous_cursor_pos = { 0, 0 };
-	int wait = 0;
+	void on_turn(float dt);
 
-	float speed = 6.0f;
+	void on_forward(float dt);
+	void on_backward(float dt);
+	void on_left(float dt);
+	void on_right(float dt);
+	void on_up(float dt);
+	void on_down(float dt);
+	void on_slow(float dt);
+	void on_not_slow(float dt);
+
+private:
+	POINT current_cursor_pos = { 0, 0 };
+	POINT cursor_diff = { 0, 0 };
+	POINT previous_cursor_pos = current_cursor_pos;
+
+	float regular_speed = 6.0f;
+	float slow_speed = regular_speed / 2.0f;
+	float current_speed = regular_speed;
 
 	std::shared_ptr<CameraComponent> camera;
 	std::shared_ptr<PointLightComponent> light;

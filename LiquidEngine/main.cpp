@@ -10,7 +10,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	Engine engine(hInstance);
 
-	engine.world.active_scene->add_object(std::make_shared<MyCamera>());
+	engine.world.active_scene->add_character(std::make_shared<MyCamera>());
 
 	std::shared_ptr<Object> model = std::make_shared<Object>();
 	engine.world.active_scene->add_object(model);

@@ -5,10 +5,11 @@
 #include "Mesh.h"
 #include "Components/Component.h"
 #include "Graphics/GraphicsScene.h"
+#include "Controllable.h"
 
 using namespace DirectX;
 
-class Object {
+class Object : public Controllable {
 public:
 	Object() { }
 	~Object();
@@ -39,11 +40,6 @@ public:
 	void base_clean_up();
 	void base_compile();
 	void base_tick(float dt);
-
-	virtual void on_start() { }
-	virtual void clean_up() { }
-	virtual void compile() { }
-	virtual void tick(float dt) { }
 
 	//ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 	
