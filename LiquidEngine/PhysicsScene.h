@@ -1,9 +1,6 @@
-/*
-
 #pragma once
 
-#include "MeshComponent.h"
-#include "Object.h"
+#include "Components/PhysicalComponent.h"
 
 #define CROSS(dest,v1,v2)                       \
 			   dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \
@@ -231,17 +228,17 @@
 
 class PhysicsScene {
 public:
-	PhysicsScene(ObjectVector &objects);
-	PhysicsScene() { };
+	PhysicsScene() { }
 
-	void tick() noexcept;
+	void tick();
 
 	void clean_up();
 
-	void handle_mechanics(Object &object);
-	void handle_collision(Object &object1, Object &object2);
+	void handle_collision(PhysicalComponent* obj1, PhysicalComponent* obj2);
 
-	static bool tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept;
+	static bool box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept;
+
+	static bool tri_tri_overlap(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept;
 
 	static bool coplanar_tri_tri3d(float p1[3], float q1[3], float r1[3],
 		float p2[3], float q2[3], float r2[3],
@@ -253,12 +250,8 @@ public:
 	static bool ccw_tri_tri_intersection_2d(float p1[2], float q1[2], float r1[2], 
 		float p2[2], float q2[2], float r2[2]) noexcept;
 
-	static std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> approximate_closest_tris(const MeshData &mesh1, const MeshData &mesh2, const Transform &obj1_transform, const Transform &obj2_transform);
-
 	static float signed_tetrahedron_volume(FVector3 a, FVector3 b, FVector3 c, FVector3 d) noexcept;
 	static bool triangle_line_collision(const SimpleTriangle &triangle, const Line &line) noexcept;
 
-private:
-	ObjectVector objects;
+	std::vector<PhysicalComponent*> objects;
 };
-*/

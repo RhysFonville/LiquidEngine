@@ -3,7 +3,7 @@
 #include "PhysicalComponent.h"
 #include "../Graphics/Material.h"
 
-class StaticMeshComponent : public PhysicalComponent {
+class StaticMeshComponent : public GraphicsComponent {
 public:
 	StaticMeshComponent(Mesh mesh = Mesh());
 

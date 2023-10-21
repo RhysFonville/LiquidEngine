@@ -1,17 +1,17 @@
-/*
-
 #include "PhysicsScene.h"
 
-PhysicsScene::PhysicsScene(ObjectVector &objects) : objects(objects) {}
+void PhysicsScene::tick() {
+	for (int i = 0; i < objects.size(); i++) {
+		for (int j = i+1; j < objects.size(); j++) {
+			PhysicalComponent* obj1 = objects[i];
+			PhysicalComponent* obj2 = objects[j];
 
-void PhysicsScene::tick() noexcept {
-	for (std::shared_ptr<Object> &object1 : objects) {
-		handle_mechanics(*object1);
-		for (std::shared_ptr<Object> &object2 : objects) {
-			if (*object1 != *object2) {
-				handle_mechanics(*object2);
-				handle_collision(*object1, *object2);
-			}
+			obj1->physics_body.tick();
+			obj2->physics_body.tick();
+			obj1->translate(obj1->physics_body.velocity);
+			obj2->translate(obj2->physics_body.velocity);
+
+			handle_collision(obj1, obj2);
 		}
 	}
 }
@@ -20,24 +20,7 @@ void PhysicsScene::clean_up() {
 
 }
 
-void PhysicsScene::handle_mechanics(Object &object) {
-	object.mechanics.acceleration = object.mechanics.get_net_force() / object.mechanics.get_mass();
-	object.mechanics.velocity += object.mechanics.acceleration;
-
-	FVector3 old_position = object.get_transform().position;
-
-	object.set_position(old_position + object.mechanics.velocity);
-
-	object.mechanics.momentum = object.mechanics.get_mass() * object.mechanics.velocity;
-	object.mechanics.speed = distance(object.mechanics.previous_position, object.get_transform().position);
-	object.mechanics.kinetic_energy = object.mechanics.get_mass()/2 * powf(object.mechanics.speed, 2);
-}
-
-void PhysicsScene::handle_collision(Object &object1, Object &object2) {
-	if (object1.has_component<MeshComponent>() && object2.has_component<MeshComponent>()) {
-		const MeshComponent mesh_component1 = *object1.get_component<MeshComponent>();
-		const MeshComponent mesh_component2 = *object2.get_component<MeshComponent>();
-		
+void PhysicsScene::handle_collision(PhysicalComponent* obj1, PhysicalComponent* obj2) {
 		std::vector<SimpleTriangle> bounding_box1_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
 		std::vector<SimpleTriangle> bounding_box2_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
 		bounding_box1_tris = transform_simple_tris(bounding_box1_tris, object1.get_transform());
@@ -56,80 +39,17 @@ void PhysicsScene::handle_collision(Object &object1, Object &object2) {
 		}
 		bounding_box_intersecting = true;
 		if (bounding_box_intersecting) {
-			std::vector<SimpleTriangle> object1_tris =
-				split_into_simple_triangles(
-					transform_simple_vertices(
-						mesh_component1.mesh_data.get_physics_vertices(),
-						object1.get_transform()
-					)
-				);
-			std::vector<SimpleTriangle> object2_tris =
-				split_into_simple_triangles(
-					transform_simple_vertices(
-						mesh_component2.mesh_data.get_physics_vertices(),
-						object1.get_transform()
-					)
-				);
-
-			bool intersecting = false;
-			for (const SimpleTriangle &object1_tri : object1_tris) {
-				for (const SimpleTriangle &object2_tri : object2_tris) {
-					bool intersects = (
-						tri_tri_overlap_test_3d(object1_tri, object2_tri)
-					);
-
-					if (intersects) {
-						intersecting = true;
-						break;
-					}
-				}
-				if (intersecting)
-					break;
-			}
-
-			/*auto approx_closest_tris = approximate_closest_tris(
-				mesh_component1.mesh_data, mesh_component2.mesh_data,
-				object1.get_transform(), object2.get_transform()
-			);
-			std::vector<SimpleTriangle> object1_closest_tris = approx_closest_tris.first;
-			std::vector<SimpleTriangle> object2_closest_tris = approx_closest_tris.second;
-
-			bool intersecting = false;
-			for (const SimpleTriangle &object1_tri : object1_closest_tris) {
-				for (const SimpleTriangle &object2_tri : object2_closest_tris) {
-					bool intersects = (
-						tri_tri_overlap_test_3d(object1_tri, object2_tri)
-					);
-
-					if (intersects) {
-						intersecting = true;
-						break;
-					}
-				}
-				if (intersecting)
-					break;
-			}*/
-
-			/*if (intersecting) {
-				object1.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
-				object2.get_component<MeshComponent>()->material.kd = Color(0, 255, 0);
-
-				object1.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-				object2.get_component<MeshComponent>()->material.ks = Color(0, 255, 0);
-			} else {
-				object1.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
-				object2.get_component<MeshComponent>()->material.kd = Color(255, 0, 0);
-
-				object1.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-				object2.get_component<MeshComponent>()->material.ks = Color(255, 0, 0);
-			}*//*
+			
 		}
-	}
+}
+
+static bool box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept {
+
 }
 
 // https://stackoverflow.com/questions/1496215/triangle-triangle-intersection-in-3d-space
 
-bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept {
+bool PhysicsScene::tri_tri_overlap(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept {
 	float dp1, dq1, dr1, dp2, dq2, dr2;
 	float v1[3], v2[3];
 	float N1[3], N2[3];
@@ -162,7 +82,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 	/* Compute distance signs  of p1, q1 and r1 to the plane of
 	triangle(p2,q2,r2) */
 
-/*
+
 	SUB(v1,p2,r2)
 	SUB(v2,q2,r2)
 	CROSS(N2,v1,v2)
@@ -178,7 +98,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 
 	/* Compute distance signs  of p2, q2 and r2 to the plane of
 	triangle(p1,q1,r1) */
-/*
+
 
 	SUB(v1,q1,p1)
 	SUB(v2,r1,p1)
@@ -194,7 +114,7 @@ bool PhysicsScene::tri_tri_overlap_test_3d(const SimpleTriangle &tri1, const Sim
 	if (((dp2 * dq2) > 0.0f) && ((dp2 * dr2) > 0.0f)) return 0;
 
 	/* Permutation in a canonical form of T1's vertices */
-/*
+
 
 	if (dp1 > 0.0f) {
 		if (dq1 > 0.0f) {
@@ -254,7 +174,7 @@ bool PhysicsScene::coplanar_tri_tri3d(float p1[3], float q1[3], float r1[3],
 
 	/* Projection of the triangles in 3D onto 2D such that the area of
 	the projection is maximized. */
-/*
+
 
 	if (( n_x > n_z ) && ( n_x >= n_y )) {
 		// Project onto plane YZ
@@ -365,44 +285,3 @@ bool PhysicsScene::triangle_line_collision(const SimpleTriangle &triangle, const
 	// then there is an intersection.
 	return ((a != b) && (c == d && d == e));
 }
-
-std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> PhysicsScene::approximate_closest_tris(const MeshData &mesh1, const MeshData &mesh2, const Transform &obj1_transform, const Transform &obj2_transform) {
-	std::pair<std::vector<SimpleTriangle>, std::vector<SimpleTriangle>> ret;
-	
-	SimpleBox box1 = mesh1.get_bounding_box();
-	SimpleBox box2 = mesh2.get_bounding_box();
-
-	std::pair<SimpleVertex, SimpleVertex> closest_box_verts = std::make_pair(
-		box1.vertices[0], box2.vertices[0]
-	);
-	
-	float closest_box_verts_dist = distance(
-		transform_vector(closest_box_verts.first.position, obj1_transform),
-		transform_vector(closest_box_verts.second.position, obj2_transform)
-	);
-	for (SimpleVertex box1_vert : mesh1.get_bounding_box().vertices) {
-		for (SimpleVertex box2_vert : mesh2.get_bounding_box().vertices) {
-			if (float dist = distance(transform_vector(box1_vert.position, obj1_transform),
-							transform_vector(box2_vert.position, obj2_transform));
-				dist < closest_box_verts_dist) {
-
-				closest_box_verts = std::make_pair(box1_vert, box2_vert);
-				closest_box_verts_dist = dist;
-			}
-		}
-	}
-
-	for (SimpleTriangle obj1_tri : mesh1.get_physics_triangles()) {
-		if (obj1_tri.contains(closest_box_verts.first)) {
-			ret.first.push_back(obj1_tri);
-		}
-	}
-	for (SimpleTriangle obj2_tri : mesh1.get_physics_triangles()) {
-		if (obj2_tri.contains(closest_box_verts.first)) {
-			ret.first.push_back(obj2_tri);
-		}
-	}
-
-	return ret;
-}
-*/

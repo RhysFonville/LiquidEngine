@@ -12,6 +12,7 @@ public:
 		DirectionalLightComponent,
 		PointLightComponent,
 		SpotlightComponent,
+		BoxComponent
 	};
 
 	Component() : type(Type::None) { }

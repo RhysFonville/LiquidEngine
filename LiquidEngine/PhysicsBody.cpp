@@ -23,3 +23,9 @@ void PhysicsBody::set_mass(float mass) {
 		throw std::exception("An object's mass must be set to >0.0f kilograms.");
 	}
 }
+
+void PhysicsBody::tick() {
+	acceleration = get_net_force() / get_mass();
+	velocity += acceleration;
+	momentum = mass * velocity;
+}
