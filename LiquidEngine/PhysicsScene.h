@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components/PhysicalComponent.h"
+#include "Components/BoxComponent.h"
 
 #define CROSS(dest,v1,v2)                       \
 			   dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \

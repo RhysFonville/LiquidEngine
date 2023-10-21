@@ -150,6 +150,7 @@
     <Text Include="out.log" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\BoxComponent.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\Component.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\BoxComponent.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />

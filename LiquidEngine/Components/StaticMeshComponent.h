@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PhysicalComponent.h"
+#include "GraphicsComponent.h"
 #include "../Graphics/Material.h"
 
 class StaticMeshComponent : public GraphicsComponent {

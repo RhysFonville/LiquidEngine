@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphicsComponent.h"
+#include "Component.h"
 #include "../PhysicsBody.h"
 
 class PhysicalComponent : public Component {

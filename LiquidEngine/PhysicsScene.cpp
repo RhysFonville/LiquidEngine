@@ -21,17 +21,17 @@ void PhysicsScene::clean_up() {
 }
 
 void PhysicsScene::handle_collision(PhysicalComponent* obj1, PhysicalComponent* obj2) {
-		std::vector<SimpleTriangle> bounding_box1_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
-		std::vector<SimpleTriangle> bounding_box2_tris = mesh_component1.mesh_data.get_bounding_box().split_into_triangles();
-		bounding_box1_tris = transform_simple_tris(bounding_box1_tris, object1.get_transform());
-		bounding_box1_tris = transform_simple_tris(bounding_box2_tris, object2.get_transform());
+	if (obj1->get_type() == Component::Type::BoxComponent && obj2->get_type() == Component::Type::BoxComponent) {
+		box_box_overlap(
+			static_cast<BoxComponent*>(obj1)->box,
+			static_cast<BoxComponent*>(obj2)->box
+		);
+	} else {
 
-		bool bounding_box_intersecting = false;
+		/*bool bounding_box_intersecting = false;
 		for (const SimpleTriangle &object1_tri : bounding_box1_tris) {
 			for (const SimpleTriangle &object2_tri : bounding_box2_tris) {
-				bool intersects = (
-					tri_tri_overlap_test_3d(object1_tri, object2_tri)
-				);
+				bool intersects = tri_tri_overlap_test_3d(object1_tri, object2_tri);
 
 				if (!bounding_box_intersecting && intersects)
 					bounding_box_intersecting = intersects;
@@ -40,11 +40,34 @@ void PhysicsScene::handle_collision(PhysicalComponent* obj1, PhysicalComponent* 
 		bounding_box_intersecting = true;
 		if (bounding_box_intersecting) {
 			
-		}
+		}*/
+	}
 }
 
-static bool box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept {
+bool PhysicsScene::box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept {
+	//\ X AXIS CHECK
+	auto x_extremes = std::minmax_element(box1.vertices.begin(), box1.vertices.end(),
+		[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+		return lhs.position.x < rhs.position.x;
+	});
+	bool x_is_colliding = false;
+	
 
+	// Y AXIS CHECK
+	auto y_extremes = std::minmax_element(box1.vertices.begin(), box1.vertices.end(),
+		[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+		return lhs.position.y < rhs.position.y;
+	});
+	bool y_is_colliding = false;
+
+	// Z AXIS CHECK
+	auto z_extremes = std::minmax_element(box1.vertices.begin(), box1.vertices.end(),
+		[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
+		return lhs.position.z < rhs.position.z;
+	});
+	bool z_is_colliding = false;
+
+	return (x_is_colliding || y_is_colliding || z_is_colliding);
 }
 
 // https://stackoverflow.com/questions/1496215/triangle-triangle-intersection-in-3d-space
