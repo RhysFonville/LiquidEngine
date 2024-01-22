@@ -68,11 +68,13 @@ private:
 	void create_fences_and_fence_event();
 
 	struct CBS {
-		PerFrameVSCB per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
-		PerObjectVSCB per_object_vs = PerObjectVSCB();
-		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps = PerFramePSCB();
-		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
-		SkyPSCB sky_ps = SkyPSCB();
+		GraphicsPipeline::RootSignature::RootConstantsContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
+		GraphicsPipeline::RootSignature::RootConstantsContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
+		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
+		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
+		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFramePSCB> per_frame_ps = PerFramePSCB();
+		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
+		GraphicsPipeline::RootSignature::RootConstantsContainer<SkyPSCB> sky_ps = SkyPSCB();
 	} cbs;
 
 	UINT frame_index = 0u;

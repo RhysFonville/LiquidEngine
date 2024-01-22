@@ -320,7 +320,7 @@ public:
 	class RootSignature {
 	public:
 		class RootArgument {
-			RootArgument();
+			RootArgument() { }
 			RootArgument(UINT parameter_index);
 
 		protected:
@@ -368,10 +368,15 @@ public:
 			}
 
 			template <typename T>
-			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values = -1) {
-				this->obj = static_cast<void*>(&obj);
+			void set_obj(T *obj) {
+				this->obj = static_cast<void*>(obj);
 				obj_size = sizeof(obj);
+			}
 
+			void compile(D3D12_SHADER_VISIBILITY shader, UINT parameter_index, UINT index, UINT number_of_values = -1) {
+				this->parameter_index = parameter_index;
+				this->root_parameters.resize(1u);
+				
 				constants.Num32BitValues = (number_of_values == -1 ? sizeof(obj) / 32u : number_of_values);
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
@@ -379,6 +384,12 @@ public:
 				root_parameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
 				root_parameters[0].Constants = constants;
 				root_parameters[0].ShaderVisibility = shader;
+			}
+
+			template <typename T>
+			void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values = -1) {
+				set_obj<T>(obj);
+				compile(shader, index, number_of_values);
 			}
 
 		private:
@@ -420,7 +431,7 @@ public:
 					ID3D12Resource* upload_buffer;
 
 					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer(obj_size*64u);
+					auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
 					HPEW(device->CreateCommittedResource(
 						&type, // this heap will be used to upload the constant buffer data
 						D3D12_HEAP_FLAG_NONE, // no flags
@@ -458,6 +469,7 @@ public:
 
 			mutable std::string name = "";
 		};
+
 		class ShaderResourceView {
 		public:
 			ShaderResourceView() { }
@@ -479,6 +491,35 @@ public:
 			bool update_signal = false;
 		};
 
+		template <typename T>
+		class ConstantBufferContainer {
+		public:
+			ConstantBufferContainer() { }
+
+			ConstantBufferContainer(const T &obj)
+				: obj(std::make_shared<T>(obj)) {
+				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+			}
+
+			std::shared_ptr<T> obj = { };
+			GraphicsPipeline::RootSignature::ConstantBuffer cb;
+		};
+
+		template <typename T>
+		class RootConstantsContainer {
+		public:
+			RootConstantsContainer() { }
+
+			RootConstantsContainer(const T &obj)
+				: obj(std::make_shared<T>(obj)) {
+				rc = GraphicsPipeline::RootSignature::RootConstants();
+				rc.set_obj<T>(this->obj.get());
+			}
+
+			std::shared_ptr<T> obj = { };
+			GraphicsPipeline::RootSignature::RootConstants rc;
+		};
+
 		RootSignature() { }
 
 		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
@@ -490,12 +531,20 @@ public:
 		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
 		void bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader);
 
-		template <typename T>
-		void bind_root_constants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
+		void bind_root_constants(RootConstants &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			RootConstants rc(index + (UINT)shader_resource_views.size());
-			rc.compile<T>(obj, shader, index, number_of_values);
-			root_constants.push_back(rc);
+			rc.compile(shader, index + (UINT)shader_resource_views.size(), index, number_of_values);
+			root_constants.push_back(&rc);
+		}
+
+		template <typename T>
+		void bind_root_constants(RootConstantsContainer<T> &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
+			bind_root_constants(obj.rc, shader, number_of_values);
+		}
+
+		template <typename T>
+		void bind_constant_buffer(ConstantBufferContainer<T> &cb, D3D12_SHADER_VISIBILITY shader) {
+			bind_constant_buffer(cb.cb, shader);
 		}
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
@@ -505,25 +554,11 @@ public:
 		std::vector<DescriptorTable> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
-		std::vector<RootConstants> root_constants = { };
+		std::vector<RootConstants*> root_constants = { };
 		std::vector<ShaderResourceView*> shader_resource_views = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 
 		std::vector<D3D12_ROOT_PARAMETER> compilation_params = { };
 	} root_signature;
-
-	template <typename T>
-	class ConstantBuffer {
-	public:
-		ConstantBuffer() { }
-
-		ConstantBuffer(const T &obj)
-			: obj(std::make_shared<T>(obj)) {
-			cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
-		}
-
-		std::shared_ptr<T> obj = { };
-		GraphicsPipeline::RootSignature::ConstantBuffer cb;
-	};
 };

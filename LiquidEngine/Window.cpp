@@ -8,7 +8,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
 		switch (uMsg) {
 			case WM_CLOSE:
-				if (YESNO_MESSAGE("Are you sure you want to exit?") == true) {
+				if (YESNO_MESSAGE("Are you sure you want to exit?")) {
 					this_window_wndproc->running = false;
 				}
 				break;
@@ -25,10 +25,12 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 				
 				this_window_wndproc->first_size = false;
 				break;
+			default:
+				return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 		}
+	} else {
+		return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 	}
-
-	return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 }
 
 Window::Window(WNDPROC window_procedure, HINSTANCE hInstance) {

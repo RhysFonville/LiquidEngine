@@ -184,11 +184,15 @@ void Renderer::compile() {
 	for (StaticMeshComponent *mesh : scene.static_meshes) {
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh->compile(device, command_list, sample_desc, resolution);
 	}
+
+	scene.static_meshes[0]->compile(device, command_list, sample_desc, resolution);
  
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -201,49 +205,6 @@ void Renderer::compile() {
 void Renderer::update() {
 	// We have to wait for the gpu to finish with the command allocator before we reset it
 	wait_for_previous_frame();
-
-	if (scene.camera != nullptr) {
-		scene.camera->update(UVector2_to_FVector2(resolution));
-		cbs.per_frame_vs.WVP = XMMatrixTranspose(scene.camera->WVP);
-		cbs.per_frame_ps.obj->camera_position = scene.camera->get_position();
-	}
-
-	std::vector<DXDLight> dl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXPLight> pl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXSLight> sl(MAX_LIGHTS_PER_TYPE);
-	UINT dl_count = 0;
-	UINT pl_count = 0;
-	UINT sl_count = 0;
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
-		dl[i].null = true;
-		pl[i].null = true;
-		sl[i].null = true;
-	}
-	
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < scene.lights.size(); i++) {
-		if (scene.lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			auto light = ((DirectionalLightComponent*)scene.lights[i]);
-			dl[dl_count] = DXDLight(*light);
-			dl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::PointLightComponent) {
-			auto light = ((PointLightComponent*)scene.lights[i]);
-			pl[pl_count] = DXPLight(*light, scene.lights[i]->get_position());
-			pl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			auto light = ((SpotlightComponent*)scene.lights[i]);
-			sl[sl_count] = DXSLight(*light);
-			sl_count++;
-		}
-	}
-
-	std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
-	std::copy(pl.begin(), pl.end(), cbs.per_frame_ps.obj->point_lights);
-	std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
-	cbs.per_frame_ps.obj->directional_light_count = dl_count;
-	cbs.per_frame_ps.obj->point_light_count = pl_count;
-	cbs.per_frame_ps.obj->spotlight_count = sl_count;
 
 	// we can only reset an allocator once the gpu is done with it
 	// resetting an allocator frees the memory that the command list was stored in
@@ -273,16 +234,59 @@ void Renderer::update() {
 							 background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
+	if (scene.camera != nullptr) {
+		scene.camera->update(UVector2_to_FVector2(resolution));
+		cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
+		cbs.per_frame_ps.obj->camera_position = scene.camera->get_position();
+	}
+
+	std::vector<DXDLight> dl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXPLight> pl(MAX_LIGHTS_PER_TYPE);
+	std::vector<DXSLight> sl(MAX_LIGHTS_PER_TYPE);
+	UINT dl_count = 0;
+	UINT pl_count = 0;
+	UINT sl_count = 0;
+	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
+		dl[i].null = true;
+		pl[i].null = true;
+		sl[i].null = true;
+	}
+
+	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < scene.lights.size(); i++) {
+		if (scene.lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
+			auto light = ((DirectionalLightComponent*)scene.lights[i]);
+			dl[dl_count] = DXDLight(*light);
+			dl_count++;
+		}
+		if (scene.lights[i]->get_type() == Component::Type::PointLightComponent) {
+			auto light = ((PointLightComponent*)scene.lights[i]);
+			pl[pl_count] = DXPLight(*light, scene.lights[i]->get_position());
+			pl_count++;
+		}
+		if (scene.lights[i]->get_type() == Component::Type::SpotlightComponent) {
+			auto light = ((SpotlightComponent*)scene.lights[i]);
+			sl[sl_count] = DXSLight(*light);
+			sl_count++;
+		}
+	}
+
+	std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
+	std::copy(pl.begin(), pl.end(), cbs.per_frame_ps.obj->point_lights);
+	std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
+	cbs.per_frame_ps.obj->directional_light_count = dl_count;
+	cbs.per_frame_ps.obj->point_light_count = pl_count;
+	cbs.per_frame_ps.obj->spotlight_count = sl_count;
+
 	Transform sky_transform;
 	if (scene.camera != nullptr) {
 		sky_transform.position = scene.camera->get_position();
 	}
-	cbs.per_object_vs.transform = sky_transform;
+	cbs.per_object_vs.obj->transform = sky_transform;
 
 	scene.sky.pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
-	for (StaticMeshComponent *mesh : scene.static_meshes) {
-		cbs.per_object_vs.transform = mesh->get_transform();
+	for (StaticMeshComponent* mesh : scene.static_meshes) {
+		cbs.per_object_vs.obj->transform = mesh->get_transform();
 		cbs.per_object_ps.obj->material = (DXMaterial)mesh->get_material();
 		mesh->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 	}

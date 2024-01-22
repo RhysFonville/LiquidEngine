@@ -92,17 +92,17 @@ public:
 
 _declspec(align(16))
 struct PerFrameVSCB { // b0
-	XMMATRIX WVP;
+	XMMATRIX WVP = XMMatrixIdentity();
 };
 
 _declspec(align(16))
 struct PerObjectVSCB { // b1
-	XMMATRIX transform;
+	XMMATRIX transform = XMMatrixIdentity();
 };
 
 _declspec(align(16))
 struct PerFramePSCB { // b2
-	FVector3 camera_position;
+	FVector3 camera_position = FVector3(0.0f, 0.0f, 0.0f);
 
 	UINT directional_light_count = 0;
 	UINT point_light_count = 0;

@@ -16,7 +16,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	engine.world.active_scene->add_object(model);
 	model->add_component(std::make_shared<StaticMeshComponent>(Mesh("statue.obj")));
 	model->get_component<StaticMeshComponent>()->set_size(FVector3(0.3f, 0.3f, 0.3f));
-	model->get_component<StaticMeshComponent>()->get_material().albedo_texture = Texture("texture.png");
+	//model->get_component<StaticMeshComponent>()->get_material().albedo_texture = Texture("texture.png");
 
 	std::shared_ptr<Object> obj1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj1);
@@ -24,11 +24,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	obj1->add_component(std::make_shared<BoxComponent>());
 	obj1->translate(FVector3(-3.0f, 0.0f, 5.0f));
 
-	std::shared_ptr<Object> obj2 = std::make_shared<Object>();
+	/*std::shared_ptr<Object> obj2 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj2);
 	obj2->add_component(std::make_shared<StaticMeshComponent>(Mesh("Shapes/cube.obj")));
 	obj2->add_component(std::make_shared<BoxComponent>());
-	obj2->translate(FVector3(3.0f, 0.0f, 5.0f));
+	obj2->translate(FVector3(3.0f, 0.0f, 5.0f));*/
 
 	engine.renderer.scene.sky.albedo_texture = Texture("Skybox.png");
 
