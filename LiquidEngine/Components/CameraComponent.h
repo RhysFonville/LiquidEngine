@@ -3,6 +3,11 @@
 #include "GraphicsComponent.h"
 #include "SimpleMath.h"
 
+//struct RendererCameraComponent {
+//	XMMATRIX* WVP = nullptr;
+//	FVector3* position = nullptr;
+//};
+
 class CameraComponent : public GraphicsComponent {
 public:
 	CameraComponent();
@@ -49,5 +54,7 @@ private:
 	XMMATRIX world = XMMatrixIdentity();
 	XMMATRIX view = XMMatrixIdentity();
 	XMMATRIX projection = XMMatrixIdentity();
+
+	//RendererCameraComponent renderer_component{&WVP, &transform.position};
 };
 

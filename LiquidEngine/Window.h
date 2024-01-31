@@ -7,9 +7,13 @@
 #include "Graphics/Renderer.h"
 #include "globalstructs.h"
 
+#ifdef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
+#include "Debug/DebugOutput.h"
+#endif
+
 class Window {
 public:
-	Window(WNDPROC window_procedure, HINSTANCE hInstance);
+	Window();
 	Window(HINSTANCE hInstance);
 	Window(HINSTANCE hInstance, Renderer* graphics_scene);
 
@@ -26,7 +30,7 @@ public:
 	GET HWND & get_window() noexcept;
 	GET HDC & get_dc() noexcept;
 	GET HINSTANCE & get_hInstance() noexcept;
-	GET WNDCLASS & get_class() noexcept;
+	GET WNDCLASSEXA & get_class() noexcept;
 
 	GET UVector2 get_size() const noexcept;
 	void set_size(const UVector2 &size) noexcept;
@@ -34,13 +38,13 @@ public:
 	GET bool is_running() const noexcept;
 	void is_running(bool running) noexcept;
 
-	Renderer* graphics_scene;
+	Renderer* graphics_scene = nullptr;
 
 private:
-	HWND window;
-	HDC dc;
-	HINSTANCE hInstance;
-	WNDCLASS window_class = { };
+	HWND window = NULL;
+	HDC dc = NULL;
+	HINSTANCE hInstance = GetModuleHandleA(NULL);
+	WNDCLASSEXA window_class = { };
 	
 	UVector2 size;
 

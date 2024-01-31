@@ -119,7 +119,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -135,7 +135,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -158,6 +158,7 @@
     <ClInclude Include="Components\PhysicalComponent.h" />
     <ClInclude Include="Components\GraphicsComponent.h" />
     <ClInclude Include="Controllable.h" />
+    <ClInclude Include="Debug\DebugOutput.h" />
     <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
@@ -186,7 +187,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Graphics\Sky.h" />
     <ClInclude Include="StaticEngineProcessToggles.h" />
-    <ClInclude Include="Throw.h" />
+    <ClInclude Include="Debug\Throw.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -199,6 +200,7 @@
     <ClCompile Include="Components\PhysicalComponent.cpp" />
     <ClCompile Include="Components\GraphicsComponent.cpp" />
     <ClCompile Include="Controllable.cpp" />
+    <ClCompile Include="Debug\DebugOutput.cpp" />
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <DirectXTex.h>
-#include "../Throw.h"
-#include "../globalutil.h"
 #include "GraphicsPipeline.h"
 
 class Texture {

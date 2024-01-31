@@ -1,8 +1,8 @@
 #include "Material.h"
 
-void Material::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+void Material::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	compile();
-	pipeline.compile(device, command_list, sample_desc, resolution);
+	pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 
 	pipeline.compilation_signal = false;
 }

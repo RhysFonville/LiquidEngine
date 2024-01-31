@@ -5,8 +5,8 @@ StaticMeshComponent::StaticMeshComponent(Mesh mesh)
 	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
-void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) noexcept {
-	material.compile(device, command_list, sample_desc, resolution);
+void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) noexcept {
+	material.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 
 	mesh.compile();
 	proxy->add_mesh(mesh);

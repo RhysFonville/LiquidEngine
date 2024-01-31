@@ -15,6 +15,7 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
+	create_depth_stencil();
 }
 
 void Renderer::create_adapter_and_device() {
@@ -170,29 +171,63 @@ void Renderer::create_fences_and_fence_event() {
 	}
 }
 
+void Renderer::create_depth_stencil() {
+	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
+	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
+	dsv_heap_desc.NumDescriptors = 1;
+	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+	dsv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
+	HPEW(depth_stencil_descriptor_heap->SetName(L"Depth Stencil Descriptor Heap"));
+
+	D3D12_DEPTH_STENCIL_VIEW_DESC depth_stencil_desc = {};
+	depth_stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
+	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+	depth_stencil_desc.Flags = D3D12_DSV_FLAG_NONE;
+
+	D3D12_CLEAR_VALUE depth_clear_value = {};
+	depth_clear_value.Format = DXGI_FORMAT_D32_FLOAT;
+	depth_clear_value.DepthStencil.Depth = 1.0f;
+	depth_clear_value.DepthStencil.Stencil = 0;
+
+	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, resolution.x, resolution.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+	HPEW(device->CreateCommittedResource(
+		&heap_properties,
+		D3D12_HEAP_FLAG_NONE,
+		&tex,
+		D3D12_RESOURCE_STATE_DEPTH_WRITE,
+		&depth_clear_value,
+		IID_PPV_ARGS(&depth_stencil_buffer)
+	));
+	HPEW(depth_stencil_buffer->SetName(L"Depth Stencil Buffer"));
+
+	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
+}
+
 void Renderer::compile() {
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
+	//scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	//scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	//scene.sky.pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+	//scene.sky.pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+	//scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
 
-	scene.sky.compile(device, command_list, sample_desc, resolution);
+	//scene.sky.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 
-	for (StaticMeshComponent *mesh : scene.static_meshes) {
-		mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	for (RenderingStaticMesh &mesh : scene.static_meshes) {
+		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
 		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_ps.cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.lights_cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.material_cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
-		mesh->compile(device, command_list, sample_desc, resolution);
+		mesh.mesh->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 	}
-
-	scene.static_meshes[0]->compile(device, command_list, sample_desc, resolution);
  
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -229,16 +264,18 @@ void Renderer::update() {
 	// here we again get the handle to our current render target view so we can set it as the render target in the output merger stage of the pipeline
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index, rtv_descriptor_size);
 
+	// get a handle to the depth/stencil buffer
+	CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
+
+	// set the render target for the output merger stage (the output of the pipeline)
+	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
+
 	// Clear the render target by using the ClearRenderTargetView command
 	const float color[4] = { background_color.r, background_color.g,
-							 background_color.b, background_color.a };
+		background_color.b, background_color.a };
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
-	if (scene.camera != nullptr) {
-		scene.camera->update(UVector2_to_FVector2(resolution));
-		cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
-		cbs.per_frame_ps.obj->camera_position = scene.camera->get_position();
-	}
+	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 	std::vector<DXDLight> dl(MAX_LIGHTS_PER_TYPE);
 	std::vector<DXPLight> pl(MAX_LIGHTS_PER_TYPE);
@@ -270,26 +307,41 @@ void Renderer::update() {
 		}
 	}
 
-	std::copy(dl.begin(), dl.end(), cbs.per_frame_ps.obj->directional_lights);
-	std::copy(pl.begin(), pl.end(), cbs.per_frame_ps.obj->point_lights);
-	std::copy(sl.begin(), sl.end(), cbs.per_frame_ps.obj->spotlights);
-	cbs.per_frame_ps.obj->directional_light_count = dl_count;
-	cbs.per_frame_ps.obj->point_light_count = pl_count;
-	cbs.per_frame_ps.obj->spotlight_count = sl_count;
+	//Transform sky_transform;
+	//if (scene.camera != nullptr) {
+	//	sky_transform.position = scene.camera->get_position();
+	//}
+	//cbs.per_object_vs.obj->transform = sky_transform;
 
-	Transform sky_transform;
-	if (scene.camera != nullptr) {
-		sky_transform.position = scene.camera->get_position();
-	}
-	cbs.per_object_vs.obj->transform = sky_transform;
+	//scene.sky.pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
-	scene.sky.pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
-
-	for (StaticMeshComponent* mesh : scene.static_meshes) {
+	/*for (StaticMeshComponent* mesh : scene.static_meshes) {
 		cbs.per_object_vs.obj->transform = mesh->get_transform();
 		cbs.per_object_ps.obj->material = (DXMaterial)mesh->get_material();
 		mesh->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
+	}*/
+	for (RenderingStaticMesh &mesh : scene.static_meshes) {
+		if (scene.camera != nullptr) {
+			scene.camera->update(UVector2_to_FVector2(resolution));
+			cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
+			mesh.lights_cb.obj->camera_position = scene.camera->get_position();
+		}
+
+		std::copy(dl.begin(), dl.end(), mesh.lights_cb.obj->directional_lights);
+		std::copy(pl.begin(), pl.end(), mesh.lights_cb.obj->point_lights);
+		std::copy(sl.begin(), sl.end(), mesh.lights_cb.obj->spotlights);
+		mesh.lights_cb.obj->directional_light_count = dl_count;
+		mesh.lights_cb.obj->point_light_count = pl_count;
+		mesh.lights_cb.obj->spotlight_count = sl_count;
+
+		cbs.per_object_vs.obj->transform = mesh.mesh->get_transform();
+		mesh.material_cb.obj->material = (DXMaterial)mesh.mesh->get_material();
+		mesh.mesh->get_material().pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}
+
+	//cbs.per_object_vs.obj->transform = scene.static_meshes[0]->get_transform();
+	//cbs.per_object_ps.obj->material = (DXMaterial)scene.static_meshes[0]->get_material();
+	//scene.static_meshes[0]->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
@@ -347,6 +399,9 @@ void Renderer::clean_up() {
 	command_queue.Reset();
 	rtv_descriptor_heap.Reset();
 	command_list.Reset();
+
+	depth_stencil_buffer.Reset();
+	depth_stencil_descriptor_heap.Reset();
 
 	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
 		render_targets[i].Reset();

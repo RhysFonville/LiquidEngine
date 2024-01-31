@@ -1,7 +1,7 @@
 #include "Engine.h"
 
-Engine::Engine(HINSTANCE hInstance)
-	: world(World()), window(Window(hInstance)) {
+Engine::Engine()
+	: world(World()), window(Window{}) {
 	// Init COM
 //#if (_WIN32_WINNT >= 0x0A00 /*_WIN32_WINNT_WIN10*/)
 //	Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);

@@ -7,9 +7,9 @@
 #pragma warning(pop)
 #include <D3DCompiler.h>
 #include <DirectXTex.h>
+#include <iostream>
 #include "GraphicsPipelineMeshChangeManager.h"
-#include "../globalutil.h"
-#include "../Throw.h"
+#include "../Debug/Throw.h"
 #include "ResourceManager.h"
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
@@ -30,10 +30,10 @@ public:
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index);
-	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
+	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution);
 
-	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution);
+	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution);
 
 	void clean_up();
 
@@ -258,45 +258,6 @@ public:
 		D3D12_RASTERIZER_DESC desc = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	} rasterizer;
 
-	class OutputMerger {
-	public:
-		OutputMerger() { }
-		OutputMerger(const ComPtr<ID3D12Device> &device, const UVector2 &resolution) {
-			create_depth_stencil(resolution, device);
-		}
-
-		void compile(const UVector2 &resolution, const ComPtr<ID3D12Device> &device) {
-			create_depth_stencil(resolution, device);
-		}
-
-		void update(const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle) {
-			command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
-
-			// get a handle to the depth/stencil buffer
-			CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
-
-			// set the render target for the output merger stage (the output of the pipeline)
-			command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
-		}
-
-		void create_depth_stencil(const UVector2 &resolution, const ComPtr<ID3D12Device> &device);
-
-		bool operator==(const OutputMerger &output_merger) const noexcept {
-			return (
-				depth_stencil_buffer == output_merger.depth_stencil_buffer &&
-				depth_stencil_descriptor_heap == output_merger.depth_stencil_descriptor_heap
-			);
-		}
-
-		ComPtr<ID3D12Resource> depth_stencil_buffer = nullptr; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
-		ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap = nullptr; // This is a heap for our depth/stencil buffer descriptor
-
-	private:
-		friend GraphicsPipeline;
-
-		D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
-	} output_merger;
-
 	class StreamOutput {
 	public:
 		StreamOutput() : desc({}) { }
@@ -317,7 +278,7 @@ public:
 		D3D12_STREAM_OUTPUT_DESC desc = {};
 	} stream_output;
 
-	class RootSignature {
+	class RootSignature { // https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12
 	public:
 		class RootArgument {
 			RootArgument() { }
@@ -377,7 +338,7 @@ public:
 				this->parameter_index = parameter_index;
 				this->root_parameters.resize(1u);
 				
-				constants.Num32BitValues = (number_of_values == -1 ? sizeof(obj) / 32u : number_of_values);
+				constants.Num32BitValues = (number_of_values == (UINT)-1 ? (UINT)obj_size / 32u : number_of_values);
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
 
@@ -399,8 +360,6 @@ public:
 			size_t obj_size = 0u;
 
 			D3D12_ROOT_CONSTANTS constants = { };
-
-			UINT number_of_values = -1;
 		};
 
 		class ConstantBuffer {
@@ -499,6 +458,10 @@ public:
 			ConstantBufferContainer(const T &obj)
 				: obj(std::make_shared<T>(obj)) {
 				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+			}
+
+			bool operator==(ConstantBufferContainer &c) {
+				return (obj == c.obj);
 			}
 
 			std::shared_ptr<T> obj = { };
