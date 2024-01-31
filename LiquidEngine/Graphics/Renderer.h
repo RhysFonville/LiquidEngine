@@ -53,6 +53,9 @@ private:
 	std::string video_card_desc;
 	ComPtr<IDXGIAdapter1> adapter = nullptr;
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
+	ComPtr<ID3D12Resource> depth_stencil_buffer = nullptr; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
+	ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap = nullptr; // This is a heap for our depth/stencil buffer descriptor
+	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 
 	ComPtr<ID3D12Debug1> debug_interface = nullptr;
 	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
@@ -66,13 +69,16 @@ private:
 	void create_command_allocators();
 	void create_command_list();
 	void create_fences_and_fence_event();
+	void create_depth_stencil();
 
 	struct CBS {
-		PerFrameVSCB per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
-		PerObjectVSCB per_object_vs = PerObjectVSCB();
-		GraphicsPipeline::ConstantBuffer<PerFramePSCB> per_frame_ps = PerFramePSCB();
-		GraphicsPipeline::ConstantBuffer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
-		SkyPSCB sky_ps = SkyPSCB();
+		GraphicsPipeline::RootSignature::RootConstantsContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
+		GraphicsPipeline::RootSignature::RootConstantsContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
+		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
+		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
+		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFramePSCB> per_frame_ps = PerFramePSCB();
+		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
+		GraphicsPipeline::RootSignature::RootConstantsContainer<SkyPSCB> sky_ps = SkyPSCB();
 	} cbs;
 
 	UINT frame_index = 0u;

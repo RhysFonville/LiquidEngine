@@ -70,7 +70,7 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 
 	if (material.has_texture)
 		kd = object_texture.Sample(static_sampler_state, ps_in.texcoord);
-
+	
 	float4 final_color = material.ka*ia;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 

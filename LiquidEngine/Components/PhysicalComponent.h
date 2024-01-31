@@ -1,11 +1,11 @@
 #pragma once
 
-#include "GraphicsComponent.h"
+#include "Component.h"
 #include "../PhysicsBody.h"
 
-class PhysicalComponent : public GraphicsComponent {
+class PhysicalComponent : public Component {
 public:
-	PhysicalComponent(Type type) : GraphicsComponent(type) { }
+	PhysicalComponent(Type type) : Component(type) { }
 
 	PhysicsBody physics_body;
 };

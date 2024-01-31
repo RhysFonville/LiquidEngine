@@ -6,7 +6,7 @@
 
 class Engine {
 public:
-	Engine(HINSTANCE hInstance);
+	Engine();
 
 	void compile();
 	void loop();

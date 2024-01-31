@@ -11,12 +11,12 @@ public:
 
 	void set_mass(float mass);
 
+	void tick();
+
 	FVector3 previous_position = FVector3();
 
 	FVector3 velocity = FVector3();
 	FVector3 acceleration = FVector3();
-	float speed = 0.0f; 
-	float kinetic_energy = 0.0f;
 	FVector3 momentum = FVector3();
 
 	std::vector<Mechanics::Force> forces;

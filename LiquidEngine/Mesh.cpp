@@ -19,7 +19,6 @@ Mesh::Mesh(const std::vector<Vertex> &vertices)
 }
 
 Mesh::Mesh(const std::string &file) : indices(std::vector<UINT>()) {
-
 	set_vertices(file);
 	bounding_box = SimpleBox(verts_to_simple_verts(vertices));
 	triangles = split_into_triangles(vertices);

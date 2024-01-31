@@ -10,9 +10,8 @@ public:
 	void operator=(const PointLightComponent &light) noexcept;
 
 	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
+	FVector3 attenuation = FVector3(0.0f, 0.2f, 0.0f);
 	bool null = false;
 
 	static const Type component_type = Type::PointLightComponent;
 };
-

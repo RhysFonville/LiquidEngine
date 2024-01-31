@@ -84,7 +84,7 @@ public:
 	int has_texture = 1;
 	int has_normal_map = 1;
 	FVector2 pad = FVector2(0.0f, 0.0f);
-	FVector4 ks = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Specular
+	FVector4 ks = FVector4(0.3f, 0.3f, 0.3f, 0.3f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
 	float a = 0.5f; // Shininess
@@ -92,17 +92,17 @@ public:
 
 _declspec(align(16))
 struct PerFrameVSCB { // b0
-	XMMATRIX WVP;
+	XMMATRIX WVP = XMMatrixIdentity();
 };
 
 _declspec(align(16))
 struct PerObjectVSCB { // b1
-	XMMATRIX transform;
+	XMMATRIX transform = XMMatrixIdentity();
 };
 
 _declspec(align(16))
 struct PerFramePSCB { // b2
-	FVector3 camera_position;
+	FVector3 camera_position = FVector3(0.0f, 0.0f, 0.0f);
 
 	UINT directional_light_count = 0;
 	UINT point_light_count = 0;
@@ -129,6 +129,13 @@ struct SkyPSCB { // b4
 	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
+struct RenderingStaticMesh {
+	RenderingStaticMesh(StaticMeshComponent* smc) : mesh{smc} { }
+	StaticMeshComponent* mesh;
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectPSCB> material_cb = PerObjectPSCB();
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFramePSCB> lights_cb = PerFramePSCB();
+};
+
 class GraphicsScene {
 public:
 	GraphicsScene() { }
@@ -140,17 +147,17 @@ public:
 		} else if (LightComponent::is_light_component(*component)) {
 			lights.push_back((LightComponent*)component);
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
-			static_meshes.push_back((StaticMeshComponent*)component);
+			static_meshes.push_back(RenderingStaticMesh{(StaticMeshComponent*)component});
 		}
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
 	void remove_component(const T *component) {
 		if (component->get_type() == Component::Type::StaticMeshComponent) {
-			auto static_meshes_index = std::find(static_meshes.begin(), static_meshes.end(), (StaticMeshComponent*)component);
-			if (static_meshes_index == static_meshes.end()) {
-				static_meshes.erase(static_meshes_index);
-			}
+			//auto static_meshes_index = std::find(static_meshes.begin(), static_meshes.end(), (StaticMeshComponent*)component);
+			//if (static_meshes_index == static_meshes.end()) {
+			//	static_meshes.erase(static_meshes_index);
+			//}
 		}
 		
 		if (component->get_type() == Component::Type::CameraComponent) {
@@ -169,12 +176,12 @@ public:
 
 	void clean_up();
 
-	Sky sky;
+	//Sky sky;
 
 private:
-	friend class Renderer;
+	friend Renderer;
 
-	std::vector<StaticMeshComponent*> static_meshes = { };
-	CameraComponent* camera = nullptr;
+	std::vector<RenderingStaticMesh> static_meshes = { };
 	std::vector<LightComponent*> lights = { };
+	CameraComponent* camera = nullptr;
 };

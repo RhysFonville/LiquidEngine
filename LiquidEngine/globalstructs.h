@@ -7,6 +7,7 @@
 #include <dxgi1_4.h>
 #include <string>
 #include <algorithm>
+#include <array>
 
 using namespace DirectX;
 
@@ -457,9 +458,7 @@ struct SimpleVertex {
 	FVector3 position = FVector3();
 
 	SimpleVertex() { }
-
 	SimpleVertex(float x, float y, float z) : position(FVector3(x, y, z)) { }
-
 	SimpleVertex(FVector3 position)
 		: position(position) { }
 
@@ -528,26 +527,33 @@ struct Triangle {
 };
 
 struct SimpleBox {
-	std::vector<SimpleVertex> vertices;
+	std::array<SimpleVertex, 8> vertices = {
+		SimpleVertex(0.0f, 0.0f, 0.0f),
+		SimpleVertex(0.0f, 0.0f, 1.0f),
+		SimpleVertex(0.0f, 1.0f, 0.0f),
+		SimpleVertex(0.0f, 1.0f, 1.0f),
+		SimpleVertex(1.0f, 0.0f, 0.0f),
+		SimpleVertex(1.0f, 0.0f, 1.0f),
+		SimpleVertex(1.0f, 1.0f, 0.0f),
+		SimpleVertex(1.0f, 1.0f, 1.0f)
+	};
 
-	SimpleBox() : vertices(std::vector<SimpleVertex>(8)) { }
+	SimpleBox() { }
 	SimpleBox(const std::vector<SimpleVertex> &verts) {
-		vertices.reserve(8);
-
 		auto x_extremes = std::minmax_element(verts.begin(), verts.end(),
 			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
 				return lhs.position.x < rhs.position.x;
-			});
+		});
 
 		auto y_extremes = std::minmax_element(verts.begin(), verts.end(),
 			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
 				return lhs.position.y < rhs.position.y;
-			});
+		});
 
 		auto z_extremes = std::minmax_element(verts.begin(), verts.end(),
 			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
 				return lhs.position.z < rhs.position.z;
-			});
+		});
 
 		SimpleVertex v1(x_extremes.first->position.x,
 			y_extremes.first->position.y,
@@ -582,7 +588,7 @@ struct SimpleBox {
 			z_extremes.second->position.z
 		);
 
-		vertices = std::vector<SimpleVertex>({ v1, v2, v3, v4, v5, v6, v7, v8 });
+		vertices = { v1, v2, v3, v4, v5, v6, v7, v8 };
 	}
 
 	std::vector<SimpleTriangle> split_into_triangles() {
@@ -599,7 +605,7 @@ struct SimpleBox {
 			SimpleTriangle({ vertices[7], vertices[3], vertices[2] }),
 /*TOP*/		SimpleTriangle({ vertices[5], vertices[6], vertices[2] }),
 			SimpleTriangle({ vertices[2], vertices[1], vertices[5] })
-			});
+		});
 	}
 };
 

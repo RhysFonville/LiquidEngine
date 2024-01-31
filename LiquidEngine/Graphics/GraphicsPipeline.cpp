@@ -1,24 +1,23 @@
 #include "GraphicsPipeline.h"
 
 GraphicsPipeline::GraphicsPipeline(const ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc,
-	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)), output_merger(OutputMerger(device, resolution)) { }
+	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)) { }
 
-void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index) {
+void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
 	command_list->SetPipelineState(pipeline_state_object.Get());
 	command_list->SetGraphicsRootSignature(root_signature.signature.Get()); // set the root signature
 	
 	root_signature.update(device, command_list, frame_index);
 	input_assembler.update(device, command_list);
 	rasterizer.update(command_list);
-	output_merger.update(command_list, rtv_handle);
 }
 
-void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	if (compilation_signal) {
-		compile(device, command_list, sample_desc, resolution);
+		compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 	}
 	
-	update(device, command_list, rtv_handle, frame_index);
+	update(device, command_list, frame_index);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
 	UINT verts = 0;
@@ -29,7 +28,7 @@ void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D
 	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
-void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const UVector2 &resolution) {
+void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	root_signature.compile(device, command_list);
 	vs.compile();
 	hs.compile();
@@ -37,7 +36,6 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	gs.compile();
 	rasterizer.compile(resolution);
 	ps.compile();
-	output_merger.compile(resolution, device);
 
 	// Fill PSO
 
@@ -58,7 +56,7 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	pso_desc.GS = gs.bytecode;
 	pso_desc.RasterizerState = rasterizer.desc;
 	pso_desc.PS = ps.bytecode;
-	pso_desc.DepthStencilState = output_merger.depth_stencil_desc; // a default depth stencil state
+	pso_desc.DepthStencilState = depth_stencil_desc; // a default depth stencil state
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
 	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
@@ -69,7 +67,7 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 
 	// create the pso
 	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
-	pipeline_state_object->SetName(L"Main PSO");
+	HPEW(pipeline_state_object->SetName(L"Main PSO"));
 }
 
 void GraphicsPipeline::clean_up() {
@@ -77,9 +75,6 @@ void GraphicsPipeline::clean_up() {
 	for (auto &buffer : input_assembler.vertex_buffers) {
 		buffer.Reset();
 	}
-
-	output_merger.depth_stencil_buffer.Reset();
-	output_merger.depth_stencil_descriptor_heap.Reset();
 }
 
 bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexcept {
@@ -95,7 +90,6 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 
 	tesselator == pipeline.tesselator &&
 	rasterizer == pipeline.rasterizer &&
-	output_merger == pipeline.output_merger &&
 	stream_output == pipeline.stream_output);
 }
 
@@ -112,9 +106,12 @@ void GraphicsPipeline::operator=(const GraphicsPipeline &pipeline) noexcept {
 
 	tesselator = pipeline.tesselator;
 	rasterizer = pipeline.rasterizer;
-	output_merger = pipeline.output_merger;
 	stream_output = pipeline.stream_output;
 }
+
+// +-----------------+
+// | Input Assembler |
+// +-----------------+
 
 void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<ID3D12Device> &device,
 	const ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index) {
@@ -137,7 +134,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 		IID_PPV_ARGS(&vertex_buffer_upload));
 
 	ResourceManager::Release::resources.push_back(vertex_buffer_upload);
-	vertex_buffer_upload->SetName(L"Vertex Buffer Upload Resource Heap");
+	HPEW(vertex_buffer_upload->SetName(L"Vertex Buffer Upload Resource Heap"));
 
 	void* p = nullptr;
 	vertex_buffer_upload->Map(0, nullptr, &p);
@@ -159,7 +156,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 		IID_PPV_ARGS(&vertex_buffers[index])
 	);
 
-	vertex_buffers[index]->SetName(L"Vertex Buffer Default Resource Heap");
+	HPEW(vertex_buffers[index]->SetName(L"Vertex Buffer Default Resource Heap"));
 
 	command_list->CopyResource(vertex_buffers[index].Get(), vertex_buffer_upload);
 
@@ -205,39 +202,9 @@ const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::
 	return vertex_buffer_views;
 }
 
-void GraphicsPipeline::OutputMerger::create_depth_stencil(const UVector2 &resolution, const ComPtr<ID3D12Device> &device) {
-	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
-	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
-	dsv_heap_desc.NumDescriptors = 1;
-	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
-	dsv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-	HPEW(device->CreateDescriptorHeap(&dsv_heap_desc, IID_PPV_ARGS(&depth_stencil_descriptor_heap)));
-	depth_stencil_descriptor_heap->SetName(L"Depth Stencil Descriptor Heap");
-
-	D3D12_DEPTH_STENCIL_VIEW_DESC depth_stencil_desc = {};
-	depth_stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
-	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
-	depth_stencil_desc.Flags = D3D12_DSV_FLAG_NONE;
-
-	D3D12_CLEAR_VALUE depth_clear_value = {};
-	depth_clear_value.Format = DXGI_FORMAT_D32_FLOAT;
-	depth_clear_value.DepthStencil.Depth = 1.0f;
-	depth_clear_value.DepthStencil.Stencil = 0;
-
-	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, resolution.x, resolution.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
-	device->CreateCommittedResource(
-		&heap_properties,
-		D3D12_HEAP_FLAG_NONE,
-		&tex,
-		D3D12_RESOURCE_STATE_DEPTH_WRITE,
-		&depth_clear_value,
-		IID_PPV_ARGS(&depth_stencil_buffer)
-	);
-	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
-
-	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
-}
+// +----------------+
+// | Root Signature |
+// +----------------+
 
 void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	compilation_params.clear();
@@ -246,9 +213,9 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 			if (table.parameter_index == i)
 				compilation_params.push_back(table.root_parameters[0]);
 		}
-		for (const RootConstants &constants : root_constants) {
-			if (constants.parameter_index == i)
-				compilation_params.push_back(constants.root_parameters[0]);
+		for (const RootConstants* constants : root_constants) {
+			if (constants->parameter_index == i)
+				compilation_params.push_back(constants->root_parameters[0]);
 		}
 	}
 
@@ -279,7 +246,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	HPEW(D3D12SerializeRootSignature(&signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature_blob, &error_buf), HPEW_ERR_BLOB_PARAM(error_buf));
 
 	HPEW(device->CreateRootSignature(0, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
-	signature->SetName(L"Main Root Signature");
+	HPEW(signature->SetName(L"Main Root Signature"));
 
 	// Create a constant buffer descriptor heap for each frame
 	// this is the descriptor heap that will store our constant buffer descriptor
@@ -292,7 +259,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 			heap_desc.NodeMask = 0u;
 
 			HPEW(device->CreateDescriptorHeap(&heap_desc, IID_PPV_ARGS(&descriptor_heaps[i])));
-			descriptor_heaps[i]->SetName(string_to_wstring("CBV/SRV/UAV Descriptor Heap #" + std::to_string(i)).c_str());
+			HPEW(descriptor_heaps[i]->SetName(string_to_wstring("CBV/SRV/UAV Descriptor Heap #" + std::to_string(i)).c_str()));
 		}
 	}
 
@@ -310,6 +277,7 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 			srv->update(device, command_list);
 		}
 	}
+
 	for (ConstantBuffer* cb : constant_buffers) {
 		cb->apply(frame_index);
 	}
@@ -328,8 +296,8 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 		command_list->SetGraphicsRootDescriptorTable(descriptor_table.parameter_index, handle);
 	}
 
-	for (const RootConstants &constants : root_constants) {
-		command_list->SetGraphicsRoot32BitConstants(constants.parameter_index, constants.constants.Num32BitValues, constants.obj, 0u);
+	for (const RootConstants* constants : root_constants) {
+		command_list->SetGraphicsRoot32BitConstants(constants->parameter_index, constants->constants.Num32BitValues, constants->obj, 0u);
 	}
 }
 
@@ -400,7 +368,7 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		if (gpu_addresses[i] != cb.gpu_addresses[i]) return false;
 	}
 	
-	return (//obj == cb.obj &&						std::equal_to<void> no matching call operator found
+	return (//obj == cb.obj && std::equal_to<void> no matching call operator found
 		obj_size == cb.obj_size &&
 		name == cb.name);
 }
@@ -437,7 +405,6 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const Di
 		.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING,
 		.Texture2D{.MipLevels = heap_desc.MipLevels },
 	};
-
 
 	if (is_texture_cube) {
 		srv_desc.TextureCube.MipLevels = (UINT)mip_chain.GetImageCount();
@@ -488,7 +455,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 	));
 
 	ResourceManager::Release::resources.push_back(upload_buffer);
-	upload_buffer->SetName(L"Shader resource view upload buffer");
+	HPEW(upload_buffer->SetName(L"Shader resource view upload buffer"));
 
 	// write commands to copy data to upload texture (copying each subresource) 
 	UpdateSubresources(
