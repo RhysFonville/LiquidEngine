@@ -210,19 +210,15 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	//scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	//scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	//scene.sky.pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-	//scene.sky.pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-	//scene.sky.pipeline.root_signature.bind_root_constants<SkyPSCB>(cbs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
+	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(rcs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(rcs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.pipeline.root_signature.bind_constant_buffer<SkyPSCB>(rcs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
 
-	//scene.sky.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+	scene.sky.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(cbs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(cbs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_frame_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
-		//mesh->get_material().pipeline.root_signature.bind_constant_buffer(cbs.per_object_vs.cb, D3D12_SHADER_VISIBILITY_VERTEX);
+		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(rcs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(rcs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.lights_cb, D3D12_SHADER_VISIBILITY_PIXEL);
 		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.material_cb, D3D12_SHADER_VISIBILITY_PIXEL);
 
@@ -307,23 +303,18 @@ void Renderer::update() {
 		}
 	}
 
-	//Transform sky_transform;
-	//if (scene.camera != nullptr) {
-	//	sky_transform.position = scene.camera->get_position();
-	//}
-	//cbs.per_object_vs.obj->transform = sky_transform;
+	Transform sky_transform;
+	if (scene.camera != nullptr) {
+		sky_transform.position = scene.camera->get_position();
+	}
+	rcs.per_object_vs.obj->transform = sky_transform;
 
-	//scene.sky.pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
+	scene.sky.pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
-	/*for (StaticMeshComponent* mesh : scene.static_meshes) {
-		cbs.per_object_vs.obj->transform = mesh->get_transform();
-		cbs.per_object_ps.obj->material = (DXMaterial)mesh->get_material();
-		mesh->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
-	}*/
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
 		if (scene.camera != nullptr) {
 			scene.camera->update(UVector2_to_FVector2(resolution));
-			cbs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
+			rcs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
 			mesh.lights_cb.obj->camera_position = scene.camera->get_position();
 		}
 
@@ -334,7 +325,7 @@ void Renderer::update() {
 		mesh.lights_cb.obj->point_light_count = pl_count;
 		mesh.lights_cb.obj->spotlight_count = sl_count;
 
-		cbs.per_object_vs.obj->transform = mesh.mesh->get_transform();
+		rcs.per_object_vs.obj->transform = mesh.mesh->get_transform();
 		mesh.material_cb.obj->material = (DXMaterial)mesh.mesh->get_material();
 		mesh.mesh->get_material().pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}

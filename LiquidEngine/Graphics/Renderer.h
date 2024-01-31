@@ -71,15 +71,13 @@ private:
 	void create_fences_and_fence_event();
 	void create_depth_stencil();
 
-	struct CBS {
+	struct RCS {
 		GraphicsPipeline::RootSignature::RootConstantsContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
 		GraphicsPipeline::RootSignature::RootConstantsContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
 		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
 		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
-		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFramePSCB> per_frame_ps = PerFramePSCB();
-		GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectPSCB> per_object_ps = PerObjectPSCB();
-		GraphicsPipeline::RootSignature::RootConstantsContainer<SkyPSCB> sky_ps = SkyPSCB();
-	} cbs;
+		GraphicsPipeline::RootSignature::ConstantBufferContainer<SkyPSCB> sky_ps = SkyPSCB();
+	} rcs;
 
 	UINT frame_index = 0u;
 
