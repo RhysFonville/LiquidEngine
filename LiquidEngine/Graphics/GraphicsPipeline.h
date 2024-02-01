@@ -338,7 +338,7 @@ public:
 				this->parameter_index = parameter_index;
 				this->root_parameters.resize(1u);
 				
-				constants.Num32BitValues = (number_of_values == (UINT)-1 ? (UINT)obj_size / 32u : number_of_values);
+				constants.Num32BitValues = (number_of_values == (UINT)-1 ? (UINT)std::ceilf((float)obj_size*8.0f / 32.0f) : number_of_values);
 				constants.RegisterSpace = 0u;
 				constants.ShaderRegister = index;
 
@@ -412,6 +412,8 @@ public:
 
 					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
 					HPEW(upload_buffer->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
+
+					apply(i);
 				}
 			}
 
@@ -427,6 +429,8 @@ public:
 			UINT heap_index = 0u;
 
 			mutable std::string name = "";
+
+			bool update_signal = true;
 		};
 
 		class ShaderResourceView {
@@ -459,6 +463,8 @@ public:
 				: obj(std::make_shared<T>(obj)) {
 				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
 			}
+
+			void apply() { cb.update_signal = true; }
 
 			bool operator==(ConstantBufferContainer &c) {
 				return (obj == c.obj);

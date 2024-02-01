@@ -279,7 +279,9 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 	}
 
 	for (ConstantBuffer* cb : constant_buffers) {
-		cb->apply(frame_index);
+		if (cb->update_signal) {
+			cb->apply(frame_index);
+		}
 	}
 
 	// set constant buffer descriptor heap
@@ -361,6 +363,7 @@ bool GraphicsPipeline::RootSignature::DescriptorTable::operator==(const Descript
 
 void GraphicsPipeline::RootSignature::ConstantBuffer::apply(int frame_index) noexcept {
 	memcpy(gpu_addresses[frame_index], obj, obj_size);
+	update_signal = false;
 }
 
 bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantBuffer &cb) const noexcept {
@@ -466,6 +469,8 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update(const ComPtr<ID
 		(UINT)subresources.size(),
 		subresources.data()
 	);
+
+	update_signal = false;
 
 	// write command to transition texture to texture state  
 	/*{

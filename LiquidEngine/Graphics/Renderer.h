@@ -72,11 +72,9 @@ private:
 	void create_depth_stencil();
 
 	struct RCS {
-		GraphicsPipeline::RootSignature::RootConstantsContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
-		GraphicsPipeline::RootSignature::RootConstantsContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
-		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFrameVSCB> per_frame_vs = PerFrameVSCB(); //? Not root constants so it's not a gp::cb
-		//GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectVSCB> per_object_vs = PerObjectVSCB();
-		GraphicsPipeline::RootSignature::ConstantBufferContainer<SkyPSCB> sky_ps = SkyPSCB();
+		GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp = VSWVPConstants{};
+		GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform = VSTransformConstants{};
+		GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> camera = PSCameraConstants{};
 	} rcs;
 
 	UINT frame_index = 0u;

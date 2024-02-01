@@ -31,7 +31,7 @@ int main() {
 	obj2->add_component(std::make_shared<BoxComponent>());
 	obj2->translate(FVector3(3.0f, 0.0f, 5.0f));*/
 
-	engine.renderer.scene.sky.albedo_texture = Texture("Skybox.png");
+	//engine.renderer.scene.sky.sky.albedo_texture = Texture("Skybox.png");
 
 	engine.compile();
 	engine.loop();

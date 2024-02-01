@@ -25,10 +25,10 @@ static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 //};
 
 _declspec(align(16))
-class DXDLight /*: DXLight*/ {
+class RenderingDirectionalLight /*: DXLight*/ {
 public:
-	DXDLight() { }
-	DXDLight(const DirectionalLightComponent &light)
+	RenderingDirectionalLight() { }
+	RenderingDirectionalLight(const DirectionalLightComponent &light)
 		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()),
 		direction(light.get_rotation()), null(0) { }
@@ -40,10 +40,10 @@ public:
 };
 
 _declspec(align(16))
-class DXPLight /*: DXLight*/ {
+class RenderingPointLight /*: DXLight*/ {
 public:
-	DXPLight() { }
-	DXPLight(const PointLightComponent &light, const FVector3 &pos)
+	RenderingPointLight() { }
+	RenderingPointLight(const PointLightComponent &light, const FVector3 &pos)
 		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()), range(light.range),
 		attenuation(light.attenuation), position(pos), null(0) { }
@@ -57,10 +57,10 @@ public:
 };
 
 _declspec(align(16))
-class DXSLight /*: DXLight*/ {
+class RenderingSpotlight /*: DXLight*/ {
 public:
-	DXSLight() { }
-	DXSLight(const SpotlightComponent &light)
+	RenderingSpotlight() { }
+	RenderingSpotlight(const SpotlightComponent &light)
 		: albedo(light.albedo.to_vec_normalized()),
 		specular(light.specular.to_vec_normalized()),
 		direction(light.get_rotation()), null(0) { }
@@ -72,10 +72,10 @@ public:
 };
 
 _declspec(align(16))
-class DXMaterial {
+class RenderingMaterial {
 public:
-	DXMaterial() { }
-	DXMaterial(const Material &material)
+	RenderingMaterial() { }
+	RenderingMaterial(const Material &material)
 		: has_texture(material.has_texture()), has_normal_map(material.has_normal_map()),
 		a(material.shininess), ks(material.specular.to_vec_normalized()),
 		kd(material.albedo.to_vec_normalized()),
@@ -91,40 +91,44 @@ public:
 };
 
 _declspec(align(16))
-struct PerFrameVSCB { // b0
+struct VSWVPConstants { // b0
 	XMMATRIX WVP = XMMatrixIdentity();
 };
 
 _declspec(align(16))
-struct PerObjectVSCB { // b1
+struct VSTransformConstants { // b1
 	XMMATRIX transform = XMMatrixIdentity();
 };
 
 _declspec(align(16))
-struct PerFramePSCB { // b2
-	FVector3 camera_position = FVector3(0.0f, 0.0f, 0.0f);
-
+struct PSLightsCB { // b2
 	UINT directional_light_count = 0;
 	UINT point_light_count = 0;
 	UINT spotlight_count = 0;
 
-	DXDLight directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	DXPLight point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	DXSLight spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	RenderingDirectionalLight directional_lights[MAX_LIGHTS_PER_TYPE] = { };
+	RenderingPointLight point_lights[MAX_LIGHTS_PER_TYPE] = { };
+	RenderingSpotlight spotlights[MAX_LIGHTS_PER_TYPE] = { };
 };
 
 __declspec(align(16))
-struct PerObjectPSCB { // b3
-	DXMaterial material;
+struct PSCameraConstants { // b3
+	FVector3 camera_position = FVector3(0.0f, 0.0f, 0.0f);
+	float pad = 0.0f;
 };
 
 __declspec(align(16))
-struct SkyPSCB { // b4
-	SkyPSCB() { }
-	SkyPSCB(const Sky &sky) : has_texture(sky.has_texture()),
-		albedo(sky.albedo) { }
+struct PSMaterialCB { // b4
+	RenderingMaterial material;
+};
 
-	int has_texture = true;
+__declspec(align(16))
+struct PSSkyCB { // b2
+	PSSkyCB() { }
+	PSSkyCB(const Sky &sky) : has_texture(sky.has_texture()),
+		albedo(sky.albedo.to_vec_normalized()) { }
+
+	int has_texture = false;
 	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);
 	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
@@ -132,8 +136,14 @@ struct SkyPSCB { // b4
 struct RenderingStaticMesh {
 	RenderingStaticMesh(StaticMeshComponent* smc) : mesh{smc} { }
 	StaticMeshComponent* mesh;
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PerObjectPSCB> material_cb = PerObjectPSCB();
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PerFramePSCB> lights_cb = PerFramePSCB();
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_cb = PSMaterialCB();
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_cb = PSLightsCB();
+};
+
+struct RenderingSky {
+	RenderingSky() { }
+	Sky sky{};
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> sky_cb = PSSkyCB{sky};
 };
 
 class GraphicsScene {
@@ -176,7 +186,7 @@ public:
 
 	void clean_up();
 
-	Sky sky;
+	RenderingSky sky;
 
 private:
 	friend Renderer;
