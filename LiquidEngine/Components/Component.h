@@ -12,7 +12,8 @@ public:
 		DirectionalLightComponent,
 		PointLightComponent,
 		SpotlightComponent,
-		BoxComponent
+		BoxComponent,
+		SkyComponent
 	};
 
 	Component() : type(Type::None) { }

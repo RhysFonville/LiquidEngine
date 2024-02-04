@@ -5,8 +5,8 @@ PointLightComponent::PointLightComponent()
 
 bool PointLightComponent::operator==(const PointLightComponent &component) const noexcept {
 	return ((Component*)this == (Component*)&component &&
-		attenuation == component.attenuation &&
 		range == component.range &&
+		attenuation == component.attenuation &&
 		albedo == component.albedo);
 }
 

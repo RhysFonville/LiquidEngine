@@ -8,6 +8,12 @@ void Texture::compile() {
 	set_texture(file);
 }
 
+//void Texture::operator==(const Texture &texture) noexcept {
+//	image = texture.image;
+//	mip_chain = texture.mip_chain;
+//	srv.update_signal = true;
+//}
+
 bool Texture::operator==(const Texture &texture) const noexcept {
 	return (file == texture.file);
 }

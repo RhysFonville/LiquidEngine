@@ -210,20 +210,20 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	scene.sky.sky.pipeline.root_signature.bind_root_constants<VSWVPConstants>(rcs.wvp, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.sky.pipeline.root_signature.bind_root_constants<VSTransformConstants>(rcs.transform, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.sky.pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.sky_cb, D3D12_SHADER_VISIBILITY_PIXEL);
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
 
-	scene.sky.sky.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<VSWVPConstants>(rcs.wvp, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<VSTransformConstants>(rcs.transform, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.lights_cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants(rcs.camera, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.material_cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.component->material.pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.component->material.pipeline.root_signature.bind_root_constants<VSTransformConstants>(mesh.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.component->material.pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
+		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
-		mesh.mesh->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+		mesh.component->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 	}
  
 	HPEW(command_list->Close());
@@ -274,64 +274,12 @@ void Renderer::update() {
 
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
-	std::vector<RenderingDirectionalLight> dl(MAX_LIGHTS_PER_TYPE);
-	std::vector<RenderingPointLight> pl(MAX_LIGHTS_PER_TYPE);
-	std::vector<RenderingSpotlight> sl(MAX_LIGHTS_PER_TYPE);
-	UINT dl_count = 0;
-	UINT pl_count = 0;
-	UINT sl_count = 0;
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
-		dl[i].null = true;
-		pl[i].null = true;
-		sl[i].null = true;
-	}
+	scene.update(resolution);
 
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < scene.lights.size(); i++) {
-		if (scene.lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			auto light = ((DirectionalLightComponent*)scene.lights[i]);
-			dl[dl_count] = RenderingDirectionalLight(*light);
-			dl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::PointLightComponent) {
-			auto light = ((PointLightComponent*)scene.lights[i]);
-			pl[pl_count] = RenderingPointLight(*light, scene.lights[i]->get_position());
-			pl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			auto light = ((SpotlightComponent*)scene.lights[i]);
-			sl[sl_count] = RenderingSpotlight(*light);
-			sl_count++;
-		}
-	}
-
-	Transform sky_transform;
-	if (scene.camera != nullptr) {
-		scene.camera->update(UVector2_to_FVector2(resolution));
-		rcs.wvp.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
-		rcs.camera.obj->camera_position = scene.camera->get_position();
-		
-		sky_transform.position = scene.camera->get_position();
-	}
-	rcs.transform.obj->transform = sky_transform;
-
-	scene.sky.sky_cb.apply();
-
-	scene.sky.sky.pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		std::copy(dl.begin(), dl.end(), mesh.lights_cb.obj->directional_lights);
-		std::copy(pl.begin(), pl.end(), mesh.lights_cb.obj->point_lights);
-		std::copy(sl.begin(), sl.end(), mesh.lights_cb.obj->spotlights);
-		mesh.lights_cb.obj->directional_light_count = dl_count;
-		mesh.lights_cb.obj->point_light_count = pl_count;
-		mesh.lights_cb.obj->spotlight_count = sl_count;
-		mesh.lights_cb.apply();
-
-		rcs.transform.obj->transform = mesh.mesh->get_transform();
-		mesh.material_cb.obj->material = (RenderingMaterial)mesh.mesh->get_material();
-		mesh.material_cb.apply();
-
-		mesh.mesh->get_material().pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
+		mesh.component->material.pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}
 
 	//cbs.per_object_vs.obj->transform = scene.static_meshes[0]->get_transform();

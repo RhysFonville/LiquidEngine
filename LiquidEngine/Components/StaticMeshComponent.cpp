@@ -23,7 +23,7 @@ void StaticMeshComponent::clean_up() {
 	material.clean_up();
 }
 
-Mesh StaticMeshComponent::get_mesh() const noexcept {
+const Mesh & StaticMeshComponent::get_mesh() const noexcept {
 	return mesh;
 }
 
@@ -32,9 +32,11 @@ void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh.compile();
 
 	proxy->add_mesh(mesh);
+
+	changed = true;
 }
 
-Material & StaticMeshComponent::get_material() noexcept {
+const Material & StaticMeshComponent::get_material() const noexcept {
 	return material;
 }
 
@@ -45,6 +47,13 @@ void StaticMeshComponent::set_material(const Material &material) noexcept {
 	this->material.pipeline.input_assembler.set_proxy(proxy);
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
+
+	changed = true;
+}
+
+void StaticMeshComponent::set_material_data(const Material &material) noexcept {
+	this->material.set_data(material);
+	changed = true;
 }
 
 bool StaticMeshComponent::operator==(const StaticMeshComponent &mesh) const noexcept {

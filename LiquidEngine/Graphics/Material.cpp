@@ -93,6 +93,16 @@ void Material::set_data(const std::string &file) {
 	}
 }
 
+void Material::set_data(const Material &material) {
+	albedo_texture.set_texture(material.albedo_texture.get_file());
+	normal_map.set_texture(material.normal_map.get_file());
+	specular = material.specular;
+	albedo = material.albedo;
+	ambient = material.ambient;
+	shininess = material.shininess;
+
+}
+
 bool Material::has_texture() const noexcept {
 	return albedo_texture.exists();
 }

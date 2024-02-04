@@ -71,12 +71,6 @@ private:
 	void create_fences_and_fence_event();
 	void create_depth_stencil();
 
-	struct RCS {
-		GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp = VSWVPConstants{};
-		GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform = VSTransformConstants{};
-		GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> camera = PSCameraConstants{};
-	} rcs;
-
 	UINT frame_index = 0u;
 
 	DXGI_SAMPLE_DESC sample_desc = { };

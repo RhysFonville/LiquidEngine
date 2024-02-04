@@ -280,7 +280,9 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 
 	for (ConstantBuffer* cb : constant_buffers) {
 		if (cb->update_signal) {
-			cb->apply(frame_index);
+			for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+				cb->apply(i);
+			}
 		}
 	}
 

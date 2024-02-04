@@ -116,7 +116,7 @@
     <ClInclude Include="Graphics\ComputePipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Sky.h">
+    <ClInclude Include="Components\SkyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ResourceManager.h">
@@ -229,7 +229,7 @@
     <ClCompile Include="Graphics\ComputePipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Sky.cpp">
+    <ClCompile Include="Components\SkyComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">

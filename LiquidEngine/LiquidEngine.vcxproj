@@ -185,7 +185,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsScene.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Graphics\Sky.h" />
+    <ClInclude Include="Components\SkyComponent.h" />
     <ClInclude Include="StaticEngineProcessToggles.h" />
     <ClInclude Include="Debug\Throw.h" />
     <ClInclude Include="Window.h" />
@@ -223,7 +223,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Graphics\Sky.cpp" />
+    <ClCompile Include="Components\SkyComponent.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
