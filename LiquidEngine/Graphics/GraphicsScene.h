@@ -93,8 +93,8 @@ public:
 
 	bool update() {
 		if (component->has_changed()) {
-			data.albedo = component->get_albedo();
-			data.specular = component->get_specular();
+			data.albedo = component->get_albedo().to_vec_normalized();
+			data.specular = component->get_specular().to_vec_normalized();
 			data.range = component->get_range();
 			data.attenuation = component->get_attenuation();
 			data.null = component->is_null();
@@ -231,12 +231,14 @@ public:
 		for (int i = 0; i < dl.size(); i++) {
 			lights_data.obj->directional_lights[i] = dl[i].data;
 		}
-		for (int i = 0; i < dl.size(); i++) {
+		for (int i = 0; i < pl.size(); i++) {
 			lights_data.obj->point_lights[i] = pl[i].data;
 		}
-		for (int i = 0; i < dl.size(); i++) {
+		for (int i = 0; i < sl.size(); i++) {
 			lights_data.obj->spotlights[i] = sl[i].data;
 		}
+
+		lights_data.apply();
 	}
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
@@ -252,11 +254,11 @@ public:
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky} { }
 
 	bool update(FVector3 camera_pos) {
+		transform_data.obj->transform = Transform{camera_pos};
 		if (component->has_changed()) {
 			data.obj->albedo = component->get_albedo();
 			data.obj->has_texture = component->has_texture();
 			data.apply();
-			transform_data.obj->transform = Transform{camera_pos};
 			return true;
 		}
 		return false;
@@ -333,6 +335,25 @@ public:
 		}
 	}
 
+	void compile() {
+		for (RenderingDirectionalLight &dl : directional_lights) {
+			dl.component->has_changed(true);
+		}
+		for (RenderingPointLight &pl : point_lights) {
+			pl.component->has_changed(true);
+		}
+		for (RenderingSpotlight &sl : spotlights) {
+			sl.component->has_changed(true);
+		}
+
+		for (RenderingStaticMesh &mesh : static_meshes) {
+			mesh.component->has_changed(true);
+		}
+
+		camera.component->has_changed(true);
+		sky.component->has_changed(true);
+	}
+
 	void update(UVector2 resolution) {
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
@@ -352,6 +373,23 @@ public:
 
 		camera.update(resolution);
 		sky.update(camera.pos_data.obj->camera_position);
+
+		for (RenderingDirectionalLight &dl : directional_lights) {
+			dl.component->has_changed(false);
+		}
+		for (RenderingPointLight &pl : point_lights) {
+			pl.component->has_changed(false);
+		}
+		for (RenderingSpotlight &sl : spotlights) {
+			sl.component->has_changed(false);
+		}
+
+		for (RenderingStaticMesh &mesh : static_meshes) {
+			mesh.component->has_changed(false);
+		}
+
+		camera.component->has_changed(false);
+		sky.component->has_changed(false);
 	}
 
 	void clean_up();

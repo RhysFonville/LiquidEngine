@@ -30,6 +30,7 @@ public:
 	}
 
 	bool has_changed() const noexcept { return changed; }
+	void has_changed(bool changed) noexcept { this->changed = changed; }
 
 protected:
 	bool changed{false};

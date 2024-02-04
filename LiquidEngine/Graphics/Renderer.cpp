@@ -210,6 +210,8 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
+	scene.compile();
+
 	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
@@ -281,10 +283,6 @@ void Renderer::update() {
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
 		mesh.component->material.pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}
-
-	//cbs.per_object_vs.obj->transform = scene.static_meshes[0]->get_transform();
-	//cbs.per_object_ps.obj->material = (DXMaterial)scene.static_meshes[0]->get_material();
-	//scene.static_meshes[0]->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
