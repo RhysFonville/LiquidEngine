@@ -6,17 +6,15 @@ StaticMeshComponent::StaticMeshComponent(Mesh mesh)
 }
 
 void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) noexcept {
-	material.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
-
 	mesh.compile();
 	proxy->add_mesh(mesh);
+	material.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 }
 
 void StaticMeshComponent::compile() noexcept {
-	material.compile();
-
 	mesh.compile();
 	proxy->add_mesh(mesh);
+	material.compile();
 }
 
 void StaticMeshComponent::clean_up() {
@@ -31,6 +29,7 @@ void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh = mesh;
 	this->mesh.compile();
 
+	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 
 	changed = true;

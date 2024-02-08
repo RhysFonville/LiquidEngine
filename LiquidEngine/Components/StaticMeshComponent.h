@@ -30,5 +30,5 @@ private:
 	Mesh mesh;
 	Material material;
 
-	std::shared_ptr<GraphicsPipelineMeshChangeManager> proxy = std::make_shared<GraphicsPipelineMeshChangeManager>();
+	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy = std::make_shared<GraphicsPipelineMeshChange::Manager>();
 };

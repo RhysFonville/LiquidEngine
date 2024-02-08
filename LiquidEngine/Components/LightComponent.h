@@ -24,6 +24,6 @@ public:
 
 protected:
 	Color albedo = Color(255, 255, 255, 255);
-	Color specular = Color(50, 50, 50, 255);
+	Color specular = Color(5, 5, 5, 255);
 	bool null = false;
 };

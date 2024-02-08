@@ -22,8 +22,8 @@ void SkyComponent::compile() {
 	rdesc.CullMode = D3D12_CULL_MODE_FRONT;
 	pipeline.rasterizer.set_desc(rdesc);
 
-	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, "Graphics/SkyVS.hlsl");
-	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, "Graphics/SkyPS.hlsl");
+	pipeline.vs = "Graphics/SkyVS.hlsl";
+	pipeline.ps = "Graphics/SkyPS.hlsl";
 
 	if (has_texture()) {
 		albedo_texture.compile();

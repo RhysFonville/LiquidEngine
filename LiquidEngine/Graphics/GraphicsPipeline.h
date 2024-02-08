@@ -1,18 +1,15 @@
 #pragma once
 
-#include <ranges>
 #pragma warning(push)
 #pragma warning(disable : 26495)
 #include "d3dx12.h"
 #pragma warning(pop)
-#include <D3DCompiler.h>
 #include <DirectXTex.h>
 #include <iostream>
-#include "GraphicsPipelineMeshChangeManager.h"
-#include "../Debug/Throw.h"
+#include "GraphicsPipelineMeshChange.h"
 #include "ResourceManager.h"
+#include "ShaderStorage.h"
 
-#define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
 struct alignas(16) GenerateMipsCB {
@@ -63,7 +60,7 @@ public:
 
 		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
-		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChangeManager> &change_manager) {
+		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChange::Manager> &change_manager) {
 			this->change_manager = change_manager;
 		}
 
@@ -81,7 +78,7 @@ public:
 	private:
 		friend GraphicsPipeline;
 		
-		std::shared_ptr<GraphicsPipelineMeshChangeManager> change_manager = nullptr;
+		std::shared_ptr<GraphicsPipelineMeshChange::Manager> change_manager = nullptr;
 
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -91,107 +88,11 @@ public:
 																   // the total size of the buffer, and the size of each element (vertex)
 	} input_assembler;
 
-	class Shader {
-	public:
-		enum class Type {
-			Vertex,
-			Hull,
-			Domain,
-			Geometry,
-			Pixel
-		};
-
-		Shader() { }
-		Shader(Type type) { }
-		Shader(Type type, const std::string &file_name)
-			: type(type), file_name(file_name) {
-			set_target_from_type(type);
-		}
-
-		void operator=(const Shader &shader) {
-			file_name = shader.file_name;
-			defines = shader.defines;
-			entrypoint = shader.entrypoint;
-			entrypoint = shader.entrypoint;
-			target = shader.target;
-			shader_compile_options = shader.shader_compile_options;
-			effect_compile_options = shader.effect_compile_options;
-			bytecode = shader.bytecode;
-			blob = shader.blob;
-			error_buffer = shader.error_buffer;
-			type = shader.type;
-		}
-
-		void compile() {
-			if (!file_name.empty()) {
-				// compile vertex shader
-				HPEW(D3DCompileFromFile(
-					string_to_wstring(file_name).c_str(),
-					&defines,
-					D3D_COMPILE_STANDARD_FILE_INCLUDE,
-					entrypoint.c_str(),
-					target.c_str(),
-					shader_compile_options,
-					effect_compile_options,
-					&blob,
-					&error_buffer
-				), HPEW_ERR_BLOB_PARAM(error_buffer));
-			
-				bytecode.BytecodeLength = blob->GetBufferSize();
-				bytecode.pShaderBytecode = blob->GetBufferPointer();
-			}
-		}
-
-		GET Type get_type() const noexcept { return type; }
-		void set_type(Type type) noexcept { this->type = type; }
-
-		bool operator==(const Shader &shader) const noexcept {
-			return (file_name == shader.file_name);
-		}
-		
-	private:
-		friend GraphicsPipeline;
-
-		std::string file_name = "";
-		D3D_SHADER_MACRO defines = { };
-		// Add ID3DInclude someday
-		std::string entrypoint = "main";
-		std::string target = "ps_5_0";
-		UINT shader_compile_options = D3DCOMPILE_DEBUG;
-		UINT effect_compile_options = NULL;
-		D3D12_SHADER_BYTECODE bytecode = { };
-		ComPtr<ID3DBlob> blob = nullptr; // d3d blob for holding vertex shader bytecode
-		ComPtr<ID3DBlob> error_buffer = nullptr; // a buffer holding the error data from compilation if any
-
-		void set_target_from_type(Type type) {
-			const std::string suffix = "_5_0";
-			switch (type) {
-				case Type::Vertex:
-					target = "vs";
-					break;
-				case Type::Hull:
-					target = "hs";
-					break;
-				case Type::Domain:
-					target = "ds";
-					break;
-				case Type::Geometry:
-					target = "gs";
-					break;
-				case Type::Pixel:
-					target = "ps";
-					break;
-			}
-			target += suffix;
-		}
-
-		Type type = Type::Pixel;
-	};
-	Shader vs = Shader(Shader::Type::Vertex, "DefaultVertex.hlsl");
-	Shader hs = Shader(Shader::Type::Hull);
-	Shader ds = Shader(Shader::Type::Domain);
-	Shader gs = Shader(Shader::Type::Geometry);
-	Shader ps = Shader(Shader::Type::Pixel, "LitPixel.hlsl");
+	std::string vs{"DefaultVertex.hlsl"};
+	std::string hs{};
+	std::string ds{};
+	std::string gs{};
+	std::string ps{"LitPixel.hlsl"};
 
 	class Tesselator {
 	public:

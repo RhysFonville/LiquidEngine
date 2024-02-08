@@ -30,12 +30,12 @@ void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D
 
 void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	root_signature.compile(device, command_list);
-	vs.compile();
-	hs.compile();
-	ds.compile();
-	gs.compile();
+	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
+	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
+	shader_storage->add_and_compile_shader(Shader::Type::Domain, ds);
+	shader_storage->add_and_compile_shader(Shader::Type::Geometry, gs);
+	shader_storage->add_and_compile_shader(Shader::Type::Pixel, ps);
 	rasterizer.compile(resolution);
-	ps.compile();
 
 	// Fill PSO
 
@@ -49,13 +49,13 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	pso_desc.pRootSignature = root_signature.signature.Get(); // the root signature that describes the input data this pso needs
 	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
 	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
-	pso_desc.VS = vs.bytecode; // structure describing where to find the vertex shader bytecode and how large it is
-	pso_desc.HS = hs.bytecode;
-	pso_desc.DS = ds.bytecode;
+	pso_desc.VS = shader_storage->get_shader(vs)->get().get_bytecode(); // structure describing where to find the vertex shader bytecode and how large it is
+	pso_desc.HS = shader_storage->get_shader(hs)->get().get_bytecode();
+	pso_desc.DS = shader_storage->get_shader(ds)->get().get_bytecode();
 	pso_desc.StreamOutput = stream_output.desc;
-	pso_desc.GS = gs.bytecode;
+	pso_desc.GS = shader_storage->get_shader(gs)->get().get_bytecode();
 	pso_desc.RasterizerState = rasterizer.desc;
-	pso_desc.PS = ps.bytecode;
+	pso_desc.PS = shader_storage->get_shader(ps)->get().get_bytecode();
 	pso_desc.DepthStencilState = depth_stencil_desc; // a default depth stencil state
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
@@ -170,32 +170,39 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 }
 
 void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
+	ResourceManager::Release::resources.push_back(vertex_buffers[index]);
 	vertex_buffers.erase(vertex_buffers.begin() + index);
+	vertex_buffer_views.erase(vertex_buffer_views.begin() + index);
 }
 
 void GraphicsPipeline::InputAssembler::remove_all_meshes() {
+	for (auto &buffer : vertex_buffers) {
+		ResourceManager::Release::resources.push_back(buffer);
+	}
+
 	vertex_buffers.clear();
+	vertex_buffer_views.clear();
 }
 
 void GraphicsPipeline::InputAssembler::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	GraphicsPipelineMeshChangeInfo changes = change_manager->get_changes(true);
-	size_t add_index = 0;
-	size_t sub_index = 0;
-	for (GraphicsPipelineMeshChangeInfoType type : changes.order) {
-		if (type == GraphicsPipelineMeshChangeInfoType::Add) {
-			add_mesh(changes.additions[add_index].first, device, command_list, changes.additions[add_index].second);
+	std::vector<GraphicsPipelineMeshChange::Command> changes = change_manager->get_changes(true);
+	
+	for (const auto &change : changes) {
+		if (change.type == GraphicsPipelineMeshChange::Command::Type::Add) {
+			std::pair<Mesh, size_t> addition = std::get<std::pair<Mesh, size_t>>(change.change);
+			add_mesh(addition.first, device, command_list, addition.second);
 		} else {
-			if (changes.subtractions[sub_index] == (size_t)-1) {
+			size_t subtraction = std::get<size_t>(change.change);
+			if (subtraction == (size_t)-1) {
 				remove_all_meshes();
 			} else {
-				remove_mesh(changes.subtractions[sub_index]);
+				remove_mesh(subtraction);
 			}
 		}
 	}
-	change_manager->clear_change_info();
-	
+
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
-	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), &vertex_buffer_views[0]); // set the vertex buffer (using the vertex buffer view)
+	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
 }
 
 const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {
