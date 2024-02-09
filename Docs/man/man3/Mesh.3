@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-Mesh
+Mesh \- A mesh for collision and rendering\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <Mesh\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
@@ -45,9 +48,11 @@ Mesh
 .ti -1c
 .RI "void \fBset_vertices\fP (const std::vector< \fBVertex\fP > &new_verts, size_t physics_verts_chunk_divisor=3)"
 .br
+.RI "Sets current vertices to new vertices\&. "
 .ti -1c
 .RI "void \fBset_vertices\fP (const std::string &file, size_t physics_verts_chunk_divisor=3)"
 .br
+.RI "Sets current vertices to new vertices by reading a file\&. "
 .in -1c
 .SS "Public Attributes"
 
@@ -56,6 +61,46 @@ Mesh
 .RI "std::vector< UINT > \fBindices\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+A mesh for collision and rendering\&. 
+
+Contains a model's geometric data\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBVertex\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Mesh::set_vertices (const std::string & file, size_t physics_verts_chunk_divisor = \fC3\fP)"
+
+.PP
+Sets current vertices to new vertices by reading a file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInew_verts\fP New vertices\&. 
+.br
+\fIphysics_verts_chunk_divisor\fP Index at which to decimate the mesh by for physics optimizations\&. 
+.RE
+.PP
+
+.SS "void Mesh::set_vertices (const std::vector< \fBVertex\fP > & new_verts, size_t physics_verts_chunk_divisor = \fC3\fP)"
+
+.PP
+Sets current vertices to new vertices\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInew_verts\fP New vertices\&. 
+.br
+\fIphysics_verts_chunk_divisor\fP Index at which to decimate the mesh by for physics optimizations\&. 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-Object
+Object \- Base class for all objects\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <Object\&.h>\fP
 .PP
 Inherits \fBControllable\fP\&.
 .PP
@@ -129,10 +132,14 @@ Public Member Functions inherited from \fBControllable\fP
 .ti -1c
 .RI "\fBComponent\fP \fBroot_component\fP"
 .br
+.RI "All components all derive from the root component\&. "
 .ti -1c
 .RI "\fBGraphicsScene\fP * \fBgraphics_scene\fP = nullptr"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Base class for all objects\&. 
 .SH "Member Function Documentation"
 .PP 
 .SS "void Object::base_clean_up ()\fC [virtual]\fP"
@@ -147,6 +154,12 @@ Reimplemented from \fBControllable\fP\&.
 
 .PP
 Reimplemented from \fBControllable\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBComponent\fP Object::root_component"
+
+.PP
+All components all derive from the root component\&. The root component itself does not do anything\&. 
 
 .SH "Author"
 .PP 

@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-StaticMeshComponent
+StaticMeshComponent \- Main component for any physical object with a mesh that will be rendered\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <StaticMeshComponent\&.h>\fP
 .PP
 Inherits \fBGraphicsComponent\fP\&.
 .SS "Public Member Functions"
@@ -195,6 +198,20 @@ Protected Attributes inherited from \fBComponent\fP
 .RI "Type \fBtype\fP = Type::None"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Main component for any physical object with a mesh that will be rendered\&. 
+
+Has mesh data and a material\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBMesh\fP 
+.PP
+\fBMaterial\fP 
+.RE
+.PP
+
 .SH "Member Function Documentation"
 .PP 
 .SS "void StaticMeshComponent::clean_up ()\fC [override]\fP, \fC [virtual]\fP"

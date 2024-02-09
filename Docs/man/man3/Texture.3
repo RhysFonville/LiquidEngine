@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-Texture
+Texture \- \fBTexture\fP for rendering onto objects\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <Texture\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
@@ -34,6 +37,7 @@ Texture
 .ti -1c
 .RI "static void \fBload_texture\fP (const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain)"
 .br
+.RI "Compile texture file\&. "
 .in -1c
 .SS "Public Attributes"
 
@@ -48,6 +52,35 @@ Texture
 .RI "\fBGraphicsPipeline::RootSignature::ShaderResourceView\fP \fBsrv\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+\fBTexture\fP for rendering onto objects\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBGraphicsPipeline::RootSignature::ShaderResourceView\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Texture::load_texture (const std::string & file, DirectX::ScratchImage & image, DirectX::ScratchImage & mip_chain)\fC [static]\fP"
+
+.PP
+Compile texture file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIfile\fP Location of file\&. 
+.br
+\fIimage\fP The image data to write to\&. 
+.br
+\fImip_chain\fP The mipmap data to write to\&. 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

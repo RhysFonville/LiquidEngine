@@ -77,14 +77,19 @@ $(function() {
   <div class="headertitle"><div class="title">Object Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for all objects.  
+ <a href="class_object.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_object_8h_source.html">Object.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Object:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_object.png" usemap="#Object_map" alt=""/>
   <map id="Object_map" name="Object_map">
-<area href="class_controllable.html" alt="Controllable" shape="rect" coords="70,0,200,24"/>
-<area href="class_character.html" alt="Character" shape="rect" coords="0,112,130,136"/>
+<area href="class_controllable.html" title="Base class for everything that needs compile, clean up, and tick functionality." alt="Controllable" shape="rect" coords="70,0,200,24"/>
+<area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="0,112,130,136"/>
 <area href="class_default_shapes_1_1_cube.html" alt="DefaultShapes::Cube" shape="rect" coords="140,112,270,136"/>
 <area href="class_my_camera.html" alt="MyCamera" shape="rect" coords="0,168,130,192"/>
   </map>
@@ -202,14 +207,16 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a24457e0a387492c80594aec7681a2277"><td class="memItemLeft" align="right" valign="top"><a id="a24457e0a387492c80594aec7681a2277" name="a24457e0a387492c80594aec7681a2277"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &quot;&quot;</td></tr>
 <tr class="separator:a24457e0a387492c80594aec7681a2277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c6f2e8d3ef80c160a82a1f8591413e"><td class="memItemLeft" align="right" valign="top"><a id="ae4c6f2e8d3ef80c160a82a1f8591413e" name="ae4c6f2e8d3ef80c160a82a1f8591413e"></a>
-<a class="el" href="class_component.html">Component</a>&#160;</td><td class="memItemRight" valign="bottom"><b>root_component</b></td></tr>
+<tr class="memitem:ae4c6f2e8d3ef80c160a82a1f8591413e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_component.html">Component</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#ae4c6f2e8d3ef80c160a82a1f8591413e">root_component</a></td></tr>
+<tr class="memdesc:ae4c6f2e8d3ef80c160a82a1f8591413e"><td class="mdescLeft">&#160;</td><td class="mdescRight">All components all derive from the root component.  <br /></td></tr>
 <tr class="separator:ae4c6f2e8d3ef80c160a82a1f8591413e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b64feef62020081f0c606648eb86124"><td class="memItemLeft" align="right" valign="top"><a id="a9b64feef62020081f0c606648eb86124" name="a9b64feef62020081f0c606648eb86124"></a>
 <a class="el" href="class_graphics_scene.html">GraphicsScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> = nullptr</td></tr>
 <tr class="separator:a9b64feef62020081f0c606648eb86124"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for all objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a18486446033ec7e8b07e1e50ca92541d" name="a18486446033ec7e8b07e1e50ca92541d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18486446033ec7e8b07e1e50ca92541d">&#9670;&#160;</a></span>base_clean_up()</h2>
 
@@ -289,6 +296,24 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &qu
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="class_controllable.html">Controllable</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae4c6f2e8d3ef80c160a82a1f8591413e" name="ae4c6f2e8d3ef80c160a82a1f8591413e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4c6f2e8d3ef80c160a82a1f8591413e">&#9670;&#160;</a></span>root_component</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_component.html">Component</a> Object::root_component</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>All components all derive from the root component. </p>
+<p>The root component itself does not do anything. </p>
 
 </div>
 </div>

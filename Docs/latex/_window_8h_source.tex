@@ -15,50 +15,50 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}Debug/DebugOutput.h"{}}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}}\ \{}
-\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}();}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}(HINSTANCE\ hInstance);}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}(HINSTANCE\ hInstance,\ \mbox{\hyperlink{class_renderer}{Renderer}}*\ graphics\_scene);}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_up\_window(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{Vector2}}\ \&position\ =\ \mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\_USEDEFAULT,\ CW\_USEDEFAULT),}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{Vector2}}\ \&size\ =\ \mbox{\hyperlink{class_t_vector2}{Vector2}}(1200,\ 800),}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&name\ =\ \textcolor{stringliteral}{"{}Epic\ Window\ :coolglasses:"{}},}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ DWORD\ style\ =\ WS\_OVERLAPPEDWINDOW\ |\ WS\_VISIBLE,\ \textcolor{keyword}{const}\ HWND\ \&parent\ =\ NULL,}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ DWORD\ extended\_style\ =\ NULL,\ HMENU\ menu\ =\ NULL,\ \textcolor{keywordtype}{void}*\ lpParam\ =\ NULL);}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ check\_input();}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ GET\ HWND\ \&\ get\_window()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00031\ \ \ \ \ GET\ HDC\ \&\ get\_dc()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00032\ \ \ \ \ GET\ HINSTANCE\ \&\ get\_hInstance()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00033\ \ \ \ \ GET\ WNDCLASSEXA\ \&\ get\_class()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ GET\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ is\_running()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ is\_running(\textcolor{keywordtype}{bool}\ running)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_renderer}{Renderer}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}(HINSTANCE\ hInstance);}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}(HINSTANCE\ hInstance,\ \mbox{\hyperlink{class_renderer}{Renderer}}*\ graphics\_scene);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}{set\_up\_window}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{Vector2}}\ \&position\ =\ \mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\_USEDEFAULT,\ CW\_USEDEFAULT),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{Vector2}}\ \&size\ =\ \mbox{\hyperlink{class_t_vector2}{Vector2}}(1200,\ 800),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&name\ =\ \textcolor{stringliteral}{"{}Epic\ Window\ :coolglasses:"{}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ DWORD\ style\ =\ WS\_OVERLAPPEDWINDOW\ |\ WS\_VISIBLE,\ \textcolor{keyword}{const}\ HWND\ \&parent\ =\ NULL,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ DWORD\ extended\_style\ =\ NULL,\ HMENU\ menu\ =\ NULL,\ \textcolor{keywordtype}{void}*\ lpParam\ =\ NULL);}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00044\ \ \ \ \ HWND\ window\ =\ NULL;}
-\DoxyCodeLine{00045\ \ \ \ \ HDC\ dc\ =\ NULL;}
-\DoxyCodeLine{00046\ \ \ \ \ HINSTANCE\ hInstance\ =\ GetModuleHandleA(NULL);}
-\DoxyCodeLine{00047\ \ \ \ \ WNDCLASSEXA\ window\_class\ =\ \{\ \};}
-\DoxyCodeLine{00048\ \ \ \ \ }
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ size;}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ LRESULT\ CALLBACK\ wndproc(HWND\ hwnd,\ UINT32\ uMsg,\ WPARAM\ wParam,\ LPARAM\ lParam);}
-\DoxyCodeLine{00054\ \ \ \ \ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ first\_size\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ check\_input();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ GET\ HWND\ \&\ get\_window()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00048\ \ \ \ \ GET\ HDC\ \&\ get\_dc()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ \ \ \ \ GET\ HINSTANCE\ \&\ get\_hInstance()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00050\ \ \ \ \ GET\ WNDCLASSEXA\ \&\ get\_class()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ GET\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ is\_running()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ is\_running(\textcolor{keywordtype}{bool}\ running)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_renderer}{Renderer}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ HWND\ window\ =\ NULL;}
+\DoxyCodeLine{00062\ \ \ \ \ HDC\ dc\ =\ NULL;}
+\DoxyCodeLine{00063\ \ \ \ \ HINSTANCE\ hInstance\ =\ GetModuleHandleA(NULL);}
+\DoxyCodeLine{00064\ \ \ \ \ WNDCLASSEXA\ window\_class\ =\ \{\ \};}
+\DoxyCodeLine{00065\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ size;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ LRESULT\ CALLBACK\ wndproc(HWND\ hwnd,\ UINT32\ uMsg,\ WPARAM\ wParam,\ LPARAM\ lParam);}
+\DoxyCodeLine{00071\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ first\_size\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

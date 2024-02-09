@@ -76,12 +76,17 @@ $(function() {
   <div class="headertitle"><div class="title">GraphicsScene Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains all needed scene object data for rendering.  
+ <a href="class_graphics_scene.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_graphics_scene_8h_source.html">GraphicsScene.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="memTemplParams" colspan="2"><a id="a8172ba4b54ffe39f2ae1b70c2f4e1191" name="a8172ba4b54ffe39f2ae1b70c2f4e1191"></a>
-template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_graphics_component.html">GraphicsComponent</a>) &gt; </td></tr>
-<tr class="memitem:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>add_component</b> (const T *component)</td></tr>
+<tr class="memitem:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="memTemplParams" colspan="2">template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_graphics_component.html">GraphicsComponent</a>) &gt; </td></tr>
+<tr class="memitem:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_graphics_scene.html#a8172ba4b54ffe39f2ae1b70c2f4e1191">add_component</a> (const T *component)</td></tr>
+<tr class="memdesc:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add <a class="el" href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics.">GraphicsComponent</a> to the graphics scene.  <br /></td></tr>
 <tr class="separator:a8172ba4b54ffe39f2ae1b70c2f4e1191"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74405b6eca86f8e01c11f4e95b80a2d6"><td class="memTemplParams" colspan="2"><a id="a74405b6eca86f8e01c11f4e95b80a2d6" name="a74405b6eca86f8e01c11f4e95b80a2d6"></a>
 template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_graphics_component.html">GraphicsComponent</a>) &gt; </td></tr>
@@ -90,13 +95,88 @@ template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_gra
 <tr class="memitem:ad3975e2a8005140e807f8ef47dbc03b5"><td class="memItemLeft" align="right" valign="top"><a id="ad3975e2a8005140e807f8ef47dbc03b5" name="ad3975e2a8005140e807f8ef47dbc03b5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
 <tr class="separator:ad3975e2a8005140e807f8ef47dbc03b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8fd33d5be685108de3e900abd92486f"><td class="memItemLeft" align="right" valign="top"><a id="aa8fd33d5be685108de3e900abd92486f" name="aa8fd33d5be685108de3e900abd92486f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (<a class="el" href="class_t_vector2.html">UVector2</a> resolution)</td></tr>
+<tr class="memitem:aa8fd33d5be685108de3e900abd92486f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_scene.html#aa8fd33d5be685108de3e900abd92486f">update</a> (<a class="el" href="class_t_vector2.html">UVector2</a> resolution)</td></tr>
+<tr class="memdesc:aa8fd33d5be685108de3e900abd92486f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look for changes in component data and update graphics-side data accordingly.  <br /></td></tr>
 <tr class="separator:aa8fd33d5be685108de3e900abd92486f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25ded16d42449e9290f06279b5094acd"><td class="memItemLeft" align="right" valign="top"><a id="a25ded16d42449e9290f06279b5094acd" name="a25ded16d42449e9290f06279b5094acd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:a25ded16d42449e9290f06279b5094acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains all needed scene object data for rendering. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8172ba4b54ffe39f2ae1b70c2f4e1191" name="a8172ba4b54ffe39f2ae1b70c2f4e1191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8172ba4b54ffe39f2ae1b70c2f4e1191">&#9670;&#160;</a></span>add_component()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_graphics_component.html">GraphicsComponent</a>) &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GraphicsScene::add_component </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>component</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add <a class="el" href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics.">GraphicsComponent</a> to the graphics scene. </p>
+<p>Converts component data into graphics-side structure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td><a class="el" href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics.">GraphicsComponent</a> to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics.">GraphicsComponent</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa8fd33d5be685108de3e900abd92486f" name="aa8fd33d5be685108de3e900abd92486f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8fd33d5be685108de3e900abd92486f">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GraphicsScene::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_t_vector2.html">UVector2</a>&#160;</td>
+          <td class="paramname"><em>resolution</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Look for changes in component data and update graphics-side data accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resolution</td><td>Render resolution. Needed for updating camera. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_scene_8h_source.html">GraphicsScene.h</a></li>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsScene.cpp</li>

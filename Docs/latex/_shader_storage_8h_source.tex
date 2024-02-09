@@ -10,123 +10,123 @@
 \DoxyCodeLine{00006\ }
 \DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ HPEW\_ERR\_BLOB\_PARAM(buf)\ ((buf\ ==\ nullptr\ ?\ "{}"{}}\ :\ (char*)buf-\/>GetBufferPointer()))}
 \DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}}\ \{}
-\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
-\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}},}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ Hull,}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ Domain,}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ Geometry,}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Pixel}
-\DoxyCodeLine{00017\ \ \ \ \ \};}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}()\ \{\ \}}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}(Type\ type)\ \{\ \}}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}(Type\ type,\ \textcolor{keyword}{const}\ std::string\ \&file\_name)}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ :\ type(type),\ file\_name(file\_name)\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ set\_target\_from\_type(type);}
-\DoxyCodeLine{00024\ \ \ \ \ \}}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\ \&shader)\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ file\_name\ =\ shader.file\_name;}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ defines\ =\ shader.defines;}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ entrypoint\ =\ shader.entrypoint;}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ entrypoint\ =\ shader.entrypoint;}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ target\ =\ shader.target;}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ shader\_compile\_options\ =\ shader.shader\_compile\_options;}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ effect\_compile\_options\ =\ shader.effect\_compile\_options;}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ bytecode\ =\ shader.bytecode;}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ blob\ =\ shader.blob;}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ error\_buffer\ =\ shader.error\_buffer;}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ type\ =\ shader.type;}
-\DoxyCodeLine{00038\ \ \ \ \ \}}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ std::string\ \&file)\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (file\_name\ ==\ file);}
-\DoxyCodeLine{00042\ \ \ \ \ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file\_name.empty())\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compile\ vertex\ shader}}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ HPEW(D3DCompileFromFile(}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ string\_to\_wstring(file\_name).c\_str(),}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&defines,}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D\_COMPILE\_STANDARD\_FILE\_INCLUDE,}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entrypoint.c\_str(),}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target.c\_str(),}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shader\_compile\_options,}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ effect\_compile\_options,}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&blob,}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&error\_buffer}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ ),\ HPEW\_ERR\_BLOB\_PARAM(error\_buffer));}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ bytecode.BytecodeLength\ =\ blob-\/>GetBufferSize();}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ bytecode.pShaderBytecode\ =\ blob-\/>GetBufferPointer();}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ GET\ Type\ get\_type()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ type;\ \}}
-\DoxyCodeLine{00065\ \ \ \ \ GET\ std::string\ get\_file()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ file\_name;\ \}}
-\DoxyCodeLine{00066\ \ \ \ \ GET\ D3D12\_SHADER\_BYTECODE\ get\_bytecode()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ bytecode;\ \};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\ \&shader)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (file\_name\ ==\ shader.file\_name);}
-\DoxyCodeLine{00070\ \ \ \ \ \}}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00073\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00074\ \ \ \ \ D3D\_SHADER\_MACRO\ defines\ =\ \{\ \};}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ Add\ ID3DInclude\ someday}}
-\DoxyCodeLine{00076\ \ \ \ \ std::string\ entrypoint\ =\ \textcolor{stringliteral}{"{}main"{}};}
-\DoxyCodeLine{00077\ \ \ \ \ std::string\ target\ =\ \textcolor{stringliteral}{"{}ps\_5\_0"{}};}
-\DoxyCodeLine{00078\ \ \ \ \ UINT\ shader\_compile\_options\ =\ D3DCOMPILE\_DEBUG;}
-\DoxyCodeLine{00079\ \ \ \ \ UINT\ effect\_compile\_options\ =\ NULL;}
-\DoxyCodeLine{00080\ \ \ \ \ D3D12\_SHADER\_BYTECODE\ bytecode\ =\ \{\ \};}
-\DoxyCodeLine{00081\ \ \ \ \ ComPtr<ID3DBlob>\ blob\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ d3d\ blob\ for\ holding\ vertex\ shader\ bytecode}}
-\DoxyCodeLine{00082\ \ \ \ \ ComPtr<ID3DBlob>\ error\_buffer\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ a\ buffer\ holding\ the\ error\ data\ from\ compilation\ if\ any}}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_target\_from\_type(Type\ type)\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ suffix\ =\ \textcolor{stringliteral}{"{}\_5\_0"{}};}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Vertex:}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}vs"{}};}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Hull:}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}hs"{}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}},}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Hull,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ Domain,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ Geometry,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Pixel}
+\DoxyCodeLine{00020\ \ \ \ \ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}()\ \{\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}(Type\ type)\ \{\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}(Type\ type,\ \textcolor{keyword}{const}\ std::string\ \&file\_name)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ :\ type(type),\ file\_name(file\_name)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ set\_target\_from\_type(type);}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\ \&shader)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ file\_name\ =\ shader.file\_name;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ defines\ =\ shader.defines;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ entrypoint\ =\ shader.entrypoint;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ entrypoint\ =\ shader.entrypoint;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ target\ =\ shader.target;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ shader\_compile\_options\ =\ shader.shader\_compile\_options;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ effect\_compile\_options\ =\ shader.effect\_compile\_options;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ bytecode\ =\ shader.bytecode;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ blob\ =\ shader.blob;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ error\_buffer\ =\ shader.error\_buffer;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ type\ =\ shader.type;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ std::string\ \&file)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (file\_name\ ==\ file);}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file\_name.empty())\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compile\ vertex\ shader}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ HPEW(D3DCompileFromFile(}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ string\_to\_wstring(file\_name).c\_str(),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&defines,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D\_COMPILE\_STANDARD\_FILE\_INCLUDE,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entrypoint.c\_str(),}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target.c\_str(),}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shader\_compile\_options,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ effect\_compile\_options,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&blob,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&error\_buffer}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ ),\ HPEW\_ERR\_BLOB\_PARAM(error\_buffer));}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ bytecode.BytecodeLength\ =\ blob-\/>GetBufferSize();}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ bytecode.pShaderBytecode\ =\ blob-\/>GetBufferPointer();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ GET\ Type\ get\_type()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ type;\ \}}
+\DoxyCodeLine{00068\ \ \ \ \ GET\ std::string\ get\_file()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ file\_name;\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ GET\ D3D12\_SHADER\_BYTECODE\ get\_bytecode()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ bytecode;\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\ \&shader)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (file\_name\ ==\ shader.file\_name);}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00077\ \ \ \ \ D3D\_SHADER\_MACRO\ defines\ =\ \{\ \};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ Add\ ID3DInclude\ someday}}
+\DoxyCodeLine{00079\ \ \ \ \ std::string\ entrypoint\ =\ \textcolor{stringliteral}{"{}main"{}};}
+\DoxyCodeLine{00080\ \ \ \ \ std::string\ target\ =\ \textcolor{stringliteral}{"{}ps\_5\_0"{}};}
+\DoxyCodeLine{00081\ \ \ \ \ UINT\ shader\_compile\_options\ =\ D3DCOMPILE\_DEBUG;}
+\DoxyCodeLine{00082\ \ \ \ \ UINT\ effect\_compile\_options\ =\ NULL;}
+\DoxyCodeLine{00083\ \ \ \ \ D3D12\_SHADER\_BYTECODE\ bytecode\ =\ \{\ \};}
+\DoxyCodeLine{00084\ \ \ \ \ ComPtr<ID3DBlob>\ blob\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ d3d\ blob\ for\ holding\ vertex\ shader\ bytecode}}
+\DoxyCodeLine{00085\ \ \ \ \ ComPtr<ID3DBlob>\ error\_buffer\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ a\ buffer\ holding\ the\ error\ data\ from\ compilation\ if\ any}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_target\_from\_type(Type\ type)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ suffix\ =\ \textcolor{stringliteral}{"{}\_5\_0"{}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Vertex:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}vs"{}};}
 \DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Domain:}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}ds"{}};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Hull:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}hs"{}};}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Geometry:}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}gs"{}};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Domain:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}ds"{}};}
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Pixel:}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}ps"{}};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Geometry:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}gs"{}};}
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ target\ +=\ suffix;}
-\DoxyCodeLine{00104\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ Type\ type\ =\ Type::Pixel;}
-\DoxyCodeLine{00107\ \};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::Pixel:}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \textcolor{stringliteral}{"{}ps"{}};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ target\ +=\ suffix;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
 \DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \{}
-\DoxyCodeLine{00110\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}(\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \&other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ *get\_instance();}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ std::optional<std::reference\_wrapper<Shader>>\ get\_shader(\textcolor{keyword}{const}\ std::string\ \&file)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_and\_compile\_shader(Shader::Type\ type,\ \textcolor{keyword}{const}\ std::string\ \&file);}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}()\ \{\ \}}
+\DoxyCodeLine{00109\ \ \ \ \ Type\ type\ =\ Type::Pixel;}
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \{}
+\DoxyCodeLine{00117\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}(\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \&other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ *get\_instance();}
 \DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ shader\_storage;}
-\DoxyCodeLine{00123\ \ \ \ \ std::vector<Shader>\ shaders;}
-\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00122\ \ \ \ \ std::optional<std::reference\_wrapper<Shader>>\ get\_shader(\textcolor{keyword}{const}\ std::string\ \&file)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_and\_compile\_shader(Shader::Type\ type,\ \textcolor{keyword}{const}\ std::string\ \&file);}
 \DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ shader\_storage\ =\ ShaderStorage::get\_instance();}
+\DoxyCodeLine{00126\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}()\ \{\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ shader\_storage;}
+\DoxyCodeLine{00130\ \ \ \ \ std::vector<Shader>\ shaders;}
+\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ shader\_storage\ =\ ShaderStorage::get\_instance();}
 
 \end{DoxyCode}

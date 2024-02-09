@@ -77,6 +77,11 @@ $(function() {
   <div class="headertitle"><div class="title">Window Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>The main window for rendering.  
+ <a href="class_window.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_window_8h_source.html">Window.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -86,8 +91,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a38e3819dbcab6640c33e49040717ed35"><td class="memItemLeft" align="right" valign="top"><a id="a38e3819dbcab6640c33e49040717ed35" name="a38e3819dbcab6640c33e49040717ed35"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (HINSTANCE hInstance, <a class="el" href="class_renderer.html">Renderer</a> *graphics_scene)</td></tr>
 <tr class="separator:a38e3819dbcab6640c33e49040717ed35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1cedf86b9df61b0daf7fc62cb697f70"><td class="memItemLeft" align="right" valign="top"><a id="ab1cedf86b9df61b0daf7fc62cb697f70" name="ab1cedf86b9df61b0daf7fc62cb697f70"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_up_window</b> (const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;position=<a class="el" href="class_t_vector2.html">Vector2</a>(CW_USEDEFAULT, CW_USEDEFAULT), const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;size=<a class="el" href="class_t_vector2.html">Vector2</a>(1200, 800), const std::string &amp;name=&quot;Epic <a class="el" href="class_window.html">Window</a> :coolglasses:&quot;, DWORD style=WS_OVERLAPPEDWINDOW|WS_VISIBLE, const HWND &amp;parent=NULL, DWORD extended_style=NULL, HMENU menu=NULL, void *lpParam=NULL)</td></tr>
+<tr class="memitem:ab1cedf86b9df61b0daf7fc62cb697f70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ab1cedf86b9df61b0daf7fc62cb697f70">set_up_window</a> (const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;position=<a class="el" href="class_t_vector2.html">Vector2</a>(CW_USEDEFAULT, CW_USEDEFAULT), const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;size=<a class="el" href="class_t_vector2.html">Vector2</a>(1200, 800), const std::string &amp;name=&quot;Epic <a class="el" href="class_window.html">Window</a> :coolglasses:&quot;, DWORD style=WS_OVERLAPPEDWINDOW|WS_VISIBLE, const HWND &amp;parent=NULL, DWORD extended_style=NULL, HMENU menu=NULL, void *lpParam=NULL)</td></tr>
+<tr class="memdesc:ab1cedf86b9df61b0daf7fc62cb697f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and sets up the window.  <br /></td></tr>
 <tr class="separator:ab1cedf86b9df61b0daf7fc62cb697f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d5ea2f36a708db07539b4cff974f353"><td class="memItemLeft" align="right" valign="top"><a id="a2d5ea2f36a708db07539b4cff974f353" name="a2d5ea2f36a708db07539b4cff974f353"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>check_input</b> ()</td></tr>
@@ -126,6 +131,89 @@ Public Attributes</h2></td></tr>
 <a class="el" href="class_renderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> = nullptr</td></tr>
 <tr class="separator:ae00eafe2c52a57e57b791eaf99612f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The main window for rendering. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_scene.html" title="Contains all needed scene object data for rendering.">GraphicsScene</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab1cedf86b9df61b0daf7fc62cb697f70" name="ab1cedf86b9df61b0daf7fc62cb697f70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cedf86b9df61b0daf7fc62cb697f70">&#9670;&#160;</a></span>set_up_window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::set_up_window </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em> = <code><a class="el" href="class_t_vector2.html">Vector2</a>(CW_USEDEFAULT,&#160;CW_USEDEFAULT)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_t_vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>size</em> = <code><a class="el" href="class_t_vector2.html">Vector2</a>(1200,&#160;800)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em> = <code>&quot;Epic&#160;<a class="el" href="class_window.html">Window</a>&#160;:coolglasses:&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DWORD&#160;</td>
+          <td class="paramname"><em>style</em> = <code>WS_OVERLAPPEDWINDOW&#160;|&#160;WS_VISIBLE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const HWND &amp;&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DWORD&#160;</td>
+          <td class="paramname"><em>extended_style</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">HMENU&#160;</td>
+          <td class="paramname"><em>menu</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>lpParam</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates and sets up the window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>Initial position of window. </td></tr>
+    <tr><td class="paramname">size</td><td>Initial size of window. </td></tr>
+    <tr><td class="paramname">name</td><td><a class="el" href="class_window.html" title="The main window for rendering.">Window</a> title. </td></tr>
+    <tr><td class="paramname">style</td><td><a class="el" href="class_window.html" title="The main window for rendering.">Window</a> styles. </td></tr>
+    <tr><td class="paramname">parent</td><td>Parent window. </td></tr>
+    <tr><td class="paramname">extended_style</td><td>More specific window styles. </td></tr>
+    <tr><td class="paramname">menu</td><td><a class="el" href="class_window.html" title="The main window for rendering.">Window</a> menu. Usually unneeded. </td></tr>
+    <tr><td class="paramname">lpParam</td><td>Unneeded. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/<a class="el" href="_window_8h_source.html">Window.h</a></li>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Window.cpp</li>

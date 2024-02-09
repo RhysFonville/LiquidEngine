@@ -6,30 +6,30 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}GraphicsComponent.h"{}}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_light_component}{LightComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ \{}
-\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_light_component}{LightComponent}}(Type\ type);}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_light\_component(\textcolor{keyword}{const}\ T\ \&component)\ \{}
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((component.get\_type()\ ==\ Component::Type::DirectionalLightComponent)\ ||}
-\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::PointLightComponent)\ ||}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SpotlightComponent));}
-\DoxyCodeLine{00014\ \ \ \ \ \}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&albedo)\ \{\ this-\/>albedo\ =\ albedo;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_light_component}{LightComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_light_component}{LightComponent}}(Type\ type);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_light\_component(\textcolor{keyword}{const}\ T\ \&component)\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((component.get\_type()\ ==\ Component::Type::DirectionalLightComponent)\ ||}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::PointLightComponent)\ ||}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SpotlightComponent));}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_specular()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ specular;\ \}}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_specular(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&specular)\ \{\ this-\/>specular\ =\ specular;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&albedo)\ \{\ this-\/>albedo\ =\ albedo;\ changed\ =\ \textcolor{keyword}{true};\ \}}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_null()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ null;\ \}}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ is\_null(\textcolor{keywordtype}{bool}\ null)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>null\ =\ null;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_specular()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ specular;\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_specular(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&specular)\ \{\ this-\/>specular\ =\ specular;\ changed\ =\ \textcolor{keyword}{true};\ \}}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(255,\ 255,\ 255,\ 255);}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(5,\ 5,\ 5,\ 255);}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ null\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_null()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ null;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ is\_null(\textcolor{keywordtype}{bool}\ null)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>null\ =\ null;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(255,\ 255,\ 255,\ 255);}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(5,\ 5,\ 5,\ 255);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ null\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00032\ \};}
 
 \end{DoxyCode}

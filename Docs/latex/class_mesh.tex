@@ -1,5 +1,14 @@
 \hypertarget{class_mesh}{}\doxysection{Mesh Class Reference}
 \label{class_mesh}\index{Mesh@{Mesh}}
+
+
+A mesh for collision and rendering.  
+
+
+
+
+{\ttfamily \#include $<$Mesh.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,18 +45,61 @@ GET const std\+::vector$<$ \mbox{\hyperlink{struct_simple_vertex}{Simple\+Vertex
 \mbox{\Hypertarget{class_mesh_ad40d9885bb4c9145fe0814432c7b248d}\label{class_mesh_ad40d9885bb4c9145fe0814432c7b248d}} 
 GET const std\+::vector$<$ \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} $>$ \& {\bfseries get\+\_\+physics\+\_\+triangles} () const noexcept
 \item 
-\mbox{\Hypertarget{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}\label{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}} 
-void {\bfseries set\+\_\+vertices} (const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&new\+\_\+verts, size\+\_\+t physics\+\_\+verts\+\_\+chunk\+\_\+divisor=3)
-\item 
-\mbox{\Hypertarget{class_mesh_a757a9ca0597fc1d89f8aac9ae10e8644}\label{class_mesh_a757a9ca0597fc1d89f8aac9ae10e8644}} 
-void {\bfseries set\+\_\+vertices} (const std\+::string \&file, size\+\_\+t physics\+\_\+verts\+\_\+chunk\+\_\+divisor=3)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}{set\+\_\+vertices}} (const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&new\+\_\+verts, size\+\_\+t physics\+\_\+verts\+\_\+chunk\+\_\+divisor=3)
+\begin{DoxyCompactList}\small\item\em Sets current vertices to new vertices. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mesh_a757a9ca0597fc1d89f8aac9ae10e8644}{set\+\_\+vertices}} (const std\+::string \&file, size\+\_\+t physics\+\_\+verts\+\_\+chunk\+\_\+divisor=3)
+\begin{DoxyCompactList}\small\item\em Sets current vertices to new vertices by reading a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_mesh_a5cc5d85449aa04a645854490489f7d7b}\label{class_mesh_a5cc5d85449aa04a645854490489f7d7b}} 
 std\+::vector$<$ UINT $>$ {\bfseries indices}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A mesh for collision and rendering. 
+
+Contains a model\textquotesingle{}s geometric data. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{struct_vertex}{Vertex}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mesh_a757a9ca0597fc1d89f8aac9ae10e8644}\label{class_mesh_a757a9ca0597fc1d89f8aac9ae10e8644}} 
+\index{Mesh@{Mesh}!set\_vertices@{set\_vertices}}
+\index{set\_vertices@{set\_vertices}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{set\_vertices()}{set\_vertices()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Mesh\+::set\+\_\+vertices (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file,  }\item[{size\+\_\+t}]{physics\+\_\+verts\+\_\+chunk\+\_\+divisor = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+
+
+Sets current vertices to new vertices by reading a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+verts} & New vertices. \\
+\hline
+{\em physics\+\_\+verts\+\_\+chunk\+\_\+divisor} & Index at which to decimate the mesh by for physics optimizations. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}\label{class_mesh_a970b3379c2fe8e2ab734e3292640b97a}} 
+\index{Mesh@{Mesh}!set\_vertices@{set\_vertices}}
+\index{set\_vertices@{set\_vertices}!Mesh@{Mesh}}
+\doxysubsubsection{\texorpdfstring{set\_vertices()}{set\_vertices()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Mesh\+::set\+\_\+vertices (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&}]{new\+\_\+verts,  }\item[{size\+\_\+t}]{physics\+\_\+verts\+\_\+chunk\+\_\+divisor = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+
+
+Sets current vertices to new vertices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+verts} & New vertices. \\
+\hline
+{\em physics\+\_\+verts\+\_\+chunk\+\_\+divisor} & Index at which to decimate the mesh by for physics optimizations. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -16,11 +16,12 @@ var searchData=
   ['renderingsky_13',['RenderingSky',['../class_rendering_sky.html',1,'']]],
   ['renderingspotlight_14',['RenderingSpotlight',['../class_rendering_spotlight.html',1,'']]],
   ['renderingstaticmesh_15',['RenderingStaticMesh',['../class_rendering_static_mesh.html',1,'']]],
-  ['rootargument_16',['RootArgument',['../class_graphics_pipeline_1_1_root_signature_1_1_root_argument.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootconstants_17',['RootConstants',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootconstantscontainer_18',['RootConstantsContainer',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootconstantscontainer_3c_20pscameraconstants_20_3e_19',['RootConstantsContainer&lt; PSCameraConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootconstantscontainer_3c_20vstransformconstants_20_3e_20',['RootConstantsContainer&lt; VSTransformConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootconstantscontainer_3c_20vswvpconstants_20_3e_21',['RootConstantsContainer&lt; VSWVPConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
-  ['rootsignature_22',['RootSignature',['../class_compute_pipeline_1_1_root_signature.html',1,'ComputePipeline::RootSignature'],['../class_graphics_pipeline_1_1_root_signature.html',1,'GraphicsPipeline::RootSignature']]]
+  ['root_5fcomponent_16',['root_component',['../class_object.html#ae4c6f2e8d3ef80c160a82a1f8591413e',1,'Object']]],
+  ['rootargument_17',['RootArgument',['../class_graphics_pipeline_1_1_root_signature_1_1_root_argument.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootconstants_18',['RootConstants',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootconstantscontainer_19',['RootConstantsContainer',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootconstantscontainer_3c_20pscameraconstants_20_3e_20',['RootConstantsContainer&lt; PSCameraConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootconstantscontainer_3c_20vstransformconstants_20_3e_21',['RootConstantsContainer&lt; VSTransformConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootconstantscontainer_3c_20vswvpconstants_20_3e_22',['RootConstantsContainer&lt; VSWVPConstants &gt;',['../class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html',1,'GraphicsPipeline::RootSignature']]],
+  ['rootsignature_23',['RootSignature',['../class_compute_pipeline_1_1_root_signature.html',1,'ComputePipeline::RootSignature'],['../class_graphics_pipeline_1_1_root_signature.html',1,'GraphicsPipeline::RootSignature']]]
 ];

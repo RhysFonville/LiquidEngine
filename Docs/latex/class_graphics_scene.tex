@@ -1,23 +1,72 @@
 \hypertarget{class_graphics_scene}{}\doxysection{Graphics\+Scene Class Reference}
 \label{class_graphics_scene}\index{GraphicsScene@{GraphicsScene}}
+
+
+Contains all needed scene object data for rendering.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Scene.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}\label{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ }\\void {\bfseries add\+\_\+component} (const T $\ast$component)
-\item 
+{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ }\\void \mbox{\hyperlink{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}{add\+\_\+component}} (const T $\ast$component)
+\begin{DoxyCompactList}\small\item\em Add \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}} to the graphics scene. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_graphics_scene_a74405b6eca86f8e01c11f4e95b80a2d6}\label{class_graphics_scene_a74405b6eca86f8e01c11f4e95b80a2d6}} 
 {\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ }\\void {\bfseries remove\+\_\+component} (const T $\ast$component)
 \item 
 \mbox{\Hypertarget{class_graphics_scene_ad3975e2a8005140e807f8ef47dbc03b5}\label{class_graphics_scene_ad3975e2a8005140e807f8ef47dbc03b5}} 
 void {\bfseries compile} ()
 \item 
-\mbox{\Hypertarget{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}\label{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}} 
-void {\bfseries update} (\mbox{\hyperlink{class_t_vector2}{UVector2}} resolution)
-\item 
+void \mbox{\hyperlink{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}{update}} (\mbox{\hyperlink{class_t_vector2}{UVector2}} resolution)
+\begin{DoxyCompactList}\small\item\em Look for changes in component data and update graphics-\/side data accordingly. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_graphics_scene_a25ded16d42449e9290f06279b5094acd}\label{class_graphics_scene_a25ded16d42449e9290f06279b5094acd}} 
 void {\bfseries clean\+\_\+up} ()
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains all needed scene object data for rendering. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}\label{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}} 
+\index{GraphicsScene@{GraphicsScene}!add\_component@{add\_component}}
+\index{add\_component@{add\_component}!GraphicsScene@{GraphicsScene}}
+\doxysubsubsection{\texorpdfstring{add\_component()}{add\_component()}}
+{\footnotesize\ttfamily template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ \\
+void Graphics\+Scene\+::add\+\_\+component (\begin{DoxyParamCaption}\item[{const T $\ast$}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}} to the graphics scene. 
+
+Converts component data into graphics-\/side structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em component} & \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}} to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_graphics_component}{Graphics\+Component}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}\label{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}} 
+\index{GraphicsScene@{GraphicsScene}!update@{update}}
+\index{update@{update}!GraphicsScene@{GraphicsScene}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Graphics\+Scene\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_t_vector2}{UVector2}}}]{resolution }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Look for changes in component data and update graphics-\/side data accordingly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em resolution} & Render resolution. Needed for updating camera. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

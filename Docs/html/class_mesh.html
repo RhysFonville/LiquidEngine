@@ -77,6 +77,11 @@ $(function() {
   <div class="headertitle"><div class="title">Mesh Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A mesh for collision and rendering.  
+ <a href="class_mesh.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_mesh_8h_source.html">Mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,11 +118,11 @@ GET const std::vector&lt; <a class="el" href="struct_simple_vertex.html">SimpleV
 <tr class="memitem:ad40d9885bb4c9145fe0814432c7b248d"><td class="memItemLeft" align="right" valign="top"><a id="ad40d9885bb4c9145fe0814432c7b248d" name="ad40d9885bb4c9145fe0814432c7b248d"></a>
 GET const std::vector&lt; <a class="el" href="struct_simple_triangle.html">SimpleTriangle</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_physics_triangles</b> () const noexcept</td></tr>
 <tr class="separator:ad40d9885bb4c9145fe0814432c7b248d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a970b3379c2fe8e2ab734e3292640b97a"><td class="memItemLeft" align="right" valign="top"><a id="a970b3379c2fe8e2ab734e3292640b97a" name="a970b3379c2fe8e2ab734e3292640b97a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_vertices</b> (const std::vector&lt; <a class="el" href="struct_vertex.html">Vertex</a> &gt; &amp;new_verts, size_t physics_verts_chunk_divisor=3)</td></tr>
+<tr class="memitem:a970b3379c2fe8e2ab734e3292640b97a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a970b3379c2fe8e2ab734e3292640b97a">set_vertices</a> (const std::vector&lt; <a class="el" href="struct_vertex.html">Vertex</a> &gt; &amp;new_verts, size_t physics_verts_chunk_divisor=3)</td></tr>
+<tr class="memdesc:a970b3379c2fe8e2ab734e3292640b97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets current vertices to new vertices.  <br /></td></tr>
 <tr class="separator:a970b3379c2fe8e2ab734e3292640b97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757a9ca0597fc1d89f8aac9ae10e8644"><td class="memItemLeft" align="right" valign="top"><a id="a757a9ca0597fc1d89f8aac9ae10e8644" name="a757a9ca0597fc1d89f8aac9ae10e8644"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_vertices</b> (const std::string &amp;file, size_t physics_verts_chunk_divisor=3)</td></tr>
+<tr class="memitem:a757a9ca0597fc1d89f8aac9ae10e8644"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a757a9ca0597fc1d89f8aac9ae10e8644">set_vertices</a> (const std::string &amp;file, size_t physics_verts_chunk_divisor=3)</td></tr>
+<tr class="memdesc:a757a9ca0597fc1d89f8aac9ae10e8644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets current vertices to new vertices by reading a file.  <br /></td></tr>
 <tr class="separator:a757a9ca0597fc1d89f8aac9ae10e8644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -126,6 +131,84 @@ Public Attributes</h2></td></tr>
 std::vector&lt; UINT &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>indices</b></td></tr>
 <tr class="separator:a5cc5d85449aa04a645854490489f7d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A mesh for collision and rendering. </p>
+<p>Contains a model's geometric data. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="struct_vertex.html">Vertex</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a757a9ca0597fc1d89f8aac9ae10e8644" name="a757a9ca0597fc1d89f8aac9ae10e8644"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a757a9ca0597fc1d89f8aac9ae10e8644">&#9670;&#160;</a></span>set_vertices() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::set_vertices </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>physics_verts_chunk_divisor</em> = <code>3</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets current vertices to new vertices by reading a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_verts</td><td>New vertices. </td></tr>
+    <tr><td class="paramname">physics_verts_chunk_divisor</td><td>Index at which to decimate the mesh by for physics optimizations. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a970b3379c2fe8e2ab734e3292640b97a" name="a970b3379c2fe8e2ab734e3292640b97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970b3379c2fe8e2ab734e3292640b97a">&#9670;&#160;</a></span>set_vertices() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::set_vertices </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="struct_vertex.html">Vertex</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>new_verts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>physics_verts_chunk_divisor</em> = <code>3</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets current vertices to new vertices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_verts</td><td>New vertices. </td></tr>
+    <tr><td class="paramname">physics_verts_chunk_divisor</td><td>Index at which to decimate the mesh by for physics optimizations. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/<a class="el" href="_mesh_8h_source.html">Mesh.h</a></li>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Mesh.cpp</li>

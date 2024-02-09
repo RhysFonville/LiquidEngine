@@ -1,5 +1,14 @@
 \hypertarget{class_shader_storage}{}\doxysection{Shader\+Storage Class Reference}
 \label{class_shader_storage}\index{ShaderStorage@{ShaderStorage}}
+
+
+Stores all compiled shaders from graphics pipeline compilation.  
+
+
+
+
+{\ttfamily \#include $<$Shader\+Storage.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,6 +30,14 @@ void {\bfseries add\+\_\+and\+\_\+compile\+\_\+shader} (Shader\+::\+Type type, c
 \mbox{\Hypertarget{class_shader_storage_a47b6dbe18952c5614c1efe58a4550d75}\label{class_shader_storage_a47b6dbe18952c5614c1efe58a4550d75}} 
 static \mbox{\hyperlink{class_shader_storage}{Shader\+Storage}} $\ast$ {\bfseries get\+\_\+instance} ()
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores all compiled shaders from graphics pipeline compilation. 
+
+Prevents shaders from being compiled multiple times for every object that needs it. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_shader}{Shader}} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

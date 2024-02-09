@@ -2,16 +2,20 @@
 .ad l
 .nh
 .SH NAME
-GraphicsScene
+GraphicsScene \- Contains all needed scene object data for rendering\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <GraphicsScene\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void \fBadd_component\fP (const T *component)"
 .br
+.RI "Add \fBGraphicsComponent\fP to the graphics scene\&. "
 .ti -1c
 .RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void \fBremove_component\fP (const T *component)"
 .br
@@ -21,10 +25,43 @@ GraphicsScene
 .ti -1c
 .RI "void \fBupdate\fP (\fBUVector2\fP resolution)"
 .br
+.RI "Look for changes in component data and update graphics-side data accordingly\&. "
 .ti -1c
 .RI "void \fBclean_up\fP ()"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Contains all needed scene object data for rendering\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void GraphicsScene::add_component (const T * component)\fC [inline]\fP"
+
+.PP
+Add \fBGraphicsComponent\fP to the graphics scene\&. Converts component data into graphics-side structure\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcomponent\fP \fBGraphicsComponent\fP to add\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBGraphicsComponent\fP 
+.RE
+.PP
+
+.SS "void GraphicsScene::update (\fBUVector2\fP resolution)\fC [inline]\fP"
+
+.PP
+Look for changes in component data and update graphics-side data accordingly\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIresolution\fP Render resolution\&. Needed for updating camera\&. 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

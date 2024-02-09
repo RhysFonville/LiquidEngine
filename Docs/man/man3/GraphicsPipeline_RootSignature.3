@@ -2,34 +2,44 @@
 .ad l
 .nh
 .SH NAME
-GraphicsPipeline::RootSignature
+GraphicsPipeline::RootSignature \- Uploads data and structures to shaders\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <GraphicsPipeline\&.h>\fP
 .SS "Classes"
 
 .in +1c
 .ti -1c
 .RI "class \fBConstantBuffer\fP"
 .br
+.RI "Constant buffer\&. "
 .ti -1c
 .RI "class \fBConstantBufferContainer\fP"
 .br
+.RI "Stores a structure and the constant buffer\&. "
 .ti -1c
 .RI "class \fBDescriptorTable\fP"
 .br
+.RI "Descriptor table to describe data to be uploaded\&. "
 .ti -1c
 .RI "class \fBRootArgument\fP"
 .br
+.RI "Root argument to be bound to pipeline\&. "
 .ti -1c
 .RI "class \fBRootConstants\fP"
 .br
+.RI "Root constants\&. "
 .ti -1c
 .RI "class \fBRootConstantsContainer\fP"
 .br
+.RI "Stores a structure and the root constants\&. "
 .ti -1c
 .RI "class \fBShaderResourceView\fP"
 .br
+.RI "\fBShader\fP resource view\&. "
 .in -1c
 .SS "Public Member Functions"
 
@@ -44,20 +54,25 @@ GraphicsPipeline::RootSignature
 .RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
 .br
 .ti -1c
-.RI "void \fBbind_constant_buffer\fP (\fBConstantBuffer\fP &cb, D3D12_SHADER_VISIBILITY shader)"
-.br
-.ti -1c
 .RI "void \fBbind_shader_resource_view\fP (\fBShaderResourceView\fP &srv, D3D12_SHADER_VISIBILITY shader)"
 .br
+.RI "Binds root constants to root signature\&. "
 .ti -1c
 .RI "void \fBbind_root_constants\fP (\fBRootConstants\fP &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
 .br
+.RI "Binds root constants to root signature\&. "
 .ti -1c
 .RI "template<typename T > void \fBbind_root_constants\fP (\fBRootConstantsContainer\fP< T > &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
 .br
+.RI "Binds root constants to root signature\&. "
+.ti -1c
+.RI "void \fBbind_constant_buffer\fP (\fBConstantBuffer\fP &cb, D3D12_SHADER_VISIBILITY shader)"
+.br
+.RI "Binds a constant buffer to root signature\&. "
 .ti -1c
 .RI "template<typename T > void \fBbind_constant_buffer\fP (\fBConstantBufferContainer\fP< T > &cb, D3D12_SHADER_VISIBILITY shader)"
 .br
+.RI "Binds a constant buffer to root signature\&. "
 .in -1c
 .SS "Public Attributes"
 
@@ -66,6 +81,82 @@ GraphicsPipeline::RootSignature
 .RI "ComPtr< ID3D12RootSignature > \fBsignature\fP = nullptr"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Uploads data and structures to shaders\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void GraphicsPipeline::RootSignature::bind_constant_buffer (\fBConstantBuffer\fP & cb, D3D12_SHADER_VISIBILITY shader)"
+
+.PP
+Binds a constant buffer to root signature\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIrc\fP Constant buffer to be bound\&. 
+.br
+\fIshader\fP \fBShader\fP the constant buffer will be used in\&. 
+.RE
+.PP
+
+.SS "template<typename T > void GraphicsPipeline::RootSignature::bind_constant_buffer (\fBConstantBufferContainer\fP< T > & cb, D3D12_SHADER_VISIBILITY shader)\fC [inline]\fP"
+
+.PP
+Binds a constant buffer to root signature\&. Uses the \fBConstantBuffer\fP class from the container to bind\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIobj\fP Constant buffer container to bind\&. 
+.br
+\fIshader\fP \fBShader\fP the root constants will be used in\&. 
+.RE
+.PP
+
+.SS "void GraphicsPipeline::RootSignature::bind_root_constants (\fBRootConstants\fP & rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = \fC\-1\fP)\fC [inline]\fP"
+
+.PP
+Binds root constants to root signature\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIrc\fP Root constants to be bound\&. 
+.br
+\fIshader\fP \fBShader\fP the root constants will be used in\&. 
+.br
+\fInumber\fP of root constants to bind\&. 
+.RE
+.PP
+
+.SS "template<typename T > void GraphicsPipeline::RootSignature::bind_root_constants (\fBRootConstantsContainer\fP< T > & obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = \fC\-1\fP)\fC [inline]\fP"
+
+.PP
+Binds root constants to root signature\&. Uses the \fBRootConstants\fP class from the container to bind\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIobj\fP Root constants container to bind\&. 
+.br
+\fIshader\fP \fBShader\fP the root constants will be used in\&. 
+.br
+\fInumber\fP of root constants to bind\&. 
+.RE
+.PP
+
+.SS "void GraphicsPipeline::RootSignature::bind_shader_resource_view (\fBShaderResourceView\fP & srv, D3D12_SHADER_VISIBILITY shader)"
+
+.PP
+Binds root constants to root signature\&. Uses the \fBRootConstants\fP class from the container to bind\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIobj\fP Root constants container to bind\&. 
+.br
+\fIshader\fP \fBShader\fP the root constants will be used in\&. 
+.br
+\fInumber\fP of root constants to bind\&. 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

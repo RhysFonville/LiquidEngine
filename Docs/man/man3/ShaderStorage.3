@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-ShaderStorage
+ShaderStorage \- Stores all compiled shaders from graphics pipeline compilation\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <ShaderStorage\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
@@ -29,6 +32,18 @@ ShaderStorage
 .RI "static \fBShaderStorage\fP * \fBget_instance\fP ()"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Stores all compiled shaders from graphics pipeline compilation\&. 
+
+Prevents shaders from being compiled multiple times for every object that needs it\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBShader\fP 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

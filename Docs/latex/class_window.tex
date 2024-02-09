@@ -1,5 +1,14 @@
 \hypertarget{class_window}{}\doxysection{Window Class Reference}
 \label{class_window}\index{Window@{Window}}
+
+
+The main window for rendering.  
+
+
+
+
+{\ttfamily \#include $<$Window.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,9 +18,8 @@
 \mbox{\Hypertarget{class_window_a38e3819dbcab6640c33e49040717ed35}\label{class_window_a38e3819dbcab6640c33e49040717ed35}} 
 {\bfseries Window} (HINSTANCE h\+Instance, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$graphics\+\_\+scene)
 \item 
-\mbox{\Hypertarget{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}\label{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}} 
-void {\bfseries set\+\_\+up\+\_\+window} (const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&position=\mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+\+USEDEFAULT, CW\+\_\+\+USEDEFAULT), const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&size=\mbox{\hyperlink{class_t_vector2}{Vector2}}(1200, 800), const std\+::string \&name=\char`\"{}Epic \mbox{\hyperlink{class_window}{Window}} \+:coolglasses\+:\char`\"{}, DWORD style=WS\+\_\+\+OVERLAPPEDWINDOW$\vert$WS\+\_\+\+VISIBLE, const HWND \&parent=NULL, DWORD extended\+\_\+style=NULL, HMENU menu=NULL, void $\ast$lp\+Param=NULL)
-\item 
+void \mbox{\hyperlink{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}{set\+\_\+up\+\_\+window}} (const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&position=\mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+\+USEDEFAULT, CW\+\_\+\+USEDEFAULT), const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&size=\mbox{\hyperlink{class_t_vector2}{Vector2}}(1200, 800), const std\+::string \&name=\char`\"{}Epic \mbox{\hyperlink{class_window}{Window}} \+:coolglasses\+:\char`\"{}, DWORD style=WS\+\_\+\+OVERLAPPEDWINDOW$\vert$WS\+\_\+\+VISIBLE, const HWND \&parent=NULL, DWORD extended\+\_\+style=NULL, HMENU menu=NULL, void $\ast$lp\+Param=NULL)
+\begin{DoxyCompactList}\small\item\em Creates and sets up the window. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_window_a2d5ea2f36a708db07539b4cff974f353}\label{class_window_a2d5ea2f36a708db07539b4cff974f353}} 
 void {\bfseries check\+\_\+input} ()
 \item 
@@ -48,6 +56,46 @@ void {\bfseries is\+\_\+running} (bool running) noexcept
 \mbox{\Hypertarget{class_window_ae00eafe2c52a57e57b791eaf99612f93}\label{class_window_ae00eafe2c52a57e57b791eaf99612f93}} 
 \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ {\bfseries graphics\+\_\+scene} = nullptr
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main window for rendering. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}\label{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}} 
+\index{Window@{Window}!set\_up\_window@{set\_up\_window}}
+\index{set\_up\_window@{set\_up\_window}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{set\_up\_window()}{set\_up\_window()}}
+{\footnotesize\ttfamily void Window\+::set\+\_\+up\+\_\+window (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{position = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+USEDEFAULT,~CW\+\_\+USEDEFAULT)},  }\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{size = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(1200,~800)},  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}Epic~\mbox{\hyperlink{class_window}{Window}}~\+:coolglasses\+:\char`\"{}},  }\item[{DWORD}]{style = {\ttfamily WS\+\_\+OVERLAPPEDWINDOW~$\vert$~WS\+\_\+VISIBLE},  }\item[{const HWND \&}]{parent = {\ttfamily NULL},  }\item[{DWORD}]{extended\+\_\+style = {\ttfamily NULL},  }\item[{HMENU}]{menu = {\ttfamily NULL},  }\item[{void $\ast$}]{lp\+Param = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+
+
+Creates and sets up the window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Initial position of window. \\
+\hline
+{\em size} & Initial size of window. \\
+\hline
+{\em name} & \mbox{\hyperlink{class_window}{Window}} title. \\
+\hline
+{\em style} & \mbox{\hyperlink{class_window}{Window}} styles. \\
+\hline
+{\em parent} & Parent window. \\
+\hline
+{\em extended\+\_\+style} & More specific window styles. \\
+\hline
+{\em menu} & \mbox{\hyperlink{class_window}{Window}} menu. Usually unneeded. \\
+\hline
+{\em lp\+Param} & Unneeded. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['set_5fresolution_0',['set_resolution',['../class_renderer.html#aba7241ab53bfa47becf0621afe484167',1,'Renderer']]]
+  ['add_5fcomponent_0',['add_component',['../class_graphics_scene.html#a8172ba4b54ffe39f2ae1b70c2f4e1191',1,'GraphicsScene']]]
 ];

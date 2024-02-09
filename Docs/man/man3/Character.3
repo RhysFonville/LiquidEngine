@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-Character
+Character \- An object that accepts user input\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <Character\&.h>\fP
 .PP
 Inherits \fBObject\fP\&.
 .PP
@@ -26,6 +29,7 @@ Public Attributes inherited from \fBObject\fP
 .ti -1c
 .RI "\fBComponent\fP \fBroot_component\fP"
 .br
+.RI "All components all derive from the root component\&. "
 .ti -1c
 .RI "\fBGraphicsScene\fP * \fBgraphics_scene\fP = nullptr"
 .br
@@ -142,6 +146,20 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBtick\fP (float dt)"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+An object that accepts user input\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBObject\fP 
+.PP
+KeybindSet 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

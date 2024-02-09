@@ -1,5 +1,14 @@
 \hypertarget{class_object}{}\doxysection{Object Class Reference}
 \label{class_object}\index{Object@{Object}}
+
+
+Base class for all objects.  
+
+
+
+
+{\ttfamily \#include $<$Object.\+h$>$}
+
 Inheritance diagram for Object\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -117,13 +126,15 @@ virtual void {\bfseries tick} (float dt)
 \mbox{\Hypertarget{class_object_a24457e0a387492c80594aec7681a2277}\label{class_object_a24457e0a387492c80594aec7681a2277}} 
 std\+::string {\bfseries name} = \char`\"{}\char`\"{}
 \item 
-\mbox{\Hypertarget{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}\label{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}} 
-\mbox{\hyperlink{class_component}{Component}} {\bfseries root\+\_\+component}
-\item 
+\mbox{\hyperlink{class_component}{Component}} \mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\+\_\+component}}
+\begin{DoxyCompactList}\small\item\em All components all derive from the root component. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_object_a9b64feef62020081f0c606648eb86124}\label{class_object_a9b64feef62020081f0c606648eb86124}} 
 \mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} $\ast$ {\bfseries graphics\+\_\+scene} = nullptr
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Base class for all objects. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_object_a18486446033ec7e8b07e1e50ca92541d}\label{class_object_a18486446033ec7e8b07e1e50ca92541d}} 
@@ -157,6 +168,19 @@ Reimplemented from \mbox{\hyperlink{class_controllable}{Controllable}}.
 Reimplemented from \mbox{\hyperlink{class_controllable}{Controllable}}.
 
 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}\label{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}} 
+\index{Object@{Object}!root\_component@{root\_component}}
+\index{root\_component@{root\_component}!Object@{Object}}
+\doxysubsubsection{\texorpdfstring{root\_component}{root\_component}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component}{Component}} Object\+::root\+\_\+component}
+
+
+
+All components all derive from the root component. 
+
+The root component itself does not do anything. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

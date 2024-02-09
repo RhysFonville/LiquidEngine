@@ -2,10 +2,13 @@
 .ad l
 .nh
 .SH NAME
-GraphicsPipelineMeshChange::Manager
+GraphicsPipelineMeshChange::Manager \- Stores additions and removals of meshes in the pipeline\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <GraphicsPipelineMeshChange\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
@@ -25,6 +28,22 @@ GraphicsPipelineMeshChange::Manager
 .RI "void \fBclear_change_info\fP ()"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Stores additions and removals of meshes in the pipeline\&. 
+
+Communicates these changes from the \fBStaticMeshComponent\fP to the \fBGraphicsPipeline\fP\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBStaticMeshComponent\fP 
+.PP
+\fBGraphicsPipeline\fP 
+.PP
+\fBMesh\fP 
+.RE
+.PP
+
 
 .SH "Author"
 .PP 

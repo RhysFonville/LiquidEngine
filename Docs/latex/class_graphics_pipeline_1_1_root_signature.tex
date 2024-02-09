@@ -1,22 +1,31 @@
 \hypertarget{class_graphics_pipeline_1_1_root_signature}{}\doxysection{Graphics\+Pipeline\+::Root\+Signature Class Reference}
 \label{class_graphics_pipeline_1_1_root_signature}\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+
+
+Uploads data and structures to shaders.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline.\+h$>$}
+
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}}
-\item 
+\begin{DoxyCompactList}\small\item\em Constant buffer. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}
-\item 
+\begin{DoxyCompactList}\small\item\em Stores a structure and the constant buffer. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}}
-\item 
+\begin{DoxyCompactList}\small\item\em Descriptor table to describe data to be uploaded. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Root\+Argument}}
-\item 
+\begin{DoxyCompactList}\small\item\em Root argument to be bound to pipeline. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}}
-\item 
+\begin{DoxyCompactList}\small\item\em Root constants. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}
-\item 
+\begin{DoxyCompactList}\small\item\em Stores a structure and the root constants. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_shader}{Shader}} resource view. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -29,27 +38,121 @@ void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}\label{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}} \&root\+\_\+signature) const noexcept
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}\label{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}} 
-void {\bfseries bind\+\_\+constant\+\_\+buffer} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}\label{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}} 
-void {\bfseries bind\+\_\+shader\+\_\+resource\+\_\+view} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}} \&srv, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}\label{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}} 
-void {\bfseries bind\+\_\+root\+\_\+constants} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} \&rc, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}\label{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+root\+\_\+constants} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}$<$ T $>$ \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}\label{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+constant\+\_\+buffer} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ T $>$ \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}{bind\+\_\+shader\+\_\+resource\+\_\+view}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}} \&srv, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
+\begin{DoxyCompactList}\small\item\em Binds root constants to root signature. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}{bind\+\_\+root\+\_\+constants}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} \&rc, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\begin{DoxyCompactList}\small\item\em Binds root constants to root signature. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}{bind\+\_\+root\+\_\+constants}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}$<$ T $>$ \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\begin{DoxyCompactList}\small\item\em Binds root constants to root signature. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}{bind\+\_\+constant\+\_\+buffer}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
+\begin{DoxyCompactList}\small\item\em Binds a constant buffer to root signature. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}{bind\+\_\+constant\+\_\+buffer}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ T $>$ \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
+\begin{DoxyCompactList}\small\item\em Binds a constant buffer to root signature. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}\label{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}} 
 Com\+Ptr$<$ ID3\+D12\+Root\+Signature $>$ {\bfseries signature} = nullptr
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Uploads data and structures to shaders. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}\label{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}} 
+\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}!bind\_constant\_buffer@{bind\_constant\_buffer}}
+\index{bind\_constant\_buffer@{bind\_constant\_buffer}!GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsubsection{\texorpdfstring{bind\_constant\_buffer()}{bind\_constant\_buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Graphics\+Pipeline\+::\+Root\+Signature\+::bind\+\_\+constant\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&}]{cb,  }\item[{D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY}]{shader }\end{DoxyParamCaption})}
+
+
+
+Binds a constant buffer to root signature. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & Constant buffer to be bound. \\
+\hline
+{\em shader} & \mbox{\hyperlink{class_shader}{Shader}} the constant buffer will be used in. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}\label{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}} 
+\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}!bind\_constant\_buffer@{bind\_constant\_buffer}}
+\index{bind\_constant\_buffer@{bind\_constant\_buffer}!GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsubsection{\texorpdfstring{bind\_constant\_buffer()}{bind\_constant\_buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Graphics\+Pipeline\+::\+Root\+Signature\+::bind\+\_\+constant\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ T $>$ \&}]{cb,  }\item[{D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY}]{shader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Binds a constant buffer to root signature. 
+
+Uses the \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} class from the container to bind. 
+\begin{DoxyParams}{Parameters}
+{\em obj} & Constant buffer container to bind. \\
+\hline
+{\em shader} & \mbox{\hyperlink{class_shader}{Shader}} the root constants will be used in. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}\label{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}} 
+\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}!bind\_root\_constants@{bind\_root\_constants}}
+\index{bind\_root\_constants@{bind\_root\_constants}!GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsubsection{\texorpdfstring{bind\_root\_constants()}{bind\_root\_constants()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Graphics\+Pipeline\+::\+Root\+Signature\+::bind\+\_\+root\+\_\+constants (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} \&}]{rc,  }\item[{D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY}]{shader,  }\item[{UINT}]{number\+\_\+of\+\_\+values = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Binds root constants to root signature. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & Root constants to be bound. \\
+\hline
+{\em shader} & \mbox{\hyperlink{class_shader}{Shader}} the root constants will be used in. \\
+\hline
+{\em number} & of root constants to bind. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}\label{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}} 
+\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}!bind\_root\_constants@{bind\_root\_constants}}
+\index{bind\_root\_constants@{bind\_root\_constants}!GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsubsection{\texorpdfstring{bind\_root\_constants()}{bind\_root\_constants()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Graphics\+Pipeline\+::\+Root\+Signature\+::bind\+\_\+root\+\_\+constants (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}$<$ T $>$ \&}]{obj,  }\item[{D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY}]{shader,  }\item[{UINT}]{number\+\_\+of\+\_\+values = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Binds root constants to root signature. 
+
+Uses the \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} class from the container to bind. 
+\begin{DoxyParams}{Parameters}
+{\em obj} & Root constants container to bind. \\
+\hline
+{\em shader} & \mbox{\hyperlink{class_shader}{Shader}} the root constants will be used in. \\
+\hline
+{\em number} & of root constants to bind. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}\label{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}} 
+\index{GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}!bind\_shader\_resource\_view@{bind\_shader\_resource\_view}}
+\index{bind\_shader\_resource\_view@{bind\_shader\_resource\_view}!GraphicsPipeline::RootSignature@{GraphicsPipeline::RootSignature}}
+\doxysubsubsection{\texorpdfstring{bind\_shader\_resource\_view()}{bind\_shader\_resource\_view()}}
+{\footnotesize\ttfamily void Graphics\+Pipeline\+::\+Root\+Signature\+::bind\+\_\+shader\+\_\+resource\+\_\+view (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}} \&}]{srv,  }\item[{D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY}]{shader }\end{DoxyParamCaption})}
+
+
+
+Binds root constants to root signature. 
+
+Uses the \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} class from the container to bind. 
+\begin{DoxyParams}{Parameters}
+{\em obj} & Root constants container to bind. \\
+\hline
+{\em shader} & \mbox{\hyperlink{class_shader}{Shader}} the root constants will be used in. \\
+\hline
+{\em number} & of root constants to bind. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
