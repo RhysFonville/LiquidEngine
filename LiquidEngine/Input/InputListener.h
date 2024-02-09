@@ -6,6 +6,10 @@
 
 namespace Input {
 
+/**
+ * Listens for input and invokes keybind functions.
+ * \see KeybindSet
+ */
 class InputListener {
 public:
 	InputListener() { }

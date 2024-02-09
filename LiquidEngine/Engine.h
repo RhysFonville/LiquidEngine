@@ -4,6 +4,9 @@
 #include "Window.h"
 #include "StaticEngineProcessToggles.h"
 
+/**
+ * The main LiquidEngine class.
+ */
 class Engine {
 public:
 	Engine();

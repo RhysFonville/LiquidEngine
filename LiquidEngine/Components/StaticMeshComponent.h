@@ -3,6 +3,11 @@
 #include "GraphicsComponent.h"
 #include "../Graphics/Material.h"
 
+/**
+ * Main component for any physical object with a mesh that will be rendered. Has mesh data and a material.
+ * \see Mesh
+ * \see Material
+ */
 class StaticMeshComponent : public GraphicsComponent {
 public:
 	StaticMeshComponent(Mesh mesh = Mesh());

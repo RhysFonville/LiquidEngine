@@ -24,6 +24,10 @@ static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 //	int null = 0;
 //};
 
+/**
+* Each graphics component has thir graphics-side counterpart. Graphics-side component base class.
+* \see GraphicsComponent
+*/
 template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
 class RenderingComponent {
 public:
@@ -50,6 +54,10 @@ public:
 	int null = true;
 };
 
+/**
+* Graphics-side directional light.
+* \see DirectionalLightComponent
+*/
 class RenderingDirectionalLight : public RenderingComponent<DirectionalLightComponent> {
 public:
 	RenderingDirectionalLight(DirectionalLightComponent* light) : RenderingComponent{light}, data{*light} { }
@@ -87,6 +95,10 @@ public:
 	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
 };
 
+/**
+* Graphics-side point light.
+* \see PointLightComponent
+*/
 class RenderingPointLight : public RenderingComponent<PointLightComponent> {
 public:
 	RenderingPointLight(PointLightComponent* light) : RenderingComponent{light}, data{*light} { }
@@ -124,6 +136,10 @@ public:
 	int null = 0;
 };
 
+/**
+* Graphics-side spotlight.
+* \see SpotlightComponent
+*/
 class RenderingSpotlight : public RenderingComponent<SpotlightComponent> {
 public:
 	RenderingSpotlight(SpotlightComponent* light) : RenderingComponent{light}, data{*light} { }
@@ -143,6 +159,10 @@ public:
 	RenderingSpotlightData data{};
 };
 
+/**
+* Graphics-side material.
+* \see Material
+*/
 _declspec(align(16))
 class RenderingMaterial {
 public:
@@ -205,6 +225,10 @@ struct PSSkyCB { // b2
 	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
+/**
+* Graphics-side static mesh.
+* \see StaticMeshComponent
+*/
 class RenderingStaticMesh : public RenderingComponent<StaticMeshComponent> {
 public:
 	RenderingStaticMesh() { }
@@ -248,6 +272,10 @@ public:
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
 };
 
+/**
+ * Graphics-side sky.
+ * \see SkyComponent
+ */
 class RenderingSky : public RenderingComponent<SkyComponent> {
 public:
 	RenderingSky() { }
@@ -270,6 +298,10 @@ public:
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{}; // TODO: CHANGE TO CAMERA POSITION ROOT CONSTANTS
 };
 
+/**
+ * Graphics-side camera.
+ * \see CameraComponent
+ */
 class RenderingCamera : public RenderingComponent<CameraComponent> {
 public:
 	RenderingCamera() { }
@@ -291,10 +323,21 @@ public:
 	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
 };
 
+/**
+* Contains all needed scene object data for rendering.
+*/
 class GraphicsScene {
 public:
 	GraphicsScene() { }
 
+	/**
+	 * Add GraphicsComponent to the graphics scene.
+	 * 
+	 * Converts component data into graphics-side structure.
+	 * 
+	 * \param component GraphicsComponent to add.
+	 * \see GraphicsComponent
+	 */
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
 	void add_component(const T *component) {
 		if (component->get_type() == Component::Type::CameraComponent) {
@@ -354,6 +397,11 @@ public:
 		sky.component->has_changed(true);
 	}
 
+	/**
+	 * Look for changes in component data and update graphics-side data accordingly.
+	 * 
+	 * \param resolution Render resolution. Needed for updating camera.
+	 */
 	void update(UVector2 resolution) {
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {

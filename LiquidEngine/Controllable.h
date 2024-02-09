@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+ * Base class for everything that needs compile, clean up, and tick functionality.
+ * \see Object
+ * \see Component
+ */
 class Controllable {
 public:
 	virtual void base_clean_up() { clean_up(); }

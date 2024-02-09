@@ -6,6 +6,9 @@
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 
+/**
+ * Shader data for rendering.
+ */
 class Shader {
 public:
 	enum class Type {
@@ -106,6 +109,10 @@ private:
 	Type type = Type::Pixel;
 };
 
+/**
+ * Stores all compiled shaders from graphics pipeline compilation. Prevents shaders from being compiled multiple times for every object that needs it.
+ * \see Shader
+ */
 class ShaderStorage {
 public:
 	ShaderStorage(ShaderStorage &other) = delete;

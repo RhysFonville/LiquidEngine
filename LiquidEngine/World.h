@@ -2,6 +2,10 @@
 
 #include "Scene.h"
 
+/**
+ * The entire world. Stores scenes.
+ * \see Scene
+ */
 class World {
 public:
 	World() { }

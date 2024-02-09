@@ -1,6 +1,9 @@
 #pragma once
 
 namespace Input {
+/**
+ * All windows supported keys.
+ */
 enum class WindowsKeyCode { // https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 	None,
 	LeftMouseButton,

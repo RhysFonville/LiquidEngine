@@ -5,6 +5,9 @@
 
 namespace GraphicsPipelineMeshChange {
 
+/**
+ * Addition or removal information.
+ */
 struct Command {
 	enum class Type {
 		Add, Sub
@@ -13,6 +16,12 @@ struct Command {
 	std::variant<std::pair<Mesh, size_t>, size_t> change; 
 };
 
+/**
+* Stores additions and removals of meshes in the pipeline. Communicates these changes from the StaticMeshComponent to the GraphicsPipeline.
+* \see StaticMeshComponent
+* \see GraphicsPipeline
+* \see Mesh
+*/
 class Manager {
 public:
 	Manager() { }

@@ -173,9 +173,7 @@ A character is a subclass of an object, and it's only difference is that it has 
 
 <h3>Getting started</h3>
 
-Your LiquidEngine project begins in the main function. Since this is windows, instead of a regular main, you must use window's wWinMain function.
-
-Inside of the main function, create an Engine object and pass in hInstance into the constructor. here, you can add objects into the active scene.
+Your LiquidEngine project begins in the main function. Inside of the main function, create an Engine object and pass in hInstance into the constructor. here, you can add objects into the active scene.
 
 Once you're done setting up the world, compile the engine and let it run.
 
@@ -186,7 +184,12 @@ Here is an example main.cpp:
 #include "Objects/MyCamera.h"
 #include "Objects/Engine/DefaultCube.h"
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+int main() {
+	if (FAILED(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED))) { // If you are rendering textures, this must be added.
+		OutputDebugStringA("Failed to initialize COM");
+		return 1;
+	}
+
 	Engine engine(hInstance);
 
 	engine.world.active_scene->add_character(std::make_shared<MyCamera>());

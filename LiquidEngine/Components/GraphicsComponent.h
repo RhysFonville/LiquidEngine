@@ -2,6 +2,9 @@
 
 #include "Component.h"
 
+/**
+* Main component for any component that is used for rendering and graphics.
+*/
 class GraphicsComponent : public Component {
 public:
 	GraphicsComponent(Type type);

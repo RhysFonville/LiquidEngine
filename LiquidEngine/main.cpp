@@ -2,7 +2,6 @@
 #include "Objects/MyCamera.h"
 #include "Shapes/Cube.h"
 
-//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	if (FAILED(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED))) {
 		OutputDebugStringA("Failed to initialize COM");

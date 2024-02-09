@@ -3,6 +3,9 @@
 #include "../globalutil.h"
 #include "../Controllable.h"
 
+/**
+* Base component class for all components.
+*/
 class Component : public Controllable {
 public:
 	enum class Type {

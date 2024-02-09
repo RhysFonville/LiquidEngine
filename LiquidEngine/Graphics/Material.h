@@ -4,6 +4,9 @@
 #include <fstream>
 #include "Texture.h"
 
+/**
+ * Material data for rendering.
+ */
 class Material {
 public:
 	Material() { }

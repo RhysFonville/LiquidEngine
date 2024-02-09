@@ -9,6 +9,9 @@
 
 using namespace DirectX;
 
+/**
+ * Base class for all objects.
+ */
 class Object : public Controllable {
 public:
 	Object() { }
@@ -99,6 +102,9 @@ public:
 
 	std::string name = "";
 
+	/**
+	 * All components all derive from the root component. The root component itself does not do anything.
+	 */
 	Component root_component;
 
 	GraphicsScene* graphics_scene = nullptr;

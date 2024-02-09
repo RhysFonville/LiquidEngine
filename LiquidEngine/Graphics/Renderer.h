@@ -5,6 +5,9 @@
 #include "GraphicsPipeline.h"
 #include "GraphicsScene.h"
 
+/**
+ * Main class for rendering.
+ */
 class Renderer {
 public:
 	Renderer() { }

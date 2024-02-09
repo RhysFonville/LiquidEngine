@@ -2,6 +2,9 @@
 
 #include "GraphicsComponent.h"
 
+/**
+* Main class for the light components.
+*/
 class LightComponent : public GraphicsComponent {
 public:
 	LightComponent(Type type);

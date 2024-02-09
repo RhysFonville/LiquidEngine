@@ -11,12 +11,29 @@
 #include "Debug/DebugOutput.h"
 #endif
 
+/**
+ * The main window for rendering.
+ * \see GraphicsScene
+ */
+
 class Window {
 public:
 	Window();
 	Window(HINSTANCE hInstance);
 	Window(HINSTANCE hInstance, Renderer* graphics_scene);
 
+	/**
+	 * Creates and sets up the window.
+	 * 
+	 * \param position Initial position of window.
+	 * \param size Initial size of window.
+	 * \param name Window title.
+	 * \param style Window styles.
+	 * \param parent Parent window.
+	 * \param extended_style More specific window styles.
+	 * \param menu Window menu. Usually unneeded.
+	 * \param lpParam Unneeded.
+	 */
 	void set_up_window(const Vector2 &position = Vector2(CW_USEDEFAULT, CW_USEDEFAULT),
 		const Vector2 &size = Vector2(1200, 800),
 		const std::string &name = "Epic Window :coolglasses:",

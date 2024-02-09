@@ -20,6 +20,9 @@ struct alignas(16) GenerateMipsCB {
 	FVector2 texel_size; // 1.0 / OutMip1.Dimensions
 };
 
+/**
+* D3D12 graphics pipeline wrapper.
+*/
 class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
@@ -50,6 +53,11 @@ public:
 		{ "TANGENT",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
 	};
 
+	/**
+	 * Uploads mesh data.
+	 * \see Mesh
+	 * \see GraphicsPipelineMeshChange::Manager
+	 */
 	class InputAssembler {
 	public:
 		InputAssembler() { }
@@ -94,6 +102,9 @@ public:
 	std::string gs{};
 	std::string ps{"LitPixel.hlsl"};
 
+	/**
+	* Tesselator stage.
+	*/
 	class Tesselator {
 	public:
 		bool operator==(const Tesselator &tesselator) const noexcept { return true; }
@@ -102,6 +113,9 @@ public:
 		friend GraphicsPipeline;
 	} tesselator;
 
+	/**
+	* Rasterizer stage.
+	*/
 	class Rasterizer {
 	public:
 		Rasterizer() { }
@@ -159,6 +173,9 @@ public:
 		D3D12_RASTERIZER_DESC desc = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	} rasterizer;
 
+	/**
+	* Stream output stage.
+	*/
 	class StreamOutput {
 	public:
 		StreamOutput() : desc({}) { }
@@ -179,8 +196,14 @@ public:
 		D3D12_STREAM_OUTPUT_DESC desc = {};
 	} stream_output;
 
+	/**
+	* Uploads data and structures to shaders.
+	*/
 	class RootSignature { // https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12
 	public:
+		/**
+		 * Root argument to be bound to pipeline.
+		 */
 		class RootArgument {
 			RootArgument() { }
 			RootArgument(UINT parameter_index);
@@ -192,6 +215,10 @@ public:
 
 			UINT parameter_index = 0u;
 		};
+
+		/**
+		* Descriptor table to describe data to be uploaded.
+		*/
 		class DescriptorTable : public RootArgument {
 		public:
 			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index);
@@ -218,6 +245,10 @@ public:
 			
 			std::vector<D3D12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
 		};
+
+		/**
+		* Root constants.
+		*/
 		class RootConstants : public RootArgument {
 		public:
 			RootConstants() { }
@@ -263,6 +294,9 @@ public:
 			D3D12_ROOT_CONSTANTS constants = { };
 		};
 
+		/**
+		* Constant buffer.
+		*/
 		class ConstantBuffer {
 		public:
 			ConstantBuffer() { }
@@ -334,6 +368,9 @@ public:
 			bool update_signal = true;
 		};
 
+		/**
+		* Shader resource view. Used for uploading texture data.
+		*/
 		class ShaderResourceView {
 		public:
 			ShaderResourceView() { }
@@ -355,6 +392,10 @@ public:
 			bool update_signal = false;
 		};
 
+		/**
+		* Stores a structure and the constant buffer. The structure is the data to be written to the constant buffer. Not required, but useful.
+		* \see GraphicsPipeline::RootSignature::ConstantBuffer
+		*/
 		template <typename T>
 		class ConstantBufferContainer {
 		public:
@@ -375,6 +416,9 @@ public:
 			GraphicsPipeline::RootSignature::ConstantBuffer cb;
 		};
 
+		/**
+		* Stores a structure and the root constants. The structure is the data to be written to the root constants. Not required, but useful.
+		*/
 		template <typename T>
 		class RootConstantsContainer {
 		public:
@@ -397,21 +441,50 @@ public:
 		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
-
-		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+		
+		/**
+		* Binds root constants to root signature. Uses the RootConstants class from the container to bind.
+		* \param obj Root constants container to bind.
+		* \param shader Shader the root constants will be used in.
+		* \param number of root constants to bind.
+		*/
 		void bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader);
 
+		/**
+		 * Binds root constants to root signature.
+		 * \param rc Root constants to be bound.
+		 * \param shader Shader the root constants will be used in.
+		 * \param number of root constants to bind.
+		 */
 		void bind_root_constants(RootConstants &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 			rc.compile(shader, index + (UINT)shader_resource_views.size(), index, number_of_values);
 			root_constants.push_back(&rc);
 		}
 
+		/**
+		* Binds root constants to root signature. Uses the RootConstants class from the container to bind.
+		* \param obj Root constants container to bind.
+		* \param shader Shader the root constants will be used in.
+		* \param number of root constants to bind.
+		*/
 		template <typename T>
 		void bind_root_constants(RootConstantsContainer<T> &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			bind_root_constants(obj.rc, shader, number_of_values);
 		}
 
+		/**
+		* Binds a constant buffer to root signature.
+		* \param rc Constant buffer to be bound.
+		* \param shader Shader the constant buffer will be used in.
+		*/
+		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+
+		/**
+		* Binds a constant buffer to root signature. Uses the ConstantBuffer class from the container to bind.
+		* \param obj Constant buffer container to bind.
+		* \param shader Shader the root constants will be used in.
+		*/
 		template <typename T>
 		void bind_constant_buffer(ConstantBufferContainer<T> &cb, D3D12_SHADER_VISIBILITY shader) {
 			bind_constant_buffer(cb.cb, shader);

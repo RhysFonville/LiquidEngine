@@ -11,6 +11,9 @@ enum class CallbackEvent {
 	IsNotPressed
 };
 
+/**
+ * Main class containing keybind data and options.
+ */
 class KeybindSet {
 public:
 	struct Category {

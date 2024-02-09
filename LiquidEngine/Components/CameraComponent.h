@@ -3,6 +3,9 @@
 #include "GraphicsComponent.h"
 #include "SimpleMath.h"
 
+/**
+* Component for a camera.
+*/
 class CameraComponent : public GraphicsComponent {
 public:
 	CameraComponent();

@@ -8,6 +8,10 @@
 #include "Character.h"
 #include "Input/InputListener.h"
 
+/**
+ * Scene to store objects in.
+ * \see GraphicsScene
+ */
 class Scene {
 public:
 	Scene() { }

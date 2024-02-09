@@ -4,6 +4,9 @@
 #include "../Graphics/Texture.h"
 #include "GraphicsComponent.h"
 
+/**
+* Component for a sky.
+*/
 class SkyComponent : public GraphicsComponent {
 public:
 	SkyComponent();

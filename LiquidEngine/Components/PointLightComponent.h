@@ -2,6 +2,9 @@
 
 #include "LightComponent.h"
 
+/**
+* Component for a point light.
+*/
 class PointLightComponent : public LightComponent {
 public:
 	PointLightComponent();
