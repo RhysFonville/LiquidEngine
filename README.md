@@ -206,3 +206,5 @@ int main() {
 }
 
 ```
+
+In this example, our camera character is added to the scene, as well as a sky, and a cube. LiquidEngine is then compiled and ran.
