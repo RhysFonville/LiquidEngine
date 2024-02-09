@@ -210,19 +210,25 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	scene.sky.pipeline.root_signature.bind_root_constants<PerFrameVSCB>(rcs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_root_constants<PerObjectVSCB>(rcs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.pipeline.root_signature.bind_constant_buffer<SkyPSCB>(rcs.sky_ps, D3D12_SHADER_VISIBILITY_PIXEL);
+	scene.compile();
 
-	scene.sky.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
 
+	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+
+	int i = 0;
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerFrameVSCB>(rcs.per_frame_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_root_constants<PerObjectVSCB>(rcs.per_object_vs, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.lights_cb, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh.mesh->get_material().pipeline.root_signature.bind_constant_buffer(mesh.material_cb, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.component->material.pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.component->material.pipeline.root_signature.bind_root_constants<VSTransformConstants>(mesh.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.component->material.pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
+		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
-		mesh.mesh->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+		mesh.component->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+		*debug_out << "Compiling mesh #" << std::to_string(i) << '\n';
+		i++;
 	}
  
 	HPEW(command_list->Close());
@@ -273,66 +279,13 @@ void Renderer::update() {
 
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
-	std::vector<DXDLight> dl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXPLight> pl(MAX_LIGHTS_PER_TYPE);
-	std::vector<DXSLight> sl(MAX_LIGHTS_PER_TYPE);
-	UINT dl_count = 0;
-	UINT pl_count = 0;
-	UINT sl_count = 0;
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE; i++) {
-		dl[i].null = true;
-		pl[i].null = true;
-		sl[i].null = true;
-	}
+	scene.update(resolution);
 
-	for (int i = 0; i < MAX_LIGHTS_PER_TYPE && i < scene.lights.size(); i++) {
-		if (scene.lights[i]->get_type() == Component::Type::DirectionalLightComponent) {
-			auto light = ((DirectionalLightComponent*)scene.lights[i]);
-			dl[dl_count] = DXDLight(*light);
-			dl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::PointLightComponent) {
-			auto light = ((PointLightComponent*)scene.lights[i]);
-			pl[pl_count] = DXPLight(*light, scene.lights[i]->get_position());
-			pl_count++;
-		}
-		if (scene.lights[i]->get_type() == Component::Type::SpotlightComponent) {
-			auto light = ((SpotlightComponent*)scene.lights[i]);
-			sl[sl_count] = DXSLight(*light);
-			sl_count++;
-		}
-	}
-
-	Transform sky_transform;
-	if (scene.camera != nullptr) {
-		sky_transform.position = scene.camera->get_position();
-	}
-	rcs.per_object_vs.obj->transform = sky_transform;
-
-	scene.sky.pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		if (scene.camera != nullptr) {
-			scene.camera->update(UVector2_to_FVector2(resolution));
-			rcs.per_frame_vs.obj->WVP = XMMatrixTranspose(scene.camera->WVP);
-			mesh.lights_cb.obj->camera_position = scene.camera->get_position();
-		}
-
-		std::copy(dl.begin(), dl.end(), mesh.lights_cb.obj->directional_lights);
-		std::copy(pl.begin(), pl.end(), mesh.lights_cb.obj->point_lights);
-		std::copy(sl.begin(), sl.end(), mesh.lights_cb.obj->spotlights);
-		mesh.lights_cb.obj->directional_light_count = dl_count;
-		mesh.lights_cb.obj->point_light_count = pl_count;
-		mesh.lights_cb.obj->spotlight_count = sl_count;
-
-		rcs.per_object_vs.obj->transform = mesh.mesh->get_transform();
-		mesh.material_cb.obj->material = (DXMaterial)mesh.mesh->get_material();
-		mesh.mesh->get_material().pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
+		mesh.component->material.pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}
-
-	//cbs.per_object_vs.obj->transform = scene.static_meshes[0]->get_transform();
-	//cbs.per_object_ps.obj->material = (DXMaterial)scene.static_meshes[0]->get_material();
-	//scene.static_meshes[0]->get_material().pipeline.run(device, command_list, rtv_handle, frame_index, sample_desc, resolution);
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
@@ -340,6 +293,8 @@ void Renderer::update() {
 	command_list->ResourceBarrier(1, &barrier);
 
 	HPEW(command_list->Close());
+
+	ResourceManager::Release::release_all_resources();
 }
 
 void Renderer::render() {

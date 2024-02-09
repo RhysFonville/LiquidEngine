@@ -1,3 +1,3 @@
-cbuffer PerFrameVSCB : register(b0) {
+cbuffer VSWVPConstants : register(b0) {
 	matrix WVP;
 }

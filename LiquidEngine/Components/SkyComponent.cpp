@@ -1,6 +1,8 @@
-#include "Sky.h"
+#include "SkyComponent.h"
 
-void Sky::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
+SkyComponent::SkyComponent() : GraphicsComponent{Type::SkyComponent} { }
+
+void SkyComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	compile();
 
 	pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
@@ -8,7 +10,7 @@ void Sky::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Graphic
 	pipeline.compilation_signal = false;
 }
 
-void Sky::compile() {
+void SkyComponent::compile() {
 	pipeline.input_assembler.set_proxy(proxy);
 
 	pipeline.input_layout = {
@@ -20,8 +22,8 @@ void Sky::compile() {
 	rdesc.CullMode = D3D12_CULL_MODE_FRONT;
 	pipeline.rasterizer.set_desc(rdesc);
 
-	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, "Graphics/SkyVS.hlsl");
-	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, "Graphics/SkyPS.hlsl");
+	pipeline.vs = "Graphics/SkyVS.hlsl";
+	pipeline.ps = "Graphics/SkyPS.hlsl";
 
 	if (has_texture()) {
 		albedo_texture.compile();
@@ -35,11 +37,11 @@ void Sky::compile() {
 	proxy->add_mesh(Mesh("Shapes/skybox.obj"));
 }
 
-bool Sky::has_texture() const noexcept {
+bool SkyComponent::has_texture() const noexcept {
 	return albedo_texture.exists();
 }
 
-//Mesh Sky::create_sphere(UINT LatLines, UINT LongLines) {
+//Mesh SkyComponent::create_sphere(UINT LatLines, UINT LongLines) {
 //	//NumSphereVertices = ((LatLines-2) * LongLines) + 2;
 //	//NumSphereFaces  = ((LatLines-3)*(LongLines)*2) + (LongLines*2);
 //

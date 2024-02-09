@@ -118,6 +118,10 @@ FVector3 CameraComponent::direction_real_up() const noexcept {
 	return up;
 }
 
+XMMATRIX CameraComponent::get_wvp() const noexcept {
+	return WVP;
+}
+
 void CameraComponent::update(const FVector2 &size) noexcept {
 	projection = XMMatrixPerspectiveFovLH( 0.4f*3.14f, size.x/size.y, 0.05f, 1000.0f);
 	world = XMMatrixIdentity();
@@ -126,6 +130,7 @@ void CameraComponent::update(const FVector2 &size) noexcept {
 
 void CameraComponent::set_view() noexcept {
 	view = XMMatrixLookAtLH((XMVECTOR)transform.position, (XMVECTOR)this->target, (XMVECTOR)this->up);
+	changed = true;
 }
 
 bool CameraComponent::operator==(const CameraComponent &component) const noexcept {

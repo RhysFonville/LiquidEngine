@@ -56,7 +56,7 @@
     <ClInclude Include="Graphics\GraphicsPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsPipelineMeshChangeManager.h">
+    <ClInclude Include="Graphics\GraphicsPipelineMeshChange.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Renderer.h">
@@ -116,7 +116,7 @@
     <ClInclude Include="Graphics\ComputePipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Sky.h">
+    <ClInclude Include="Components\SkyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ResourceManager.h">
@@ -144,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Debug\DebugOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ShaderStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -196,7 +199,7 @@
     <ClCompile Include="Graphics\GraphicsPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicsPipelineMeshChangeManager.cpp">
+    <ClCompile Include="Graphics\GraphicsPipelineMeshChange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Renderer.cpp">
@@ -229,7 +232,7 @@
     <ClCompile Include="Graphics\ComputePipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Sky.cpp">
+    <ClCompile Include="Components\SkyComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
@@ -248,6 +251,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Debug\DebugOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ShaderStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

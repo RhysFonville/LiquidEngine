@@ -41,9 +41,6 @@ Window::Window() {
 	window_class.hCursor = LoadCursorW(NULL, IDC_CROSS);
 
 	RegisterClassExA(&window_class);
-#ifdef NDEBUG
-	DestroyWindow(debug_out.hwnd);
-#endif
 }
 
 Window::Window(HINSTANCE hInstance) : Window{} {

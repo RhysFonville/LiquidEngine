@@ -3,11 +3,6 @@
 #include "GraphicsComponent.h"
 #include "SimpleMath.h"
 
-//struct RendererCameraComponent {
-//	XMMATRIX* WVP = nullptr;
-//	FVector3* position = nullptr;
-//};
-
 class CameraComponent : public GraphicsComponent {
 public:
 	CameraComponent();
@@ -28,6 +23,8 @@ public:
 	GET FVector3 direction_down() const noexcept;
 
 	GET FVector3 direction_real_up() const noexcept;
+
+	GET XMMATRIX get_wvp() const noexcept;
 
 	void update(const FVector2 &size) noexcept;
 

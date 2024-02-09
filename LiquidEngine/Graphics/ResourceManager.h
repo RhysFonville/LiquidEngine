@@ -6,11 +6,11 @@
 namespace ResourceManager {
 	namespace Release {
 
-		static std::vector<ID3D12Resource*> resources;
+		static std::vector<ComPtr<ID3D12Resource>> resources;
 
 		static void release_all_resources() {
-			for (ID3D12Resource* resource : resources) {
-				resource->Release();
+			for (auto &resource : resources) {
+				resource.Reset();
 			}
 		}
 	};

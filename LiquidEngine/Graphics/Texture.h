@@ -10,6 +10,8 @@ public:
 
 	void compile();
 
+	//void operator=(const Texture &texture) noexcept;
+
 	bool operator==(const Texture &texture) const noexcept;
 
 	void set_texture(const std::string &file);

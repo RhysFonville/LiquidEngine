@@ -34,9 +34,7 @@ struct Material {
 	float a;
 };
 
-cbuffer PerFramePSCB : register(b2) {
-	float3 camera_position;
-	
+cbuffer PSLightsCB : register(b2) {
 	uint directional_light_count;
 	uint point_light_count;
 	uint spotlight_count;
@@ -46,7 +44,11 @@ cbuffer PerFramePSCB : register(b2) {
 	Spotlight spotlights[MAX_LIGHTS_PER_TYPE];
 }
 
-cbuffer PerObjectPSCB : register(b3) {
+cbuffer PSCameraConstants : register(b3) {
+	float3 camera_position;
+}
+
+cbuffer PerObjectPSCB : register(b4) {
 	Material material;
 }
 

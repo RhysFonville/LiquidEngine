@@ -8,11 +8,11 @@ void Material::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Gr
 }
 
 void Material::compile() {
-	pipeline.vs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Vertex, vs);
-	pipeline.hs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Hull, hs);
-	pipeline.ds = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Domain, ds);
-	pipeline.gs = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Geometry, gs);
-	pipeline.ps = GraphicsPipeline::Shader(GraphicsPipeline::Shader::Type::Pixel, ps);
+	pipeline.vs = vs;
+	pipeline.hs = hs;
+	pipeline.ds = ds;
+	pipeline.gs = gs;
+	pipeline.ps = ps;
 
 	if (has_texture()) {
 		albedo_texture.compile();
@@ -91,6 +91,16 @@ void Material::set_data(const std::string &file) {
 	} else {
 		throw std::exception("Material set_data file could not be opened.");
 	}
+}
+
+void Material::set_data(const Material &material) {
+	albedo_texture.set_texture(material.albedo_texture.get_file());
+	normal_map.set_texture(material.normal_map.get_file());
+	specular = material.specular;
+	albedo = material.albedo;
+	ambient = material.ambient;
+	shininess = material.shininess;
+
 }
 
 bool Material::has_texture() const noexcept {
