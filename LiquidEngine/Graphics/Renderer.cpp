@@ -227,7 +227,7 @@ void Renderer::compile() {
 		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh.component->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
-		*debug_out << "Compiling mesh #" << std::to_string(i) << '\n';
+		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
 		i++;
 	}
  
