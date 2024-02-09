@@ -3,7 +3,7 @@
 Inheritance diagram for My\+Camera\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{class_my_camera}
+\includegraphics[height=4.000000cm]{class_my_camera}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -12,6 +12,33 @@ Inheritance diagram for My\+Camera\+:\begin{figure}[H]
 void \mbox{\hyperlink{class_my_camera_a0733840b63259f82d9e5d4daf1225f17}{on\+\_\+start}} () override
 \item 
 void \mbox{\hyperlink{class_my_camera_a2eaa32bd4fd62d26cd137901942f13c6}{tick}} (float dt) override
+\item 
+\mbox{\Hypertarget{class_my_camera_a015688d4fe1cd555bf0fc9a9d24282ae}\label{class_my_camera_a015688d4fe1cd555bf0fc9a9d24282ae}} 
+void {\bfseries on\+\_\+turn} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_abc62433a1185b8f32f7e7293ed3eb250}\label{class_my_camera_abc62433a1185b8f32f7e7293ed3eb250}} 
+void {\bfseries on\+\_\+forward} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_adf37a608b0e34ea9cf607866f0970712}\label{class_my_camera_adf37a608b0e34ea9cf607866f0970712}} 
+void {\bfseries on\+\_\+backward} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_af2c1beae19d2aa57ee74ff60c5e4186c}\label{class_my_camera_af2c1beae19d2aa57ee74ff60c5e4186c}} 
+void {\bfseries on\+\_\+left} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_abc3b42dbf722ddb180acc621a3fd03c8}\label{class_my_camera_abc3b42dbf722ddb180acc621a3fd03c8}} 
+void {\bfseries on\+\_\+right} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_a78201e6226521863ffa7dfc1a7645a66}\label{class_my_camera_a78201e6226521863ffa7dfc1a7645a66}} 
+void {\bfseries on\+\_\+up} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_a866b5fd5444c1b480958c20434c3fe7e}\label{class_my_camera_a866b5fd5444c1b480958c20434c3fe7e}} 
+void {\bfseries on\+\_\+down} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_a72b53165853ff5b6080d956ce0a4b946}\label{class_my_camera_a72b53165853ff5b6080d956ce0a4b946}} 
+void {\bfseries on\+\_\+slow} (float dt)
+\item 
+\mbox{\Hypertarget{class_my_camera_acd0c1b1a862531d7820b7aca2e368c94}\label{class_my_camera_acd0c1b1a862531d7820b7aca2e368c94}} 
+void {\bfseries on\+\_\+not\+\_\+slow} (float dt)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_object}{Object}}}
 \begin{DoxyCompactItemize}
@@ -64,26 +91,11 @@ GET std\+::vector$<$ \mbox{\hyperlink{class_object}{Object}} $\ast$ $>$ \& {\bfs
 \mbox{\Hypertarget{class_object_ab8600843a80158d46f7fcd9e90362866}\label{class_object_ab8600843a80158d46f7fcd9e90362866}} 
 void {\bfseries add\+\_\+child} (\mbox{\hyperlink{class_object}{Object}} $\ast$child) noexcept
 \item 
-\mbox{\Hypertarget{class_object_a18486446033ec7e8b07e1e50ca92541d}\label{class_object_a18486446033ec7e8b07e1e50ca92541d}} 
-void {\bfseries base\+\_\+clean\+\_\+up} ()
+void \mbox{\hyperlink{class_object_a18486446033ec7e8b07e1e50ca92541d}{base\+\_\+clean\+\_\+up}} ()
 \item 
-\mbox{\Hypertarget{class_object_a3131970ec0bdc60c65d586b3b4039745}\label{class_object_a3131970ec0bdc60c65d586b3b4039745}} 
-void {\bfseries base\+\_\+compile} ()
+void \mbox{\hyperlink{class_object_a3131970ec0bdc60c65d586b3b4039745}{base\+\_\+compile}} ()
 \item 
-\mbox{\Hypertarget{class_object_a69977c1b7144cc8719539bb9c293f4e3}\label{class_object_a69977c1b7144cc8719539bb9c293f4e3}} 
-void {\bfseries base\+\_\+tick} (float dt)
-\item 
-\mbox{\Hypertarget{class_object_a1b15d43be6392e1d56f5accc4ed8efc8}\label{class_object_a1b15d43be6392e1d56f5accc4ed8efc8}} 
-virtual void {\bfseries on\+\_\+start} ()
-\item 
-\mbox{\Hypertarget{class_object_a330ee3427a825a0454139710c15872d5}\label{class_object_a330ee3427a825a0454139710c15872d5}} 
-virtual void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_object_aca8b2b61e9abda2e04fee0e5ec21f8c0}\label{class_object_aca8b2b61e9abda2e04fee0e5ec21f8c0}} 
-virtual void {\bfseries compile} ()
-\item 
-\mbox{\Hypertarget{class_object_a51305c5316ddc08bee8908f835550aca}\label{class_object_a51305c5316ddc08bee8908f835550aca}} 
-virtual void {\bfseries tick} (float dt)
+void \mbox{\hyperlink{class_object_a69977c1b7144cc8719539bb9c293f4e3}{base\+\_\+tick}} (float dt)
 \item 
 \mbox{\Hypertarget{class_object_ab02104ff139561fb440560c3c09eb367}\label{class_object_ab02104ff139561fb440560c3c09eb367}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_object}{Object}} \&object) const noexcept
@@ -109,7 +121,37 @@ GET bool {\bfseries has\+\_\+component} (Component\+::\+Type search) const noexc
 \mbox{\Hypertarget{class_object_af96ca8fd7ab8e0922f5078126d63e957}\label{class_object_af96ca8fd7ab8e0922f5078126d63e957}} 
 void {\bfseries remove\+\_\+component} (size\+\_\+t index)
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_controllable}{Controllable}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controllable_af5f7b92d7d373648765015806c72dd45}\label{class_controllable_af5f7b92d7d373648765015806c72dd45}} 
+virtual void {\bfseries base\+\_\+clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_controllable_a3e702d50bc0df40bc76283ac40048b3a}\label{class_controllable_a3e702d50bc0df40bc76283ac40048b3a}} 
+virtual void {\bfseries base\+\_\+compile} ()
+\item 
+\mbox{\Hypertarget{class_controllable_a61e410a136d98711221d0745674724cc}\label{class_controllable_a61e410a136d98711221d0745674724cc}} 
+virtual void {\bfseries base\+\_\+tick} (float dt)
+\item 
+\mbox{\Hypertarget{class_controllable_a787ecd58e4dad2882659158e43107bc1}\label{class_controllable_a787ecd58e4dad2882659158e43107bc1}} 
+virtual void {\bfseries on\+\_\+start} ()
+\item 
+\mbox{\Hypertarget{class_controllable_aa34341e4eb1189435b8f159d4cac09da}\label{class_controllable_aa34341e4eb1189435b8f159d4cac09da}} 
+virtual void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_controllable_ab7e688c8097e327c8e8424a23750c780}\label{class_controllable_ab7e688c8097e327c8e8424a23750c780}} 
+virtual void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_controllable_a869af510ef0d4280b091cd4b634bfb56}\label{class_controllable_a869af510ef0d4280b091cd4b634bfb56}} 
+virtual void {\bfseries tick} (float dt)
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_character}{Character}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_character_a04a5fb5bd2117c2635f6bdeb64e7f627}\label{class_character_a04a5fb5bd2117c2635f6bdeb64e7f627}} 
+\mbox{\hyperlink{class_input_1_1_keybind_set}{Input\+::\+Keybind\+Set}} {\bfseries keybind\+\_\+set}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_object}{Object}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -133,7 +175,7 @@ std\+::string {\bfseries name} = \char`\"{}\char`\"{}
 
 
 
-Reimplemented from \mbox{\hyperlink{class_object}{Object}}.
+Reimplemented from \mbox{\hyperlink{class_controllable}{Controllable}}.
 
 \mbox{\Hypertarget{class_my_camera_a2eaa32bd4fd62d26cd137901942f13c6}\label{class_my_camera_a2eaa32bd4fd62d26cd137901942f13c6}} 
 \index{MyCamera@{MyCamera}!tick@{tick}}
@@ -143,11 +185,11 @@ Reimplemented from \mbox{\hyperlink{class_object}{Object}}.
 
 
 
-Reimplemented from \mbox{\hyperlink{class_object}{Object}}.
+Reimplemented from \mbox{\hyperlink{class_controllable}{Controllable}}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Objects/\+Custom/My\+Camera.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Objects/\+Custom/My\+Camera.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Objects/My\+Camera.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Objects/My\+Camera.\+cpp\end{DoxyCompactItemize}

@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::InputAssembler" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::InputAssembler" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,7 +10,7 @@ GraphicsPipeline::InputAssembler
 
 .in +1c
 .ti -1c
-.RI "void \fBadd_mesh\fP (const \fBMesh\fP &mesh, ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, size_t index=\-1)"
+.RI "void \fBadd_mesh\fP (const \fBMesh\fP &mesh, const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, size_t index=\-1)"
 .br
 .ti -1c
 .RI "void \fBremove_mesh\fP (size_t index)"
@@ -19,10 +19,10 @@ GraphicsPipeline::InputAssembler
 .RI "void \fBremove_all_meshes\fP ()"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
-.RI "void \fBset_proxy\fP (const std::shared_ptr< \fBGraphicsPipelineMeshChangeManager\fP > &change_manager)"
+.RI "void \fBset_proxy\fP (const std::shared_ptr< \fBGraphicsPipelineMeshChange::Manager\fP > &change_manager)"
 .br
 .ti -1c
 .RI "const std::vector< D3D12_VERTEX_BUFFER_VIEW > & \fBget_vertex_buffer_views\fP () const noexcept"

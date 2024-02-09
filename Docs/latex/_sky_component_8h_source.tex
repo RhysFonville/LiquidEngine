@@ -1,0 +1,39 @@
+\hypertarget{_sky_component_8h_source}{}\doxysection{Sky\+Component.\+h}
+\label{_sky_component_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/SkyComponent.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Components/SkyComponent.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Graphics/GraphicsPipeline.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Graphics/Texture.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}GraphicsComponent.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sky_component}{SkyComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_sky_component}{SkyComponent}}();}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,\ \textcolor{keyword}{const}\ D3D12\_DEPTH\_STENCIL\_DESC\ \&depth\_stencil\_desc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution);}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_albedo\_texture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ albedo\_texture;\ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo\_texture(std::string\ texture)\ \{\ albedo\_texture.set\_texture(texture);\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&new\_albedo)\ \{\ albedo\ =\ new\_albedo;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ create\_sphere(UINT\ lat\_lines,\ UINT\ long\_lines);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::SkyComponent;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ pipeline;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ albedo\_texture\ =\ \mbox{\hyperlink{class_texture}{Texture}}();}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(0,\ 0,\ 0,\ 255);}
+\DoxyCodeLine{00031\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ std::shared\_ptr<GraphicsPipelineMeshChange::Manager>\ proxy\ =\ std::make\_shared<GraphicsPipelineMeshChange::Manager>();}
+\DoxyCodeLine{00033\ \};}
+
+\end{DoxyCode}

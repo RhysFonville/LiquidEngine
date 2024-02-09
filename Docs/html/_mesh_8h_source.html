@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -81,70 +81,40 @@ $(function() {
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;globalutil.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="struct_read_obj_file_data_output.html">    5</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keywordtype">size_t</span> vertex_index_offset = 0;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordtype">size_t</span> texcoord_index_offset = 0;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">size_t</span> normal_index_offset = 0;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a>() { }</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a>(<span class="keywordtype">size_t</span> vio, <span class="keywordtype">size_t</span> tcio, <span class="keywordtype">size_t</span> nio)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        : vertex_index_offset(vio), texcoord_index_offset(tcio),</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        normal_index_offset(nio) { }</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">void</span> operator+=(<span class="keyword">const</span> <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a> &amp;lhs) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        vertex_index_offset += lhs.vertex_index_offset;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        texcoord_index_offset += lhs.texcoord_index_offset;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        normal_index_offset += lhs.normal_index_offset;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_read_obj_file_data_input.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_read_obj_file_data_input.html">ReadObjFileDataInput</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::vector&lt;std::string&gt; contents;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a> offsets;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::wstring file_name;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_struct" href="struct_read_obj_file_data_input.html">ReadObjFileDataInput</a>() { }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_struct" href="struct_read_obj_file_data_input.html">ReadObjFileDataInput</a>(std::vector&lt;std::string&gt; contents,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a> offsets = <a class="code hl_struct" href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a>(), std::wstring file_name = L<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        : contents(contents), offsets(offsets), file_name(file_name) { }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_mesh.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="class_mesh.html">Mesh</a> {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>() { }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;vertices, <span class="keyword">const</span> std::vector&lt;UINT&gt; &amp;indices);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;vertices);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> compile();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="class_mesh.html">Mesh</a> &amp;mesh) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_mesh.html">Mesh</a> &amp;mesh) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    GET <a class="code hl_struct" href="struct_simple_box.html">SimpleBox</a> get_bounding_box() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    GET <span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp; get_vertices() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    GET <span class="keyword">const</span> std::vector&lt;Triangle&gt; &amp; get_triangles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    GET <span class="keyword">const</span> std::vector&lt;SimpleVertex&gt; &amp; get_physics_vertices() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    GET <span class="keyword">const</span> std::vector&lt;SimpleTriangle&gt; &amp; get_physics_triangles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> set_vertices(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;new_verts, <span class="keywordtype">size_t</span> physics_verts_chunk_divisor = 3);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">//ReadObjFileDataOutput read_obj_file(const ReadObjFileDataInput &amp;read);</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    std::vector&lt;UINT&gt; indices;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    std::vector&lt;Vertex&gt; vertices;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    std::vector&lt;Triangle&gt; triangles;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::vector&lt;SimpleVertex&gt; physics_vertices;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    std::vector&lt;SimpleTriangle&gt; physics_triangles;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_struct" href="struct_simple_box.html">SimpleBox</a> bounding_box;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
-<div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdef"><b>Definition:</b> Mesh.h:33</div></div>
-<div class="ttc" id="astruct_read_obj_file_data_input_html"><div class="ttname"><a href="struct_read_obj_file_data_input.html">ReadObjFileDataInput</a></div><div class="ttdef"><b>Definition:</b> Mesh.h:22</div></div>
-<div class="ttc" id="astruct_read_obj_file_data_output_html"><div class="ttname"><a href="struct_read_obj_file_data_output.html">ReadObjFileDataOutput</a></div><div class="ttdef"><b>Definition:</b> Mesh.h:5</div></div>
-<div class="ttc" id="astruct_simple_box_html"><div class="ttname"><a href="struct_simple_box.html">SimpleBox</a></div><div class="ttdef"><b>Definition:</b> globalstructs.h:522</div></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="class_mesh.html">    5</a></span><span class="keyword">class </span><a class="code hl_class" href="class_mesh.html">Mesh</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>() { }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;vertices, <span class="keyword">const</span> std::vector&lt;UINT&gt; &amp;indices);</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;vertices);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="class_mesh.html">Mesh</a>(<span class="keyword">const</span> std::string &amp;file);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">void</span> compile();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="class_mesh.html">Mesh</a> &amp;mesh) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_mesh.html">Mesh</a> &amp;mesh) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GET <a class="code hl_struct" href="struct_simple_box.html">SimpleBox</a> get_bounding_box() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GET <span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp; get_vertices() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    GET <span class="keyword">const</span> std::vector&lt;Triangle&gt; &amp; get_triangles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    GET <span class="keyword">const</span> std::vector&lt;SimpleVertex&gt; &amp; get_physics_vertices() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    GET <span class="keyword">const</span> std::vector&lt;SimpleTriangle&gt; &amp; get_physics_triangles() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> set_vertices(<span class="keyword">const</span> std::vector&lt;Vertex&gt; &amp;new_verts, <span class="keywordtype">size_t</span> physics_verts_chunk_divisor = 3);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> set_vertices(<span class="keyword">const</span> std::string &amp;file, <span class="keywordtype">size_t</span> physics_verts_chunk_divisor = 3);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::vector&lt;UINT&gt; indices;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::vector&lt;Vertex&gt; vertices;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    std::vector&lt;Triangle&gt; triangles;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    std::vector&lt;SimpleVertex&gt; physics_vertices;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::vector&lt;SimpleTriangle&gt; physics_triangles;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_struct" href="struct_simple_box.html">SimpleBox</a> bounding_box;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+<div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdef"><b>Definition:</b> Mesh.h:5</div></div>
+<div class="ttc" id="astruct_simple_box_html"><div class="ttname"><a href="struct_simple_box.html">SimpleBox</a></div><div class="ttdef"><b>Definition:</b> globalstructs.h:531</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

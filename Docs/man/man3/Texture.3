@@ -1,4 +1,4 @@
-.TH "Texture" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "Texture" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,20 +10,42 @@ Texture
 
 .in +1c
 .ti -1c
-.RI "\fBTexture\fP (std::string file_name)"
+.RI "\fBTexture\fP (const std::string &file)"
 .br
 .ti -1c
-.RI "void \fBclean_up\fP ()"
+.RI "void \fBcompile\fP ()"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBTexture\fP &texture) const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_texture\fP (const std::string &file)"
+.br
+.ti -1c
+.RI "GET std::string \fBget_file\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBexists\fP () const noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBload_texture\fP (const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain)"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "std::string \fBfile_name\fP = ''"
+.RI "DirectX::ScratchImage \fBimage\fP"
+.br
+.ti -1c
+.RI "DirectX::ScratchImage \fBmip_chain\fP"
+.br
+.ti -1c
+.RI "\fBGraphicsPipeline::RootSignature::ShaderResourceView\fP \fBsrv\fP"
 .br
 .in -1c
 

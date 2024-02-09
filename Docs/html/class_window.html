@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -80,9 +80,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a34f1f7a9ebfd95a9b4560c08ca740417"><td class="memItemLeft" align="right" valign="top"><a id="a34f1f7a9ebfd95a9b4560c08ca740417" name="a34f1f7a9ebfd95a9b4560c08ca740417"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (WNDPROC window_procedure, HINSTANCE hInstance)</td></tr>
-<tr class="separator:a34f1f7a9ebfd95a9b4560c08ca740417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49bb6150e2dea093b032330cab1d3cf3"><td class="memItemLeft" align="right" valign="top"><a id="a49bb6150e2dea093b032330cab1d3cf3" name="a49bb6150e2dea093b032330cab1d3cf3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (HINSTANCE hInstance)</td></tr>
 <tr class="separator:a49bb6150e2dea093b032330cab1d3cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,9 +104,9 @@ GET HDC &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_dc</b> (
 <tr class="memitem:ab86b10a183374b8f71d9c568b31ca52f"><td class="memItemLeft" align="right" valign="top"><a id="ab86b10a183374b8f71d9c568b31ca52f" name="ab86b10a183374b8f71d9c568b31ca52f"></a>
 GET HINSTANCE &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_hInstance</b> () noexcept</td></tr>
 <tr class="separator:ab86b10a183374b8f71d9c568b31ca52f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a594cb5440cd7ea8cb6fbfc3f5b16eb1b"><td class="memItemLeft" align="right" valign="top"><a id="a594cb5440cd7ea8cb6fbfc3f5b16eb1b" name="a594cb5440cd7ea8cb6fbfc3f5b16eb1b"></a>
-GET WNDCLASS &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_class</b> () noexcept</td></tr>
-<tr class="separator:a594cb5440cd7ea8cb6fbfc3f5b16eb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b99818f22be3a66f023759dbc6a65a"><td class="memItemLeft" align="right" valign="top"><a id="aa8b99818f22be3a66f023759dbc6a65a" name="aa8b99818f22be3a66f023759dbc6a65a"></a>
+GET WNDCLASSEXA &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_class</b> () noexcept</td></tr>
+<tr class="separator:aa8b99818f22be3a66f023759dbc6a65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedb74b5cb7a2723bd06dcadf2cb70ff0"><td class="memItemLeft" align="right" valign="top"><a id="aedb74b5cb7a2723bd06dcadf2cb70ff0" name="aedb74b5cb7a2723bd06dcadf2cb70ff0"></a>
 GET <a class="el" href="class_t_vector2.html">UVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_size</b> () const noexcept</td></tr>
 <tr class="separator:aedb74b5cb7a2723bd06dcadf2cb70ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +123,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>is_running</b> (bool 
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ae00eafe2c52a57e57b791eaf99612f93"><td class="memItemLeft" align="right" valign="top"><a id="ae00eafe2c52a57e57b791eaf99612f93" name="ae00eafe2c52a57e57b791eaf99612f93"></a>
-<a class="el" href="class_renderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b></td></tr>
+<a class="el" href="class_renderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> = nullptr</td></tr>
 <tr class="separator:ae00eafe2c52a57e57b791eaf99612f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>

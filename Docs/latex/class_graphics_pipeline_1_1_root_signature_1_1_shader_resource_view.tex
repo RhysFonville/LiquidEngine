@@ -1,0 +1,44 @@
+\hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{}\doxysection{Graphics\+Pipeline\+::Root\+Signature\+::Shader\+Resource\+View Class Reference}
+\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}\index{GraphicsPipeline::RootSignature::ShaderResourceView@{GraphicsPipeline::RootSignature::ShaderResourceView}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_aaabdfce99fa2b520c508e72cb5b6ecc4}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_aaabdfce99fa2b520c508e72cb5b6ecc4}} 
+{\bfseries Shader\+Resource\+View} (const Direct\+X\+::\+Scratch\+Image \&mip\+\_\+chain, bool is\+\_\+texture\+\_\+cube=false)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a6109996d5beaf4afbdb000c55a99ec3b}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a6109996d5beaf4afbdb000c55a99ec3b}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ descriptor\+\_\+heaps\mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]})
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_ad37622cc25da22fbff4d300aa73de2d7}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_ad37622cc25da22fbff4d300aa73de2d7}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a2606f8b891edce7f4c755c43bc57a24b}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a2606f8b891edce7f4c755c43bc57a24b}} 
+Com\+Ptr$<$ ID3\+D12\+Resource $>$ {\bfseries default\+\_\+buffer} = nullptr
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_aa01ef292488dc77a34f1bf397579830c}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_aa01ef292488dc77a34f1bf397579830c}} 
+D3\+D12\+\_\+\+RESOURCE\+\_\+\+DESC {\bfseries heap\+\_\+desc} = \{ \}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a1edbf2d6ff1e90b4aa229092c7f0e44f}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a1edbf2d6ff1e90b4aa229092c7f0e44f}} 
+std\+::vector$<$ D3\+D12\+\_\+\+SUBRESOURCE\+\_\+\+DATA $>$ {\bfseries subresources} = \{ \}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a36f9c29abf20130d9bb7ad7cde888599}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a36f9c29abf20130d9bb7ad7cde888599}} 
+D3\+D12\+\_\+\+SHADER\+\_\+\+RESOURCE\+\_\+\+VIEW\+\_\+\+DESC {\bfseries srv\+\_\+desc} = \{ \}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a2da084b0c0af9b0c327b4c9fe5bb06a2}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a2da084b0c0af9b0c327b4c9fe5bb06a2}} 
+UINT {\bfseries index} = 0u
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a6c6c4cdb7ac346870bbc97b3633b484b}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a6c6c4cdb7ac346870bbc97b3633b484b}} 
+UINT {\bfseries heap\+\_\+index} = 0u
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a04c9877216b9bc02c1b557c9c261c8f9}\label{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view_a04c9877216b9bc02c1b557c9c261c8f9}} 
+bool {\bfseries update\+\_\+signal} = false
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}

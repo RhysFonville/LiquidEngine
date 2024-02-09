@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::RootConstants" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::RootConstants" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,6 +16,12 @@ Inherits \fBGraphicsPipeline::RootSignature::RootArgument\fP\&.
 .br
 .ti -1c
 .RI "template<typename T > \fBRootConstants\fP (T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values=\-1)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBset_obj\fP (T *obj)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (D3D12_SHADER_VISIBILITY shader, UINT parameter_index, UINT index, UINT number_of_values=\-1)"
 .br
 .ti -1c
 .RI "template<typename T > void \fBcompile\fP (T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values=\-1)"

@@ -6,54 +6,59 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <d3dcompiler.h>}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
-\DoxyCodeLine{00005\ \textcolor{comment}{//\#include\ "{}Texture.h"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Throw.h"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipeline.h"{}}}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}}\ \{}
-\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}()\ \{\ \}}
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\mbox{\hyperlink{struct_t_color}{Color}}\ ks,\ \mbox{\hyperlink{struct_t_color}{Color}}\ kd,\ \mbox{\hyperlink{struct_t_color}{Color}}\ ka,\ \textcolor{keywordtype}{float}\ a)}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ :\ data(\{\ ks,\ kd,\ ka,\ a\ \})\ \{\ \}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(ComPtr<ID3D12Device>\ \&device,\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution);}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
-\DoxyCodeLine{00017\ \ \ \ \ }
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ read\_mtl\_file(std::vector<std::string>\ contents)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Texture.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}()\ \{\ \}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,\ \textcolor{keyword}{const}\ D3D12\_DEPTH\_STENCIL\_DESC\ \&depth\_stencil\_desc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution);}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
+\DoxyCodeLine{00013\ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ std::string\ \&file);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_normal\_map()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\_\_declspec(align(256))}}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_material_1_1_material_data}{MaterialData}}\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*BOOL\ has\_texture;}}
-\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ BOOL\ has\_normal\_map;*/}}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ ks\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(0,\ 0,\ 0,\ 255);\ \textcolor{comment}{//\ Specular}}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ kd\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(255,\ 255,\ 255,\ 255);\ \textcolor{comment}{//\ Diffuse}}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ ka\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(0,\ 0,\ 0,\ 255);\ \textcolor{comment}{//\ Ambient}}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ a\ =\ 0.5f;\ \textcolor{comment}{//\ Shininess}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_material_1_1_material_data}{MaterialData}}\ \&data)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ks\ ==\ data.ks\ \&\&}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kd\ ==\ data.kd\ \&\&}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ka\ ==\ data.ka\ \&\&}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ ==\ data.a}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00043\ \ \ \ \ \}\ data;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_albedo\_texture()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ albedo\_texture;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo\_texture(std::string\ texture)\ \{\ albedo\_texture.set\_texture(texture);\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_normal\_map()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ normal\_map;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_normal\_map(std::string\ texture)\ \{\ normal\_map.set\_texture(texture);\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&albedo)\ \{\ this-\/>albedo\ =\ albedo;\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_specular()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ specular;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_specular(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&specular)\ \{\ this-\/>specular\ =\ specular;\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_ambient()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ ambient;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_ambient(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&ambient)\ \{\ this-\/>ambient\ =\ ambient;\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{float}\ get\_shininess()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shininess;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_shininess(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \&shininess)\ \{\ this-\/>shininess\ =\ shininess;\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ pipeline;}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ pipeline;}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00048\ \ \ \ \ std::string\ vs\ =\ \textcolor{stringliteral}{"{}Graphics/DefaultVertex.hlsl"{}};}
-\DoxyCodeLine{00049\ \ \ \ \ std::string\ hs\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00050\ \ \ \ \ std::string\ ds\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00051\ \ \ \ \ std::string\ gs\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00052\ \ \ \ \ std::string\ ps\ =\ \textcolor{stringliteral}{"{}Graphics/LitPixel.hlsl"{}};}
-\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ std::string\ vs\ =\ \textcolor{stringliteral}{"{}Graphics/DefaultVertex.hlsl"{}};}
+\DoxyCodeLine{00047\ \ \ \ \ std::string\ hs\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ ds\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ gs\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00050\ \ \ \ \ std::string\ ps\ =\ \textcolor{stringliteral}{"{}Graphics/LitPixel.hlsl"{}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ albedo\_texture\ =\ \mbox{\hyperlink{class_texture}{Texture}}();}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ normal\_map\ =\ \mbox{\hyperlink{class_texture}{Texture}}();}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(100,\ 100,\ 100,\ 100);\ \textcolor{comment}{//\ kd}}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(5,\ 5,\ 5,\ 255);\ \textcolor{comment}{//\ ks}}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ ambient\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(0,\ 0,\ 0,\ 255);\ \textcolor{comment}{//\ ka}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ shininess\ =\ 0.5f;\ \textcolor{comment}{//\ a}}
+\DoxyCodeLine{00058\ \};}
 
 \end{DoxyCode}

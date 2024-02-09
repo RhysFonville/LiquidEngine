@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -71,7 +71,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -106,9 +105,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wait_for_fence_cpu</b
 <tr class="memitem:ac39e221e71a350ba4c2aae52338ba06c"><td class="memItemLeft" align="right" valign="top"><a id="ac39e221e71a350ba4c2aae52338ba06c" name="ac39e221e71a350ba4c2aae52338ba06c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>wait_for_fence_gpu</b> ()</td></tr>
 <tr class="separator:ac39e221e71a350ba4c2aae52338ba06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ef743671630f213866a20a7cc28d9f"><td class="memItemLeft" align="right" valign="top"><a id="aa1ef743671630f213866a20a7cc28d9f" name="aa1ef743671630f213866a20a7cc28d9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>flush_gpu</b> ()</td></tr>
+<tr class="separator:aa1ef743671630f213866a20a7cc28d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8347f83cd1dac9349844b56af9c1cc6"><td class="memItemLeft" align="right" valign="top"><a id="af8347f83cd1dac9349844b56af9c1cc6" name="af8347f83cd1dac9349844b56af9c1cc6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>wait_for_previous_frame</b> ()</td></tr>
 <tr class="separator:af8347f83cd1dac9349844b56af9c1cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3390e472d7a4c780a1cdb26cb8e54cc9"><td class="memItemLeft" align="right" valign="top"><a id="a3390e472d7a4c780a1cdb26cb8e54cc9" name="a3390e472d7a4c780a1cdb26cb8e54cc9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>execute_command_list</b> ()</td></tr>
+<tr class="separator:a3390e472d7a4c780a1cdb26cb8e54cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa32be67b33c55f1771c7f20b275aab9f"><td class="memItemLeft" align="right" valign="top"><a id="aa32be67b33c55f1771c7f20b275aab9f" name="aa32be67b33c55f1771c7f20b275aab9f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
 <tr class="separator:aa32be67b33c55f1771c7f20b275aab9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,9 +129,10 @@ GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_fullscreen</b>
 <tr class="memitem:a8738f6a8aacf0db702e255c55c914af4"><td class="memItemLeft" align="right" valign="top"><a id="a8738f6a8aacf0db702e255c55c914af4" name="a8738f6a8aacf0db702e255c55c914af4"></a>
 GET <a class="el" href="class_t_vector2.html">UVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_resolution</b> () const noexcept</td></tr>
 <tr class="separator:a8738f6a8aacf0db702e255c55c914af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7158ef9fee0f29cb6d78d8f2741db0a0"><td class="memItemLeft" align="right" valign="top"><a id="a7158ef9fee0f29cb6d78d8f2741db0a0" name="a7158ef9fee0f29cb6d78d8f2741db0a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_resolution</b> (const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;resolution, bool reset_om_viewing_settings=true)</td></tr>
-<tr class="separator:a7158ef9fee0f29cb6d78d8f2741db0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7241ab53bfa47becf0621afe484167"><td class="memItemLeft" align="right" valign="top"><a id="aba7241ab53bfa47becf0621afe484167" name="aba7241ab53bfa47becf0621afe484167"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_resolution</b> (const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;resolution, bool stretch=true)</td></tr>
+<tr class="memdesc:aba7241ab53bfa47becf0621afe484167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doesn't work. <br /></td></tr>
+<tr class="separator:aba7241ab53bfa47becf0621afe484167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>

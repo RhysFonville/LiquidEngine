@@ -1,0 +1,55 @@
+.TH "DebugOutput" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DebugOutput
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBColor\fP { \fBBLACK\fP = 0, \fBDARKBLUE\fP = FOREGROUND_BLUE, \fBDARKGREEN\fP = FOREGROUND_GREEN, \fBDARKCYAN\fP = FOREGROUND_GREEN | FOREGROUND_BLUE, \fBDARKRED\fP = FOREGROUND_RED, \fBDARKMAGENTA\fP = FOREGROUND_RED | FOREGROUND_BLUE, \fBDARKYELLOW\fP = FOREGROUND_RED | FOREGROUND_GREEN, \fBDARKGRAY\fP = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, \fBGRAY\fP = FOREGROUND_INTENSITY, \fBBLUE\fP = FOREGROUND_INTENSITY | FOREGROUND_BLUE, \fBGREEN\fP = FOREGROUND_INTENSITY | FOREGROUND_GREEN, \fBCYAN\fP = FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_BLUE, \fBRED\fP = FOREGROUND_INTENSITY | FOREGROUND_RED, \fBMAGENTA\fP = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_BLUE, \fBYELLOW\fP = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN, \fBWHITE\fP = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, \fBBG_NAVYBLUE\fP = 16, \fBBG_GREEN\fP = 32, \fBBG_TEAL\fP = 48, \fBBG_MAROON\fP = 64, \fBBG_PURPLE\fP = 80, \fBBG_OLIVE\fP = 96, \fBBG_SILVER\fP = 112, \fBBG_GRAY\fP = 128, \fBBG_BLUE\fP = 144, \fBBG_LIME\fP = 160, \fBBG_CYAN\fP = 176, \fBBG_RED\fP = 192, \fBBG_MAGENTA\fP = 208, \fBBG_YELLOW\fP = 224, \fBBG_WHITE\fP = 240 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDebugOutput\fP (\fBDebugOutput\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBDebugOutput\fP &)=delete"
+.br
+.ti -1c
+.RI "\fBDebugOutput\fP & \fBoperator<<\fP (char out) noexcept"
+.br
+.ti -1c
+.RI "\fBDebugOutput\fP & \fBoperator<<\fP (const std::string &out) noexcept"
+.br
+.ti -1c
+.RI "\fBDebugOutput\fP & \fBoperator<<\fP (const Color &col) noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBDebugOutput\fP * \fBget_instance\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "HANDLE \fBstd_handle\fP"
+.br
+.ti -1c
+.RI "HWND \fBhwnd\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

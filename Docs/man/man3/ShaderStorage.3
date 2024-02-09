@@ -1,0 +1,35 @@
+.TH "ShaderStorage" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ShaderStorage
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShaderStorage\fP (\fBShaderStorage\fP &other)=delete"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBShaderStorage\fP &)=delete"
+.br
+.ti -1c
+.RI "std::optional< std::reference_wrapper< \fBShader\fP > > \fBget_shader\fP (const std::string &file) noexcept"
+.br
+.ti -1c
+.RI "void \fBadd_and_compile_shader\fP (Shader::Type type, const std::string &file)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBShaderStorage\fP * \fBget_instance\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,4 +1,4 @@
-.TH "Window" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "Window" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,9 +9,6 @@ Window
 .SS "Public Member Functions"
 
 .in +1c
-.ti -1c
-.RI "\fBWindow\fP (WNDPROC window_procedure, HINSTANCE hInstance)"
-.br
 .ti -1c
 .RI "\fBWindow\fP (HINSTANCE hInstance)"
 .br
@@ -37,7 +34,7 @@ Window
 .RI "GET HINSTANCE & \fBget_hInstance\fP () noexcept"
 .br
 .ti -1c
-.RI "GET WNDCLASS & \fBget_class\fP () noexcept"
+.RI "GET WNDCLASSEXA & \fBget_class\fP () noexcept"
 .br
 .ti -1c
 .RI "GET \fBUVector2\fP \fBget_size\fP () const noexcept"
@@ -56,7 +53,7 @@ Window
 
 .in +1c
 .ti -1c
-.RI "\fBRenderer\fP * \fBgraphics_scene\fP"
+.RI "\fBRenderer\fP * \fBgraphics_scene\fP = nullptr"
 .br
 .in -1c
 

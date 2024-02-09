@@ -1,18 +1,10 @@
 \hypertarget{class_material}{}\doxysection{Material Class Reference}
 \label{class_material}\index{Material@{Material}}
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{struct_material_1_1_material_data}{Material\+Data}}
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_material_ad2b5baff85de0ae956848dea263da44c}\label{class_material_ad2b5baff85de0ae956848dea263da44c}} 
-{\bfseries Material} (\mbox{\hyperlink{struct_t_color}{Color}} ks, \mbox{\hyperlink{struct_t_color}{Color}} kd, \mbox{\hyperlink{struct_t_color}{Color}} ka, float a)
-\item 
-\mbox{\Hypertarget{class_material_ab8cc5f5add5376beb7079100c946707d}\label{class_material_ab8cc5f5add5376beb7079100c946707d}} 
-void {\bfseries compile} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_material_aea2dbfa69bacc012ba58c8511423f0d3}\label{class_material_aea2dbfa69bacc012ba58c8511423f0d3}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
 \item 
 \mbox{\Hypertarget{class_material_a2d992406113dd9a4ad5228aa91eaf43e}\label{class_material_a2d992406113dd9a4ad5228aa91eaf43e}} 
 void {\bfseries compile} ()
@@ -20,20 +12,62 @@ void {\bfseries compile} ()
 \mbox{\Hypertarget{class_material_a584ef2559a91fb5c3bb933b9d9b4179a}\label{class_material_a584ef2559a91fb5c3bb933b9d9b4179a}} 
 void {\bfseries clean\+\_\+up} ()
 \item 
-\mbox{\Hypertarget{class_material_ab098594df9ce8d28a33d979f25186dcd}\label{class_material_ab098594df9ce8d28a33d979f25186dcd}} 
-void {\bfseries read\+\_\+mtl\+\_\+file} (std\+::vector$<$ std\+::string $>$ contents) noexcept
+\mbox{\Hypertarget{class_material_a73153334d51236a555e21035cb137a12}\label{class_material_a73153334d51236a555e21035cb137a12}} 
+void {\bfseries set\+\_\+data} (const std\+::string \&file)
+\item 
+\mbox{\Hypertarget{class_material_a33c54e8be3501fc29a5b6a92c0dd2274}\label{class_material_a33c54e8be3501fc29a5b6a92c0dd2274}} 
+void {\bfseries set\+\_\+data} (const \mbox{\hyperlink{class_material}{Material}} \&material)
+\item 
+\mbox{\Hypertarget{class_material_aab8e50cdfd73ef5ed8776dc40ef40bf0}\label{class_material_aab8e50cdfd73ef5ed8776dc40ef40bf0}} 
+bool {\bfseries has\+\_\+texture} () const noexcept
+\item 
+\mbox{\Hypertarget{class_material_a897d893a5848e93c85cc36f1e7bcc272}\label{class_material_a897d893a5848e93c85cc36f1e7bcc272}} 
+bool {\bfseries has\+\_\+normal\+\_\+map} () const noexcept
 \item 
 \mbox{\Hypertarget{class_material_a84c053cf4e9e6eafb43827da22822148}\label{class_material_a84c053cf4e9e6eafb43827da22822148}} 
 void {\bfseries operator=} (const \mbox{\hyperlink{class_material}{Material}} \&material) noexcept
 \item 
 \mbox{\Hypertarget{class_material_aa1d466f7960ed779cabd713fe3ea2336}\label{class_material_aa1d466f7960ed779cabd713fe3ea2336}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_material}{Material}} \&material) const noexcept
+\item 
+\mbox{\Hypertarget{class_material_a6071dd7a9c8cb5a62b6f1d5c4c4b169a}\label{class_material_a6071dd7a9c8cb5a62b6f1d5c4c4b169a}} 
+const \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} () const
+\item 
+\mbox{\Hypertarget{class_material_a4e718f7239247e95326f102659d247e1}\label{class_material_a4e718f7239247e95326f102659d247e1}} 
+void {\bfseries set\+\_\+albedo\+\_\+texture} (std\+::string texture)
+\item 
+\mbox{\Hypertarget{class_material_a776e24ccdba4fdf2f0efe8527f3e798f}\label{class_material_a776e24ccdba4fdf2f0efe8527f3e798f}} 
+const \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+normal\+\_\+map} () const
+\item 
+\mbox{\Hypertarget{class_material_a03a6ec5f6e6abf36e707b2e7d4e7708a}\label{class_material_a03a6ec5f6e6abf36e707b2e7d4e7708a}} 
+void {\bfseries set\+\_\+normal\+\_\+map} (std\+::string texture)
+\item 
+\mbox{\Hypertarget{class_material_a68e65b49692704d9163b72d928613e7c}\label{class_material_a68e65b49692704d9163b72d928613e7c}} 
+\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const
+\item 
+\mbox{\Hypertarget{class_material_a7c5d6a265936fe1d4747c927a2a80179}\label{class_material_a7c5d6a265936fe1d4747c927a2a80179}} 
+void {\bfseries set\+\_\+albedo} (const \mbox{\hyperlink{struct_t_color}{Color}} \&albedo)
+\item 
+\mbox{\Hypertarget{class_material_a45c6eb55c438d7a28cda49f3556bd2ac}\label{class_material_a45c6eb55c438d7a28cda49f3556bd2ac}} 
+\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+specular} () const
+\item 
+\mbox{\Hypertarget{class_material_ad115e45e773666e39252ce73f179d3a3}\label{class_material_ad115e45e773666e39252ce73f179d3a3}} 
+void {\bfseries set\+\_\+specular} (const \mbox{\hyperlink{struct_t_color}{Color}} \&specular)
+\item 
+\mbox{\Hypertarget{class_material_a2d44967cbb45072335781bbbc8215ea5}\label{class_material_a2d44967cbb45072335781bbbc8215ea5}} 
+\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+ambient} () const
+\item 
+\mbox{\Hypertarget{class_material_ae251aefc25a63e2d8c23d50d19509039}\label{class_material_ae251aefc25a63e2d8c23d50d19509039}} 
+void {\bfseries set\+\_\+ambient} (const \mbox{\hyperlink{struct_t_color}{Color}} \&ambient)
+\item 
+\mbox{\Hypertarget{class_material_a9600689abca05c8aee99ae712032a586}\label{class_material_a9600689abca05c8aee99ae712032a586}} 
+float {\bfseries get\+\_\+shininess} () const
+\item 
+\mbox{\Hypertarget{class_material_a3ff5d69189e754a5a5c279253c61c0bc}\label{class_material_a3ff5d69189e754a5a5c279253c61c0bc}} 
+void {\bfseries set\+\_\+shininess} (const float \&shininess)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_material_ad1c7c2afd443de32f4b34c972575bd36}\label{class_material_ad1c7c2afd443de32f4b34c972575bd36}} 
-struct \mbox{\hyperlink{struct_material_1_1_material_data}{Material\+::\+Material\+Data}} {\bfseries data}
 \item 
 \mbox{\Hypertarget{class_material_a0743ee8901f02e18ab4c613fd7993567}\label{class_material_a0743ee8901f02e18ab4c613fd7993567}} 
 \mbox{\hyperlink{class_graphics_pipeline}{Graphics\+Pipeline}} {\bfseries pipeline}

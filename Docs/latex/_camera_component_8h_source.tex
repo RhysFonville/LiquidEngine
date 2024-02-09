@@ -28,32 +28,36 @@
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction\_real\_up()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{FVector2}}\ \&size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00027\ \ \ \ \ GET\ XMMATRIX\ get\_wvp()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera_component}{CameraComponent}}\ \&component)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera_component}{CameraComponent}}\ \&component)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::CameraComponent;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{FVector2}}\ \&size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera_component}{CameraComponent}}\ \&component)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera_component}{CameraComponent}}\ \&component)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_renderer}{Renderer}};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_view()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::CameraComponent;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_renderer}{Renderer}};}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ target\ =\ \{\ 0.0f,\ 0.0f,\ 1.0f\ \};}
-\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ up\ =\ \{\ 0.0f,\ 1.0f,\ 0.0f\ \};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ forward\ =\ global\_forward;}
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ backward\ =\ global\_backward;}
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ left\ =\ global\_left;}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ right\ =\ global\_right;}
-\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ down\ =\ global\_down;}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ XMMATRIX\ WVP\ =\ XMMatrixIdentity();}
-\DoxyCodeLine{00049\ \ \ \ \ XMMATRIX\ world\ =\ XMMatrixIdentity();}
-\DoxyCodeLine{00050\ \ \ \ \ XMMATRIX\ view\ =\ XMMatrixIdentity();}
-\DoxyCodeLine{00051\ \ \ \ \ XMMATRIX\ projection\ =\ XMMatrixIdentity();}
-\DoxyCodeLine{00052\ \};}
-\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_view()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ target\ =\ \{\ 0.0f,\ 0.0f,\ 1.0f\ \};}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ up\ =\ \{\ 0.0f,\ 1.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ forward\ =\ global\_forward;}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ backward\ =\ global\_backward;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ left\ =\ global\_left;}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ right\ =\ global\_right;}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ down\ =\ global\_down;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ XMMATRIX\ WVP\ =\ XMMatrixIdentity();}
+\DoxyCodeLine{00051\ \ \ \ \ XMMATRIX\ world\ =\ XMMatrixIdentity();}
+\DoxyCodeLine{00052\ \ \ \ \ XMMATRIX\ view\ =\ XMMatrixIdentity();}
+\DoxyCodeLine{00053\ \ \ \ \ XMMATRIX\ projection\ =\ XMMatrixIdentity();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//RendererCameraComponent\ renderer\_component\{\&WVP,\ \&transform.position\};}}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
 
 \end{DoxyCode}

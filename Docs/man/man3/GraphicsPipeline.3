@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,22 +10,13 @@ GraphicsPipeline
 
 .in +1c
 .ti -1c
-.RI "class \fBConstantBuffer\fP"
-.br
-.ti -1c
 .RI "class \fBInputAssembler\fP"
-.br
-.ti -1c
-.RI "class \fBOutputMerger\fP"
 .br
 .ti -1c
 .RI "class \fBRasterizer\fP"
 .br
 .ti -1c
 .RI "class \fBRootSignature\fP"
-.br
-.ti -1c
-.RI "class \fBShader\fP"
 .br
 .ti -1c
 .RI "class \fBStreamOutput\fP"
@@ -38,16 +29,16 @@ GraphicsPipeline
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline\fP (ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.RI "\fBGraphicsPipeline\fP (const ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index)"
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
 .br
 .ti -1c
-.RI "void \fBrun\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const CD3DX12_CPU_DESCRIPTOR_HANDLE &rtv_handle, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
 .br
 .ti -1c
 .RI "void \fBclean_up\fP ()"
@@ -69,31 +60,31 @@ GraphicsPipeline
 .RI "bool \fBcompilation_signal\fP = true"
 .br
 .ti -1c
+.RI "std::vector< D3D12_INPUT_ELEMENT_DESC > \fBinput_layout\fP"
+.br
+.ti -1c
 .RI "class \fBGraphicsPipeline::InputAssembler\fP \fBinput_assembler\fP"
 .br
 .ti -1c
-.RI "\fBShader\fP \fBvs\fP = \fBShader\fP(Shader::Type::Vertex, 'DefaultVertex\&.hlsl')"
+.RI "std::string \fBvs\fP {'DefaultVertex\&.hlsl'}"
 .br
 .ti -1c
-.RI "\fBShader\fP \fBhs\fP = \fBShader\fP(Shader::Type::Hull)"
+.RI "std::string \fBhs\fP {}"
 .br
 .ti -1c
-.RI "\fBShader\fP \fBds\fP = \fBShader\fP(Shader::Type::Domain)"
+.RI "std::string \fBds\fP {}"
 .br
 .ti -1c
-.RI "\fBShader\fP \fBgs\fP = \fBShader\fP(Shader::Type::Geometry)"
+.RI "std::string \fBgs\fP {}"
 .br
 .ti -1c
-.RI "\fBShader\fP \fBps\fP = \fBShader\fP(Shader::Type::Pixel, 'LitPixel\&.hlsl')"
+.RI "std::string \fBps\fP {'LitPixel\&.hlsl'}"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::Tesselator\fP \fBtesselator\fP"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::Rasterizer\fP \fBrasterizer\fP"
-.br
-.ti -1c
-.RI "class \fBGraphicsPipeline::OutputMerger\fP \fBoutput_merger\fP"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::StreamOutput\fP \fBstream_output\fP"
@@ -108,13 +99,10 @@ GraphicsPipeline
 .ti -1c
 .RI "static constexpr UINT \fBNUMBER_OF_BUFFERS\fP = 3u"
 .br
-.ti -1c
-.RI "static constexpr D3D12_INPUT_ELEMENT_DESC \fBinput_layout\fP []"
-.br
 .in -1c
 .SH "Member Data Documentation"
 .PP 
-.SS "constexpr D3D12_INPUT_ELEMENT_DESC GraphicsPipeline::input_layout[]\fC [static]\fP, \fC [constexpr]\fP"
+.SS "std::vector<D3D12_INPUT_ELEMENT_DESC> GraphicsPipeline::input_layout"
 \fBInitial value:\fP.PP
 .nf
 = {

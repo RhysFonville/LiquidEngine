@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -88,9 +88,9 @@ Public Member Functions</h2></td></tr>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a9f7f1b0bf7230651cea4b0bced109e58"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ConstantBuffer</b> (T &amp;cb, std::string name=&quot;&quot;)</td></tr>
 <tr class="separator:a9f7f1b0bf7230651cea4b0bced109e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13eb2c795ce6ecdc34f0b7480234882d"><td class="memItemLeft" align="right" valign="top"><a id="a13eb2c795ce6ecdc34f0b7480234882d" name="a13eb2c795ce6ecdc34f0b7480234882d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (ComPtr&lt; ID3D12Device &gt; &amp;device, ComPtr&lt; ID3D12DescriptorHeap &gt; descriptor_heaps[NUMBER_OF_BUFFERS])</td></tr>
-<tr class="separator:a13eb2c795ce6ecdc34f0b7480234882d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a633ab3a8462fc97d891279a34c3c9dca"><td class="memItemLeft" align="right" valign="top"><a id="a633ab3a8462fc97d891279a34c3c9dca" name="a633ab3a8462fc97d891279a34c3c9dca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12DescriptorHeap &gt; descriptor_heaps[NUMBER_OF_BUFFERS])</td></tr>
+<tr class="separator:a633ab3a8462fc97d891279a34c3c9dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a301a09387d2e1641f69be5574885feef"><td class="memItemLeft" align="right" valign="top"><a id="a301a09387d2e1641f69be5574885feef" name="a301a09387d2e1641f69be5574885feef"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> (int frame_index) noexcept</td></tr>
 <tr class="separator:a301a09387d2e1641f69be5574885feef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,15 +109,15 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>obj_size</b> = 0u</
 <tr class="memitem:ad0bc490261a7d4dfeeb69ef434364a87"><td class="memItemLeft" align="right" valign="top"><a id="ad0bc490261a7d4dfeeb69ef434364a87" name="ad0bc490261a7d4dfeeb69ef434364a87"></a>
 UINT *&#160;</td><td class="memItemRight" valign="bottom"><b>gpu_addresses</b> [NUMBER_OF_BUFFERS] = { }</td></tr>
 <tr class="separator:ad0bc490261a7d4dfeeb69ef434364a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe5fc93502ee6f4fdd222ca32a043779"><td class="memItemLeft" align="right" valign="top"><a id="abe5fc93502ee6f4fdd222ca32a043779" name="abe5fc93502ee6f4fdd222ca32a043779"></a>
-ComPtr&lt; ID3D12Resource &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>upload_heaps</b> [NUMBER_OF_BUFFERS] = { }</td></tr>
-<tr class="separator:abe5fc93502ee6f4fdd222ca32a043779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4cbc13ff26d5a4c4a3b9d5bb2424875"><td class="memItemLeft" align="right" valign="top"><a id="af4cbc13ff26d5a4c4a3b9d5bb2424875" name="af4cbc13ff26d5a4c4a3b9d5bb2424875"></a>
-UINT&#160;</td><td class="memItemRight" valign="bottom"><b>index</b> = 0u</td></tr>
-<tr class="separator:af4cbc13ff26d5a4c4a3b9d5bb2424875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc8376804abed553869bcf90933556d"><td class="memItemLeft" align="right" valign="top"><a id="acbc8376804abed553869bcf90933556d" name="acbc8376804abed553869bcf90933556d"></a>
+UINT&#160;</td><td class="memItemRight" valign="bottom"><b>heap_index</b> = 0u</td></tr>
+<tr class="separator:acbc8376804abed553869bcf90933556d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ef4a314a9463b30439efa124e0d4a5f"><td class="memItemLeft" align="right" valign="top"><a id="a4ef4a314a9463b30439efa124e0d4a5f" name="a4ef4a314a9463b30439efa124e0d4a5f"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &quot;&quot;</td></tr>
 <tr class="separator:a4ef4a314a9463b30439efa124e0d4a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a619b1a20ff0d657fbfb852e3a0c56cc2"><td class="memItemLeft" align="right" valign="top"><a id="a619b1a20ff0d657fbfb852e3a0c56cc2" name="a619b1a20ff0d657fbfb852e3a0c56cc2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>update_signal</b> = true</td></tr>
+<tr class="separator:a619b1a20ff0d657fbfb852e3a0c56cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>

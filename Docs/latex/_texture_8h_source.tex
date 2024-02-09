@@ -4,24 +4,36 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}WICTextureLoader.h"{}}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Throw.h"{}}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
-\DoxyCodeLine{00006\ }
-\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture}{Texture}}\ \{}
-\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}();}
-\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}(std::string\ file\_name);}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&texture)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{/*ComPtr<ID3D11Resource>\ texture\ =\ nullptr;}}
-\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ ComPtr<ID3D11ShaderResourceView>\ texture\_view\ =\ nullptr;}}
-\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ ComPtr<ID3D11SamplerState>\ sampler\_state\ =\ nullptr;*/}}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <DirectXTex.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipeline.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}()\ \{\ \}}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}(\textcolor{keyword}{const}\ std::string\ \&file);}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//void\ operator=(const\ Texture\ \&texture)\ noexcept;}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}\ \&texture)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_texture(\textcolor{keyword}{const}\ std::string\ \&file);}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ GET\ std::string\ get\_file()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ file;\ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ exists()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ fs::exists(file);\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_texture(\textcolor{keyword}{const}\ std::string\ \&file,\ DirectX::ScratchImage\ \&image,\ DirectX::ScratchImage\ \&mip\_chain);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ Content\ of\ the\ texture\ resource}}
+\DoxyCodeLine{00026\ \ \ \ \ DirectX::ScratchImage\ image;}
+\DoxyCodeLine{00027\ \ \ \ \ DirectX::ScratchImage\ mip\_chain;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{GraphicsPipeline::RootSignature::ShaderResourceView}}\ srv;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ file\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00033\ \};}
 
 \end{DoxyCode}

@@ -1,0 +1,40 @@
+\hypertarget{_keybind_set_8h_source}{}\doxysection{Keybind\+Set.\+h}
+\label{_keybind_set_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Input/KeybindSet.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Input/KeybindSet.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}KeyCodes.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }Input\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{enum\ class}\ CallbackEvent\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ IsPressed,}
+\DoxyCodeLine{00011\ \ \ \ \ IsNotPressed}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_input_1_1_keybind_set}{KeybindSet}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_input_1_1_keybind_set_1_1_category}{Category}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_input_1_1_keybind_set_1_1_category_1_1_action}{Action}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_input_1_1_keybind_set_1_1_category_1_1_action_1_1_bind}{Bind}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WindowsKeyCode\ key;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::function<void(\textcolor{keywordtype}{float})>\ callback;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CallbackEvent\ callback\_event;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Bind>\ binds;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::vector<Action>\ actions;}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<Category>\ categories;}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+
+\end{DoxyCode}

@@ -27,8 +27,14 @@ void {\bfseries wait\+\_\+for\+\_\+fence\+\_\+cpu} ()
 \mbox{\Hypertarget{class_renderer_ac39e221e71a350ba4c2aae52338ba06c}\label{class_renderer_ac39e221e71a350ba4c2aae52338ba06c}} 
 void {\bfseries wait\+\_\+for\+\_\+fence\+\_\+gpu} ()
 \item 
+\mbox{\Hypertarget{class_renderer_aa1ef743671630f213866a20a7cc28d9f}\label{class_renderer_aa1ef743671630f213866a20a7cc28d9f}} 
+void {\bfseries flush\+\_\+gpu} ()
+\item 
 \mbox{\Hypertarget{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}\label{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}} 
 void {\bfseries wait\+\_\+for\+\_\+previous\+\_\+frame} ()
+\item 
+\mbox{\Hypertarget{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}\label{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}} 
+void {\bfseries execute\+\_\+command\+\_\+list} ()
 \item 
 \mbox{\Hypertarget{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}\label{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}} 
 void {\bfseries compile} ()
@@ -45,9 +51,9 @@ GET bool {\bfseries is\+\_\+fullscreen} () const noexcept
 \mbox{\Hypertarget{class_renderer_a8738f6a8aacf0db702e255c55c914af4}\label{class_renderer_a8738f6a8aacf0db702e255c55c914af4}} 
 GET \mbox{\hyperlink{class_t_vector2}{UVector2}} {\bfseries get\+\_\+resolution} () const noexcept
 \item 
-\mbox{\Hypertarget{class_renderer_a7158ef9fee0f29cb6d78d8f2741db0a0}\label{class_renderer_a7158ef9fee0f29cb6d78d8f2741db0a0}} 
-void {\bfseries set\+\_\+resolution} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution, bool reset\+\_\+om\+\_\+viewing\+\_\+settings=true)
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_renderer_aba7241ab53bfa47becf0621afe484167}\label{class_renderer_aba7241ab53bfa47becf0621afe484167}} 
+void {\bfseries set\+\_\+resolution} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution, bool stretch=true)
+\begin{DoxyCompactList}\small\item\em Doesn\textquotesingle{}t work. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 

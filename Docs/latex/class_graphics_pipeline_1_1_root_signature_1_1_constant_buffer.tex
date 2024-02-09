@@ -6,8 +6,8 @@
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a9f7f1b0bf7230651cea4b0bced109e58}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a9f7f1b0bf7230651cea4b0bced109e58}} 
 {\footnotesize template$<$typename T $>$ }\\{\bfseries Constant\+Buffer} (T \&cb, std\+::string name=\char`\"{}\char`\"{})
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a13eb2c795ce6ecdc34f0b7480234882d}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a13eb2c795ce6ecdc34f0b7480234882d}} 
-void {\bfseries compile} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ descriptor\+\_\+heaps\mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]})
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a633ab3a8462fc97d891279a34c3c9dca}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a633ab3a8462fc97d891279a34c3c9dca}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ descriptor\+\_\+heaps\mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]})
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a301a09387d2e1641f69be5574885feef}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a301a09387d2e1641f69be5574885feef}} 
 void {\bfseries apply} (int frame\+\_\+index) noexcept
@@ -27,14 +27,14 @@ size\+\_\+t {\bfseries obj\+\_\+size} = 0u
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ad0bc490261a7d4dfeeb69ef434364a87}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ad0bc490261a7d4dfeeb69ef434364a87}} 
 UINT $\ast$ {\bfseries gpu\+\_\+addresses} \mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]} = \{ \}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_abe5fc93502ee6f4fdd222ca32a043779}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_abe5fc93502ee6f4fdd222ca32a043779}} 
-Com\+Ptr$<$ ID3\+D12\+Resource $>$ {\bfseries upload\+\_\+heaps} \mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]} = \{ \}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_af4cbc13ff26d5a4c4a3b9d5bb2424875}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_af4cbc13ff26d5a4c4a3b9d5bb2424875}} 
-UINT {\bfseries index} = 0u
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_acbc8376804abed553869bcf90933556d}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_acbc8376804abed553869bcf90933556d}} 
+UINT {\bfseries heap\+\_\+index} = 0u
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a4ef4a314a9463b30439efa124e0d4a5f}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a4ef4a314a9463b30439efa124e0d4a5f}} 
 std\+::string {\bfseries name} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a619b1a20ff0d657fbfb852e3a0c56cc2}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a619b1a20ff0d657fbfb852e3a0c56cc2}} 
+bool {\bfseries update\+\_\+signal} = true
 \end{DoxyCompactItemize}
 
 

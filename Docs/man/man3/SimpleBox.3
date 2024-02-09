@@ -1,4 +1,4 @@
-.TH "SimpleBox" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "SimpleBox" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -20,9 +20,26 @@ SimpleBox
 
 .in +1c
 .ti -1c
-.RI "std::vector< \fBSimpleVertex\fP > \fBvertices\fP"
+.RI "std::array< \fBSimpleVertex\fP, 8 > \fBvertices\fP"
 .br
 .in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "std::array<\fBSimpleVertex\fP, 8> SimpleBox::vertices"
+\fBInitial value:\fP.PP
+.nf
+= {
+        SimpleVertex(0\&.0f, 0\&.0f, 0\&.0f),
+        SimpleVertex(0\&.0f, 0\&.0f, 1\&.0f),
+        SimpleVertex(0\&.0f, 1\&.0f, 0\&.0f),
+        SimpleVertex(0\&.0f, 1\&.0f, 1\&.0f),
+        SimpleVertex(1\&.0f, 0\&.0f, 0\&.0f),
+        SimpleVertex(1\&.0f, 0\&.0f, 1\&.0f),
+        SimpleVertex(1\&.0f, 1\&.0f, 0\&.0f),
+        SimpleVertex(1\&.0f, 1\&.0f, 1\&.0f)
+    }
+.fi
+
 
 .SH "Author"
 .PP 

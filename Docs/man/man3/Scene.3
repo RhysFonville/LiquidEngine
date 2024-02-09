@@ -1,4 +1,4 @@
-.TH "Scene" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "Scene" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -28,6 +28,9 @@ Scene
 .RI "void \fBadd_object\fP (const std::shared_ptr< \fBObject\fP > &object) noexcept"
 .br
 .ti -1c
+.RI "void \fBadd_character\fP (const std::shared_ptr< \fBCharacter\fP > &character) noexcept"
+.br
+.ti -1c
 .RI "void \fBremove_object\fP (int index) noexcept"
 .br
 .in -1c
@@ -36,6 +39,9 @@ Scene
 .in +1c
 .ti -1c
 .RI "\fBGraphicsScene\fP * \fBgraphics_scene\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBInput::InputListener\fP \fBinput_listener\fP"
 .br
 .in -1c
 

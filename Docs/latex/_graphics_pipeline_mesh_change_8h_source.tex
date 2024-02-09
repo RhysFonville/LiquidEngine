@@ -1,0 +1,37 @@
+\hypertarget{_graphics_pipeline_mesh_change_8h_source}{}\doxysection{Graphics\+Pipeline\+Mesh\+Change.\+h}
+\label{_graphics_pipeline_mesh_change_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipelineMeshChange.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipelineMeshChange.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Mesh.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }GraphicsPipelineMeshChange\ \{}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_mesh_change_1_1_command}{Command}}\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ Add,\ Sub}
+\DoxyCodeLine{00011\ \ \ \ \ \};}
+\DoxyCodeLine{00012\ \ \ \ \ Type\ type;}
+\DoxyCodeLine{00013\ \ \ \ \ std::variant<std::pair<Mesh,\ size\_t>,\ \textcolor{keywordtype}{size\_t}>\ change;\ }
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_mesh_change_1_1_manager}{Manager}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_mesh_change_1_1_manager}{Manager}}()\ \{\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_mesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh,\ \textcolor{keywordtype}{size\_t}\ index\ =\ (\textcolor{keywordtype}{size\_t})-\/1);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_mesh(\textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_all\_meshes();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ std::vector<Command>\ get\_changes(\textcolor{keywordtype}{bool}\ clear\_changes);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ clear\_change\_info();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<Command>\ changes;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \};}
+
+\end{DoxyCode}

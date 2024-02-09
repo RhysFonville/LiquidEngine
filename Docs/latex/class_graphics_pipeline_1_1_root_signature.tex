@@ -5,20 +5,26 @@
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}}
 \item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}
+\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Root\+Argument}}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}
+\item 
+class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aec1db438824630a85d6791527f1cd51b}\label{class_graphics_pipeline_1_1_root_signature_aec1db438824630a85d6791527f1cd51b}} 
-void {\bfseries compile} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a76cf328849dae4731810f986901ed15e}\label{class_graphics_pipeline_1_1_root_signature_a76cf328849dae4731810f986901ed15e}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_adceccd4304cc2d5c4ad0bf3b0ea9ad33}\label{class_graphics_pipeline_1_1_root_signature_adceccd4304cc2d5c4ad0bf3b0ea9ad33}} 
-void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a1176907cb81367cc62519ab4ef753979}\label{class_graphics_pipeline_1_1_root_signature_a1176907cb81367cc62519ab4ef753979}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}\label{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}} \&root\+\_\+signature) const noexcept
@@ -26,8 +32,17 @@ bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}\label{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}} 
 void {\bfseries bind\+\_\+constant\+\_\+buffer} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a5ce7103941aec303b15587bc9af79366}\label{class_graphics_pipeline_1_1_root_signature_a5ce7103941aec303b15587bc9af79366}} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+root\+\_\+constants} (T \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}\label{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}} 
+void {\bfseries bind\+\_\+shader\+\_\+resource\+\_\+view} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}} \&srv, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}\label{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}} 
+void {\bfseries bind\+\_\+root\+\_\+constants} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} \&rc, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}\label{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+root\+\_\+constants} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Root\+Constants\+Container}}$<$ T $>$ \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT number\+\_\+of\+\_\+values=-\/1)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}\label{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries bind\+\_\+constant\+\_\+buffer} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ T $>$ \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}

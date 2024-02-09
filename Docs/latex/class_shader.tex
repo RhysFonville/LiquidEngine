@@ -1,0 +1,50 @@
+\hypertarget{class_shader}{}\doxysection{Shader Class Reference}
+\label{class_shader}\index{Shader@{Shader}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_abdbec99e399193b12d229d51566323fd}\label{class_shader_abdbec99e399193b12d229d51566323fd}} 
+enum class {\bfseries Type} \{ \newline
+{\bfseries Vertex}
+, {\bfseries Hull}
+, {\bfseries Domain}
+, {\bfseries Geometry}
+, \newline
+{\bfseries Pixel}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_a66256e18d80815f859299fd9fd51dfb8}\label{class_shader_a66256e18d80815f859299fd9fd51dfb8}} 
+{\bfseries Shader} (Type type)
+\item 
+\mbox{\Hypertarget{class_shader_a28871c4474a4ad5062eaf0a43562ed5b}\label{class_shader_a28871c4474a4ad5062eaf0a43562ed5b}} 
+{\bfseries Shader} (Type type, const std\+::string \&file\+\_\+name)
+\item 
+\mbox{\Hypertarget{class_shader_a354ba83fc6b19e53d161290921551498}\label{class_shader_a354ba83fc6b19e53d161290921551498}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_shader}{Shader}} \&shader)
+\item 
+\mbox{\Hypertarget{class_shader_a310a3ef2f8fc3c98a9b3d129861dffc9}\label{class_shader_a310a3ef2f8fc3c98a9b3d129861dffc9}} 
+bool {\bfseries operator==} (const std\+::string \&file)
+\item 
+\mbox{\Hypertarget{class_shader_a5be69e48ac2436651ead777bf5fb5c9f}\label{class_shader_a5be69e48ac2436651ead777bf5fb5c9f}} 
+void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_shader_a80844b0ef94a029b2f759c74387630e4}\label{class_shader_a80844b0ef94a029b2f759c74387630e4}} 
+GET Type {\bfseries get\+\_\+type} () const noexcept
+\item 
+\mbox{\Hypertarget{class_shader_aedb7c1b326a0aa09e2e9c77b92d13ba9}\label{class_shader_aedb7c1b326a0aa09e2e9c77b92d13ba9}} 
+GET std\+::string {\bfseries get\+\_\+file} () const noexcept
+\item 
+\mbox{\Hypertarget{class_shader_a99ba67d522cc8f85f0c40a2de5fbe0c0}\label{class_shader_a99ba67d522cc8f85f0c40a2de5fbe0c0}} 
+GET D3\+D12\+\_\+\+SHADER\+\_\+\+BYTECODE {\bfseries get\+\_\+bytecode} () const noexcept
+\item 
+\mbox{\Hypertarget{class_shader_ad39a358d07e82d746160aa5bde2efa05}\label{class_shader_ad39a358d07e82d746160aa5bde2efa05}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_shader}{Shader}} \&shader) const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Shader\+Storage.\+h\end{DoxyCompactItemize}

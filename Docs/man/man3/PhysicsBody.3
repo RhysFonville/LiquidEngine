@@ -1,4 +1,4 @@
-.TH "PhysicsBody" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "PhysicsBody" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,6 +18,9 @@ PhysicsBody
 .ti -1c
 .RI "void \fBset_mass\fP (float mass)"
 .br
+.ti -1c
+.RI "void \fBtick\fP ()"
+.br
 .in -1c
 .SS "Public Attributes"
 
@@ -30,12 +33,6 @@ PhysicsBody
 .br
 .ti -1c
 .RI "\fBFVector3\fP \fBacceleration\fP = \fBFVector3\fP()"
-.br
-.ti -1c
-.RI "float \fBspeed\fP = 0\&.0f"
-.br
-.ti -1c
-.RI "float \fBkinetic_energy\fP = 0\&.0f"
 .br
 .ti -1c
 .RI "\fBFVector3\fP \fBmomentum\fP = \fBFVector3\fP()"

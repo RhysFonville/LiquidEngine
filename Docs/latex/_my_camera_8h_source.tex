@@ -1,29 +1,43 @@
 \hypertarget{_my_camera_8h_source}{}\doxysection{My\+Camera.\+h}
-\label{_my_camera_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/Custom/MyCamera.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/Custom/MyCamera.h}}
+\label{_my_camera_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/MyCamera.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/MyCamera.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Object.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Character.h"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Components/CameraComponent.h"{}}}
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Components/PointLightComponent.h"{}}}
 \DoxyCodeLine{00006\ }
-\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_my_camera}{MyCamera}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_object}{Object}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_my_camera}{MyCamera}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_character}{Character}}\ \{}
 \DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_my_camera}{MyCamera}}();}
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_start()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00015\ \ \ \ \ POINT\ previous\_cursor\_pos\ =\ \{\ 0,\ 0\ \};}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ wait\ =\ 0;}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ speed\ =\ 3;}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ std::shared\_ptr<CameraComponent>\ camera;}
-\DoxyCodeLine{00021\ \ \ \ \ std::shared\_ptr<PointLightComponent>\ light;}
-\DoxyCodeLine{00022\ \};}
-\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_turn(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_forward(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_backward(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_left(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_right(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_up(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_down(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_slow(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_not\_slow(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ POINT\ current\_cursor\_pos\ =\ \{\ 0,\ 0\ \};}
+\DoxyCodeLine{00027\ \ \ \ \ POINT\ cursor\_diff\ =\ \{\ 0,\ 0\ \};}
+\DoxyCodeLine{00028\ \ \ \ \ POINT\ previous\_cursor\_pos\ =\ current\_cursor\_pos;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ regular\_speed\ =\ 6.0f;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{float}\ slow\_speed\ =\ regular\_speed\ /\ 2.0f;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{float}\ current\_speed\ =\ regular\_speed;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ std::shared\_ptr<CameraComponent>\ camera;}
+\DoxyCodeLine{00035\ \ \ \ \ std::shared\_ptr<PointLightComponent>\ light;}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
 
 \end{DoxyCode}

@@ -3,20 +3,41 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_texture_a65947d6d9902e05ea66ac84d7b6df14c}\label{class_texture_a65947d6d9902e05ea66ac84d7b6df14c}} 
-{\bfseries Texture} (std\+::string file\+\_\+name)
+\mbox{\Hypertarget{class_texture_a63f49a8bd410e28b35d7800d5cf15d7d}\label{class_texture_a63f49a8bd410e28b35d7800d5cf15d7d}} 
+{\bfseries Texture} (const std\+::string \&file)
 \item 
-\mbox{\Hypertarget{class_texture_a3f4a8f8366f739c997983781407bcf35}\label{class_texture_a3f4a8f8366f739c997983781407bcf35}} 
-void {\bfseries clean\+\_\+up} ()
+\mbox{\Hypertarget{class_texture_a90165f448511281c892c95444ee95ee5}\label{class_texture_a90165f448511281c892c95444ee95ee5}} 
+void {\bfseries compile} ()
 \item 
 \mbox{\Hypertarget{class_texture_ab41b2806c44be735df72713f8b91ace6}\label{class_texture_ab41b2806c44be735df72713f8b91ace6}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_texture}{Texture}} \&texture) const noexcept
+\item 
+\mbox{\Hypertarget{class_texture_a8f3ca54d88d120f500357b4e9029c40b}\label{class_texture_a8f3ca54d88d120f500357b4e9029c40b}} 
+void {\bfseries set\+\_\+texture} (const std\+::string \&file)
+\item 
+\mbox{\Hypertarget{class_texture_aa6e1bc04ea9b92fdaa868ec63ae107f5}\label{class_texture_aa6e1bc04ea9b92fdaa868ec63ae107f5}} 
+GET std\+::string {\bfseries get\+\_\+file} () const noexcept
+\item 
+\mbox{\Hypertarget{class_texture_a19c325fd37d929375b553a85c277cebd}\label{class_texture_a19c325fd37d929375b553a85c277cebd}} 
+bool {\bfseries exists} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_texture_aa4d5ce5d9a66929ce22564b298341612}\label{class_texture_aa4d5ce5d9a66929ce22564b298341612}} 
+static void {\bfseries load\+\_\+texture} (const std\+::string \&file, Direct\+X\+::\+Scratch\+Image \&image, Direct\+X\+::\+Scratch\+Image \&mip\+\_\+chain)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_texture_ad17d6c9ec480645c3cf0a2139cc5eb56}\label{class_texture_ad17d6c9ec480645c3cf0a2139cc5eb56}} 
-std\+::string {\bfseries file\+\_\+name} = \char`\"{}\char`\"{}
+\mbox{\Hypertarget{class_texture_ab038235f5810d674f10bcd4f682d32a6}\label{class_texture_ab038235f5810d674f10bcd4f682d32a6}} 
+Direct\+X\+::\+Scratch\+Image {\bfseries image}
+\item 
+\mbox{\Hypertarget{class_texture_a4e485a96e088c22c8fad5f30956ca286}\label{class_texture_a4e485a96e088c22c8fad5f30956ca286}} 
+Direct\+X\+::\+Scratch\+Image {\bfseries mip\+\_\+chain}
+\item 
+\mbox{\Hypertarget{class_texture_a0698f99482294bac04c8a1e0b1f21ff1}\label{class_texture_a0698f99482294bac04c8a1e0b1f21ff1}} 
+\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Shader\+Resource\+View}} {\bfseries srv}
 \end{DoxyCompactItemize}
 
 

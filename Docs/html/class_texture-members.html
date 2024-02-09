@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -76,11 +76,17 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_texture.html">Texture</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>clean_up</b>() (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>file_name</b> (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>compile</b>() (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>exists</b>() const noexcept (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>get_file</b>() const noexcept (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>image</b> (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>load_texture</b>(const std::string &amp;file, DirectX::ScratchImage &amp;image, DirectX::ScratchImage &amp;mip_chain) (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>mip_chain</b> (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>operator==</b>(const Texture &amp;texture) const noexcept (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Texture</b>() (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Texture</b>(std::string file_name) (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>set_texture</b>(const std::string &amp;file) (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>srv</b> (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Texture</b>() (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Texture</b>(const std::string &amp;file) (defined in <a class="el" href="class_texture.html">Texture</a>)</td><td class="entry"><a class="el" href="class_texture.html">Texture</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

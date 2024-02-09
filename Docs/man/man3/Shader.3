@@ -1,0 +1,50 @@
+.TH "Shader" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Shader
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBVertex\fP, \fBHull\fP, \fBDomain\fP, \fBGeometry\fP, \fBPixel\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShader\fP (Type type)"
+.br
+.ti -1c
+.RI "\fBShader\fP (Type type, const std::string &file_name)"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBShader\fP &shader)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const std::string &file)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "GET Type \fBget_type\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET std::string \fBget_file\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET D3D12_SHADER_BYTECODE \fBget_bytecode\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBShader\fP &shader) const noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

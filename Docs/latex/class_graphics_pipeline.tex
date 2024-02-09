@@ -3,17 +3,11 @@
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_constant_buffer}{Constant\+Buffer}}
-\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Input\+Assembler}}
-\item 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_output_merger}{Output\+Merger}}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}}
-\item 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{Stream\+Output}}
 \item 
@@ -22,17 +16,17 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_tesselator}{Tesselator}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a3dbe1d82e86161bd2ae136fa434ad9c0}\label{class_graphics_pipeline_a3dbe1d82e86161bd2ae136fa434ad9c0}} 
-{\bfseries Graphics\+Pipeline} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_af583b7f9a719dd5b2fbb7a656df735d5}\label{class_graphics_pipeline_af583b7f9a719dd5b2fbb7a656df735d5}} 
+{\bfseries Graphics\+Pipeline} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a7dc318ce7d0d223661ba1c3d80e6f2d7}\label{class_graphics_pipeline_a7dc318ce7d0d223661ba1c3d80e6f2d7}} 
-void {\bfseries update} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const CD3\+DX12\+\_\+\+CPU\+\_\+\+DESCRIPTOR\+\_\+\+HANDLE \&rtv\+\_\+handle, int frame\+\_\+index)
+\mbox{\Hypertarget{class_graphics_pipeline_a7af0bd02fc776886ef3595b4a97d8c43}\label{class_graphics_pipeline_a7af0bd02fc776886ef3595b4a97d8c43}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a39e721572bc5ac9b3a4c02ae2df5c13a}\label{class_graphics_pipeline_a39e721572bc5ac9b3a4c02ae2df5c13a}} 
-void {\bfseries run} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const CD3\+DX12\+\_\+\+CPU\+\_\+\+DESCRIPTOR\+\_\+\+HANDLE \&rtv\+\_\+handle, int frame\+\_\+index, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_a80ac2b6f4a64dcc8f38a1063446c3f1c}\label{class_graphics_pipeline_a80ac2b6f4a64dcc8f38a1063446c3f1c}} 
+void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_ab3b6cb6694bf1e512e5251590f788014}\label{class_graphics_pipeline_ab3b6cb6694bf1e512e5251590f788014}} 
-void {\bfseries compile} (Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_a8c83597fa46cb5b11fb4cd8e30bee78f}\label{class_graphics_pipeline_a8c83597fa46cb5b11fb4cd8e30bee78f}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}\label{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}} 
 void {\bfseries clean\+\_\+up} ()
@@ -52,32 +46,31 @@ Com\+Ptr$<$ ID3\+D12\+Pipeline\+State $>$ {\bfseries pipeline\+\_\+state\+\_\+ob
 \mbox{\Hypertarget{class_graphics_pipeline_a8350a4ab470cb7c8ef65d9b726d453ac}\label{class_graphics_pipeline_a8350a4ab470cb7c8ef65d9b726d453ac}} 
 bool {\bfseries compilation\+\_\+signal} = true
 \item 
+std\+::vector$<$ D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \mbox{\hyperlink{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}{input\+\_\+layout}}
+\item 
 \mbox{\Hypertarget{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}\label{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Graphics\+Pipeline\+::\+Input\+Assembler}} {\bfseries input\+\_\+assembler}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a335e1589c4bb7cd4c79c9e906d017441}\label{class_graphics_pipeline_a335e1589c4bb7cd4c79c9e906d017441}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}} {\bfseries vs} = \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}(Shader\+::\+Type\+::\+Vertex, \char`\"{}Default\+Vertex.\+hlsl\char`\"{})
+\mbox{\Hypertarget{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}\label{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}} 
+std\+::string {\bfseries vs} \{\char`\"{}Default\+Vertex.\+hlsl\char`\"{}\}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_ab5099a95c22d701b049f2e47bbbb144b}\label{class_graphics_pipeline_ab5099a95c22d701b049f2e47bbbb144b}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}} {\bfseries hs} = \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}(Shader\+::\+Type\+::\+Hull)
+\mbox{\Hypertarget{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}\label{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}} 
+std\+::string {\bfseries hs} \{\}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a2c6d8a918d294b641c35cadaf36d69b9}\label{class_graphics_pipeline_a2c6d8a918d294b641c35cadaf36d69b9}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}} {\bfseries ds} = \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}(Shader\+::\+Type\+::\+Domain)
+\mbox{\Hypertarget{class_graphics_pipeline_aace5c0ff3fb8181bccef83072db4a5e5}\label{class_graphics_pipeline_aace5c0ff3fb8181bccef83072db4a5e5}} 
+std\+::string {\bfseries ds} \{\}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_afb7594ccf06fa093c1850e67438efdc1}\label{class_graphics_pipeline_afb7594ccf06fa093c1850e67438efdc1}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}} {\bfseries gs} = \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}(Shader\+::\+Type\+::\+Geometry)
+\mbox{\Hypertarget{class_graphics_pipeline_a2c19b9017a39e3ac37515017cc38dc93}\label{class_graphics_pipeline_a2c19b9017a39e3ac37515017cc38dc93}} 
+std\+::string {\bfseries gs} \{\}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a1b60d6266574339a69d35ca7ff103741}\label{class_graphics_pipeline_a1b60d6266574339a69d35ca7ff103741}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}} {\bfseries ps} = \mbox{\hyperlink{class_graphics_pipeline_1_1_shader}{Shader}}(Shader\+::\+Type\+::\+Pixel, \char`\"{}Lit\+Pixel.\+hlsl\char`\"{})
+\mbox{\Hypertarget{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}\label{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}} 
+std\+::string {\bfseries ps} \{\char`\"{}Lit\+Pixel.\+hlsl\char`\"{}\}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a7b0817fc6b1bbd0054d8947d6f069355}\label{class_graphics_pipeline_a7b0817fc6b1bbd0054d8947d6f069355}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_tesselator}{Graphics\+Pipeline\+::\+Tesselator}} {\bfseries tesselator}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}\label{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Graphics\+Pipeline\+::\+Rasterizer}} {\bfseries rasterizer}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_a18989563cafcb67cdaa3eb22535da857}\label{class_graphics_pipeline_a18989563cafcb67cdaa3eb22535da857}} 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_output_merger}{Graphics\+Pipeline\+::\+Output\+Merger}} {\bfseries output\+\_\+merger}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a38aed7251189bb6f8e314645d8f5ce84}\label{class_graphics_pipeline_a38aed7251189bb6f8e314645d8f5ce84}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{Graphics\+Pipeline\+::\+Stream\+Output}} {\bfseries stream\+\_\+output}
@@ -90,17 +83,15 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Graphics\+Pip
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_afee8fa126870ff3eb7cbc7b0f7d956dc}\label{class_graphics_pipeline_afee8fa126870ff3eb7cbc7b0f7d956dc}} 
 static constexpr UINT {\bfseries NUMBER\+\_\+\+OF\+\_\+\+BUFFERS} = 3u
-\item 
-static constexpr D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC \mbox{\hyperlink{class_graphics_pipeline_a25c4504d512c0ad23e8896a4a83208d4}{input\+\_\+layout}} \mbox{[}$\,$\mbox{]}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_graphics_pipeline_a25c4504d512c0ad23e8896a4a83208d4}\label{class_graphics_pipeline_a25c4504d512c0ad23e8896a4a83208d4}} 
+\mbox{\Hypertarget{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}\label{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}} 
 \index{GraphicsPipeline@{GraphicsPipeline}!input\_layout@{input\_layout}}
 \index{input\_layout@{input\_layout}!GraphicsPipeline@{GraphicsPipeline}}
 \doxysubsubsection{\texorpdfstring{input\_layout}{input\_layout}}
-{\footnotesize\ttfamily constexpr D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC Graphics\+Pipeline\+::input\+\_\+layout\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+{\footnotesize\ttfamily std\+::vector$<$D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC$>$ Graphics\+Pipeline\+::input\+\_\+layout}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}

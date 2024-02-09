@@ -13,15 +13,13 @@
 \DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_directional_light_component}{DirectionalLightComponent}}\ \&component)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_directional_light_component}{DirectionalLightComponent}}\ \&component)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_directional_light_component_1_1_d_l_data}{DLData}}\ \{}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.25f,\ 0.5f,\ -\/1.0f);}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ diffuse\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(100,\ 100,\ 100,\ 100);}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(0,\ 0,\ 0,\ 255);}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::DirectionalLightComponent;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_direction()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ direction;\ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_direction(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&direction)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>direction\ =\ direction;\ changed\ =\ \textcolor{keyword}{true};\ \}}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ null\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00018\ \ \ \ \ \}\ data;}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Type\ component\_type\ =\ Type::DirectionalLightComponent;}
-\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(0.25f,\ 0.5f,\ -\/1.0f);}
+\DoxyCodeLine{00019\ \};}
 
 \end{DoxyCode}

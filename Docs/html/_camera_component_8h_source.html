@@ -23,7 +23,7 @@
   <td id="projectalign">
    <div id="projectname">Liquid Engine
    </div>
-   <div id="projectbrief">A D3D12 graphics engine.</div>
+   <div id="projectbrief">A D3D12-based 3D graphics, physics, and game engine.</div>
   </td>
  </tr>
  </tbody>
@@ -103,37 +103,41 @@ $(function() {
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    GET <a class="code hl_class" href="class_f_vector3.html">FVector3</a> direction_real_up() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> update(<span class="keyword">const</span> <a class="code hl_class" href="class_t_vector2.html">FVector2</a> &amp;size) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    GET XMMATRIX get_wvp() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="class_camera_component.html">CameraComponent</a> &amp;component) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_camera_component.html">CameraComponent</a> &amp;component) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">static</span> <span class="keyword">const</span> Type component_type = Type::CameraComponent;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> update(<span class="keyword">const</span> <a class="code hl_class" href="class_t_vector2.html">FVector2</a> &amp;size) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="class_camera_component.html">CameraComponent</a> &amp;component) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_camera_component.html">CameraComponent</a> &amp;component) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="class_renderer.html">Renderer</a>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> set_view() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">static</span> <span class="keyword">const</span> Type component_type = Type::CameraComponent;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="class_renderer.html">Renderer</a>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> target = { 0.0f, 0.0f, 1.0f };</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> up = { 0.0f, 1.0f, 0.0f };</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> forward = global_forward;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> backward = global_backward;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> left = global_left;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> right = global_right;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> down = global_down;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    XMMATRIX WVP = XMMatrixIdentity();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    XMMATRIX world = XMMatrixIdentity();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    XMMATRIX view = XMMatrixIdentity();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    XMMATRIX projection = XMMatrixIdentity();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> set_view() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> target = { 0.0f, 0.0f, 1.0f };</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> up = { 0.0f, 1.0f, 0.0f };</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> forward = global_forward;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> backward = global_backward;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> left = global_left;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> right = global_right;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_f_vector3.html">FVector3</a> down = global_down;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    XMMATRIX WVP = XMMatrixIdentity();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    XMMATRIX world = XMMatrixIdentity();</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    XMMATRIX view = XMMatrixIdentity();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    XMMATRIX projection = XMMatrixIdentity();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">//RendererCameraComponent renderer_component{&amp;WVP, &amp;transform.position};</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="ttc" id="aclass_camera_component_html"><div class="ttname"><a href="class_camera_component.html">CameraComponent</a></div><div class="ttdef"><b>Definition:</b> CameraComponent.h:6</div></div>
-<div class="ttc" id="aclass_f_vector3_html"><div class="ttname"><a href="class_f_vector3.html">FVector3</a></div><div class="ttdef"><b>Definition:</b> globalstructs.h:332</div></div>
+<div class="ttc" id="aclass_f_vector3_html"><div class="ttname"><a href="class_f_vector3.html">FVector3</a></div><div class="ttdef"><b>Definition:</b> globalstructs.h:283</div></div>
 <div class="ttc" id="aclass_graphics_component_html"><div class="ttname"><a href="class_graphics_component.html">GraphicsComponent</a></div><div class="ttdef"><b>Definition:</b> GraphicsComponent.h:5</div></div>
-<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.h:11</div></div>
+<div class="ttc" id="aclass_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.h:8</div></div>
 <div class="ttc" id="aclass_t_vector2_html"><div class="ttname"><a href="class_t_vector2.html">TVector2&lt; float &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

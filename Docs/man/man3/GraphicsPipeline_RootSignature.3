@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,6 +13,9 @@ GraphicsPipeline::RootSignature
 .RI "class \fBConstantBuffer\fP"
 .br
 .ti -1c
+.RI "class \fBConstantBufferContainer\fP"
+.br
+.ti -1c
 .RI "class \fBDescriptorTable\fP"
 .br
 .ti -1c
@@ -21,15 +24,21 @@ GraphicsPipeline::RootSignature
 .ti -1c
 .RI "class \fBRootConstants\fP"
 .br
+.ti -1c
+.RI "class \fBRootConstantsContainer\fP"
+.br
+.ti -1c
+.RI "class \fBShaderResourceView\fP"
+.br
 .in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
@@ -38,7 +47,16 @@ GraphicsPipeline::RootSignature
 .RI "void \fBbind_constant_buffer\fP (\fBConstantBuffer\fP &cb, D3D12_SHADER_VISIBILITY shader)"
 .br
 .ti -1c
-.RI "template<typename T > void \fBbind_root_constants\fP (T &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
+.RI "void \fBbind_shader_resource_view\fP (\fBShaderResourceView\fP &srv, D3D12_SHADER_VISIBILITY shader)"
+.br
+.ti -1c
+.RI "void \fBbind_root_constants\fP (\fBRootConstants\fP &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBbind_root_constants\fP (\fBRootConstantsContainer\fP< T > &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBbind_constant_buffer\fP (\fBConstantBufferContainer\fP< T > &cb, D3D12_SHADER_VISIBILITY shader)"
 .br
 .in -1c
 .SS "Public Attributes"

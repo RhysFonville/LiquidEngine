@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::ConstantBuffer" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::ConstantBuffer" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,7 +13,7 @@ GraphicsPipeline::RootSignature::ConstantBuffer
 .RI "template<typename T > \fBConstantBuffer\fP (T &cb, std::string name='')"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12DescriptorHeap > descriptor_heaps[NUMBER_OF_BUFFERS])"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12DescriptorHeap > descriptor_heaps[NUMBER_OF_BUFFERS])"
 .br
 .ti -1c
 .RI "void \fBapply\fP (int frame_index) noexcept"
@@ -35,13 +35,13 @@ GraphicsPipeline::RootSignature::ConstantBuffer
 .RI "UINT * \fBgpu_addresses\fP [NUMBER_OF_BUFFERS] = { }"
 .br
 .ti -1c
-.RI "ComPtr< ID3D12Resource > \fBupload_heaps\fP [NUMBER_OF_BUFFERS] = { }"
-.br
-.ti -1c
-.RI "UINT \fBindex\fP = 0u"
+.RI "UINT \fBheap_index\fP = 0u"
 .br
 .ti -1c
 .RI "std::string \fBname\fP = ''"
+.br
+.ti -1c
+.RI "bool \fBupdate_signal\fP = true"
 .br
 .in -1c
 

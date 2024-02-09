@@ -1,4 +1,4 @@
-.TH "TColor<>" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "TColor<>" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,13 +13,19 @@ TColor<>
 .RI "\fBTColor\fP (T r, T g, T b, T a=255)"
 .br
 .ti -1c
-.RI "\fBoperator XMFLOAT3\fP ()"
+.RI "\fBoperator XMFLOAT3\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBoperator XMFLOAT4\fP ()"
+.RI "\fBoperator XMFLOAT4\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBoperator DXGI_RGBA\fP ()"
+.RI "\fBoperator DXGI_RGBA\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBoperator FVector4\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector4\fP \fBto_vec_normalized\fP () const noexcept"
 .br
 .ti -1c
 .RI "\fBTColor\fP \fBoperator/\fP (T divisor) const noexcept"

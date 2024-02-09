@@ -1,0 +1,57 @@
+.TH "PhysicsScene" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+PhysicsScene
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBtick\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBhandle_collision\fP (\fBPhysicalComponent\fP *obj1, \fBPhysicalComponent\fP *obj2)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static bool \fBbox_box_overlap\fP (const \fBSimpleBox\fP &box1, const \fBSimpleBox\fP &box2) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtri_tri_overlap\fP (const \fBSimpleTriangle\fP &tri1, const \fBSimpleTriangle\fP &tri2) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBcoplanar_tri_tri3d\fP (float p1[3], float q1[3], float r1[3], float p2[3], float q2[3], float r2[3], float normal_1[3]) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtri_tri_overlap_test_2d\fP (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBccw_tri_tri_intersection_2d\fP (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept"
+.br
+.ti -1c
+.RI "static float \fBsigned_tetrahedron_volume\fP (\fBFVector3\fP a, \fBFVector3\fP b, \fBFVector3\fP c, \fBFVector3\fP d) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtriangle_line_collision\fP (const \fBSimpleTriangle\fP &triangle, const \fBLine\fP &line) noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBPhysicalComponent\fP * > \fBobjects\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,4 +1,4 @@
-.TH "Mesh" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "Mesh" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,6 +14,9 @@ Mesh
 .br
 .ti -1c
 .RI "\fBMesh\fP (const std::vector< \fBVertex\fP > &vertices)"
+.br
+.ti -1c
+.RI "\fBMesh\fP (const std::string &file)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP ()"
@@ -41,6 +44,9 @@ Mesh
 .br
 .ti -1c
 .RI "void \fBset_vertices\fP (const std::vector< \fBVertex\fP > &new_verts, size_t physics_verts_chunk_divisor=3)"
+.br
+.ti -1c
+.RI "void \fBset_vertices\fP (const std::string &file, size_t physics_verts_chunk_divisor=3)"
 .br
 .in -1c
 .SS "Public Attributes"

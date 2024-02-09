@@ -1,4 +1,4 @@
-.TH "MyCamera" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "MyCamera" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -7,7 +7,7 @@ MyCamera
 .br
 .PP
 .PP
-Inherits \fBObject\fP\&.
+Inherits \fBCharacter\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
@@ -16,6 +16,33 @@ Inherits \fBObject\fP\&.
 .br
 .ti -1c
 .RI "void \fBtick\fP (float dt) override"
+.br
+.ti -1c
+.RI "void \fBon_turn\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_forward\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_backward\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_left\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_right\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_up\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_down\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_slow\fP (float dt)"
+.br
+.ti -1c
+.RI "void \fBon_not_slow\fP (float dt)"
 .br
 .in -1c
 
@@ -79,18 +106,6 @@ Public Member Functions inherited from \fBObject\fP
 .RI "void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
-.RI "virtual void \fBon_start\fP ()"
-.br
-.ti -1c
-.RI "virtual void \fBclean_up\fP ()"
-.br
-.ti -1c
-.RI "virtual void \fBcompile\fP ()"
-.br
-.ti -1c
-.RI "virtual void \fBtick\fP (float dt)"
-.br
-.ti -1c
 .RI "bool \fBoperator==\fP (const \fBObject\fP &object) const noexcept"
 .br
 .ti -1c
@@ -115,8 +130,40 @@ Public Member Functions inherited from \fBObject\fP
 .RI "void \fBremove_component\fP (size_t index)"
 .br
 .in -1c
+
+Public Member Functions inherited from \fBControllable\fP
+.in +1c
+.ti -1c
+.RI "virtual void \fBbase_clean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_tick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBon_start\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBtick\fP (float dt)"
+.br
+.in -1c
 .SS "Additional Inherited Members"
 
+
+Public Attributes inherited from \fBCharacter\fP
+.in +1c
+.ti -1c
+.RI "\fBInput::KeybindSet\fP \fBkeybind_set\fP"
+.br
+.in -1c
 
 Public Attributes inherited from \fBObject\fP
 .in +1c
@@ -135,11 +182,11 @@ Public Attributes inherited from \fBObject\fP
 .SS "void MyCamera::on_start ()\fC [override]\fP, \fC [virtual]\fP"
 
 .PP
-Reimplemented from \fBObject\fP\&.
+Reimplemented from \fBControllable\fP\&.
 .SS "void MyCamera::tick (float dt)\fC [override]\fP, \fC [virtual]\fP"
 
 .PP
-Reimplemented from \fBObject\fP\&.
+Reimplemented from \fBControllable\fP\&.
 
 .SH "Author"
 .PP 

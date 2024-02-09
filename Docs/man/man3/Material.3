@@ -1,4 +1,4 @@
-.TH "Material" 3 "Fri Aug 11 2023" "Liquid Engine" \" -*- nroff -*-
+.TH "Material" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -6,21 +6,11 @@ Material
 .SH SYNOPSIS
 .br
 .PP
-.SS "Classes"
-
-.in +1c
-.ti -1c
-.RI "struct \fBMaterialData\fP"
-.br
-.in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBMaterial\fP (\fBColor\fP ks, \fBColor\fP kd, \fBColor\fP ka, float a)"
-.br
-.ti -1c
-.RI "void \fBcompile\fP (ComPtr< ID3D12Device > &device, ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP ()"
@@ -29,7 +19,16 @@ Material
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "void \fBread_mtl_file\fP (std::vector< std::string > contents) noexcept"
+.RI "void \fBset_data\fP (const std::string &file)"
+.br
+.ti -1c
+.RI "void \fBset_data\fP (const \fBMaterial\fP &material)"
+.br
+.ti -1c
+.RI "bool \fBhas_texture\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBhas_normal_map\fP () const noexcept"
 .br
 .ti -1c
 .RI "void \fBoperator=\fP (const \fBMaterial\fP &material) noexcept"
@@ -37,13 +36,46 @@ Material
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBMaterial\fP &material) const noexcept"
 .br
+.ti -1c
+.RI "const \fBTexture\fP & \fBget_albedo_texture\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_albedo_texture\fP (std::string texture)"
+.br
+.ti -1c
+.RI "const \fBTexture\fP & \fBget_normal_map\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_normal_map\fP (std::string texture)"
+.br
+.ti -1c
+.RI "\fBColor\fP \fBget_albedo\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_albedo\fP (const \fBColor\fP &albedo)"
+.br
+.ti -1c
+.RI "\fBColor\fP \fBget_specular\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_specular\fP (const \fBColor\fP &specular)"
+.br
+.ti -1c
+.RI "\fBColor\fP \fBget_ambient\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_ambient\fP (const \fBColor\fP &ambient)"
+.br
+.ti -1c
+.RI "float \fBget_shininess\fP () const"
+.br
+.ti -1c
+.RI "void \fBset_shininess\fP (const float &shininess)"
+.br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
-.ti -1c
-.RI "struct \fBMaterial::MaterialData\fP \fBdata\fP"
-.br
 .ti -1c
 .RI "\fBGraphicsPipeline\fP \fBpipeline\fP"
 .br
