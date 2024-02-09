@@ -18,25 +18,12 @@ int main() {
 	sky->add_component(std::make_shared<SkyComponent>());
 	sky->get_component<SkyComponent>()->set_albedo_texture("Skybox.png");
 
-	Mesh mesh("statue.obj");
-	Mesh box("Shapes/cylinder.obj");
-
-	/*float x = 0.0f;
-	for (int i = 0; i < 100; i++) {
-		std::shared_ptr<Object> model = std::make_shared<Object>();
-		engine.world.active_scene->add_object(model);
-		model->add_component(std::make_shared<StaticMeshComponent>(mesh));
-		model->get_component<StaticMeshComponent>()->set_size(FVector3(0.3f, 0.3f, 0.3f));
-		model->get_component<StaticMeshComponent>()->set_position(FVector3(x, 0.0f, 0.0f));
-		x += 0.3f;
-	}*/
 	std::shared_ptr<Object> model = std::make_shared<Object>();
 	engine.world.active_scene->add_object(model);
-	model->add_component(std::make_shared<StaticMeshComponent>(mesh));
+	model->add_component(std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"}));
 	model->get_component<StaticMeshComponent>()->set_size(FVector3(0.3f, 0.3f, 0.3f));
 	model->get_component<StaticMeshComponent>()->set_position(FVector3(0.0f, 0.0f, 0.0f));
 
 	engine.compile();
-	engine.world.active_scene->get_objects()[2]->get_component<StaticMeshComponent>()->set_mesh(box);
 	engine.loop();
 }
