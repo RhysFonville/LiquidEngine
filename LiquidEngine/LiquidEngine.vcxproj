@@ -158,7 +158,7 @@
     <ClInclude Include="Components\PhysicalComponent.h" />
     <ClInclude Include="Components\GraphicsComponent.h" />
     <ClInclude Include="Controllable.h" />
-    <ClInclude Include="Debug\DebugOutput.h" />
+    <ClInclude Include="Debug\DebugConsole.h" />
     <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
@@ -166,6 +166,7 @@
     <ClInclude Include="Input\InputListener.h" />
     <ClInclude Include="Input\KeybindSet.h" />
     <ClInclude Include="Input\KeyCodes.h" />
+    <ClInclude Include="Objects\MyStatue.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
@@ -201,12 +202,13 @@
     <ClCompile Include="Components\PhysicalComponent.cpp" />
     <ClCompile Include="Components\GraphicsComponent.cpp" />
     <ClCompile Include="Controllable.cpp" />
-    <ClCompile Include="Debug\DebugOutput.cpp" />
+    <ClCompile Include="Debug\DebugConsole.cpp" />
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Input\InputListener.cpp" />
     <ClCompile Include="Input\KeybindSet.cpp" />
+    <ClCompile Include="Objects\MyStatue.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />

@@ -8,7 +8,7 @@
 #include "globalstructs.h"
 
 #ifdef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
-#include "Debug/DebugOutput.h"
+#include "Debug/DebugConsole.h"
 #endif
 
 /**

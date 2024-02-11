@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "Objects/MyCamera.h"
 #include "Shapes/Cube.h"
+#include "Objects/MyStatue.h"
 
 int main() {
 	if (FAILED(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED))) {
@@ -12,16 +13,16 @@ int main() {
 
 	engine.world.active_scene->add_character(std::make_shared<MyCamera>());
 
+	//std::shared_ptr<Object> light = std::make_shared<Object>();
+	//engine.world.active_scene->add_object(light);
+	//light->add_component(std::make_shared<DirectionalLightComponent>());
+
 	std::shared_ptr<Object> sky = std::make_shared<Object>();
 	engine.world.active_scene->add_object(sky);
 	sky->add_component(std::make_shared<SkyComponent>());
 	sky->get_component<SkyComponent>()->set_albedo_texture("Skybox.png");
 
-	std::shared_ptr<Object> model = std::make_shared<Object>();
-	engine.world.active_scene->add_object(model);
-	model->add_component(std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"}));
-	model->get_component<StaticMeshComponent>()->set_size(FVector3(0.3f, 0.3f, 0.3f));
-	model->get_component<StaticMeshComponent>()->set_position(FVector3(0.0f, 0.0f, 0.0f));
+	engine.world.active_scene->add_object(std::make_shared<MyStatue>());
 
 	engine.compile();
 	engine.loop();

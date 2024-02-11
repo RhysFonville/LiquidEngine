@@ -76,7 +76,7 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	float4 final_color = material.ka*ia;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	float3 n = ps_in.normal;
+	float3 n = normalize(ps_in.normal);
 
 	if (material.has_normal_map) {
 		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord);
@@ -160,6 +160,21 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	return final_color;
 }
 
+float4 temp(PS_INPUT ps_in) {
+	float4 ka = material.ka;
+	float4 kd = material.kd;
+	float3 lm = normalize(point_lights[0].position - ps_in.world_position);
+	float3 n = ps_in.normal;
+	float4 imd = point_lights[0].diffuse;
+	float4 ks = material.ks;
+	float3 rm = 2.0f * n * dot(n, lm);
+	float3 v = normalize(camera_position - ps_in.world_position);
+	float4 a = material.a;
+	float4 ims = point_lights[0].specular;
+	float4 color = ka + (kd * (dot(lm, n)) * imd + ks * pow((dot(rm, v)), a) * ims);
+}
+
 float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	return calculate_lit_ps_main(material.kd, ps_in);
+	//return temp(material.kd, ps_in);
 }

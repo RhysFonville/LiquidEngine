@@ -143,10 +143,13 @@
     <ClInclude Include="Debug\Throw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debug\DebugOutput.h">
+    <ClInclude Include="Debug\DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ShaderStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\MyStatue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -250,10 +253,13 @@
     <ClCompile Include="Components\BoxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\DebugOutput.cpp">
+    <ClCompile Include="Debug\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\ShaderStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\MyStatue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -64,8 +64,8 @@ public:
 	
 	bool update() {
 		if (component->has_changed()) {
-			data.albedo = component->get_albedo();
-			data.specular = component->get_specular();
+			data.albedo = component->get_albedo().to_vec_normalized();
+			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_direction();
 			data.null = component->is_null();
 			return true;
@@ -146,8 +146,8 @@ public:
 
 	bool update() {
 		if (component->has_changed()) {
-			data.albedo = component->get_albedo();
-			data.specular = component->get_specular();
+			data.albedo = component->get_albedo().to_vec_normalized();
+			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_direction();
 			return true;
 		}
