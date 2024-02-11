@@ -1,6 +1,6 @@
 #include "MyStatue.h"
 
-MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"})} {
+MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"})} {
 	mesh->set_size(FVector3(0.3f, 0.3f, 0.3f));
 }
 
