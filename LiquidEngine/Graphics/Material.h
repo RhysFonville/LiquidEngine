@@ -54,7 +54,7 @@ private:
 
 	Texture albedo_texture = Texture();
 	Texture normal_map = Texture();
-	Color albedo = Color(100, 100, 100, 100); // kd
+	Color albedo = Color(100, 100, 100, 255); // kd
 	Color specular = Color(5, 5, 5, 255); // ks
 	Color ambient = Color(0, 0, 0, 255); // ka
 	float shininess = 0.5f; // a

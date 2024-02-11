@@ -26,7 +26,7 @@ public:
 	void is_null(bool null) noexcept { this->null = null; changed = true; }
 
 protected:
-	Color albedo = Color(255, 255, 255, 255);
-	Color specular = Color(5, 5, 5, 255);
+	Color albedo = Color(100, 100, 100, 255);
+	Color specular = Color(10, 10, 10, 255);
 	bool null = false;
 };
