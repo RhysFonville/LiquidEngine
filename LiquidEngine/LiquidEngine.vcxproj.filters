@@ -62,7 +62,7 @@
     <ClInclude Include="Graphics\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Material.h">
+    <ClInclude Include="Components\MaterialComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Texture.h">
@@ -208,7 +208,7 @@
     <ClCompile Include="Graphics\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Material.cpp">
+    <ClCompile Include="Components\MaterialComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Texture.cpp">

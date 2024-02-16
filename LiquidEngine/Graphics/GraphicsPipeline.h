@@ -377,7 +377,7 @@ public:
 			ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
-			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+			void compile() { compile_signal = true; }
 
 			ComPtr<ID3D12Resource> default_buffer = nullptr;
 			D3D12_RESOURCE_DESC heap_desc = { };
@@ -389,7 +389,7 @@ public:
 			UINT index = 0u;
 			UINT heap_index = 0u;
 
-			bool update_signal = false;
+			bool compile_signal = false;
 		};
 
 		/**

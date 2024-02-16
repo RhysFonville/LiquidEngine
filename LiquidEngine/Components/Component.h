@@ -16,7 +16,8 @@ public:
 		PointLightComponent,
 		SpotlightComponent,
 		BoxComponent,
-		SkyComponent
+		SkyComponent,
+		MaterialComponent
 	};
 
 	Component() : type(Type::None) { }

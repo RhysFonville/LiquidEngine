@@ -2,28 +2,30 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-#include "Texture.h"
+#include "../Graphics/Texture.h"
+#include "../Components/GraphicsComponent.h"
 
 /**
- * Material data for rendering.
+ * Material data for rendering. Specifies how light interacts with the object.
  */
-class Material {
+class MaterialComponent : public GraphicsComponent {
 public:
-	Material() { }
+	MaterialComponent() : GraphicsComponent{Component::Type::MaterialComponent} { }
+	MaterialComponent(const MaterialComponent &mat);
 
 	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution);
-	void compile();
+	void compile() override;
 	
-	void clean_up();
+	void clean_up() override;
 
 	void set_data(const std::string &file);
-	void set_data(const Material &material);
+	void set_data(const MaterialComponent &material);
 
 	bool has_texture() const noexcept;
 	bool has_normal_map() const noexcept;
 
-	void operator=(const Material &material) noexcept;
-	bool operator==(const Material &material) const noexcept;
+	void operator=(const MaterialComponent &material) noexcept;
+	bool operator==(const MaterialComponent &material) const noexcept;
 
 	const Texture & get_albedo_texture() const { return albedo_texture; }
 	void set_albedo_texture(std::string texture) { albedo_texture.set_texture(texture); }
@@ -44,6 +46,8 @@ public:
 	void set_shininess(const float &shininess) { this->shininess = shininess; }
 
 	GraphicsPipeline pipeline;
+
+	static const Type component_type = Type::MaterialComponent;
 
 private:
 	std::string vs = "Graphics/DefaultVertex.hlsl";

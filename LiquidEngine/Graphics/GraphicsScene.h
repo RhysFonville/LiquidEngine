@@ -159,15 +159,11 @@ public:
 	RenderingSpotlightData data{};
 };
 
-/**
-* Graphics-side material.
-* \see Material
-*/
 _declspec(align(16))
-class RenderingMaterial {
+class RenderingMaterialData {
 public:
-	RenderingMaterial() { }
-	RenderingMaterial(const Material &material)
+	RenderingMaterialData() { }
+	RenderingMaterialData(const MaterialComponent &material)
 		: has_texture(material.has_texture()), has_normal_map(material.has_normal_map()),
 		a(material.get_shininess()), ks(material.get_specular().to_vec_normalized()),
 		kd(material.get_albedo().to_vec_normalized()),
@@ -211,7 +207,7 @@ struct PSCameraConstants { // b3
 
 __declspec(align(16))
 struct PSMaterialCB { // b4
-	RenderingMaterial material;
+	RenderingMaterialData material{};
 };
 
 __declspec(align(16))
@@ -226,22 +222,46 @@ struct PSSkyCB { // b2
 };
 
 /**
+* Graphics-side material.
+* \see Material
+*/
+class RenderingMaterial : public RenderingComponent<MaterialComponent> {
+public:
+	RenderingMaterial() : RenderingComponent{} { }
+	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat}, data{*mat} { }
+
+	bool update() {
+		if (component->has_changed()) {
+			material_data.obj->material = data;
+			material_data.apply();
+			return true;
+		}
+		return false;
+	}
+
+	RenderingMaterialData data{};
+
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
+};
+
+/**
 * Graphics-side static mesh.
 * \see StaticMeshComponent
 */
 class RenderingStaticMesh : public RenderingComponent<StaticMeshComponent> {
 public:
 	RenderingStaticMesh() { }
-	RenderingStaticMesh(StaticMeshComponent* smc) : RenderingComponent{smc} { }
+	RenderingStaticMesh(StaticMeshComponent* smc) : RenderingComponent{smc},
+		material{RenderingMaterial{smc->get_material()}} { }
 
 	bool update() {
+		bool ret{false};
+		if (material.update()) ret = true;
 		if (component->has_changed()) {
-			material_data.obj->material = RenderingMaterial{component->get_material()};
-			material_data.apply();
 			transform_data.obj->transform = component->get_transform();
 			return true;
 		}
-		return false;
+		return ret;
 	}
 
 	void update_lights(const std::vector<RenderingDirectionalLight> &dl,
@@ -267,7 +287,8 @@ public:
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
+	RenderingMaterial material{};
+
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data = PSLightsCB{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
 };
@@ -443,7 +464,7 @@ public:
 	void clean_up();
 
 private:
-	friend Renderer;
+	friend class Renderer;
 
 	std::vector<RenderingStaticMesh> static_meshes = { };
 	std::vector<RenderingDirectionalLight> directional_lights = { };

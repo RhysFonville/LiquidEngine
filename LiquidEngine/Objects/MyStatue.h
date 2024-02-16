@@ -11,5 +11,8 @@ public:
 
 private:
 	std::shared_ptr<StaticMeshComponent> mesh;
+
+	int timer{0};
+	bool reg_tex{false};
 };
 

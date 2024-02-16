@@ -1,13 +1,17 @@
-#include "Material.h"
+#include "MaterialComponent.h"
 
-void Material::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
+MaterialComponent::MaterialComponent(const MaterialComponent &mat) : GraphicsComponent{Component::Type::MaterialComponent} {
+	set_data(mat);
+}
+
+void MaterialComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
 	compile();
 	pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 
 	pipeline.compilation_signal = false;
 }
 
-void Material::compile() {
+void MaterialComponent::compile() {
 	pipeline.vs = vs;
 	pipeline.hs = hs;
 	pipeline.ds = ds;
@@ -33,11 +37,11 @@ void Material::compile() {
 	pipeline.compilation_signal = true;
 }
 
-void Material::clean_up() {
+void MaterialComponent::clean_up() {
 	pipeline.clean_up();
 }
 
-void Material::set_data(const std::string &file) {
+void MaterialComponent::set_data(const std::string &file) {
 	std::ifstream read(file);
 	if (read.is_open()) {
 		std::string line;
@@ -93,36 +97,35 @@ void Material::set_data(const std::string &file) {
 	}
 }
 
-void Material::set_data(const Material &material) {
+void MaterialComponent::set_data(const MaterialComponent &material) {
 	albedo_texture.set_texture(material.albedo_texture.get_file());
 	normal_map.set_texture(material.normal_map.get_file());
 	specular = material.specular;
 	albedo = material.albedo;
 	ambient = material.ambient;
 	shininess = material.shininess;
-
 }
 
-bool Material::has_texture() const noexcept {
+bool MaterialComponent::has_texture() const noexcept {
 	return albedo_texture.exists();
 }
 
-bool Material::has_normal_map() const noexcept {
+bool MaterialComponent::has_normal_map() const noexcept {
 	return normal_map.exists();
 }
 
-void Material::operator=(const Material &material) noexcept {
+void MaterialComponent::operator=(const MaterialComponent &material) noexcept {
 	vs = material.vs;
 	hs = material.hs;
 	ds = material.ds;
 	gs = material.gs;
 	ps = material.ps;
-
-	//data = material.data;
 }
 
-bool Material::operator==(const Material &material) const noexcept {
-	return (vs == material.vs &&
+bool MaterialComponent::operator==(const MaterialComponent &material) const noexcept {
+	return (
+		(Component*)this == (Component*)&material &&
+		vs == material.vs &&
 		hs == material.hs &&
 		ds == material.ds &&
 		gs == material.gs &&

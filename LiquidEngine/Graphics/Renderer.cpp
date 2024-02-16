@@ -220,11 +220,11 @@ void Renderer::compile() {
 
 	int i = 0;
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.component->material.pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.component->material.pipeline.root_signature.bind_root_constants<VSTransformConstants>(mesh.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh.component->material.pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
-		mesh.component->material.pipeline.root_signature.bind_constant_buffer(mesh.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.material.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(mesh.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		mesh.material.component->pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
+		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh.component->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
 		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
@@ -284,7 +284,7 @@ void Renderer::update() {
 	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.component->material.pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
+		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
