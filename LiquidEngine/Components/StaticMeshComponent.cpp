@@ -8,7 +8,7 @@ StaticMeshComponent::StaticMeshComponent(Mesh mesh)
 void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) noexcept {
 	mesh.compile();
 	proxy->add_mesh(mesh);
-	material->compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+	material->compile();
 }
 
 void StaticMeshComponent::compile() noexcept {

@@ -16,8 +16,7 @@ public:
 
 	bool has_texture() const noexcept;
 
-	const Texture & get_albedo_texture() const { return albedo_texture; }
-	void set_albedo_texture(std::string texture) { albedo_texture.set_texture(texture); changed = true; }
+	Texture & get_albedo_texture() { return albedo_texture; }
 
 	Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &new_albedo) { albedo = new_albedo; changed = true; }

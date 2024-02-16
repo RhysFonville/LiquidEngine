@@ -28,7 +28,7 @@ static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 * Each graphics component has thir graphics-side counterpart. Graphics-side component base class.
 * \see GraphicsComponent
 */
-template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsTracker)>
 class RenderingComponent {
 public:
 	RenderingComponent() { }
@@ -221,6 +221,24 @@ struct PSSkyCB { // b2
 	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
+class RenderingTexture : public RenderingComponent<Texture> {
+public:
+	RenderingTexture() { }
+	RenderingTexture(Texture* texture) : texture{texture} { }
+
+	bool update() {
+		if (texture->has_changed()) {
+			srv = GraphicsPipeline::RootSignature::ShaderResourceView{texture->get_mip_chain() };
+			srv.compile();
+			return true;
+		}
+		return false;
+	}
+
+	Texture* texture{nullptr};
+	GraphicsPipeline::RootSignature::ShaderResourceView srv{};
+};
+
 /**
 * Graphics-side material.
 * \see Material
@@ -228,18 +246,38 @@ struct PSSkyCB { // b2
 class RenderingMaterial : public RenderingComponent<MaterialComponent> {
 public:
 	RenderingMaterial() : RenderingComponent{} { }
-	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat}, data{*mat} { }
+	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat}, data{*mat},
+		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
+		normal_map{RenderingTexture{&mat->get_normal_map()}} {
+
+		component->pipeline.root_signature.bind_shader_resource_view(
+			albedo_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+
+		component->pipeline.root_signature.bind_shader_resource_view(
+			normal_map.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
 
 	bool update() {
+		bool ret{false};
+		if (albedo_texture.update()) ret = true;
+		if (normal_map.update()) ret = true;
+
 		if (component->has_changed()) {
 			material_data.obj->material = data;
 			material_data.apply();
 			return true;
 		}
-		return false;
+		return ret;
 	}
 
 	RenderingMaterialData data{};
+	RenderingTexture albedo_texture{};
+	RenderingTexture normal_map{};
+
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
 };
@@ -257,6 +295,7 @@ public:
 	bool update() {
 		bool ret{false};
 		if (material.update()) ret = true;
+
 		if (component->has_changed()) {
 			transform_data.obj->transform = component->get_transform();
 			return true;
@@ -300,9 +339,13 @@ public:
 class RenderingSky : public RenderingComponent<SkyComponent> {
 public:
 	RenderingSky() { }
-	RenderingSky(SkyComponent* sky) : RenderingComponent{sky} { }
+	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
+		texture{&sky->get_albedo_texture()} { }
 
 	bool update(FVector3 camera_pos) {
+		bool ret{false};
+		if (texture.update()) ret = true;
+
 		transform_data.obj->transform = Transform{camera_pos};
 		if (component->has_changed()) {
 			data.obj->albedo = component->get_albedo();
@@ -310,10 +353,12 @@ public:
 			data.apply();
 			return true;
 		}
-		return false;
+		return ret;
 	}
 
 	bool operator==(SkyComponent component) { return (component == *(this->component)); }
+
+	RenderingTexture texture{nullptr};
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{}; // TODO: CHANGE TO CAMERA POSITION ROOT CONSTANTS

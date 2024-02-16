@@ -23,9 +23,11 @@ void Texture::set_texture(const std::string &file) {
 		this->file = file;
 		if (exists()) {
 			load_texture(file, image, mip_chain);
-			srv = GraphicsPipeline::RootSignature::ShaderResourceView(mip_chain);
-			srv.compile();
+		} else {
+			image.Release();
+			mip_chain.Release();
 		}
+		changed = true;
 	}
 }
 

@@ -2,10 +2,19 @@
 
 #include "Component.h"
 
+class GraphicsTracker {
+public:
+	bool has_changed() const noexcept { return changed; }
+	void has_changed(bool changed) noexcept { this->changed = changed; }
+
+protected:
+	bool changed{false};
+};
+
 /**
 * Main component for any component that is used for rendering and graphics.
 */
-class GraphicsComponent : public Component {
+class GraphicsComponent : public Component, public GraphicsTracker {
 public:
 	GraphicsComponent(Type type);
 
@@ -31,10 +40,4 @@ public:
 		Component::set_size(size);
 		changed = true;
 	}
-
-	bool has_changed() const noexcept { return changed; }
-	void has_changed(bool changed) noexcept { this->changed = changed; }
-
-protected:
-	bool changed{false};
 };

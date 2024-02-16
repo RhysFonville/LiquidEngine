@@ -28,11 +28,6 @@ void SkyComponent::compile() {
 	if (has_texture()) {
 		albedo_texture.compile();
 	}
-	pipeline.root_signature.bind_shader_resource_view(
-		albedo_texture.srv,
-		D3D12_SHADER_VISIBILITY_PIXEL
-	);
-	//albedo_texture.srv.srv_desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURECUBE;
 
 	proxy->add_mesh(Mesh("Shapes/skybox.obj"));
 }

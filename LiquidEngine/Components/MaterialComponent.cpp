@@ -4,13 +4,6 @@ MaterialComponent::MaterialComponent(const MaterialComponent &mat) : GraphicsCom
 	set_data(mat);
 }
 
-void MaterialComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
-	compile();
-	pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
-
-	pipeline.compilation_signal = false;
-}
-
 void MaterialComponent::compile() {
 	pipeline.vs = vs;
 	pipeline.hs = hs;
@@ -21,18 +14,9 @@ void MaterialComponent::compile() {
 	if (has_texture()) {
 		albedo_texture.compile();
 	}
-	pipeline.root_signature.bind_shader_resource_view(
-		albedo_texture.srv,
-		D3D12_SHADER_VISIBILITY_PIXEL
-	);
-
 	if (has_normal_map()) {
 		normal_map.compile();
 	}
-	pipeline.root_signature.bind_shader_resource_view(
-		normal_map.srv,
-		D3D12_SHADER_VISIBILITY_PIXEL
-	);
 
 	pipeline.compilation_signal = true;
 }
@@ -92,6 +76,8 @@ void MaterialComponent::set_data(const std::string &file) {
 		}
 		shininess *= 13;
 		specular /= 6;
+
+		changed = true;
 	} else {
 		throw std::exception("Material set_data file could not be opened.");
 	}
@@ -104,6 +90,8 @@ void MaterialComponent::set_data(const MaterialComponent &material) {
 	albedo = material.albedo;
 	ambient = material.ambient;
 	shininess = material.shininess;
+
+	changed = true;
 }
 
 bool MaterialComponent::has_texture() const noexcept {
@@ -112,14 +100,6 @@ bool MaterialComponent::has_texture() const noexcept {
 
 bool MaterialComponent::has_normal_map() const noexcept {
 	return normal_map.exists();
-}
-
-void MaterialComponent::operator=(const MaterialComponent &material) noexcept {
-	vs = material.vs;
-	hs = material.hs;
-	ds = material.ds;
-	gs = material.gs;
-	ps = material.ps;
 }
 
 bool MaterialComponent::operator==(const MaterialComponent &material) const noexcept {

@@ -2,12 +2,13 @@
 
 #include <DirectXTex.h>
 #include "GraphicsPipeline.h"
+#include "../Components/GraphicsComponent.h"
 
 /**
  * Texture for rendering onto objects.
  * \see GraphicsPipeline::RootSignature::ShaderResourceView
  */
-class Texture {
+class Texture : public GraphicsTracker {
 public:
 	Texture() { }
 	Texture(const std::string &file);
@@ -33,12 +34,11 @@ public:
 	 */
 	static void load_texture(const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain);
 
-	// Content of the texture resource
-	DirectX::ScratchImage image;
-	DirectX::ScratchImage mip_chain;
-
-	GraphicsPipeline::RootSignature::ShaderResourceView srv;
+	const DirectX::ScratchImage & get_image() { return image; }
+	const DirectX::ScratchImage & get_mip_chain() { return mip_chain; }
 
 private:
 	std::string file = "";
+	DirectX::ScratchImage image;
+	DirectX::ScratchImage mip_chain;
 };
