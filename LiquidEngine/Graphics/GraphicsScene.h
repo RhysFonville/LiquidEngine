@@ -221,26 +221,32 @@ struct PSSkyCB { // b2
 	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
 };
 
+/**
+* Graphics-side texture.
+* \see SpotlightComponent
+*/
 class RenderingTexture : public RenderingComponent<Texture> {
 public:
 	RenderingTexture() { }
 	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
 		if (texture->exists()) {
-			srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
-			srv.compile();
+			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
+				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
+			srv->compile();
 		}
 	}
 
 	bool update() {
 		if (component->has_changed() && component->exists()) {
-			srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
-			srv.compile();
+			*srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
+			
+			srv->compile();
 			return true;
 		}
 		return false;
 	}
 
-	GraphicsPipeline::RootSignature::ShaderResourceView srv{};
+	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
 };
 
 /**
@@ -255,12 +261,12 @@ public:
 		normal_map{RenderingTexture{&mat->get_normal_map()}} {
 
 		component->pipeline.root_signature.bind_shader_resource_view(
-			albedo_texture.srv,
+			*albedo_texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 
 		component->pipeline.root_signature.bind_shader_resource_view(
-			normal_map.srv,
+			*normal_map.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 	}
@@ -345,7 +351,7 @@ public:
 		texture{&sky->get_albedo_texture()} {
 		
 		component->pipeline.root_signature.bind_shader_resource_view(
-			texture.srv,
+			*texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 	}
@@ -511,10 +517,14 @@ public:
 
 		for (RenderingStaticMesh &mesh : static_meshes) {
 			mesh.component->has_changed(false);
+			mesh.material.component->has_changed(false);
+			mesh.material.albedo_texture.component->has_changed(false);
+			mesh.material.normal_map.component->has_changed(false);
 		}
 
 		camera.component->has_changed(false);
 		sky.component->has_changed(false);
+		sky.texture.component->has_changed(false);
 	}
 
 	void clean_up();

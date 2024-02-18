@@ -386,6 +386,10 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 }
 
 GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
+	update_descs(mip_chain, is_texture_cube);
+}
+
+void GraphicsPipeline::RootSignature::ShaderResourceView::update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
 	const Image &chain_base = *mip_chain.GetImages();
 	heap_desc = D3D12_RESOURCE_DESC {
 		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
@@ -410,7 +414,7 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const Di
 		};
 	}) |
 		std::ranges::to<std::vector>();
-	
+
 	srv_desc = D3D12_SHADER_RESOURCE_VIEW_DESC {
 		.Format = heap_desc.Format,
 		.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D,
@@ -426,7 +430,9 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const Di
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {	
-	if ((heap_desc.Width != 0 && heap_desc.Height != 0) || (heap_desc.Width != (UINT)-1 && heap_desc.Height != (UINT)-1)) {
+	if (heap_desc.Width != 0 && heap_desc.Height != 0) {
+		ResourceManager::Release::resources.push_back(default_buffer);
+
 		auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 		HPEW(device->CreateCommittedResource(
 			&props,

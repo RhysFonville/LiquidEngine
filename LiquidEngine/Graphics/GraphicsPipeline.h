@@ -376,6 +376,8 @@ public:
 			ShaderResourceView() { }
 			ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
+			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
+
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
 			void compile() { compile_signal = true; }
 
