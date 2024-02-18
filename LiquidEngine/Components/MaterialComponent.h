@@ -46,16 +46,16 @@ public:
 	static const Type component_type = Type::MaterialComponent;
 
 private:
-	std::string vs = "Graphics/DefaultVertex.hlsl";
-	std::string hs = "";
-	std::string ds = "";
-	std::string gs = "";
-	std::string ps = "Graphics/LitPixel.hlsl";
+	std::string vs{"Graphics/DefaultVertex.hlsl"};
+	std::string hs{};
+	std::string ds{};
+	std::string gs{};
+	std::string ps{"Graphics/LitPixel.hlsl"};
 
-	Texture albedo_texture = Texture();
-	Texture normal_map = Texture();
-	Color albedo = Color(100, 100, 100, 255); // kd
-	Color specular = Color(5, 5, 5, 255); // ks
-	Color ambient = Color(0, 0, 0, 255); // ka
-	float shininess = 0.5f; // a
+	Texture albedo_texture{};
+	Texture normal_map{};
+	Color albedo{100, 100, 100, 255}; // kd
+	Color specular{5, 5, 5, 255}; // ks
+	Color ambient{0, 0, 0, 255}; // ka
+	float shininess{0.5f}; // a
 };

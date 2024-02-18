@@ -379,17 +379,17 @@ public:
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
 			void compile() { compile_signal = true; }
 
-			ComPtr<ID3D12Resource> default_buffer = nullptr;
-			D3D12_RESOURCE_DESC heap_desc = { };
+			ComPtr<ID3D12Resource> default_buffer{nullptr};
+			D3D12_RESOURCE_DESC heap_desc{};
 
-			std::vector<D3D12_SUBRESOURCE_DATA> subresources = { };
+			std::vector<D3D12_SUBRESOURCE_DATA> subresources{};
 
-			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc = { };
+			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc{};
 
-			UINT index = 0u;
-			UINT heap_index = 0u;
+			UINT index{0u};
+			UINT heap_index{0u};
 
-			bool compile_signal = false;
+			bool compile_signal{false};
 		};
 
 		/**

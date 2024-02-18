@@ -36,7 +36,7 @@ public:
 
 	bool operator==(T component) { return (component == *(this->component)); }
 
-	T* component = nullptr;
+	T* component{nullptr};
 };
 
 _declspec(align(16))
@@ -224,18 +224,22 @@ struct PSSkyCB { // b2
 class RenderingTexture : public RenderingComponent<Texture> {
 public:
 	RenderingTexture() { }
-	RenderingTexture(Texture* texture) : texture{texture} { }
+	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
+		if (texture->exists()) {
+			srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
+			srv.compile();
+		}
+	}
 
 	bool update() {
-		if (texture->has_changed()) {
-			srv = GraphicsPipeline::RootSignature::ShaderResourceView{texture->get_mip_chain() };
+		if (component->has_changed() && component->exists()) {
+			srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
 			srv.compile();
 			return true;
 		}
 		return false;
 	}
 
-	Texture* texture{nullptr};
 	GraphicsPipeline::RootSignature::ShaderResourceView srv{};
 };
 
@@ -246,7 +250,7 @@ public:
 class RenderingMaterial : public RenderingComponent<MaterialComponent> {
 public:
 	RenderingMaterial() : RenderingComponent{} { }
-	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat}, data{*mat},
+	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
 		normal_map{RenderingTexture{&mat->get_normal_map()}} {
 
@@ -267,17 +271,15 @@ public:
 		if (normal_map.update()) ret = true;
 
 		if (component->has_changed()) {
-			material_data.obj->material = data;
+			material_data.obj->material = RenderingMaterialData{*component};
 			material_data.apply();
 			return true;
 		}
 		return ret;
 	}
 
-	RenderingMaterialData data{};
 	RenderingTexture albedo_texture{};
 	RenderingTexture normal_map{};
-
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
 };
@@ -340,7 +342,13 @@ class RenderingSky : public RenderingComponent<SkyComponent> {
 public:
 	RenderingSky() { }
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
-		texture{&sky->get_albedo_texture()} { }
+		texture{&sky->get_albedo_texture()} {
+		
+		component->pipeline.root_signature.bind_shader_resource_view(
+			texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
 
 	bool update(FVector3 camera_pos) {
 		bool ret{false};
@@ -358,7 +366,7 @@ public:
 
 	bool operator==(SkyComponent component) { return (component == *(this->component)); }
 
-	RenderingTexture texture{nullptr};
+	RenderingTexture texture{};
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{}; // TODO: CHANGE TO CAMERA POSITION ROOT CONSTANTS
@@ -457,6 +465,9 @@ public:
 
 		for (RenderingStaticMesh &mesh : static_meshes) {
 			mesh.component->has_changed(true);
+			mesh.material.component->has_changed(true);
+			mesh.material.albedo_texture.component->has_changed(true);
+			mesh.material.normal_map.component->has_changed(true);
 		}
 
 		camera.component->has_changed(true);

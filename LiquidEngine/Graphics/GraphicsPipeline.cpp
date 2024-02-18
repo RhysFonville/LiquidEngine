@@ -426,9 +426,7 @@ GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const Di
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {	
-	if (heap_desc.Width != 0 && heap_desc.Height != 0) {
-		default_buffer.Reset();
-
+	if ((heap_desc.Width != 0 && heap_desc.Height != 0) || (heap_desc.Width != (UINT)-1 && heap_desc.Height != (UINT)-1)) {
 		auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 		HPEW(device->CreateCommittedResource(
 			&props,

@@ -39,6 +39,6 @@ public:
 
 private:
 	std::string file = "";
-	DirectX::ScratchImage image;
-	DirectX::ScratchImage mip_chain;
+	DirectX::ScratchImage image{};
+	DirectX::ScratchImage mip_chain{};
 };
