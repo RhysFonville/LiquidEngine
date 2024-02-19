@@ -65,14 +65,14 @@ static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 
-float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
+float4 calculate_lit_ps_main(PS_INPUT ps_in) {
+	float kd = material.kd;
 	float4 ks = material.ks;
 	float4 ka = material.ka;
 	float a = material.a;
 
 	if (material.has_texture) {
 		kd = object_texture.Sample(static_sampler_state, ps_in.texcoord);
-		return kd;
 	}
 	
 	float4 final_color = material.ka/**ia*/;
@@ -162,8 +162,4 @@ float4 calculate_lit_ps_main(float4 kd, PS_INPUT ps_in) {
 	final_color *= distance_falloff;
 
 	return final_color;
-}
-
-float4 calculate_lit_ps_main(PS_INPUT ps_in) {
-	return calculate_lit_ps_main(material.kd, ps_in);
 }
