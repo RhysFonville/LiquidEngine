@@ -3,14 +3,9 @@
 StaticMeshComponent::StaticMeshComponent(Mesh mesh)
 	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) { }
 
-void StaticMeshComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) noexcept {
-	mesh.compile();
-	proxy->add_mesh(mesh);
-	material->compile();
-}
-
 void StaticMeshComponent::compile() noexcept {
 	mesh.compile();
+	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 	material->compile();
 }
