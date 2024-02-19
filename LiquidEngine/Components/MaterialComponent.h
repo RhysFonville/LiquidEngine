@@ -12,6 +12,7 @@ class MaterialComponent : public GraphicsComponent {
 public:
 	MaterialComponent() : GraphicsComponent{Component::Type::MaterialComponent} { }
 	MaterialComponent(const MaterialComponent &mat);
+	MaterialComponent(const std::string &file);
 
 	void compile() override;
 	

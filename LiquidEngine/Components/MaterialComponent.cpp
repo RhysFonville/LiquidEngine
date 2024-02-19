@@ -1,7 +1,11 @@
 #include "MaterialComponent.h"
 
-MaterialComponent::MaterialComponent(const MaterialComponent &mat) : GraphicsComponent{Component::Type::MaterialComponent} {
+MaterialComponent::MaterialComponent(const MaterialComponent &mat) : MaterialComponent{} {
 	set_data(mat);
+}
+
+MaterialComponent::MaterialComponent(const std::string &file) : MaterialComponent{} {
+	set_data(file);
 }
 
 void MaterialComponent::compile() {
@@ -31,7 +35,7 @@ void MaterialComponent::set_data(const std::string &file) {
 		std::string line;
 		while (std::getline(read, line)) {
 			if (line.substr(0, 2) == "Ns") {
-				shininess = std::stof(line.substr(3)) / 900.0f;
+				shininess = std::stof(line.substr(3)) * 0.0025f;
 			}
 			if (line.substr(0, 2) == "Ka") {
 				std::vector<std::string> colors = split(line, ' ');
@@ -42,6 +46,7 @@ void MaterialComponent::set_data(const std::string &file) {
 					(UCHAR)(std::stof(colors[3]) * 255.0f),
 					(UCHAR)255
 				});
+				ambient = Color{0, 0, 0, 255};
 			}
 			if (line.substr(0, 2) == "Kd") {
 				std::vector<std::string> colors = split(line, ' ');
@@ -67,15 +72,15 @@ void MaterialComponent::set_data(const std::string &file) {
 				albedo.a = (UCHAR)(std::stof(line.substr(2)) * 255.0f);
 			}
 
-			/*if (line.substr(0, 6) == "map_Kd") {
-				texture = Texture(line.substr(7));
+			if (line.substr(0, 6) == "map_Kd") {
+				albedo_texture.set_texture(line.substr(7));
 			}
 			if (line.substr(0, 8) == "map_Bump") {
-				normal_map = Texture(line.substr(9));
-			}*/
+				normal_map.set_texture(line.substr(9));
+			}
 		}
-		shininess *= 13;
-		specular /= 6;
+		albedo /= 2;
+		specular /= 8;
 
 		changed = true;
 	} else {
