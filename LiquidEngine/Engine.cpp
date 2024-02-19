@@ -21,8 +21,16 @@ Engine::Engine()
 }
 
 void Engine::compile() {
+	for (auto &obj : world.active_scene->get_objects()) {
+		obj->pre_scene_compile();
+	}
+
 	world.compile();
 	renderer.compile();
+
+	for (auto &obj : world.active_scene->get_objects()) {
+		obj->post_scene_compile();
+	}
 }
 
 void Engine::loop() {

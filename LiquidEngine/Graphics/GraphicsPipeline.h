@@ -103,17 +103,6 @@ public:
 	std::string ps{"LitPixel.hlsl"};
 
 	/**
-	* Tesselator stage.
-	*/
-	class Tesselator {
-	public:
-		bool operator==(const Tesselator &tesselator) const noexcept { return true; }
-	
-	private:
-		friend GraphicsPipeline;
-	} tesselator;
-
-	/**
 	* Rasterizer stage.
 	*/
 	class Rasterizer {

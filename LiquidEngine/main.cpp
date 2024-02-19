@@ -20,6 +20,7 @@ int main() {
 	std::shared_ptr<Object> sky = std::make_shared<Object>();
 	engine.world.active_scene->add_object(sky);
 	sky->add_component(std::make_shared<SkyComponent>());
+	sky->get_component<SkyComponent>()->get_albedo_texture().set_texture("Skybox.png");
 
 	engine.world.active_scene->add_object(std::make_shared<MyStatue>());
 

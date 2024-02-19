@@ -54,7 +54,7 @@ MyCamera::MyCamera()
 	);
 }
 
-void MyCamera::on_start() {
+void MyCamera::pre_scene_compile() {
 	add_component(camera);
 	add_component(light);
 }

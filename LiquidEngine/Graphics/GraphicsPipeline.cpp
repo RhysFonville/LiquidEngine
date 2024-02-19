@@ -88,7 +88,6 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 	gs == pipeline.gs &&
 	ps == pipeline.ps &&
 
-	tesselator == pipeline.tesselator &&
 	rasterizer == pipeline.rasterizer &&
 	stream_output == pipeline.stream_output);
 }
@@ -104,7 +103,6 @@ void GraphicsPipeline::operator=(const GraphicsPipeline &pipeline) noexcept {
 	gs = pipeline.gs;
 	ps = pipeline.ps;
 
-	tesselator = pipeline.tesselator;
 	rasterizer = pipeline.rasterizer;
 	stream_output = pipeline.stream_output;
 }

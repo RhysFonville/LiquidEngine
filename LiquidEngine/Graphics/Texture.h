@@ -20,7 +20,8 @@ public:
 	bool operator==(const Texture &texture) const noexcept;
 
 	void set_texture(const std::string &file);
-	
+	void set_texture(const Texture &texture);
+
 	GET std::string get_file() const noexcept { return file; }
 
 	bool exists() const noexcept { return fs::exists(file); }
@@ -34,8 +35,8 @@ public:
 	 */
 	static void load_texture(const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain);
 
-	const DirectX::ScratchImage & get_image() { return image; }
-	const DirectX::ScratchImage & get_mip_chain() { return mip_chain; }
+	const DirectX::ScratchImage & get_image() const noexcept { return image; }
+	const DirectX::ScratchImage & get_mip_chain() const noexcept { return mip_chain; }
 
 private:
 	std::string file = "";

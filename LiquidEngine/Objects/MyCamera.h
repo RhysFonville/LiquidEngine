@@ -8,7 +8,7 @@ class MyCamera : public Character {
 public:
 	MyCamera();
 
-	void on_start() override;
+	void pre_scene_compile() override;
 	void tick(float dt) override;
 
 	void on_turn(float dt);

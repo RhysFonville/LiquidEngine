@@ -9,7 +9,7 @@ class Cube : public Object {
 public:
 	Cube();
 
-	void on_start() override;
+	void pre_scene_compile() override;
 
 private:
 	std::shared_ptr<StaticMeshComponent> mesh;
