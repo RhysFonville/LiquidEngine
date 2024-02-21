@@ -11,10 +11,6 @@ void MyStatue::pre_scene_compile() {
 	add_component(mat);
 }
 
-void MyStatue::post_scene_compile() {
-	mat->pipeline.rasterizer.set_viewing_settings({640, 360});
-}
-
 void MyStatue::tick(float dt) {
 	rotate(FVector3{1.0f, 2.0f, 3.0f}*dt);
 	if (timer % 10000 == 0) {

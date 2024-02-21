@@ -7,7 +7,6 @@ public:
 	MyStatue();
 
 	void pre_scene_compile() override;
-	void post_scene_compile() override;
 	void tick(float dt) override;
 
 private:
