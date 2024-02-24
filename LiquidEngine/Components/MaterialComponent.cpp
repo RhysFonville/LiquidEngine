@@ -107,6 +107,10 @@ bool MaterialComponent::has_normal_map() const noexcept {
 	return normal_map.exists();
 }
 
+bool MaterialComponent::has_environment_texture() const noexcept {
+	return environment_texture.exists();
+}
+
 bool MaterialComponent::operator==(const MaterialComponent &material) const noexcept {
 	return (
 		(Component*)this == (Component*)&material &&

@@ -28,6 +28,7 @@ struct Spotlight {
 struct Material {
 	int has_texture;
 	int has_normal_map;
+	int has_environment_texture;
 	float4 ks;
 	float4 kd;
 	float4 ka;
@@ -54,6 +55,7 @@ cbuffer PerObjectPSCB : register(b4) {
 
 Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
+Texture2D environment_texture : register(t2);
 SamplerState static_sampler_state : register(s0);
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;

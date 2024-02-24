@@ -164,14 +164,16 @@ class RenderingMaterialData {
 public:
 	RenderingMaterialData() { }
 	RenderingMaterialData(const MaterialComponent &material)
-		: has_texture(material.has_texture()), has_normal_map(material.has_normal_map()),
-		a(material.get_shininess()), ks(material.get_specular().to_vec_normalized()),
+		: has_texture{material.has_texture()}, has_normal_map{material.has_normal_map()},
+		has_environment_texture{material.has_environment_texture()}, a(material.get_shininess()),
+		ks(material.get_specular().to_vec_normalized()),
 		kd(material.get_albedo().to_vec_normalized()),
 		ka(material.get_ambient().to_vec_normalized()) { }
 
 	int has_texture = 1;
 	int has_normal_map = 1;
-	FVector2 pad = FVector2(0.0f, 0.0f);
+	int has_environment_texture = 1;
+	float pad = 0.0f;
 	FVector4 ks = FVector4(0.3f, 0.3f, 0.3f, 0.3f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
 	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
@@ -239,7 +241,6 @@ public:
 	bool update() {
 		if (component->has_changed() && component->exists()) {
 			*srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
-			
 			srv->compile();
 			return true;
 		}
@@ -247,6 +248,73 @@ public:
 	}
 
 	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
+};
+
+/**
+* Graphics-side camera.
+* \see CameraComponent
+*/
+class RenderingCamera : public RenderingComponent<CameraComponent> {
+public:
+	RenderingCamera() { }
+	RenderingCamera(CameraComponent* camera) : RenderingComponent{camera} { }
+
+	bool update(UVector2 resolution) {
+		if (component->has_changed()) {
+			component->update(UVector2_to_FVector2(resolution));
+			wvp_data.obj->WVP = XMMatrixTranspose(component->get_wvp());
+			pos_data.obj->camera_position = component->get_position();
+			return true;
+		}
+		return false;
+	}
+
+	bool operator==(CameraComponent component) { return (component == *(this->component)); }
+
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
+	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
+};
+
+/**
+* Graphics-side sky.
+* \see SkyComponent
+*/
+class RenderingSky : public RenderingComponent<SkyComponent> {
+public:
+	RenderingSky() { }
+	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
+		texture{&sky->get_albedo_texture()} {
+
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
+
+	bool update(const RenderingCamera &camera) {
+		bool ret{false};
+		if (texture.update()) ret = true;
+
+		if (camera.component->has_changed()) {
+			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
+			transform_data.obj->transform = Transform{camera.pos_data.obj->camera_position};
+		}
+
+		if (component->has_changed() || ret) {
+			data.obj->albedo = component->get_albedo();
+			data.obj->has_texture = component->has_texture();
+			data.apply();
+		}
+		return ret;
+	}
+
+	bool operator==(SkyComponent component) { return (component == *(this->component)); }
+
+	RenderingTexture texture{};
+
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
 };
 
 /**
@@ -258,15 +326,19 @@ public:
 	RenderingMaterial() : RenderingComponent{} { }
 	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
-		normal_map{RenderingTexture{&mat->get_normal_map()}} {
+		normal_map{RenderingTexture{&mat->get_normal_map()}},
+		environment_texture{RenderingTexture{&mat->get_environment_texture()}} {
 
 		component->pipeline.root_signature.bind_shader_resource_view(
 			*albedo_texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
-
 		component->pipeline.root_signature.bind_shader_resource_view(
 			*normal_map.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*environment_texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 	}
@@ -275,8 +347,9 @@ public:
 		bool ret{false};
 		if (albedo_texture.update()) ret = true;
 		if (normal_map.update()) ret = true;
+		if (environment_texture.update()) ret = true;
 
-		if (component->has_changed()) {
+		if (component->has_changed() || ret) {
 			material_data.obj->material = RenderingMaterialData{*component};
 			material_data.apply();
 			return true;
@@ -286,6 +359,7 @@ public:
 
 	RenderingTexture albedo_texture{};
 	RenderingTexture normal_map{};
+	RenderingTexture environment_texture{};
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
 };
@@ -338,73 +412,6 @@ public:
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data = PSLightsCB{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
-};
-
-/**
-* Graphics-side camera.
-* \see CameraComponent
-*/
-class RenderingCamera : public RenderingComponent<CameraComponent> {
-public:
-	RenderingCamera() { }
-	RenderingCamera(CameraComponent* camera) : RenderingComponent{camera} { }
-
-	bool update(UVector2 resolution) {
-		if (component->has_changed()) {
-			component->update(UVector2_to_FVector2(resolution));
-			wvp_data.obj->WVP = XMMatrixTranspose(component->get_wvp());
-			pos_data.obj->camera_position = component->get_position();
-			return true;
-		}
-		return false;
-	}
-
-	bool operator==(CameraComponent component) { return (component == *(this->component)); }
-
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
-};
-
-/**
- * Graphics-side sky.
- * \see SkyComponent
- */
-class RenderingSky : public RenderingComponent<SkyComponent> {
-public:
-	RenderingSky() { }
-	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
-		texture{&sky->get_albedo_texture()} {
-		
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
-
-	bool update(const RenderingCamera &camera) {
-		bool ret{false};
-		if (texture.update()) ret = true;
-
-		if (camera.component->has_changed()) {
-			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
-			transform_data.obj->transform = Transform{camera.pos_data.obj->camera_position};
-		}
-
-		if (component->has_changed() || ret) {
-			data.obj->albedo = component->get_albedo();
-			data.obj->has_texture = component->has_texture();
-			data.apply();
-		}
-		return ret;
-	}
-
-	bool operator==(SkyComponent component) { return (component == *(this->component)); }
-
-	RenderingTexture texture{};
-
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
 };
 
 /**
@@ -464,6 +471,7 @@ public:
 
 	void compile() {
 		camera.component->has_changed(true);
+		sky.component->has_changed(true);
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			dl.component->has_changed(true);
@@ -480,9 +488,8 @@ public:
 			mesh.material.component->has_changed(true);
 			mesh.material.albedo_texture.component->has_changed(true);
 			mesh.material.normal_map.component->has_changed(true);
+			mesh.material.environment_texture.component->has_changed(true);
 		}
-
-		sky.component->has_changed(true);
 	}
 
 	/**
@@ -492,6 +499,7 @@ public:
 	 */
 	void update(UVector2 resolution) {
 		camera.update(resolution);
+		sky.update(camera);
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
@@ -508,8 +516,6 @@ public:
 			mesh.update();
 			if (light_update) mesh.update_lights(directional_lights, point_lights, spotlights);
 		}
-
-		sky.update(camera);
 
 		camera.component->has_changed(false);
 
@@ -528,6 +534,7 @@ public:
 			mesh.material.component->has_changed(false);
 			mesh.material.albedo_texture.component->has_changed(false);
 			mesh.material.normal_map.component->has_changed(false);
+			mesh.material.environment_texture.component->has_changed(false);
 		}
 
 		sky.component->has_changed(false);
