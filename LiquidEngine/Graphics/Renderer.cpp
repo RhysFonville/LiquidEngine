@@ -212,12 +212,6 @@ void Renderer::compile() {
 
 	scene.compile();
 
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
-
-	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
-
 	int i = 0;
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
 		mesh.material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
@@ -233,6 +227,21 @@ void Renderer::compile() {
 		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
 		i++;
 	}
+
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
+
+	for (GraphicsPipeline::RootSignature::DescriptorTable dt : scene.static_meshes[0].component->material->pipeline.root_signature.get_descriptor_tables()) {
+		*debug_console << std::to_string(dt.get_ranges()[0].RangeType) << " #" << std::to_string(dt.get_parameter_index()) << ": " << std::to_string(dt.get_ranges()[0].BaseShaderRegister) << '\n';
+	}
+
+	for (GraphicsPipeline::RootSignature::RootConstants* rc : scene.static_meshes[0].component->material->pipeline.root_signature.get_root_constants()) {
+		*debug_console << "rc #" << std::to_string(rc->get_parameter_index()) << ": " << std::to_string(rc->get_constants().ShaderRegister) << '\n';
+	}
+
+	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+
  
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -283,9 +292,8 @@ void Renderer::update() {
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 	scene.update(resolution);
-
+	
 	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
-
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
 		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}

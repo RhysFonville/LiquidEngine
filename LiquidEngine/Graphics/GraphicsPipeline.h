@@ -194,8 +194,11 @@ public:
 		 * Root argument to be bound to pipeline.
 		 */
 		class RootArgument {
+		public:
 			RootArgument() { }
 			RootArgument(UINT parameter_index);
+
+			UINT get_parameter_index() { return parameter_index; }
 
 		protected:
 			friend RootSignature;
@@ -225,6 +228,8 @@ public:
 			
 			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
+			const D3D12_ROOT_DESCRIPTOR_TABLE & get_table() const noexcept { return table; }
+			const std::vector<D3D12_DESCRIPTOR_RANGE> & get_ranges() const noexcept { return ranges; }
 		private:
 			friend RootSignature;
 
@@ -241,8 +246,6 @@ public:
 		class RootConstants : public RootArgument {
 		public:
 			RootConstants() { }
-			RootConstants(UINT parameter_index)
-				: RootArgument(parameter_index) { }
 
 			template <typename T>
 			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
@@ -273,6 +276,8 @@ public:
 				set_obj<T>(obj);
 				compile(shader, index, number_of_values);
 			}
+
+			const D3D12_ROOT_CONSTANTS & get_constants() const noexcept { return constants; }
 
 		private:
 			friend RootSignature;
@@ -480,6 +485,13 @@ public:
 		void bind_constant_buffer(ConstantBufferContainer<T> &cb, D3D12_SHADER_VISIBILITY shader) {
 			bind_constant_buffer(cb.cb, shader);
 		}
+
+		const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
+		const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
+		const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
+
+		const std::vector<DescriptorTable> & get_descriptor_tables() const noexcept { return descriptor_tables; }
+		const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 

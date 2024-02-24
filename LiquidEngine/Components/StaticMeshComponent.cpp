@@ -4,7 +4,6 @@ StaticMeshComponent::StaticMeshComponent(Mesh mesh)
 	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) { }
 
 void StaticMeshComponent::compile() noexcept {
-	mesh.compile();
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 	material->compile();

@@ -267,7 +267,6 @@
     <FxCompile Include="Graphics\mipmapcs.hlsl" />
     <FxCompile Include="Graphics\SkyPS.hlsl" />
     <FxCompile Include="Graphics\SkyVS.hlsl" />
-    <FxCompile Include="Graphics\BaseObjectVS.hlsl" />
-    <FxCompile Include="Graphics\WVPVS.hlsl" />
+    <FxCompile Include="Graphics\BaseVS.hlsl" />
   </ItemGroup>
 </Project>

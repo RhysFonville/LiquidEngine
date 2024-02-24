@@ -1,6 +1,11 @@
 #include "BaseShader.hlsl"
-#include "WVPVS.hlsl"
-#include "BaseObjectVS.hlsl"
+
+cbuffer VSWVPConstants : register(b0) {
+	matrix WVP;
+}
+cbuffer VSTransformConstants : register(b1) {
+	matrix transform;
+}
 
 VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 normal, float3 tangent) {
 	VS_OUTPUT output;

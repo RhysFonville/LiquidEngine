@@ -341,47 +341,9 @@ public:
 };
 
 /**
- * Graphics-side sky.
- * \see SkyComponent
- */
-class RenderingSky : public RenderingComponent<SkyComponent> {
-public:
-	RenderingSky() { }
-	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
-		texture{&sky->get_albedo_texture()} {
-		
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
-
-	bool update(FVector3 camera_pos) {
-		bool ret{false};
-		if (texture.update()) ret = true;
-
-		transform_data.obj->transform = Transform{camera_pos};
-		if (component->has_changed()) {
-			data.obj->albedo = component->get_albedo();
-			data.obj->has_texture = component->has_texture();
-			data.apply();
-			return true;
-		}
-		return ret;
-	}
-
-	bool operator==(SkyComponent component) { return (component == *(this->component)); }
-
-	RenderingTexture texture{};
-
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{}; // TODO: CHANGE TO CAMERA POSITION ROOT CONSTANTS
-};
-
-/**
- * Graphics-side camera.
- * \see CameraComponent
- */
+* Graphics-side camera.
+* \see CameraComponent
+*/
 class RenderingCamera : public RenderingComponent<CameraComponent> {
 public:
 	RenderingCamera() { }
@@ -401,6 +363,48 @@ public:
 
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
+};
+
+/**
+ * Graphics-side sky.
+ * \see SkyComponent
+ */
+class RenderingSky : public RenderingComponent<SkyComponent> {
+public:
+	RenderingSky() { }
+	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
+		texture{&sky->get_albedo_texture()} {
+		
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
+
+	bool update(const RenderingCamera &camera) {
+		bool ret{false};
+		if (texture.update()) ret = true;
+
+		if (camera.component->has_changed()) {
+			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
+			transform_data.obj->transform = Transform{camera.pos_data.obj->camera_position};
+		}
+
+		if (component->has_changed() || ret) {
+			data.obj->albedo = component->get_albedo();
+			data.obj->has_texture = component->has_texture();
+			data.apply();
+		}
+		return ret;
+	}
+
+	bool operator==(SkyComponent component) { return (component == *(this->component)); }
+
+	RenderingTexture texture{};
+
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data = PSSkyCB{};
 };
 
 /**
@@ -459,6 +463,8 @@ public:
 	}
 
 	void compile() {
+		camera.component->has_changed(true);
+
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			dl.component->has_changed(true);
 		}
@@ -476,7 +482,6 @@ public:
 			mesh.material.normal_map.component->has_changed(true);
 		}
 
-		camera.component->has_changed(true);
 		sky.component->has_changed(true);
 	}
 
@@ -486,6 +491,8 @@ public:
 	 * \param resolution Render resolution. Needed for updating camera.
 	 */
 	void update(UVector2 resolution) {
+		camera.update(resolution);
+
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			if (!light_update) light_update = dl.update();
@@ -502,8 +509,9 @@ public:
 			if (light_update) mesh.update_lights(directional_lights, point_lights, spotlights);
 		}
 
-		camera.update(resolution);
-		sky.update(camera.pos_data.obj->camera_position);
+		sky.update(camera);
+
+		camera.component->has_changed(false);
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			dl.component->has_changed(false);
@@ -522,7 +530,6 @@ public:
 			mesh.material.normal_map.component->has_changed(false);
 		}
 
-		camera.component->has_changed(false);
 		sky.component->has_changed(false);
 		sky.texture.component->has_changed(false);
 	}
