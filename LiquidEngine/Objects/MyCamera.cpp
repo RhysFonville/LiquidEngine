@@ -66,7 +66,7 @@ MyCamera::MyCamera()
 
 void MyCamera::pre_scene_compile() {
 	add_component(camera);
-	add_component(light);
+	//add_component(light);
 }
 
 void MyCamera::tick(float dt) {

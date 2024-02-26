@@ -77,8 +77,6 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 		kd = object_texture.Sample(static_sampler_state, ps_in.texcoord);
 	}
 	
-	return kd;
-	
 	float4 final_color = material.ka/**ia*/;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -139,7 +137,7 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 			float3 v = normalize(camera_position - ps_in.world_position);
 
 			if (dot(lm, n) > 0.0f) {
-				light_final_color +=
+				light_final_color =
 					saturate(kd * dot(lm, n) * id) // Diffuse
 					+ saturate(pow(dot(rm, v), a) * is) // Specular
 				;
@@ -151,6 +149,8 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 				(point_lights[i].attenuation.z * (d * d));
 
 			final_color += light_final_color;
+			
+			
 		}
 	}
 
