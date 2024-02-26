@@ -228,20 +228,12 @@ void Renderer::compile() {
 		i++;
 	}
 
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
-
-	for (GraphicsPipeline::RootSignature::DescriptorTable dt : scene.static_meshes[0].component->material.pipeline.root_signature.get_descriptor_tables()) {
-		*debug_console << std::to_string(dt.get_ranges()[0].RangeType) << " #" << std::to_string(dt.get_parameter_index()) << ": " << std::to_string(dt.get_ranges()[0].BaseShaderRegister) << '\n';
+	if (scene.sky.component != nullptr) {
+		scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
+		scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
 	}
-
-	for (GraphicsPipeline::RootSignature::RootConstants* rc : scene.static_meshes[0].component->material.pipeline.root_signature.get_root_constants()) {
-		*debug_console << "rc #" << std::to_string(rc->get_parameter_index()) << ": " << std::to_string(rc->get_constants().ShaderRegister) << '\n';
-	}
-
-	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
-
  
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -293,7 +285,9 @@ void Renderer::update() {
 
 	scene.update(resolution);
 	
-	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	if (scene.sky.component != nullptr)
+		scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
 		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
 	}

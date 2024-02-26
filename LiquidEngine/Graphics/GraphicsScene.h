@@ -485,7 +485,9 @@ public:
 
 	void compile() {
 		camera.component->has_changed(true);
-		sky.component->has_changed(true);
+
+		if (sky.component != nullptr)
+			sky.component->has_changed(true);
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			dl.component->has_changed(true);
@@ -513,7 +515,9 @@ public:
 	 */
 	void update(UVector2 resolution) {
 		camera.update(resolution);
-		sky.update(camera);
+		
+		if (sky.component != nullptr)
+			sky.update(camera);
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {

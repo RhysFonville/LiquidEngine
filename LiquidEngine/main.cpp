@@ -20,14 +20,13 @@ int main() {
 	std::shared_ptr<Object> sky = std::make_shared<Object>();
 	engine.world.active_scene->add_object(sky);
 	sky->add_component(std::make_shared<SkyComponent>());
-	sky->get_component<SkyComponent>()->get_albedo_texture().set_texture("Skybox.png");
+	sky->get_component<SkyComponent>()->set_albedo(Color{0, 0, 0, 255});
 
 	//engine.world.active_scene->add_object(std::make_shared<MyStatue>());
 	std::shared_ptr<Object> obj = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj);
-	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
-	obj->get_component<StaticMeshComponent>()->set_size(FVector3{20.0f, 1.0f, 20.0f});
-	obj->get_component<StaticMeshComponent>()->set_position(FVector3{0.0f, -2.0f, 0.0f});
+	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"floor.obj"}));
+	obj->get_component<StaticMeshComponent>()->get_material().get_albedo_texture().set_texture("wood.png");
 
 	engine.compile();
 	engine.loop();
