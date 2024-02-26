@@ -22,6 +22,9 @@ public:
 	void on_slow(float dt);
 	void on_not_slow(float dt);
 
+	void on_increase_fov(float dt);
+	void on_decrease_fov(float dt);
+
 private:
 	POINT current_cursor_pos = { 0, 0 };
 	POINT cursor_diff = { 0, 0 };

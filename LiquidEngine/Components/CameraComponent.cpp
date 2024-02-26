@@ -122,8 +122,17 @@ XMMATRIX CameraComponent::get_wvp() const noexcept {
 	return WVP;
 }
 
+float CameraComponent::get_fov() const noexcept {
+	return fov;
+}
+
+void CameraComponent::set_fov(float fov) noexcept {
+	this->fov = fov;
+	changed = true;
+}
+
 void CameraComponent::update(const FVector2 &size) noexcept {
-	projection = XMMatrixPerspectiveFovLH( 0.4f*3.14f, size.x/size.y, 0.05f, 1000.0f);
+	projection = XMMatrixPerspectiveFovLH(fov*pi_div_180, size.x/size.y, 0.05f, 1000.0f);
 	world = XMMatrixIdentity();
 	WVP = world * view * projection;
 }

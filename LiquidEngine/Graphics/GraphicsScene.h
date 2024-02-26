@@ -68,6 +68,8 @@ public:
 			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_direction();
 			data.null = component->is_null();
+
+			component->has_changed(false);
 			return true;
 		}
 		return false;
@@ -111,6 +113,8 @@ public:
 			data.attenuation = component->get_attenuation();
 			data.null = component->is_null();
 			data.position = component->get_position();
+
+			component->has_changed(false);
 			return true;
 		}
 		return false;
@@ -149,6 +153,8 @@ public:
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_direction();
+
+			component->has_changed(false);
 			return true;
 		}
 		return false;
@@ -163,7 +169,7 @@ _declspec(align(16))
 class RenderingMaterialData {
 public:
 	RenderingMaterialData() { }
-	RenderingMaterialData(const MaterialComponent &material)
+	RenderingMaterialData(const Material &material)
 		: has_texture{material.has_texture()}, has_normal_map{material.has_normal_map()},
 		has_environment_texture{material.has_environment_texture()}, a(material.get_shininess()),
 		ks(material.get_specular().to_vec_normalized()),
@@ -304,6 +310,9 @@ public:
 			data.obj->albedo = component->get_albedo();
 			data.obj->has_texture = component->has_texture();
 			data.apply();
+
+			component->has_changed(false);
+			texture.component->has_changed(false);
 		}
 		return ret;
 	}
@@ -321,10 +330,10 @@ public:
 * Graphics-side material.
 * \see Material
 */
-class RenderingMaterial : public RenderingComponent<MaterialComponent> {
+class RenderingMaterial : public RenderingComponent<Material> {
 public:
 	RenderingMaterial() : RenderingComponent{} { }
-	RenderingMaterial(MaterialComponent* mat) : RenderingComponent{mat},
+	RenderingMaterial(Material* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
 		normal_map{RenderingTexture{&mat->get_normal_map()}},
 		environment_texture{RenderingTexture{&mat->get_environment_texture()}} {
@@ -352,6 +361,11 @@ public:
 		if (component->has_changed() || ret) {
 			material_data.obj->material = RenderingMaterialData{*component};
 			material_data.apply();
+
+			component->has_changed(false);
+			albedo_texture.component->has_changed(false);
+			normal_map.component->has_changed(false);
+			environment_texture.component->has_changed(false);
 			return true;
 		}
 		return ret;
@@ -371,8 +385,7 @@ public:
 class RenderingStaticMesh : public RenderingComponent<StaticMeshComponent> {
 public:
 	RenderingStaticMesh() { }
-	RenderingStaticMesh(StaticMeshComponent* smc) : RenderingComponent{smc},
-		material{RenderingMaterial{smc->get_material()}} { }
+	RenderingStaticMesh(StaticMeshComponent* smc) : RenderingComponent{smc}, material{RenderingMaterial{&smc->get_material()}} { }
 
 	bool update() {
 		bool ret{false};
@@ -380,6 +393,7 @@ public:
 
 		if (component->has_changed()) {
 			transform_data.obj->transform = component->get_transform();
+			component->has_changed(false);
 			return true;
 		}
 		return ret;
@@ -518,27 +532,6 @@ public:
 		}
 
 		camera.component->has_changed(false);
-
-		for (RenderingDirectionalLight &dl : directional_lights) {
-			dl.component->has_changed(false);
-		}
-		for (RenderingPointLight &pl : point_lights) {
-			pl.component->has_changed(false);
-		}
-		for (RenderingSpotlight &sl : spotlights) {
-			sl.component->has_changed(false);
-		}
-
-		for (RenderingStaticMesh &mesh : static_meshes) {
-			mesh.component->has_changed(false);
-			mesh.material.component->has_changed(false);
-			mesh.material.albedo_texture.component->has_changed(false);
-			mesh.material.normal_map.component->has_changed(false);
-			mesh.material.environment_texture.component->has_changed(false);
-		}
-
-		sky.component->has_changed(false);
-		sky.texture.component->has_changed(false);
 	}
 
 	void clean_up();

@@ -23,7 +23,7 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Engine.cpp;C:\Users\Famil
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsPipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipeline.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsPipelineMeshChange.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipelineMeshChange.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Renderer.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\MaterialComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\MaterialComponent.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Material.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Material.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Texture.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Texture.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\main.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\main.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Mesh.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Mesh.obj

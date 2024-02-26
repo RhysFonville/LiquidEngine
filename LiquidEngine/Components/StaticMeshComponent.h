@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MaterialComponent.h"
+#include "../Graphics/Material.h"
 
 /**
  * Main component for any physical object with a mesh that will be rendered. Has mesh data and a material.
@@ -19,8 +19,8 @@ public:
 	GET const Mesh & get_mesh() noexcept;
 	void set_mesh(const Mesh &mesh) noexcept;
 
-	GET MaterialComponent* get_material() const noexcept;
-	void set_material(MaterialComponent* material) noexcept;
+	GET Material & get_material() noexcept;
+	void set_material(const Material &material) noexcept;
 
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
@@ -31,7 +31,7 @@ private:
 	friend class Renderer;
 
 	Mesh mesh;
-	MaterialComponent* material;
+	Material material{};
 
 	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy = std::make_shared<GraphicsPipelineMeshChange::Manager>();
 };

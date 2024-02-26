@@ -1,15 +1,12 @@
 #include "MyStatue.h"
 
-MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"})},
-	mat{std::make_shared<MaterialComponent>()} {
+MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"})} {
 	mesh->set_size(FVector3(0.3f, 0.3f, 0.3f));
-	mesh->set_material(mat.get());
-	mat->get_environment_texture().set_texture("Skybox.png");
+	mesh->get_material().get_environment_texture().set_texture("Skybox.png");
 }
 
 void MyStatue::pre_scene_compile() {
 	add_component(mesh);
-	add_component(mat);
 }
 
 void MyStatue::tick(float dt) {

@@ -81,7 +81,7 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	float3 n = normalize(ps_in.normal);
-
+	
 	if (material.has_normal_map) {
 		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord);
 

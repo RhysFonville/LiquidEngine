@@ -232,11 +232,11 @@ void Renderer::compile() {
 	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
 
-	for (GraphicsPipeline::RootSignature::DescriptorTable dt : scene.static_meshes[0].component->material->pipeline.root_signature.get_descriptor_tables()) {
+	for (GraphicsPipeline::RootSignature::DescriptorTable dt : scene.static_meshes[0].component->material.pipeline.root_signature.get_descriptor_tables()) {
 		*debug_console << std::to_string(dt.get_ranges()[0].RangeType) << " #" << std::to_string(dt.get_parameter_index()) << ": " << std::to_string(dt.get_ranges()[0].BaseShaderRegister) << '\n';
 	}
 
-	for (GraphicsPipeline::RootSignature::RootConstants* rc : scene.static_meshes[0].component->material->pipeline.root_signature.get_root_constants()) {
+	for (GraphicsPipeline::RootSignature::RootConstants* rc : scene.static_meshes[0].component->material.pipeline.root_signature.get_root_constants()) {
 		*debug_console << "rc #" << std::to_string(rc->get_parameter_index()) << ": " << std::to_string(rc->get_constants().ShaderRegister) << '\n';
 	}
 

@@ -8,25 +8,25 @@
 /**
  * Material data for rendering. Specifies how light interacts with the object.
  */
-class MaterialComponent : public GraphicsComponent {
+class Material : public GraphicsTracker {
 public:
-	MaterialComponent() : GraphicsComponent{Component::Type::MaterialComponent} { }
-	MaterialComponent(const MaterialComponent &mat);
-	MaterialComponent(const std::string &file);
+	Material() : GraphicsTracker{} { }
+	Material(const Material &mat);
+	Material(const std::string &file);
 
-	void compile() override;
+	void compile();
 	
-	void clean_up() override;
+	void clean_up();
 
 	void set_data(const std::string &file);
-	void set_data(const MaterialComponent &material);
+	void set_data(const Material &material);
 
 	bool has_texture() const noexcept;
 	bool has_normal_map() const noexcept;
 	bool has_environment_texture() const noexcept;
 
-	void operator=(const MaterialComponent &material) noexcept;
-	bool operator==(const MaterialComponent &material) const noexcept;
+	void operator=(const Material &material) noexcept;
+	bool operator==(const Material &material) const noexcept;
 
 	Texture & get_albedo_texture() { return albedo_texture; }
 	Texture & get_normal_map() { return normal_map; }
@@ -45,8 +45,6 @@ public:
 	void set_shininess(float shininess) { this->shininess = shininess; changed = true; }
 
 	GraphicsPipeline pipeline;
-
-	static const Type component_type = Type::MaterialComponent;
 
 private:
 	std::string vs{"Graphics/DefaultVertex.hlsl"};
