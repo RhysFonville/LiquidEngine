@@ -38,8 +38,8 @@ int main() {
 	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"floor.obj"}));
 	obj->set_size(FVector3{2.0f, 1.0f, 2.0f});
 	obj->get_component<StaticMeshComponent>()->get_material().get_albedo_texture().set_texture("wood.png");
-	obj->get_component<StaticMeshComponent>()->get_material().set_shininess(1.0f);
-	obj->get_component<StaticMeshComponent>()->get_material().set_specular(Color{10, 10, 10, 255});
+	obj->get_component<StaticMeshComponent>()->get_material().set_shininess(2.0f);
+	obj->get_component<StaticMeshComponent>()->get_material().set_specular(Color{100, 100, 100, 255});
 
 	engine.compile();
 	engine.loop();
