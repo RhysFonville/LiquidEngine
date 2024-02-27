@@ -139,7 +139,7 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 			if (dot(lm, n) > 0.0f) {
 				light_final_color =
 					saturate(kd * dot(lm, n) * id) // Diffuse
-					+ saturate(pow(dot(rm, v), a) * is) // Specular
+					+ saturate(pow(max(dot(v, rm), 0.0), a) * is) // Specular
 				;
 			}
 
@@ -149,11 +149,11 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 				(point_lights[i].attenuation.z * (d * d));
 
 			final_color += light_final_color;
-			
-			
 		}
 	}
 
+	//final_color = float4(pow(final_color.xyz, float3(0.45f, 0.45f, 0.45f)), final_color.a);
+	
 	float4 distance_falloff = saturate(
 		1 /
 		pow(
