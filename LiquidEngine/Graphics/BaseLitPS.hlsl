@@ -152,7 +152,7 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 		}
 	}
 
-	//final_color = float4(pow(final_color.xyz, float3(0.45f, 0.45f, 0.45f)), final_color.a);
+	//final_color = float4(pow(final_color, float4(0.45f, 0.45f, 0.45f, 1.0f)));
 	
 	float4 distance_falloff = saturate(
 		1 /

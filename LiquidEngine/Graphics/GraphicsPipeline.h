@@ -229,7 +229,7 @@ public:
 			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
 			const D3D12_ROOT_DESCRIPTOR_TABLE & get_table() const noexcept { return table; }
-			const std::vector<D3D12_DESCRIPTOR_RANGE> & get_ranges() const noexcept { return ranges; }
+			const std::vector<CD3DX12_DESCRIPTOR_RANGE> & get_ranges() const noexcept { return ranges; }
 		private:
 			friend RootSignature;
 
@@ -237,7 +237,7 @@ public:
 
 			UINT heap_index = 0u;
 			
-			std::vector<D3D12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
+			std::vector<CD3DX12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
 		};
 
 		/**
@@ -382,7 +382,6 @@ public:
 
 			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc{};
 
-			UINT index{0u};
 			UINT heap_index{0u};
 
 			bool compile_signal{false};

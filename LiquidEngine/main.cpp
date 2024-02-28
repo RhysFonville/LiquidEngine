@@ -5,7 +5,7 @@
 
 int main() {
 	if (FAILED(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED))) {
-		OutputDebugStringA("Failed to initialize COM");
+		*debug_console << "Failed to initialize COM";
 		return 1;
 	}
 
@@ -38,6 +38,7 @@ int main() {
 	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"floor.obj"}));
 	obj->set_size(FVector3{2.0f, 1.0f, 2.0f});
 	obj->get_component<StaticMeshComponent>()->get_material().get_albedo_texture().set_texture("wood.png");
+	obj->get_component<StaticMeshComponent>()->get_material().get_normal_map().set_texture("normalmap.png");
 	obj->get_component<StaticMeshComponent>()->get_material().set_shininess(2.0f);
 	obj->get_component<StaticMeshComponent>()->get_material().set_specular(Color{100, 100, 100, 255});
 

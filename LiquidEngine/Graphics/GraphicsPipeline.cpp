@@ -248,9 +248,9 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 
 	ComPtr<ID3DBlob> signature_blob;
 	ComPtr<ID3DBlob> error_buf;
-	HPEW(D3D12SerializeRootSignature(&signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, &signature_blob, &error_buf), HPEW_ERR_BLOB_PARAM(error_buf));
+	HPEW(D3D12SerializeRootSignature(&signature_desc, D3D_ROOT_SIGNATURE_VERSION_1, signature_blob.GetAddressOf(), error_buf.GetAddressOf()), HPEW_ERR_BLOB_PARAM(error_buf));
 
-	HPEW(device->CreateRootSignature(0, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
+	HPEW(device->CreateRootSignature(0u, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
 	HPEW(signature->SetName(L"Main Root Signature"));
 
 	// Create a constant buffer descriptor heap for each frame
@@ -277,6 +277,12 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 }
 
 void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index) {
+	// set constant buffer descriptor heap
+	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
+	if (!descriptor_tables.empty()) { // descriptor_heaps is only empty when descriptor_tables is as well
+		command_list->SetDescriptorHeaps(_countof(heaps), heaps);
+	}
+
 	for (ShaderResourceView* srv : shader_resource_views) {
 		if (srv->compile_signal) {
 			srv->compile(device, command_list, descriptor_heaps);
@@ -289,12 +295,6 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 				cb->apply(i);
 			}
 		}
-	}
-
-	// set constant buffer descriptor heap
-	ID3D12DescriptorHeap* heaps[] = { descriptor_heaps[frame_index].Get() };
-	if (!descriptor_tables.empty()) { // descriptor_heaps is only empty when descriptor_tables is as well
-		command_list->SetDescriptorHeaps(_countof(heaps), heaps);
 	}
 
 	for (const DescriptorTable &descriptor_table : descriptor_tables) {
@@ -325,17 +325,16 @@ void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D
 	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	UINT parameter_index = index + (UINT)shader_resource_views.size();
 	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, (UINT)descriptor_tables.size(), parameter_index));
-	cb.heap_index = descriptor_tables.back().heap_index;
 	constant_buffers.push_back(&cb);
+	cb.heap_index = descriptor_tables.back().heap_index;
 }
 
 void GraphicsPipeline::RootSignature::bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)shader_resource_views.size();
 	UINT parameter_index = index + (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, (UINT)descriptor_tables.size(), parameter_index));
-	srv.index = (UINT)shader_resource_views.size();
-	srv.heap_index = descriptor_tables.back().heap_index;
 	shader_resource_views.push_back(&srv);
+	srv.heap_index = descriptor_tables.back().heap_index;
 }
 
 GraphicsPipeline::RootSignature::RootArgument::RootArgument(UINT parameter_index)
@@ -343,18 +342,14 @@ GraphicsPipeline::RootSignature::RootArgument::RootArgument(UINT parameter_index
 	parameter_index(parameter_index) { }
 
 GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index)
-	: RootArgument(parameter_index), ranges(std::vector<D3D12_DESCRIPTOR_RANGE>(1u)),
+	: RootArgument(parameter_index), ranges(std::vector<CD3DX12_DESCRIPTOR_RANGE>(1u)),
 	heap_index(heap_index) {
 	compile(type, shader, index);
 }
 
 void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index) {
-	ranges[0].RangeType = type;
-	ranges[0].NumDescriptors = 1;
-	ranges[0].BaseShaderRegister = index;
-	ranges[0].RegisterSpace = 0; // space 0. can usually be zero
-	ranges[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // this appends the range to the end of the root signature descriptor tables
-	
+	ranges[0].Init(type, 1, index);
+
 	table.NumDescriptorRanges = (UINT)ranges.size();
 	table.pDescriptorRanges = &ranges[0];
 	
@@ -429,8 +424,6 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update_descs(const Dir
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {	
 	if (heap_desc.Width != 0 && heap_desc.Height != 0) {
-		ResourceManager::Release::resources.push_back(default_buffer);
-
 		auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 		HPEW(device->CreateCommittedResource(
 			&props,
@@ -440,7 +433,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			nullptr,
 			IID_PPV_ARGS(&default_buffer)
 		));
-		HPEW(default_buffer->SetName(string_to_wstring("SRV Default Heap of index " + std::to_string(index)).c_str()));
+		HPEW(default_buffer->SetName(string_to_wstring("SRV Default Heap").c_str()));
 
 		// create the intermediate upload buffer 
 		ID3D12Resource* upload_buffer;

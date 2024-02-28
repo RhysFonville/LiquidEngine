@@ -230,33 +230,6 @@ struct PSSkyCB { // b2
 };
 
 /**
-* Graphics-side texture.
-* \see SpotlightComponent
-*/
-class RenderingTexture : public RenderingComponent<Texture> {
-public:
-	RenderingTexture() { }
-	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
-		if (texture->exists()) {
-			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
-				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
-			srv->compile();
-		}
-	}
-
-	bool update() {
-		if (component->has_changed() && component->exists()) {
-			*srv = GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()};
-			srv->compile();
-			return true;
-		}
-		return false;
-	}
-
-	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
-};
-
-/**
 * Graphics-side camera.
 * \see CameraComponent
 */
@@ -279,6 +252,33 @@ public:
 
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
+};
+
+/**
+* Graphics-side texture.
+* \see SpotlightComponent
+*/
+class RenderingTexture : public RenderingComponent<Texture> {
+public:
+	RenderingTexture() { }
+	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
+		if (texture->exists()) {
+			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
+				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
+			//srv->compile();
+		}
+	}
+
+	bool update() {
+		if (component->has_changed() && component->exists()) {
+			srv->update_descs(component->get_mip_chain());
+			srv->compile();
+			return true;
+		}
+		return false;
+	}
+
+	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
 };
 
 /**
