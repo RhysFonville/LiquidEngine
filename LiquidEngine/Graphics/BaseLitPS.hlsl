@@ -67,7 +67,7 @@ static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 
-float4 calculate_lit_ps_main(PS_INPUT ps_in) {
+static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	float4 kd = material.kd;
 	float4 ks = material.ks;
 	float4 ka = material.ka;
@@ -80,25 +80,27 @@ float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	float4 final_color = material.ka/**ia*/;
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	float3 n = normalize(ps_in.normal);
+	float3 n = float3(0.0f, 0.0f, 0.0f);
 	
 	if (material.has_normal_map) {
 		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord);
 
-		//Change normal map range from [0, 1] to [-1, 1]
+		// Change normal map range from [0, 1] to [-1, 1]
 		normal_map_result = (2.0f * normal_map_result) - 1.0f;
 
-		//Make sure tangent is completely orthogonal to normal
+		// Make sure tangent is completely orthogonal to normal
 		ps_in.tangent = normalize(ps_in.tangent - dot(ps_in.tangent, ps_in.normal) * ps_in.normal);
 
-		//Create the biFVector3
-		float3 biTangent = cross(ps_in.normal, ps_in.tangent);
+		// Create the biFVector3
+		float3 bitangent = cross(ps_in.normal, ps_in.tangent);
 
-		//Create the "Texture Space"
-		float3x3 texSpace = float3x3(ps_in.tangent, biTangent, ps_in.normal);
+		// Create the "Texture Space"
+		float3x3 tex_space = float3x3(ps_in.tangent, bitangent, ps_in.normal);
 
-		//Convert normal from normal map to texture space and store in input.normal
-		n = normalize(mul(normal_map_result, texSpace));
+		// Convert normal from normal map to texture space and store in input.normal
+		n = normalize(mul(normal_map_result, tex_space));
+	} else {
+		n = normalize(ps_in.normal);
 	}
 
 	for (uint i = 0; i < directional_light_count; i++) {

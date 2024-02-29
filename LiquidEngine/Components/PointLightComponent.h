@@ -22,5 +22,5 @@ public:
 
 private:
 	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.0f, 0.2f, 0.5f);
+	FVector3 attenuation = FVector3(0.0f, 1.0f, 0.0f);
 };

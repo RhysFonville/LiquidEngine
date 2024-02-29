@@ -28,35 +28,63 @@ Mesh::Mesh(const std::string &file) : indices(std::vector<UINT>()) {
 void Mesh::compile() {
 	for (size_t i = 0; i < vertices.size(); i += 3) {
 		if (i <= vertices.size()) {
-			// Shortcuts for vertices
-			FVector3 v0 = vertices[i+0].position;
-			FVector3 v1 = vertices[i+1].position;
-			FVector3 v2 = vertices[i+2].position;
+			//// Shortcuts for vertices
+			//FVector3 v0 = vertices[i+0].position;
+			//FVector3 v1 = vertices[i+1].position;
+			//FVector3 v2 = vertices[i+2].position;
 
-			// Shortcuts for UVs
-			FVector2 uv0 = vertices[i+0].texcoord;
-			FVector2 uv1 = vertices[i+1].texcoord;
-			FVector2 uv2 = vertices[i+2].texcoord;
+			//// Shortcuts for UVs
+			//FVector2 uv0 = vertices[i+0].texcoord;
+			//FVector2 uv1 = vertices[i+1].texcoord;
+			//FVector2 uv2 = vertices[i+2].texcoord;
 
-			// Edges of the triangle : position delta
-			FVector3 deltaPos1 = v1-v0;
-			FVector3 deltaPos2 = v2-v0;
+			//// Edges of the triangle : position delta
+			//FVector3 deltaPos1 = v1-v0;
+			//FVector3 deltaPos2 = v2-v0;
 
-			// UV delta
-			FVector2 deltaUV1 = uv1-uv0;
-			FVector2 deltaUV2 = uv2-uv0;
+			//// UV delta
+			//FVector2 deltaUV1 = uv1-uv0;
+			//FVector2 deltaUV2 = uv2-uv0;
 
-			float r =     1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
-			FVector3 tangent =   (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
-			//FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
+			//float r =     1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+			//FVector3 tangent =   (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
+			////FVector3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x)*r;
 
-			vertices[i+0].tangent = tangent;
-			vertices[i+1].tangent = tangent;
-			vertices[i+2].tangent = tangent;
+			//vertices[i+0].tangent = tangent;
+			//vertices[i+1].tangent = tangent;
+			//vertices[i+2].tangent = tangent;
 
-			/*verts[i+0].bitangent = bitangent;
-			verts[i+1].bitangent = bitangent;
-			verts[i+2].bitangent = bitangent;*/
+			///*verts[i+0].bitangent = bitangent;
+			//verts[i+1].bitangent = bitangent;
+			//verts[i+2].bitangent = bitangent;*/
+
+			Vertex& v0 = vertices[i];
+			Vertex& v1 = vertices[i+1];
+			Vertex& v2 = vertices[i+2];
+
+			FVector3 Edge1 = v1.position - v0.position;
+			FVector3 Edge2 = v2.position - v0.position;
+
+			float DeltaU1 = v1.texcoord.x - v0.texcoord.x;
+			float DeltaV1 = v1.texcoord.y - v0.texcoord.y;
+			float DeltaU2 = v2.texcoord.x - v0.texcoord.x;
+			float DeltaV2 = v2.texcoord.y - v0.texcoord.y;
+
+			float f = 1.0f / (DeltaU1 * DeltaV2 - DeltaU2 * DeltaV1);
+
+			FVector3 Tangent, Bitangent;
+
+			Tangent.x = f * (DeltaV2 * Edge1.x - DeltaV1 * Edge2.x);
+			Tangent.y = f * (DeltaV2 * Edge1.y - DeltaV1 * Edge2.y);
+			Tangent.z = f * (DeltaV2 * Edge1.z - DeltaV1 * Edge2.z);
+
+			Bitangent.x = f * (-DeltaU2 * Edge1.x + DeltaU1 * Edge2.x);
+			Bitangent.y = f * (-DeltaU2 * Edge1.y + DeltaU1 * Edge2.y);
+			Bitangent.z = f * (-DeltaU2 * Edge1.z + DeltaU1 * Edge2.z);
+
+			v0.tangent += Tangent;
+			v1.tangent += Tangent;
+			v2.tangent += Tangent;
 		}
 	}
 

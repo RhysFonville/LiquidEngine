@@ -12,10 +12,10 @@ VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 normal, f
 	
 	output.world_position = mul(float4(position, 1.0f), transform).xyz;
 	output.position = mul(float4(output.world_position, 1.0f), WVP);
-	output.normal = normal;
+	output.normal = mul(float4(normal, 0.0f), transform).xyz;
 	
 	output.texcoord = texcoord;
-	output.tangent = tangent;
+	output.tangent = mul(float4(tangent, 0.0f), transform).xyz;
 	
 	return output;
 }
