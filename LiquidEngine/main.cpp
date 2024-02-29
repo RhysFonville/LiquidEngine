@@ -16,14 +16,14 @@ int main() {
 	/*std::shared_ptr<Object> light1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(light1);
 	light1->add_component(std::make_shared<PointLightComponent>());
-	light1->set_position(FVector3{-20.0f, 1.0f, 0.0f});
+	light1->set_position(FVector3{-20.0f, 1.0f, 0.0f});*/
 
 	std::shared_ptr<Object> light2 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(light2);
 	light2->add_component(std::make_shared<PointLightComponent>());
 	light2->set_position(FVector3{0.0f, 1.0f, 0.0f});
 
-	std::shared_ptr<Object> light3 = std::make_shared<Object>();
+	/*std::shared_ptr<Object> light3 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(light3);
 	light3->add_component(std::make_shared<PointLightComponent>());
 	light3->set_position(FVector3{20.0f, 1.0f, 0.0f});*/
