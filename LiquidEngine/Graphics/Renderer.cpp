@@ -218,11 +218,9 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	//debug_gui->init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
-	//descriptor_heaps.increment_heap_index();
-	//descriptor_heaps.increment_heap_index();
-	//descriptor_heaps.increment_heap_index();
-	//descriptor_heaps.increment_heap_index();
+	debug_gui->init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
+	descriptor_heaps.increment_heap_index();
+	descriptor_heaps.increment_heap_index();
 
 	scene.compile();
 	scene.update(resolution);
@@ -314,10 +312,10 @@ void Renderer::update() {
 	}
 
 	// Render Dear ImGui graphics
-	//debug_gui->update();
-	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
-	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
-	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
+	debug_gui->update();
+	ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
+	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state

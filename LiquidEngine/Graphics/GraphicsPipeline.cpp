@@ -221,9 +221,9 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	
 	compilation_params.clear();
 	for (int i = 0; i < descriptor_tables.size()+root_constants.size(); i++) {
-		for (const DescriptorTable &table : descriptor_tables) {
-			if (table.parameter_index == i)
-				compilation_params.push_back(table.root_parameters[0]);
+		for (const std::shared_ptr<DescriptorTable> &table : descriptor_tables) {
+			if (table->parameter_index == i)
+				compilation_params.push_back(table->root_parameters[0]);
 		}
 		for (const RootConstants* constants : root_constants) {
 			if (constants->parameter_index == i)
@@ -276,10 +276,10 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 		}
 	}
 
-	for (const DescriptorTable &descriptor_table : descriptor_tables) {
+	for (const std::shared_ptr<DescriptorTable> &descriptor_table : descriptor_tables) {
 		D3D12_GPU_DESCRIPTOR_HANDLE handle = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart();
-		handle.ptr += descriptor_table.heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-		command_list->SetGraphicsRootDescriptorTable(descriptor_table.parameter_index, handle);
+		handle.ptr += descriptor_table->heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		command_list->SetGraphicsRootDescriptorTable(descriptor_table->parameter_index, handle);
 	}
 
 	for (const RootConstants* constants : root_constants) {
@@ -297,24 +297,25 @@ bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signa
 void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	UINT parameter_index = index + (UINT)shader_resource_views.size();
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, (UINT)descriptor_tables.size(), parameter_index));
+	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, parameter_index));
 	constant_buffers.push_back(&cb);
+	cb.descriptor_table = descriptor_tables.back();
 }
 
 void GraphicsPipeline::RootSignature::bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)shader_resource_views.size();
 	UINT parameter_index = index + (UINT)constant_buffers.size() + (UINT)root_constants.size();
-	descriptor_tables.push_back(DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, (UINT)descriptor_tables.size(), parameter_index));
+	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, parameter_index));
 	shader_resource_views.push_back(&srv);
+	srv.descriptor_table = descriptor_tables.back();
 }
 
 GraphicsPipeline::RootSignature::RootArgument::RootArgument(UINT parameter_index)
 	: root_parameters(std::vector<D3D12_ROOT_PARAMETER>(1u)),
 	parameter_index(parameter_index) { }
 
-GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index)
-	: RootArgument(parameter_index), ranges(std::vector<CD3DX12_DESCRIPTOR_RANGE>(1u)),
-	heap_index(heap_index) {
+GraphicsPipeline::RootSignature::DescriptorTable::DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index)
+	: RootArgument(parameter_index), ranges(std::vector<CD3DX12_DESCRIPTOR_RANGE>(1u)) {
 	compile(type, shader, index);
 }
 
@@ -412,6 +413,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update_descs(const Dir
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
 	if (heap_index == (UINT)-1) {
 		heap_index = descriptor_heaps.get_next_heap_index();
+		descriptor_table->heap_index = heap_index;
 		descriptor_heaps.increment_heap_index();
 	}
 

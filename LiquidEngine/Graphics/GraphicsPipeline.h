@@ -212,7 +212,7 @@ public:
 		*/
 		class DescriptorTable : public RootArgument {
 		public:
-			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index);
+			DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index);
 			/*DescriptorTable(const DescriptorTable &t) {
 				table = t.table;
 				for (auto i = 0; i < RANGES_SIZE; i++) {
@@ -314,6 +314,7 @@ public:
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
 				if (heap_index == (UINT)-1) {
 					heap_index = descriptor_heaps.get_next_heap_index();
+					descriptor_table->heap_index = heap_index;
 					descriptor_heaps.increment_heap_index();
 				}
 				
@@ -350,6 +351,8 @@ public:
 			bool update_signal = true;
 
 			ComPtr<ID3D12Resource> default_heap{nullptr};
+
+			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
@@ -375,6 +378,8 @@ public:
 			UINT heap_index{(UINT)-1};
 
 			bool compile_signal{false};
+
+			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
@@ -479,13 +484,13 @@ public:
 		const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
 		const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
 
-		const std::vector<DescriptorTable> & get_descriptor_tables() const noexcept { return descriptor_tables; }
+		const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
 		const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
 
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
 	private:
-		std::vector<DescriptorTable> descriptor_tables = { };
+		std::vector<std::shared_ptr<DescriptorTable>> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
 		std::vector<RootConstants*> root_constants = { };
