@@ -6,6 +6,9 @@ Renderer::Renderer(HWND window) : window(window) {
 	debug_interface->EnableDebugLayer();
 	//debug_interface->SetEnableGPUBasedValidation(true);
 
+	DXGIGetDebugInterface1(NULL, IID_PPV_ARGS(&dxgi_debug));
+	dxgi_debug->EnableLeakTrackingForThread();
+
 	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 
 	create_adapter_and_device();
@@ -16,6 +19,7 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_command_list();
 	create_fences_and_fence_event();
 	create_depth_stencil();
+	create_descriptor_heaps();
 }
 
 void Renderer::create_adapter_and_device() {
@@ -80,7 +84,7 @@ void Renderer::create_swap_chain() {
 		.Stereo = false,
 		.SampleDesc = sample_desc,
 		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
-		.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS,
+		.BufferCount = NUMBER_OF_BUFFERS,
 		.Scaling = DXGI_SCALING_STRETCH,
 		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
 		.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED,
@@ -107,7 +111,7 @@ void Renderer::create_swap_chain() {
 void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
-	rtv_heap_desc.NumDescriptors = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of descriptors for this heap.
+	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
 	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
 
 														 // This heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
@@ -124,7 +128,7 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 	// Create a RTV for each buffer
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		// first we get the n'th buffer in the swap chain and store it in the n'th
 		// position of our ID3D12Resource array
 		HPEW(swap_chain->GetBuffer(i, IID_PPV_ARGS(&render_targets[i])));
@@ -139,7 +143,7 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 }
 
 void Renderer::create_command_allocators() {
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocators[i])));
 		command_allocators[i]->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str());
 	}
@@ -157,7 +161,7 @@ void Renderer::create_command_list() {
 
 void Renderer::create_fences_and_fence_event() {
 	// create the fences
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
 		fences[i]->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str());
 
@@ -205,12 +209,23 @@ void Renderer::create_depth_stencil() {
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
+void Renderer::create_descriptor_heaps() {
+	descriptor_heaps.compile(device);
+}
+
 void Renderer::compile() {
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
+	//debug_gui->init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
+	//descriptor_heaps.increment_heap_index();
+	//descriptor_heaps.increment_heap_index();
+	//descriptor_heaps.increment_heap_index();
+	//descriptor_heaps.increment_heap_index();
+
 	scene.compile();
+	scene.update(resolution);
 
 	int i = 0;
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
@@ -221,7 +236,7 @@ void Renderer::compile() {
 		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh.component->compile();
-		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
+		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution, descriptor_heaps);
 		mesh.material.component->pipeline.compilation_signal = false;
 
 		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
@@ -232,9 +247,11 @@ void Renderer::compile() {
 		scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
-		scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+		scene.sky.component->compile();
+		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution, descriptor_heaps);
+		scene.sky.component->pipeline.compilation_signal = false;
 	}
- 
+
 	HPEW(command_list->Close());
 	execute_command_list();
 
@@ -283,14 +300,24 @@ void Renderer::update() {
 
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
+	// set constant buffer descriptor heap
+	ID3D12DescriptorHeap* dh[] = { descriptor_heaps[frame_index].Get() };
+	command_list->SetDescriptorHeaps(_countof(dh), dh);
+
 	scene.update(resolution);
 	
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+		scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution, descriptor_heaps);
 	
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
+		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution, descriptor_heaps);
 	}
+
+	// Render Dear ImGui graphics
+	//debug_gui->update();
+	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
+	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
@@ -354,11 +381,14 @@ void Renderer::clean_up() {
 	depth_stencil_buffer.Reset();
 	depth_stencil_descriptor_heap.Reset();
 
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		render_targets[i].Reset();
 		command_allocators[i].Reset();
 		fences[i].Reset();
 	}
+
+	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY));
+	debug_interface.Reset();
 }
 
 void Renderer::increment_fence() {
@@ -384,7 +414,7 @@ void Renderer::wait_for_fence_gpu() {
 }
 
 void Renderer::flush_gpu() {
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		uint64_t fenceValueForSignal = ++fence_values[i];
 		command_queue->Signal(fences[i].Get(), fenceValueForSignal);
 		if (fences[i]->GetCompletedValue() < fence_values[i])

@@ -270,8 +270,9 @@ public:
 	}
 
 	bool update() {
-		if (component->has_changed() && component->exists()) {
-			srv->update_descs(component->get_mip_chain());
+		if (component->has_changed()) {
+			if (component->exists())
+				srv->update_descs(component->get_mip_chain());
 			srv->compile();
 			return true;
 		}
@@ -309,7 +310,7 @@ public:
 		if (component->has_changed() || ret) {
 			data.obj->albedo = component->get_albedo();
 			data.obj->has_texture = component->has_texture();
-			data.apply();
+			data.update();
 
 			component->has_changed(false);
 			texture.component->has_changed(false);
@@ -360,7 +361,7 @@ public:
 
 		if (component->has_changed() || ret) {
 			material_data.obj->material = RenderingMaterialData{*component};
-			material_data.apply();
+			material_data.update();
 
 			component->has_changed(false);
 			albedo_texture.component->has_changed(false);
@@ -417,7 +418,7 @@ public:
 			lights_data.obj->spotlights[i] = sl[i].data;
 		}
 
-		lights_data.apply();
+		lights_data.update();
 	}
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
@@ -486,8 +487,10 @@ public:
 	void compile() {
 		camera.component->has_changed(true);
 
-		if (sky.component != nullptr)
+		if (sky.component != nullptr) {
 			sky.component->has_changed(true);
+			sky.texture.component->has_changed(true);
+		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			dl.component->has_changed(true);

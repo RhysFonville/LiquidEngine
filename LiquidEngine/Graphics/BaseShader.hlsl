@@ -1,6 +1,3 @@
-#define NFIRST_AVAILIBLE_CB_INDEX 5
-#define FIRST_AVAILIBLE_CB_INDEX b5
-
 struct VS_OUTPUT {
 	float4 position : SV_POSITION;
 	float2 texcoord : TEXCOORD;

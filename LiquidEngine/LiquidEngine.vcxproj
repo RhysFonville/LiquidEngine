@@ -133,6 +133,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,10 +160,20 @@
     <ClInclude Include="Components\GraphicsComponent.h" />
     <ClInclude Include="Controllable.h" />
     <ClInclude Include="Debug\DebugConsole.h" />
+    <ClInclude Include="Debug\DebugGUI.h" />
+    <ClInclude Include="Graphics\GraphicsDescriptorHeaps.h" />
     <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Graphics\ResourceManager.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx12.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Input\InputListener.h" />
     <ClInclude Include="Input\KeybindSet.h" />
     <ClInclude Include="Input\KeyCodes.h" />
@@ -203,9 +214,18 @@
     <ClCompile Include="Components\GraphicsComponent.cpp" />
     <ClCompile Include="Controllable.cpp" />
     <ClCompile Include="Debug\DebugConsole.cpp" />
+    <ClCompile Include="Debug\DebugGUI.cpp" />
+    <ClCompile Include="Graphics\GraphicsDescriptorHeaps.cpp" />
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Input\InputListener.cpp" />
     <ClCompile Include="Input\KeybindSet.cpp" />
     <ClCompile Include="Objects\MyStatue.cpp" />

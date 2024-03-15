@@ -9,6 +9,7 @@
 #include "GraphicsPipelineMeshChange.h"
 #include "ResourceManager.h"
 #include "ShaderStorage.h"
+#include "GraphicsDescriptorHeaps.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
@@ -30,17 +31,15 @@ public:
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
-	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution);
+	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps);
 
-	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution);
+	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps);
 
 	void clean_up();
 
 	bool operator==(const GraphicsPipeline &pipeline) const noexcept;
 	void operator=(const GraphicsPipeline &pipeline) noexcept;
-
-	static constexpr UINT NUMBER_OF_BUFFERS = 3u;
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
 	
@@ -96,11 +95,11 @@ public:
 																   // the total size of the buffer, and the size of each element (vertex)
 	} input_assembler;
 
-	std::string vs{"DefaultVertex.hlsl"};
+	std::string vs{"Graphics/DefaultVertex.hlsl"};
 	std::string hs{};
 	std::string ds{};
 	std::string gs{};
-	std::string ps{"LitPixel.hlsl"};
+	std::string ps{"Graphics/LitPixel.hlsl"};
 
 	/**
 	* Rasterizer stage.
@@ -205,7 +204,7 @@ public:
 
 			std::vector<D3D12_ROOT_PARAMETER> root_parameters = { };
 
-			UINT parameter_index = 0u;
+			UINT parameter_index{(UINT)-1};
 		};
 
 		/**
@@ -235,7 +234,7 @@ public:
 
 			D3D12_ROOT_DESCRIPTOR_TABLE table;
 
-			UINT heap_index = 0u;
+			UINT heap_index{(UINT)-1};
 			
 			std::vector<CD3DX12_DESCRIPTOR_RANGE> ranges = { }; // In practice you often only have one descriptor range per-table.
 		};
@@ -283,7 +282,7 @@ public:
 			friend RootSignature;
 			
 			void* obj = nullptr;
-			size_t obj_size = 0u;
+			size_t obj_size{0u};
 
 			D3D12_ROOT_CONSTANTS constants = { };
 		};
@@ -312,54 +311,45 @@ public:
 				}
 			}*/
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]) {
-				// create a resource heap, descriptor heap, and pointer to cbv for each frame
-
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					ID3D12Resource* upload_buffer;
-
-					auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-					auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
-					HPEW(device->CreateCommittedResource(
-						&type, // this heap will be used to upload the constant buffer data
-						D3D12_HEAP_FLAG_NONE, // no flags
-						&buf, // size of the resource heap. Must be a multiple of 64KB for single-textures and constant buffers
-						D3D12_RESOURCE_STATE_GENERIC_READ, // will be data that is read from so we keep it in the generic read state
-						nullptr, // we do not have use an optimized clear value for constant buffers
-						IID_PPV_ARGS(&upload_buffer)));
-
-					ResourceManager::Release::resources.push_back(upload_buffer);
-					upload_buffer->SetName(L"CB upload buffer");
-
-					D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = { };
-					view_desc.BufferLocation = upload_buffer->GetGPUVirtualAddress();
-					view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
-
-					D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
-					handle.ptr = descriptor_heaps[i]->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-					device->CreateConstantBufferView(&view_desc, handle);
-
-					CD3DX12_RANGE read_range(0, 0);	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
-					HPEW(upload_buffer->Map(0, &read_range, reinterpret_cast<void**>(&gpu_addresses[i])));
-
-					apply(i);
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+				if (heap_index == (UINT)-1) {
+					heap_index = descriptor_heaps.get_next_heap_index();
+					descriptor_heaps.increment_heap_index();
 				}
+				
+				auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+				auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
+				HPEW(device->CreateCommittedResource(
+					&props,
+					D3D12_HEAP_FLAG_NONE,
+					&buf,
+					D3D12_RESOURCE_STATE_COPY_DEST,
+					nullptr,
+					IID_PPV_ARGS(&default_heap)
+				));
+				HPEW(default_heap->SetName(L"CB default heap"));
+				
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					descriptor_heaps.create_cbv(device, default_heap, obj_size, i, heap_index);
+				}
+
+				update(device, command_list);
 			}
 
-			void apply(int frame_index) noexcept;
+			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
 			void* obj = nullptr;
 			size_t obj_size = 0u;
 
-			UINT* gpu_addresses[NUMBER_OF_BUFFERS] = { };
-
-			UINT heap_index = 0u;
+			UINT heap_index{(UINT)-1};
 
 			mutable std::string name = "";
 
 			bool update_signal = true;
+
+			ComPtr<ID3D12Resource> default_heap{nullptr};
 		};
 
 		/**
@@ -372,17 +362,17 @@ public:
 
 			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS]);
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
 			void compile() { compile_signal = true; }
 
-			ComPtr<ID3D12Resource> default_buffer{nullptr};
+			ComPtr<ID3D12Resource> default_heap{nullptr};
 			D3D12_RESOURCE_DESC heap_desc{};
 
 			std::vector<D3D12_SUBRESOURCE_DATA> subresources{};
 
 			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc{};
 
-			UINT heap_index{0u};
+			UINT heap_index{(UINT)-1};
 
 			bool compile_signal{false};
 		};
@@ -401,7 +391,7 @@ public:
 				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
 			}
 
-			void apply() { cb.update_signal = true; }
+			void update() { cb.update_signal = true; }
 
 			bool operator==(ConstantBufferContainer &c) {
 				return (obj == c.obj);
@@ -431,9 +421,9 @@ public:
 
 		RootSignature() { }
 
-		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
 
-		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index);
+		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 		
@@ -495,7 +485,6 @@ public:
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
 	private:
-		ComPtr<ID3D12DescriptorHeap> descriptor_heaps[NUMBER_OF_BUFFERS] = { }; // Stores the descriptor to our constant buffer
 		std::vector<DescriptorTable> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };

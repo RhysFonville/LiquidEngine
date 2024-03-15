@@ -44,7 +44,7 @@ public:
 	float get_shininess() const { return shininess; }
 	void set_shininess(float shininess) { this->shininess = shininess; changed = true; }
 
-	GraphicsPipeline pipeline;
+	GraphicsPipeline pipeline{};
 
 private:
 	std::string vs{"Graphics/DefaultVertex.hlsl"};

@@ -41,19 +41,19 @@ void Engine::loop() {
 			dt.tp1 = dt.tp2;
 			dt.dt = elapsed_time.count();
 
+			window.check_input();
+			if (!window.is_running()) {
+				running = false;
+				clean_up();
+				return;
+			}
+
 			world.tick(dt.dt);
 			renderer.tick();
 
 			if (EngineToggles::terminate) {
 				EngineToggles::terminate = false;
 				throw;
-			}
-
-			window.check_input();
-			if (!window.is_running()) {
-				running = false;
-				clean_up();
-				return;
 			}
 		}
 	} catch (const std::exception &e) {
