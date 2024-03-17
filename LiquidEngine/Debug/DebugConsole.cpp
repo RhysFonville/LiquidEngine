@@ -14,6 +14,10 @@ DebugConsole* DebugConsole::get_instance() {
 	return debug_console;
 }
 
+void DebugConsole::destroy_window() {
+	DestroyWindow(hwnd);
+}
+
 DebugConsole & DebugConsole::operator<<(char out) noexcept {
 	std::cout << out;
 	return *this;

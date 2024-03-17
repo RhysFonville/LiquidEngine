@@ -17,3 +17,14 @@ void PointLightComponent::operator=(const PointLightComponent &light) noexcept {
 	specular = light.specular;
 	null = light.null;
 }
+
+void PointLightComponent::render_light_component_editor_gui_section() {
+	float range{this->range};
+	if (ImGui::InputFloat("Range", &range)) {
+		set_range(range);
+	}
+	float att[3]{attenuation.x, attenuation.y, attenuation.z};
+	if (ImGui::InputFloat("Attenuation", att)) {
+		set_attenuation(att);
+	}
+}

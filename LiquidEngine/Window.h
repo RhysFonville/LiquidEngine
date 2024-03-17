@@ -7,8 +7,9 @@
 #include "Graphics/Renderer.h"
 #include "globalstructs.h"
 
-#ifdef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
+#ifndef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
 #include "Debug/DebugConsole.h"
+#include "EditorGUI.h"
 #endif
 
 /**
@@ -57,13 +58,15 @@ public:
 
 	Renderer* graphics_scene = nullptr;
 
+	EditorGUI editor_gui{};
+
 private:
 	HWND window = NULL;
 	HDC dc = NULL;
 	HINSTANCE hInstance = GetModuleHandleA(NULL);
 	WNDCLASSEXA window_class = { };
 	
-	UVector2 size;
+	UVector2 size{};
 
 	bool running = true;
 

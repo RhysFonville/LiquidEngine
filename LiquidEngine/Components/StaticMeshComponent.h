@@ -29,6 +29,8 @@ public:
 private:
 	friend class Renderer;
 
+	void render_editor_gui_section() override;
+
 	Mesh mesh;
 	Material material{};
 

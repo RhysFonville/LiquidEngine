@@ -66,7 +66,7 @@ public:
 		if (component->has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
-			data.direction = component->get_direction();
+			data.direction = component->get_rotation();
 			data.null = component->is_null();
 
 			component->has_changed(false);
@@ -152,7 +152,7 @@ public:
 		if (component->has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
-			data.direction = component->get_direction();
+			data.direction = component->get_rotation();
 
 			component->has_changed(false);
 			return true;

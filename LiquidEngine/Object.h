@@ -81,6 +81,10 @@ public:
 		return ret;
 	}
 
+	GET std::vector<std::shared_ptr<Component>> & get_all_components() noexcept {
+		return components;
+	}
+
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	void add_component(const std::shared_ptr<T> &component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
 		components.push_back(component);
@@ -110,6 +114,8 @@ public:
 	GraphicsScene* graphics_scene = nullptr;
 
 private:
+	friend class EditorGUI;
+
 	Transform transform;
 
 	Object* parent = nullptr;

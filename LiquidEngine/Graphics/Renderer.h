@@ -4,7 +4,7 @@
 #include <dxgi1_6.h>
 #include <dxgidebug.h>
 #include "GraphicsScene.h"
-#include "../Debug/DebugGUI.h"
+#include "../EditorGUI.h"
 
 /**
  * Main class for rendering.
@@ -14,10 +14,10 @@ public:
 	Renderer() { }
 	Renderer(HWND window); // initializes direct3d 12
 
-	void tick(); // Updates pipeline and renders
+	void tick(float dt); // Updates pipeline and renders
 	void clean_up(); // release com ojects and clean up memory
 
-	void update(); // update the direct3d pipeline (update command lists)
+	void update(float dt); // update the direct3d pipeline (update command lists)
 	void render(); // execute the command list
 	void increment_fence(); // increment fences
 	void wait_for_fence_cpu(); // wait for fences incrementation on cpu side

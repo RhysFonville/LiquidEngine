@@ -21,6 +21,8 @@ public:
 	void set_attenuation(FVector3 attenuation) noexcept { this->attenuation = attenuation; changed = true; }
 
 private:
+	void render_light_component_editor_gui_section() override;
+
 	float range = 100.0f;
 	FVector3 attenuation = FVector3(0.0f, 1.0f, 1.0f);
 };

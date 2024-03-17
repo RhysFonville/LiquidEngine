@@ -50,6 +50,8 @@ public:
 
 	static DebugConsole* get_instance();
 
+	void destroy_window();
+
 	DebugConsole & operator<<(char out) noexcept;
 	DebugConsole & operator<<(const std::string &out) noexcept;
 	DebugConsole & operator<<(const Color &col) noexcept;

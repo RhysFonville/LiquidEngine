@@ -171,3 +171,9 @@ void CameraComponent::operator=(const CameraComponent &component) noexcept {
 	view = component.view;
 	projection = component.projection;
 }
+
+void CameraComponent::render_editor_gui_section() {
+	float fov{this->fov};
+	if (ImGui::InputFloat("Field of view", &fov))
+		set_fov(fov);
+}

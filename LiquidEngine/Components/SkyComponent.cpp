@@ -149,3 +149,14 @@ bool SkyComponent::has_texture() const noexcept {
 //	d3d11Device->CreateBuffer(&indexBufferDesc, &iinitData, &sphereIndexBuffer);
 //
 //}
+
+void SkyComponent::render_editor_gui_section() {
+	std::string albedo_texture{this->albedo_texture.get_file()};
+	if (ImGui::InputText("Albedo texure", &albedo_texture[0], albedo_texture.max_size())) {
+		this->albedo_texture.set_texture(albedo_texture);
+	}
+
+	float col[4]{albedo.r, albedo.g, albedo.b, albedo.a};
+	if (ImGui::ColorEdit4("Albedo", col))
+		set_albedo(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+}

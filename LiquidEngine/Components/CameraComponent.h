@@ -39,6 +39,9 @@ public:
 
 	static const Type component_type = Type::CameraComponent;
 
+protected:
+	void render_editor_gui_section() override;
+
 private:
 	friend class Renderer;
 

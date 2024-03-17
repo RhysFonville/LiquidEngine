@@ -117,6 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,7 +161,7 @@
     <ClInclude Include="Components\GraphicsComponent.h" />
     <ClInclude Include="Controllable.h" />
     <ClInclude Include="Debug\DebugConsole.h" />
-    <ClInclude Include="Debug\DebugGUI.h" />
+    <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="Graphics\GraphicsDescriptorHeaps.h" />
     <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
@@ -214,7 +215,7 @@
     <ClCompile Include="Components\GraphicsComponent.cpp" />
     <ClCompile Include="Controllable.cpp" />
     <ClCompile Include="Debug\DebugConsole.cpp" />
-    <ClCompile Include="Debug\DebugGUI.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="Graphics\GraphicsDescriptorHeaps.cpp" />
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />

@@ -27,6 +27,8 @@ public:
 	GraphicsPipeline pipeline;
 
 private:
+	void render_editor_gui_section() override;
+
 	Texture albedo_texture = Texture();
 	Color albedo = Color(0, 0, 0, 255);
 	

@@ -48,8 +48,10 @@ void Engine::loop() {
 				return;
 			}
 
+			window.editor_gui.update(dt.dt, world.active_scene->get_objects());
+
 			world.tick(dt.dt);
-			renderer.tick();
+			renderer.tick(dt.dt);
 
 			if (EngineToggles::terminate) {
 				EngineToggles::terminate = false;

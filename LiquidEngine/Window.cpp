@@ -6,6 +6,8 @@ Window* this_window_wndproc;
 
 LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
+		if (this_window_wndproc->editor_gui.check_input(uMsg, wParam, lParam)) return LRESULT{};
+
 		switch (uMsg) {
 			case WM_CLOSE:
 				if (YESNO_MESSAGE("Are you sure you want to exit?")) {
@@ -31,6 +33,8 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	} else {
 		return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 	}
+
+	return LRESULT{};
 }
 
 Window::Window() {
@@ -57,6 +61,8 @@ void Window::set_up_window(const Vector2 &position, const Vector2 &size, const s
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, hInstance, lpParam);
 
+	editor_gui.hwnd = window;
+
 	if (window == NULL) {
 		throw std::exception("Failed to create window.");
 	}
@@ -77,6 +83,10 @@ void Window::check_input() {
 void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
+#ifndef NDEBUG
+	debug_console->destroy_window();
+#endif // !NDEBUG
+
 	this_window_wndproc = NULL;
 	graphics_scene = nullptr;
 }

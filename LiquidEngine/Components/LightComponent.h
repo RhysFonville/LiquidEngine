@@ -26,6 +26,9 @@ public:
 	void is_null(bool null) noexcept { this->null = null; changed = true; }
 
 protected:
+	void render_editor_gui_section() override;
+	virtual void render_light_component_editor_gui_section() { }
+
 	Color albedo = Color(255, 255, 255, 255);
 	Color specular = Color(50, 50, 50, 255);
 	bool null = false;

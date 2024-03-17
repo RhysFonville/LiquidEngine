@@ -218,8 +218,7 @@ void Renderer::compile() {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	debug_gui->init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
-	descriptor_heaps.increment_heap_index();
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
 	descriptor_heaps.increment_heap_index();
 
 	scene.compile();
@@ -258,7 +257,7 @@ void Renderer::compile() {
 	ResourceManager::Release::release_all_resources();
 }
 
-void Renderer::update() {
+void Renderer::update(float dt) {
 	// We have to wait for the gpu to finish with the command allocator before we reset it
 	wait_for_previous_frame();
 
@@ -312,7 +311,6 @@ void Renderer::update() {
 	}
 
 	// Render Dear ImGui graphics
-	debug_gui->update();
 	ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
 	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
@@ -339,8 +337,8 @@ void Renderer::render() {
 	HPEW(swap_chain->Present(0, 0));
 }
 
-void Renderer::tick() {
-	update();
+void Renderer::tick(float dt) {
+	update(dt);
 	render();
 }
 
