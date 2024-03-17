@@ -54,24 +54,24 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
-	if (ImGui::InputText("Mesh", mesh.data(), MAX_PATH)) {
+	if (ImGui::InputText("Mesh", mesh.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		this->mesh.set_vertices(mesh);
 	}
 
 	ImGui::Text("Material");
 
 	std::string tex{material.get_albedo_texture().get_file()};
-	if (ImGui::InputText("Albedo texture", tex.data(), MAX_PATH)) {
+	if (ImGui::InputText("Albedo texture", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		material.get_albedo_texture().set_texture(tex);
 	}
 
 	tex = material.get_normal_map().get_file();
-	if (ImGui::InputText("Normal map", tex.data(), MAX_PATH)) {
+	if (ImGui::InputText("Normal map", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		material.get_normal_map().set_texture(tex);
 	}
 
 	tex = material.get_environment_texture().get_file();
-	if (ImGui::InputText("Environment texture", tex.data(), MAX_PATH)) {
+	if (ImGui::InputText("Environment texture", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		material.get_environment_texture().set_texture(tex);
 	}
 
