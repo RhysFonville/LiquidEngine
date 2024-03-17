@@ -6,6 +6,7 @@
 #include <memory>
 #include <typeinfo>
 #include "imgui/imgui.h"
+#include "implot/implot.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx12.h"
 #include "Object.h"
@@ -35,5 +36,5 @@ private:
 	EditorGUI();
 	EditorGUI(HWND hwnd);
 
-	bool show_demo_window = true;
+	bool show_demo_window = false;
 };

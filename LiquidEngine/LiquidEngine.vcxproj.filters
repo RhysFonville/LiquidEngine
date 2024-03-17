@@ -19,6 +19,12 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{efb0151c-8120-48ce-9bea-7a3ff2a4529d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\implot">
+      <UniqueIdentifier>{535e4d06-9358-45d6-b5b2-a38e4e0a0d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\implot">
+      <UniqueIdentifier>{3eeac7cc-325e-41de-a6d0-4c30c23fbbba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -188,6 +194,12 @@
     <ClInclude Include="Graphics\GraphicsDescriptorHeaps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="implot\implot.h">
+      <Filter>Header Files\implot</Filter>
+    </ClInclude>
+    <ClInclude Include="implot\implot_internal.h">
+      <Filter>Header Files\implot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -324,6 +336,15 @@
     </ClCompile>
     <ClCompile Include="Graphics\GraphicsDescriptorHeaps.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="implot\implot.cpp">
+      <Filter>Source Files\implot</Filter>
+    </ClCompile>
+    <ClCompile Include="implot\implot_demo.cpp">
+      <Filter>Source Files\implot</Filter>
+    </ClCompile>
+    <ClCompile Include="implot\implot_items.cpp">
+      <Filter>Source Files\implot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,9 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_impl_dx12.cpp
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_impl_win32.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui_impl_win32.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_tables.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui_tables.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_widgets.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui_widgets.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\implot\implot.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\implot.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\implot\implot_demo.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\implot_demo.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\implot\implot_items.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\implot_items.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Input\InputListener.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\InputListener.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Input\KeybindSet.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\KeybindSet.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyStatue.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\MyStatue.obj

@@ -48,7 +48,7 @@ public:
 	GET HWND & get_window() noexcept;
 	GET HDC & get_dc() noexcept;
 	GET HINSTANCE & get_hInstance() noexcept;
-	GET WNDCLASSEXA & get_class() noexcept;
+	GET WNDCLASSEXW & get_class() noexcept;
 
 	GET UVector2 get_size() const noexcept;
 	void set_size(const UVector2 &size) noexcept;
@@ -64,7 +64,7 @@ private:
 	HWND window = NULL;
 	HDC dc = NULL;
 	HINSTANCE hInstance = GetModuleHandleA(NULL);
-	WNDCLASSEXA window_class = { };
+	WNDCLASSEXW window_class = { };
 	
 	UVector2 size{};
 

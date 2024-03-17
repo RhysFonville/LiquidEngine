@@ -38,13 +38,13 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 }
 
 Window::Window() {
-	window_class.cbSize = sizeof(WNDCLASSEXA);
+	window_class.cbSize = sizeof(WNDCLASSEXW);
 	window_class.style = CS_HREDRAW | CS_VREDRAW;
-	window_class.lpszClassName = "Window Class";
+	window_class.lpszClassName = L"Window Class";
 	window_class.lpfnWndProc = wndproc;
 	window_class.hCursor = LoadCursorW(NULL, IDC_CROSS);
 
-	RegisterClassExA(&window_class);
+	RegisterClassExW(&window_class);
 }
 
 Window::Window(HINSTANCE hInstance) : Window{} {
@@ -57,7 +57,7 @@ Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
 }
 
 void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
-	window = CreateWindowExA(extended_style, window_class.lpszClassName, name.c_str(),
+	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, hInstance, lpParam);
 
@@ -103,7 +103,7 @@ HINSTANCE & Window::get_hInstance() noexcept {
 	return hInstance;
 }
 
-WNDCLASSEXA & Window::get_class() noexcept {
+WNDCLASSEXW & Window::get_class() noexcept {
 	return window_class;
 }
 

@@ -271,9 +271,10 @@ public:
 
 	bool update() {
 		if (component->has_changed()) {
-			if (component->exists())
+			if (component->exists()) {
 				srv->update_descs(component->get_mip_chain());
-			srv->compile();
+				srv->compile();
+			}
 			return true;
 		}
 		return false;

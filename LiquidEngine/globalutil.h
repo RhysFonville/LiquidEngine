@@ -85,6 +85,16 @@ static GET UVector2 get_window_size(HWND hwnd) {
 	return size;
 }
 
+static GET UVector2 get_client_size(HWND hwnd) {
+	RECT rect;
+	UVector2 size;
+	if (GetClientRect(hwnd, &rect)) {
+		size.x = rect.right - rect.left;
+		size.y = rect.bottom - rect.top;
+	}
+	return size;
+}
+
 static float degrees_to_theta(float degrees) {
 	return degrees / 180.0f * (float)std::numbers::pi;
 }

@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>imgui;implot;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>imgui;implot;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,6 +175,8 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="implot\implot.h" />
+    <ClInclude Include="implot\implot_internal.h" />
     <ClInclude Include="Input\InputListener.h" />
     <ClInclude Include="Input\KeybindSet.h" />
     <ClInclude Include="Input\KeyCodes.h" />
@@ -227,6 +229,9 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="implot\implot.cpp" />
+    <ClCompile Include="implot\implot_demo.cpp" />
+    <ClCompile Include="implot\implot_items.cpp" />
     <ClCompile Include="Input\InputListener.cpp" />
     <ClCompile Include="Input\KeybindSet.cpp" />
     <ClCompile Include="Objects\MyStatue.cpp" />
@@ -292,14 +297,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\directxtk12_uwp.2023.9.6.2\build\native\directxtk12_uwp.targets" Condition="Exists('..\packages\directxtk12_uwp.2023.9.6.2\build\native\directxtk12_uwp.targets')" />
-    <Import Project="..\packages\directxtex_desktop_win10.2023.9.6.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2023.9.6.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\directxtex_desktop_win10.2024.2.22.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2024.2.22.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\directxtk12_uwp.2024.2.22.1\build\native\directxtk12_uwp.targets" Condition="Exists('..\packages\directxtk12_uwp.2024.2.22.1\build\native\directxtk12_uwp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\directxtk12_uwp.2023.9.6.2\build\native\directxtk12_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk12_uwp.2023.9.6.2\build\native\directxtk12_uwp.targets'))" />
-    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2023.9.6.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2023.9.6.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2024.2.22.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2024.2.22.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk12_uwp.2024.2.22.1\build\native\directxtk12_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk12_uwp.2024.2.22.1\build\native\directxtk12_uwp.targets'))" />
   </Target>
 </Project>

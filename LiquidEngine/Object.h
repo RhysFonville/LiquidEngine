@@ -114,8 +114,6 @@ public:
 	GraphicsScene* graphics_scene = nullptr;
 
 private:
-	friend class EditorGUI;
-
 	Transform transform;
 
 	Object* parent = nullptr;

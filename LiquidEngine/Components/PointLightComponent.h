@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LightComponent.h"
+#include "../implot/implot.h"
 
 /**
 * Component for a point light.
