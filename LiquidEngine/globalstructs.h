@@ -411,8 +411,9 @@ static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
 	return color_to_xmfloat4(color, normalize);
 }
 
-static FVector4 color_to_fvector(const Color &color) noexcept {
-	
+static FVector4 color_to_fvector(const Color &color, bool normalize = true) noexcept {
+	return FVector4{(float)color.r / 255.0f, (float)color.g / 255.0f,
+					(float)color.b / 255.0f, (float)color.a / 255.0f};
 }
 
 static FVector4 ctofvec(const Color &color) noexcept {

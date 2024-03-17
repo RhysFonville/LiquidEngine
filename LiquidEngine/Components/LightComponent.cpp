@@ -3,16 +3,18 @@
 LightComponent::LightComponent(Type type) : GraphicsComponent(type) { }
 
 void LightComponent::render_editor_gui_section() {
-	float col[4]{albedo.r, albedo.g, albedo.b, albedo.a};
+	FVector4 alb{color_to_fvector(albedo)};
+	FVector4 spc{color_to_fvector(specular)};
+	float col[4]{alb.x, alb.y, alb.z, alb.w};
 	if (ImGui::ColorEdit4("Albedo", col))
-		set_albedo(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+		set_albedo(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 
-	col[0] = specular.r;
-	col[1] = specular.g;
-	col[2] = specular.b;
-	col[3] = specular.a;
+	col[0] = spc.x;
+	col[1] = spc.y;
+	col[2] = spc.z;
+	col[3] = spc.w;
 	if (ImGui::ColorEdit3("Specular", col))
-		set_specular(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+		set_specular(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 	
 	if (ImGui::Checkbox("Disabled", &null)) {
 		is_null(null);

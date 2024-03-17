@@ -24,7 +24,7 @@ void PointLightComponent::render_light_component_editor_gui_section() {
 		set_range(range);
 	}
 	float att[3]{attenuation.x, attenuation.y, attenuation.z};
-	if (ImGui::InputFloat("Attenuation", att)) {
+	if (ImGui::InputFloat3("Attenuation", att)) {
 		set_attenuation(att);
 	}
 }

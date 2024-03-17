@@ -156,7 +156,8 @@ void SkyComponent::render_editor_gui_section() {
 		this->albedo_texture.set_texture(albedo_texture);
 	}
 
-	float col[4]{albedo.r, albedo.g, albedo.b, albedo.a};
+	FVector4 alb{color_to_fvector(albedo)};
+	float col[4]{alb.x, alb.y, alb.z, alb.w};
 	if (ImGui::ColorEdit4("Albedo", col))
 		set_albedo(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
 }

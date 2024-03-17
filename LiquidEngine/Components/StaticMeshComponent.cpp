@@ -54,48 +54,48 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
-	if (ImGui::InputText("Mesh", &mesh[0], mesh.max_size())) {
+	if (ImGui::InputText("Mesh", mesh.data(), MAX_PATH)) {
 		this->mesh.set_vertices(mesh);
 	}
 
 	ImGui::Text("Material");
 
 	std::string tex{material.get_albedo_texture().get_file()};
-	if (ImGui::InputText("Albedo texture", &tex[0], tex.max_size())) {
+	if (ImGui::InputText("Albedo texture", tex.data(), MAX_PATH)) {
 		material.get_albedo_texture().set_texture(tex);
 	}
 
 	tex = material.get_normal_map().get_file();
-	if (ImGui::InputText("Normal map", &tex[0], tex.max_size())) {
+	if (ImGui::InputText("Normal map", tex.data(), MAX_PATH)) {
 		material.get_normal_map().set_texture(tex);
 	}
 
 	tex = material.get_environment_texture().get_file();
-	if (ImGui::InputText("Environment texture", &tex[0], tex.max_size())) {
+	if (ImGui::InputText("Environment texture", tex.data(), MAX_PATH)) {
 		material.get_environment_texture().set_texture(tex);
 	}
 
-	Color alb{material.get_albedo()};
-	Color spc{material.get_specular()};
-	Color amb{material.get_ambient()};
+	FVector4 alb{color_to_fvector(material.get_albedo())};
+	FVector4 spc{color_to_fvector(material.get_specular())};
+	FVector4 amb{color_to_fvector(material.get_ambient())};
 
-	float col[4]{(float)alb.r, (float)alb.g, (float)alb.b, (float)alb.a};
+	float col[4]{(float)alb.x, (float)alb.y, (float)alb.z, (float)alb.w};
 	if (ImGui::ColorEdit4("Albedo", col))
-		material.set_albedo(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+		material.set_albedo(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 	
-	col[0] = spc.r;
-	col[1] = spc.g;
-	col[2] = spc.b;
-	col[3] = spc.a;
+	col[0] = spc.x;
+	col[1] = spc.y;
+	col[2] = spc.z;
+	col[3] = spc.w;
 	if (ImGui::ColorEdit4("Specular", col))
-		material.set_specular(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+		material.set_specular(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 	
-	col[0] = amb.r;
-	col[1] = amb.g;
-	col[2] = amb.b;
-	col[3] = amb.a;
+	col[0] = amb.x;
+	col[1] = amb.y;
+	col[2] = amb.z;
+	col[3] = amb.w;
 	if (ImGui::ColorEdit4("Ambient", col))
-		material.set_ambient(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+		material.set_ambient(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 	
 	float shi{material.get_shininess()};
 	if (ImGui::InputFloat("Shininess", &shi))
