@@ -61,8 +61,6 @@ SamplerState static_sampler_state : register(s0);
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
 
-static const float4 ia = float4(0.0f, 0.0f, 0.0f, 1.0f);
-
 static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
@@ -77,7 +75,7 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 		kd = object_texture.Sample(static_sampler_state, ps_in.texcoord);
 	}
 	
-	float4 final_color = material.ka/**ia*/;
+	float4 final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	float3 n = float3(0.0f, 0.0f, 0.0f);
@@ -118,7 +116,7 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 				light_final_color += saturate(kd * dot(lm, n) * id);
 			}
 			
-			light_final_color += ia;
+			//light_final_color += ia;
 			
 			final_color += light_final_color;
 		}
@@ -126,31 +124,33 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 
 	for (uint i = 0; i < point_light_count; i++) { // https://en.wikipedia.org/wiki/Phong_reflection_model
 		if (!point_lights[i].null) {
-			float4 is = point_lights[i].specular;
-			float4 id = point_lights[i].diffuse;
-
-			float3 lm = normalize(point_lights[i].position - ps_in.world_position);
-
-			float d = length(lm);
-			if (d > point_lights[i].range)
-				continue;
-
-			float3 rm = 2.0f * n * dot(n, lm);
-			float3 v = normalize(camera_position - ps_in.world_position);
-
-			if (dot(lm, n) > 0.0f) {
-				light_final_color =
-					saturate(kd * dot(lm, n) * id) // Diffuse
-					+ saturate(pow(max(dot(v, rm), 0.0), a) * is) // Specular
-				;
+			float distance = length(point_lights[i].position - ps_in.world_position);
+			if (distance <= point_lights[i].range) {
+				float3 light_dir = normalize(point_lights[i].position - ps_in.world_position);
+				float3 view_dir = normalize(camera_position - ps_in.world_position);
+				float3 reflect_dir = reflect(-light_dir, n);
+			
+				float diff_power = max(dot(n, light_dir), 0.0f);
+				float spec_power = pow(max(dot(view_dir, reflect_dir), 0.0f), a);
+			
+				float4 ambient = ka;
+				float4 diffuse = diff_power * point_lights[i].diffuse * kd;
+				float4 specular = spec_power * point_lights[i].specular * ks;
+			
+				float attenuation =
+				1.0 / (
+						point_lights[i].attenuation.x +
+						distance * point_lights[i].attenuation.y +
+						(distance * distance) * point_lights[i].attenuation.z
+				);
+			
+				ambient *= attenuation;
+				diffuse *= attenuation;
+				specular *= attenuation;
+			
+				light_final_color = (ambient + diffuse + specular);
+				final_color += light_final_color;
 			}
-
-			light_final_color /=
-				(point_lights[i].attenuation.x) +
-				(point_lights[i].attenuation.y * d) +
-				(point_lights[i].attenuation.z * (d * d));
-
-			final_color += light_final_color;
 		}
 	}
 
@@ -163,7 +163,6 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 			DISTANCE_FALLOFF_POWER
 		) / DISTANCE_FALLOFF_INTENSITY
 	);
-	distance_falloff.a = 1.0f;
 
 	final_color *= distance_falloff;
 
