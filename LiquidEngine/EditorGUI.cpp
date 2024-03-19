@@ -78,10 +78,6 @@ void EditorGUI::update(float dt, const std::vector<std::shared_ptr<Object>> &obj
 		}
 		i++;
 	}
-
-	ImGui::End();
-
-	ImGui::Render();
 }
 
 void EditorGUI::clean_up() {

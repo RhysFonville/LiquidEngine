@@ -21,8 +21,6 @@ void Material::compile() {
 	if (has_normal_map()) {
 		normal_map.compile();
 	}
-
-	pipeline.compilation_signal = true;
 }
 
 void Material::clean_up() {

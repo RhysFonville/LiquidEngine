@@ -13,7 +13,7 @@ void LightComponent::render_editor_gui_section() {
 	col[1] = spc.y;
 	col[2] = spc.z;
 	col[3] = spc.w;
-	if (ImGui::ColorEdit3("Specular", col))
+	if (ImGui::ColorEdit4("Specular", col))
 		set_specular(Color{UCHAR(col[0]*255.0f), UCHAR(col[1]*255.0f), UCHAR(col[2]*255.0f), UCHAR(col[3]*255.0f)});
 	
 	if (ImGui::Checkbox("Disabled", &null)) {

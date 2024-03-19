@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <dxgi1_6.h>
 #include <dxgidebug.h>
+#include <CommonStates.h>
 #include "GraphicsScene.h"
 #include "../EditorGUI.h"
 
@@ -78,11 +79,14 @@ private:
 	void create_fences_and_fence_event();
 	void create_depth_stencil();
 	void create_descriptor_heaps();
+	void set_blend_state();
 
 	UINT frame_index = 0u;
 
 	DXGI_SAMPLE_DESC sample_desc = { };
 	DXGI_MODE_DESC back_buffer_desc = { }; // this is to describe our display mode
+	
+	D3D12_BLEND_DESC blend_desc{};
 
 	HWND window = nullptr;
 

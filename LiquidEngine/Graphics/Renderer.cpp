@@ -20,6 +20,7 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_fences_and_fence_event();
 	create_depth_stencil();
 	create_descriptor_heaps();
+	set_blend_state();
 }
 
 void Renderer::create_adapter_and_device() {
@@ -213,6 +214,24 @@ void Renderer::create_descriptor_heaps() {
 	descriptor_heaps.compile(device);
 }
 
+void Renderer::set_blend_state() {
+	blend_desc.AlphaToCoverageEnable = false;
+	blend_desc.IndependentBlendEnable = false;
+	blend_desc.RenderTarget[0] = D3D12_RENDER_TARGET_BLEND_DESC{
+		.BlendEnable = true,
+		.LogicOpEnable = false,
+		.SrcBlend = D3D12_BLEND_SRC_ALPHA,
+		.DestBlend = D3D12_BLEND_ONE,
+		.BlendOp = D3D12_BLEND_OP_ADD,
+		.SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA,
+		.DestBlendAlpha = D3D12_BLEND_ONE,
+		.BlendOpAlpha = D3D12_BLEND_OP_ADD,
+		.LogicOp = D3D12_LOGIC_OP_NOOP,
+		.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL
+	};
+	blend_desc = CommonStates::AlphaBlend;
+}
+
 void Renderer::compile() {
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
@@ -233,8 +252,7 @@ void Renderer::compile() {
 		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh.component->compile();
-		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution, descriptor_heaps);
-		mesh.material.component->pipeline.compilation_signal = false;
+		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, blend_desc, resolution, descriptor_heaps);
 
 		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
 		i++;
@@ -245,8 +263,7 @@ void Renderer::compile() {
 		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
 		scene.sky.component->compile();
-		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution, descriptor_heaps);
-		scene.sky.component->pipeline.compilation_signal = false;
+		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, blend_desc, resolution, descriptor_heaps);
 	}
 
 	HPEW(command_list->Close());
@@ -291,8 +308,10 @@ void Renderer::update(float dt) {
 	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
 
 	// Clear the render target by using the ClearRenderTargetView command
-	const float color[4] = { background_color.r, background_color.g,
-		background_color.b, background_color.a };
+	float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
+	if (ImGui::InputFloat4("Background color", color)) {
+		background_color = FColor{color[0], color[1], color[2], color[3]};
+	}
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
@@ -304,13 +323,15 @@ void Renderer::update(float dt) {
 	scene.update(resolution);
 	
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution, descriptor_heaps);
+		scene.sky.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
 	
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution, descriptor_heaps);
+		mesh.material.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
 	}
 
 	// Render Dear ImGui graphics
+	ImGui::End();
+	ImGui::Render();
 	ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
 	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());

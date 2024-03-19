@@ -12,11 +12,7 @@ void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<I
 	rasterizer.update(command_list);
 }
 
-void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps) {
-	if (compilation_signal) {
-		compile(device, command_list, sample_desc, depth_stencil_desc, resolution, descriptor_heaps);
-	}
-	
+void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
 	update(device, command_list, frame_index, descriptor_heaps);
 	
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
@@ -28,7 +24,7 @@ void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D
 	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
-void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps) {
 	root_signature.compile(device, command_list, descriptor_heaps);
 	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
 	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
@@ -60,7 +56,7 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
 	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
-	pso_desc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT); // a default blend state.
+	pso_desc.BlendState = blend_desc; // a default blend state.
 	pso_desc.NumRenderTargets = 1; // we are only binding one render target
 	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	//pso_desc.Flags = D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG;

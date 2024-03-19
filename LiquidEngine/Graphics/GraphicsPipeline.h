@@ -31,10 +31,20 @@ public:
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const UVector2 &resolution);
 
-	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
-	void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps);
+	void update(const ComPtr<ID3D12Device> &device,
+		const ComPtr<ID3D12GraphicsCommandList> &command_list,
+		int frame_index, GraphicsDescriptorHeaps &descriptor_heap);
 
-	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps);
+	void run(const ComPtr<ID3D12Device> &device,
+		const ComPtr<ID3D12GraphicsCommandList> &command_list,
+		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+
+	void compile(const ComPtr<ID3D12Device> &device,
+		const ComPtr<ID3D12GraphicsCommandList> &command_list,
+		const DXGI_SAMPLE_DESC &sample_desc,
+		const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc,
+		const D3D12_BLEND_DESC &blend, const UVector2 &resolution,
+		GraphicsDescriptorHeaps &descriptor_heaps);
 
 	void clean_up();
 
@@ -42,8 +52,6 @@ public:
 	void operator=(const GraphicsPipeline &pipeline) noexcept;
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
-	
-	bool compilation_signal = true;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
