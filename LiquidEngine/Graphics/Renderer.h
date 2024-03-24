@@ -73,7 +73,8 @@ private:
 	void create_adapter_and_device();
 	void create_command_queue();
 	void create_swap_chain();
-	void create_back_buffers_and_rtv_with_descriptor_heap();
+	void create_descriptor_heap();
+	void create_rtvs();
 	void create_command_allocators();
 	void create_command_list();
 	void create_fences_and_fence_event();

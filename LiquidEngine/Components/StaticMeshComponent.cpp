@@ -52,27 +52,30 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 	mesh = component.mesh;
 }
 
+static bool enable_mipmap{true};
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
-	if (ImGui::InputText("Mesh", mesh.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
+	if (ImGui::InputText("Mesh", &mesh, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		this->mesh.set_vertices(mesh);
 	}
 
 	ImGui::Text("Material");
 
-	std::string tex{material.get_albedo_texture().get_file()};
-	if (ImGui::InputText("Albedo texture", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		material.get_albedo_texture().set_texture(tex);
+	ImGui::Checkbox("Enable mipmap when setting texture", &enable_mipmap);
+
+	std::string tex = material.get_albedo_texture().get_file();
+	if (ImGui::InputText("Albedo texture", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		material.get_albedo_texture().set_texture(tex, enable_mipmap);
 	}
 
 	tex = material.get_normal_map().get_file();
-	if (ImGui::InputText("Normal map", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		material.get_normal_map().set_texture(tex);
+	if (ImGui::InputText("Normal map", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		material.get_normal_map().set_texture(tex, enable_mipmap);
 	}
 
 	tex = material.get_environment_texture().get_file();
-	if (ImGui::InputText("Environment texture", tex.data(), MAX_PATH, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		material.get_environment_texture().set_texture(tex);
+	if (ImGui::InputText("Environment texture", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		material.get_environment_texture().set_texture(tex, enable_mipmap);
 	}
 
 	FVector4 alb{color_to_fvector(material.get_albedo())};

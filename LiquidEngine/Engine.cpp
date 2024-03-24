@@ -59,7 +59,10 @@ void Engine::loop() {
 			}
 		}
 	} catch (const std::exception &e) {
-		if (!std::string(e.what()).empty()) OutputDebugStringA(e.what());
+		if (!std::string(e.what()).empty()) {
+			OutputDebugStringA((std::string{"ERROR:"} + e.what()).c_str());
+			*debug_console << DebugConsole::Color::RED << "ERROR: " << e.what() << '\n';
+		}
 		running = false;
 		SendMessageA(window.get_window(), WM_QUIT, 0, 0);
 		clean_up();

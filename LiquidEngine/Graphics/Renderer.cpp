@@ -14,7 +14,8 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_adapter_and_device();
 	create_command_queue();
 	create_swap_chain();
-	create_back_buffers_and_rtv_with_descriptor_heap();
+	create_descriptor_heap();
+	create_rtvs();
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
@@ -86,7 +87,7 @@ void Renderer::create_swap_chain() {
 		.SampleDesc = sample_desc,
 		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
 		.BufferCount = NUMBER_OF_BUFFERS,
-		.Scaling = DXGI_SCALING_STRETCH,
+		.Scaling = DXGI_SCALING_NONE, //! IMGUI DOESN'T LIKE STRETCH
 		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
 		.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED,
 		.Flags = 0,
@@ -106,16 +107,15 @@ void Renderer::create_swap_chain() {
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
 
 	DXGI_RGBA color = background_color;
-	swap_chain->SetBackgroundColor(&color);
+	HPEW(swap_chain->SetBackgroundColor(&color));
 }
 
-void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
+void Renderer::create_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
 	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
 	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
-
-														 // This heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
+														 // this heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
 														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
 	rtv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&rtv_heap_desc, IID_PPV_ARGS(&rtv_descriptor_heap)));
@@ -124,7 +124,9 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 	// descriptor sizes may vary from device to device, which is why there is no set size and we must ask the 
 	// device to give us the size. we will use this size to increment a descriptor handle offset
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+}
 
+void Renderer::create_rtvs() {
 	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 

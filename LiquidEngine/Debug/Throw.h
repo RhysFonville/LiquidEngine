@@ -3,7 +3,7 @@
 #include <exception>
 #include <Windows.h>
 #include <comdef.h>
-#include <stacktrace> //idk why it doesn't know what this is.. I put it on /std:c++latest, and https://learn.microsoft.com/en-us/cpp/overview/what-s-new-for-visual-cpp-in-visual-studio?view=msvc-170 says that should work...
+#include <stacktrace>
 #include "../globalutil.h"
 #include "DebugConsole.h"
 
@@ -29,21 +29,21 @@ struct THROW_PARAMS {
 * \return True if retry was selected, false otherwise.
 */
 static bool ERROR_MESSAGE(THROW_PARAMS params) {
-	std::string final_message = "+===== ERROR AT " + format_time_point(std::chrono::system_clock::now()) + " =====+";
-	std::string print_final_message = params.message + " : " + params.extra_message + "\n\n" + params.function_that_threw;
-	
-	final_message += "\nERROR CODE " + std::to_string(params.hr) + ": " + params.message + (!params.extra_message.empty() ? " : " + params.extra_message : "") + '\n';
-	final_message += "FUNCTION THAT THREW: " + params.function_that_threw + "\n\n";
-	final_message += "LOCATION:\n";
-	final_message += "\tFUNCTION: " + params.func_location + '\n';
-	final_message += "\tFILE: " + params.file_location + '\n';
-	final_message += "\tLINE: " + std::to_string(params.line_location);
-	final_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
-	append_to_file(final_message + "\n\n", "throw_details.log");
-	
-	*debug_console << DebugConsole::Color::RED << "ERROR IN " << params.file_location << '\n';
+	std::string file_message{};
+	file_message += "+===== ERROR AT " + format_time_point(std::chrono::system_clock::now()) + " =====+";
+	file_message += "\nERROR CODE " + std::to_string(params.hr) + ": " + params.message + (!params.extra_message.empty() ? " : " + params.extra_message : "") + '\n';
+	file_message += "FUNCTION THAT THREW: " + params.function_that_threw + "\n\n";
+	file_message += "LOCATION:\n";
+	file_message += "\tFUNCTION: " + params.func_location + '\n';
+	file_message += "\tFILE: " + params.file_location + '\n';
+	file_message += "\tLINE: " + std::to_string(params.line_location);
+	file_message += "\n\nSTACK TRACE:\n" + std::to_string(std::stacktrace::current());
+	append_to_file(file_message + "\n\n", "throw_details.log");
 
-	int out = MessageBoxExA(NULL, print_final_message.c_str(), "Error!", MB_ABORTRETRYIGNORE | MB_ICONERROR, 0);
+	std::string print_message = params.message + " : " + params.extra_message + "\n\n" + params.function_that_threw;
+	*debug_console << DebugConsole::Color::RED << "ERROR: " << print_message << '\n';
+
+	int out = MessageBoxExA(NULL, print_message.c_str(), "Error!", MB_ABORTRETRYIGNORE | MB_ICONERROR, 0);
 	if (out == IDABORT) {
 		hpewquit = true;
 		return false;
@@ -130,7 +130,7 @@ while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __L
 	hpewr = function; \
 } \
 if (hpewquit) { \
-	throw std::exception(); \
+	throw std::exception{}; \
 }
 
 #define HPEW_2_ARGS(function, extra_message) \
@@ -140,7 +140,7 @@ while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __L
 	hpewr = function; \
 } \
 if (hpewquit) { \
-	throw std::exception(); \
+	throw std::exception{}; \
 }
 
 static bool hper = false; // Handle Possible Excpetion Result

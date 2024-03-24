@@ -24,7 +24,7 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 					UINT height = rect.bottom - rect.top;
 					this_window_wndproc->size = UVector2(width, height);
 				}
-				
+
 				this_window_wndproc->first_size = false;
 				break;
 			default:

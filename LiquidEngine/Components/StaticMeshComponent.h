@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Graphics/Material.h"
+#include "../imgui/imgui_stdlib.h"
 
 /**
  * Main component for any physical object with a mesh that will be rendered. Has mesh data and a material.

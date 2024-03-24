@@ -229,14 +229,14 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 
 	// create a static sampler
 	D3D12_STATIC_SAMPLER_DESC sampler = { };
-	sampler.Filter = D3D12_FILTER_MINIMUM_ANISOTROPIC;
+	sampler.Filter = D3D12_FILTER_ANISOTROPIC;
 	sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	sampler.MipLODBias = 0.0f;
-	sampler.MaxAnisotropy = 0u;
-	sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-	sampler.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK;
+	sampler.MaxAnisotropy = 16u;
+	sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
+	sampler.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE;
 	sampler.MinLOD = 0.0f;
 	sampler.MaxLOD = D3D12_FLOAT32_MAX;
 	sampler.ShaderRegister = 0u;
