@@ -1,7 +1,6 @@
 #include "GraphicsPipeline.h"
 
-GraphicsPipeline::GraphicsPipeline(const ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc,
-	const UVector2 &resolution) : rasterizer(Rasterizer(resolution)) { }
+GraphicsPipeline::GraphicsPipeline(const ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc) { }
 
 void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
 	command_list->SetPipelineState(pipeline_state_object.Get());
@@ -9,7 +8,6 @@ void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<I
 	
 	root_signature.update(device, command_list, frame_index, descriptor_heaps);
 	input_assembler.update(device, command_list);
-	rasterizer.update(command_list);
 }
 
 void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
@@ -24,14 +22,13 @@ void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D
 	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
-void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend_desc, const UVector2 &resolution, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
 	root_signature.compile(device, command_list, descriptor_heaps);
 	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
 	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
 	shader_storage->add_and_compile_shader(Shader::Type::Domain, ds);
 	shader_storage->add_and_compile_shader(Shader::Type::Geometry, gs);
 	shader_storage->add_and_compile_shader(Shader::Type::Pixel, ps);
-	rasterizer.compile(resolution);
 
 	// Fill PSO
 

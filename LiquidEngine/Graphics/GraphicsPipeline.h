@@ -9,7 +9,7 @@
 #include "GraphicsPipelineMeshChange.h"
 #include "ResourceManager.h"
 #include "ShaderStorage.h"
-#include "GraphicsDescriptorHeaps.h"
+#include "Renderer/GraphicsDescriptorHeaps.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
@@ -28,8 +28,7 @@ class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
 	GraphicsPipeline(const ComPtr<ID3D12Device> &device,
-		const DXGI_SAMPLE_DESC &sample_desc,
-		const UVector2 &resolution);
+		const DXGI_SAMPLE_DESC &sample_desc);
 
 	void update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
@@ -43,7 +42,7 @@ public:
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc,
-		const D3D12_BLEND_DESC &blend, const UVector2 &resolution,
+		const D3D12_BLEND_DESC &blend,
 		GraphicsDescriptorHeaps &descriptor_heaps);
 
 	void clean_up();
@@ -115,41 +114,9 @@ public:
 	class Rasterizer {
 	public:
 		Rasterizer() { }
-		Rasterizer(const UVector2 &resolution) {
-			compile(resolution);
-		}
-
-		void set_viewing_settings(const UVector2 &resolution) {
-			// Fill out the Viewport
-			viewport.TopLeftX = 0;
-			viewport.TopLeftY = 0;
-			viewport.Width = (float)resolution.x;
-			viewport.Height = (float)resolution.y;
-			viewport.MinDepth = 0.0f;
-			viewport.MaxDepth = 1.0f;
-
-			// Fill out a scissor rect
-			scissor_rect.left = 0;
-			scissor_rect.top = 0;
-			scissor_rect.right = resolution.x;
-			scissor_rect.bottom = resolution.y;
-		}
-		
-		void compile(const UVector2 &resolution) {
-			set_viewing_settings(resolution);
-		}
-
-		void update(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-			command_list->RSSetViewports(1, &viewport); // set the viewports
-			command_list->RSSetScissorRects(1, &scissor_rect); // set the scissor rects
-		}
 
 		bool operator==(const Rasterizer &rasterizer) const noexcept {
-			return (
-				viewport == rasterizer.viewport &&
-				//scissor_rect == rasterizer.scissor_rect &&
-				desc == rasterizer.desc
-			);
+			return (desc == rasterizer.desc);
 		}
 
 		void set_desc(const D3D12_RASTERIZER_DESC &desc) noexcept {
@@ -160,9 +127,6 @@ public:
 			return desc;
 		}
 
-		D3D12_VIEWPORT viewport = { }; // area that output from rasterizer will be stretched to.
-		D3D12_RECT scissor_rect = { }; // the area to draw in. pixels outside that area will not be drawn onto
-	
 	private:
 		friend GraphicsPipeline;
 

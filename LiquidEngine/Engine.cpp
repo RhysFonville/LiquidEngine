@@ -14,7 +14,7 @@ Engine::Engine()
 //#endif
 
 	window.set_up_window();
-	renderer = Renderer(window.get_window());
+	new (&renderer) Renderer(window.get_window()); // Gross re-call constructor stuff. I really hate this and want to change it.
 
 	world.scenes.push_back(Scene(&renderer.scene));
 	world.active_scene = world.scenes.begin();

@@ -4,7 +4,7 @@
 
 #include <string>
 #include <functional>
-#include "Graphics/Renderer.h"
+#include "Graphics/Renderer/Renderer.h"
 #include "globalstructs.h"
 
 #ifndef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
