@@ -3,7 +3,7 @@
 MyCamera::MyCamera()
 	: camera(std::make_shared<CameraComponent>()),
 	light(std::make_shared<PointLightComponent>()) {
-	
+
 	keybind_set.categories.push_back({ "Category" });
 	keybind_set.categories[0].actions.push_back({ "Move" });
 
@@ -52,11 +52,21 @@ MyCamera::MyCamera()
 		std::function<void(float)>([&](float dt) { on_turn(dt); }),
 		Input::CallbackEvent::IsPressed }
 	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::OEMPlus,
+		std::function<void(float)>([&](float dt) { on_increase_fov(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
+	keybind_set.categories[0].actions[0].binds.push_back(
+		{ Input::WindowsKeyCode::OEMMinus,
+		std::function<void(float)>([&](float dt) { on_decrease_fov(dt); }),
+		Input::CallbackEvent::IsPressed }
+	);
 }
 
 void MyCamera::pre_scene_compile() {
 	add_component(camera);
-	add_component(light);
+	//add_component(light);
 }
 
 void MyCamera::tick(float dt) {
@@ -103,4 +113,12 @@ void MyCamera::on_slow(float dt) {
 
 void MyCamera::on_not_slow(float dt) {
 	current_speed = regular_speed;
+}
+
+void MyCamera::on_increase_fov(float dt) {
+	camera->set_fov(camera->get_fov()+15.0f*dt);
+}
+
+void MyCamera::on_decrease_fov(float dt) {
+	camera->set_fov(camera->get_fov()-15.0f*dt);
 }

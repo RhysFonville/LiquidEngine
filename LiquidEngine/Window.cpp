@@ -6,6 +6,8 @@ Window* this_window_wndproc;
 
 LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
+		if (this_window_wndproc->editor_gui.check_input(uMsg, wParam, lParam)) return LRESULT{};
+
 		switch (uMsg) {
 			case WM_CLOSE:
 				if (YESNO_MESSAGE("Are you sure you want to exit?")) {
@@ -16,14 +18,10 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 				PostQuitMessage(0);
 				break;
 			case WM_SIZE:
-				RECT rect;
-				if (GetWindowRect(hwnd, &rect)) {
-					UINT width = rect.right - rect.left;
-					UINT height = rect.bottom - rect.top;
-					this_window_wndproc->size = UVector2(width, height);
+				if (wParam != SIZE_MINIMIZED) {
+					this_window_wndproc->size = UVector2{(UINT)LOWORD(lParam), (UINT)HIWORD(lParam)};
+					this_window_wndproc->graphics_scene->resize(this_window_wndproc->size);
 				}
-				
-				this_window_wndproc->first_size = false;
 				break;
 			default:
 				return DefWindowProcW(hwnd, uMsg, wParam, lParam);
@@ -31,16 +29,18 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	} else {
 		return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 	}
+
+	return LRESULT{};
 }
 
 Window::Window() {
-	window_class.cbSize = sizeof(WNDCLASSEXA);
+	window_class.cbSize = sizeof(WNDCLASSEXW);
 	window_class.style = CS_HREDRAW | CS_VREDRAW;
-	window_class.lpszClassName = "Window Class";
+	window_class.lpszClassName = L"Window Class";
 	window_class.lpfnWndProc = wndproc;
 	window_class.hCursor = LoadCursorW(NULL, IDC_CROSS);
 
-	RegisterClassExA(&window_class);
+	RegisterClassExW(&window_class);
 }
 
 Window::Window(HINSTANCE hInstance) : Window{} {
@@ -52,10 +52,16 @@ Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
 	this->graphics_scene = graphics_scene;
 }
 
+Window::Window(Renderer* renderer) : Window{GetModuleHandleA(NULL)} {
+	graphics_scene = renderer;
+}
+
 void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
-	window = CreateWindowExA(extended_style, window_class.lpszClassName, name.c_str(),
+	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, hInstance, lpParam);
+
+	editor_gui.hwnd = window;
 
 	if (window == NULL) {
 		throw std::exception("Failed to create window.");
@@ -77,6 +83,10 @@ void Window::check_input() {
 void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
+#ifndef NDEBUG
+	debug_console->destroy_window();
+#endif // !NDEBUG
+
 	this_window_wndproc = NULL;
 	graphics_scene = nullptr;
 }
@@ -93,7 +103,7 @@ HINSTANCE & Window::get_hInstance() noexcept {
 	return hInstance;
 }
 
-WNDCLASSEXA & Window::get_class() noexcept {
+WNDCLASSEXW & Window::get_class() noexcept {
 	return window_class;
 }
 

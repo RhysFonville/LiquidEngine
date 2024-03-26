@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine()
-	: world(World()), window(Window{}) {
+	: world(World()), window(Window{&renderer}) {
 	// Init COM
 //#if (_WIN32_WINNT >= 0x0A00 /*_WIN32_WINNT_WIN10*/)
 //	Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
@@ -41,23 +41,28 @@ void Engine::loop() {
 			dt.tp1 = dt.tp2;
 			dt.dt = elapsed_time.count();
 
-			world.tick(dt.dt);
-			renderer.tick();
-
-			if (EngineToggles::terminate) {
-				EngineToggles::terminate = false;
-				throw;
-			}
-
 			window.check_input();
 			if (!window.is_running()) {
 				running = false;
 				clean_up();
 				return;
 			}
+
+			window.editor_gui.update(dt.dt, world.active_scene->get_objects());
+
+			world.tick(dt.dt);
+			renderer.tick(dt.dt);
+
+			if (EngineToggles::terminate) {
+				EngineToggles::terminate = false;
+				throw;
+			}
 		}
 	} catch (const std::exception &e) {
-		if (!std::string(e.what()).empty()) OutputDebugStringA(e.what());
+		if (!std::string(e.what()).empty()) {
+			OutputDebugStringA((std::string{"ERROR:"} + e.what()).c_str());
+			*debug_console << DebugConsole::Color::RED << "ERROR: " << e.what() << '\n';
+		}
 		running = false;
 		SendMessageA(window.get_window(), WM_QUIT, 0, 0);
 		clean_up();

@@ -29,6 +29,9 @@ public:
 
 	GET XMMATRIX get_wvp() const noexcept;
 
+	GET float get_fov() const noexcept;
+	void set_fov(float fov) noexcept;
+
 	void update(const FVector2 &size) noexcept;
 
 	bool operator==(const CameraComponent &component) const noexcept;
@@ -36,10 +39,15 @@ public:
 
 	static const Type component_type = Type::CameraComponent;
 
+protected:
+	void render_editor_gui_section() override;
+
 private:
 	friend class Renderer;
 
 	void set_view() noexcept;
+
+	float fov = 90.0f;
 
 	FVector3 target = { 0.0f, 0.0f, 1.0f };
 	FVector3 up = { 0.0f, 1.0f, 0.0f };
@@ -55,6 +63,6 @@ private:
 	XMMATRIX view = XMMatrixIdentity();
 	XMMATRIX projection = XMMatrixIdentity();
 
-	//RendererCameraComponent renderer_component{&WVP, &transform.position};
+	static constexpr float pi_div_180 = 0.01745329251f;
 };
 

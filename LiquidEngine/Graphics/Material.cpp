@@ -1,14 +1,14 @@
-#include "MaterialComponent.h"
+#include "Material.h"
 
-MaterialComponent::MaterialComponent(const MaterialComponent &mat) : MaterialComponent{} {
+Material::Material(const Material &mat) : Material{} {
 	set_data(mat);
 }
 
-MaterialComponent::MaterialComponent(const std::string &file) : MaterialComponent{} {
+Material::Material(const std::string &file) : Material{} {
 	set_data(file);
 }
 
-void MaterialComponent::compile() {
+void Material::compile() {
 	pipeline.vs = vs;
 	pipeline.hs = hs;
 	pipeline.ds = ds;
@@ -21,15 +21,13 @@ void MaterialComponent::compile() {
 	if (has_normal_map()) {
 		normal_map.compile();
 	}
-
-	pipeline.compilation_signal = true;
 }
 
-void MaterialComponent::clean_up() {
+void Material::clean_up() {
 	pipeline.clean_up();
 }
 
-void MaterialComponent::set_data(const std::string &file) {
+void Material::set_data(const std::string &file) {
 	std::ifstream read(file);
 	if (read.is_open()) {
 		std::string line;
@@ -88,7 +86,7 @@ void MaterialComponent::set_data(const std::string &file) {
 	}
 }
 
-void MaterialComponent::set_data(const MaterialComponent &material) {
+void Material::set_data(const Material &material) {
 	albedo_texture.set_texture(material.albedo_texture.get_file());
 	normal_map.set_texture(material.normal_map.get_file());
 	specular = material.specular;
@@ -99,17 +97,24 @@ void MaterialComponent::set_data(const MaterialComponent &material) {
 	changed = true;
 }
 
-bool MaterialComponent::has_texture() const noexcept {
+bool Material::has_texture() const noexcept {
 	return albedo_texture.exists();
 }
 
-bool MaterialComponent::has_normal_map() const noexcept {
+bool Material::has_normal_map() const noexcept {
 	return normal_map.exists();
 }
 
-bool MaterialComponent::operator==(const MaterialComponent &material) const noexcept {
+bool Material::has_environment_texture() const noexcept {
+	return environment_texture.exists();
+}
+
+void Material::operator=(const Material &material) noexcept {
+	set_data(material);
+}
+
+bool Material::operator==(const Material &material) const noexcept {
 	return (
-		(Component*)this == (Component*)&material &&
 		vs == material.vs &&
 		hs == material.hs &&
 		ds == material.ds &&

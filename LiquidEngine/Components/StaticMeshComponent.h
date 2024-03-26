@@ -1,6 +1,7 @@
 #pragma once
 
-#include "MaterialComponent.h"
+#include "../Graphics/Material.h"
+#include "../imgui/imgui_stdlib.h"
 
 /**
  * Main component for any physical object with a mesh that will be rendered. Has mesh data and a material.
@@ -13,14 +14,13 @@ public:
 
 	void clean_up() override;
 
-	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) noexcept;
 	void compile() noexcept override;
 
 	GET const Mesh & get_mesh() noexcept;
 	void set_mesh(const Mesh &mesh) noexcept;
 
-	GET MaterialComponent* get_material() const noexcept;
-	void set_material(MaterialComponent* material) noexcept;
+	GET Material & get_material() noexcept;
+	void set_material(const Material &material) noexcept;
 
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
@@ -30,8 +30,10 @@ public:
 private:
 	friend class Renderer;
 
+	void render_editor_gui_section() override;
+
 	Mesh mesh;
-	MaterialComponent* material;
+	Material material{};
 
 	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy = std::make_shared<GraphicsPipelineMeshChange::Manager>();
 };

@@ -290,6 +290,7 @@ public:
 		: TVector3<float>(x, y, z) { }
 	FVector3(XMVECTOR vector)
 		: TVector3<float>(XMVectorGetX(vector), XMVectorGetY(vector), XMVectorGetZ(vector)) { }
+	FVector3(float* vector) : FVector3{vector[0], vector[1], vector[2]} { }
 
 	operator TVector3<float>() const noexcept {
 		return TVector3<float>(x, y, z);
@@ -410,8 +411,9 @@ static XMFLOAT4 ctoxmf4(const Color &color, bool normalize = true) noexcept {
 	return color_to_xmfloat4(color, normalize);
 }
 
-static FVector4 color_to_fvector(const Color &color) noexcept {
-	
+static FVector4 color_to_fvector(const Color &color, bool normalize = true) noexcept {
+	return FVector4{(float)color.r / 255.0f, (float)color.g / 255.0f,
+					(float)color.b / 255.0f, (float)color.a / 255.0f};
 }
 
 static FVector4 ctofvec(const Color &color) noexcept {
@@ -441,9 +443,7 @@ struct Transform {
 
 	operator XMMATRIX() const noexcept {
 		return DirectX::XMMatrixTranspose(
-			DirectX::XMMatrixRotationX(rotation.x) *
-			DirectX::XMMatrixRotationY(rotation.y) *
-			DirectX::XMMatrixRotationZ(rotation.z) *
+			DirectX::XMMatrixRotationRollPitchYaw(rotation.y, rotation.x, rotation.z)  *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
 			DirectX::XMMatrixScaling(size.x, size.y, size.z)
 		);

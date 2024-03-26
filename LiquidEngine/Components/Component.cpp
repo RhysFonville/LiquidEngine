@@ -60,3 +60,27 @@ void Component::operator=(const Component &component) noexcept {
 	transform = component.transform;
 	type = component.type;
 }
+
+void Component::base_render_editor_gui_section() {
+	ImGui::Text("Transform");
+	float vec[3]{transform.position.x, transform.position.y, transform.position.z};
+	if (ImGui::InputFloat3("Position", vec))
+		set_position(vec);
+	vec[0] = transform.rotation.x;
+	vec[1] = transform.rotation.y;
+	vec[2] = transform.rotation.z;
+	if (ImGui::InputFloat3("Rotation", vec))
+		set_rotation(vec);
+	vec[0] = transform.size.x;
+	vec[1] = transform.size.y;
+	vec[2] = transform.size.z;
+	if (ImGui::InputFloat3("Size", vec))
+		set_size(vec);
+
+	ImGui::Text("Component variables");
+	render_editor_gui_section();
+}
+
+void Component::render_editor_gui_section() {
+	ImGui::Text("This component has nothing to view.");
+}

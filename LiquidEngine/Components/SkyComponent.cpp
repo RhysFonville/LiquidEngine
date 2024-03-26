@@ -2,14 +2,6 @@
 
 SkyComponent::SkyComponent() : GraphicsComponent{Type::SkyComponent} { }
 
-void SkyComponent::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const UVector2 &resolution) {
-	compile();
-
-	pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
-
-	pipeline.compilation_signal = false;
-}
-
 void SkyComponent::compile() {
 	pipeline.input_assembler.set_proxy(proxy);
 
@@ -157,3 +149,15 @@ bool SkyComponent::has_texture() const noexcept {
 //	d3d11Device->CreateBuffer(&indexBufferDesc, &iinitData, &sphereIndexBuffer);
 //
 //}
+
+void SkyComponent::render_editor_gui_section() {
+	std::string albedo_texture{this->albedo_texture.get_file()};
+	if (ImGui::InputText("Albedo texure", &albedo_texture[0], albedo_texture.max_size())) {
+		this->albedo_texture.set_texture(albedo_texture);
+	}
+
+	FVector4 alb{color_to_fvector(albedo)};
+	float col[4]{alb.x, alb.y, alb.z, alb.w};
+	if (ImGui::ColorEdit4("Albedo", col))
+		set_albedo(Color{(UCHAR)col[0], (UCHAR)col[1], (UCHAR)col[2], (UCHAR)col[3]});
+}

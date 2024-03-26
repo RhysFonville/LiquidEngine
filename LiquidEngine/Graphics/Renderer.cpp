@@ -6,16 +6,22 @@ Renderer::Renderer(HWND window) : window(window) {
 	debug_interface->EnableDebugLayer();
 	//debug_interface->SetEnableGPUBasedValidation(true);
 
+	DXGIGetDebugInterface1(NULL, IID_PPV_ARGS(&dxgi_debug));
+	dxgi_debug->EnableLeakTrackingForThread();
+
 	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 
 	create_adapter_and_device();
 	create_command_queue();
 	create_swap_chain();
-	create_back_buffers_and_rtv_with_descriptor_heap();
+	create_descriptor_heap();
+	create_rtvs();
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
 	create_depth_stencil();
+	create_descriptor_heaps();
+	set_blend_state();
 }
 
 void Renderer::create_adapter_and_device() {
@@ -23,32 +29,39 @@ void Renderer::create_adapter_and_device() {
 	bool adapter_found = false; // set this to true when a good one was found
 
 	// find first hardware gpu that supports d3d 12
-	while (factory->EnumAdapters1(adapter_index, adapter.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
-		DXGI_ADAPTER_DESC1 desc;
-		HPEW(adapter->GetDesc1(&desc));
+	//while (factory->EnumAdapters1(adapter_index, adapter.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
+	//	DXGI_ADAPTER_DESC1 desc;
+	//	HPEW(adapter->GetDesc1(&desc));
 
-		if (wcscmp(desc.Description, L"Software Adapter") == 0) {
-			// we dont want a software device
-			adapter_index++;
-			continue;
-		}
+	//	if (wcscmp(desc.Description, L"Software Adapter") == 0) {
+	//		// we dont want a software device
+	//		adapter_index++;
+	//		continue;
+	//	}
 
-		// we want a device that is compatible with direct3d 12 (feature level 11 or higher)
-		HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr));
-		if (SUCCEEDED(hpewr)) {
-			adapter_found = true;
-		}
-		adapter_index++;
-	}
+	//	// we want a device that is compatible with direct3d 12 (feature level 11 or higher)
+	//	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr));
+	//	if (SUCCEEDED(hpewr)) {
+	//		adapter_found = true;
+	//	}
+	//	adapter_index++;
+	//}
 
-	if (!adapter_found) {
-		throw std::exception("Adapter (GPU) not found.");
-	}
+	//if (!adapter_found) {
+	//	throw std::exception("Adapter (GPU) not found.");
+	//}
+
+	factory->EnumAdapters1(0u, adapter.GetAddressOf());
+	adapter->EnumOutputs(0u, adapter_output.GetAddressOf());
 
 	HPEW(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device)));
 	device->SetName(L"Main Device");
 
-	device->QueryInterface(IID_PPV_ARGS(&debug_device));
+	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
+	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
+	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true));
+	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
+	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
 }
 
 void Renderer::create_command_queue() {
@@ -60,31 +73,27 @@ void Renderer::create_command_queue() {
 	};
 
 	HPEW(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&command_queue))); // create the command queue
-	command_queue->SetName(L"Main Command Queue");
+	HPEW(command_queue->SetName(L"Main Command Queue"));
 
-	command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue));
+	HPEW(command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue)));
 }
 
 void Renderer::create_swap_chain() {
-	back_buffer_desc.Width = resolution.x; // buffer width
-	back_buffer_desc.Height = resolution.y; // buffer height
-	back_buffer_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the buffer (rgba 32 bits, 8 bits for each chanel)
-
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
 	const DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
-		.Width = resolution.x,
-		.Height = resolution.y,
+		.Width = 1920u,
+		.Height = 1080u,
 		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
 		.Stereo = false,
 		.SampleDesc = sample_desc,
 		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
-		.BufferCount = GraphicsPipeline::NUMBER_OF_BUFFERS,
+		.BufferCount = NUMBER_OF_BUFFERS,
 		.Scaling = DXGI_SCALING_STRETCH,
 		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
 		.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED,
-		.Flags = 0,
+		.Flags = NULL
 	};
 
 	ComPtr<IDXGISwapChain1> swap_chain1;
@@ -101,16 +110,15 @@ void Renderer::create_swap_chain() {
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
 
 	DXGI_RGBA color = background_color;
-	swap_chain->SetBackgroundColor(&color);
+	HPEW(swap_chain->SetBackgroundColor(&color));
 }
 
-void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
+void Renderer::create_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
-	rtv_heap_desc.NumDescriptors = GraphicsPipeline::NUMBER_OF_BUFFERS; // number of descriptors for this heap.
+	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
 	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
-
-														 // This heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
+														 // this heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
 														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
 	rtv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&rtv_heap_desc, IID_PPV_ARGS(&rtv_descriptor_heap)));
@@ -119,19 +127,21 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 	// descriptor sizes may vary from device to device, which is why there is no set size and we must ask the 
 	// device to give us the size. we will use this size to increment a descriptor handle offset
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-
+}
+	
+void Renderer::create_rtvs() {
 	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 	// Create a RTV for each buffer
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		// first we get the n'th buffer in the swap chain and store it in the n'th
 		// position of our ID3D12Resource array
 		HPEW(swap_chain->GetBuffer(i, IID_PPV_ARGS(&render_targets[i])));
 
 		// the we "create" a render target view which binds the swap chain buffer (ID3D12Resource[n]) to the rtv handle
 		device->CreateRenderTargetView(render_targets[i].Get(), nullptr, rtv_handle);
-		render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str());
+		HPEW(render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str()));
 
 		// we increment the rtv handle by the rtv descriptor size we got above
 		rtv_handle.Offset(1, rtv_descriptor_size);
@@ -139,27 +149,27 @@ void Renderer::create_back_buffers_and_rtv_with_descriptor_heap() {
 }
 
 void Renderer::create_command_allocators() {
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocators[i])));
-		command_allocators[i]->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str());
+		HPEW(command_allocators[i]->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str()));
 	}
 }
 
 void Renderer::create_command_list() {
 	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocators[0].Get(), NULL, IID_PPV_ARGS(&command_list)));
-	command_list->SetName(L"Main command list");
+	HPEW(command_list->SetName(L"Main command list"));
 
-	command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list));
+	HPEW(command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list)));
 
 	command_list->Close();
 }
 
 void Renderer::create_fences_and_fence_event() {
 	// create the fences
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
-		fences[i]->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str());
+		HPEW(fences[i]->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str()));
 
 		fence_values[i] = 0; // set the initial fences value to 0
 	}
@@ -205,18 +215,38 @@ void Renderer::create_depth_stencil() {
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
+void Renderer::create_descriptor_heaps() {
+	descriptor_heaps.compile(device);
+}
+
+void Renderer::set_blend_state() {
+	blend_desc.AlphaToCoverageEnable = false;
+	blend_desc.IndependentBlendEnable = false;
+	blend_desc.RenderTarget[0] = D3D12_RENDER_TARGET_BLEND_DESC{
+		.BlendEnable = true,
+		.LogicOpEnable = false,
+		.SrcBlend = D3D12_BLEND_SRC_ALPHA,
+		.DestBlend = D3D12_BLEND_ONE,
+		.BlendOp = D3D12_BLEND_OP_ADD,
+		.SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA,
+		.DestBlendAlpha = D3D12_BLEND_ONE,
+		.BlendOpAlpha = D3D12_BLEND_OP_ADD,
+		.LogicOp = D3D12_LOGIC_OP_NOOP,
+		.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL
+	};
+	blend_desc = CommonStates::AlphaBlend;
+}
+
 void Renderer::compile() {
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
+	descriptor_heaps.increment_heap_index();
+
 	scene.compile();
-
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-	scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
-
-	scene.sky.component->compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
+	scene.update(resolution);
 
 	int i = 0;
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
@@ -227,13 +257,20 @@ void Renderer::compile() {
 		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
 		mesh.component->compile();
-		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, resolution);
-		mesh.material.component->pipeline.compilation_signal = false;
+		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, blend_desc, resolution, descriptor_heaps);
 
 		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
 		i++;
 	}
- 
+
+	if (scene.sky.component != nullptr) {
+		scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
+		scene.sky.component->compile();
+		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, blend_desc, resolution, descriptor_heaps);
+	}
+
 	HPEW(command_list->Close());
 	execute_command_list();
 
@@ -242,7 +279,7 @@ void Renderer::compile() {
 	ResourceManager::Release::release_all_resources();
 }
 
-void Renderer::update() {
+void Renderer::update(float dt) {
 	// We have to wait for the gpu to finish with the command allocator before we reset it
 	wait_for_previous_frame();
 
@@ -276,19 +313,33 @@ void Renderer::update() {
 	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
 
 	// Clear the render target by using the ClearRenderTargetView command
-	const float color[4] = { background_color.r, background_color.g,
-		background_color.b, background_color.a };
+	float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
+	if (ImGui::InputFloat4("Background color", color)) {
+		background_color = FColor{color[0], color[1], color[2], color[3]};
+	}
 	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
 
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
+	// set constant buffer descriptor heap
+	ID3D12DescriptorHeap* dh[] = { descriptor_heaps[frame_index].Get() };
+	command_list->SetDescriptorHeaps(_countof(dh), dh);
+
 	scene.update(resolution);
-
-	scene.sky.component->pipeline.run(device, command_list, frame_index, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, resolution);
-
+	
+	if (scene.sky.component != nullptr)
+		scene.sky.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
+	
 	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.run(device, command_list, frame_index, sample_desc, depth_stencil_desc, resolution);
+		mesh.material.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
 	}
+
+	// Render Dear ImGui graphics
+	ImGui::End();
+	ImGui::Render();
+	ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
+	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	// transition the "frame_index" render target from the render target state to the present state. If the debug layer is enabled, you will receive a
 	// warning if present is called on the render target when it's not in the present state
@@ -312,8 +363,8 @@ void Renderer::render() {
 	HPEW(swap_chain->Present(0, 0));
 }
 
-void Renderer::tick() {
-	update();
+void Renderer::tick(float dt) {
+	update(dt);
 	render();
 }
 
@@ -352,11 +403,14 @@ void Renderer::clean_up() {
 	depth_stencil_buffer.Reset();
 	depth_stencil_descriptor_heap.Reset();
 
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		render_targets[i].Reset();
 		command_allocators[i].Reset();
 		fences[i].Reset();
 	}
+
+	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY));
+	debug_interface.Reset();
 }
 
 void Renderer::increment_fence() {
@@ -382,17 +436,16 @@ void Renderer::wait_for_fence_gpu() {
 }
 
 void Renderer::flush_gpu() {
-	for (int i = 0; i < GraphicsPipeline::NUMBER_OF_BUFFERS; i++) {
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		uint64_t fenceValueForSignal = ++fence_values[i];
-		command_queue->Signal(fences[i].Get(), fenceValueForSignal);
+		HPEW(command_queue->Signal(fences[i].Get(), fenceValueForSignal));
 		if (fences[i]->GetCompletedValue() < fence_values[i])
 		{
-			fences[i]->SetEventOnCompletion(fenceValueForSignal, fence_event);
+			HPEW(fences[i]->SetEventOnCompletion(fenceValueForSignal, fence_event));
 			WaitForSingleObject(fence_event, INFINITE);
 		}
 	}
 	frame_index = 0;
-	// Thank you gamedev
 }
 
 void Renderer::wait_for_previous_frame() {
@@ -413,6 +466,13 @@ void Renderer::execute_command_list() {
 	command_queue->ExecuteCommandLists((UINT)std::size(commandLists), commandLists);
 }
 
+void Renderer::resize(const UVector2 &size) {
+	flush_gpu();
+	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) render_targets[i].Reset();
+	HPEW(swap_chain->ResizeBuffers(NUMBER_OF_BUFFERS, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, NULL));
+	create_rtvs();
+}
+
 void Renderer::set_fullscreen(bool fullscreen) {
 	this->fullscreen = fullscreen;
 	HPEW(swap_chain->SetFullscreenState(fullscreen, NULL));
@@ -430,66 +490,3 @@ bool Renderer::is_fullscreen() const noexcept {
 UVector2 Renderer::get_resolution() const noexcept {
 	return resolution;
 }
-
-//! Doesn't work
-void Renderer::set_resolution(const UVector2 &resolution, bool stretch) {
-	/*this->resolution = resolution;
-	
-	back_buffer_desc.Width = resolution.x;
-	back_buffer_desc.Height = resolution.y;
-
-	create_back_buffers_and_rtv_with_descriptor_heap();
-
-	if (stretch) {
-		HPEW(swap_chain->SetSourceSize(back_buffer_desc.Width, back_buffer_desc.Height));
-	}
-
-	HPEW(swap_chain->ResizeTarget(&back_buffer_desc));
-
-	for (StaticMeshComponent *mesh : scene.static_meshes) {
-		mesh->get_material().pipeline.output_merger.compile(resolution, device);
-	}*/
-}
-
-//std::shared_ptr<CameraComponent> Renderer::camera() const {
-//	for (std::shared_ptr<Object> object : *objects) {
-//		if (object->has_component(Component::Type::CameraComponent)) {
-//			return object->get_component<CameraComponent>();
-//		}
-//	}
-//	WARNING_MESSAGE("There is no camera in the scene.");
-//	return nullptr;
-//}
-//
-//std::vector<std::shared_ptr<DirectionalLightComponent>> Renderer::directional_lights() const {
-//	std::vector<std::shared_ptr<DirectionalLightComponent>> ret;
-//	for (std::shared_ptr<Object> object : *objects) {
-//		if (object->has_component(Component::Type::DirectionalLightComponent)) {
-//			std::vector<std::shared_ptr<DirectionalLightComponent>> dls = object->get_components<DirectionalLightComponent>();
-//			ret.insert(ret.end(), dls.begin(), dls.end());
-//		}
-//	}
-//	return ret;
-//}
-//
-//std::vector<std::shared_ptr<PointLightComponent>> Renderer::point_lights() const {
-//	std::vector<std::shared_ptr<PointLightComponent>> ret;
-//	for (std::shared_ptr<Object> object : *objects) {
-//		if (object->has_component(Component::Type::PointLightComponent)) {
-//			std::vector<std::shared_ptr<PointLightComponent>> dls = object->get_components<PointLightComponent>();
-//			ret.insert(ret.end(), dls.begin(), dls.end());
-//		}
-//	}
-//	return ret;
-//}
-//
-//std::vector<std::shared_ptr<SpotlightComponent>> Renderer::spotlights() const {
-//	std::vector<std::shared_ptr<SpotlightComponent>> ret;
-//	for (std::shared_ptr<Object> object : *objects) {
-//		if (object->has_component(Component::Type::SpotlightComponent)) {
-//			std::vector<std::shared_ptr<SpotlightComponent>> dls = object->get_components<SpotlightComponent>();
-//			ret.insert(ret.end(), dls.begin(), dls.end());
-//		}
-//	}
-//	return ret;
-//}

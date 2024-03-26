@@ -2,6 +2,7 @@
 
 #include "../globalutil.h"
 #include "../Controllable.h"
+#include "../imgui/imgui.h"
 
 /**
 * Base component class for all components.
@@ -46,6 +47,11 @@ public:
 	Component* parent = nullptr;
 
 protected:
+	friend class EditorGUI;
+
+	void base_render_editor_gui_section();
+	virtual void render_editor_gui_section();
+
 	Transform transform;
 	Type type = Type::None;
 };

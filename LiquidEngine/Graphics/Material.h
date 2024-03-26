@@ -8,27 +8,29 @@
 /**
  * Material data for rendering. Specifies how light interacts with the object.
  */
-class MaterialComponent : public GraphicsComponent {
+class Material : public GraphicsTracker {
 public:
-	MaterialComponent() : GraphicsComponent{Component::Type::MaterialComponent} { }
-	MaterialComponent(const MaterialComponent &mat);
-	MaterialComponent(const std::string &file);
+	Material() : GraphicsTracker{} { }
+	Material(const Material &mat);
+	Material(const std::string &file);
 
-	void compile() override;
+	void compile();
 	
-	void clean_up() override;
+	void clean_up();
 
 	void set_data(const std::string &file);
-	void set_data(const MaterialComponent &material);
+	void set_data(const Material &material);
 
 	bool has_texture() const noexcept;
 	bool has_normal_map() const noexcept;
+	bool has_environment_texture() const noexcept;
 
-	void operator=(const MaterialComponent &material) noexcept;
-	bool operator==(const MaterialComponent &material) const noexcept;
+	void operator=(const Material &material) noexcept;
+	bool operator==(const Material &material) const noexcept;
 
 	Texture & get_albedo_texture() { return albedo_texture; }
 	Texture & get_normal_map() { return normal_map; }
+	Texture & get_environment_texture() { return environment_texture; }
 
 	Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &albedo) { this->albedo = albedo; changed = true; }
@@ -40,11 +42,9 @@ public:
 	void set_ambient(const Color &ambient) { this->ambient = ambient; changed = true; }
 
 	float get_shininess() const { return shininess; }
-	void set_shininess(const float &shininess) { this->shininess = shininess; changed = true; }
+	void set_shininess(float shininess) { this->shininess = shininess; changed = true; }
 
-	GraphicsPipeline pipeline;
-
-	static const Type component_type = Type::MaterialComponent;
+	GraphicsPipeline pipeline{};
 
 private:
 	std::string vs{"Graphics/DefaultVertex.hlsl"};
@@ -55,6 +55,7 @@ private:
 
 	Texture albedo_texture{};
 	Texture normal_map{};
+	Texture environment_texture{};
 	Color albedo{100, 100, 100, 255}; // kd
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka

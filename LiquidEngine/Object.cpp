@@ -174,4 +174,3 @@ bool Object::has_component(Component::Type search) const noexcept {
 	}
 	return false;
 }
-

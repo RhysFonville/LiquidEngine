@@ -7,8 +7,9 @@
 #include "Graphics/Renderer.h"
 #include "globalstructs.h"
 
-#ifdef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
+#ifndef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
 #include "Debug/DebugConsole.h"
+#include "EditorGUI.h"
 #endif
 
 /**
@@ -21,6 +22,7 @@ public:
 	Window();
 	Window(HINSTANCE hInstance);
 	Window(HINSTANCE hInstance, Renderer* graphics_scene);
+	Window(Renderer* renderer);
 
 	/**
 	 * Creates and sets up the window.
@@ -47,7 +49,7 @@ public:
 	GET HWND & get_window() noexcept;
 	GET HDC & get_dc() noexcept;
 	GET HINSTANCE & get_hInstance() noexcept;
-	GET WNDCLASSEXA & get_class() noexcept;
+	GET WNDCLASSEXW & get_class() noexcept;
 
 	GET UVector2 get_size() const noexcept;
 	void set_size(const UVector2 &size) noexcept;
@@ -57,19 +59,19 @@ public:
 
 	Renderer* graphics_scene = nullptr;
 
+	EditorGUI editor_gui{};
+
 private:
 	HWND window = NULL;
 	HDC dc = NULL;
 	HINSTANCE hInstance = GetModuleHandleA(NULL);
-	WNDCLASSEXA window_class = { };
+	WNDCLASSEXW window_class = { };
 	
-	UVector2 size;
+	UVector2 size{};
 
 	bool running = true;
 
 	static LRESULT CALLBACK wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam);
-	
-	bool first_size = true;
 };
 
 #endif
