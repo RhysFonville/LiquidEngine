@@ -22,6 +22,7 @@ public:
 	Window();
 	Window(HINSTANCE hInstance);
 	Window(HINSTANCE hInstance, Renderer* graphics_scene);
+	Window(Renderer* renderer);
 
 	/**
 	 * Creates and sets up the window.
@@ -71,8 +72,6 @@ private:
 	bool running = true;
 
 	static LRESULT CALLBACK wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam);
-	
-	bool first_size = true;
 };
 
 #endif

@@ -32,11 +32,6 @@ void EditorGUI::update(float dt, const std::vector<std::shared_ptr<Object>> &obj
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	//auto sz = get_client_size(hwnd);
-	ImGui::GetMainViewport()->Size = {1920, 1080};
-	//ImGui::GetMainViewport()->WorkSize = {(float)sz.x, (float)sz.y};
-	//ImGui::GetIO().DisplaySize = {(float)sz.x, (float)sz.y};
-
 	ImGui::Begin("Editor");
 
 	ImGui::Text("FPS: %.3f(DT: %.3f)", 1000.0f / dt, dt);

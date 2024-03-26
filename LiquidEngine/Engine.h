@@ -17,9 +17,9 @@ public:
 
 	GET float get_delta_time() const noexcept;
 
-	World world;
-	Window window;
-	Renderer renderer;
+	World world{};
+	Window window{};
+	Renderer renderer{};
 
 	bool running = true;
 

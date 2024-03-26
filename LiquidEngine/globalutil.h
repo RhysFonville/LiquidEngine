@@ -95,6 +95,26 @@ static GET UVector2 get_client_size(HWND hwnd) {
 	return size;
 }
 
+static GET UVector2 get_window_position(HWND hwnd) {
+	RECT rect = { NULL };
+	UVector2 pos;
+	if (GetWindowRect(GetConsoleWindow(), &rect)) {
+		pos.x = rect.left;
+		pos.y = rect.top;
+	}
+	return pos;
+}
+
+static GET UVector2 get_client_position(HWND hwnd) {
+	RECT rect = { NULL };
+	UVector2 pos;
+	if (GetClientRect(GetConsoleWindow(), &rect)) {
+		pos.x = rect.left;
+		pos.y = rect.top;
+	}
+	return pos;
+}
+
 static float degrees_to_theta(float degrees) {
 	return degrees / 180.0f * (float)std::numbers::pi;
 }

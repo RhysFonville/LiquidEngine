@@ -18,14 +18,10 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 				PostQuitMessage(0);
 				break;
 			case WM_SIZE:
-				RECT rect;
-				if (GetWindowRect(hwnd, &rect)) {
-					UINT width = rect.right - rect.left;
-					UINT height = rect.bottom - rect.top;
-					this_window_wndproc->size = UVector2(width, height);
+				if (wParam != SIZE_MINIMIZED) {
+					this_window_wndproc->size = UVector2{(UINT)LOWORD(lParam), (UINT)HIWORD(lParam)};
+					this_window_wndproc->graphics_scene->resize(this_window_wndproc->size);
 				}
-
-				this_window_wndproc->first_size = false;
 				break;
 			default:
 				return DefWindowProcW(hwnd, uMsg, wParam, lParam);
@@ -54,6 +50,10 @@ Window::Window(HINSTANCE hInstance) : Window{} {
 Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
 	: Window{hInstance} {
 	this->graphics_scene = graphics_scene;
+}
+
+Window::Window(Renderer* renderer) : Window{GetModuleHandleA(NULL)} {
+	graphics_scene = renderer;
 }
 
 void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {

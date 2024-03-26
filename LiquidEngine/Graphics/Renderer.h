@@ -30,6 +30,8 @@ public:
 
 	void compile();
 
+	void resize(const UVector2 &size);
+
 	void set_fullscreen(bool fullscreen);
 	void toggle_fullscreen();
 	GET bool is_fullscreen() const noexcept;
@@ -67,6 +69,7 @@ private:
 	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
 	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
 	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
+	ComPtr<ID3D12InfoQueue> info_queue = nullptr;
 
 	GraphicsDescriptorHeaps descriptor_heaps;
 
@@ -84,9 +87,7 @@ private:
 
 	UINT frame_index = 0u;
 
-	DXGI_SAMPLE_DESC sample_desc = { };
-	DXGI_MODE_DESC back_buffer_desc = { }; // this is to describe our display mode
-	
+	DXGI_SAMPLE_DESC sample_desc{};
 	D3D12_BLEND_DESC blend_desc{};
 
 	HWND window = nullptr;
