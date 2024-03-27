@@ -16,6 +16,9 @@ Engine::Engine()
 	window.set_up_window();
 	new (&renderer) Renderer(window.get_window()); // Gross re-call constructor stuff. I really hate this and want to change it.
 
+	ShowWindow(window.get_window(), SW_SHOWDEFAULT);
+	UpdateWindow(window.get_window());
+
 	world.scenes.push_back(Scene(&renderer.scene));
 	world.active_scene = world.scenes.begin();
 }

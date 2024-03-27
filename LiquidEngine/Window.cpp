@@ -10,9 +10,9 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 
 		switch (uMsg) {
 			case WM_CLOSE:
-				if (YESNO_MESSAGE("Are you sure you want to exit?")) {
+				//if (YESNO_MESSAGE("Are you sure you want to exit?")) {
 					this_window_wndproc->running = false;
-				}
+				//}
 				break;
 			case WM_DESTROY:
 				PostQuitMessage(0);
@@ -20,7 +20,13 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 			case WM_SIZE:
 				if (wParam != SIZE_MINIMIZED) {
 					this_window_wndproc->size = UVector2{(UINT)LOWORD(lParam), (UINT)HIWORD(lParam)};
-					this_window_wndproc->graphics_scene->resize(this_window_wndproc->size);
+					
+					if (this_window_wndproc->graphics_scene->device != nullptr) {
+						this_window_wndproc->graphics_scene->resize(
+							(this_window_wndproc->graphics_scene->fullscreen ? this_window_wndproc->graphics_scene->resolution
+							: this_window_wndproc->size)
+						);
+					}
 				}
 				break;
 			default:
@@ -33,18 +39,24 @@ LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	return LRESULT{};
 }
 
-Window::Window() {
+Window::Window() : Window{GetModuleHandleA(NULL)} { }
+
+Window::Window(HINSTANCE hInstance) {
+	this_window_wndproc = this;
+
 	window_class.cbSize = sizeof(WNDCLASSEXW);
-	window_class.style = CS_HREDRAW | CS_VREDRAW;
-	window_class.lpszClassName = L"Window Class";
+	window_class.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
 	window_class.lpfnWndProc = wndproc;
+	window_class.cbClsExtra = 0u;
+	window_class.cbWndExtra = 0u;
+	window_class.hInstance = hInstance;
+	window_class.hIcon = LoadIconW(NULL, IDI_APPLICATION);
 	window_class.hCursor = LoadCursorW(NULL, IDC_CROSS);
+	window_class.hbrBackground = nullptr;
+	window_class.lpszMenuName = L"Main window class";
+	window_class.lpszClassName = L"Main window class";
 
 	RegisterClassExW(&window_class);
-}
-
-Window::Window(HINSTANCE hInstance) : Window{} {
-	this->hInstance = hInstance;
 }
 
 Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
@@ -59,7 +71,7 @@ Window::Window(Renderer* renderer) : Window{GetModuleHandleA(NULL)} {
 void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
 	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
 		style, position.x, position.y,
-		size.x, size.y, parent, menu, hInstance, lpParam);
+		size.x, size.y, parent, menu, window_class.hInstance, lpParam);
 
 	editor_gui.hwnd = window;
 
@@ -72,9 +84,7 @@ void Window::set_up_window(const Vector2 &position, const Vector2 &size, const s
 
 void Window::check_input() {
 	MSG message = { };
-	while (PeekMessageA(&message, window, 0, 0, PM_REMOVE)) {
-		this_window_wndproc = this;
-
+	while (PeekMessageA(&message, window, 0u, 0u, PM_REMOVE)) {
 		TranslateMessage(&message);
 		DispatchMessageA(&message);
 	}
@@ -83,6 +93,7 @@ void Window::check_input() {
 void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
+	UnregisterClassW(L"Main window class", window_class.hInstance);
 #ifndef NDEBUG
 	debug_console->destroy_window();
 #endif // !NDEBUG
@@ -97,10 +108,6 @@ HWND & Window::get_window() noexcept {
 
 HDC & Window::get_dc() noexcept {
 	return dc;
-}
-
-HINSTANCE & Window::get_hInstance() noexcept {
-	return hInstance;
 }
 
 WNDCLASSEXW & Window::get_class() noexcept {

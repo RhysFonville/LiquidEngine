@@ -20,10 +20,10 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
-	create_depth_stencil();
+	create_depth_stencil(resolution);
 	create_descriptor_heaps();
 	set_blend_state();
-	set_viewport_and_scissor_rect();
+	set_viewport_and_scissor_rect(resolution);
 
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
@@ -55,7 +55,7 @@ void Renderer::create_swap_chain() {
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
-	const DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
+	const DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {
 		.Width = 1920u,
 		.Height = 1080u,
 		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
@@ -69,21 +69,19 @@ void Renderer::create_swap_chain() {
 		.Flags = NULL
 	};
 
-	ComPtr<IDXGISwapChain1> swap_chain1;
+	IDXGISwapChain1* swap_chain1;
 	HPEW(factory->CreateSwapChainForHwnd(
 		command_queue.Get(),
 		window,
-		&swapChainDesc,
+		&swap_chain_desc,
 		nullptr,
-		nullptr,
+		adapter_output.adapter_output.Get(),
 		&swap_chain1
 	));
-	HPEW(swap_chain1.As(&swap_chain));
+	HPEW(swap_chain1->QueryInterface(IID_PPV_ARGS(&swap_chain)));
+	swap_chain1->Release();
 
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
-
-	DXGI_RGBA color = background_color;
-	HPEW(swap_chain->SetBackgroundColor(&color));
 }
 
 void Renderer::create_descriptor_heap() {
@@ -154,7 +152,7 @@ void Renderer::create_fences_and_fence_event() {
 	}
 }
 
-void Renderer::create_depth_stencil() {
+void Renderer::create_depth_stencil(const UVector2 &size) {
 	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
 	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
 	dsv_heap_desc.NumDescriptors = 1;
@@ -174,7 +172,7 @@ void Renderer::create_depth_stencil() {
 	depth_clear_value.DepthStencil.Stencil = 0;
 
 	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, resolution.x, resolution.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, size.x, size.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
 	HPEW(device->CreateCommittedResource(
 		&heap_properties,
 		D3D12_HEAP_FLAG_NONE,
@@ -210,20 +208,20 @@ void Renderer::set_blend_state() {
 	blend_desc = CommonStates::AlphaBlend;
 }
 
-void Renderer::set_viewport_and_scissor_rect() {
+void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 	// Fill out the Viewport
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
-	viewport.Width = (float)resolution.x;
-	viewport.Height = (float)resolution.y;
+	viewport.Width = (float)size.x;
+	viewport.Height = (float)size.y;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 
 	// Fill out a scissor rect
 	scissor_rect.left = 0;
 	scissor_rect.top = 0;
-	scissor_rect.right = resolution.x;
-	scissor_rect.bottom = resolution.y;
+	scissor_rect.right = size.x;
+	scissor_rect.bottom = size.y;
 }
 
 void Renderer::setup_imgui_section() {
@@ -233,7 +231,15 @@ void Renderer::setup_imgui_section() {
 			background_color = FColor{color[0], color[1], color[2], color[3]};
 		}
 
+		int res[2]{resolution.x, resolution.y};
+		if (ImGui::InputInt2("Resolution", res, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			set_resolution(UVector2{(UINT)res[0], (UINT)res[1]});
+		}
+
 		ImGui::Checkbox("V-sync", &vsync);
+		if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
+			set_fullscreen(fullscreen);
+		}
 
 		{
 			auto desc = adapter.get_desc();
@@ -241,6 +247,7 @@ void Renderer::setup_imgui_section() {
 			if (ImGui::InputInt("Adapter", &index, ImGuiInputTextFlags_EnterReturnsTrue)) {
 				flush_gpu();
 				adapter = GraphicsAdapter{factory, (UINT)index};
+				device.Reset();
 				create_device();
 			}
 			ImGui::Text("Adapter description");
@@ -252,18 +259,19 @@ void Renderer::setup_imgui_section() {
 
 		{
 			auto desc = adapter_output.get_desc();
-			auto gamma = adapter_output.get_gamma_control();
-			auto gamma_capability = adapter_output.get_gamma_control_capabilities();
 			std::string name{wstring_to_string(adapter_output.get_desc().DeviceName)};
 			if (ImGui::InputText("Adapter output", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
 				flush_gpu();
 				adapter_output = GraphicsAdapterOutput{device, adapter.adapter, name};
-				create_device();
+				//swap_chain.Reset();
+				//create_swap_chain();
 			}
 			ImGui::Text("Adapter output description");
 			ImGui::Text(("Name: " + wstring_to_string(adapter_output.get_desc().DeviceName)).c_str());
 			ImGui::Text(("Attached to desktop: " + std::to_string(desc.AttachedToDesktop)).c_str());
 			ImGui::Text(("Rotation: " + std::to_string(desc.Rotation)).c_str());
+
+			ImGui::Checkbox("Restrict present to adapter output", &restrict_present_to_adapter_output);
 
 			/*float xs[1025], ys[1025];
 			for (int i = 0; i < 1025; i++) {
@@ -334,7 +342,7 @@ void Renderer::compile() {
 
 void Renderer::update(float dt) {
 	setup_imgui_section();
-
+	
 	wait_for_previous_frame();
 
 	HPEW(command_allocators[frame_index]->Reset());
@@ -391,7 +399,10 @@ void Renderer::render() {
 	HPEW(command_queue->Signal(fences[frame_index].Get(), fence_values[frame_index]));
 
 	// present the current backbuffer
-	HPEW(swap_chain->Present(vsync, 0u));
+	HPEW(swap_chain->Present(
+		vsync,
+		(restrict_present_to_adapter_output && !fullscreen ? DXGI_PRESENT_RESTRICT_TO_OUTPUT : 0u)
+	));
 }
 
 void Renderer::tick(float dt) {
@@ -500,18 +511,20 @@ void Renderer::execute_command_list() {
 void Renderer::resize(const UVector2 &size) {
 	flush_gpu();
 	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) render_targets[i].Reset();
+	depth_stencil_buffer.Reset();
 	HPEW(swap_chain->ResizeBuffers(NUMBER_OF_BUFFERS, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, NULL));
 	create_rtvs();
+	set_viewport_and_scissor_rect(size);
+	create_depth_stencil(size);
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {
 	this->fullscreen = fullscreen;
-	HPEW(swap_chain->SetFullscreenState(fullscreen, NULL));
+	HPEW(swap_chain->SetFullscreenState(fullscreen, (fullscreen ? adapter_output.adapter_output.Get() : NULL)));
 }
 
 void Renderer::toggle_fullscreen() {
-	fullscreen = !fullscreen;
-	HPEW(swap_chain->SetFullscreenState(fullscreen, NULL));
+	set_fullscreen(!fullscreen);
 }
 
 bool Renderer::is_fullscreen() const noexcept {
@@ -520,4 +533,9 @@ bool Renderer::is_fullscreen() const noexcept {
 
 UVector2 Renderer::get_resolution() const noexcept {
 	return resolution;
+}
+
+void Renderer::set_resolution(const UVector2 &resolution) {
+	this->resolution = resolution;
+	if (fullscreen) resize(resolution);
 }

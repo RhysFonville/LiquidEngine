@@ -38,11 +38,12 @@ public:
 	GET bool is_fullscreen() const noexcept;
 
 	GET UVector2 get_resolution() const noexcept;
-	void set_resolution(const UVector2 &resolution, bool stretch = true);
+	void set_resolution(const UVector2 &resolution);
 
 	GraphicsScene scene;
 
 	bool vsync{false};
+	bool restrict_present_to_adapter_output{false};
 
 private:
 	friend class Window;
@@ -88,10 +89,10 @@ private:
 	void create_command_allocators();
 	void create_command_list();
 	void create_fences_and_fence_event();
-	void create_depth_stencil();
+	void create_depth_stencil(const UVector2 &size);
 	void create_descriptor_heaps();
 	void set_blend_state();
-	void set_viewport_and_scissor_rect();
+	void set_viewport_and_scissor_rect(const UVector2 &size);
 
 	void setup_imgui_section();
 
