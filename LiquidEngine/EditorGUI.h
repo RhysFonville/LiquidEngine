@@ -24,18 +24,16 @@ public:
 
 	static void init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buffers, ID3D12DescriptorHeap* cbv_srv_heap);
 
-	bool check_input(UINT32 message, WPARAM wparam, LPARAM lparam);
+	static bool check_input(HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam);
 
 	void update(float dt, const std::vector<std::shared_ptr<Object>> &objects);
-	void clean_up();
-
-	HWND hwnd;
+	
+	static void clean_up();
 
 private:
 	friend class Window;
 
-	EditorGUI();
-	EditorGUI(HWND hwnd);
+	EditorGUI() { }
 
 	bool show_demo_window = false;
 };

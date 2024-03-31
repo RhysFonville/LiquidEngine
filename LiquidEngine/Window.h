@@ -39,7 +39,7 @@ public:
 	void set_up_window(const Vector2 &position = Vector2(CW_USEDEFAULT, CW_USEDEFAULT),
 		const Vector2 &size = Vector2(1200, 800),
 		const std::string &name = "Epic Window :coolglasses:",
-		DWORD style = WS_OVERLAPPEDWINDOW, const HWND &parent = NULL,
+		DWORD style = WS_OVERLAPPEDWINDOW | WS_VISIBLE, const HWND &parent = NULL,
 		DWORD extended_style = NULL, HMENU menu = NULL, void* lpParam = NULL);
 
 	void check_input();

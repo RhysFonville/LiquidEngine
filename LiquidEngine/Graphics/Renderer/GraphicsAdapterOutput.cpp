@@ -15,6 +15,8 @@ GraphicsAdapterOutput::GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device,
 	int output_index = 0;
 	bool output_found = false;
 
+	
+
 	while (adapter->EnumOutputs(output_index, this->adapter_output.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
 		DXGI_OUTPUT_DESC desc;
 		HPEW(this->adapter_output->GetDesc(&desc));
@@ -48,6 +50,29 @@ void GraphicsAdapterOutput::operator=(const GraphicsAdapterOutput &adapter_outpu
 void GraphicsAdapterOutput::clean_up() {
 	//this->adapter_output->ReleaseOwnership();
 	adapter_output.Reset();
+}
+
+void GraphicsAdapterOutput::find_closest_display_mode_to_current(DXGI_MODE_DESC* out_current_display_mode) {
+	HMONITOR hMonitor = desc.Monitor;
+	MONITORINFOEXA monitorInfo;
+	monitorInfo.cbSize = sizeof(MONITORINFOEXA);
+	GetMonitorInfoA(hMonitor, &monitorInfo);
+	DEVMODEA devMode;
+	devMode.dmSize = sizeof(DEVMODEA);
+	devMode.dmDriverExtra = 0;
+	EnumDisplaySettingsA(monitorInfo.szDevice, ENUM_CURRENT_SETTINGS, &devMode);
+
+	DXGI_MODE_DESC current;
+	current.Width = devMode.dmPelsWidth;
+	current.Height = devMode.dmPelsHeight;
+	bool useDefaultRefreshRate = 1 == devMode.dmDisplayFrequency || 0 == devMode.dmDisplayFrequency;
+	current.RefreshRate.Numerator = useDefaultRefreshRate ? 0 : devMode.dmDisplayFrequency;
+	current.RefreshRate.Denominator = useDefaultRefreshRate ? 0 : 1;
+	current.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	current.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	current.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+
+	adapter_output->FindClosestMatchingMode(&current, out_current_display_mode, NULL);
 }
 
 void GraphicsAdapterOutput::set_info(const DXGI_OUTPUT_DESC &desc) {

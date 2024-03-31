@@ -16,8 +16,10 @@ public:
 	Renderer() { }
 	Renderer(HWND window); // initializes direct3d 12
 
+	void init_renderer(HWND window);
+
 	void tick(float dt); // Updates pipeline and renders
-	void clean_up(); // release com ojects and clean up memory
+	void clean_up(bool full_clean = true); // release com ojects and clean up memory
 
 	void update(float dt); // update the direct3d pipeline (update command lists)
 	void render(); // execute the command list
@@ -111,4 +113,6 @@ private:
 	UVector2 resolution = UVector2(1920, 1080);
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
+
+	bool skip_frame = false;
 };

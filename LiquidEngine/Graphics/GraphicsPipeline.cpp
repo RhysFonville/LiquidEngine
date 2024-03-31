@@ -1,18 +1,21 @@
 #include "GraphicsPipeline.h"
 
-GraphicsPipeline::GraphicsPipeline(const ComPtr<ID3D12Device> &device, const DXGI_SAMPLE_DESC &sample_desc) { }
-
-void GraphicsPipeline::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
-	command_list->SetPipelineState(pipeline_state_object.Get());
-	command_list->SetGraphicsRootSignature(root_signature.signature.Get()); // set the root signature
-	
-	root_signature.update(device, command_list, frame_index, descriptor_heaps);
-	input_assembler.update(device, command_list);
+void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+	input_assembler.check_for_update(device, command_list);
+	root_signature.check_for_update(device, command_list, frame_index, descriptor_heaps);
 }
 
 void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
-	update(device, command_list, frame_index, descriptor_heaps);
-	
+	check_for_update(device, command_list, frame_index, descriptor_heaps);
+
+	command_list->SetPipelineState(pipeline_state_object.Get());
+
+	input_assembler.run(command_list);
+	root_signature.run(device, command_list, frame_index, descriptor_heaps);
+	draw(command_list);
+}
+
+void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
 	UINT verts = 0;
 	for (const D3D12_VERTEX_BUFFER_VIEW &view : vertex_buffers) {
@@ -64,10 +67,10 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 }
 
 void GraphicsPipeline::clean_up() {
-	input_assembler.change_manager.reset();
-	for (auto &buffer : input_assembler.vertex_buffers) {
-		buffer.Reset();
-	}
+	pipeline_state_object.Reset();
+
+	input_assembler.clean_up();
+	root_signature.clean_up();
 }
 
 bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexcept {
@@ -175,7 +178,7 @@ void GraphicsPipeline::InputAssembler::remove_all_meshes() {
 	vertex_buffer_views.clear();
 }
 
-void GraphicsPipeline::InputAssembler::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
+void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	std::vector<GraphicsPipelineMeshChange::Command> changes = change_manager->get_changes(true);
 	
 	for (const auto &change : changes) {
@@ -191,9 +194,17 @@ void GraphicsPipeline::InputAssembler::update(const ComPtr<ID3D12Device> &device
 			}
 		}
 	}
+}
 
+void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
 	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
+}
+
+void GraphicsPipeline::InputAssembler::clean_up() {
+	for (auto &vb : vertex_buffers) {
+		vb.Reset();
+	}
 }
 
 const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {
@@ -252,9 +263,12 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 
 	HPEW(device->CreateRootSignature(0u, signature_blob->GetBufferPointer(), signature_blob->GetBufferSize(), IID_PPV_ARGS(&signature)));
 	HPEW(signature->SetName(L"Main Root Signature"));
+
+	signature_blob.Reset();
+	error_buf.Reset();
 }
 
-void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
 	for (ShaderResourceView* srv : shader_resource_views) {
 		if (srv->compile_signal) {
 			srv->compile(device, command_list, descriptor_heaps);
@@ -268,6 +282,33 @@ void GraphicsPipeline::RootSignature::update(const ComPtr<ID3D12Device> &device,
 			}
 		}
 	}
+}
+
+void GraphicsPipeline::RootSignature::clean_up() {
+	for (auto &cb : constant_buffers) {
+		cb->default_heap.Reset();
+		cb->heap_index = (UINT)-1;
+		cb->descriptor_table = nullptr;
+	}
+	for (auto &srv : shader_resource_views) {
+		srv->default_heap.Reset();
+		srv->heap_index = (UINT)-1;
+		srv->descriptor_table = nullptr;
+	}
+
+	descriptor_tables.clear();
+
+	constant_buffers.clear();
+	root_constants.clear();
+	shader_resource_views.clear();
+
+	compilation_params.clear();
+
+	signature.Reset();
+}
+
+void GraphicsPipeline::RootSignature::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+	command_list->SetGraphicsRootSignature(signature.Get()); // set the root signature
 
 	for (const std::shared_ptr<DescriptorTable> &descriptor_table : descriptor_tables) {
 		D3D12_GPU_DESCRIPTOR_HANDLE handle = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart();
@@ -326,6 +367,31 @@ void GraphicsPipeline::RootSignature::DescriptorTable::compile(D3D12_DESCRIPTOR_
 bool GraphicsPipeline::RootSignature::DescriptorTable::operator==(const DescriptorTable &descriptor_table) const noexcept {
 	return (table == descriptor_table.table &&
 		ranges[0] == descriptor_table.ranges[0]);
+}
+
+void GraphicsPipeline::RootSignature::ConstantBuffer::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+	if (heap_index == (UINT)-1) {
+		heap_index = descriptor_heaps.get_open_heap_index();
+		descriptor_table->heap_index = heap_index;
+	}
+
+	auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
+	HPEW(device->CreateCommittedResource(
+		&props,
+		D3D12_HEAP_FLAG_NONE,
+		&buf,
+		D3D12_RESOURCE_STATE_COPY_DEST,
+		nullptr,
+		IID_PPV_ARGS(&default_heap)
+	));
+	HPEW(default_heap->SetName(L"CB default heap"));
+
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+		descriptor_heaps.create_cbv(device, default_heap, obj_size, i, heap_index);
+	}
+
+	update(device, command_list);
 }
 
 void GraphicsPipeline::RootSignature::ConstantBuffer::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
@@ -405,9 +471,8 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update_descs(const Dir
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
 	if (heap_index == (UINT)-1) {
-		heap_index = descriptor_heaps.get_next_heap_index();
+		heap_index = descriptor_heaps.get_open_heap_index();
 		descriptor_table->heap_index = heap_index;
-		descriptor_heaps.increment_heap_index();
 	}
 
 	if (heap_desc.Width != 0 && heap_desc.Height != 0) {

@@ -15,7 +15,7 @@ public:
 	GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device, const ComPtr<IDXGIAdapter> &adapter, UINT adapter_output);
 	GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device, const ComPtr<IDXGIAdapter> &adapter, const std::string &adapter_output);
 	GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device, const ComPtr<IDXGIOutput> &adapter_output);
-
+	
 	void operator=(const GraphicsAdapterOutput &adapter_output);
 
 	void clean_up();
@@ -29,6 +29,8 @@ public:
 		this->gamma_control = gamma_control;
 	}
 
+	void find_closest_display_mode_to_current(DXGI_MODE_DESC* out_current_display_mode);
+	
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
 private:

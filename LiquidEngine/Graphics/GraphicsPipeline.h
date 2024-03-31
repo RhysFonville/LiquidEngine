@@ -27,16 +27,16 @@ struct alignas(16) GenerateMipsCB {
 class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
-	GraphicsPipeline(const ComPtr<ID3D12Device> &device,
-		const DXGI_SAMPLE_DESC &sample_desc);
 
-	void update(const ComPtr<ID3D12Device> &device,
+	void check_for_update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		int frame_index, GraphicsDescriptorHeaps &descriptor_heap);
-
+		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+	
 	void run(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+	
+	void draw(const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
 	void compile(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
@@ -72,7 +72,10 @@ public:
 		void remove_mesh(size_t index);
 		void remove_all_meshes();
 
-		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void run(const ComPtr<ID3D12GraphicsCommandList> &command_list);
+
+		void clean_up();
 
 		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChange::Manager> &change_manager) {
 			this->change_manager = change_manager;
@@ -271,43 +274,7 @@ public:
 				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
 				name(name.empty() ? typeid(T).name() : name) { }
 
-			/*ConstantBuffer(const ConstantBuffer &cb) {
-				obj = cb.obj;
-				obj_size = cb.obj_size;
-
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					gpu_addresses[i] = cb.gpu_addresses[i];
-				}
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					upload_heaps[i] = cb.upload_heaps[i];
-				}
-			}*/
-
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
-				if (heap_index == (UINT)-1) {
-					heap_index = descriptor_heaps.get_next_heap_index();
-					descriptor_table->heap_index = heap_index;
-					descriptor_heaps.increment_heap_index();
-				}
-				
-				auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-				auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
-				HPEW(device->CreateCommittedResource(
-					&props,
-					D3D12_HEAP_FLAG_NONE,
-					&buf,
-					D3D12_RESOURCE_STATE_COPY_DEST,
-					nullptr,
-					IID_PPV_ARGS(&default_heap)
-				));
-				HPEW(default_heap->SetName(L"CB default heap"));
-				
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					descriptor_heaps.create_cbv(device, default_heap, obj_size, i, heap_index);
-				}
-
-				update(device, command_list);
-			}
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
 
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
@@ -399,8 +366,12 @@ public:
 		RootSignature() { }
 
 		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+		
+		void clean_up();
 
-		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		
+		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 		
@@ -462,6 +433,8 @@ public:
 		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 
 	private:
+		friend GraphicsPipeline;
+
 		std::vector<std::shared_ptr<DescriptorTable>> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };

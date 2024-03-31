@@ -6,7 +6,7 @@ Window* this_window_wndproc;
 
 LRESULT Window::wndproc(HWND hwnd, UINT32 uMsg, WPARAM wParam, LPARAM lParam) {
 	if (this_window_wndproc != nullptr) {
-		if (this_window_wndproc->editor_gui.check_input(uMsg, wParam, lParam)) return LRESULT{};
+		if (this_window_wndproc->editor_gui.check_input(hwnd, uMsg, wParam, lParam)) return LRESULT{};
 
 		switch (uMsg) {
 			case WM_CLOSE:
@@ -73,8 +73,6 @@ void Window::set_up_window(const Vector2 &position, const Vector2 &size, const s
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, window_class.hInstance, lpParam);
 
-	editor_gui.hwnd = window;
-
 	if (window == NULL) {
 		throw std::exception("Failed to create window.");
 	}
@@ -93,7 +91,7 @@ void Window::check_input() {
 void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
-	UnregisterClassW(L"Main window class", window_class.hInstance);
+	UnregisterClassW(window_class.lpszClassName, window_class.hInstance);
 #ifndef NDEBUG
 	debug_console->destroy_window();
 #endif // !NDEBUG

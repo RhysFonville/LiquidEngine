@@ -1,6 +1,12 @@
 #include "Renderer.h"
 
-Renderer::Renderer(HWND window) : window(window) {
+Renderer::Renderer(HWND window) {
+	init_renderer(window);
+}
+
+void Renderer::init_renderer(HWND window) {
+	this->window = window;
+
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
 	debug_interface->EnableDebugLayer();
 	//debug_interface->SetEnableGPUBasedValidation(true);
@@ -9,6 +15,8 @@ Renderer::Renderer(HWND window) : window(window) {
 	dxgi_debug->EnableLeakTrackingForThread();
 
 	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
+
+	auto client_size = get_client_size(window);
 
 	adapter = GraphicsAdapter{factory};
 	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
@@ -20,10 +28,10 @@ Renderer::Renderer(HWND window) : window(window) {
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
-	create_depth_stencil(resolution);
+	create_depth_stencil(client_size);
 	create_descriptor_heaps();
 	set_blend_state();
-	set_viewport_and_scissor_rect(resolution);
+	set_viewport_and_scissor_rect(client_size);
 
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
@@ -55,9 +63,9 @@ void Renderer::create_swap_chain() {
 	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
 	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
 
-	const DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {
-		.Width = 1920u,
-		.Height = 1080u,
+	const DXGI_SWAP_CHAIN_DESC1 swap_chain_desc{
+		.Width = 0u,
+		.Height = 0u,
 		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
 		.Stereo = false,
 		.SampleDesc = sample_desc,
@@ -69,12 +77,22 @@ void Renderer::create_swap_chain() {
 		.Flags = NULL
 	};
 
+	DXGI_MODE_DESC mode_desc{};
+	adapter_output.find_closest_display_mode_to_current(&mode_desc);
+
+	const DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullscreen_desc{
+		.RefreshRate = mode_desc.RefreshRate,
+		.ScanlineOrdering = mode_desc.ScanlineOrdering,
+		.Scaling = mode_desc.Scaling,
+		.Windowed = true
+	};
+
 	IDXGISwapChain1* swap_chain1;
 	HPEW(factory->CreateSwapChainForHwnd(
 		command_queue.Get(),
 		window,
 		&swap_chain_desc,
-		nullptr,
+		&fullscreen_desc,
 		adapter_output.adapter_output.Get(),
 		&swap_chain1
 	));
@@ -226,12 +244,23 @@ void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 
 void Renderer::setup_imgui_section() {
 	if (ImGui::TreeNode("Renderer")) {
+		if (ImGui::Button("Re-initialize renderer")) {
+			ImGui::TreePop();
+			ImGui::End();
+			ImGui::Render();
+			clean_up(false);
+			init_renderer(window);
+			compile();
+			skip_frame = true;
+			return;
+		}
+
 		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
 		if (ImGui::InputFloat4("Background color", color)) {
 			background_color = FColor{color[0], color[1], color[2], color[3]};
 		}
 
-		int res[2]{resolution.x, resolution.y};
+		int res[2]{(int)resolution.x, (int)resolution.y};
 		if (ImGui::InputInt2("Resolution", res, ImGuiInputTextFlags_EnterReturnsTrue)) {
 			set_resolution(UVector2{(UINT)res[0], (UINT)res[1]});
 		}
@@ -299,12 +328,12 @@ void Renderer::setup_imgui_section() {
 }
 
 void Renderer::compile() {
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
+	descriptor_heaps.reserve_descriptor_index(0u);
+	
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
-
-	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
-	descriptor_heaps.increment_heap_index();
 
 	scene.compile();
 	scene.update(resolution);
@@ -317,10 +346,21 @@ void Renderer::compile() {
 		mesh.material.component->pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
 		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 
+		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
+			*mesh.material.albedo_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
+			*mesh.material.normal_map.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
+			*mesh.material.environment_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+
 		mesh.component->compile();
 		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, blend_desc, descriptor_heaps);
-
-		*debug_console << "Compiling mesh #" << std::to_string(i) << '\n';
 		i++;
 	}
 
@@ -328,6 +368,12 @@ void Renderer::compile() {
 		scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
+		
+		scene.sky.component->pipeline.root_signature.bind_shader_resource_view(
+			*scene.sky.texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		
 		scene.sky.component->compile();
 		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, blend_desc, descriptor_heaps);
 	}
@@ -343,6 +389,8 @@ void Renderer::compile() {
 void Renderer::update(float dt) {
 	setup_imgui_section();
 	
+	if (skip_frame) return;
+
 	wait_for_previous_frame();
 
 	HPEW(command_allocators[frame_index]->Reset());
@@ -391,6 +439,11 @@ void Renderer::update(float dt) {
 }
 
 void Renderer::render() {
+	if (skip_frame) {
+		skip_frame = false;
+		return;
+	}
+
 	execute_command_list();
 
 	// this command goes in at the end of our command queue. we will know when our command queue 
@@ -410,20 +463,21 @@ void Renderer::tick(float dt) {
 	render();
 }
 
-void Renderer::clean_up() {
-	wait_for_previous_frame();
+void Renderer::clean_up(bool full_clean) {
+	flush_gpu();
 
 	CloseHandle(fence_event);
 
-	flush_gpu();
-
-	// get swapchain out of full screen before exiting
 	if (is_fullscreen())
 		set_fullscreen(false);
 
 	scene.clean_up();
 
 	ResourceManager::Release::release_all_resources();
+
+	EditorGUI::clean_up();
+
+	descriptor_heaps.clean_up();
 
 	adapter.clean_up();
 	adapter_output.clean_up();
@@ -432,9 +486,10 @@ void Renderer::clean_up() {
 
 	debug_device.Reset();
 	debug_command_list.Reset();
-	debug_command_list.Reset();
 	debug_command_queue.Reset();
+
 	debug_interface.Reset();
+	info_queue.Reset();
 
 	device.Reset();
 	swap_chain.Reset();
@@ -452,7 +507,7 @@ void Renderer::clean_up() {
 	}
 
 	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY));
-	debug_interface.Reset();
+	dxgi_debug.Reset();
 }
 
 void Renderer::increment_fence() {

@@ -261,19 +261,13 @@ public:
 class RenderingTexture : public RenderingComponent<Texture> {
 public:
 	RenderingTexture() { }
-	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
-		if (texture->exists()) {
-			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
-				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
-			//srv->compile();
-		}
-	}
+	RenderingTexture(Texture* texture) : RenderingComponent{texture} { }
 
 	bool update() {
 		if (component->has_changed()) {
 			if (component->exists()) {
-				srv->update_descs(component->get_mip_chain());
-				srv->compile();
+				srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
+					(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
 			}
 			return true;
 		}
@@ -291,13 +285,7 @@ class RenderingSky : public RenderingComponent<SkyComponent> {
 public:
 	RenderingSky() { }
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
-		texture{&sky->get_albedo_texture()} {
-
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
+		texture{&sky->get_albedo_texture()} { }
 
 	bool update(const RenderingCamera &camera) {
 		bool ret{false};
@@ -338,21 +326,7 @@ public:
 	RenderingMaterial(Material* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
 		normal_map{RenderingTexture{&mat->get_normal_map()}},
-		environment_texture{RenderingTexture{&mat->get_environment_texture()}} {
-
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*albedo_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*normal_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*environment_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
+		environment_texture{RenderingTexture{&mat->get_environment_texture()}} { }
 
 	bool update() {
 		bool ret{false};

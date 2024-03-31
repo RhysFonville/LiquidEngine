@@ -1,8 +1,5 @@
 #include "EditorGUI.h"
 
-EditorGUI::EditorGUI() { }
-EditorGUI::EditorGUI(HWND hwnd) : hwnd{hwnd} { }
-
 void EditorGUI::init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buffers,
 	ID3D12DescriptorHeap* cbv_srv_heap) {
 
@@ -13,15 +10,15 @@ void EditorGUI::init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buff
 	ImGuiIO &io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 
+	ImGui::StyleColorsDark();
+
 	ImGui_ImplWin32_Init((void*)hwnd);
 	ImGui_ImplDX12_Init(device, num_buffers, DXGI_FORMAT_R8G8B8A8_UNORM, cbv_srv_heap,
 		cbv_srv_heap->GetCPUDescriptorHandleForHeapStart(),
 		cbv_srv_heap->GetGPUDescriptorHandleForHeapStart());
-	
-	ImGui::StyleColorsDark();
 }
 
-bool EditorGUI::check_input(UINT32 message, WPARAM wparam, LPARAM lparam) {
+bool EditorGUI::check_input(HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam) {
 	if (ImGui_ImplWin32_WndProcHandler(hwnd, message, wparam, lparam)) {
 		return true;
 	}
