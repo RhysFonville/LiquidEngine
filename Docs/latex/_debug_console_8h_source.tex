@@ -1,0 +1,72 @@
+\hypertarget{_debug_console_8h_source}{}\doxysection{Debug\+Console.\+h}
+\label{_debug_console_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Debug/DebugConsole.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Debug/DebugConsole.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Color\ \{\ \textcolor{comment}{//\ https://stackoverflow.com/questions/17125440/c-\/win32-\/console-\/color}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ BLACK\ \ \ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ DARKBLUE\ \ \ \ \ \ \ \ =\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ DARKGREEN\ \ \ \ \ \ \ =\ FOREGROUND\_GREEN,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ DARKCYAN\ \ \ \ \ \ \ \ =\ FOREGROUND\_GREEN\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ DARKRED\ \ \ \ \ \ \ \ \ =\ FOREGROUND\_RED,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ DARKMAGENTA\ \ \ \ \ =\ FOREGROUND\_RED\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ DARKYELLOW\ \ \ \ \ \ =\ FOREGROUND\_RED\ |\ FOREGROUND\_GREEN,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ DARKGRAY\ \ \ \ \ \ \ \ =\ FOREGROUND\_RED\ |\ FOREGROUND\_GREEN\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ GRAY\ \ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ BLUE\ \ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ GREEN\ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_GREEN,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ CYAN\ \ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_GREEN\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ RED\ \ \ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_RED,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ MAGENTA\ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_RED\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ YELLOW\ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_RED\ |\ FOREGROUND\_GREEN,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ WHITE\ \ \ \ \ \ \ \ \ \ \ =\ FOREGROUND\_INTENSITY\ |\ FOREGROUND\_RED\ |\ FOREGROUND\_GREEN\ |\ FOREGROUND\_BLUE,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ BG\_NAVYBLUE\ =\ 16,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ BG\_GREEN\ =\ 32,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ BG\_TEAL\ =\ 48,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ BG\_MAROON\ =\ 64,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ BG\_PURPLE\ =\ 80,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ BG\_OLIVE\ =\ 96,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ BG\_SILVER\ =\ 112,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ BG\_GRAY\ =\ 128,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ BG\_BLUE\ =\ 144,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ BG\_LIME\ =\ 160,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ BG\_CYAN\ =\ 176,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ BG\_RED\ =\ 192,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ BG\_MAGENTA\ =\ 208,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ BG\_YELLOW\ =\ 224,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ BG\_WHITE\ =\ 240}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}(\mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_debug_console}{DebugConsole}}*\ get\_instance();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ destroy\_window();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&\ operator<<(\textcolor{keywordtype}{char}\ out)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&\ operator<<(\textcolor{keyword}{const}\ std::string\ \&out)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&\ operator<<(\textcolor{keyword}{const}\ Color\ \&col)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}\ \&\ operator>>(std::string\ \&in)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ HANDLE\ std\_handle;}
+\DoxyCodeLine{00061\ \ \ \ \ HWND\ hwnd;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_debug_console}{DebugConsole}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_debug_console}{DebugConsole}}*\ debug\_console;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_debug_console}{DebugConsole}}*\ debug\_console\ =\ DebugConsole::get\_instance();}
+
+\end{DoxyCode}

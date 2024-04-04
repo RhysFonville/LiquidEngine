@@ -18,9 +18,6 @@ Inheritance diagram for Graphics\+Pipeline\+::Root\+Signature\+::Root\+Constants
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_adc0847443556774b284099b7b4b321b4}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_adc0847443556774b284099b7b4b321b4}} 
-{\bfseries Root\+Constants} (UINT parameter\+\_\+index)
-\item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_afd5cc46f666660bb9cfdd8264993f47d}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_afd5cc46f666660bb9cfdd8264993f47d}} 
 {\footnotesize template$<$typename T $>$ }\\{\bfseries Root\+Constants} (T \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT index, UINT parameter\+\_\+index, UINT number\+\_\+of\+\_\+values=-\/1)
 \item 
@@ -32,6 +29,18 @@ void {\bfseries compile} (D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT p
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_a6fbc55b3ebbb41543a7125635076b71c}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_a6fbc55b3ebbb41543a7125635076b71c}} 
 {\footnotesize template$<$typename T $>$ }\\void {\bfseries compile} (T \&obj, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT index, UINT number\+\_\+of\+\_\+values=-\/1)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_a810660e8201b39c7779ca20ad61d48f0}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_a810660e8201b39c7779ca20ad61d48f0}} 
+const D3\+D12\+\_\+\+ROOT\+\_\+\+CONSTANTS \& {\bfseries get\+\_\+constants} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a342172fbac6859051b0d974c8c023f32}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a342172fbac6859051b0d974c8c023f32}} 
+{\bfseries Root\+Argument} (UINT parameter\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a5a5b5303045864e1db0bc28ce59e69d8}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a5a5b5303045864e1db0bc28ce59e69d8}} 
+UINT {\bfseries get\+\_\+parameter\+\_\+index} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 \doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Argument}}}
@@ -44,7 +53,7 @@ friend {\bfseries Root\+Signature}
 std\+::vector$<$ D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER $>$ {\bfseries root\+\_\+parameters} = \{ \}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a28bcdc834a5fe7ed7c7335c9d7add237}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a28bcdc834a5fe7ed7c7335c9d7add237}} 
-UINT {\bfseries parameter\+\_\+index} = 0u
+UINT {\bfseries parameter\+\_\+index} \{(UINT)-\/1\}
 \end{DoxyCompactItemize}
 
 

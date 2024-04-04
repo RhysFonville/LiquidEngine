@@ -29,6 +29,8 @@ enum class {\bfseries Type} \{ \newline
 , {\bfseries Spotlight\+Component}
 , {\bfseries Box\+Component}
 , {\bfseries Sky\+Component}
+, \newline
+{\bfseries Material\+Component}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -91,8 +93,11 @@ virtual void {\bfseries base\+\_\+compile} ()
 \mbox{\Hypertarget{class_controllable_a61e410a136d98711221d0745674724cc}\label{class_controllable_a61e410a136d98711221d0745674724cc}} 
 virtual void {\bfseries base\+\_\+tick} (float dt)
 \item 
-\mbox{\Hypertarget{class_controllable_a787ecd58e4dad2882659158e43107bc1}\label{class_controllable_a787ecd58e4dad2882659158e43107bc1}} 
-virtual void {\bfseries on\+\_\+start} ()
+\mbox{\Hypertarget{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}\label{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}} 
+virtual void {\bfseries pre\+\_\+scene\+\_\+compile} ()
+\item 
+\mbox{\Hypertarget{class_controllable_a5850c2973f4c76d9412ed861cb21afb5}\label{class_controllable_a5850c2973f4c76d9412ed861cb21afb5}} 
+virtual void {\bfseries post\+\_\+scene\+\_\+compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_aa34341e4eb1189435b8f159d4cac09da}\label{class_controllable_aa34341e4eb1189435b8f159d4cac09da}} 
 virtual void {\bfseries clean\+\_\+up} ()
@@ -109,6 +114,15 @@ virtual void {\bfseries tick} (float dt)
 \mbox{\Hypertarget{class_component_add189dc18ca4dd121d7dede5a0dbeab8}\label{class_component_add189dc18ca4dd121d7dede5a0dbeab8}} 
 \mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries parent} = nullptr
 \end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}\label{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}} 
+void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section} ()
+\item 
+\mbox{\Hypertarget{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}\label{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}} 
+virtual void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -117,6 +131,12 @@ virtual void {\bfseries tick} (float dt)
 \item 
 \mbox{\Hypertarget{class_component_a18de93d5a176aa3cd6dc6724788dfacb}\label{class_component_a18de93d5a176aa3cd6dc6724788dfacb}} 
 Type {\bfseries type} = Type\+::\+None
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_acb7420c79390296e017ca4574c6e4ffc}\label{class_component_acb7420c79390296e017ca4574c6e4ffc}} 
+class {\bfseries Editor\+GUI}
 \end{DoxyCompactItemize}
 
 

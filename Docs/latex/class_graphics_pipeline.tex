@@ -19,23 +19,21 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}}
 \begin{DoxyCompactList}\small\item\em Uploads data and structures to shaders. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{Stream\+Output}}
-\begin{DoxyCompactList}\small\item\em Stream output stage. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_tesselator}{Tesselator}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_graphics_pipeline_1_1_tesselator}{Tesselator}} stage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stream output stage. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_af583b7f9a719dd5b2fbb7a656df735d5}\label{class_graphics_pipeline_af583b7f9a719dd5b2fbb7a656df735d5}} 
-{\bfseries Graphics\+Pipeline} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_a23ce7140b76fd6260050a28cf8e6fc92}\label{class_graphics_pipeline_a23ce7140b76fd6260050a28cf8e6fc92}} 
+void {\bfseries check\+\_\+for\+\_\+update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a7af0bd02fc776886ef3595b4a97d8c43}\label{class_graphics_pipeline_a7af0bd02fc776886ef3595b4a97d8c43}} 
-void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
+\mbox{\Hypertarget{class_graphics_pipeline_afad31f1e9d9637fda85ad6f96100966b}\label{class_graphics_pipeline_afad31f1e9d9637fda85ad6f96100966b}} 
+void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a80ac2b6f4a64dcc8f38a1063446c3f1c}\label{class_graphics_pipeline_a80ac2b6f4a64dcc8f38a1063446c3f1c}} 
-void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_a40d6301233c876bb4f7315761011b658}\label{class_graphics_pipeline_a40d6301233c876bb4f7315761011b658}} 
+void {\bfseries draw} (const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a8c83597fa46cb5b11fb4cd8e30bee78f}\label{class_graphics_pipeline_a8c83597fa46cb5b11fb4cd8e30bee78f}} 
-void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\mbox{\Hypertarget{class_graphics_pipeline_a4bebc16da2e5ee36611df7efcd521793}\label{class_graphics_pipeline_a4bebc16da2e5ee36611df7efcd521793}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}\label{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}} 
 void {\bfseries clean\+\_\+up} ()
@@ -52,16 +50,13 @@ void {\bfseries operator=} (const \mbox{\hyperlink{class_graphics_pipeline}{Grap
 \mbox{\Hypertarget{class_graphics_pipeline_acd00f303f9b9b63addca1ad323fec5a5}\label{class_graphics_pipeline_acd00f303f9b9b63addca1ad323fec5a5}} 
 Com\+Ptr$<$ ID3\+D12\+Pipeline\+State $>$ {\bfseries pipeline\+\_\+state\+\_\+object} = nullptr
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a8350a4ab470cb7c8ef65d9b726d453ac}\label{class_graphics_pipeline_a8350a4ab470cb7c8ef65d9b726d453ac}} 
-bool {\bfseries compilation\+\_\+signal} = true
-\item 
 std\+::vector$<$ D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \mbox{\hyperlink{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}{input\+\_\+layout}}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}\label{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Graphics\+Pipeline\+::\+Input\+Assembler}} {\bfseries input\+\_\+assembler}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}\label{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}} 
-std\+::string {\bfseries vs} \{\char`\"{}Default\+Vertex.\+hlsl\char`\"{}\}
+std\+::string {\bfseries vs} \{\char`\"{}Graphics/Default\+Vertex.\+hlsl\char`\"{}\}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}\label{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}} 
 std\+::string {\bfseries hs} \{\}
@@ -73,10 +68,7 @@ std\+::string {\bfseries ds} \{\}
 std\+::string {\bfseries gs} \{\}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}\label{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}} 
-std\+::string {\bfseries ps} \{\char`\"{}Lit\+Pixel.\+hlsl\char`\"{}\}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_a7b0817fc6b1bbd0054d8947d6f069355}\label{class_graphics_pipeline_a7b0817fc6b1bbd0054d8947d6f069355}} 
-class \mbox{\hyperlink{class_graphics_pipeline_1_1_tesselator}{Graphics\+Pipeline\+::\+Tesselator}} {\bfseries tesselator}
+std\+::string {\bfseries ps} \{\char`\"{}Graphics/Lit\+Pixel.\+hlsl\char`\"{}\}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}\label{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Graphics\+Pipeline\+::\+Rasterizer}} {\bfseries rasterizer}
@@ -86,12 +78,6 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{Graphics\+Pipe
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_aee03fb9ef3c79b3b67b6a3bd6e5bbc0b}\label{class_graphics_pipeline_aee03fb9ef3c79b3b67b6a3bd6e5bbc0b}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Graphics\+Pipeline\+::\+Root\+Signature}} {\bfseries root\+\_\+signature}
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_afee8fa126870ff3eb7cbc7b0f7d956dc}\label{class_graphics_pipeline_afee8fa126870ff3eb7cbc7b0f7d956dc}} 
-static constexpr UINT {\bfseries NUMBER\+\_\+\+OF\+\_\+\+BUFFERS} = 3u
 \end{DoxyCompactItemize}
 
 

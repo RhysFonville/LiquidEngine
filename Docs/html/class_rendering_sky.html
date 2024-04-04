@@ -97,9 +97,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abb75a0a23238f58b6fa1f1c76e1ab37b"><td class="memItemLeft" align="right" valign="top"><a id="abb75a0a23238f58b6fa1f1c76e1ab37b" name="abb75a0a23238f58b6fa1f1c76e1ab37b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RenderingSky</b> (<a class="el" href="class_sky_component.html">SkyComponent</a> *sky)</td></tr>
 <tr class="separator:abb75a0a23238f58b6fa1f1c76e1ab37b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a176edd0adebe4f206a6e5d998ee31e04"><td class="memItemLeft" align="right" valign="top"><a id="a176edd0adebe4f206a6e5d998ee31e04" name="a176edd0adebe4f206a6e5d998ee31e04"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (<a class="el" href="class_f_vector3.html">FVector3</a> camera_pos)</td></tr>
-<tr class="separator:a176edd0adebe4f206a6e5d998ee31e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8cafed61e6f32cb13f1c070b65cf82c"><td class="memItemLeft" align="right" valign="top"><a id="ab8cafed61e6f32cb13f1c070b65cf82c" name="ab8cafed61e6f32cb13f1c070b65cf82c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const <a class="el" href="class_rendering_camera.html">RenderingCamera</a> &amp;camera)</td></tr>
+<tr class="separator:ab8cafed61e6f32cb13f1c070b65cf82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22906f77b9f8c7b622ac7ba172b8d227"><td class="memItemLeft" align="right" valign="top"><a id="a22906f77b9f8c7b622ac7ba172b8d227" name="a22906f77b9f8c7b622ac7ba172b8d227"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
+<tr class="separator:a22906f77b9f8c7b622ac7ba172b8d227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dff8878509f9455a7ef14f7d5956557"><td class="memItemLeft" align="right" valign="top"><a id="a3dff8878509f9455a7ef14f7d5956557" name="a3dff8878509f9455a7ef14f7d5956557"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
+<tr class="separator:a3dff8878509f9455a7ef14f7d5956557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a855a47e67125a5e1fb9f39578d152a21"><td class="memItemLeft" align="right" valign="top"><a id="a855a47e67125a5e1fb9f39578d152a21" name="a855a47e67125a5e1fb9f39578d152a21"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (<a class="el" href="class_sky_component.html">SkyComponent</a> component)</td></tr>
 <tr class="separator:a855a47e67125a5e1fb9f39578d152a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,12 +119,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (T com
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memItemLeft" align="right" valign="top"><a id="a1221e5bbd4e798bd482c8c9152c592e8" name="a1221e5bbd4e798bd482c8c9152c592e8"></a>
-<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">GraphicsPipeline::RootSignature::ConstantBufferContainer</a>&lt; PSSkyCB &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> = PSSkyCB{}</td></tr>
-<tr class="separator:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413b669dd064d5c7da6afc325cc8a712"><td class="memItemLeft" align="right" valign="top"><a id="a413b669dd064d5c7da6afc325cc8a712" name="a413b669dd064d5c7da6afc325cc8a712"></a>
+<a class="el" href="class_rendering_texture.html">RenderingTexture</a>&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> {}</td></tr>
+<tr class="separator:a413b669dd064d5c7da6afc325cc8a712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac89a273e4e71cde424c7ad45eb2e97"><td class="memItemLeft" align="right" valign="top"><a id="a9ac89a273e4e71cde424c7ad45eb2e97" name="a9ac89a273e4e71cde424c7ad45eb2e97"></a>
+<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">GraphicsPipeline::RootSignature::RootConstantsContainer</a>&lt; VSWVPConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>wvp_data</b> = VSWVPConstants{}</td></tr>
+<tr class="separator:a9ac89a273e4e71cde424c7ad45eb2e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57ce916eb3698f7a8376d07423363f94"><td class="memItemLeft" align="right" valign="top"><a id="a57ce916eb3698f7a8376d07423363f94" name="a57ce916eb3698f7a8376d07423363f94"></a>
 <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">GraphicsPipeline::RootSignature::RootConstantsContainer</a>&lt; VSTransformConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>transform_data</b> = VSTransformConstants{}</td></tr>
 <tr class="separator:a57ce916eb3698f7a8376d07423363f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memItemLeft" align="right" valign="top"><a id="a1221e5bbd4e798bd482c8c9152c592e8" name="a1221e5bbd4e798bd482c8c9152c592e8"></a>
+<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">GraphicsPipeline::RootSignature::ConstantBufferContainer</a>&lt; PSSkyCB &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> = PSSkyCB{}</td></tr>
+<tr class="separator:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_rendering_component"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_rendering_component')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_rendering_component.html">RenderingComponent&lt; SkyComponent &gt;</a></td></tr>
 <tr class="memitem:a4908d6da0d7736a9be78f92386a0bf4f inherit pub_attribs_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="a4908d6da0d7736a9be78f92386a0bf4f" name="a4908d6da0d7736a9be78f92386a0bf4f"></a>
 T *&#160;</td><td class="memItemRight" valign="bottom"><b>component</b></td></tr>

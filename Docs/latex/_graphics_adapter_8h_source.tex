@@ -1,0 +1,36 @@
+\hypertarget{_graphics_adapter_8h_source}{}\doxysection{Graphics\+Adapter.\+h}
+\label{_graphics_adapter_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Renderer/GraphicsAdapter.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Renderer/GraphicsAdapter.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <dxgi1\_6.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Debug/Throw.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ }Microsoft::WRL::ComPtr;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}()\ \{\ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory,\ UINT\ adapter);}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory,\ \textcolor{keyword}{const}\ std::string\ \&adapter);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIAdapter>\ \&adapter);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}\ \&adapter);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{\ adapter.Reset();\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ DXGI\_ADAPTER\_DESC\ get\_desc()\ \{\ \textcolor{keywordflow}{return}\ desc;\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ ComPtr<IDXGIAdapter>\ adapter\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ DXGI\_ADAPTER\_DESC\ desc\{\};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+
+\end{DoxyCode}

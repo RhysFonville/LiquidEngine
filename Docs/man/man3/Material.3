@@ -1,4 +1,4 @@
-.TH "Material" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Material" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,11 +9,16 @@ Material \- \fBMaterial\fP data for rendering\&.
 .PP
 .PP
 \fC#include <Material\&.h>\fP
+.PP
+Inherits \fBGraphicsTracker\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
+.RI "\fBMaterial\fP (const \fBMaterial\fP &mat)"
+.br
+.ti -1c
+.RI "\fBMaterial\fP (const std::string &file)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP ()"
@@ -34,22 +39,22 @@ Material \- \fBMaterial\fP data for rendering\&.
 .RI "bool \fBhas_normal_map\fP () const noexcept"
 .br
 .ti -1c
+.RI "bool \fBhas_environment_texture\fP () const noexcept"
+.br
+.ti -1c
 .RI "void \fBoperator=\fP (const \fBMaterial\fP &material) noexcept"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBMaterial\fP &material) const noexcept"
 .br
 .ti -1c
-.RI "const \fBTexture\fP & \fBget_albedo_texture\fP () const"
+.RI "\fBTexture\fP & \fBget_albedo_texture\fP ()"
 .br
 .ti -1c
-.RI "void \fBset_albedo_texture\fP (std::string texture)"
+.RI "\fBTexture\fP & \fBget_normal_map\fP ()"
 .br
 .ti -1c
-.RI "const \fBTexture\fP & \fBget_normal_map\fP () const"
-.br
-.ti -1c
-.RI "void \fBset_normal_map\fP (std::string texture)"
+.RI "\fBTexture\fP & \fBget_environment_texture\fP ()"
 .br
 .ti -1c
 .RI "\fBColor\fP \fBget_albedo\fP () const"
@@ -73,19 +78,40 @@ Material \- \fBMaterial\fP data for rendering\&.
 .RI "float \fBget_shininess\fP () const"
 .br
 .ti -1c
-.RI "void \fBset_shininess\fP (const float &shininess)"
+.RI "void \fBset_shininess\fP (float shininess)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool changed) noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline\fP \fBpipeline\fP"
+.RI "\fBGraphicsPipeline\fP \fBpipeline\fP {}"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Attributes inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBchanged\fP {false}"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
 \fBMaterial\fP data for rendering\&. 
+
+Specifies how light interacts with the object\&. 
 
 .SH "Author"
 .PP 

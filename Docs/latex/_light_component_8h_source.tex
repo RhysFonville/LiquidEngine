@@ -27,9 +27,12 @@
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ is\_null(\textcolor{keywordtype}{bool}\ null)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>null\ =\ null;\ changed\ =\ \textcolor{keyword}{true};\ \}}
 \DoxyCodeLine{00027\ }
 \DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(255,\ 255,\ 255,\ 255);}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(5,\ 5,\ 5,\ 255);}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ null\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_editor\_gui\_section()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ render\_light\_component\_editor\_gui\_section()\ \{\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(255,\ 255,\ 255,\ 255);}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\ =\ \mbox{\hyperlink{struct_t_color}{Color}}(50,\ 50,\ 50,\ 255);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ null\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00035\ \};}
 
 \end{DoxyCode}

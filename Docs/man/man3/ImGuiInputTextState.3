@@ -1,0 +1,125 @@
+.TH "ImGuiInputTextState" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiInputTextState
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBClearText\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearFreeMemory\fP ()"
+.br
+.ti -1c
+.RI "int \fBGetUndoAvailCount\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetRedoAvailCount\fP () const"
+.br
+.ti -1c
+.RI "void \fBOnKeyPressed\fP (int key)"
+.br
+.ti -1c
+.RI "void \fBCursorAnimReset\fP ()"
+.br
+.ti -1c
+.RI "void \fBCursorClamp\fP ()"
+.br
+.ti -1c
+.RI "bool \fBHasSelection\fP () const"
+.br
+.ti -1c
+.RI "void \fBClearSelection\fP ()"
+.br
+.ti -1c
+.RI "int \fBGetCursorPos\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetSelectionStart\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetSelectionEnd\fP () const"
+.br
+.ti -1c
+.RI "void \fBSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndKeepSelection\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadUserBufAndMoveToEnd\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "int \fBCurLenW\fP"
+.br
+.ti -1c
+.RI "int \fBCurLenA\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< ImWchar > \fBTextW\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char > \fBTextA\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< char > \fBInitialTextA\fP"
+.br
+.ti -1c
+.RI "bool \fBTextAIsValid\fP"
+.br
+.ti -1c
+.RI "int \fBBufCapacityA\fP"
+.br
+.ti -1c
+.RI "float \fBScrollX\fP"
+.br
+.ti -1c
+.RI "ImStb::STB_TexteditState \fBStb\fP"
+.br
+.ti -1c
+.RI "float \fBCursorAnim\fP"
+.br
+.ti -1c
+.RI "bool \fBCursorFollow\fP"
+.br
+.ti -1c
+.RI "bool \fBSelectedAllMouseLock\fP"
+.br
+.ti -1c
+.RI "bool \fBEdited\fP"
+.br
+.ti -1c
+.RI "ImGuiInputTextFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "bool \fBReloadUserBuf\fP"
+.br
+.ti -1c
+.RI "int \fBReloadSelectionStart\fP"
+.br
+.ti -1c
+.RI "int \fBReloadSelectionEnd\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

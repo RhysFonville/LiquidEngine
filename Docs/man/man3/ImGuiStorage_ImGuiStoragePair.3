@@ -1,0 +1,47 @@
+.TH "ImGuiStorage::ImGuiStoragePair" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiStorage::ImGuiStoragePair
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (ImGuiID _key, int _val)"
+.br
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (ImGuiID _key, float _val)"
+.br
+.ti -1c
+.RI "\fBImGuiStoragePair\fP (ImGuiID _key, void *_val)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImGuiID \fBkey\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBval_i\fP"
+.br
+.ti -1c
+.RI "   float \fBval_f\fP"
+.br
+.ti -1c
+.RI "   void * \fBval_p\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

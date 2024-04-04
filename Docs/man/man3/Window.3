@@ -1,4 +1,4 @@
-.TH "Window" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Window" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -19,6 +19,9 @@ Window \- The main window for rendering\&.
 .RI "\fBWindow\fP (HINSTANCE hInstance, \fBRenderer\fP *graphics_scene)"
 .br
 .ti -1c
+.RI "\fBWindow\fP (\fBRenderer\fP *renderer)"
+.br
+.ti -1c
 .RI "void \fBset_up_window\fP (const \fBVector2\fP &position=\fBVector2\fP(CW_USEDEFAULT, CW_USEDEFAULT), const \fBVector2\fP &size=\fBVector2\fP(1200, 800), const std::string &name='Epic \fBWindow\fP :coolglasses:', DWORD style=WS_OVERLAPPEDWINDOW|WS_VISIBLE, const HWND &parent=NULL, DWORD extended_style=NULL, HMENU menu=NULL, void *lpParam=NULL)"
 .br
 .RI "Creates and sets up the window\&. "
@@ -35,10 +38,7 @@ Window \- The main window for rendering\&.
 .RI "GET HDC & \fBget_dc\fP () noexcept"
 .br
 .ti -1c
-.RI "GET HINSTANCE & \fBget_hInstance\fP () noexcept"
-.br
-.ti -1c
-.RI "GET WNDCLASSEXA & \fBget_class\fP () noexcept"
+.RI "GET WNDCLASSEXW & \fBget_class\fP () noexcept"
 .br
 .ti -1c
 .RI "GET \fBUVector2\fP \fBget_size\fP () const noexcept"
@@ -58,6 +58,9 @@ Window \- The main window for rendering\&.
 .in +1c
 .ti -1c
 .RI "\fBRenderer\fP * \fBgraphics_scene\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBEditorGUI\fP \fBeditor_gui\fP {}"
 .br
 .in -1c
 .SH "Detailed Description"

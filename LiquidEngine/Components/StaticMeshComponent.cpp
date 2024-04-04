@@ -1,15 +1,14 @@
 #include "StaticMeshComponent.h"
 
 StaticMeshComponent::StaticMeshComponent(Mesh mesh)
-	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) {
-
-	material.pipeline.input_assembler.set_proxy(proxy);
-}
+	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) { }
 
 void StaticMeshComponent::compile() noexcept {
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
+
 	material.compile();
+	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
 void StaticMeshComponent::clean_up() {
@@ -36,7 +35,6 @@ Material & StaticMeshComponent::get_material() noexcept {
 
 void StaticMeshComponent::set_material(const Material &material) noexcept {
 	this->material = material;
-	this->material.pipeline.input_assembler.set_proxy(proxy);
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 

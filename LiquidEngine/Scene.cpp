@@ -19,7 +19,7 @@ void Scene::clean_up() {
 
 void Scene::compile() {
 	for (std::shared_ptr<Object> &object : objects) {
-		object->compile();
+		object->base_compile();
 	}
 }
 

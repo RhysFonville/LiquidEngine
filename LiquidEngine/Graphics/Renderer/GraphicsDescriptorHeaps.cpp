@@ -5,7 +5,7 @@ GraphicsDescriptorHeaps::GraphicsDescriptorHeaps() { }
 void GraphicsDescriptorHeaps::compile(const ComPtr<ID3D12Device> &device) {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		D3D12_DESCRIPTOR_HEAP_DESC heap_desc = {};
-		heap_desc.NumDescriptors = 1000000; // 100,000 descriptors -> 0.4 megabytes
+		heap_desc.NumDescriptors = 100000; // 100,000 descriptors -> 0.4 megabytes
 		heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		heap_desc.NodeMask = 0u;
@@ -17,7 +17,7 @@ void GraphicsDescriptorHeaps::compile(const ComPtr<ID3D12Device> &device) {
 
 void GraphicsDescriptorHeaps::clean_up() {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) descriptor_heaps[i].Reset();
-	std::ranges::fill(occupation, false);
+	occupation.clear();
 }
 
 UINT GraphicsDescriptorHeaps::get_open_heap_index() {

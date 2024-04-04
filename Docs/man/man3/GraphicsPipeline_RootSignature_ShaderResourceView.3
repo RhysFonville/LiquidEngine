@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::ShaderResourceView" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::ShaderResourceView" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,35 +16,38 @@ GraphicsPipeline::RootSignature::ShaderResourceView \- \fBShader\fP resource vie
 .RI "\fBShaderResourceView\fP (const DirectX::ScratchImage &mip_chain, bool is_texture_cube=false)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const ComPtr< ID3D12DescriptorHeap > descriptor_heaps[NUMBER_OF_BUFFERS])"
+.RI "void \fBupdate_descs\fP (const DirectX::ScratchImage &mip_chain, bool is_texture_cube=false)"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "ComPtr< ID3D12Resource > \fBdefault_buffer\fP = nullptr"
+.RI "ComPtr< ID3D12Resource > \fBdefault_heap\fP {nullptr}"
 .br
 .ti -1c
-.RI "D3D12_RESOURCE_DESC \fBheap_desc\fP = { }"
+.RI "D3D12_RESOURCE_DESC \fBheap_desc\fP {}"
 .br
 .ti -1c
-.RI "std::vector< D3D12_SUBRESOURCE_DATA > \fBsubresources\fP = { }"
+.RI "std::vector< D3D12_SUBRESOURCE_DATA > \fBsubresources\fP {}"
 .br
 .ti -1c
-.RI "D3D12_SHADER_RESOURCE_VIEW_DESC \fBsrv_desc\fP = { }"
+.RI "D3D12_SHADER_RESOURCE_VIEW_DESC \fBsrv_desc\fP {}"
 .br
 .ti -1c
-.RI "UINT \fBindex\fP = 0u"
+.RI "UINT \fBheap_index\fP {(UINT)\-1}"
 .br
 .ti -1c
-.RI "UINT \fBheap_index\fP = 0u"
+.RI "bool \fBcompile_signal\fP {false}"
 .br
 .ti -1c
-.RI "bool \fBupdate_signal\fP = false"
+.RI "std::shared_ptr< \fBDescriptorTable\fP > \fBdescriptor_table\fP {nullptr}"
 .br
 .in -1c
 .SH "Detailed Description"

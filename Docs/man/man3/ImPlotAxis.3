@@ -1,0 +1,272 @@
+.TH "ImPlotAxis" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotAxis
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.ti -1c
+.RI "bool \fBSetMin\fP (double _min, bool force=false)"
+.br
+.ti -1c
+.RI "bool \fBSetMax\fP (double _max, bool force=false)"
+.br
+.ti -1c
+.RI "void \fBSetRange\fP (double v1, double v2)"
+.br
+.ti -1c
+.RI "void \fBSetRange\fP (const \fBImPlotRange\fP &range)"
+.br
+.ti -1c
+.RI "void \fBSetAspect\fP (double unit_per_pix)"
+.br
+.ti -1c
+.RI "float \fBPixelSize\fP () const"
+.br
+.ti -1c
+.RI "double \fBGetAspect\fP () const"
+.br
+.ti -1c
+.RI "void \fBConstrain\fP ()"
+.br
+.ti -1c
+.RI "void \fBUpdateTransformCache\fP ()"
+.br
+.ti -1c
+.RI "float \fBPlotToPixels\fP (double plt) const"
+.br
+.ti -1c
+.RI "double \fBPixelsToPlot\fP (float pix) const"
+.br
+.ti -1c
+.RI "void \fBExtendFit\fP (double v)"
+.br
+.ti -1c
+.RI "void \fBExtendFitWith\fP (\fBImPlotAxis\fP &alt, double v, double v_alt)"
+.br
+.ti -1c
+.RI "void \fBApplyFit\fP (float padding)"
+.br
+.ti -1c
+.RI "bool \fBHasLabel\fP () const"
+.br
+.ti -1c
+.RI "bool \fBHasGridLines\fP () const"
+.br
+.ti -1c
+.RI "bool \fBHasTickLabels\fP () const"
+.br
+.ti -1c
+.RI "bool \fBHasTickMarks\fP () const"
+.br
+.ti -1c
+.RI "bool \fBWillRender\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsOpposite\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsInverted\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsForeground\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsAutoFitting\fP () const"
+.br
+.ti -1c
+.RI "bool \fBCanInitFit\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsRangeLocked\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsLockedMin\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsLockedMax\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsLocked\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsInputLockedMin\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsInputLockedMax\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsInputLocked\fP () const"
+.br
+.ti -1c
+.RI "bool \fBHasMenus\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsPanLocked\fP (bool increasing)"
+.br
+.ti -1c
+.RI "void \fBPushLinks\fP ()"
+.br
+.ti -1c
+.RI "void \fBPullLinks\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "ImPlotAxisFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "ImPlotAxisFlags \fBPreviousFlags\fP"
+.br
+.ti -1c
+.RI "\fBImPlotRange\fP \fBRange\fP"
+.br
+.ti -1c
+.RI "ImPlotCond \fBRangeCond\fP"
+.br
+.ti -1c
+.RI "ImPlotScale \fBScale\fP"
+.br
+.ti -1c
+.RI "\fBImPlotRange\fP \fBFitExtents\fP"
+.br
+.ti -1c
+.RI "\fBImPlotAxis\fP * \fBOrthoAxis\fP"
+.br
+.ti -1c
+.RI "\fBImPlotRange\fP \fBConstraintRange\fP"
+.br
+.ti -1c
+.RI "\fBImPlotRange\fP \fBConstraintZoom\fP"
+.br
+.ti -1c
+.RI "\fBImPlotTicker\fP \fBTicker\fP"
+.br
+.ti -1c
+.RI "ImPlotFormatter \fBFormatter\fP"
+.br
+.ti -1c
+.RI "void * \fBFormatterData\fP"
+.br
+.ti -1c
+.RI "char \fBFormatSpec\fP [16]"
+.br
+.ti -1c
+.RI "ImPlotLocator \fBLocator\fP"
+.br
+.ti -1c
+.RI "double * \fBLinkedMin\fP"
+.br
+.ti -1c
+.RI "double * \fBLinkedMax\fP"
+.br
+.ti -1c
+.RI "int \fBPickerLevel\fP"
+.br
+.ti -1c
+.RI "\fBImPlotTime\fP \fBPickerTimeMin\fP"
+.br
+.ti -1c
+.RI "\fBImPlotTime\fP \fBPickerTimeMax\fP"
+.br
+.ti -1c
+.RI "ImPlotTransform \fBTransformForward\fP"
+.br
+.ti -1c
+.RI "ImPlotTransform \fBTransformInverse\fP"
+.br
+.ti -1c
+.RI "void * \fBTransformData\fP"
+.br
+.ti -1c
+.RI "float \fBPixelMin\fP"
+.br
+.ti -1c
+.RI "float \fBPixelMax\fP"
+.br
+.ti -1c
+.RI "double \fBScaleMin\fP"
+.br
+.ti -1c
+.RI "double \fBScaleMax\fP"
+.br
+.ti -1c
+.RI "double \fBScaleToPixel\fP"
+.br
+.ti -1c
+.RI "float \fBDatum1\fP"
+.br
+.ti -1c
+.RI "float \fBDatum2\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBHoverRect\fP"
+.br
+.ti -1c
+.RI "int \fBLabelOffset\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorMaj\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorMin\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorTick\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorTxt\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorBg\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorHov\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorAct\fP"
+.br
+.ti -1c
+.RI "ImU32 \fBColorHiLi\fP"
+.br
+.ti -1c
+.RI "bool \fBEnabled\fP"
+.br
+.ti -1c
+.RI "bool \fBVertical\fP"
+.br
+.ti -1c
+.RI "bool \fBFitThisFrame\fP"
+.br
+.ti -1c
+.RI "bool \fBHasRange\fP"
+.br
+.ti -1c
+.RI "bool \fBHasFormatSpec\fP"
+.br
+.ti -1c
+.RI "bool \fBShowDefaultTicks\fP"
+.br
+.ti -1c
+.RI "bool \fBHovered\fP"
+.br
+.ti -1c
+.RI "bool \fBHeld\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

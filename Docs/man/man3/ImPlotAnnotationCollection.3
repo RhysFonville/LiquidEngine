@@ -1,0 +1,41 @@
+.TH "ImPlotAnnotationCollection" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotAnnotationCollection
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBAppendV\fP (const \fBImVec2\fP &pos, const \fBImVec2\fP &off, ImU32 bg, ImU32 fg, bool clamp, const char *fmt, va_list args) IM_FMTLIST(7)"
+.br
+.ti -1c
+.RI "void \fBAppend\fP (const \fBImVec2\fP &pos, const \fBImVec2\fP &off, ImU32 bg, ImU32 fg, bool clamp, const char *fmt,\&.\&.\&.) IM_FMTARGS(7)"
+.br
+.ti -1c
+.RI "const char * \fBGetText\fP (int idx)"
+.br
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImPlotAnnotation\fP > \fBAnnotations\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBTextBuffer\fP"
+.br
+.ti -1c
+.RI "int \fBSize\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

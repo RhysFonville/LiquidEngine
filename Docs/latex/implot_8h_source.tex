@@ -1,0 +1,1303 @@
+\hypertarget{implot_8h_source}{}\doxysection{implot.\+h}
+\label{implot_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/implot/implot.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/implot/implot.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ MIT\ License}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Copyright\ (c)\ 2023\ Evan\ Pezent}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ SOFTWARE.}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ ImPlot\ v0.17}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ Table\ of\ Contents:}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ [SECTION]\ Macros\ and\ Defines}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ [SECTION]\ Enums\ and\ Types}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ [SECTION]\ Callbacks}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ [SECTION]\ Contexts}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ [SECTION]\ Begin/End\ Plot}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ [SECTION]\ Begin/End\ Subplot}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ [SECTION]\ Setup}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ [SECTION]\ SetNext}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ [SECTION]\ Plot\ Items}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ [SECTION]\ Plot\ Tools}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ [SECTION]\ Plot\ Utils}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ [SECTION]\ Legend\ Utils}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ [SECTION]\ Drag\ and\ Drop}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ [SECTION]\ Styling}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ [SECTION]\ Colormaps}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ [SECTION]\ Input\ Mapping}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ [SECTION]\ Miscellaneous}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ [SECTION]\ Demo}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ [SECTION]\ Obsolete\ API}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}imgui.h"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ [SECTION]\ Macros\ and\ Defines}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ Define\ attributes\ of\ all\ API\ symbols\ declarations\ (e.g.\ for\ DLL\ under\ Windows)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ Using\ ImPlot\ via\ a\ shared\ library\ is\ not\ recommended,\ because\ we\ don't\ guarantee}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ backward\ nor\ forward\ ABI\ compatibility\ and\ also\ function\ call\ overhead.\ If\ you}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ do\ use\ ImPlot\ as\ a\ DLL,\ be\ sure\ to\ call\ SetImGuiContext\ (see\ Miscellanous\ section).}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifndef\ IMPLOT\_API}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ IMPLOT\_API}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ ImPlot\ version\ string.}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ IMPLOT\_VERSION\ "{}0.17"{}}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Indicates\ variable\ should\ deduced\ automatically.}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ IMPLOT\_AUTO\ -\/1}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ Special\ color\ used\ to\ indicate\ that\ a\ color\ should\ be\ deduced\ automatically.}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ IMPLOT\_AUTO\_COL\ ImVec4(0,0,0,-\/1)}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Macro\ for\ templated\ plotting\ functions;\ keeps\ header\ clean.}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ IMPLOT\_TMP\ template\ <typename\ T>\ IMPLOT\_API}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ [SECTION]\ Enums\ and\ Types}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ Forward\ declarations}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImPlot\ context\ (opaque\ struct,\ see\ implot\_internal.h)}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ Enums/Flags}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImAxis;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImAxis\_}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotFlags;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotFlags\_}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotAxisFlags;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotAxisFlags\_}}
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotSubplotFlags;\ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotSubplotFlags\_}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotLegendFlags;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotLegendFlags\_}}
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotMouseTextFlags;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotMouseTextFlags\_}}
+\DoxyCodeLine{00085\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotDragToolFlags;\ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotDragToolFlags\_}}
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotColormapScaleFlags;\ \textcolor{comment}{//\ -\/>\ ImPlotColormapScaleFlags\_}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotItemFlags;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotItemFlags\_}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotLineFlags;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotLineFlags\_}}
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotScatterFlags;\ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotScatterFlags}}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotStairsFlags;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotStairsFlags\_}}
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotShadedFlags;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotShadedFlags\_}}
+\DoxyCodeLine{00093\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotBarsFlags;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotBarsFlags\_}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotBarGroupsFlags;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotBarGroupsFlags\_}}
+\DoxyCodeLine{00095\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotErrorBarsFlags;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotErrorBarsFlags\_}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotStemsFlags;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotStemsFlags\_}}
+\DoxyCodeLine{00097\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotInfLinesFlags;\ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotInfLinesFlags\_}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotPieChartFlags;\ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotPieChartFlags\_}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotHeatmapFlags;\ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotHeatmapFlags\_}}
+\DoxyCodeLine{00100\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotHistogramFlags;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotHistogramFlags\_}}
+\DoxyCodeLine{00101\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotDigitalFlags;\ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotDigitalFlags\_}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotImageFlags;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotImageFlags\_}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotTextFlags;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotTextFlags\_}}
+\DoxyCodeLine{00104\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotDummyFlags;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ ImPlotDummyFlags\_}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotCond;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotCond\_}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotCol;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotCol\_}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotStyleVar;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotStyleVar\_}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotScale;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotScale\_}}
+\DoxyCodeLine{00110\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotMarker;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotMarker\_}}
+\DoxyCodeLine{00111\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotColormap;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotColormap\_}}
+\DoxyCodeLine{00112\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotLocation;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotLocation\_}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotBin;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotBin\_}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ Axis\ indices.\ The\ values\ assigned\ may\ change;\ NEVER\ hardcode\ these.}}
+\DoxyCodeLine{00116\ \textcolor{keyword}{enum}\ ImAxis\_\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ horizontal\ axes}}
+\DoxyCodeLine{00118\ \ \ \ \ ImAxis\_X1\ =\ 0,\ \textcolor{comment}{//\ enabled\ by\ default}}
+\DoxyCodeLine{00119\ \ \ \ \ ImAxis\_X2,\ \ \ \ \ \textcolor{comment}{//\ disabled\ by\ default}}
+\DoxyCodeLine{00120\ \ \ \ \ ImAxis\_X3,\ \ \ \ \ \textcolor{comment}{//\ disabled\ by\ default}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ vertical\ axes}}
+\DoxyCodeLine{00122\ \ \ \ \ ImAxis\_Y1,\ \ \ \ \ \textcolor{comment}{//\ enabled\ by\ default}}
+\DoxyCodeLine{00123\ \ \ \ \ ImAxis\_Y2,\ \ \ \ \ \textcolor{comment}{//\ disabled\ by\ default}}
+\DoxyCodeLine{00124\ \ \ \ \ ImAxis\_Y3,\ \ \ \ \ \textcolor{comment}{//\ disabled\ by\ default}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ bookeeping}}
+\DoxyCodeLine{00126\ \ \ \ \ ImAxis\_COUNT}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ Options\ for\ plots\ (see\ BeginPlot).}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{enum}\ ImPlotFlags\_\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ ImPlotFlags\_None\ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00132\ \ \ \ \ ImPlotFlags\_NoTitle\ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \textcolor{comment}{//\ the\ plot\ title\ will\ not\ be\ displayed\ (titles\ are\ also\ hidden\ if\ preceeded\ by\ double\ hashes,\ e.g.\ "{}\#\#MyPlot"{})}}
+\DoxyCodeLine{00133\ \ \ \ \ ImPlotFlags\_NoLegend\ \ \ \ \ \ =\ 1\ <<\ 1,\ \ \textcolor{comment}{//\ the\ legend\ will\ not\ be\ displayed}}
+\DoxyCodeLine{00134\ \ \ \ \ ImPlotFlags\_NoMouseText\ \ \ =\ 1\ <<\ 2,\ \ \textcolor{comment}{//\ the\ mouse\ position,\ in\ plot\ coordinates,\ will\ not\ be\ displayed\ inside\ of\ the\ plot}}
+\DoxyCodeLine{00135\ \ \ \ \ ImPlotFlags\_NoInputs\ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ interact\ with\ the\ plot}}
+\DoxyCodeLine{00136\ \ \ \ \ ImPlotFlags\_NoMenus\ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ open\ context\ menus}}
+\DoxyCodeLine{00137\ \ \ \ \ ImPlotFlags\_NoBoxSelect\ \ \ =\ 1\ <<\ 5,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ box-\/select}}
+\DoxyCodeLine{00138\ \ \ \ \ ImPlotFlags\_NoFrame\ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ \textcolor{comment}{//\ the\ ImGui\ frame\ will\ not\ be\ rendered}}
+\DoxyCodeLine{00139\ \ \ \ \ ImPlotFlags\_Equal\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,\ \ \textcolor{comment}{//\ x\ and\ y\ axes\ pairs\ will\ be\ constrained\ to\ have\ the\ same\ units/pixel}}
+\DoxyCodeLine{00140\ \ \ \ \ ImPlotFlags\_Crosshairs\ \ \ \ =\ 1\ <<\ 8,\ \ \textcolor{comment}{//\ the\ default\ mouse\ cursor\ will\ be\ replaced\ with\ a\ crosshair\ when\ hovered}}
+\DoxyCodeLine{00141\ \ \ \ \ ImPlotFlags\_CanvasOnly\ \ \ \ =\ ImPlotFlags\_NoTitle\ |\ ImPlotFlags\_NoLegend\ |\ ImPlotFlags\_NoMenus\ |\ ImPlotFlags\_NoBoxSelect\ |\ ImPlotFlags\_NoMouseText}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ Options\ for\ plot\ axes\ (see\ SetupAxis).}}
+\DoxyCodeLine{00145\ \textcolor{keyword}{enum}\ ImPlotAxisFlags\_\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ ImPlotAxisFlags\_None\ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00147\ \ \ \ \ ImPlotAxisFlags\_NoLabel\ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \textcolor{comment}{//\ the\ axis\ label\ will\ not\ be\ displayed\ (axis\ labels\ are\ also\ hidden\ if\ the\ supplied\ string\ name\ is\ nullptr)}}
+\DoxyCodeLine{00148\ \ \ \ \ ImPlotAxisFlags\_NoGridLines\ \ \ =\ 1\ <<\ 1,\ \ \textcolor{comment}{//\ no\ grid\ lines\ will\ be\ displayed}}
+\DoxyCodeLine{00149\ \ \ \ \ ImPlotAxisFlags\_NoTickMarks\ \ \ =\ 1\ <<\ 2,\ \ \textcolor{comment}{//\ no\ tick\ marks\ will\ be\ displayed}}
+\DoxyCodeLine{00150\ \ \ \ \ ImPlotAxisFlags\_NoTickLabels\ \ =\ 1\ <<\ 3,\ \ \textcolor{comment}{//\ no\ text\ labels\ will\ be\ displayed}}
+\DoxyCodeLine{00151\ \ \ \ \ ImPlotAxisFlags\_NoInitialFit\ \ =\ 1\ <<\ 4,\ \ \textcolor{comment}{//\ axis\ will\ not\ be\ initially\ fit\ to\ data\ extents\ on\ the\ first\ rendered\ frame}}
+\DoxyCodeLine{00152\ \ \ \ \ ImPlotAxisFlags\_NoMenus\ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ open\ context\ menus\ with\ right-\/click}}
+\DoxyCodeLine{00153\ \ \ \ \ ImPlotAxisFlags\_NoSideSwitch\ \ =\ 1\ <<\ 6,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ switch\ the\ axis\ side\ by\ dragging\ it}}
+\DoxyCodeLine{00154\ \ \ \ \ ImPlotAxisFlags\_NoHighlight\ \ \ =\ 1\ <<\ 7,\ \ \textcolor{comment}{//\ the\ axis\ will\ not\ have\ its\ background\ highlighted\ when\ hovered\ or\ held}}
+\DoxyCodeLine{00155\ \ \ \ \ ImPlotAxisFlags\_Opposite\ \ \ \ \ \ =\ 1\ <<\ 8,\ \ \textcolor{comment}{//\ axis\ ticks\ and\ labels\ will\ be\ rendered\ on\ the\ conventionally\ opposite\ side\ (i.e,\ right\ or\ top)}}
+\DoxyCodeLine{00156\ \ \ \ \ ImPlotAxisFlags\_Foreground\ \ \ \ =\ 1\ <<\ 9,\ \ \textcolor{comment}{//\ grid\ lines\ will\ be\ displayed\ in\ the\ foreground\ (i.e.\ on\ top\ of\ data)\ instead\ of\ the\ background}}
+\DoxyCodeLine{00157\ \ \ \ \ ImPlotAxisFlags\_Invert\ \ \ \ \ \ \ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ the\ axis\ will\ be\ inverted}}
+\DoxyCodeLine{00158\ \ \ \ \ ImPlotAxisFlags\_AutoFit\ \ \ \ \ \ \ =\ 1\ <<\ 11,\ \textcolor{comment}{//\ axis\ will\ be\ auto-\/fitting\ to\ data\ extents}}
+\DoxyCodeLine{00159\ \ \ \ \ ImPlotAxisFlags\_RangeFit\ \ \ \ \ \ =\ 1\ <<\ 12,\ \textcolor{comment}{//\ axis\ will\ only\ fit\ points\ if\ the\ point\ is\ in\ the\ visible\ range\ of\ the\ **orthogonal**\ axis}}
+\DoxyCodeLine{00160\ \ \ \ \ ImPlotAxisFlags\_PanStretch\ \ \ \ =\ 1\ <<\ 13,\ \textcolor{comment}{//\ panning\ in\ a\ locked\ or\ constrained\ state\ will\ cause\ the\ axis\ to\ stretch\ if\ possible}}
+\DoxyCodeLine{00161\ \ \ \ \ ImPlotAxisFlags\_LockMin\ \ \ \ \ \ \ =\ 1\ <<\ 14,\ \textcolor{comment}{//\ the\ axis\ minimum\ value\ will\ be\ locked\ when\ panning/zooming}}
+\DoxyCodeLine{00162\ \ \ \ \ ImPlotAxisFlags\_LockMax\ \ \ \ \ \ \ =\ 1\ <<\ 15,\ \textcolor{comment}{//\ the\ axis\ maximum\ value\ will\ be\ locked\ when\ panning/zooming}}
+\DoxyCodeLine{00163\ \ \ \ \ ImPlotAxisFlags\_Lock\ \ \ \ \ \ \ \ \ \ =\ ImPlotAxisFlags\_LockMin\ |\ ImPlotAxisFlags\_LockMax,}
+\DoxyCodeLine{00164\ \ \ \ \ ImPlotAxisFlags\_NoDecorations\ =\ ImPlotAxisFlags\_NoLabel\ |\ ImPlotAxisFlags\_NoGridLines\ |\ ImPlotAxisFlags\_NoTickMarks\ |\ ImPlotAxisFlags\_NoTickLabels,}
+\DoxyCodeLine{00165\ \ \ \ \ ImPlotAxisFlags\_AuxDefault\ \ \ \ =\ ImPlotAxisFlags\_NoGridLines\ |\ ImPlotAxisFlags\_Opposite}
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ Options\ for\ subplots\ (see\ BeginSubplot)}}
+\DoxyCodeLine{00169\ \textcolor{keyword}{enum}\ ImPlotSubplotFlags\_\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ ImPlotSubplotFlags\_None\ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00171\ \ \ \ \ ImPlotSubplotFlags\_NoTitle\ \ \ \ \ =\ 1\ <<\ 0,\ \ \textcolor{comment}{//\ the\ subplot\ title\ will\ not\ be\ displayed\ (titles\ are\ also\ hidden\ if\ preceeded\ by\ double\ hashes,\ e.g.\ "{}\#\#MySubplot"{})}}
+\DoxyCodeLine{00172\ \ \ \ \ ImPlotSubplotFlags\_NoLegend\ \ \ \ =\ 1\ <<\ 1,\ \ \textcolor{comment}{//\ the\ legend\ will\ not\ be\ displayed\ (only\ applicable\ if\ ImPlotSubplotFlags\_ShareItems\ is\ enabled)}}
+\DoxyCodeLine{00173\ \ \ \ \ ImPlotSubplotFlags\_NoMenus\ \ \ \ \ =\ 1\ <<\ 2,\ \ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ open\ context\ menus\ with\ right-\/click}}
+\DoxyCodeLine{00174\ \ \ \ \ ImPlotSubplotFlags\_NoResize\ \ \ \ =\ 1\ <<\ 3,\ \ \textcolor{comment}{//\ resize\ splitters\ between\ subplot\ cells\ will\ be\ not\ be\ provided}}
+\DoxyCodeLine{00175\ \ \ \ \ ImPlotSubplotFlags\_NoAlign\ \ \ \ \ =\ 1\ <<\ 4,\ \ \textcolor{comment}{//\ subplot\ edges\ will\ not\ be\ aligned\ vertically\ or\ horizontally}}
+\DoxyCodeLine{00176\ \ \ \ \ ImPlotSubplotFlags\_ShareItems\ \ =\ 1\ <<\ 5,\ \ \textcolor{comment}{//\ items\ across\ all\ subplots\ will\ be\ shared\ and\ rendered\ into\ a\ single\ legend\ entry}}
+\DoxyCodeLine{00177\ \ \ \ \ ImPlotSubplotFlags\_LinkRows\ \ \ \ =\ 1\ <<\ 6,\ \ \textcolor{comment}{//\ link\ the\ y-\/axis\ limits\ of\ all\ plots\ in\ each\ row\ (does\ not\ apply\ to\ auxiliary\ axes)}}
+\DoxyCodeLine{00178\ \ \ \ \ ImPlotSubplotFlags\_LinkCols\ \ \ \ =\ 1\ <<\ 7,\ \ \textcolor{comment}{//\ link\ the\ x-\/axis\ limits\ of\ all\ plots\ in\ each\ column\ (does\ not\ apply\ to\ auxiliary\ axes)}}
+\DoxyCodeLine{00179\ \ \ \ \ ImPlotSubplotFlags\_LinkAllX\ \ \ \ =\ 1\ <<\ 8,\ \ \textcolor{comment}{//\ link\ the\ x-\/axis\ limits\ in\ every\ plot\ in\ the\ subplot\ (does\ not\ apply\ to\ auxiliary\ axes)}}
+\DoxyCodeLine{00180\ \ \ \ \ ImPlotSubplotFlags\_LinkAllY\ \ \ \ =\ 1\ <<\ 9,\ \ \textcolor{comment}{//\ link\ the\ y-\/axis\ limits\ in\ every\ plot\ in\ the\ subplot\ (does\ not\ apply\ to\ auxiliary\ axes)}}
+\DoxyCodeLine{00181\ \ \ \ \ ImPlotSubplotFlags\_ColMajor\ \ \ \ =\ 1\ <<\ 10\ \ \textcolor{comment}{//\ subplots\ are\ added\ in\ column\ major\ order\ instead\ of\ the\ default\ row\ major\ order}}
+\DoxyCodeLine{00182\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ Options\ for\ legends\ (see\ SetupLegend)}}
+\DoxyCodeLine{00185\ \textcolor{keyword}{enum}\ ImPlotLegendFlags\_\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ ImPlotLegendFlags\_None\ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00187\ \ \ \ \ ImPlotLegendFlags\_NoButtons\ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \textcolor{comment}{//\ legend\ icons\ will\ not\ function\ as\ hide/show\ buttons}}
+\DoxyCodeLine{00188\ \ \ \ \ ImPlotLegendFlags\_NoHighlightItem\ =\ 1\ <<\ 1,\ \textcolor{comment}{//\ plot\ items\ will\ not\ be\ highlighted\ when\ their\ legend\ entry\ is\ hovered}}
+\DoxyCodeLine{00189\ \ \ \ \ ImPlotLegendFlags\_NoHighlightAxis\ =\ 1\ <<\ 2,\ \textcolor{comment}{//\ axes\ will\ not\ be\ highlighted\ when\ legend\ entries\ are\ hovered\ (only\ relevant\ if\ x/y-\/axis\ count\ >\ 1)}}
+\DoxyCodeLine{00190\ \ \ \ \ ImPlotLegendFlags\_NoMenus\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \textcolor{comment}{//\ the\ user\ will\ not\ be\ able\ to\ open\ context\ menus\ with\ right-\/click}}
+\DoxyCodeLine{00191\ \ \ \ \ ImPlotLegendFlags\_Outside\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \textcolor{comment}{//\ legend\ will\ be\ rendered\ outside\ of\ the\ plot\ area}}
+\DoxyCodeLine{00192\ \ \ \ \ ImPlotLegendFlags\_Horizontal\ \ \ \ \ \ =\ 1\ <<\ 5,\ \textcolor{comment}{//\ legend\ entries\ will\ be\ displayed\ horizontally}}
+\DoxyCodeLine{00193\ \ \ \ \ ImPlotLegendFlags\_Sort\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \textcolor{comment}{//\ legend\ entries\ will\ be\ displayed\ in\ alphabetical\ order}}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ Options\ for\ mouse\ hover\ text\ (see\ SetupMouseText)}}
+\DoxyCodeLine{00197\ \textcolor{keyword}{enum}\ ImPlotMouseTextFlags\_\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ ImPlotMouseTextFlags\_None\ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00199\ \ \ \ \ ImPlotMouseTextFlags\_NoAuxAxes\ \ \ =\ 1\ <<\ 0,\ \textcolor{comment}{//\ only\ show\ the\ mouse\ position\ for\ primary\ axes}}
+\DoxyCodeLine{00200\ \ \ \ \ ImPlotMouseTextFlags\_NoFormat\ \ \ \ =\ 1\ <<\ 1,\ \textcolor{comment}{//\ axes\ label\ formatters\ won't\ be\ used\ to\ render\ text}}
+\DoxyCodeLine{00201\ \ \ \ \ ImPlotMouseTextFlags\_ShowAlways\ \ =\ 1\ <<\ 2,\ \textcolor{comment}{//\ always\ display\ mouse\ position\ even\ if\ plot\ not\ hovered}}
+\DoxyCodeLine{00202\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ Options\ for\ DragPoint,\ DragLine,\ DragRect}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{enum}\ ImPlotDragToolFlags\_\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ ImPlotDragToolFlags\_None\ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00207\ \ \ \ \ ImPlotDragToolFlags\_NoCursors\ =\ 1\ <<\ 0,\ \textcolor{comment}{//\ drag\ tools\ won't\ change\ cursor\ icons\ when\ hovered\ or\ held}}
+\DoxyCodeLine{00208\ \ \ \ \ ImPlotDragToolFlags\_NoFit\ \ \ \ \ =\ 1\ <<\ 1,\ \textcolor{comment}{//\ the\ drag\ tool\ won't\ be\ considered\ for\ plot\ fits}}
+\DoxyCodeLine{00209\ \ \ \ \ ImPlotDragToolFlags\_NoInputs\ \ =\ 1\ <<\ 2,\ \textcolor{comment}{//\ lock\ the\ tool\ from\ user\ inputs}}
+\DoxyCodeLine{00210\ \ \ \ \ ImPlotDragToolFlags\_Delayed\ \ \ =\ 1\ <<\ 3,\ \textcolor{comment}{//\ tool\ rendering\ will\ be\ delayed\ one\ frame;\ useful\ when\ applying\ position-\/constraints}}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ Flags\ for\ ColormapScale}}
+\DoxyCodeLine{00214\ \textcolor{keyword}{enum}\ ImPlotColormapScaleFlags\_\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ ImPlotColormapScaleFlags\_None\ \ \ \ \ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00216\ \ \ \ \ ImPlotColormapScaleFlags\_NoLabel\ \ =\ 1\ <<\ 0,\ \textcolor{comment}{//\ the\ colormap\ axis\ label\ will\ not\ be\ displayed}}
+\DoxyCodeLine{00217\ \ \ \ \ ImPlotColormapScaleFlags\_Opposite\ =\ 1\ <<\ 1,\ \textcolor{comment}{//\ render\ the\ colormap\ label\ and\ tick\ labels\ on\ the\ opposite\ side}}
+\DoxyCodeLine{00218\ \ \ \ \ ImPlotColormapScaleFlags\_Invert\ \ \ =\ 1\ <<\ 2,\ \textcolor{comment}{//\ invert\ the\ colormap\ bar\ and\ axis\ scale\ (this\ only\ affects\ rendering;\ if\ you\ only\ want\ to\ reverse\ the\ scale\ mapping,\ make\ scale\_min\ >\ scale\_max)}}
+\DoxyCodeLine{00219\ \};}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{comment}{//\ Flags\ for\ ANY\ PlotX\ function}}
+\DoxyCodeLine{00222\ \textcolor{keyword}{enum}\ ImPlotItemFlags\_\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ ImPlotItemFlags\_None\ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00224\ \ \ \ \ ImPlotItemFlags\_NoLegend\ =\ 1\ <<\ 0,\ \textcolor{comment}{//\ the\ item\ won't\ have\ a\ legend\ entry\ displayed}}
+\DoxyCodeLine{00225\ \ \ \ \ ImPlotItemFlags\_NoFit\ \ \ \ =\ 1\ <<\ 1,\ \textcolor{comment}{//\ the\ item\ won't\ be\ considered\ for\ plot\ fits}}
+\DoxyCodeLine{00226\ \};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{comment}{//\ Flags\ for\ PlotLine}}
+\DoxyCodeLine{00229\ \textcolor{keyword}{enum}\ ImPlotLineFlags\_\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ ImPlotLineFlags\_None\ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00231\ \ \ \ \ ImPlotLineFlags\_Segments\ \ \ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ a\ line\ segment\ will\ be\ rendered\ from\ every\ two\ consecutive\ points}}
+\DoxyCodeLine{00232\ \ \ \ \ ImPlotLineFlags\_Loop\ \ \ \ \ \ \ \ =\ 1\ <<\ 11,\ \textcolor{comment}{//\ the\ last\ and\ first\ point\ will\ be\ connected\ to\ form\ a\ closed\ loop}}
+\DoxyCodeLine{00233\ \ \ \ \ ImPlotLineFlags\_SkipNaN\ \ \ \ \ =\ 1\ <<\ 12,\ \textcolor{comment}{//\ NaNs\ values\ will\ be\ skipped\ instead\ of\ rendered\ as\ missing\ data}}
+\DoxyCodeLine{00234\ \ \ \ \ ImPlotLineFlags\_NoClip\ \ \ \ \ \ =\ 1\ <<\ 13,\ \textcolor{comment}{//\ markers\ (if\ displayed)\ on\ the\ edge\ of\ a\ plot\ will\ not\ be\ clipped}}
+\DoxyCodeLine{00235\ \ \ \ \ ImPlotLineFlags\_Shaded\ \ \ \ \ \ =\ 1\ <<\ 14,\ \textcolor{comment}{//\ a\ filled\ region\ between\ the\ line\ and\ horizontal\ origin\ will\ be\ rendered;\ use\ PlotShaded\ for\ more\ advanced\ cases}}
+\DoxyCodeLine{00236\ \};}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{comment}{//\ Flags\ for\ PlotScatter}}
+\DoxyCodeLine{00239\ \textcolor{keyword}{enum}\ ImPlotScatterFlags\_\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ ImPlotScatterFlags\_None\ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00241\ \ \ \ \ ImPlotScatterFlags\_NoClip\ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ markers\ on\ the\ edge\ of\ a\ plot\ will\ not\ be\ clipped}}
+\DoxyCodeLine{00242\ \};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{comment}{//\ Flags\ for\ PlotStairs}}
+\DoxyCodeLine{00245\ \textcolor{keyword}{enum}\ ImPlotStairsFlags\_\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ ImPlotStairsFlags\_None\ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00247\ \ \ \ \ ImPlotStairsFlags\_PreStep\ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ the\ y\ value\ is\ continued\ constantly\ to\ the\ left\ from\ every\ x\ position,\ i.e.\ the\ interval\ (x[i-\/1],\ x[i]]\ has\ the\ value\ y[i]}}
+\DoxyCodeLine{00248\ \ \ \ \ ImPlotStairsFlags\_Shaded\ \ \ =\ 1\ <<\ 11\ \ \textcolor{comment}{//\ a\ filled\ region\ between\ the\ stairs\ and\ horizontal\ origin\ will\ be\ rendered;\ use\ PlotShaded\ for\ more\ advanced\ cases}}
+\DoxyCodeLine{00249\ \};}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{comment}{//\ Flags\ for\ PlotShaded\ (placeholder)}}
+\DoxyCodeLine{00252\ \textcolor{keyword}{enum}\ ImPlotShadedFlags\_\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ ImPlotShadedFlags\_None\ \ =\ 0\ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00254\ \};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ Flags\ for\ PlotBars}}
+\DoxyCodeLine{00257\ \textcolor{keyword}{enum}\ ImPlotBarsFlags\_\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ ImPlotBarsFlags\_None\ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00259\ \ \ \ \ ImPlotBarsFlags\_Horizontal\ \ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ bars\ will\ be\ rendered\ horizontally\ on\ the\ current\ y-\/axis}}
+\DoxyCodeLine{00260\ \};}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ Flags\ for\ PlotBarGroups}}
+\DoxyCodeLine{00263\ \textcolor{keyword}{enum}\ ImPlotBarGroupsFlags\_\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ ImPlotBarGroupsFlags\_None\ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00265\ \ \ \ \ ImPlotBarGroupsFlags\_Horizontal\ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ bar\ groups\ will\ be\ rendered\ horizontally\ on\ the\ current\ y-\/axis}}
+\DoxyCodeLine{00266\ \ \ \ \ ImPlotBarGroupsFlags\_Stacked\ \ \ \ \ =\ 1\ <<\ 11,\ \textcolor{comment}{//\ items\ in\ a\ group\ will\ be\ stacked\ on\ top\ of\ each\ other}}
+\DoxyCodeLine{00267\ \};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ Flags\ for\ PlotErrorBars}}
+\DoxyCodeLine{00270\ \textcolor{keyword}{enum}\ ImPlotErrorBarsFlags\_\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ ImPlotErrorBarsFlags\_None\ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00272\ \ \ \ \ ImPlotErrorBarsFlags\_Horizontal\ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ error\ bars\ will\ be\ rendered\ horizontally\ on\ the\ current\ y-\/axis}}
+\DoxyCodeLine{00273\ \};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{comment}{//\ Flags\ for\ PlotStems}}
+\DoxyCodeLine{00276\ \textcolor{keyword}{enum}\ ImPlotStemsFlags\_\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ ImPlotStemsFlags\_None\ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00278\ \ \ \ \ ImPlotStemsFlags\_Horizontal\ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ stems\ will\ be\ rendered\ horizontally\ on\ the\ current\ y-\/axis}}
+\DoxyCodeLine{00279\ \};}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{comment}{//\ Flags\ for\ PlotInfLines}}
+\DoxyCodeLine{00282\ \textcolor{keyword}{enum}\ ImPlotInfLinesFlags\_\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ ImPlotInfLinesFlags\_None\ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00284\ \ \ \ \ ImPlotInfLinesFlags\_Horizontal\ =\ 1\ <<\ 10\ \textcolor{comment}{//\ lines\ will\ be\ rendered\ horizontally\ on\ the\ current\ y-\/axis}}
+\DoxyCodeLine{00285\ \};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{comment}{//\ Flags\ for\ PlotPieChart}}
+\DoxyCodeLine{00288\ \textcolor{keyword}{enum}\ ImPlotPieChartFlags\_\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ ImPlotPieChartFlags\_None\ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00290\ \ \ \ \ ImPlotPieChartFlags\_Normalize\ \ \ \ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ force\ normalization\ of\ pie\ chart\ values\ (i.e.\ always\ make\ a\ full\ circle\ if\ sum\ <\ 0)}}
+\DoxyCodeLine{00291\ \ \ \ \ ImPlotPieChartFlags\_IgnoreHidden\ =\ 1\ <<\ 11\ \ \textcolor{comment}{//\ ignore\ hidden\ slices\ when\ drawing\ the\ pie\ chart\ (as\ if\ they\ were\ not\ there)}}
+\DoxyCodeLine{00292\ \};}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{comment}{//\ Flags\ for\ PlotHeatmap}}
+\DoxyCodeLine{00295\ \textcolor{keyword}{enum}\ ImPlotHeatmapFlags\_\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ ImPlotHeatmapFlags\_None\ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00297\ \ \ \ \ ImPlotHeatmapFlags\_ColMajor\ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ data\ will\ be\ read\ in\ column\ major\ order}}
+\DoxyCodeLine{00298\ \};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{comment}{//\ Flags\ for\ PlotHistogram\ and\ PlotHistogram2D}}
+\DoxyCodeLine{00301\ \textcolor{keyword}{enum}\ ImPlotHistogramFlags\_\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ ImPlotHistogramFlags\_None\ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00303\ \ \ \ \ ImPlotHistogramFlags\_Horizontal\ =\ 1\ <<\ 10,\ \textcolor{comment}{//\ histogram\ bars\ will\ be\ rendered\ horizontally\ (not\ supported\ by\ PlotHistogram2D)}}
+\DoxyCodeLine{00304\ \ \ \ \ ImPlotHistogramFlags\_Cumulative\ =\ 1\ <<\ 11,\ \textcolor{comment}{//\ each\ bin\ will\ contain\ its\ count\ plus\ the\ counts\ of\ all\ previous\ bins\ (not\ supported\ by\ PlotHistogram2D)}}
+\DoxyCodeLine{00305\ \ \ \ \ ImPlotHistogramFlags\_Density\ \ \ \ =\ 1\ <<\ 12,\ \textcolor{comment}{//\ counts\ will\ be\ normalized,\ i.e.\ the\ PDF\ will\ be\ visualized,\ or\ the\ CDF\ will\ be\ visualized\ if\ Cumulative\ is\ also\ set}}
+\DoxyCodeLine{00306\ \ \ \ \ ImPlotHistogramFlags\_NoOutliers\ =\ 1\ <<\ 13,\ \textcolor{comment}{//\ exclude\ values\ outside\ the\ specifed\ histogram\ range\ from\ the\ count\ toward\ normalizing\ and\ cumulative\ counts}}
+\DoxyCodeLine{00307\ \ \ \ \ ImPlotHistogramFlags\_ColMajor\ \ \ =\ 1\ <<\ 14\ \ \textcolor{comment}{//\ data\ will\ be\ read\ in\ column\ major\ order\ (not\ supported\ by\ PlotHistogram)}}
+\DoxyCodeLine{00308\ \};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ Flags\ for\ PlotDigital\ (placeholder)}}
+\DoxyCodeLine{00311\ \textcolor{keyword}{enum}\ ImPlotDigitalFlags\_\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ ImPlotDigitalFlags\_None\ =\ 0\ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00313\ \};}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \textcolor{comment}{//\ Flags\ for\ PlotImage\ (placeholder)}}
+\DoxyCodeLine{00316\ \textcolor{keyword}{enum}\ ImPlotImageFlags\_\ \{}
+\DoxyCodeLine{00317\ \ \ \ \ ImPlotImageFlags\_None\ =\ 0\ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00318\ \};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \textcolor{comment}{//\ Flags\ for\ PlotText}}
+\DoxyCodeLine{00321\ \textcolor{keyword}{enum}\ ImPlotTextFlags\_\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ ImPlotTextFlags\_None\ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00323\ \ \ \ \ ImPlotTextFlags\_Vertical\ =\ 1\ <<\ 10\ \ \textcolor{comment}{//\ text\ will\ be\ rendered\ vertically}}
+\DoxyCodeLine{00324\ \};}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{comment}{//\ Flags\ for\ PlotDummy\ (placeholder)}}
+\DoxyCodeLine{00327\ \textcolor{keyword}{enum}\ ImPlotDummyFlags\_\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ ImPlotDummyFlags\_None\ =\ 0\ \textcolor{comment}{//\ default}}
+\DoxyCodeLine{00329\ \};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{comment}{//\ Represents\ a\ condition\ for\ SetupAxisLimits\ etc.\ (same\ as\ ImGuiCond,\ but\ we\ only\ support\ a\ subset\ of\ those\ enums)}}
+\DoxyCodeLine{00332\ \textcolor{keyword}{enum}\ ImPlotCond\_}
+\DoxyCodeLine{00333\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ ImPlotCond\_None\ \ \ =\ ImGuiCond\_None,\ \ \ \ \textcolor{comment}{//\ No\ condition\ (always\ set\ the\ variable),\ same\ as\ \_Always}}
+\DoxyCodeLine{00335\ \ \ \ \ ImPlotCond\_Always\ =\ ImGuiCond\_Always,\ \ \textcolor{comment}{//\ No\ condition\ (always\ set\ the\ variable)}}
+\DoxyCodeLine{00336\ \ \ \ \ ImPlotCond\_Once\ \ \ =\ ImGuiCond\_Once,\ \ \ \ \textcolor{comment}{//\ Set\ the\ variable\ once\ per\ runtime\ session\ (only\ the\ first\ call\ will\ succeed)}}
+\DoxyCodeLine{00337\ \};}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \textcolor{comment}{//\ Plot\ styling\ colors.}}
+\DoxyCodeLine{00340\ \textcolor{keyword}{enum}\ ImPlotCol\_\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{comment}{//\ item\ styling\ colors}}
+\DoxyCodeLine{00342\ \ \ \ \ ImPlotCol\_Line,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ line/outline\ color\ (defaults\ to\ next\ unused\ color\ in\ current\ colormap)}}
+\DoxyCodeLine{00343\ \ \ \ \ ImPlotCol\_Fill,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ fill\ color\ for\ bars\ (defaults\ to\ the\ current\ line\ color)}}
+\DoxyCodeLine{00344\ \ \ \ \ ImPlotCol\_MarkerOutline,\ \textcolor{comment}{//\ marker\ outline\ color\ (defaults\ to\ the\ current\ line\ color)}}
+\DoxyCodeLine{00345\ \ \ \ \ ImPlotCol\_MarkerFill,\ \ \ \ \textcolor{comment}{//\ marker\ fill\ color\ (defaults\ to\ the\ current\ line\ color)}}
+\DoxyCodeLine{00346\ \ \ \ \ ImPlotCol\_ErrorBar,\ \ \ \ \ \ \textcolor{comment}{//\ error\ bar\ color\ (defaults\ to\ ImGuiCol\_Text)}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{comment}{//\ plot\ styling\ colors}}
+\DoxyCodeLine{00348\ \ \ \ \ ImPlotCol\_FrameBg,\ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ frame\ background\ color\ (defaults\ to\ ImGuiCol\_FrameBg)}}
+\DoxyCodeLine{00349\ \ \ \ \ ImPlotCol\_PlotBg,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ area\ background\ color\ (defaults\ to\ ImGuiCol\_WindowBg)}}
+\DoxyCodeLine{00350\ \ \ \ \ ImPlotCol\_PlotBorder,\ \ \ \ \textcolor{comment}{//\ plot\ area\ border\ color\ (defaults\ to\ ImGuiCol\_Border)}}
+\DoxyCodeLine{00351\ \ \ \ \ ImPlotCol\_LegendBg,\ \ \ \ \ \ \textcolor{comment}{//\ legend\ background\ color\ (defaults\ to\ ImGuiCol\_PopupBg)}}
+\DoxyCodeLine{00352\ \ \ \ \ ImPlotCol\_LegendBorder,\ \ \textcolor{comment}{//\ legend\ border\ color\ (defaults\ to\ ImPlotCol\_PlotBorder)}}
+\DoxyCodeLine{00353\ \ \ \ \ ImPlotCol\_LegendText,\ \ \ \ \textcolor{comment}{//\ legend\ text\ color\ (defaults\ to\ ImPlotCol\_InlayText)}}
+\DoxyCodeLine{00354\ \ \ \ \ ImPlotCol\_TitleText,\ \ \ \ \ \textcolor{comment}{//\ plot\ title\ text\ color\ (defaults\ to\ ImGuiCol\_Text)}}
+\DoxyCodeLine{00355\ \ \ \ \ ImPlotCol\_InlayText,\ \ \ \ \ \textcolor{comment}{//\ color\ of\ text\ appearing\ inside\ of\ plots\ (defaults\ to\ ImGuiCol\_Text)}}
+\DoxyCodeLine{00356\ \ \ \ \ ImPlotCol\_AxisText,\ \ \ \ \ \ \textcolor{comment}{//\ axis\ label\ and\ tick\ lables\ color\ (defaults\ to\ ImGuiCol\_Text)}}
+\DoxyCodeLine{00357\ \ \ \ \ ImPlotCol\_AxisGrid,\ \ \ \ \ \ \textcolor{comment}{//\ axis\ grid\ color\ (defaults\ to\ 25\%\ ImPlotCol\_AxisText)}}
+\DoxyCodeLine{00358\ \ \ \ \ ImPlotCol\_AxisTick,\ \ \ \ \ \ \textcolor{comment}{//\ axis\ tick\ color\ (defaults\ to\ AxisGrid)}}
+\DoxyCodeLine{00359\ \ \ \ \ ImPlotCol\_AxisBg,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ background\ color\ of\ axis\ hover\ region\ (defaults\ to\ transparent)}}
+\DoxyCodeLine{00360\ \ \ \ \ ImPlotCol\_AxisBgHovered,\ \textcolor{comment}{//\ axis\ hover\ color\ (defaults\ to\ ImGuiCol\_ButtonHovered)}}
+\DoxyCodeLine{00361\ \ \ \ \ ImPlotCol\_AxisBgActive,\ \ \textcolor{comment}{//\ axis\ active\ color\ (defaults\ to\ ImGuiCol\_ButtonActive)}}
+\DoxyCodeLine{00362\ \ \ \ \ ImPlotCol\_Selection,\ \ \ \ \ \textcolor{comment}{//\ box-\/selection\ color\ (defaults\ to\ yellow)}}
+\DoxyCodeLine{00363\ \ \ \ \ ImPlotCol\_Crosshairs,\ \ \ \ \textcolor{comment}{//\ crosshairs\ color\ (defaults\ to\ ImPlotCol\_PlotBorder)}}
+\DoxyCodeLine{00364\ \ \ \ \ ImPlotCol\_COUNT}
+\DoxyCodeLine{00365\ \};}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \textcolor{comment}{//\ Plot\ styling\ variables.}}
+\DoxyCodeLine{00368\ \textcolor{keyword}{enum}\ ImPlotStyleVar\_\ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{//\ item\ styling\ variables}}
+\DoxyCodeLine{00370\ \ \ \ \ ImPlotStyleVar\_LineWeight,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ plot\ item\ line\ weight\ in\ pixels}}
+\DoxyCodeLine{00371\ \ \ \ \ ImPlotStyleVar\_Marker,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int,\ \ \ \ marker\ specification}}
+\DoxyCodeLine{00372\ \ \ \ \ ImPlotStyleVar\_MarkerSize,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ marker\ size\ in\ pixels\ (roughly\ the\ marker's\ "{}radius"{})}}
+\DoxyCodeLine{00373\ \ \ \ \ ImPlotStyleVar\_MarkerWeight,\ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ plot\ outline\ weight\ of\ markers\ in\ pixels}}
+\DoxyCodeLine{00374\ \ \ \ \ ImPlotStyleVar\_FillAlpha,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ alpha\ modifier\ applied\ to\ all\ plot\ item\ fills}}
+\DoxyCodeLine{00375\ \ \ \ \ ImPlotStyleVar\_ErrorBarSize,\ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ error\ bar\ whisker\ width\ in\ pixels}}
+\DoxyCodeLine{00376\ \ \ \ \ ImPlotStyleVar\_ErrorBarWeight,\ \ \ \ \ \textcolor{comment}{//\ float,\ \ error\ bar\ whisker\ weight\ in\ pixels}}
+\DoxyCodeLine{00377\ \ \ \ \ ImPlotStyleVar\_DigitalBitHeight,\ \ \ \textcolor{comment}{//\ float,\ \ digital\ channels\ bit\ height\ (at\ 1)\ in\ pixels}}
+\DoxyCodeLine{00378\ \ \ \ \ ImPlotStyleVar\_DigitalBitGap,\ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ digital\ channels\ bit\ padding\ gap\ in\ pixels}}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{comment}{//\ plot\ styling\ variables}}
+\DoxyCodeLine{00380\ \ \ \ \ ImPlotStyleVar\_PlotBorderSize,\ \ \ \ \ \textcolor{comment}{//\ float,\ \ thickness\ of\ border\ around\ plot\ area}}
+\DoxyCodeLine{00381\ \ \ \ \ ImPlotStyleVar\_MinorAlpha,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ float,\ \ alpha\ multiplier\ applied\ to\ minor\ axis\ grid\ lines}}
+\DoxyCodeLine{00382\ \ \ \ \ ImPlotStyleVar\_MajorTickLen,\ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ major\ tick\ lengths\ for\ X\ and\ Y\ axes}}
+\DoxyCodeLine{00383\ \ \ \ \ ImPlotStyleVar\_MinorTickLen,\ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ minor\ tick\ lengths\ for\ X\ and\ Y\ axes}}
+\DoxyCodeLine{00384\ \ \ \ \ ImPlotStyleVar\_MajorTickSize,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ line\ thickness\ of\ major\ ticks}}
+\DoxyCodeLine{00385\ \ \ \ \ ImPlotStyleVar\_MinorTickSize,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ line\ thickness\ of\ minor\ ticks}}
+\DoxyCodeLine{00386\ \ \ \ \ ImPlotStyleVar\_MajorGridSize,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ line\ thickness\ of\ major\ grid\ lines}}
+\DoxyCodeLine{00387\ \ \ \ \ ImPlotStyleVar\_MinorGridSize,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ line\ thickness\ of\ minor\ grid\ lines}}
+\DoxyCodeLine{00388\ \ \ \ \ ImPlotStyleVar\_PlotPadding,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ padding\ between\ widget\ frame\ and\ plot\ area,\ labels,\ or\ outside\ legends\ (i.e.\ main\ padding)}}
+\DoxyCodeLine{00389\ \ \ \ \ ImPlotStyleVar\_LabelPadding,\ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ padding\ between\ axes\ labels,\ tick\ labels,\ and\ plot\ edge}}
+\DoxyCodeLine{00390\ \ \ \ \ ImPlotStyleVar\_LegendPadding,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ legend\ padding\ from\ plot\ edges}}
+\DoxyCodeLine{00391\ \ \ \ \ ImPlotStyleVar\_LegendInnerPadding,\ \textcolor{comment}{//\ ImVec2,\ legend\ inner\ padding\ from\ legend\ edges}}
+\DoxyCodeLine{00392\ \ \ \ \ ImPlotStyleVar\_LegendSpacing,\ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ spacing\ between\ legend\ entries}}
+\DoxyCodeLine{00393\ \ \ \ \ ImPlotStyleVar\_MousePosPadding,\ \ \ \ \textcolor{comment}{//\ ImVec2,\ padding\ between\ plot\ edge\ and\ interior\ info\ text}}
+\DoxyCodeLine{00394\ \ \ \ \ ImPlotStyleVar\_AnnotationPadding,\ \ \textcolor{comment}{//\ ImVec2,\ text\ padding\ around\ annotation\ labels}}
+\DoxyCodeLine{00395\ \ \ \ \ ImPlotStyleVar\_FitPadding,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ additional\ fit\ padding\ as\ a\ percentage\ of\ the\ fit\ extents\ (e.g.\ ImVec2(0.1f,0.1f)\ adds\ 10\%\ to\ the\ fit\ extents\ of\ X\ and\ Y)}}
+\DoxyCodeLine{00396\ \ \ \ \ ImPlotStyleVar\_PlotDefaultSize,\ \ \ \ \textcolor{comment}{//\ ImVec2,\ default\ size\ used\ when\ ImVec2(0,0)\ is\ passed\ to\ BeginPlot}}
+\DoxyCodeLine{00397\ \ \ \ \ ImPlotStyleVar\_PlotMinSize,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImVec2,\ minimum\ size\ plot\ frame\ can\ be\ when\ shrunk}}
+\DoxyCodeLine{00398\ \ \ \ \ ImPlotStyleVar\_COUNT}
+\DoxyCodeLine{00399\ \};}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{comment}{//\ Axis\ scale}}
+\DoxyCodeLine{00402\ \textcolor{keyword}{enum}\ ImPlotScale\_\ \{}
+\DoxyCodeLine{00403\ \ \ \ \ ImPlotScale\_Linear\ =\ 0,\ \textcolor{comment}{//\ default\ linear\ scale}}
+\DoxyCodeLine{00404\ \ \ \ \ ImPlotScale\_Time,\ \ \ \ \ \ \ \textcolor{comment}{//\ date/time\ scale}}
+\DoxyCodeLine{00405\ \ \ \ \ ImPlotScale\_Log10,\ \ \ \ \ \ \textcolor{comment}{//\ base\ 10\ logartithmic\ scale}}
+\DoxyCodeLine{00406\ \ \ \ \ ImPlotScale\_SymLog,\ \ \ \ \ \textcolor{comment}{//\ symmetric\ log\ scale}}
+\DoxyCodeLine{00407\ \};}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \textcolor{comment}{//\ Marker\ specifications.}}
+\DoxyCodeLine{00410\ \textcolor{keyword}{enum}\ ImPlotMarker\_\ \{}
+\DoxyCodeLine{00411\ \ \ \ \ ImPlotMarker\_None\ =\ -\/1,\ \textcolor{comment}{//\ no\ marker}}
+\DoxyCodeLine{00412\ \ \ \ \ ImPlotMarker\_Circle,\ \ \ \ \textcolor{comment}{//\ a\ circle\ marker\ (default)}}
+\DoxyCodeLine{00413\ \ \ \ \ ImPlotMarker\_Square,\ \ \ \ \textcolor{comment}{//\ a\ square\ maker}}
+\DoxyCodeLine{00414\ \ \ \ \ ImPlotMarker\_Diamond,\ \ \ \textcolor{comment}{//\ a\ diamond\ marker}}
+\DoxyCodeLine{00415\ \ \ \ \ ImPlotMarker\_Up,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ an\ upward-\/pointing\ triangle\ marker}}
+\DoxyCodeLine{00416\ \ \ \ \ ImPlotMarker\_Down,\ \ \ \ \ \ \textcolor{comment}{//\ an\ downward-\/pointing\ triangle\ marker}}
+\DoxyCodeLine{00417\ \ \ \ \ ImPlotMarker\_Left,\ \ \ \ \ \ \textcolor{comment}{//\ an\ leftward-\/pointing\ triangle\ marker}}
+\DoxyCodeLine{00418\ \ \ \ \ ImPlotMarker\_Right,\ \ \ \ \ \textcolor{comment}{//\ an\ rightward-\/pointing\ triangle\ marker}}
+\DoxyCodeLine{00419\ \ \ \ \ ImPlotMarker\_Cross,\ \ \ \ \ \textcolor{comment}{//\ a\ cross\ marker\ (not\ fillable)}}
+\DoxyCodeLine{00420\ \ \ \ \ ImPlotMarker\_Plus,\ \ \ \ \ \ \textcolor{comment}{//\ a\ plus\ marker\ (not\ fillable)}}
+\DoxyCodeLine{00421\ \ \ \ \ ImPlotMarker\_Asterisk,\ \ \textcolor{comment}{//\ a\ asterisk\ marker\ (not\ fillable)}}
+\DoxyCodeLine{00422\ \ \ \ \ ImPlotMarker\_COUNT}
+\DoxyCodeLine{00423\ \};}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \textcolor{comment}{//\ Built-\/in\ colormaps}}
+\DoxyCodeLine{00426\ \textcolor{keyword}{enum}\ ImPlotColormap\_\ \{}
+\DoxyCodeLine{00427\ \ \ \ \ ImPlotColormap\_Deep\ \ \ \ \ =\ 0,\ \ \ \textcolor{comment}{//\ a.k.a.\ seaborn\ deep\ \ \ \ \ \ \ \ \ \ \ \ \ (qual=true,\ \ n=10)\ (default)}}
+\DoxyCodeLine{00428\ \ \ \ \ ImPlotColormap\_Dark\ \ \ \ \ =\ 1,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}Set1"{}\ \ \ \ \ \ \ \ (qual=true,\ \ n=9\ )}}
+\DoxyCodeLine{00429\ \ \ \ \ ImPlotColormap\_Pastel\ \ \ =\ 2,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}Pastel1"{}\ \ \ \ \ (qual=true,\ \ n=9\ )}}
+\DoxyCodeLine{00430\ \ \ \ \ ImPlotColormap\_Paired\ \ \ =\ 3,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}Paired"{}\ \ \ \ \ \ (qual=true,\ \ n=12)}}
+\DoxyCodeLine{00431\ \ \ \ \ ImPlotColormap\_Viridis\ \ =\ 4,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}viridis"{}\ \ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00432\ \ \ \ \ ImPlotColormap\_Plasma\ \ \ =\ 5,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}plasma"{}\ \ \ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00433\ \ \ \ \ ImPlotColormap\_Hot\ \ \ \ \ \ =\ 6,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib/MATLAB\ "{}hot"{}\ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00434\ \ \ \ \ ImPlotColormap\_Cool\ \ \ \ \ =\ 7,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib/MATLAB\ "{}cool"{}\ (qual=false,\ n=11)}}
+\DoxyCodeLine{00435\ \ \ \ \ ImPlotColormap\_Pink\ \ \ \ \ =\ 8,\ \ \ \textcolor{comment}{//\ a.k.a.\ matplotlib/MATLAB\ "{}pink"{}\ (qual=false,\ n=11)}}
+\DoxyCodeLine{00436\ \ \ \ \ ImPlotColormap\_Jet\ \ \ \ \ \ =\ 9,\ \ \ \textcolor{comment}{//\ a.k.a.\ MATLAB\ "{}jet"{}\ \ \ \ \ \ \ \ \ \ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00437\ \ \ \ \ ImPlotColormap\_Twilight\ =\ 10,\ \ \textcolor{comment}{//\ a.k.a.\ matplotlib\ "{}twilight"{}\ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00438\ \ \ \ \ ImPlotColormap\_RdBu\ \ \ \ \ =\ 11,\ \ \textcolor{comment}{//\ red/blue,\ Color\ Brewer\ \ \ \ \ \ \ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00439\ \ \ \ \ ImPlotColormap\_BrBG\ \ \ \ \ =\ 12,\ \ \textcolor{comment}{//\ brown/blue-\/green,\ Color\ Brewer\ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00440\ \ \ \ \ ImPlotColormap\_PiYG\ \ \ \ \ =\ 13,\ \ \textcolor{comment}{//\ pink/yellow-\/green,\ Color\ Brewer\ (qual=false,\ n=11)}}
+\DoxyCodeLine{00441\ \ \ \ \ ImPlotColormap\_Spectral\ =\ 14,\ \ \textcolor{comment}{//\ color\ spectrum,\ Color\ Brewer\ \ \ \ (qual=false,\ n=11)}}
+\DoxyCodeLine{00442\ \ \ \ \ ImPlotColormap\_Greys\ \ \ \ =\ 15,\ \ \textcolor{comment}{//\ white/black\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (qual=false,\ n=2\ )}}
+\DoxyCodeLine{00443\ \};}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{comment}{//\ Used\ to\ position\ items\ on\ a\ plot\ (e.g.\ legends,\ labels,\ etc.)}}
+\DoxyCodeLine{00446\ \textcolor{keyword}{enum}\ ImPlotLocation\_\ \{}
+\DoxyCodeLine{00447\ \ \ \ \ ImPlotLocation\_Center\ \ \ \ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ center-\/center}}
+\DoxyCodeLine{00448\ \ \ \ \ ImPlotLocation\_North\ \ \ \ \ =\ 1\ <<\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ top-\/center}}
+\DoxyCodeLine{00449\ \ \ \ \ ImPlotLocation\_South\ \ \ \ \ =\ 1\ <<\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bottom-\/center}}
+\DoxyCodeLine{00450\ \ \ \ \ ImPlotLocation\_West\ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ center-\/left}}
+\DoxyCodeLine{00451\ \ \ \ \ ImPlotLocation\_East\ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ center-\/right}}
+\DoxyCodeLine{00452\ \ \ \ \ ImPlotLocation\_NorthWest\ =\ ImPlotLocation\_North\ |\ ImPlotLocation\_West,\ \textcolor{comment}{//\ top-\/left}}
+\DoxyCodeLine{00453\ \ \ \ \ ImPlotLocation\_NorthEast\ =\ ImPlotLocation\_North\ |\ ImPlotLocation\_East,\ \textcolor{comment}{//\ top-\/right}}
+\DoxyCodeLine{00454\ \ \ \ \ ImPlotLocation\_SouthWest\ =\ ImPlotLocation\_South\ |\ ImPlotLocation\_West,\ \textcolor{comment}{//\ bottom-\/left}}
+\DoxyCodeLine{00455\ \ \ \ \ ImPlotLocation\_SouthEast\ =\ ImPlotLocation\_South\ |\ ImPlotLocation\_East\ \ \textcolor{comment}{//\ bottom-\/right}}
+\DoxyCodeLine{00456\ \};}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \textcolor{comment}{//\ Enums\ for\ different\ automatic\ histogram\ binning\ methods\ (k\ =\ bin\ count\ or\ w\ =\ bin\ width)}}
+\DoxyCodeLine{00459\ \textcolor{keyword}{enum}\ ImPlotBin\_\ \{}
+\DoxyCodeLine{00460\ \ \ \ \ ImPlotBin\_Sqrt\ \ \ \ =\ -\/1,\ \textcolor{comment}{//\ k\ =\ sqrt(n)}}
+\DoxyCodeLine{00461\ \ \ \ \ ImPlotBin\_Sturges\ =\ -\/2,\ \textcolor{comment}{//\ k\ =\ 1\ +\ log2(n)}}
+\DoxyCodeLine{00462\ \ \ \ \ ImPlotBin\_Rice\ \ \ \ =\ -\/3,\ \textcolor{comment}{//\ k\ =\ 2\ *\ cbrt(n)}}
+\DoxyCodeLine{00463\ \ \ \ \ ImPlotBin\_Scott\ \ \ =\ -\/4,\ \textcolor{comment}{//\ w\ =\ 3.49\ *\ sigma\ /\ cbrt(n)}}
+\DoxyCodeLine{00464\ \};}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \textcolor{comment}{//\ Double\ precision\ version\ of\ ImVec2\ used\ by\ ImPlot.\ Extensible\ by\ end\ users.}}
+\DoxyCodeLine{00467\ IM\_MSVC\_RUNTIME\_CHECKS\_OFF}
+\DoxyCodeLine{00468\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordtype}{double}\ x,\ y;}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ x(0.0),\ y(0.0)\ \{\ \}}
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(\textcolor{keywordtype}{double}\ \_x,\ \textcolor{keywordtype}{double}\ \_y)\ :\ x(\_x),\ y(\_y)\ \{\ \}}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ p)\ \ \ \ \ \ :\ x((\textcolor{keywordtype}{double})p.x),\ y((\textcolor{keywordtype}{double})p.y)\ \{\ \}}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keywordtype}{double}\&\ operator[]\ (\textcolor{keywordtype}{size\_t}\ idx)\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ IM\_ASSERT(idx\ ==\ 0\ ||\ idx\ ==\ 1);\ \textcolor{keywordflow}{return}\ ((\textcolor{keywordtype}{double}*)(\textcolor{keywordtype}{void}*)(\textcolor{keywordtype}{char}*)\textcolor{keyword}{this})[idx];\ \}}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordtype}{double}\ \ operator[]\ (\textcolor{keywordtype}{size\_t}\ idx)\textcolor{keyword}{\ const\ \ \ \ \ \ \ }\{\ IM\_ASSERT(idx\ ==\ 0\ ||\ idx\ ==\ 1);\ \textcolor{keywordflow}{return}\ ((\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*)\textcolor{keyword}{this})[idx];\ \}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#ifdef\ IMPLOT\_POINT\_CLASS\_EXTRA}}
+\DoxyCodeLine{00476\ \ \ \ \ IMPLOT\_POINT\_CLASS\_EXTRA\ \ \ \ \ \textcolor{comment}{//\ Define\ additional\ constructors\ and\ implicit\ cast\ operators\ in\ imconfig.h}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ convert\ back\ and\ forth\ between\ your\ math\ types\ and\ ImPlotPoint.}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00479\ \};}
+\DoxyCodeLine{00480\ IM\_MSVC\_RUNTIME\_CHECKS\_RESTORE}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \textcolor{comment}{//\ Range\ defined\ by\ a\ min/max\ value.}}
+\DoxyCodeLine{00483\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ \{}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordtype}{double}\ Min,\ Max;}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Min(0.0),\ Max(0.0)\ \{\ \}}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(\textcolor{keywordtype}{double}\ \_min,\ \textcolor{keywordtype}{double}\ \_max)\ :\ Min(\_min),\ Max(\_max)\ \{\ \}}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{bool}\ Contains(\textcolor{keywordtype}{double}\ value)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ value\ >=\ Min\ \&\&\ value\ <=\ Max;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordtype}{double}\ Size()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Max\ -\/\ Min;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordtype}{double}\ Clamp(\textcolor{keywordtype}{double}\ value)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ (value\ <\ Min)\ ?\ Min\ :\ (value\ >\ Max)\ ?\ Max\ :\ value;\ \}}
+\DoxyCodeLine{00490\ \};}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \textcolor{comment}{//\ Combination\ of\ two\ range\ limits\ for\ X\ and\ Y\ axes.\ Also\ an\ AABB\ defined\ by\ Min()/Max().}}
+\DoxyCodeLine{00493\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}\ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ X,\ Y;}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ X(0.0,0.0),\ Y(0.0,0.0)\ \{\ \}}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}(\textcolor{keywordtype}{double}\ x\_min,\ \textcolor{keywordtype}{double}\ x\_max,\ \textcolor{keywordtype}{double}\ y\_min,\ \textcolor{keywordtype}{double}\ y\_max)\ :\ X(x\_min,\ x\_max),\ Y(y\_min,\ y\_max)\ \{\ \}}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordtype}{bool}\ Contains(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ p)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Contains(p.x,\ p.y);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordtype}{bool}\ Contains(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ X.Contains(x)\ \&\&\ Y.Contains(y);\ \ \ \ \ \}}
+\DoxyCodeLine{00499\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ Size()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(X.Size(),\ Y.Size());\ \ \ \ \}}
+\DoxyCodeLine{00500\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ Clamp(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ p)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ Clamp(p.x,\ p.y);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00501\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ Clamp(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(X.Clamp(x),Y.Clamp(y));\ \}}
+\DoxyCodeLine{00502\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ Min()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(X.Min,\ Y.Min);\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00503\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ Max()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(X.Max,\ Y.Max);\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00504\ \};}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \textcolor{comment}{//\ Plot\ style\ structure}}
+\DoxyCodeLine{00507\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}\ \{}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{comment}{//\ item\ styling\ variables}}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ LineWeight;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,\ \ \ \ \ \ item\ line\ weight\ in\ pixels}}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ Marker;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ ImPlotMarker\_None,\ marker\ specification}}
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ MarkerSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 4,\ \ \ \ \ \ marker\ size\ in\ pixels\ (roughly\ the\ marker's\ "{}radius"{})}}
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ MarkerWeight;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,\ \ \ \ \ \ outline\ weight\ of\ markers\ in\ pixels}}
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ FillAlpha;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,\ \ \ \ \ \ alpha\ modifier\ applied\ to\ plot\ fills}}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ ErrorBarSize;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 5,\ \ \ \ \ \ error\ bar\ whisker\ width\ in\ pixels}}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ ErrorBarWeight;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1.5,\ \ \ \ error\ bar\ whisker\ weight\ in\ pixels}}
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ DigitalBitHeight;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 8,\ \ \ \ \ \ digital\ channels\ bit\ height\ (at\ y\ =\ 1.0f)\ in\ pixels}}
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ DigitalBitGap;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 4,\ \ \ \ \ \ digital\ channels\ bit\ padding\ gap\ in\ pixels}}
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{comment}{//\ plot\ styling\ variables}}
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ PlotBorderSize;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,\ \ \ \ \ \ line\ thickness\ of\ border\ around\ plot\ area}}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ MinorAlpha;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 0.25\ \ \ \ alpha\ multiplier\ applied\ to\ minor\ axis\ grid\ lines}}
+\DoxyCodeLine{00521\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MajorTickLen;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 10,10\ \ \ major\ tick\ lengths\ for\ X\ and\ Y\ axes}}
+\DoxyCodeLine{00522\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MinorTickLen;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 5,5\ \ \ \ \ minor\ tick\ lengths\ for\ X\ and\ Y\ axes}}
+\DoxyCodeLine{00523\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MajorTickSize;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,1\ \ \ \ \ line\ thickness\ of\ major\ ticks}}
+\DoxyCodeLine{00524\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MinorTickSize;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,1\ \ \ \ \ line\ thickness\ of\ minor\ ticks}}
+\DoxyCodeLine{00525\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MajorGridSize;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,1\ \ \ \ \ line\ thickness\ of\ major\ grid\ lines}}
+\DoxyCodeLine{00526\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MinorGridSize;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 1,1\ \ \ \ \ line\ thickness\ of\ minor\ grid\ lines}}
+\DoxyCodeLine{00527\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ PlotPadding;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 10,10\ \ \ padding\ between\ widget\ frame\ and\ plot\ area,\ labels,\ or\ outside\ legends\ (i.e.\ main\ padding)}}
+\DoxyCodeLine{00528\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ LabelPadding;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 5,5\ \ \ \ \ padding\ between\ axes\ labels,\ tick\ labels,\ and\ plot\ edge}}
+\DoxyCodeLine{00529\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ LegendPadding;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 10,10\ \ \ legend\ padding\ from\ plot\ edges}}
+\DoxyCodeLine{00530\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ LegendInnerPadding;\ \ \ \ \ \ \textcolor{comment}{//\ =\ 5,5\ \ \ \ \ legend\ inner\ padding\ from\ legend\ edges}}
+\DoxyCodeLine{00531\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ LegendSpacing;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 5,0\ \ \ \ \ spacing\ between\ legend\ entries}}
+\DoxyCodeLine{00532\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ MousePosPadding;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 10,10\ \ \ padding\ between\ plot\ edge\ and\ interior\ mouse\ location\ text}}
+\DoxyCodeLine{00533\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ AnnotationPadding;\ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 2,2\ \ \ \ \ text\ padding\ around\ annotation\ labels}}
+\DoxyCodeLine{00534\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ FitPadding;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 0,0\ \ \ \ \ additional\ fit\ padding\ as\ a\ percentage\ of\ the\ fit\ extents\ (e.g.\ ImVec2(0.1f,0.1f)\ adds\ 10\%\ to\ the\ fit\ extents\ of\ X\ and\ Y)}}
+\DoxyCodeLine{00535\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ PlotDefaultSize;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 400,300\ default\ size\ used\ when\ ImVec2(0,0)\ is\ passed\ to\ BeginPlot}}
+\DoxyCodeLine{00536\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ PlotMinSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ 200,150\ minimum\ size\ plot\ frame\ can\ be\ when\ shrunk}}
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{comment}{//\ style\ colors}}
+\DoxyCodeLine{00538\ \ \ \ \ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ \ Colors[ImPlotCol\_COUNT];\ \textcolor{comment}{//\ Array\ of\ styling\ colors.\ Indexable\ with\ ImPlotCol\_\ enums.}}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{comment}{//\ colormap}}
+\DoxyCodeLine{00540\ \ \ \ \ ImPlotColormap\ Colormap;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ current\ colormap.\ Set\ this\ to\ either\ an\ ImPlotColormap\_\ enum\ or\ an\ index\ returned\ by\ AddColormap.}}
+\DoxyCodeLine{00541\ \ \ \ \ \textcolor{comment}{//\ settings/flags}}
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ UseLocalTime;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ false,\ \ axis\ labels\ will\ be\ formatted\ for\ your\ timezone\ when\ ImPlotAxisFlag\_Time\ is\ enabled}}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ UseISO8601;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ false,\ \ dates\ will\ be\ formatted\ according\ to\ ISO\ 8601\ where\ applicable\ (e.g.\ YYYY-\/MM-\/DD,\ YYYY-\/MM,\ -\/-\/MM-\/DD,\ etc.)}}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ Use24HourClock;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =\ false,\ \ times\ will\ be\ formatted\ using\ a\ 24\ hour\ clock}}
+\DoxyCodeLine{00545\ \ \ \ \ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}();}
+\DoxyCodeLine{00546\ \};}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \textcolor{comment}{//\ Support\ for\ legacy\ versions}}
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\#if\ (IMGUI\_VERSION\_NUM\ <\ 18716)\ }\textcolor{comment}{//\ Renamed\ in\ 1.88}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\#define\ ImGuiMod\_None\ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00551\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Ctrl\ \ \ \ \ \ \ ImGuiKeyModFlags\_Ctrl}}
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Shift\ \ \ \ \ \ ImGuiKeyModFlags\_Shift}}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Alt\ \ \ \ \ \ \ \ ImGuiKeyModFlags\_Alt}}
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Super\ \ \ \ \ \ ImGuiKeyModFlags\_Super}}
+\DoxyCodeLine{00555\ \textcolor{preprocessor}{\#elif\ (IMGUI\_VERSION\_NUM\ <\ 18823)\ }\textcolor{comment}{//\ Renamed\ in\ 1.89,\ sorry}}
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#define\ ImGuiMod\_None\ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00557\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Ctrl\ \ \ \ \ \ \ ImGuiModFlags\_Ctrl}}
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Shift\ \ \ \ \ \ ImGuiModFlags\_Shift}}
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Alt\ \ \ \ \ \ \ \ ImGuiModFlags\_Alt}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\#define\ ImGuiMod\_Super\ \ \ \ \ \ ImGuiModFlags\_Super}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \textcolor{comment}{//\ Input\ mapping\ structure.\ Default\ values\ listed.\ See\ also\ MapInputDefault,\ MapInputReverse.}}
+\DoxyCodeLine{00564\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ ImGuiMouseButton\ Pan;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LMB\ \ \ \ enables\ panning\ when\ held,}}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ PanMod;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ none\ \ \ optional\ modifier\ that\ must\ be\ held\ for\ panning/fitting}}
+\DoxyCodeLine{00567\ \ \ \ \ ImGuiMouseButton\ Fit;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LMB\ \ \ \ initiates\ fit\ when\ double\ clicked}}
+\DoxyCodeLine{00568\ \ \ \ \ ImGuiMouseButton\ Select;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ RMB\ \ \ \ begins\ box\ selection\ when\ pressed\ and\ confirms\ selection\ when\ released}}
+\DoxyCodeLine{00569\ \ \ \ \ ImGuiMouseButton\ SelectCancel;\ \ \textcolor{comment}{//\ LMB\ \ \ \ cancels\ active\ box\ selection\ when\ pressed;\ cannot\ be\ same\ as\ Select}}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectMod;\ \ \ \ \ \textcolor{comment}{//\ none\ \ \ optional\ modifier\ that\ must\ be\ held\ for\ box\ selection}}
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectHorzMod;\ \textcolor{comment}{//\ Alt\ \ \ \ expands\ active\ box\ selection\ horizontally\ to\ plot\ edge\ when\ held}}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectVertMod;\ \textcolor{comment}{//\ Shift\ \ expands\ active\ box\ selection\ vertically\ to\ plot\ edge\ when\ held}}
+\DoxyCodeLine{00573\ \ \ \ \ ImGuiMouseButton\ Menu;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RMB\ \ \ \ opens\ context\ menus\ (if\ enabled)\ when\ clicked}}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ OverrideMod;\ \ \ \textcolor{comment}{//\ Ctrl\ \ \ when\ held,\ all\ input\ is\ ignored;\ used\ to\ enable\ axis/plots\ as\ DND\ sources}}
+\DoxyCodeLine{00575\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ ZoomMod;\ \ \ \ \ \ \ \textcolor{comment}{//\ none\ \ \ optional\ modifier\ that\ must\ be\ held\ for\ scroll\ wheel\ zooming}}
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ ZoomRate;\ \ \ \ \ \ \textcolor{comment}{//\ 0.1f\ \ \ zoom\ rate\ for\ scroll\ (e.g.\ 0.1f\ =\ 10\%\ plot\ range\ every\ scroll\ click);\ make\ negative\ to\ invert}}
+\DoxyCodeLine{00577\ \ \ \ \ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}();}
+\DoxyCodeLine{00578\ \};}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00581\ \textcolor{comment}{//\ [SECTION]\ Callbacks}}
+\DoxyCodeLine{00582\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \textcolor{comment}{//\ Callback\ signature\ for\ axis\ tick\ label\ formatter.}}
+\DoxyCodeLine{00585\ \textcolor{keyword}{typedef}\ int\ (*ImPlotFormatter)(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*\ user\_data);}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \textcolor{comment}{//\ Callback\ signature\ for\ data\ getter.}}
+\DoxyCodeLine{00588\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ (*ImPlotGetter)(\textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{void}*\ user\_data);}
+\DoxyCodeLine{00589\ }
+\DoxyCodeLine{00590\ \textcolor{comment}{//\ Callback\ signature\ for\ axis\ transform.}}
+\DoxyCodeLine{00591\ \textcolor{keyword}{typedef}\ double\ (*ImPlotTransform)(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{void}*\ user\_data);}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{keyword}{namespace\ }ImPlot\ \{}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00596\ \textcolor{comment}{//\ [SECTION]\ Contexts}}
+\DoxyCodeLine{00597\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{comment}{//\ Creates\ a\ new\ ImPlot\ context.\ Call\ this\ after\ ImGui::CreateContext.}}
+\DoxyCodeLine{00600\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ CreateContext();}
+\DoxyCodeLine{00601\ \textcolor{comment}{//\ Destroys\ an\ ImPlot\ context.\ Call\ this\ before\ ImGui::DestroyContext.\ nullptr\ =\ destroy\ current\ context.}}
+\DoxyCodeLine{00602\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ DestroyContext(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00603\ \textcolor{comment}{//\ Returns\ the\ current\ ImPlot\ context.\ nullptr\ if\ no\ context\ has\ ben\ set.}}
+\DoxyCodeLine{00604\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ GetCurrentContext();}
+\DoxyCodeLine{00605\ \textcolor{comment}{//\ Sets\ the\ current\ ImPlot\ context.}}
+\DoxyCodeLine{00606\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetCurrentContext(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \textcolor{comment}{//\ Sets\ the\ current\ **ImGui**\ context.\ This\ is\ ONLY\ necessary\ if\ you\ are\ compiling}}
+\DoxyCodeLine{00609\ \textcolor{comment}{//\ ImPlot\ as\ a\ DLL\ (not\ recommended)\ separate\ from\ your\ ImGui\ compilation.\ It}}
+\DoxyCodeLine{00610\ \textcolor{comment}{//\ sets\ the\ global\ variable\ GImGui,\ which\ is\ not\ shared\ across\ DLL\ boundaries.}}
+\DoxyCodeLine{00611\ \textcolor{comment}{//\ See\ GImGui\ documentation\ in\ imgui.cpp\ for\ more\ details.}}
+\DoxyCodeLine{00612\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetImGuiContext(\mbox{\hyperlink{struct_im_gui_context}{ImGuiContext}}*\ ctx);}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00615\ \textcolor{comment}{//\ [SECTION]\ Begin/End\ Plot}}
+\DoxyCodeLine{00616\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \textcolor{comment}{//\ Starts\ a\ 2D\ plotting\ context.\ If\ this\ function\ returns\ true,\ EndPlot()\ MUST}}
+\DoxyCodeLine{00619\ \textcolor{comment}{//\ be\ called!\ You\ are\ encouraged\ to\ use\ the\ following\ convention:}}
+\DoxyCodeLine{00620\ \textcolor{comment}{//}}
+\DoxyCodeLine{00621\ \textcolor{comment}{//\ if\ (BeginPlot(...))\ \{}}
+\DoxyCodeLine{00622\ \textcolor{comment}{//\ \ \ \ \ PlotLine(...);}}
+\DoxyCodeLine{00623\ \textcolor{comment}{//\ \ \ \ \ ...}}
+\DoxyCodeLine{00624\ \textcolor{comment}{//\ \ \ \ \ EndPlot();}}
+\DoxyCodeLine{00625\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00626\ \textcolor{comment}{//}}
+\DoxyCodeLine{00627\ \textcolor{comment}{//\ Important\ notes:}}
+\DoxyCodeLine{00628\ \textcolor{comment}{//}}
+\DoxyCodeLine{00629\ \textcolor{comment}{//\ -\/\ \#title\_id\ must\ be\ unique\ to\ the\ current\ ImGui\ ID\ scope.\ If\ you\ need\ to\ avoid\ ID}}
+\DoxyCodeLine{00630\ \textcolor{comment}{//\ \ \ collisions\ or\ don't\ want\ to\ display\ a\ title\ in\ the\ plot,\ use\ double\ hashes}}
+\DoxyCodeLine{00631\ \textcolor{comment}{//\ \ \ (e.g.\ "{}MyPlot\#\#HiddenIdText"{}\ or\ "{}\#\#NoTitle"{}).}}
+\DoxyCodeLine{00632\ \textcolor{comment}{//\ -\/\ \#size\ is\ the\ **frame**\ size\ of\ the\ plot\ widget,\ not\ the\ plot\ area.\ The\ default}}
+\DoxyCodeLine{00633\ \textcolor{comment}{//\ \ \ size\ of\ plots\ (i.e.\ when\ ImVec2(0,0))\ can\ be\ modified\ in\ your\ ImPlotStyle.}}
+\DoxyCodeLine{00634\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginPlot(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title\_id,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size=\mbox{\hyperlink{struct_im_vec2}{ImVec2}}(-\/1,0),\ ImPlotFlags\ flags=0);}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \textcolor{comment}{//\ Only\ call\ EndPlot()\ if\ BeginPlot()\ returns\ true!\ Typically\ called\ at\ the\ end}}
+\DoxyCodeLine{00637\ \textcolor{comment}{//\ of\ an\ if\ statement\ conditioned\ on\ BeginPlot().\ See\ example\ above.}}
+\DoxyCodeLine{00638\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndPlot();}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00641\ \textcolor{comment}{//\ [SECTION]\ Begin/End\ Subplots}}
+\DoxyCodeLine{00642\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \textcolor{comment}{//\ Starts\ a\ subdivided\ plotting\ context.\ If\ the\ function\ returns\ true,}}
+\DoxyCodeLine{00645\ \textcolor{comment}{//\ EndSubplots()\ MUST\ be\ called!\ Call\ BeginPlot/EndPlot\ AT\ MOST\ [rows*cols]}}
+\DoxyCodeLine{00646\ \textcolor{comment}{//\ times\ in\ \ between\ the\ begining\ and\ end\ of\ the\ subplot\ context.\ Plots\ are}}
+\DoxyCodeLine{00647\ \textcolor{comment}{//\ added\ in\ row\ major\ order.}}
+\DoxyCodeLine{00648\ \textcolor{comment}{//}}
+\DoxyCodeLine{00649\ \textcolor{comment}{//\ Example:}}
+\DoxyCodeLine{00650\ \textcolor{comment}{//}}
+\DoxyCodeLine{00651\ \textcolor{comment}{//\ if\ (BeginSubplots("{}My\ Subplot"{},2,3,ImVec2(800,400))\ \{}}
+\DoxyCodeLine{00652\ \textcolor{comment}{//\ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 6;\ ++i)\ \{}}
+\DoxyCodeLine{00653\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ if\ (BeginPlot(...))\ \{}}
+\DoxyCodeLine{00654\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::PlotLine(...);}}
+\DoxyCodeLine{00655\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ ...}}
+\DoxyCodeLine{00656\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ EndPlot();}}
+\DoxyCodeLine{00657\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00658\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00659\ \textcolor{comment}{//\ \ \ \ \ EndSubplots();}}
+\DoxyCodeLine{00660\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00661\ \textcolor{comment}{//}}
+\DoxyCodeLine{00662\ \textcolor{comment}{//\ Produces:}}
+\DoxyCodeLine{00663\ \textcolor{comment}{//}}
+\DoxyCodeLine{00664\ \textcolor{comment}{//\ [0]\ |\ [1]\ |\ [2]}}
+\DoxyCodeLine{00665\ \textcolor{comment}{//\ -\/-\/-\/-\/|-\/-\/-\/-\/-\/|-\/-\/-\/-\/}}
+\DoxyCodeLine{00666\ \textcolor{comment}{//\ [3]\ |\ [4]\ |\ [5]}}
+\DoxyCodeLine{00667\ \textcolor{comment}{//}}
+\DoxyCodeLine{00668\ \textcolor{comment}{//\ Important\ notes:}}
+\DoxyCodeLine{00669\ \textcolor{comment}{//}}
+\DoxyCodeLine{00670\ \textcolor{comment}{//\ -\/\ \#title\_id\ must\ be\ unique\ to\ the\ current\ ImGui\ ID\ scope.\ If\ you\ need\ to\ avoid\ ID}}
+\DoxyCodeLine{00671\ \textcolor{comment}{//\ \ \ collisions\ or\ don't\ want\ to\ display\ a\ title\ in\ the\ plot,\ use\ double\ hashes}}
+\DoxyCodeLine{00672\ \textcolor{comment}{//\ \ \ (e.g.\ "{}MySubplot\#\#HiddenIdText"{}\ or\ "{}\#\#NoTitle"{}).}}
+\DoxyCodeLine{00673\ \textcolor{comment}{//\ -\/\ \#rows\ and\ \#cols\ must\ be\ greater\ than\ 0.}}
+\DoxyCodeLine{00674\ \textcolor{comment}{//\ -\/\ \#size\ is\ the\ size\ of\ the\ entire\ grid\ of\ subplots,\ not\ the\ individual\ plots}}
+\DoxyCodeLine{00675\ \textcolor{comment}{//\ -\/\ \#row\_ratios\ and\ \#col\_ratios\ must\ have\ AT\ LEAST\ \#rows\ and\ \#cols\ elements,}}
+\DoxyCodeLine{00676\ \textcolor{comment}{//\ \ \ respectively.\ These\ are\ the\ sizes\ of\ the\ rows\ and\ columns\ expressed\ in\ ratios.}}
+\DoxyCodeLine{00677\ \textcolor{comment}{//\ \ \ If\ the\ user\ adjusts\ the\ dimensions,\ the\ arrays\ are\ updated\ with\ new\ ratios.}}
+\DoxyCodeLine{00678\ \textcolor{comment}{//}}
+\DoxyCodeLine{00679\ \textcolor{comment}{//\ Important\ notes\ regarding\ BeginPlot\ from\ inside\ of\ BeginSubplots:}}
+\DoxyCodeLine{00680\ \textcolor{comment}{//}}
+\DoxyCodeLine{00681\ \textcolor{comment}{//\ -\/\ The\ \#title\_id\ parameter\ of\ \_BeginPlot\_\ (see\ above)\ does\ NOT\ have\ to\ be}}
+\DoxyCodeLine{00682\ \textcolor{comment}{//\ \ \ unique\ when\ called\ inside\ of\ a\ subplot\ context.\ Subplot\ IDs\ are\ hashed}}
+\DoxyCodeLine{00683\ \textcolor{comment}{//\ \ \ for\ your\ convenience\ so\ you\ don't\ have\ call\ PushID\ or\ generate\ unique\ title}}
+\DoxyCodeLine{00684\ \textcolor{comment}{//\ \ \ strings.\ Simply\ pass\ an\ empty\ string\ to\ BeginPlot\ unless\ you\ want\ to\ title}}
+\DoxyCodeLine{00685\ \textcolor{comment}{//\ \ \ each\ subplot.}}
+\DoxyCodeLine{00686\ \textcolor{comment}{//\ -\/\ The\ \#size\ parameter\ of\ \_BeginPlot\_\ (see\ above)\ is\ ignored\ when\ inside\ of\ a}}
+\DoxyCodeLine{00687\ \textcolor{comment}{//\ \ \ subplot\ context.\ The\ actual\ size\ of\ the\ subplot\ will\ be\ based\ on\ the}}
+\DoxyCodeLine{00688\ \textcolor{comment}{//\ \ \ \#size\ value\ you\ pass\ to\ \_BeginSubplots\_\ and\ \#row/\#col\_ratios\ if\ provided.}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginSubplots(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title\_id,}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rows,}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cols,}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size,}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotSubplotFlags\ flags\ =\ 0,}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ row\_ratios\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ col\_ratios\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ \textcolor{comment}{//\ Only\ call\ EndSubplots()\ if\ BeginSubplots()\ returns\ true!\ Typically\ called\ at\ the\ end}}
+\DoxyCodeLine{00699\ \textcolor{comment}{//\ of\ an\ if\ statement\ conditioned\ on\ BeginSublots().\ See\ example\ above.}}
+\DoxyCodeLine{00700\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndSubplots();}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00702\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00703\ \textcolor{comment}{//\ [SECTION]\ Setup}}
+\DoxyCodeLine{00704\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \textcolor{comment}{//\ The\ following\ API\ allows\ you\ to\ setup\ and\ customize\ various\ aspects\ of\ the}}
+\DoxyCodeLine{00707\ \textcolor{comment}{//\ current\ plot.\ The\ functions\ should\ be\ called\ immediately\ after\ BeginPlot}}
+\DoxyCodeLine{00708\ \textcolor{comment}{//\ and\ before\ any\ other\ API\ calls.\ Typical\ usage\ is\ as\ follows:}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \textcolor{comment}{//\ if\ (BeginPlot(...))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1)\ begin\ a\ new\ plot}}
+\DoxyCodeLine{00711\ \textcolor{comment}{//\ \ \ \ \ SetupAxis(ImAxis\_X1,\ "{}My\ X-\/Axis"{});\ \ \ \ 2)\ make\ Setup\ calls}}
+\DoxyCodeLine{00712\ \textcolor{comment}{//\ \ \ \ \ SetupAxis(ImAxis\_Y1,\ "{}My\ Y-\/Axis"{});}}
+\DoxyCodeLine{00713\ \textcolor{comment}{//\ \ \ \ \ SetupLegend(ImPlotLocation\_North);}}
+\DoxyCodeLine{00714\ \textcolor{comment}{//\ \ \ \ \ ...}}
+\DoxyCodeLine{00715\ \textcolor{comment}{//\ \ \ \ \ SetupFinish();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3)\ [optional]\ explicitly\ finish\ setup}}
+\DoxyCodeLine{00716\ \textcolor{comment}{//\ \ \ \ \ PlotLine(...);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4)\ plot\ items}}
+\DoxyCodeLine{00717\ \textcolor{comment}{//\ \ \ \ \ ...}}
+\DoxyCodeLine{00718\ \textcolor{comment}{//\ \ \ \ \ EndPlot();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 5)\ end\ the\ plot}}
+\DoxyCodeLine{00719\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00720\ \textcolor{comment}{//}}
+\DoxyCodeLine{00721\ \textcolor{comment}{//\ Important\ notes:}}
+\DoxyCodeLine{00722\ \textcolor{comment}{//}}
+\DoxyCodeLine{00723\ \textcolor{comment}{//\ -\/\ Always\ call\ Setup\ code\ at\ the\ top\ of\ your\ BeginPlot\ conditional\ statement.}}
+\DoxyCodeLine{00724\ \textcolor{comment}{//\ -\/\ Setup\ is\ locked\ once\ you\ start\ plotting\ or\ explicitly\ call\ SetupFinish.}}
+\DoxyCodeLine{00725\ \textcolor{comment}{//\ \ \ Do\ NOT\ call\ Setup\ code\ after\ you\ begin\ plotting\ or\ after\ you\ make}}
+\DoxyCodeLine{00726\ \textcolor{comment}{//\ \ \ any\ non-\/Setup\ API\ calls\ (e.g.\ utils\ like\ PlotToPixels\ also\ lock\ Setup)}}
+\DoxyCodeLine{00727\ \textcolor{comment}{//\ -\/\ Calling\ SetupFinish\ is\ OPTIONAL,\ but\ probably\ good\ practice.\ If\ you\ do\ not}}
+\DoxyCodeLine{00728\ \textcolor{comment}{//\ \ \ call\ it\ yourself,\ then\ the\ first\ subsequent\ plotting\ or\ utility\ function\ will}}
+\DoxyCodeLine{00729\ \textcolor{comment}{//\ \ \ call\ it\ for\ you.}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \textcolor{comment}{//\ Enables\ an\ axis\ or\ sets\ the\ label\ and/or\ flags\ for\ an\ existing\ axis.\ Leave\ \#label\ =\ nullptr\ for\ no\ label.}}
+\DoxyCodeLine{00732\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxis(ImAxis\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label=\textcolor{keyword}{nullptr},\ ImPlotAxisFlags\ flags=0);}
+\DoxyCodeLine{00733\ \textcolor{comment}{//\ Sets\ an\ axis\ range\ limits.\ If\ ImPlotCond\_Always\ is\ used,\ the\ axes\ limits\ will\ be\ locked.\ Inversion\ with\ v\_min\ >\ v\_max\ is\ not\ supported;\ use\ SetupAxisLimits\ instead.}}
+\DoxyCodeLine{00734\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisLimits(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ v\_min,\ \textcolor{keywordtype}{double}\ v\_max,\ ImPlotCond\ cond\ =\ ImPlotCond\_Once);}
+\DoxyCodeLine{00735\ \textcolor{comment}{//\ Links\ an\ axis\ range\ limits\ to\ external\ values.\ Set\ to\ nullptr\ for\ no\ linkage.\ The\ pointer\ data\ must\ remain\ valid\ until\ EndPlot.}}
+\DoxyCodeLine{00736\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisLinks(ImAxis\ axis,\ \textcolor{keywordtype}{double}*\ link\_min,\ \textcolor{keywordtype}{double}*\ link\_max);}
+\DoxyCodeLine{00737\ \textcolor{comment}{//\ Sets\ the\ format\ of\ numeric\ axis\ labels\ via\ formater\ specifier\ (default="{}\%g"{}).\ Formated\ values\ will\ be\ double\ (i.e.\ use\ \%f).}}
+\DoxyCodeLine{00738\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisFormat(ImAxis\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt);}
+\DoxyCodeLine{00739\ \textcolor{comment}{//\ Sets\ the\ format\ of\ numeric\ axis\ labels\ via\ formatter\ callback.\ Given\ \#value,\ write\ a\ label\ into\ \#buff.\ Optionally\ pass\ user\ data.}}
+\DoxyCodeLine{00740\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisFormat(ImAxis\ axis,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ data=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00741\ \textcolor{comment}{//\ Sets\ an\ axis'\ ticks\ and\ optionally\ the\ labels.\ To\ keep\ the\ default\ ticks,\ set\ \#keep\_default=true.}}
+\DoxyCodeLine{00742\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisTicks(ImAxis\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ values,\ \textcolor{keywordtype}{int}\ n\_ticks,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ labels[]=\textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ keep\_default=\textcolor{keyword}{false});}
+\DoxyCodeLine{00743\ \textcolor{comment}{//\ Sets\ an\ axis'\ ticks\ and\ optionally\ the\ labels\ for\ the\ next\ plot.\ To\ keep\ the\ default\ ticks,\ set\ \#keep\_default=true.}}
+\DoxyCodeLine{00744\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisTicks(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ v\_min,\ \textcolor{keywordtype}{double}\ v\_max,\ \textcolor{keywordtype}{int}\ n\_ticks,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ labels[]=\textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ keep\_default=\textcolor{keyword}{false});}
+\DoxyCodeLine{00745\ \textcolor{comment}{//\ Sets\ an\ axis'\ scale\ using\ built-\/in\ options.}}
+\DoxyCodeLine{00746\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisScale(ImAxis\ axis,\ ImPlotScale\ scale);}
+\DoxyCodeLine{00747\ \textcolor{comment}{//\ Sets\ an\ axis'\ scale\ using\ user\ supplied\ forward\ and\ inverse\ transfroms.}}
+\DoxyCodeLine{00748\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisScale(ImAxis\ axis,\ ImPlotTransform\ forward,\ ImPlotTransform\ inverse,\ \textcolor{keywordtype}{void}*\ data=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00749\ \textcolor{comment}{//\ Sets\ an\ axis'\ limits\ constraints.}}
+\DoxyCodeLine{00750\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisLimitsConstraints(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ v\_min,\ \textcolor{keywordtype}{double}\ v\_max);}
+\DoxyCodeLine{00751\ \textcolor{comment}{//\ Sets\ an\ axis'\ zoom\ constraints.}}
+\DoxyCodeLine{00752\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxisZoomConstraints(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ z\_min,\ \textcolor{keywordtype}{double}\ z\_max);}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00754\ \textcolor{comment}{//\ Sets\ the\ label\ and/or\ flags\ for\ primary\ X\ and\ Y\ axes\ (shorthand\ for\ two\ calls\ to\ SetupAxis).}}
+\DoxyCodeLine{00755\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ x\_label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ y\_label,\ ImPlotAxisFlags\ x\_flags=0,\ ImPlotAxisFlags\ y\_flags=0);}
+\DoxyCodeLine{00756\ \textcolor{comment}{//\ Sets\ the\ primary\ X\ and\ Y\ axes\ range\ limits.\ If\ ImPlotCond\_Always\ is\ used,\ the\ axes\ limits\ will\ be\ locked\ (shorthand\ for\ two\ calls\ to\ SetupAxisLimits).}}
+\DoxyCodeLine{00757\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupAxesLimits(\textcolor{keywordtype}{double}\ x\_min,\ \textcolor{keywordtype}{double}\ x\_max,\ \textcolor{keywordtype}{double}\ y\_min,\ \textcolor{keywordtype}{double}\ y\_max,\ ImPlotCond\ cond\ =\ ImPlotCond\_Once);}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \textcolor{comment}{//\ Sets\ up\ the\ plot\ legend.\ This\ can\ also\ be\ called\ immediately\ after\ BeginSubplots\ when\ using\ ImPlotSubplotFlags\_ShareItems.}}
+\DoxyCodeLine{00760\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupLegend(ImPlotLocation\ location,\ ImPlotLegendFlags\ flags=0);}
+\DoxyCodeLine{00761\ \textcolor{comment}{//\ Set\ the\ location\ of\ the\ current\ plot's\ mouse\ position\ text\ (default\ =\ South|East).}}
+\DoxyCodeLine{00762\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupMouseText(ImPlotLocation\ location,\ ImPlotMouseTextFlags\ flags=0);}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \textcolor{comment}{//\ Explicitly\ finalize\ plot\ setup.\ Once\ you\ call\ this,\ you\ cannot\ make\ anymore\ Setup\ calls\ for\ the\ current\ plot!}}
+\DoxyCodeLine{00765\ \textcolor{comment}{//\ Note\ that\ calling\ this\ function\ is\ OPTIONAL;\ it\ will\ be\ called\ by\ the\ first\ subsequent\ setup-\/locking\ API\ call.}}
+\DoxyCodeLine{00766\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetupFinish();}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00769\ \textcolor{comment}{//\ [SECTION]\ SetNext}}
+\DoxyCodeLine{00770\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00772\ \textcolor{comment}{//\ Though\ you\ should\ default\ to\ the\ `Setup`\ API\ above,\ there\ are\ some\ scenarios}}
+\DoxyCodeLine{00773\ \textcolor{comment}{//\ where\ (re)configuring\ a\ plot\ or\ axis\ before\ `BeginPlot`\ is\ needed\ (e.g.\ if}}
+\DoxyCodeLine{00774\ \textcolor{comment}{//\ using\ a\ preceding\ button\ or\ slider\ widget\ to\ change\ the\ plot\ limits).\ In}}
+\DoxyCodeLine{00775\ \textcolor{comment}{//\ this\ case,\ you\ can\ use\ the\ `SetNext`\ API\ below.\ While\ this\ is\ not\ as\ feature}}
+\DoxyCodeLine{00776\ \textcolor{comment}{//\ rich\ as\ the\ Setup\ API,\ most\ common\ needs\ are\ provided.\ These\ functions\ can\ be}}
+\DoxyCodeLine{00777\ \textcolor{comment}{//\ called\ anwhere\ except\ for\ inside\ of\ `Begin/EndPlot`.\ For\ example:}}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \textcolor{comment}{//\ if\ (ImGui::Button("{}Center\ Plot"{}))}}
+\DoxyCodeLine{00780\ \textcolor{comment}{//\ \ \ \ \ ImPlot::SetNextPlotLimits(-\/1,1,-\/1,1);}}
+\DoxyCodeLine{00781\ \textcolor{comment}{//\ if\ (ImPlot::BeginPlot(...))\ \{}}
+\DoxyCodeLine{00782\ \textcolor{comment}{//\ \ \ \ \ ...}}
+\DoxyCodeLine{00783\ \textcolor{comment}{//\ \ \ \ \ ImPlot::EndPlot();}}
+\DoxyCodeLine{00784\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00785\ \textcolor{comment}{//}}
+\DoxyCodeLine{00786\ \textcolor{comment}{//\ Important\ notes:}}
+\DoxyCodeLine{00787\ \textcolor{comment}{//}}
+\DoxyCodeLine{00788\ \textcolor{comment}{//\ -\/\ You\ must\ still\ enable\ non-\/default\ axes\ with\ SetupAxis\ for\ these\ functions}}
+\DoxyCodeLine{00789\ \textcolor{comment}{//\ \ \ to\ work\ properly.}}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \textcolor{comment}{//\ Sets\ an\ upcoming\ axis\ range\ limits.\ If\ ImPlotCond\_Always\ is\ used,\ the\ axes\ limits\ will\ be\ locked.}}
+\DoxyCodeLine{00792\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextAxisLimits(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ v\_min,\ \textcolor{keywordtype}{double}\ v\_max,\ ImPlotCond\ cond\ =\ ImPlotCond\_Once);}
+\DoxyCodeLine{00793\ \textcolor{comment}{//\ Links\ an\ upcoming\ axis\ range\ limits\ to\ external\ values.\ Set\ to\ nullptr\ for\ no\ linkage.\ The\ pointer\ data\ must\ remain\ valid\ until\ EndPlot!}}
+\DoxyCodeLine{00794\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextAxisLinks(ImAxis\ axis,\ \textcolor{keywordtype}{double}*\ link\_min,\ \textcolor{keywordtype}{double}*\ link\_max);}
+\DoxyCodeLine{00795\ \textcolor{comment}{//\ Set\ an\ upcoming\ axis\ to\ auto\ fit\ to\ its\ data.}}
+\DoxyCodeLine{00796\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextAxisToFit(ImAxis\ axis);}
+\DoxyCodeLine{00797\ }
+\DoxyCodeLine{00798\ \textcolor{comment}{//\ Sets\ the\ upcoming\ primary\ X\ and\ Y\ axes\ range\ limits.\ If\ ImPlotCond\_Always\ is\ used,\ the\ axes\ limits\ will\ be\ locked\ (shorthand\ for\ two\ calls\ to\ SetupAxisLimits).}}
+\DoxyCodeLine{00799\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextAxesLimits(\textcolor{keywordtype}{double}\ x\_min,\ \textcolor{keywordtype}{double}\ x\_max,\ \textcolor{keywordtype}{double}\ y\_min,\ \textcolor{keywordtype}{double}\ y\_max,\ ImPlotCond\ cond\ =\ ImPlotCond\_Once);}
+\DoxyCodeLine{00800\ \textcolor{comment}{//\ Sets\ all\ upcoming\ axes\ to\ auto\ fit\ to\ their\ data.}}
+\DoxyCodeLine{00801\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextAxesToFit();}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00804\ \textcolor{comment}{//\ [SECTION]\ Plot\ Items}}
+\DoxyCodeLine{00805\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \textcolor{comment}{//\ The\ main\ plotting\ API\ is\ provied\ below.\ Call\ these\ functions\ between}}
+\DoxyCodeLine{00808\ \textcolor{comment}{//\ Begin/EndPlot\ and\ after\ any\ Setup\ API\ calls.\ Each\ plots\ data\ on\ the\ current}}
+\DoxyCodeLine{00809\ \textcolor{comment}{//\ x\ and\ y\ axes,\ which\ can\ be\ changed\ with\ `SetAxis/Axes`.}}
+\DoxyCodeLine{00810\ \textcolor{comment}{//}}
+\DoxyCodeLine{00811\ \textcolor{comment}{//\ The\ templated\ functions\ are\ explicitly\ instantiated\ in\ implot\_items.cpp.}}
+\DoxyCodeLine{00812\ \textcolor{comment}{//\ They\ are\ not\ intended\ to\ be\ used\ generically\ with\ custom\ types.\ You\ will\ get}}
+\DoxyCodeLine{00813\ \textcolor{comment}{//\ a\ linker\ error\ if\ you\ try!\ All\ functions\ support\ the\ following\ scalar\ types:}}
+\DoxyCodeLine{00814\ \textcolor{comment}{//}}
+\DoxyCodeLine{00815\ \textcolor{comment}{//\ float,\ double,\ ImS8,\ ImU8,\ ImS16,\ ImU16,\ ImS32,\ ImU32,\ ImS64,\ ImU64}}
+\DoxyCodeLine{00816\ \textcolor{comment}{//}}
+\DoxyCodeLine{00817\ \textcolor{comment}{//}}
+\DoxyCodeLine{00818\ \textcolor{comment}{//\ If\ you\ need\ to\ plot\ custom\ or\ non-\/homogenous\ data\ you\ have\ a\ few\ options:}}
+\DoxyCodeLine{00819\ \textcolor{comment}{//}}
+\DoxyCodeLine{00820\ \textcolor{comment}{//\ 1.\ If\ your\ data\ is\ a\ simple\ struct/class\ (e.g.\ Vector2f),\ you\ can\ use\ striding.}}
+\DoxyCodeLine{00821\ \textcolor{comment}{//\ \ \ \ This\ is\ the\ most\ performant\ option\ if\ applicable.}}
+\DoxyCodeLine{00822\ \textcolor{comment}{//}}
+\DoxyCodeLine{00823\ \textcolor{comment}{//\ \ \ \ struct\ Vector2f\ \{\ float\ X,\ Y;\ \};}}
+\DoxyCodeLine{00824\ \textcolor{comment}{//\ \ \ \ ...}}
+\DoxyCodeLine{00825\ \textcolor{comment}{//\ \ \ \ Vector2f\ data[42];}}
+\DoxyCodeLine{00826\ \textcolor{comment}{//\ \ \ \ ImPlot::PlotLine("{}line"{},\ \&data[0].x,\ \&data[0].y,\ 42,\ 0,\ 0,\ sizeof(Vector2f));}}
+\DoxyCodeLine{00827\ \textcolor{comment}{//}}
+\DoxyCodeLine{00828\ \textcolor{comment}{//\ 2.\ Write\ a\ custom\ getter\ C\ function\ or\ C++\ lambda\ and\ pass\ it\ and\ optionally\ your\ data\ to}}
+\DoxyCodeLine{00829\ \textcolor{comment}{//\ \ \ \ an\ ImPlot\ function\ post-\/fixed\ with\ a\ G\ (e.g.\ PlotScatterG).\ This\ has\ a\ slight\ performance}}
+\DoxyCodeLine{00830\ \textcolor{comment}{//\ \ \ \ cost,\ but\ probably\ not\ enough\ to\ worry\ about\ unless\ your\ data\ is\ very\ large.\ Examples:}}
+\DoxyCodeLine{00831\ \textcolor{comment}{//}}
+\DoxyCodeLine{00832\ \textcolor{comment}{//\ \ \ \ ImPlotPoint\ MyDataGetter(void*\ data,\ int\ idx)\ \{}}
+\DoxyCodeLine{00833\ \textcolor{comment}{//\ \ \ \ \ \ \ \ MyData*\ my\_data\ =\ (MyData*)data;}}
+\DoxyCodeLine{00834\ \textcolor{comment}{//\ \ \ \ \ \ \ \ ImPlotPoint\ p;}}
+\DoxyCodeLine{00835\ \textcolor{comment}{//\ \ \ \ \ \ \ \ p.x\ =\ my\_data-\/>GetTime(idx);}}
+\DoxyCodeLine{00836\ \textcolor{comment}{//\ \ \ \ \ \ \ \ p.y\ =\ my\_data-\/>GetValue(idx);}}
+\DoxyCodeLine{00837\ \textcolor{comment}{//\ \ \ \ \ \ \ \ return\ p}}
+\DoxyCodeLine{00838\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00839\ \textcolor{comment}{//\ \ \ \ ...}}
+\DoxyCodeLine{00840\ \textcolor{comment}{//\ \ \ \ auto\ my\_lambda\ =\ [](int\ idx,\ void*)\ \{}}
+\DoxyCodeLine{00841\ \textcolor{comment}{//\ \ \ \ \ \ \ \ double\ t\ =\ idx\ /\ 999.0;}}
+\DoxyCodeLine{00842\ \textcolor{comment}{//\ \ \ \ \ \ \ \ return\ ImPlotPoint(t,\ 0.5+0.5*std::sin(2*PI*10*t));}}
+\DoxyCodeLine{00843\ \textcolor{comment}{//\ \ \ \ \};}}
+\DoxyCodeLine{00844\ \textcolor{comment}{//\ \ \ \ ...}}
+\DoxyCodeLine{00845\ \textcolor{comment}{//\ \ \ \ if\ (ImPlot::BeginPlot("{}MyPlot"{}))\ \{}}
+\DoxyCodeLine{00846\ \textcolor{comment}{//\ \ \ \ \ \ \ \ MyData\ my\_data;}}
+\DoxyCodeLine{00847\ \textcolor{comment}{//\ \ \ \ \ \ \ \ ImPlot::PlotScatterG("{}scatter"{},\ MyDataGetter,\ \&my\_data,\ my\_data.Size());}}
+\DoxyCodeLine{00848\ \textcolor{comment}{//\ \ \ \ \ \ \ \ ImPlot::PlotLineG("{}line"{},\ my\_lambda,\ nullptr,\ 1000);}}
+\DoxyCodeLine{00849\ \textcolor{comment}{//\ \ \ \ \ \ \ \ ImPlot::EndPlot();}}
+\DoxyCodeLine{00850\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00851\ \textcolor{comment}{//}}
+\DoxyCodeLine{00852\ \textcolor{comment}{//\ NB:\ All\ types\ are\ converted\ to\ double\ before\ plotting.\ You\ may\ lose\ information}}
+\DoxyCodeLine{00853\ \textcolor{comment}{//\ if\ you\ try\ plotting\ extremely\ large\ 64-\/bit\ integral\ types.\ Proceed\ with\ caution!}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00855\ \textcolor{comment}{//\ Plots\ a\ standard\ 2D\ line\ plot.}}
+\DoxyCodeLine{00856\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotLine(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ xscale=1,\ \textcolor{keywordtype}{double}\ xstart=0,\ ImPlotLineFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00857\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotLine(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ ImPlotLineFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00858\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotLineG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{int}\ count,\ ImPlotLineFlags\ flags=0);}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \textcolor{comment}{//\ Plots\ a\ standard\ 2D\ scatter\ plot.\ Default\ marker\ is\ ImPlotMarker\_Circle.}}
+\DoxyCodeLine{00861\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotScatter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ xscale=1,\ \textcolor{keywordtype}{double}\ xstart=0,\ ImPlotScatterFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00862\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotScatter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ ImPlotScatterFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00863\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotScatterG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{int}\ count,\ ImPlotScatterFlags\ flags=0);}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ \textcolor{comment}{//\ Plots\ a\ a\ stairstep\ graph.\ The\ y\ value\ is\ continued\ constantly\ to\ the\ right\ from\ every\ x\ position,\ i.e.\ the\ interval\ [x[i],\ x[i+1])\ has\ the\ value\ y[i]}}
+\DoxyCodeLine{00866\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotStairs(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ xscale=1,\ \textcolor{keywordtype}{double}\ xstart=0,\ ImPlotStairsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00867\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotStairs(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ ImPlotStairsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00868\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotStairsG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{int}\ count,\ ImPlotStairsFlags\ flags=0);}
+\DoxyCodeLine{00869\ }
+\DoxyCodeLine{00870\ \textcolor{comment}{//\ Plots\ a\ shaded\ (filled)\ region\ between\ two\ lines,\ or\ a\ line\ and\ a\ horizontal\ reference.\ Set\ yref\ to\ +/-\/INFINITY\ for\ infinite\ fill\ extents.}}
+\DoxyCodeLine{00871\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotShaded(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ yref=0,\ \textcolor{keywordtype}{double}\ xscale=1,\ \textcolor{keywordtype}{double}\ xstart=0,\ ImPlotShadedFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00872\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotShaded(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ yref=0,\ ImPlotShadedFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00873\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotShaded(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys1,\ \textcolor{keyword}{const}\ T*\ ys2,\ \textcolor{keywordtype}{int}\ count,\ ImPlotShadedFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00874\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotShadedG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter1,\ \textcolor{keywordtype}{void}*\ data1,\ ImPlotGetter\ getter2,\ \textcolor{keywordtype}{void}*\ data2,\ \textcolor{keywordtype}{int}\ count,\ ImPlotShadedFlags\ flags=0);}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00876\ \textcolor{comment}{//\ Plots\ a\ bar\ graph.\ Vertical\ by\ default.\ \#bar\_size\ and\ \#shift\ are\ in\ plot\ units.}}
+\DoxyCodeLine{00877\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotBars(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ bar\_size=0.67,\ \textcolor{keywordtype}{double}\ shift=0,\ ImPlotBarsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00878\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotBars(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ bar\_size,\ ImPlotBarsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00879\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotBarsG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ bar\_size,\ ImPlotBarsFlags\ flags=0);}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \textcolor{comment}{//\ Plots\ a\ group\ of\ bars.\ \#values\ is\ a\ row-\/major\ matrix\ with\ \#item\_count\ rows\ and\ \#group\_count\ cols.\ \#label\_ids\ should\ have\ \#item\_count\ elements.}}
+\DoxyCodeLine{00882\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotBarGroups(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ label\_ids[],\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ item\_count,\ \textcolor{keywordtype}{int}\ group\_count,\ \textcolor{keywordtype}{double}\ group\_size=0.67,\ \textcolor{keywordtype}{double}\ shift=0,\ ImPlotBarGroupsFlags\ flags=0);}
+\DoxyCodeLine{00883\ }
+\DoxyCodeLine{00884\ \textcolor{comment}{//\ Plots\ vertical\ error\ bar.\ The\ label\_id\ should\ be\ the\ same\ as\ the\ label\_id\ of\ the\ associated\ line\ or\ bar\ plot.}}
+\DoxyCodeLine{00885\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotErrorBars(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keyword}{const}\ T*\ err,\ \textcolor{keywordtype}{int}\ count,\ ImPlotErrorBarsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00886\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotErrorBars(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keyword}{const}\ T*\ neg,\ \textcolor{keyword}{const}\ T*\ pos,\ \textcolor{keywordtype}{int}\ count,\ ImPlotErrorBarsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \textcolor{comment}{//\ Plots\ stems.\ Vertical\ by\ default.}}
+\DoxyCodeLine{00889\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotStems(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ ref=0,\ \textcolor{keywordtype}{double}\ scale=1,\ \textcolor{keywordtype}{double}\ start=0,\ ImPlotStemsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00890\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotStems(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ ref=0,\ ImPlotStemsFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ \textcolor{comment}{//\ Plots\ infinite\ vertical\ or\ horizontal\ lines\ (e.g.\ for\ references\ or\ asymptotes).}}
+\DoxyCodeLine{00893\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotInfLines(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ ImPlotInfLinesFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \textcolor{comment}{//\ Plots\ a\ pie\ chart.\ Center\ and\ radius\ are\ in\ plot\ units.\ \#label\_fmt\ can\ be\ set\ to\ nullptr\ for\ no\ labels.}}
+\DoxyCodeLine{00896\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotPieChart(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ label\_ids[],\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ radius,\ ImPlotFormatter\ fmt,\ \textcolor{keywordtype}{void}*\ fmt\_data=\textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{double}\ angle0=90,\ ImPlotPieChartFlags\ flags=0);}
+\DoxyCodeLine{00897\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotPieChart(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ label\_ids[],\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ radius,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_fmt=\textcolor{stringliteral}{"{}\%.1f"{}},\ \textcolor{keywordtype}{double}\ angle0=90,\ ImPlotPieChartFlags\ flags=0);}
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00899\ \textcolor{comment}{//\ Plots\ a\ 2D\ heatmap\ chart.\ Values\ are\ expected\ to\ be\ in\ row-\/major\ order\ by\ default.\ Leave\ \#scale\_min\ and\ scale\_max\ both\ at\ 0\ for\ automatic\ color\ scaling,\ or\ set\ them\ to\ a\ predefined\ range.\ \#label\_fmt\ can\ be\ set\ to\ nullptr\ for\ no\ labels.}}
+\DoxyCodeLine{00900\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotHeatmap(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ cols,\ \textcolor{keywordtype}{double}\ scale\_min=0,\ \textcolor{keywordtype}{double}\ scale\_max=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_fmt=\textcolor{stringliteral}{"{}\%.1f"{}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ bounds\_min=\mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(0,0),\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ bounds\_max=\mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}(1,1),\ ImPlotHeatmapFlags\ flags=0);}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \textcolor{comment}{//\ Plots\ a\ horizontal\ histogram.\ \#bins\ can\ be\ a\ positive\ integer\ or\ an\ ImPlotBin\_\ method.\ If\ \#range\ is\ left\ unspecified,\ the\ min/max\ of\ \#values\ will\ be\ used\ as\ the\ range.}}
+\DoxyCodeLine{00903\ \textcolor{comment}{//\ Otherwise,\ outlier\ values\ outside\ of\ the\ range\ are\ not\ binned.\ The\ largest\ bin\ count\ or\ density\ is\ returned.}}
+\DoxyCodeLine{00904\ IMPLOT\_TMP\ \textcolor{keywordtype}{double}\ PlotHistogram(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{int}\ bins=ImPlotBin\_Sturges,\ \textcolor{keywordtype}{double}\ bar\_scale=1.0,\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ range=\mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(),\ ImPlotHistogramFlags\ flags=0);}
+\DoxyCodeLine{00905\ }
+\DoxyCodeLine{00906\ \textcolor{comment}{//\ Plots\ two\ dimensional,\ bivariate\ histogram\ as\ a\ heatmap.\ \#x\_bins\ and\ \#y\_bins\ can\ be\ a\ positive\ integer\ or\ an\ ImPlotBin.\ If\ \#range\ is\ left\ unspecified,\ the\ min/max\ of}}
+\DoxyCodeLine{00907\ \textcolor{comment}{//\ \#xs\ an\ \#ys\ will\ be\ used\ as\ the\ ranges.\ Otherwise,\ outlier\ values\ outside\ of\ range\ are\ not\ binned.\ The\ largest\ bin\ count\ or\ density\ is\ returned.}}
+\DoxyCodeLine{00908\ IMPLOT\_TMP\ \textcolor{keywordtype}{double}\ PlotHistogram2D(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{int}\ x\_bins=ImPlotBin\_Sturges,\ \textcolor{keywordtype}{int}\ y\_bins=ImPlotBin\_Sturges,\ \mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}\ range=\mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}(),\ ImPlotHistogramFlags\ flags=0);}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \textcolor{comment}{//\ Plots\ digital\ data.\ Digital\ plots\ do\ not\ respond\ to\ y\ drag\ or\ zoom,\ and\ are\ always\ referenced\ to\ the\ bottom\ of\ the\ plot.}}
+\DoxyCodeLine{00911\ IMPLOT\_TMP\ \textcolor{keywordtype}{void}\ PlotDigital(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ T*\ xs,\ \textcolor{keyword}{const}\ T*\ ys,\ \textcolor{keywordtype}{int}\ count,\ ImPlotDigitalFlags\ flags=0,\ \textcolor{keywordtype}{int}\ offset=0,\ \textcolor{keywordtype}{int}\ stride=\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00912\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotDigitalG(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotGetter\ getter,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{int}\ count,\ ImPlotDigitalFlags\ flags=0);}
+\DoxyCodeLine{00913\ }
+\DoxyCodeLine{00914\ \textcolor{comment}{//\ Plots\ an\ axis-\/aligned\ image.\ \#bounds\_min/bounds\_max\ are\ in\ plot\ coordinates\ (y-\/up)\ and\ \#uv0/uv1\ are\ in\ texture\ coordinates\ (y-\/down).}}
+\DoxyCodeLine{00915\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotImage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImTextureID\ user\_texture\_id,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ bounds\_min,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ bounds\_max,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ uv0=\mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0),\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ uv1=\mbox{\hyperlink{struct_im_vec2}{ImVec2}}(1,1),\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ tint\_col=\mbox{\hyperlink{struct_im_vec4}{ImVec4}}(1,1,1,1),\ ImPlotImageFlags\ flags=0);}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \textcolor{comment}{//\ Plots\ a\ centered\ text\ label\ at\ point\ x,y\ with\ an\ optional\ pixel\ offset.\ Text\ color\ can\ be\ changed\ with\ ImPlot::PushStyleColor(ImPlotCol\_InlayText,\ ...).}}
+\DoxyCodeLine{00918\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotText(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text,\ \textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pix\_offset=\mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0),\ ImPlotTextFlags\ flags=0);}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \textcolor{comment}{//\ Plots\ a\ dummy\ item\ (i.e.\ adds\ a\ legend\ entry\ colored\ by\ ImPlotCol\_Line)}}
+\DoxyCodeLine{00921\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PlotDummy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotDummyFlags\ flags=0);}
+\DoxyCodeLine{00922\ }
+\DoxyCodeLine{00923\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00924\ \textcolor{comment}{//\ [SECTION]\ Plot\ Tools}}
+\DoxyCodeLine{00925\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \textcolor{comment}{//\ The\ following\ can\ be\ used\ to\ render\ interactive\ elements\ and/or\ annotations.}}
+\DoxyCodeLine{00928\ \textcolor{comment}{//\ Like\ the\ item\ plotting\ functions\ above,\ they\ apply\ to\ the\ current\ x\ and\ y}}
+\DoxyCodeLine{00929\ \textcolor{comment}{//\ axes,\ which\ can\ be\ changed\ with\ `SetAxis/SetAxes`.\ These\ functions\ return\ true}}
+\DoxyCodeLine{00930\ \textcolor{comment}{//\ when\ user\ interaction\ causes\ the\ provided\ coordinates\ to\ change.\ Additional}}
+\DoxyCodeLine{00931\ \textcolor{comment}{//\ user\ interactions\ can\ be\ retrieved\ through\ the\ optional\ output\ parameters.}}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \textcolor{comment}{//\ Shows\ a\ draggable\ point\ at\ x,y.\ \#col\ defaults\ to\ ImGuiCol\_Text.}}
+\DoxyCodeLine{00934\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ DragPoint(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}*\ x,\ \textcolor{keywordtype}{double}*\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keywordtype}{float}\ size\ =\ 4,\ ImPlotDragToolFlags\ flags\ =\ 0,\ \textcolor{keywordtype}{bool}*\ out\_clicked\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ out\_hovered\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ held\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00935\ \textcolor{comment}{//\ Shows\ a\ draggable\ vertical\ guide\ line\ at\ an\ x-\/value.\ \#col\ defaults\ to\ ImGuiCol\_Text.}}
+\DoxyCodeLine{00936\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ DragLineX(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}*\ x,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keywordtype}{float}\ thickness\ =\ 1,\ ImPlotDragToolFlags\ flags\ =\ 0,\ \textcolor{keywordtype}{bool}*\ out\_clicked\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ out\_hovered\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ held\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00937\ \textcolor{comment}{//\ Shows\ a\ draggable\ horizontal\ guide\ line\ at\ a\ y-\/value.\ \#col\ defaults\ to\ ImGuiCol\_Text.}}
+\DoxyCodeLine{00938\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ DragLineY(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}*\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keywordtype}{float}\ thickness\ =\ 1,\ ImPlotDragToolFlags\ flags\ =\ 0,\ \textcolor{keywordtype}{bool}*\ out\_clicked\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ out\_hovered\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ held\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00939\ \textcolor{comment}{//\ Shows\ a\ draggable\ and\ resizeable\ rectangle.}}
+\DoxyCodeLine{00940\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ DragRect(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}*\ x1,\ \textcolor{keywordtype}{double}*\ y1,\ \textcolor{keywordtype}{double}*\ x2,\ \textcolor{keywordtype}{double}*\ y2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ ImPlotDragToolFlags\ flags\ =\ 0,\ \textcolor{keywordtype}{bool}*\ out\_clicked\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ out\_hovered\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}*\ held\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00942\ \textcolor{comment}{//\ Shows\ an\ annotation\ callout\ at\ a\ chosen\ point.\ Clamping\ keeps\ annotations\ in\ the\ plot\ area.\ Annotations\ are\ always\ rendered\ on\ top.}}
+\DoxyCodeLine{00943\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ Annotation(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pix\_offset,\ \textcolor{keywordtype}{bool}\ clamp,\ \textcolor{keywordtype}{bool}\ round\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00944\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ Annotation(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pix\_offset,\ \textcolor{keywordtype}{bool}\ clamp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \ \ \ \ \ \ \ \ \ \ IM\_FMTARGS(6);}
+\DoxyCodeLine{00945\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ AnnotationV(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ const\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pix\_offset,\ \textcolor{keywordtype}{bool}\ clamp,\ const\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ IM\_FMTLIST(6);}
+\DoxyCodeLine{00946\ }
+\DoxyCodeLine{00947\ \textcolor{comment}{//\ Shows\ a\ x-\/axis\ tag\ at\ the\ specified\ coordinate\ value.}}
+\DoxyCodeLine{00948\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagX(\textcolor{keywordtype}{double}\ x,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keywordtype}{bool}\ round\ =\ false);}
+\DoxyCodeLine{00949\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagX(\textcolor{keywordtype}{double}\ x,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ const\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \ \ \ \ \ \ \ \ \ \ IM\_FMTARGS(3);}
+\DoxyCodeLine{00950\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagXV(\textcolor{keywordtype}{double}\ x,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ const\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ IM\_FMTLIST(3);}
+\DoxyCodeLine{00951\ }
+\DoxyCodeLine{00952\ \textcolor{comment}{//\ Shows\ a\ y-\/axis\ tag\ at\ the\ specified\ coordinate\ value.}}
+\DoxyCodeLine{00953\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagY(\textcolor{keywordtype}{double}\ y,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ \textcolor{keywordtype}{bool}\ round\ =\ false);}
+\DoxyCodeLine{00954\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagY(\textcolor{keywordtype}{double}\ y,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ const\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ \ \ \ \ \ \ \ \ \ \ IM\_FMTARGS(3);}
+\DoxyCodeLine{00955\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ TagYV(\textcolor{keywordtype}{double}\ y,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col,\ const\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ IM\_FMTLIST(3);}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00957\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00958\ \textcolor{comment}{//\ [SECTION]\ Plot\ Utils}}
+\DoxyCodeLine{00959\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \textcolor{comment}{//\ Select\ which\ axis/axes\ will\ be\ used\ for\ subsequent\ plot\ elements.}}
+\DoxyCodeLine{00962\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetAxis(ImAxis\ axis);}
+\DoxyCodeLine{00963\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetAxes(ImAxis\ x\_axis,\ ImAxis\ y\_axis);}
+\DoxyCodeLine{00964\ }
+\DoxyCodeLine{00965\ \textcolor{comment}{//\ Convert\ pixels\ to\ a\ position\ in\ the\ current\ plot's\ coordinate\ system.\ Passing\ IMPLOT\_AUTO\ uses\ the\ current\ axes.}}
+\DoxyCodeLine{00966\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ PixelsToPlot(const\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pix,\ ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00967\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ PixelsToPlot(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00969\ \textcolor{comment}{//\ Convert\ a\ position\ in\ the\ current\ plot's\ coordinate\ system\ to\ pixels.\ Passing\ IMPLOT\_AUTO\ uses\ the\ current\ axes.}}
+\DoxyCodeLine{00970\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ PlotToPixels(const\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ plt,\ ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00971\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ PlotToPixels(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00972\ }
+\DoxyCodeLine{00973\ \textcolor{comment}{//\ Get\ the\ current\ Plot\ position\ (top-\/left)\ in\ pixels.}}
+\DoxyCodeLine{00974\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ GetPlotPos();}
+\DoxyCodeLine{00975\ \textcolor{comment}{//\ Get\ the\ curent\ Plot\ size\ in\ pixels.}}
+\DoxyCodeLine{00976\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ GetPlotSize();}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \textcolor{comment}{//\ Returns\ the\ mouse\ position\ in\ x,y\ coordinates\ of\ the\ current\ plot.\ Passing\ IMPLOT\_AUTO\ uses\ the\ current\ axes.}}
+\DoxyCodeLine{00979\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\ GetPlotMousePos(ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00980\ \textcolor{comment}{//\ Returns\ the\ current\ plot\ axis\ range.}}
+\DoxyCodeLine{00981\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}\ GetPlotLimits(ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00983\ \textcolor{comment}{//\ Returns\ true\ if\ the\ plot\ area\ in\ the\ current\ plot\ is\ hovered.}}
+\DoxyCodeLine{00984\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ IsPlotHovered();}
+\DoxyCodeLine{00985\ \textcolor{comment}{//\ Returns\ true\ if\ the\ axis\ label\ area\ in\ the\ current\ plot\ is\ hovered.}}
+\DoxyCodeLine{00986\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ IsAxisHovered(ImAxis\ axis);}
+\DoxyCodeLine{00987\ \textcolor{comment}{//\ Returns\ true\ if\ the\ bounding\ frame\ of\ a\ subplot\ is\ hovered.}}
+\DoxyCodeLine{00988\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ IsSubplotsHovered();}
+\DoxyCodeLine{00989\ }
+\DoxyCodeLine{00990\ \textcolor{comment}{//\ Returns\ true\ if\ the\ current\ plot\ is\ being\ box\ selected.}}
+\DoxyCodeLine{00991\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ IsPlotSelected();}
+\DoxyCodeLine{00992\ \textcolor{comment}{//\ Returns\ the\ current\ plot\ box\ selection\ bounds.\ Passing\ IMPLOT\_AUTO\ uses\ the\ current\ axes.}}
+\DoxyCodeLine{00993\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_rect}{ImPlotRect}}\ GetPlotSelection(ImAxis\ x\_axis\ =\ IMPLOT\_AUTO,\ ImAxis\ y\_axis\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{00994\ \textcolor{comment}{//\ Cancels\ a\ the\ current\ plot\ box\ selection.}}
+\DoxyCodeLine{00995\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ CancelPlotSelection();}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{00997\ \textcolor{comment}{//\ Hides\ or\ shows\ the\ next\ plot\ item\ (i.e.\ as\ if\ it\ were\ toggled\ from\ the\ legend).}}
+\DoxyCodeLine{00998\ \textcolor{comment}{//\ Use\ ImPlotCond\_Always\ if\ you\ need\ to\ forcefully\ set\ this\ every\ frame.}}
+\DoxyCodeLine{00999\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ HideNextItem(\textcolor{keywordtype}{bool}\ hidden\ =\ true,\ ImPlotCond\ cond\ =\ ImPlotCond\_Once);}
+\DoxyCodeLine{01000\ }
+\DoxyCodeLine{01001\ \textcolor{comment}{//\ Use\ the\ following\ around\ calls\ to\ Begin/EndPlot\ to\ align\ l/r/t/b\ padding.}}
+\DoxyCodeLine{01002\ \textcolor{comment}{//\ Consider\ using\ Begin/EndSubplots\ first.\ They\ are\ more\ feature\ rich\ and}}
+\DoxyCodeLine{01003\ \textcolor{comment}{//\ accomplish\ the\ same\ behaviour\ by\ default.\ The\ functions\ below\ offer\ lower}}
+\DoxyCodeLine{01004\ \textcolor{comment}{//\ level\ control\ of\ plot\ alignment.}}
+\DoxyCodeLine{01005\ }
+\DoxyCodeLine{01006\ \textcolor{comment}{//\ Align\ axis\ padding\ over\ multiple\ plots\ in\ a\ single\ row\ or\ column.\ \#group\_id\ must}}
+\DoxyCodeLine{01007\ \textcolor{comment}{//\ be\ unique.\ If\ this\ function\ returns\ true,\ EndAlignedPlots()\ must\ be\ called.}}
+\DoxyCodeLine{01008\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginAlignedPlots(const\ \textcolor{keywordtype}{char}*\ group\_id,\ \textcolor{keywordtype}{bool}\ vertical\ =\ true);}
+\DoxyCodeLine{01009\ \textcolor{comment}{//\ Only\ call\ EndAlignedPlots()\ if\ BeginAlignedPlots()\ returns\ true!}}
+\DoxyCodeLine{01010\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndAlignedPlots();}
+\DoxyCodeLine{01011\ }
+\DoxyCodeLine{01012\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01013\ \textcolor{comment}{//\ [SECTION]\ Legend\ Utils}}
+\DoxyCodeLine{01014\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01016\ \textcolor{comment}{//\ Begin\ a\ popup\ for\ a\ legend\ entry.}}
+\DoxyCodeLine{01017\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginLegendPopup(const\ \textcolor{keywordtype}{char}*\ label\_id,\ ImGuiMouseButton\ mouse\_button=1);}
+\DoxyCodeLine{01018\ \textcolor{comment}{//\ End\ a\ popup\ for\ a\ legend\ entry.}}
+\DoxyCodeLine{01019\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndLegendPopup();}
+\DoxyCodeLine{01020\ \textcolor{comment}{//\ Returns\ true\ if\ a\ plot\ item\ legend\ entry\ is\ hovered.}}
+\DoxyCodeLine{01021\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ IsLegendEntryHovered(const\ \textcolor{keywordtype}{char}*\ label\_id);}
+\DoxyCodeLine{01022\ }
+\DoxyCodeLine{01023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01024\ \textcolor{comment}{//\ [SECTION]\ Drag\ and\ Drop}}
+\DoxyCodeLine{01025\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01027\ \textcolor{comment}{//\ Turns\ the\ current\ plot's\ plotting\ area\ into\ a\ drag\ and\ drop\ target.\ Don't\ forget\ to\ call\ EndDragDropTarget!}}
+\DoxyCodeLine{01028\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropTargetPlot();}
+\DoxyCodeLine{01029\ \textcolor{comment}{//\ Turns\ the\ current\ plot's\ X-\/axis\ into\ a\ drag\ and\ drop\ target.\ Don't\ forget\ to\ call\ EndDragDropTarget!}}
+\DoxyCodeLine{01030\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropTargetAxis(ImAxis\ axis);}
+\DoxyCodeLine{01031\ \textcolor{comment}{//\ Turns\ the\ current\ plot's\ legend\ into\ a\ drag\ and\ drop\ target.\ Don't\ forget\ to\ call\ EndDragDropTarget!}}
+\DoxyCodeLine{01032\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropTargetLegend();}
+\DoxyCodeLine{01033\ \textcolor{comment}{//\ Ends\ a\ drag\ and\ drop\ target\ (currently\ just\ an\ alias\ for\ ImGui::EndDragDropTarget).}}
+\DoxyCodeLine{01034\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndDragDropTarget();}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \textcolor{comment}{//\ NB:\ By\ default,\ plot\ and\ axes\ drag\ and\ drop\ *sources*\ require\ holding\ the\ Ctrl\ modifier\ to\ initiate\ the\ drag.}}
+\DoxyCodeLine{01037\ \textcolor{comment}{//\ You\ can\ change\ the\ modifier\ if\ desired.\ If\ ImGuiMod\_None\ is\ provided,\ the\ axes\ will\ be\ locked\ from\ panning.}}
+\DoxyCodeLine{01038\ }
+\DoxyCodeLine{01039\ \textcolor{comment}{//\ Turns\ the\ current\ plot's\ plotting\ area\ into\ a\ drag\ and\ drop\ source.\ You\ must\ hold\ Ctrl.\ Don't\ forget\ to\ call\ EndDragDropSource!}}
+\DoxyCodeLine{01040\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropSourcePlot(ImGuiDragDropFlags\ flags=0);}
+\DoxyCodeLine{01041\ \textcolor{comment}{//\ Turns\ the\ current\ plot's\ X-\/axis\ into\ a\ drag\ and\ drop\ source.\ You\ must\ hold\ Ctrl.\ Don't\ forget\ to\ call\ EndDragDropSource!}}
+\DoxyCodeLine{01042\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropSourceAxis(ImAxis\ axis,\ ImGuiDragDropFlags\ flags=0);}
+\DoxyCodeLine{01043\ \textcolor{comment}{//\ Turns\ an\ item\ in\ the\ current\ plot's\ legend\ into\ drag\ and\ drop\ source.\ Don't\ forget\ to\ call\ EndDragDropSource!}}
+\DoxyCodeLine{01044\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginDragDropSourceItem(const\ \textcolor{keywordtype}{char}*\ label\_id,\ ImGuiDragDropFlags\ flags=0);}
+\DoxyCodeLine{01045\ \textcolor{comment}{//\ Ends\ a\ drag\ and\ drop\ source\ (currently\ just\ an\ alias\ for\ ImGui::EndDragDropSource).}}
+\DoxyCodeLine{01046\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndDragDropSource();}
+\DoxyCodeLine{01047\ }
+\DoxyCodeLine{01048\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01049\ \textcolor{comment}{//\ [SECTION]\ Styling}}
+\DoxyCodeLine{01050\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01051\ }
+\DoxyCodeLine{01052\ \textcolor{comment}{//\ Styling\ colors\ in\ ImPlot\ works\ similarly\ to\ styling\ colors\ in\ ImGui,\ but}}
+\DoxyCodeLine{01053\ \textcolor{comment}{//\ with\ one\ important\ difference.\ Like\ ImGui,\ all\ style\ colors\ are\ stored\ in\ an}}
+\DoxyCodeLine{01054\ \textcolor{comment}{//\ indexable\ array\ in\ ImPlotStyle.\ You\ can\ permanently\ modify\ these\ values\ through}}
+\DoxyCodeLine{01055\ \textcolor{comment}{//\ GetStyle().Colors,\ or\ temporarily\ modify\ them\ with\ Push/Pop\ functions\ below.}}
+\DoxyCodeLine{01056\ \textcolor{comment}{//\ However,\ by\ default\ all\ style\ colors\ in\ ImPlot\ default\ to\ a\ special\ color}}
+\DoxyCodeLine{01057\ \textcolor{comment}{//\ IMPLOT\_AUTO\_COL.\ The\ behavior\ of\ this\ color\ depends\ upon\ the\ style\ color\ to}}
+\DoxyCodeLine{01058\ \textcolor{comment}{//\ which\ it\ as\ applied:}}
+\DoxyCodeLine{01059\ \textcolor{comment}{//}}
+\DoxyCodeLine{01060\ \textcolor{comment}{//\ \ \ \ \ 1)\ For\ style\ colors\ associated\ with\ plot\ items\ (e.g.\ ImPlotCol\_Line),}}
+\DoxyCodeLine{01061\ \textcolor{comment}{//\ \ \ \ \ \ \ \ IMPLOT\_AUTO\_COL\ tells\ ImPlot\ to\ color\ the\ item\ with\ the\ next\ unused}}
+\DoxyCodeLine{01062\ \textcolor{comment}{//\ \ \ \ \ \ \ \ color\ in\ the\ current\ colormap.\ Thus,\ every\ item\ will\ have\ a\ different}}
+\DoxyCodeLine{01063\ \textcolor{comment}{//\ \ \ \ \ \ \ \ color\ up\ to\ the\ number\ of\ colors\ in\ the\ colormap,\ at\ which\ point\ the}}
+\DoxyCodeLine{01064\ \textcolor{comment}{//\ \ \ \ \ \ \ \ colormap\ will\ roll\ over.\ For\ most\ use\ cases,\ you\ should\ not\ need\ to}}
+\DoxyCodeLine{01065\ \textcolor{comment}{//\ \ \ \ \ \ \ \ set\ these\ style\ colors\ to\ anything\ but\ IMPLOT\_COL\_AUTO;\ you\ are}}
+\DoxyCodeLine{01066\ \textcolor{comment}{//\ \ \ \ \ \ \ \ probably\ better\ off\ changing\ the\ current\ colormap.\ However,\ if\ you}}
+\DoxyCodeLine{01067\ \textcolor{comment}{//\ \ \ \ \ \ \ \ need\ to\ explicitly\ color\ a\ particular\ item\ you\ may\ either\ Push/Pop}}
+\DoxyCodeLine{01068\ \textcolor{comment}{//\ \ \ \ \ \ \ \ the\ style\ color\ around\ the\ item\ in\ question,\ or\ use\ the\ SetNextXXXStyle}}
+\DoxyCodeLine{01069\ \textcolor{comment}{//\ \ \ \ \ \ \ \ API\ below.\ If\ you\ permanently\ set\ one\ of\ these\ style\ colors\ to\ a\ specific}}
+\DoxyCodeLine{01070\ \textcolor{comment}{//\ \ \ \ \ \ \ \ color,\ or\ forget\ to\ call\ Pop,\ then\ all\ subsequent\ items\ will\ be\ styled}}
+\DoxyCodeLine{01071\ \textcolor{comment}{//\ \ \ \ \ \ \ \ with\ the\ color\ you\ set.}}
+\DoxyCodeLine{01072\ \textcolor{comment}{//}}
+\DoxyCodeLine{01073\ \textcolor{comment}{//\ \ \ \ \ 2)\ For\ style\ colors\ associated\ with\ plot\ styling\ (e.g.\ ImPlotCol\_PlotBg),}}
+\DoxyCodeLine{01074\ \textcolor{comment}{//\ \ \ \ \ \ \ \ IMPLOT\_AUTO\_COL\ tells\ ImPlot\ to\ set\ that\ color\ from\ color\ data\ in\ your}}
+\DoxyCodeLine{01075\ \textcolor{comment}{//\ \ \ \ \ \ \ \ **ImGuiStyle**.\ The\ ImGuiCol\_\ that\ these\ style\ colors\ default\ to\ are}}
+\DoxyCodeLine{01076\ \textcolor{comment}{//\ \ \ \ \ \ \ \ detailed\ above,\ and\ in\ general\ have\ been\ mapped\ to\ produce\ plots\ visually}}
+\DoxyCodeLine{01077\ \textcolor{comment}{//\ \ \ \ \ \ \ \ consistent\ with\ your\ current\ ImGui\ style.\ Of\ course,\ you\ are\ free\ to}}
+\DoxyCodeLine{01078\ \textcolor{comment}{//\ \ \ \ \ \ \ \ manually\ set\ these\ colors\ to\ whatever\ you\ like,\ and\ further\ can\ Push/Pop}}
+\DoxyCodeLine{01079\ \textcolor{comment}{//\ \ \ \ \ \ \ \ them\ around\ individual\ plots\ for\ plot-\/specific\ styling\ (e.g.\ coloring\ axes).}}
+\DoxyCodeLine{01080\ }
+\DoxyCodeLine{01081\ \textcolor{comment}{//\ Provides\ access\ to\ plot\ style\ structure\ for\ permanant\ modifications\ to\ colors,\ sizes,\ etc.}}
+\DoxyCodeLine{01082\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}\&\ GetStyle();}
+\DoxyCodeLine{01083\ }
+\DoxyCodeLine{01084\ \textcolor{comment}{//\ Style\ plot\ colors\ for\ current\ ImGui\ style\ (default).}}
+\DoxyCodeLine{01085\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ StyleColorsAuto(\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01086\ \textcolor{comment}{//\ Style\ plot\ colors\ for\ ImGui\ "{}Classic"{}.}}
+\DoxyCodeLine{01087\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ StyleColorsClassic(\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01088\ \textcolor{comment}{//\ Style\ plot\ colors\ for\ ImGui\ "{}Dark"{}.}}
+\DoxyCodeLine{01089\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ StyleColorsDark(\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01090\ \textcolor{comment}{//\ Style\ plot\ colors\ for\ ImGui\ "{}Light"{}.}}
+\DoxyCodeLine{01091\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ StyleColorsLight(\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01092\ }
+\DoxyCodeLine{01093\ \textcolor{comment}{//\ Use\ PushStyleX\ to\ temporarily\ modify\ your\ ImPlotStyle.\ The\ modification}}
+\DoxyCodeLine{01094\ \textcolor{comment}{//\ will\ last\ until\ the\ matching\ call\ to\ PopStyleX.\ You\ MUST\ call\ a\ pop\ for}}
+\DoxyCodeLine{01095\ \textcolor{comment}{//\ every\ push,\ otherwise\ you\ will\ leak\ memory!\ This\ behaves\ just\ like\ ImGui.}}
+\DoxyCodeLine{01096\ }
+\DoxyCodeLine{01097\ \textcolor{comment}{//\ Temporarily\ modify\ a\ style\ color.\ Don't\ forget\ to\ call\ PopStyleColor!}}
+\DoxyCodeLine{01098\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushStyleColor(ImPlotCol\ idx,\ ImU32\ col);}
+\DoxyCodeLine{01099\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushStyleColor(ImPlotCol\ idx,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col);}
+\DoxyCodeLine{01100\ \textcolor{comment}{//\ Undo\ temporary\ style\ color\ modification(s).\ Undo\ multiple\ pushes\ at\ once\ by\ increasing\ count.}}
+\DoxyCodeLine{01101\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PopStyleColor(\textcolor{keywordtype}{int}\ count\ =\ 1);}
+\DoxyCodeLine{01102\ }
+\DoxyCodeLine{01103\ \textcolor{comment}{//\ Temporarily\ modify\ a\ style\ variable\ of\ float\ type.\ Don't\ forget\ to\ call\ PopStyleVar!}}
+\DoxyCodeLine{01104\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushStyleVar(ImPlotStyleVar\ idx,\ \textcolor{keywordtype}{float}\ val);}
+\DoxyCodeLine{01105\ \textcolor{comment}{//\ Temporarily\ modify\ a\ style\ variable\ of\ int\ type.\ Don't\ forget\ to\ call\ PopStyleVar!}}
+\DoxyCodeLine{01106\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushStyleVar(ImPlotStyleVar\ idx,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{01107\ \textcolor{comment}{//\ Temporarily\ modify\ a\ style\ variable\ of\ ImVec2\ type.\ Don't\ forget\ to\ call\ PopStyleVar!}}
+\DoxyCodeLine{01108\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushStyleVar(ImPlotStyleVar\ idx,\ const\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ val);}
+\DoxyCodeLine{01109\ \textcolor{comment}{//\ Undo\ temporary\ style\ variable\ modification(s).\ Undo\ multiple\ pushes\ at\ once\ by\ increasing\ count.}}
+\DoxyCodeLine{01110\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PopStyleVar(\textcolor{keywordtype}{int}\ count\ =\ 1);}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \textcolor{comment}{//\ The\ following\ can\ be\ used\ to\ modify\ the\ style\ of\ the\ next\ plot\ item\ ONLY.\ They\ do}}
+\DoxyCodeLine{01113\ \textcolor{comment}{//\ NOT\ require\ calls\ to\ PopStyleX.\ Leave\ style\ attributes\ you\ don't\ want\ modified\ to}}
+\DoxyCodeLine{01114\ \textcolor{comment}{//\ IMPLOT\_AUTO\ or\ IMPLOT\_AUTO\_COL.\ Automatic\ styles\ will\ be\ deduced\ from\ the\ current}}
+\DoxyCodeLine{01115\ \textcolor{comment}{//\ values\ in\ your\ ImPlotStyle\ or\ from\ Colormap\ data.}}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01117\ \textcolor{comment}{//\ Set\ the\ line\ color\ and\ weight\ for\ the\ next\ item\ only.}}
+\DoxyCodeLine{01118\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextLineStyle(const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col\ =\ IMPLOT\_AUTO\_COL,\ \textcolor{keywordtype}{float}\ weight\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01119\ \textcolor{comment}{//\ Set\ the\ fill\ color\ for\ the\ next\ item\ only.}}
+\DoxyCodeLine{01120\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextFillStyle(const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col\ =\ IMPLOT\_AUTO\_COL,\ \textcolor{keywordtype}{float}\ alpha\_mod\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01121\ \textcolor{comment}{//\ Set\ the\ marker\ style\ for\ the\ next\ item\ only.}}
+\DoxyCodeLine{01122\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextMarkerStyle(ImPlotMarker\ marker\ =\ IMPLOT\_AUTO,\ \textcolor{keywordtype}{float}\ size\ =\ IMPLOT\_AUTO,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ fill\ =\ IMPLOT\_AUTO\_COL,\ \textcolor{keywordtype}{float}\ weight\ =\ IMPLOT\_AUTO,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ outline\ =\ IMPLOT\_AUTO\_COL);}
+\DoxyCodeLine{01123\ \textcolor{comment}{//\ Set\ the\ error\ bar\ style\ for\ the\ next\ item\ only.}}
+\DoxyCodeLine{01124\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SetNextErrorBarStyle(const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col\ =\ IMPLOT\_AUTO\_COL,\ \textcolor{keywordtype}{float}\ size\ =\ IMPLOT\_AUTO,\ \textcolor{keywordtype}{float}\ weight\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \textcolor{comment}{//\ Gets\ the\ last\ item\ primary\ color\ (i.e.\ its\ legend\ icon\ color)}}
+\DoxyCodeLine{01127\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ GetLastItemColor();}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ \textcolor{comment}{//\ Returns\ the\ null\ terminated\ string\ name\ for\ an\ ImPlotCol.}}
+\DoxyCodeLine{01130\ IMPLOT\_API\ const\ \textcolor{keywordtype}{char}*\ GetStyleColorName(ImPlotCol\ idx);}
+\DoxyCodeLine{01131\ \textcolor{comment}{//\ Returns\ the\ null\ terminated\ string\ name\ for\ an\ ImPlotMarker.}}
+\DoxyCodeLine{01132\ IMPLOT\_API\ const\ \textcolor{keywordtype}{char}*\ GetMarkerName(ImPlotMarker\ idx);}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01135\ \textcolor{comment}{//\ [SECTION]\ Colormaps}}
+\DoxyCodeLine{01136\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01137\ }
+\DoxyCodeLine{01138\ \textcolor{comment}{//\ Item\ styling\ is\ based\ on\ colormaps\ when\ the\ relevant\ ImPlotCol\_XXX\ is\ set\ to}}
+\DoxyCodeLine{01139\ \textcolor{comment}{//\ IMPLOT\_AUTO\_COL\ (default).\ Several\ built-\/in\ colormaps\ are\ available.\ You\ can}}
+\DoxyCodeLine{01140\ \textcolor{comment}{//\ add\ and\ then\ push/pop\ your\ own\ colormaps\ as\ well.\ To\ permanently\ set\ a\ colormap,}}
+\DoxyCodeLine{01141\ \textcolor{comment}{//\ modify\ the\ Colormap\ index\ member\ of\ your\ ImPlotStyle.}}
+\DoxyCodeLine{01142\ }
+\DoxyCodeLine{01143\ \textcolor{comment}{//\ Colormap\ data\ will\ be\ ignored\ and\ a\ custom\ color\ will\ be\ used\ if\ you\ have\ done\ one\ of\ the\ following:}}
+\DoxyCodeLine{01144\ \textcolor{comment}{//\ \ \ \ \ 1)\ Modified\ an\ item\ style\ color\ in\ your\ ImPlotStyle\ to\ anything\ other\ than\ IMPLOT\_AUTO\_COL.}}
+\DoxyCodeLine{01145\ \textcolor{comment}{//\ \ \ \ \ 2)\ Pushed\ an\ item\ style\ color\ using\ PushStyleColor().}}
+\DoxyCodeLine{01146\ \textcolor{comment}{//\ \ \ \ \ 3)\ Set\ the\ next\ item\ style\ with\ a\ SetNextXXXStyle\ function.}}
+\DoxyCodeLine{01147\ }
+\DoxyCodeLine{01148\ \textcolor{comment}{//\ Add\ a\ new\ colormap.\ The\ color\ data\ will\ be\ copied.\ The\ colormap\ can\ be\ used\ by\ pushing\ either\ the\ returned\ index\ or\ the}}
+\DoxyCodeLine{01149\ \textcolor{comment}{//\ string\ name\ with\ PushColormap.\ The\ colormap\ name\ must\ be\ unique\ and\ the\ size\ must\ be\ greater\ than\ 1.\ You\ will\ receive}}
+\DoxyCodeLine{01150\ \textcolor{comment}{//\ an\ assert\ otherwise!\ By\ default\ colormaps\ are\ considered\ to\ be\ qualitative\ (i.e.\ discrete).\ If\ you\ want\ to\ create\ a}}
+\DoxyCodeLine{01151\ \textcolor{comment}{//\ continuous\ colormap,\ set\ \#qual=false.\ This\ will\ treat\ the\ colors\ you\ provide\ as\ keys,\ and\ ImPlot\ will\ build\ a\ linearly}}
+\DoxyCodeLine{01152\ \textcolor{comment}{//\ interpolated\ lookup\ table.\ The\ memory\ footprint\ of\ this\ table\ will\ be\ exactly\ ((size-\/1)*255+1)*4\ bytes.}}
+\DoxyCodeLine{01153\ IMPLOT\_API\ ImPlotColormap\ AddColormap(const\ \textcolor{keywordtype}{char}*\ name,\ const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}*\ cols,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ qual=true);}
+\DoxyCodeLine{01154\ IMPLOT\_API\ ImPlotColormap\ AddColormap(const\ \textcolor{keywordtype}{char}*\ name,\ const\ ImU32*\ \ cols,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ qual=true);}
+\DoxyCodeLine{01155\ }
+\DoxyCodeLine{01156\ \textcolor{comment}{//\ Returns\ the\ number\ of\ available\ colormaps\ (i.e.\ the\ built-\/in\ +\ user-\/added\ count).}}
+\DoxyCodeLine{01157\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ GetColormapCount();}
+\DoxyCodeLine{01158\ \textcolor{comment}{//\ Returns\ a\ null\ terminated\ string\ name\ for\ a\ colormap\ given\ an\ index.\ Returns\ nullptr\ if\ index\ is\ invalid.}}
+\DoxyCodeLine{01159\ IMPLOT\_API\ const\ \textcolor{keywordtype}{char}*\ GetColormapName(ImPlotColormap\ cmap);}
+\DoxyCodeLine{01160\ \textcolor{comment}{//\ Returns\ an\ index\ number\ for\ a\ colormap\ given\ a\ valid\ string\ name.\ Returns\ -\/1\ if\ name\ is\ invalid.}}
+\DoxyCodeLine{01161\ IMPLOT\_API\ ImPlotColormap\ GetColormapIndex(const\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01163\ \textcolor{comment}{//\ Temporarily\ switch\ to\ one\ of\ the\ built-\/in\ (i.e.\ ImPlotColormap\_XXX)\ or\ user-\/added\ colormaps\ (i.e.\ a\ return\ value\ of\ AddColormap).\ Don't\ forget\ to\ call\ PopColormap!}}
+\DoxyCodeLine{01164\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushColormap(ImPlotColormap\ cmap);}
+\DoxyCodeLine{01165\ \textcolor{comment}{//\ Push\ a\ colormap\ by\ string\ name.\ Use\ built-\/in\ names\ such\ as\ "{}Default"{},\ "{}Deep"{},\ "{}Jet"{},\ etc.\ or\ a\ string\ you\ provided\ to\ AddColormap.\ Don't\ forget\ to\ call\ PopColormap!}}
+\DoxyCodeLine{01166\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushColormap(const\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{01167\ \textcolor{comment}{//\ Undo\ temporary\ colormap\ modification(s).\ Undo\ multiple\ pushes\ at\ once\ by\ increasing\ count.}}
+\DoxyCodeLine{01168\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PopColormap(\textcolor{keywordtype}{int}\ count\ =\ 1);}
+\DoxyCodeLine{01169\ }
+\DoxyCodeLine{01170\ \textcolor{comment}{//\ Returns\ the\ next\ color\ from\ the\ current\ colormap\ and\ advances\ the\ colormap\ for\ the\ current\ plot.}}
+\DoxyCodeLine{01171\ \textcolor{comment}{//\ Can\ also\ be\ used\ with\ no\ return\ value\ to\ skip\ colors\ if\ desired.\ You\ need\ to\ call\ this\ between\ Begin/EndPlot!}}
+\DoxyCodeLine{01172\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ NextColormapColor();}
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01174\ \textcolor{comment}{//\ Colormap\ utils.\ If\ cmap\ =\ IMPLOT\_AUTO\ (default),\ the\ current\ colormap\ is\ assumed.}}
+\DoxyCodeLine{01175\ \textcolor{comment}{//\ Pass\ an\ explicit\ colormap\ index\ (built-\/in\ or\ user-\/added)\ to\ specify\ otherwise.}}
+\DoxyCodeLine{01176\ }
+\DoxyCodeLine{01177\ \textcolor{comment}{//\ Returns\ the\ size\ of\ a\ colormap.}}
+\DoxyCodeLine{01178\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ GetColormapSize(ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01179\ \textcolor{comment}{//\ Returns\ a\ color\ from\ a\ colormap\ given\ an\ index\ >=\ 0\ (modulo\ will\ be\ performed).}}
+\DoxyCodeLine{01180\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ GetColormapColor(\textcolor{keywordtype}{int}\ idx,\ ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01181\ \textcolor{comment}{//\ Sample\ a\ color\ from\ the\ current\ colormap\ given\ t\ between\ 0\ and\ 1.}}
+\DoxyCodeLine{01182\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ SampleColormap(\textcolor{keywordtype}{float}\ t,\ ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01184\ \textcolor{comment}{//\ Shows\ a\ vertical\ color\ scale\ with\ linear\ spaced\ ticks\ using\ the\ specified\ color\ map.\ Use\ double\ hashes\ to\ hide\ label\ (e.g.\ "{}\#\#NoLabel"{}).\ If\ scale\_min\ >\ scale\_max,\ the\ scale\ to\ color\ mapping\ will\ be\ reversed.}}
+\DoxyCodeLine{01185\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ColormapScale(const\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{double}\ scale\_min,\ \textcolor{keywordtype}{double}\ scale\_max,\ const\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size\ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0),\ const\ \textcolor{keywordtype}{char}*\ format\ =\ "{}\%g"{},\ ImPlotColormapScaleFlags\ flags\ =\ 0,\ ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01186\ \textcolor{comment}{//\ Shows\ a\ horizontal\ slider\ with\ a\ colormap\ gradient\ background.\ Optionally\ returns\ the\ color\ sampled\ at\ t\ in\ [0\ 1].}}
+\DoxyCodeLine{01187\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ColormapSlider(const\ \textcolor{keywordtype}{char}*\ label,\ \textcolor{keywordtype}{float}*\ t,\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}*\ out\ =\ \textcolor{keywordtype}{nullptr},\ const\ \textcolor{keywordtype}{char}*\ format\ =\ "{}"{},\ ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01188\ \textcolor{comment}{//\ Shows\ a\ button\ with\ a\ colormap\ gradient\ brackground.}}
+\DoxyCodeLine{01189\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ColormapButton(const\ \textcolor{keywordtype}{char}*\ label,\ const\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size\ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0),\ ImPlotColormap\ cmap\ =\ IMPLOT\_AUTO);}
+\DoxyCodeLine{01190\ }
+\DoxyCodeLine{01191\ \textcolor{comment}{//\ When\ items\ in\ a\ plot\ sample\ their\ color\ from\ a\ colormap,\ the\ color\ is\ cached\ and\ does\ not\ change}}
+\DoxyCodeLine{01192\ \textcolor{comment}{//\ unless\ explicitly\ overriden.\ Therefore,\ if\ you\ change\ the\ colormap\ after\ the\ item\ has\ already\ been\ plotted,}}
+\DoxyCodeLine{01193\ \textcolor{comment}{//\ item\ colors\ will\ NOT\ update.\ If\ you\ need\ item\ colors\ to\ resample\ the\ new\ colormap,\ then\ use\ this}}
+\DoxyCodeLine{01194\ \textcolor{comment}{//\ function\ to\ bust\ the\ cached\ colors.\ If\ \#plot\_title\_id\ is\ nullptr,\ then\ every\ item\ in\ EVERY\ existing\ plot}}
+\DoxyCodeLine{01195\ \textcolor{comment}{//\ will\ be\ cache\ busted.\ Otherwise\ only\ the\ plot\ specified\ by\ \#plot\_title\_id\ will\ be\ busted.\ For\ the}}
+\DoxyCodeLine{01196\ \textcolor{comment}{//\ latter,\ this\ function\ must\ be\ called\ in\ the\ same\ ImGui\ ID\ scope\ that\ the\ plot\ is\ in.\ You\ should\ rarely\ if\ ever}}
+\DoxyCodeLine{01197\ \textcolor{comment}{//\ need\ this\ function,\ but\ it\ is\ available\ for\ applications\ that\ require\ runtime\ colormap\ swaps\ (e.g.\ Heatmaps\ demo).}}
+\DoxyCodeLine{01198\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ BustColorCache(const\ \textcolor{keywordtype}{char}*\ plot\_title\_id\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01200\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01201\ \textcolor{comment}{//\ [SECTION]\ Input\ Mapping}}
+\DoxyCodeLine{01202\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01203\ }
+\DoxyCodeLine{01204\ \textcolor{comment}{//\ Provides\ access\ to\ input\ mapping\ structure\ for\ permanant\ modifications\ to\ controls\ for\ pan,\ select,\ etc.}}
+\DoxyCodeLine{01205\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}\&\ GetInputMap();}
+\DoxyCodeLine{01206\ }
+\DoxyCodeLine{01207\ \textcolor{comment}{//\ Default\ input\ mapping:\ pan\ =\ LMB\ drag,\ box\ select\ =\ RMB\ drag,\ fit\ =\ LMB\ double\ click,\ context\ menu\ =\ RMB\ click,\ zoom\ =\ scroll.}}
+\DoxyCodeLine{01208\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ MapInputDefault(\mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01209\ \textcolor{comment}{//\ Reverse\ input\ mapping:\ pan\ =\ RMB\ drag,\ box\ select\ =\ LMB\ drag,\ fit\ =\ LMB\ double\ click,\ context\ menu\ =\ RMB\ click,\ zoom\ =\ scroll.}}
+\DoxyCodeLine{01210\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ MapInputReverse(\mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}*\ dst\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01211\ }
+\DoxyCodeLine{01212\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01213\ \textcolor{comment}{//\ [SECTION]\ Miscellaneous}}
+\DoxyCodeLine{01214\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01215\ }
+\DoxyCodeLine{01216\ \textcolor{comment}{//\ Render\ icons\ similar\ to\ those\ that\ appear\ in\ legends\ (nifty\ for\ data\ lists).}}
+\DoxyCodeLine{01217\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ItemIcon(const\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col);}
+\DoxyCodeLine{01218\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ItemIcon(ImU32\ col);}
+\DoxyCodeLine{01219\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ColormapIcon(ImPlotColormap\ cmap);}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \textcolor{comment}{//\ Get\ the\ plot\ draw\ list\ for\ custom\ rendering\ to\ the\ current\ plot\ area.\ Call\ between\ Begin/EndPlot.}}
+\DoxyCodeLine{01222\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_draw_list}{ImDrawList}}*\ GetPlotDrawList();}
+\DoxyCodeLine{01223\ \textcolor{comment}{//\ Push\ clip\ rect\ for\ rendering\ to\ current\ plot\ area.\ The\ rect\ can\ be\ expanded\ or\ contracted\ by\ \#expand\ pixels.\ Call\ between\ Begin/EndPlot.}}
+\DoxyCodeLine{01224\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PushPlotClipRect(\textcolor{keywordtype}{float}\ expand=0);}
+\DoxyCodeLine{01225\ \textcolor{comment}{//\ Pop\ plot\ clip\ rect.\ Call\ between\ Begin/EndPlot.}}
+\DoxyCodeLine{01226\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ PopPlotClipRect();}
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01228\ \textcolor{comment}{//\ Shows\ ImPlot\ style\ selector\ dropdown\ menu.}}
+\DoxyCodeLine{01229\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowStyleSelector(const\ \textcolor{keywordtype}{char}*\ label);}
+\DoxyCodeLine{01230\ \textcolor{comment}{//\ Shows\ ImPlot\ colormap\ selector\ dropdown\ menu.}}
+\DoxyCodeLine{01231\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowColormapSelector(const\ \textcolor{keywordtype}{char}*\ label);}
+\DoxyCodeLine{01232\ \textcolor{comment}{//\ Shows\ ImPlot\ input\ map\ selector\ dropdown\ menu.}}
+\DoxyCodeLine{01233\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowInputMapSelector(const\ \textcolor{keywordtype}{char}*\ label);}
+\DoxyCodeLine{01234\ \textcolor{comment}{//\ Shows\ ImPlot\ style\ editor\ block\ (not\ a\ window).}}
+\DoxyCodeLine{01235\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowStyleEditor(\mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}*\ ref\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01236\ \textcolor{comment}{//\ Add\ basic\ help/info\ block\ for\ end\ users\ (not\ a\ window).}}
+\DoxyCodeLine{01237\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowUserGuide();}
+\DoxyCodeLine{01238\ \textcolor{comment}{//\ Shows\ ImPlot\ metrics/debug\ information\ window.}}
+\DoxyCodeLine{01239\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowMetricsWindow(\textcolor{keywordtype}{bool}*\ p\_popen\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01240\ }
+\DoxyCodeLine{01241\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01242\ \textcolor{comment}{//\ [SECTION]\ Demo}}
+\DoxyCodeLine{01243\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01244\ }
+\DoxyCodeLine{01245\ \textcolor{comment}{//\ Shows\ the\ ImPlot\ demo\ window\ (add\ implot\_demo.cpp\ to\ your\ sources!)}}
+\DoxyCodeLine{01246\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowDemoWindow(\textcolor{keywordtype}{bool}*\ p\_open\ =\ \textcolor{keywordtype}{nullptr});}
+\DoxyCodeLine{01247\ }
+\DoxyCodeLine{01248\ \}\ \ \textcolor{comment}{//\ namespace\ ImPlot}}
+\DoxyCodeLine{01249\ }
+\DoxyCodeLine{01250\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01251\ \textcolor{comment}{//\ [SECTION]\ Obsolete\ API}}
+\DoxyCodeLine{01252\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01253\ }
+\DoxyCodeLine{01254\ \textcolor{comment}{//\ The\ following\ functions\ will\ be\ removed!\ Keep\ your\ copy\ of\ implot\ up\ to\ date!}}
+\DoxyCodeLine{01255\ \textcolor{comment}{//\ Occasionally\ set\ '\#define\ IMPLOT\_DISABLE\_OBSOLETE\_FUNCTIONS'\ to\ stay\ ahead.}}
+\DoxyCodeLine{01256\ \textcolor{comment}{//\ If\ you\ absolutely\ must\ use\ these\ functions\ and\ do\ not\ want\ to\ receive\ compiler}}
+\DoxyCodeLine{01257\ \textcolor{comment}{//\ warnings,\ set\ '\#define\ IMPLOT\_DISABLE\_OBSOLETE\_WARNINGS'.}}
+\DoxyCodeLine{01258\ }
+\DoxyCodeLine{01259\ \textcolor{preprocessor}{\#ifndef\ IMPLOT\_DISABLE\_OBSOLETE\_FUNCTIONS}}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01261\ \textcolor{preprocessor}{\#ifndef\ IMPLOT\_DISABLE\_DEPRECATED\_WARNINGS}}
+\DoxyCodeLine{01262\ \textcolor{preprocessor}{\#if\ \_\_cplusplus\ >\ 201402L}}
+\DoxyCodeLine{01263\ \textcolor{preprocessor}{\#define\ IMPLOT\_DEPRECATED(method)\ [[deprecated]]\ method}}
+\DoxyCodeLine{01264\ \textcolor{preprocessor}{\#elif\ defined(\ \_\_GNUC\_\_\ )\ \&\&\ !defined(\ \_\_INTEL\_COMPILER\ )\ \&\&\ (\ \_\_GNUC\_\_\ >\ 3\ ||\ (\ \_\_GNUC\_\_\ ==\ 3\ \&\&\ \_\_GNUC\_MINOR\_\_\ >=\ 1\ )\ )}}
+\DoxyCodeLine{01265\ \textcolor{preprocessor}{\#define\ IMPLOT\_DEPRECATED(method)\ method\ \_\_attribute\_\_(\ (\ deprecated\ )\ )}}
+\DoxyCodeLine{01266\ \textcolor{preprocessor}{\#elif\ defined(\ \_MSC\_VER\ )}}
+\DoxyCodeLine{01267\ \textcolor{preprocessor}{\#define\ IMPLOT\_DEPRECATED(method)\ \_\_declspec(deprecated)\ method}}
+\DoxyCodeLine{01268\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01269\ \textcolor{preprocessor}{\#define\ IMPLOT\_DEPRECATED(method)\ method}}
+\DoxyCodeLine{01270\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01271\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01272\ \textcolor{preprocessor}{\#define\ IMPLOT\_DEPRECATED(method)\ method}}
+\DoxyCodeLine{01273\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01275\ \textcolor{keyword}{enum}\ ImPlotFlagsObsolete\_\ \{}
+\DoxyCodeLine{01276\ \ \ \ \ ImPlotFlags\_YAxis2\ =\ 1\ <<\ 20,}
+\DoxyCodeLine{01277\ \ \ \ \ ImPlotFlags\_YAxis3\ =\ 1\ <<\ 21,}
+\DoxyCodeLine{01278\ \};}
+\DoxyCodeLine{01279\ }
+\DoxyCodeLine{01280\ \textcolor{keyword}{namespace\ }ImPlot\ \{}
+\DoxyCodeLine{01281\ }
+\DoxyCodeLine{01282\ \textcolor{comment}{//\ OBSOLETED\ in\ v0.13\ -\/>\ PLANNED\ REMOVAL\ in\ v1.0}}
+\DoxyCodeLine{01283\ IMPLOT\_DEPRECATED(\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginPlot(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title\_id,}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ x\_label,\ \ \textcolor{comment}{//\ =\ nullptr,}}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ y\_label,\ \ \textcolor{comment}{//\ =\ nullptr,}}
+\DoxyCodeLine{01286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size\ \ \ \ \ \ \ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(-\/1,0),}
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotFlags\ flags\ \ \ \ \ \ \ \ =\ ImPlotFlags\_None,}
+\DoxyCodeLine{01288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotAxisFlags\ x\_flags\ \ =\ 0,}
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotAxisFlags\ y\_flags\ \ =\ 0,}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotAxisFlags\ y2\_flags\ =\ ImPlotAxisFlags\_AuxDefault,}
+\DoxyCodeLine{01291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotAxisFlags\ y3\_flags\ =\ ImPlotAxisFlags\_AuxDefault,}
+\DoxyCodeLine{01292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ y2\_label\ \ \ \ \ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ y3\_label\ \ \ \ \ =\ \textcolor{keyword}{nullptr})\ );}
+\DoxyCodeLine{01294\ }
+\DoxyCodeLine{01295\ \}\ \textcolor{comment}{//\ namespace\ ImPlot}}
+\DoxyCodeLine{01296\ }
+\DoxyCodeLine{01297\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

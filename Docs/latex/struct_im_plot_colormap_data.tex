@@ -1,0 +1,88 @@
+\hypertarget{struct_im_plot_colormap_data}{}\doxysection{Im\+Plot\+Colormap\+Data Struct Reference}
+\label{struct_im_plot_colormap_data}\index{ImPlotColormapData@{ImPlotColormapData}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a0d23585180c06a14cf4f30171255b8ab}\label{struct_im_plot_colormap_data_a0d23585180c06a14cf4f30171255b8ab}} 
+int {\bfseries Append} (const char $\ast$name, const Im\+U32 $\ast$keys, int count, bool qual)
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_af58b6cefedc924f837ffc7df12ef4765}\label{struct_im_plot_colormap_data_af58b6cefedc924f837ffc7df12ef4765}} 
+void {\bfseries \+\_\+\+Append\+Table} (Im\+Plot\+Colormap cmap)
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ae859e0d731c335ffec5d6247239c227e}\label{struct_im_plot_colormap_data_ae859e0d731c335ffec5d6247239c227e}} 
+void {\bfseries Rebuild\+Tables} ()
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a4c5fc2db9b262c2d53678c269707966f}\label{struct_im_plot_colormap_data_a4c5fc2db9b262c2d53678c269707966f}} 
+bool {\bfseries Is\+Qual} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_af6ee627cacdb6268ce2cd470b4445b3b}\label{struct_im_plot_colormap_data_af6ee627cacdb6268ce2cd470b4445b3b}} 
+const char $\ast$ {\bfseries Get\+Name} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_abcb70cebabc464b768175ebdbf237374}\label{struct_im_plot_colormap_data_abcb70cebabc464b768175ebdbf237374}} 
+Im\+Plot\+Colormap {\bfseries Get\+Index} (const char $\ast$name) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ae2d6f7f84ff61399d3827401c32ea73d}\label{struct_im_plot_colormap_data_ae2d6f7f84ff61399d3827401c32ea73d}} 
+const Im\+U32 $\ast$ {\bfseries Get\+Keys} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ae1c0c8182d32b797f5eeec87e680a6c1}\label{struct_im_plot_colormap_data_ae1c0c8182d32b797f5eeec87e680a6c1}} 
+int {\bfseries Get\+Key\+Count} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ab50353ddf638342567294a4649bad94b}\label{struct_im_plot_colormap_data_ab50353ddf638342567294a4649bad94b}} 
+Im\+U32 {\bfseries Get\+Key\+Color} (Im\+Plot\+Colormap cmap, int idx) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ab0e1ad065116e8696ec4bc569c56dc65}\label{struct_im_plot_colormap_data_ab0e1ad065116e8696ec4bc569c56dc65}} 
+void {\bfseries Set\+Key\+Color} (Im\+Plot\+Colormap cmap, int idx, Im\+U32 value)
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a93541e4463ca0dc649e0a1afbfbba28b}\label{struct_im_plot_colormap_data_a93541e4463ca0dc649e0a1afbfbba28b}} 
+const Im\+U32 $\ast$ {\bfseries Get\+Table} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a37c02f28156dfc91fa6d688eb7ec1628}\label{struct_im_plot_colormap_data_a37c02f28156dfc91fa6d688eb7ec1628}} 
+int {\bfseries Get\+Table\+Size} (Im\+Plot\+Colormap cmap) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a5001871146bdff38177e81290c23acba}\label{struct_im_plot_colormap_data_a5001871146bdff38177e81290c23acba}} 
+Im\+U32 {\bfseries Get\+Table\+Color} (Im\+Plot\+Colormap cmap, int idx) const
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_aab899c5dcd3d177b53896e9a386cebe6}\label{struct_im_plot_colormap_data_aab899c5dcd3d177b53896e9a386cebe6}} 
+Im\+U32 {\bfseries Lerp\+Table} (Im\+Plot\+Colormap cmap, float t) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_aa7c17349c448133e80572bdf16a00aec}\label{struct_im_plot_colormap_data_aa7c17349c448133e80572bdf16a00aec}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ Im\+U32 $>$ {\bfseries Keys}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a1fc15d14e6033f40f068d9d9432748ee}\label{struct_im_plot_colormap_data_a1fc15d14e6033f40f068d9d9432748ee}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ int $>$ {\bfseries Key\+Counts}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a93edc2be10a8651a0952665565973d22}\label{struct_im_plot_colormap_data_a93edc2be10a8651a0952665565973d22}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ int $>$ {\bfseries Key\+Offsets}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a5127406cb4b5f685eec28813c2cce973}\label{struct_im_plot_colormap_data_a5127406cb4b5f685eec28813c2cce973}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ Im\+U32 $>$ {\bfseries Tables}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_aaaafac8a8a4175e70f7a82b56dd65b4e}\label{struct_im_plot_colormap_data_aaaafac8a8a4175e70f7a82b56dd65b4e}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ int $>$ {\bfseries Table\+Sizes}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_ac05b7cdb957dbc35b1c2ef3866747823}\label{struct_im_plot_colormap_data_ac05b7cdb957dbc35b1c2ef3866747823}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ int $>$ {\bfseries Table\+Offsets}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a924d50c3887ab933585724152033c8ce}\label{struct_im_plot_colormap_data_a924d50c3887ab933585724152033c8ce}} 
+\mbox{\hyperlink{struct_im_gui_text_buffer}{Im\+Gui\+Text\+Buffer}} {\bfseries Text}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a44a9f059a3e8cc18a3850bc02071f510}\label{struct_im_plot_colormap_data_a44a9f059a3e8cc18a3850bc02071f510}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ int $>$ {\bfseries Text\+Offsets}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a5d000154372f104a531692ae23a2bb58}\label{struct_im_plot_colormap_data_a5d000154372f104a531692ae23a2bb58}} 
+\mbox{\hyperlink{struct_im_vector}{Im\+Vector}}$<$ bool $>$ {\bfseries Quals}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_a12bebdbeeee41501ab4901e161678236}\label{struct_im_plot_colormap_data_a12bebdbeeee41501ab4901e161678236}} 
+\mbox{\hyperlink{struct_im_gui_storage}{Im\+Gui\+Storage}} {\bfseries Map}
+\item 
+\mbox{\Hypertarget{struct_im_plot_colormap_data_af2a19ffc3252c662d404b3099f59a871}\label{struct_im_plot_colormap_data_af2a19ffc3252c662d404b3099f59a871}} 
+int {\bfseries Count}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/implot/implot\+\_\+internal.\+h\end{DoxyCompactItemize}

@@ -77,7 +77,6 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_graphics_pipeline_1_1_root_signature-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">GraphicsPipeline::RootSignature Class Reference</div></div>
 </div><!--header-->
@@ -114,12 +113,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a76cf328849dae4731810f986901ed15e"><td class="memItemLeft" align="right" valign="top"><a id="a76cf328849dae4731810f986901ed15e" name="a76cf328849dae4731810f986901ed15e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list)</td></tr>
-<tr class="separator:a76cf328849dae4731810f986901ed15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1176907cb81367cc62519ab4ef753979"><td class="memItemLeft" align="right" valign="top"><a id="a1176907cb81367cc62519ab4ef753979" name="a1176907cb81367cc62519ab4ef753979"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index)</td></tr>
-<tr class="separator:a1176907cb81367cc62519ab4ef753979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa3316229c1907631ddf52c44f88efb"><td class="memItemLeft" align="right" valign="top"><a id="a8aa3316229c1907631ddf52c44f88efb" name="a8aa3316229c1907631ddf52c44f88efb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a8aa3316229c1907631ddf52c44f88efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4f7f06725b6203722d59032d1f646b"><td class="memItemLeft" align="right" valign="top"><a id="a9c4f7f06725b6203722d59032d1f646b" name="a9c4f7f06725b6203722d59032d1f646b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
+<tr class="separator:a9c4f7f06725b6203722d59032d1f646b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79233b2ed7274edd7a85b11429b062b4"><td class="memItemLeft" align="right" valign="top"><a id="a79233b2ed7274edd7a85b11429b062b4" name="a79233b2ed7274edd7a85b11429b062b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a79233b2ed7274edd7a85b11429b062b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7571dbf836f34555f1fdc66b6076da70"><td class="memItemLeft" align="right" valign="top"><a id="a7571dbf836f34555f1fdc66b6076da70" name="a7571dbf836f34555f1fdc66b6076da70"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a7571dbf836f34555f1fdc66b6076da70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af02bb019af3ce38d04d0d6ea13ff3c4c"><td class="memItemLeft" align="right" valign="top"><a id="af02bb019af3ce38d04d0d6ea13ff3c4c" name="af02bb019af3ce38d04d0d6ea13ff3c4c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline_1_1_root_signature.html">RootSignature</a> &amp;root_signature) const noexcept</td></tr>
 <tr class="separator:af02bb019af3ce38d04d0d6ea13ff3c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,12 +145,21 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:a8250f245bb5d7afca2da57bf359ea4a5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#a8250f245bb5d7afca2da57bf359ea4a5">bind_constant_buffer</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">ConstantBufferContainer</a>&lt; T &gt; &amp;cb, D3D12_SHADER_VISIBILITY shader)</td></tr>
 <tr class="memdesc:a8250f245bb5d7afca2da57bf359ea4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds a constant buffer to root signature.  <br /></td></tr>
 <tr class="separator:a8250f245bb5d7afca2da57bf359ea4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aa8197bb7f7a000e6ef68060c9b00b049"><td class="memItemLeft" align="right" valign="top"><a id="aa8197bb7f7a000e6ef68060c9b00b049" name="aa8197bb7f7a000e6ef68060c9b00b049"></a>
-ComPtr&lt; ID3D12RootSignature &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>signature</b> = nullptr</td></tr>
-<tr class="separator:aa8197bb7f7a000e6ef68060c9b00b049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fa751fa2dcca63ddac9a41110bd20c1"><td class="memItemLeft" align="right" valign="top"><a id="a0fa751fa2dcca63ddac9a41110bd20c1" name="a0fa751fa2dcca63ddac9a41110bd20c1"></a>
+const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_constant_buffers</b> () const noexcept</td></tr>
+<tr class="separator:a0fa751fa2dcca63ddac9a41110bd20c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca774d030ad9032647319f3af50a8d74"><td class="memItemLeft" align="right" valign="top"><a id="aca774d030ad9032647319f3af50a8d74" name="aca774d030ad9032647319f3af50a8d74"></a>
+const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html">RootConstants</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_constants</b> () const noexcept</td></tr>
+<tr class="separator:aca774d030ad9032647319f3af50a8d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad512ff39b66e31254bec8328ae0f2186"><td class="memItemLeft" align="right" valign="top"><a id="ad512ff39b66e31254bec8328ae0f2186" name="ad512ff39b66e31254bec8328ae0f2186"></a>
+const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html">ShaderResourceView</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader_resource_views</b> () const noexcept</td></tr>
+<tr class="separator:ad512ff39b66e31254bec8328ae0f2186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1200a0f9f088a5e2b2c3b60360e8abbd"><td class="memItemLeft" align="right" valign="top"><a id="a1200a0f9f088a5e2b2c3b60360e8abbd" name="a1200a0f9f088a5e2b2c3b60360e8abbd"></a>
+const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table.html">DescriptorTable</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_descriptor_tables</b> () const noexcept</td></tr>
+<tr class="separator:a1200a0f9f088a5e2b2c3b60360e8abbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a60166f448dafad9c67558d99e0300"><td class="memItemLeft" align="right" valign="top"><a id="ac4a60166f448dafad9c67558d99e0300" name="ac4a60166f448dafad9c67558d99e0300"></a>
+const std::vector&lt; D3D12_ROOT_PARAMETER &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_params</b> () const noexcept</td></tr>
+<tr class="separator:ac4a60166f448dafad9c67558d99e0300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Uploads data and structures to shaders. </p>

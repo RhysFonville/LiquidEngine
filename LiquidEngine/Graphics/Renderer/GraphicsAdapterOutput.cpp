@@ -14,9 +14,6 @@ GraphicsAdapterOutput::GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device,
 GraphicsAdapterOutput::GraphicsAdapterOutput(const ComPtr<ID3D12Device> &device, const ComPtr<IDXGIAdapter> &adapter, const std::string &adapter_output) {
 	int output_index = 0;
 	bool output_found = false;
-
-	
-
 	while (adapter->EnumOutputs(output_index, this->adapter_output.GetAddressOf()) != DXGI_ERROR_NOT_FOUND) {
 		DXGI_OUTPUT_DESC desc;
 		HPEW(this->adapter_output->GetDesc(&desc));

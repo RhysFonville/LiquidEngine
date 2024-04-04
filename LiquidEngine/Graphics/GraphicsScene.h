@@ -248,6 +248,16 @@ public:
 		return false;
 	}
 
+	void compile() {
+		wvp_data = VSWVPConstants{};
+		pos_data = PSCameraConstants{};
+	}
+
+	void clean_up() {
+		wvp_data.clean_up();
+		pos_data.clean_up();
+	}
+
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
@@ -265,13 +275,23 @@ public:
 
 	bool update() {
 		if (component->has_changed()) {
-			if (component->exists()) {
-				srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
-					(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
-			}
+			compile();
+
+			component->has_changed(false);
 			return true;
 		}
 		return false;
+	}
+
+	void compile() {
+		if (component->exists()) {
+			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
+				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
+		}
+	}
+
+	void cleam_up() {
+		srv.reset();
 	}
 
 	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
@@ -302,9 +322,21 @@ public:
 			data.update();
 
 			component->has_changed(false);
-			texture.component->has_changed(false);
 		}
 		return ret;
+	}
+
+	void compile() {
+		texture.compile();
+		wvp_data = VSWVPConstants{};
+		transform_data = VSTransformConstants{};
+		data = PSSkyCB{};
+	}
+
+	void clean_up() {
+		wvp_data.clean_up();
+		transform_data.clean_up();
+		data.clean_up();
 	}
 
 	bool operator==(SkyComponent component) { return (component == *(this->component)); }
@@ -339,12 +371,20 @@ public:
 			material_data.update();
 
 			component->has_changed(false);
-			albedo_texture.component->has_changed(false);
-			normal_map.component->has_changed(false);
-			environment_texture.component->has_changed(false);
 			return true;
 		}
 		return ret;
+	}
+
+	void compile() {
+		albedo_texture.compile();
+		normal_map.compile();
+		environment_texture.compile();
+		material_data = PSMaterialCB{};
+	}
+
+	void clean_up() {
+		material_data.clean_up();
 	}
 
 	RenderingTexture albedo_texture{};
@@ -394,6 +434,17 @@ public:
 		}
 
 		lights_data.update();
+	}
+
+	void compile() {
+		material.compile();
+		lights_data = PSLightsCB{};
+		transform_data = VSTransformConstants{};
+	}
+
+	void clean_up() {
+		lights_data.clean_up();
+		transform_data.clean_up();
 	}
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
@@ -461,10 +512,11 @@ public:
 
 	void compile() {
 		camera.component->has_changed(true);
+		camera.compile();
 
 		if (sky.component != nullptr) {
 			sky.component->has_changed(true);
-			sky.texture.component->has_changed(true);
+			sky.compile();
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
@@ -480,9 +532,7 @@ public:
 		for (RenderingStaticMesh &mesh : static_meshes) {
 			mesh.component->has_changed(true);
 			mesh.material.component->has_changed(true);
-			mesh.material.albedo_texture.component->has_changed(true);
-			mesh.material.normal_map.component->has_changed(true);
-			mesh.material.environment_texture.component->has_changed(true);
+			mesh.compile();
 		}
 	}
 

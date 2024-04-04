@@ -29,11 +29,17 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_res
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a76cf328849dae4731810f986901ed15e}\label{class_graphics_pipeline_1_1_root_signature_a76cf328849dae4731810f986901ed15e}} 
-void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a8aa3316229c1907631ddf52c44f88efb}\label{class_graphics_pipeline_1_1_root_signature_a8aa3316229c1907631ddf52c44f88efb}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a1176907cb81367cc62519ab4ef753979}\label{class_graphics_pipeline_1_1_root_signature_a1176907cb81367cc62519ab4ef753979}} 
-void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a9c4f7f06725b6203722d59032d1f646b}\label{class_graphics_pipeline_1_1_root_signature_a9c4f7f06725b6203722d59032d1f646b}} 
+void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a79233b2ed7274edd7a85b11429b062b4}\label{class_graphics_pipeline_1_1_root_signature_a79233b2ed7274edd7a85b11429b062b4}} 
+void {\bfseries check\+\_\+for\+\_\+update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a7571dbf836f34555f1fdc66b6076da70}\label{class_graphics_pipeline_1_1_root_signature_a7571dbf836f34555f1fdc66b6076da70}} 
+void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}\label{class_graphics_pipeline_1_1_root_signature_af02bb019af3ce38d04d0d6ea13ff3c4c}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}} \&root\+\_\+signature) const noexcept
@@ -47,12 +53,21 @@ void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e1
 void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}{bind\+\_\+constant\+\_\+buffer}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
 \begin{DoxyCompactList}\small\item\em Binds a constant buffer to root signature. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}{bind\+\_\+constant\+\_\+buffer}} (\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ T $>$ \&cb, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader)
-\begin{DoxyCompactList}\small\item\em Binds a constant buffer to root signature. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Binds a constant buffer to root signature. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a0fa751fa2dcca63ddac9a41110bd20c1}\label{class_graphics_pipeline_1_1_root_signature_a0fa751fa2dcca63ddac9a41110bd20c1}} 
+const std\+::vector$<$ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} $\ast$ $>$ \& {\bfseries get\+\_\+constant\+\_\+buffers} () const noexcept
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}\label{class_graphics_pipeline_1_1_root_signature_aa8197bb7f7a000e6ef68060c9b00b049}} 
-Com\+Ptr$<$ ID3\+D12\+Root\+Signature $>$ {\bfseries signature} = nullptr
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_aca774d030ad9032647319f3af50a8d74}\label{class_graphics_pipeline_1_1_root_signature_aca774d030ad9032647319f3af50a8d74}} 
+const std\+::vector$<$ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{Root\+Constants}} $\ast$ $>$ \& {\bfseries get\+\_\+root\+\_\+constants} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_ad512ff39b66e31254bec8328ae0f2186}\label{class_graphics_pipeline_1_1_root_signature_ad512ff39b66e31254bec8328ae0f2186}} 
+const std\+::vector$<$ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Shader\+Resource\+View}} $\ast$ $>$ \& {\bfseries get\+\_\+shader\+\_\+resource\+\_\+views} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_a1200a0f9f088a5e2b2c3b60360e8abbd}\label{class_graphics_pipeline_1_1_root_signature_a1200a0f9f088a5e2b2c3b60360e8abbd}} 
+const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}} $>$ $>$ \& {\bfseries get\+\_\+descriptor\+\_\+tables} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_ac4a60166f448dafad9c67558d99e0300}\label{class_graphics_pipeline_1_1_root_signature_ac4a60166f448dafad9c67558d99e0300}} 
+const std\+::vector$<$ D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER $>$ \& {\bfseries get\+\_\+root\+\_\+params} () const noexcept
 \end{DoxyCompactItemize}
 
 

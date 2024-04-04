@@ -1,0 +1,65 @@
+.TH "ImPlotItemGroup" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotItemGroup
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBGetItemCount\fP () const"
+.br
+.ti -1c
+.RI "ImGuiID \fBGetItemID\fP (const char *label_id)"
+.br
+.ti -1c
+.RI "\fBImPlotItem\fP * \fBGetItem\fP (ImGuiID id)"
+.br
+.ti -1c
+.RI "\fBImPlotItem\fP * \fBGetItem\fP (const char *label_id)"
+.br
+.ti -1c
+.RI "\fBImPlotItem\fP * \fBGetOrAddItem\fP (ImGuiID id)"
+.br
+.ti -1c
+.RI "\fBImPlotItem\fP * \fBGetItemByIndex\fP (int i)"
+.br
+.ti -1c
+.RI "int \fBGetItemIndex\fP (\fBImPlotItem\fP *item)"
+.br
+.ti -1c
+.RI "int \fBGetLegendCount\fP () const"
+.br
+.ti -1c
+.RI "\fBImPlotItem\fP * \fBGetLegendItem\fP (int i)"
+.br
+.ti -1c
+.RI "const char * \fBGetLegendLabel\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "\fBImPlotLegend\fP \fBLegend\fP"
+.br
+.ti -1c
+.RI "\fBImPool\fP< \fBImPlotItem\fP > \fBItemPool\fP"
+.br
+.ti -1c
+.RI "int \fBColormapIdx\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

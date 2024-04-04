@@ -12,7 +12,7 @@
 \DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_my_camera}{MyCamera}}();}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_start()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ pre\_scene\_compile()\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00013\ }
 \DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_turn(\textcolor{keywordtype}{float}\ dt);}
@@ -26,18 +26,21 @@
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_slow(\textcolor{keywordtype}{float}\ dt);}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_not\_slow(\textcolor{keywordtype}{float}\ dt);}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00026\ \ \ \ \ POINT\ current\_cursor\_pos\ =\ \{\ 0,\ 0\ \};}
-\DoxyCodeLine{00027\ \ \ \ \ POINT\ cursor\_diff\ =\ \{\ 0,\ 0\ \};}
-\DoxyCodeLine{00028\ \ \ \ \ POINT\ previous\_cursor\_pos\ =\ current\_cursor\_pos;}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ regular\_speed\ =\ 6.0f;}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{float}\ slow\_speed\ =\ regular\_speed\ /\ 2.0f;}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{float}\ current\_speed\ =\ regular\_speed;}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ std::shared\_ptr<CameraComponent>\ camera;}
-\DoxyCodeLine{00035\ \ \ \ \ std::shared\_ptr<PointLightComponent>\ light;}
-\DoxyCodeLine{00036\ \};}
-\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_increase\_fov(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_decrease\_fov(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ POINT\ current\_cursor\_pos\ =\ \{\ 0,\ 0\ \};}
+\DoxyCodeLine{00030\ \ \ \ \ POINT\ cursor\_diff\ =\ \{\ 0,\ 0\ \};}
+\DoxyCodeLine{00031\ \ \ \ \ POINT\ previous\_cursor\_pos\ =\ current\_cursor\_pos;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{float}\ regular\_speed\ =\ 6.0f;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{float}\ slow\_speed\ =\ regular\_speed\ /\ 2.0f;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{float}\ current\_speed\ =\ regular\_speed;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ std::shared\_ptr<CameraComponent>\ camera;}
+\DoxyCodeLine{00038\ \ \ \ \ std::shared\_ptr<PointLightComponent>\ light;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
 
 \end{DoxyCode}

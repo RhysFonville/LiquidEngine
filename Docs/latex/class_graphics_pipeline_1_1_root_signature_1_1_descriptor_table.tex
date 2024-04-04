@@ -18,14 +18,29 @@ Inheritance diagram for Graphics\+Pipeline\+::Root\+Signature\+::Descriptor\+Tab
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_ae42deedc89166f0162a49b9da958f1f3}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_ae42deedc89166f0162a49b9da958f1f3}} 
-{\bfseries Descriptor\+Table} (D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE\+\_\+\+TYPE type, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT index, UINT heap\+\_\+index, UINT parameter\+\_\+index)
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_afb699ff5a5faf54fb583160d4814e3e7}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_afb699ff5a5faf54fb583160d4814e3e7}} 
+{\bfseries Descriptor\+Table} (D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE\+\_\+\+TYPE type, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT index, UINT parameter\+\_\+index)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a13bfae43720bafe07eac39a1c8d812a8}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a13bfae43720bafe07eac39a1c8d812a8}} 
 void {\bfseries compile} (D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE\+\_\+\+TYPE type, D3\+D12\+\_\+\+SHADER\+\_\+\+VISIBILITY shader, UINT index)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_ac1ecd5728ad1d758252d9bfbb9544c35}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_ac1ecd5728ad1d758252d9bfbb9544c35}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}} \&descriptor\+\_\+table) const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a0df62713a1101ff9b02512e0f673e8e9}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a0df62713a1101ff9b02512e0f673e8e9}} 
+const D3\+D12\+\_\+\+ROOT\+\_\+\+DESCRIPTOR\+\_\+\+TABLE \& {\bfseries get\+\_\+table} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a47024bf814206d55155762408fb89f84}\label{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table_a47024bf814206d55155762408fb89f84}} 
+const std\+::vector$<$ CD3\+DX12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE $>$ \& {\bfseries get\+\_\+ranges} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a342172fbac6859051b0d974c8c023f32}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a342172fbac6859051b0d974c8c023f32}} 
+{\bfseries Root\+Argument} (UINT parameter\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a5a5b5303045864e1db0bc28ce59e69d8}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a5a5b5303045864e1db0bc28ce59e69d8}} 
+UINT {\bfseries get\+\_\+parameter\+\_\+index} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 \doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Argument}}}
@@ -38,7 +53,7 @@ friend {\bfseries Root\+Signature}
 std\+::vector$<$ D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER $>$ {\bfseries root\+\_\+parameters} = \{ \}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a28bcdc834a5fe7ed7c7335c9d7add237}\label{class_graphics_pipeline_1_1_root_signature_1_1_root_argument_a28bcdc834a5fe7ed7c7335c9d7add237}} 
-UINT {\bfseries parameter\+\_\+index} = 0u
+UINT {\bfseries parameter\+\_\+index} \{(UINT)-\/1\}
 \end{DoxyCompactItemize}
 
 

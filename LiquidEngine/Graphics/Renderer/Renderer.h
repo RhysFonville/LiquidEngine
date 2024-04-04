@@ -9,7 +9,8 @@
 #include "GraphicsAdapterOutput.h"
 
 /**
- * Main class for rendering.
+ * Main class for rendering. Holds DirectX interfaces and executes graphics pipelines
+ * \see GraphicsPipeline
  */
 class Renderer {
 public:
@@ -18,11 +19,21 @@ public:
 
 	void init_renderer(HWND window);
 
-	void tick(float dt); // Updates pipeline and renders
-	void clean_up(bool full_clean = true); // release com ojects and clean up memory
+	/** Calls render and present. */
+	void tick(float dt);
 
-	void update(float dt); // update the direct3d pipeline (update command lists)
-	void render(); // execute the command list
+	/** Releases DirectX all interfaces. Cleans graphics scene. */
+	void clean_up();
+	
+	/**
+	* Fills command list and calls pipelines.
+	* 
+	* \param dt Delta time.
+	*/
+	void render(float dt);
+	
+	/** Executes swap chain. Presents and increments fence. */
+	void present();
 	void increment_fence(); // increment fences
 	void wait_for_fence_cpu(); // wait for fences incrementation on cpu side
 	void wait_for_fence_gpu(); // wait for fences incrementation on gpu side
@@ -31,8 +42,18 @@ public:
 
 	void execute_command_list();
 
-	void compile();
+	/**
+	 * Compiles scene and pipelines.
+	 * 
+	 * \param compile_components If mesh components are already compiled, keep false. Setting to true if mesh components are already compiled, it is unneccesary. You may set to true if the renderer was just cleaned.
+	 */
+	void compile(bool compile_components = false);
 
+	/**
+	 * Resizes swap chain, viewport/scissor rect, and depth stencil. Automatically called when window resizes.
+	 * 
+	 * \param size Size of new buffer sizes.
+	 */
 	void resize(const UVector2 &size);
 
 	void set_fullscreen(bool fullscreen);
@@ -110,7 +131,7 @@ private:
 
 	bool fullscreen = false;
 
-	UVector2 resolution = UVector2(1920, 1080);
+	UVector2 resolution = UVector2(1920u, 1080u);
 
 	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
 

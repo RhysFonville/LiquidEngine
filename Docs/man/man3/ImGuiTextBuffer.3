@@ -1,0 +1,63 @@
+.TH "ImGuiTextBuffer" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTextBuffer
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "char \fBoperator[]\fP (int i) const"
+.br
+.ti -1c
+.RI "const char * \fBbegin\fP () const"
+.br
+.ti -1c
+.RI "const char * \fBend\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "void \fBreserve\fP (int capacity)"
+.br
+.ti -1c
+.RI "const char * \fBc_str\fP () const"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBappend\fP (const char *str, const char *str_end=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBappendf\fP (const char *fmt,\&.\&.\&.) IM_FMTARGS(2)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBappendfv\fP (const char *fmt, va_list args) IM_FMTLIST(2)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< char > \fBBuf\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static IMGUI_API char \fBEmptyString\fP [1] = { 0 }"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

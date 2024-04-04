@@ -82,50 +82,54 @@
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
 \DoxyCodeLine{00082\ \ \ \ \ \}}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_component(\textcolor{keyword}{const}\ std::shared\_ptr<T>\ \&component)\ \{\ \textcolor{comment}{//?\ AHHHHHHHHHHHHHHHHHHHHHHHH}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ components.push\_back(component);}
+\DoxyCodeLine{00084\ \ \ \ \ GET\ std::vector<std::shared\_ptr<Component>>\ \&\ get\_all\_components()\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ components;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
 \DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>\mbox{\hyperlink{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}{add\_component}}<\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}>(std::static\_pointer\_cast<GraphicsComponent>(components.back()).get());}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_component(\textcolor{keyword}{const}\ std::shared\_ptr<T>\ \&component)\ \{\ \textcolor{comment}{//?\ AHHHHHHHHHHHHHHHHHHHHHHHH}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ components.push\_back(component);}
 \DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ components.back()-\/>parent\ =\ \&\mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
-\DoxyCodeLine{00093\ \ \ \ \ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_component(\textcolor{keywordtype}{size\_t}\ index)\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ components.erase(components.begin()+index);}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>remove\_component(std::static\_pointer\_cast<GraphicsComponent>(*(components.begin()+index)).get());}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00101\ \ \ \ \ \}}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}\ \mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform;}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ parent\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00116\ \ \ \ \ std::vector<Object*>\ children\ =\ \{\ \};}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ std::vector<std::shared\_ptr<Component>>\ components\ =\ \{\ \};\ }
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_this\_from\_parents\_children()\ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parent\ !=\ \textcolor{keyword}{nullptr})\ \{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.erase(}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::remove(}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.begin(),}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end(),}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{this}),}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end()}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00130\ \ \ \ \ \}}
-\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>\mbox{\hyperlink{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}{add\_component}}<\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}>(std::static\_pointer\_cast<GraphicsComponent>(components.back()).get());}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ components.back()-\/>parent\ =\ \&\mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_component(\textcolor{keywordtype}{size\_t}\ index)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ components.erase(components.begin()+index);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>remove\_component(std::static\_pointer\_cast<GraphicsComponent>(*(components.begin()+index)).get());}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}\ \mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ parent\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00120\ \ \ \ \ std::vector<Object*>\ children\ =\ \{\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ std::vector<std::shared\_ptr<Component>>\ components\ =\ \{\ \};\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_this\_from\_parents\_children()\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parent\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.erase(}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::remove(}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.begin(),}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end(),}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{this}),}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end()}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \};}
 
 \end{DoxyCode}

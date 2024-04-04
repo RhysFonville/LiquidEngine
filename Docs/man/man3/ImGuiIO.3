@@ -1,0 +1,341 @@
+.TH "ImGuiIO" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiIO
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "IMGUI_API void \fBAddKeyEvent\fP (ImGuiKey key, bool down)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddKeyAnalogEvent\fP (ImGuiKey key, bool down, float v)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddMousePosEvent\fP (float x, float y)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddMouseButtonEvent\fP (int button, bool down)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddMouseWheelEvent\fP (float wheel_x, float wheel_y)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddMouseSourceEvent\fP (ImGuiMouseSource source)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddFocusEvent\fP (bool focused)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddInputCharacter\fP (unsigned int c)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddInputCharacterUTF16\fP (ImWchar16 c)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddInputCharactersUTF8\fP (const char *str)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBSetKeyEventNativeData\fP (ImGuiKey key, int native_keycode, int native_scancode, int native_legacy_index=\-1)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBSetAppAcceptingEvents\fP (bool accepting_events)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearEventsQueue\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearInputKeys\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearInputCharacters\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImGuiConfigFlags \fBConfigFlags\fP"
+.br
+.ti -1c
+.RI "ImGuiBackendFlags \fBBackendFlags\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplaySize\fP"
+.br
+.ti -1c
+.RI "float \fBDeltaTime\fP"
+.br
+.ti -1c
+.RI "float \fBIniSavingRate\fP"
+.br
+.ti -1c
+.RI "const char * \fBIniFilename\fP"
+.br
+.ti -1c
+.RI "const char * \fBLogFilename\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "\fBImFontAtlas\fP * \fBFonts\fP"
+.br
+.ti -1c
+.RI "float \fBFontGlobalScale\fP"
+.br
+.ti -1c
+.RI "bool \fBFontAllowUserScaling\fP"
+.br
+.ti -1c
+.RI "\fBImFont\fP * \fBFontDefault\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBDisplayFramebufferScale\fP"
+.br
+.ti -1c
+.RI "bool \fBMouseDrawCursor\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigMacOSXBehaviors\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTrickleEventQueue\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTextCursorBlink\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigInputTextEnterKeepActive\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDragClickToInputText\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigWindowsResizeFromEdges\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigWindowsMoveFromTitleBarOnly\fP"
+.br
+.ti -1c
+.RI "float \fBConfigMemoryCompactTimer\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDoubleClickTime\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDoubleClickMaxDist\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDragThreshold\fP"
+.br
+.ti -1c
+.RI "float \fBKeyRepeatDelay\fP"
+.br
+.ti -1c
+.RI "float \fBKeyRepeatRate\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIsDebuggerPresent\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugBeginReturnValueOnce\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugBeginReturnValueLoop\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIgnoreFocusLoss\fP"
+.br
+.ti -1c
+.RI "bool \fBConfigDebugIniSettings\fP"
+.br
+.ti -1c
+.RI "const char * \fBBackendPlatformName\fP"
+.br
+.ti -1c
+.RI "const char * \fBBackendRendererName\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendPlatformUserData\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendRendererUserData\fP"
+.br
+.ti -1c
+.RI "void * \fBBackendLanguageUserData\fP"
+.br
+.ti -1c
+.RI "const char *(* \fBGetClipboardTextFn\fP )(void *user_data)"
+.br
+.ti -1c
+.RI "void(* \fBSetClipboardTextFn\fP )(void *user_data, const char *text)"
+.br
+.ti -1c
+.RI "void * \fBClipboardUserData\fP"
+.br
+.ti -1c
+.RI "void(* \fBSetPlatformImeDataFn\fP )(\fBImGuiViewport\fP *viewport, \fBImGuiPlatformImeData\fP *data)"
+.br
+.ti -1c
+.RI "ImWchar \fBPlatformLocaleDecimalPoint\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureMouse\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureKeyboard\fP"
+.br
+.ti -1c
+.RI "bool \fBWantTextInput\fP"
+.br
+.ti -1c
+.RI "bool \fBWantSetMousePos\fP"
+.br
+.ti -1c
+.RI "bool \fBWantSaveIniSettings\fP"
+.br
+.ti -1c
+.RI "bool \fBNavActive\fP"
+.br
+.ti -1c
+.RI "bool \fBNavVisible\fP"
+.br
+.ti -1c
+.RI "float \fBFramerate\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderVertices\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderIndices\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsRenderWindows\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsActiveWindows\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMouseDelta\fP"
+.br
+.ti -1c
+.RI "int \fBKeyMap\fP [ImGuiKey_COUNT]"
+.br
+.ti -1c
+.RI "bool \fBKeysDown\fP [ImGuiKey_COUNT]"
+.br
+.ti -1c
+.RI "float \fBNavInputs\fP [ImGuiNavInput_COUNT]"
+.br
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMousePos\fP"
+.br
+.ti -1c
+.RI "bool \fBMouseDown\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseWheel\fP"
+.br
+.ti -1c
+.RI "float \fBMouseWheelH\fP"
+.br
+.ti -1c
+.RI "ImGuiMouseSource \fBMouseSource\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyCtrl\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyShift\fP"
+.br
+.ti -1c
+.RI "bool \fBKeyAlt\fP"
+.br
+.ti -1c
+.RI "bool \fBKeySuper\fP"
+.br
+.ti -1c
+.RI "ImGuiKeyChord \fBKeyMods\fP"
+.br
+.ti -1c
+.RI "\fBImGuiKeyData\fP \fBKeysData\fP [ImGuiKey_KeysData_SIZE]"
+.br
+.ti -1c
+.RI "bool \fBWantCaptureMouseUnlessPopupClose\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMousePosPrev\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMouseClickedPos\fP [5]"
+.br
+.ti -1c
+.RI "double \fBMouseClickedTime\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseClicked\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDoubleClicked\fP [5]"
+.br
+.ti -1c
+.RI "ImU16 \fBMouseClickedCount\fP [5]"
+.br
+.ti -1c
+.RI "ImU16 \fBMouseClickedLastCount\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseReleased\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDownOwned\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseDownOwnedUnlessPopupClose\fP [5]"
+.br
+.ti -1c
+.RI "bool \fBMouseWheelRequestAxisSwap\fP"
+.br
+.ti -1c
+.RI "float \fBMouseDownDuration\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseDownDurationPrev\fP [5]"
+.br
+.ti -1c
+.RI "float \fBMouseDragMaxDistanceSqr\fP [5]"
+.br
+.ti -1c
+.RI "float \fBPenPressure\fP"
+.br
+.ti -1c
+.RI "bool \fBAppFocusLost\fP"
+.br
+.ti -1c
+.RI "bool \fBAppAcceptingEvents\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBBackendUsingLegacyKeyArrays\fP"
+.br
+.ti -1c
+.RI "bool \fBBackendUsingLegacyNavInputArray\fP"
+.br
+.ti -1c
+.RI "ImWchar16 \fBInputQueueSurrogate\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< ImWchar > \fBInputQueueCharacters\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

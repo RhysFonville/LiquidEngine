@@ -88,9 +88,10 @@ Inheritance diagram for Object:</div>
  <div class="center">
   <img src="class_object.png" usemap="#Object_map" alt=""/>
   <map id="Object_map" name="Object_map">
-<area href="class_controllable.html" title="Base class for everything that needs compile, clean up, and tick functionality." alt="Controllable" shape="rect" coords="70,0,200,24"/>
+<area href="class_controllable.html" title="Base class for everything that needs compile, clean up, and tick functionality." alt="Controllable" shape="rect" coords="140,0,270,24"/>
 <area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="0,112,130,136"/>
 <area href="class_default_shapes_1_1_cube.html" alt="DefaultShapes::Cube" shape="rect" coords="140,112,270,136"/>
+<area href="class_my_statue.html" alt="MyStatue" shape="rect" coords="280,112,410,136"/>
 <area href="class_my_camera.html" alt="MyCamera" shape="rect" coords="0,168,130,192"/>
   </map>
 </div></div>
@@ -172,6 +173,9 @@ template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_com
 template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_component.html">Component</a>) &gt; </td></tr>
 <tr class="memitem:a1e789d70c7fddb12c61abe50af01a2f3"><td class="memTemplItemLeft" align="right" valign="top">GET std::vector&lt; T * &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get_components</b> () noexcept</td></tr>
 <tr class="separator:a1e789d70c7fddb12c61abe50af01a2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40d359b4cf4db7dd52d6836db84be928"><td class="memItemLeft" align="right" valign="top"><a id="a40d359b4cf4db7dd52d6836db84be928" name="a40d359b4cf4db7dd52d6836db84be928"></a>
+GET std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_component.html">Component</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_all_components</b> () noexcept</td></tr>
+<tr class="separator:a40d359b4cf4db7dd52d6836db84be928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a907815016a464425e2ab6e6380cf2968"><td class="memTemplParams" colspan="2"><a id="a907815016a464425e2ab6e6380cf2968" name="a907815016a464425e2ab6e6380cf2968"></a>
 template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_component.html">Component</a>) &gt; </td></tr>
 <tr class="memitem:a907815016a464425e2ab6e6380cf2968"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>add_component</b> (const std::shared_ptr&lt; T &gt; &amp;component)</td></tr>
@@ -189,9 +193,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_compile<
 <tr class="memitem:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a61e410a136d98711221d0745674724cc" name="a61e410a136d98711221d0745674724cc"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_tick</b> (float dt)</td></tr>
 <tr class="separator:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787ecd58e4dad2882659158e43107bc1 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a787ecd58e4dad2882659158e43107bc1" name="a787ecd58e4dad2882659158e43107bc1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_start</b> ()</td></tr>
-<tr class="separator:a787ecd58e4dad2882659158e43107bc1 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a95e3caee0d964a3512b36fad47bca0b3" name="a95e3caee0d964a3512b36fad47bca0b3"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pre_scene_compile</b> ()</td></tr>
+<tr class="separator:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5850c2973f4c76d9412ed861cb21afb5 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a5850c2973f4c76d9412ed861cb21afb5" name="a5850c2973f4c76d9412ed861cb21afb5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>post_scene_compile</b> ()</td></tr>
+<tr class="separator:a5850c2973f4c76d9412ed861cb21afb5 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34341e4eb1189435b8f159d4cac09da inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="aa34341e4eb1189435b8f159d4cac09da" name="aa34341e4eb1189435b8f159d4cac09da"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:aa34341e4eb1189435b8f159d4cac09da inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>

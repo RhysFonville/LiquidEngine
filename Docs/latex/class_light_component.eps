@@ -176,6 +176,7 @@ boxfont setfont
 (LightComponent) cw
 (GraphicsComponent) cw
 (Component) cw
+(GraphicsTracker) cw
 (Controllable) cw
 (DirectionalLightComponent) cw
 (PointLightComponent) cw
@@ -193,8 +194,9 @@ boundx scalefactor div boundy scalefactor div scale
 
  (LightComponent) 1.000000 1.000000 box
  (GraphicsComponent) 1.000000 2.000000 box
- (Component) 1.000000 3.000000 box
- (Controllable) 1.000000 4.000000 box
+ (Component) 0.500000 3.000000 box
+ (GraphicsTracker) 1.500000 3.000000 box
+ (Controllable) 0.500000 4.000000 box
  (DirectionalLightComponent) 0.000000 0.000000 box
  (PointLightComponent) 1.000000 0.000000 box
  (SpotlightComponent) 2.000000 0.000000 box
@@ -208,11 +210,15 @@ solid
 solid
 0 1.000000 2.000000 out
 solid
-1 1.000000 3.000000 in
+0.500000 1.500000 3.000000 conn
 solid
-0 1.000000 3.000000 out
+1 0.500000 3.000000 in
 solid
-1 1.000000 4.000000 in
+0 0.500000 3.000000 out
+solid
+1 1.500000 3.000000 in
+solid
+1 0.500000 4.000000 in
 solid
 1 1.000000 0.250000 out
 solid

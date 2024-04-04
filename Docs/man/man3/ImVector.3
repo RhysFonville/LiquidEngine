@@ -1,0 +1,165 @@
+.TH "ImVector< T >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImVector< T >
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef value_type * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef const value_type * \fBconst_iterator\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP (const \fBImVector\fP< T > &src)"
+.br
+.ti -1c
+.RI "\fBImVector\fP< T > & \fBoperator=\fP (const \fBImVector\fP< T > &src)"
+.br
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "void \fBclear_delete\fP ()"
+.br
+.ti -1c
+.RI "void \fBclear_destruct\fP ()"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize_in_bytes\fP () const"
+.br
+.ti -1c
+.RI "int \fBmax_size\fP () const"
+.br
+.ti -1c
+.RI "int \fBcapacity\fP () const"
+.br
+.ti -1c
+.RI "T & \fBoperator[]\fP (int i)"
+.br
+.ti -1c
+.RI "const T & \fBoperator[]\fP (int i) const"
+.br
+.ti -1c
+.RI "T * \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBbegin\fP () const"
+.br
+.ti -1c
+.RI "T * \fBend\fP ()"
+.br
+.ti -1c
+.RI "const T * \fBend\fP () const"
+.br
+.ti -1c
+.RI "T & \fBfront\fP ()"
+.br
+.ti -1c
+.RI "const T & \fBfront\fP () const"
+.br
+.ti -1c
+.RI "T & \fBback\fP ()"
+.br
+.ti -1c
+.RI "const T & \fBback\fP () const"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBImVector\fP< T > &rhs)"
+.br
+.ti -1c
+.RI "int \fB_grow_capacity\fP (int sz) const"
+.br
+.ti -1c
+.RI "void \fBresize\fP (int new_size)"
+.br
+.ti -1c
+.RI "void \fBresize\fP (int new_size, const T &v)"
+.br
+.ti -1c
+.RI "void \fBshrink\fP (int new_size)"
+.br
+.ti -1c
+.RI "void \fBreserve\fP (int new_capacity)"
+.br
+.ti -1c
+.RI "void \fBreserve_discard\fP (int new_capacity)"
+.br
+.ti -1c
+.RI "void \fBpush_back\fP (const T &v)"
+.br
+.ti -1c
+.RI "void \fBpop_back\fP ()"
+.br
+.ti -1c
+.RI "void \fBpush_front\fP (const T &v)"
+.br
+.ti -1c
+.RI "T * \fBerase\fP (const T *it)"
+.br
+.ti -1c
+.RI "T * \fBerase\fP (const T *it, const T *it_last)"
+.br
+.ti -1c
+.RI "T * \fBerase_unsorted\fP (const T *it)"
+.br
+.ti -1c
+.RI "T * \fBinsert\fP (const T *it, const T &v)"
+.br
+.ti -1c
+.RI "bool \fBcontains\fP (const T &v) const"
+.br
+.ti -1c
+.RI "T * \fBfind\fP (const T &v)"
+.br
+.ti -1c
+.RI "const T * \fBfind\fP (const T &v) const"
+.br
+.ti -1c
+.RI "int \fBfind_index\fP (const T &v) const"
+.br
+.ti -1c
+.RI "bool \fBfind_erase\fP (const T &v)"
+.br
+.ti -1c
+.RI "bool \fBfind_erase_unsorted\fP (const T &v)"
+.br
+.ti -1c
+.RI "int \fBindex_from_ptr\fP (const T *it) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBSize\fP"
+.br
+.ti -1c
+.RI "int \fBCapacity\fP"
+.br
+.ti -1c
+.RI "T * \fBData\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

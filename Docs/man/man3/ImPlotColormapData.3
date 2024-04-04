@@ -1,0 +1,95 @@
+.TH "ImPlotColormapData" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotColormapData
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBAppend\fP (const char *name, const ImU32 *keys, int count, bool qual)"
+.br
+.ti -1c
+.RI "void \fB_AppendTable\fP (ImPlotColormap cmap)"
+.br
+.ti -1c
+.RI "void \fBRebuildTables\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsQual\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "const char * \fBGetName\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "ImPlotColormap \fBGetIndex\fP (const char *name) const"
+.br
+.ti -1c
+.RI "const ImU32 * \fBGetKeys\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "int \fBGetKeyCount\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "ImU32 \fBGetKeyColor\fP (ImPlotColormap cmap, int idx) const"
+.br
+.ti -1c
+.RI "void \fBSetKeyColor\fP (ImPlotColormap cmap, int idx, ImU32 value)"
+.br
+.ti -1c
+.RI "const ImU32 * \fBGetTable\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "int \fBGetTableSize\fP (ImPlotColormap cmap) const"
+.br
+.ti -1c
+.RI "ImU32 \fBGetTableColor\fP (ImPlotColormap cmap, int idx) const"
+.br
+.ti -1c
+.RI "ImU32 \fBLerpTable\fP (ImPlotColormap cmap, float t) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< ImU32 > \fBKeys\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBKeyCounts\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBKeyOffsets\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< ImU32 > \fBTables\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBTableSizes\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBTableOffsets\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBText\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< int > \fBTextOffsets\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< bool > \fBQuals\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fBMap\fP"
+.br
+.ti -1c
+.RI "int \fBCount\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

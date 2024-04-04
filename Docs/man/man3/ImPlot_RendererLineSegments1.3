@@ -1,0 +1,69 @@
+.TH "ImPlot::RendererLineSegments1< _Getter >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlot::RendererLineSegments1< _Getter >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBImPlot::RendererBase\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRendererLineSegments1\fP (const _Getter &getter, ImU32 col, float weight)"
+.br
+.ti -1c
+.RI "void \fBInit\fP (\fBImDrawList\fP &draw_list) const"
+.br
+.ti -1c
+.RI "IMPLOT_INLINE bool \fBRender\fP (\fBImDrawList\fP &draw_list, const \fBImRect\fP &cull_rect, int prim) const"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBImPlot::RendererBase\fP
+.in +1c
+.ti -1c
+.RI "\fBRendererBase\fP (int prims, int idx_consumed, int vtx_consumed)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const _Getter & \fBGetter\fP"
+.br
+.ti -1c
+.RI "const ImU32 \fBCol\fP"
+.br
+.ti -1c
+.RI "float \fBHalfWeight\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBUV0\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBUV1\fP"
+.br
+.in -1c
+
+Public Attributes inherited from \fBImPlot::RendererBase\fP
+.in +1c
+.ti -1c
+.RI "const int \fBPrims\fP"
+.br
+.ti -1c
+.RI "\fBTransformer2\fP \fBTransformer\fP"
+.br
+.ti -1c
+.RI "const int \fBIdxConsumed\fP"
+.br
+.ti -1c
+.RI "const int \fBVtxConsumed\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

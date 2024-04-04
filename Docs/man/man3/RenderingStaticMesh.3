@@ -1,4 +1,4 @@
-.TH "RenderingStaticMesh" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingStaticMesh" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,12 @@ Inherits \fBRenderingComponent< StaticMeshComponent >\fP\&.
 .RI "void \fBupdate_lights\fP (const std::vector< \fBRenderingDirectionalLight\fP > &dl, const std::vector< \fBRenderingPointLight\fP > &pl, const std::vector< \fBRenderingSpotlight\fP > &sl)"
 .br
 .ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
 .RI "bool \fBoperator==\fP (\fBStaticMeshComponent\fP component)"
 .br
 .in -1c
@@ -41,7 +47,7 @@ Public Member Functions inherited from \fBRenderingComponent< StaticMeshComponen
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSMaterialCB > \fBmaterial_data\fP = PSMaterialCB{}"
+.RI "\fBRenderingMaterial\fP \fBmaterial\fP {}"
 .br
 .ti -1c
 .RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSLightsCB > \fBlights_data\fP = PSLightsCB{}"

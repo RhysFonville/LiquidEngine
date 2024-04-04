@@ -6,38 +6,41 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Component.h"{}}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
-\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}(Type\ type);}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_graphics\_component(\textcolor{keyword}{const}\ T\ \&component)\ \{}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((component.get\_type()\ ==\ Component::Type::CameraComponent)\ ||}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::DirectionalLightComponent)\ ||}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::PointLightComponent)\ ||}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SpotlightComponent)\ ||}
-\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::StaticMeshComponent)\ ||}
-\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SkyComponent));}
-\DoxyCodeLine{00020\ \ \ \ \ \}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_position(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Component::set\_position(position);}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00025\ \ \ \ \ \}}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_rotation(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ Component::set\_rotation(rotation);}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_changed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ changed;\ \}}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{void}\ has\_changed(\textcolor{keywordtype}{bool}\ changed)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>changed\ =\ changed;\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{bool}\ changed\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}(Type\ type);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_graphics\_component(\textcolor{keyword}{const}\ T\ \&component)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((component.get\_type()\ ==\ Component::Type::CameraComponent)\ ||}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::DirectionalLightComponent)\ ||}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::PointLightComponent)\ ||}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SpotlightComponent)\ ||}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::StaticMeshComponent)\ ||}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ (component.get\_type()\ ==\ Component::Type::SkyComponent));}
 \DoxyCodeLine{00029\ \ \ \ \ \}}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Component::set\_size(size);}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00033\ \ \ \ \ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_changed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ changed;\ \}}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ has\_changed(\textcolor{keywordtype}{bool}\ changed)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>changed\ =\ changed;\ \}}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ changed\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_position(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Component::set\_position(position);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_rotation(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Component::set\_rotation(rotation);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Component::set\_size(size);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ changed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \};}
 
 \end{DoxyCode}

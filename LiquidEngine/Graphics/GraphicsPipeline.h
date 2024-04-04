@@ -13,14 +13,6 @@
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
-struct alignas(16) GenerateMipsCB {
-	UINT src_mip_level; // Texture level of source mip
-	UINT num_mip_levels; // Number of OutMips to write: [1-4]
-	UINT src_dimension; // Width and height of the source texture are even or odd.
-	bool is_srgb; // Must apply gamma correction to sRGB textures.
-	FVector2 texel_size; // 1.0 / OutMip1.Dimensions
-};
-
 /**
 * D3D12 graphics pipeline wrapper.
 */
@@ -335,6 +327,10 @@ public:
 				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
 			}
 
+			void clean_up() {
+				obj.reset();
+			}
+
 			void update() { cb.update_signal = true; }
 
 			bool operator==(ConstantBufferContainer &c) {
@@ -357,6 +353,10 @@ public:
 				: obj(std::make_shared<T>(obj)) {
 				rc = GraphicsPipeline::RootSignature::RootConstants();
 				rc.set_obj<T>(this->obj.get());
+			}
+
+			void clean_up() {
+				obj.reset();
 			}
 
 			std::shared_ptr<T> obj = { };
@@ -430,8 +430,6 @@ public:
 		const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
 		const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
 
-		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
-
 	private:
 		friend GraphicsPipeline;
 
@@ -444,5 +442,7 @@ public:
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 
 		std::vector<D3D12_ROOT_PARAMETER> compilation_params = { };
+
+		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 	} root_signature;
 };

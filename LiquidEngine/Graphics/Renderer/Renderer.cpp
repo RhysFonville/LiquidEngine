@@ -38,6 +38,9 @@ void Renderer::init_renderer(HWND window) {
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true));
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
 	//HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
+
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
+	descriptor_heaps.reserve_descriptor_index(0u);
 }
 
 void Renderer::create_device() {
@@ -248,9 +251,9 @@ void Renderer::setup_imgui_section() {
 			ImGui::TreePop();
 			ImGui::End();
 			ImGui::Render();
-			clean_up(false);
+			clean_up();
 			init_renderer(window);
-			compile();
+			compile(true);
 			skip_frame = true;
 			return;
 		}
@@ -327,10 +330,7 @@ void Renderer::setup_imgui_section() {
 	}
 }
 
-void Renderer::compile() {
-	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
-	descriptor_heaps.reserve_descriptor_index(0u);
-	
+void Renderer::compile(bool compile_components) {
 	// reset command list and allocator   
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
@@ -358,8 +358,10 @@ void Renderer::compile() {
 			*mesh.material.environment_texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
+		
+		if (compile_components)
+			mesh.component->compile();
 
-		mesh.component->compile();
 		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, blend_desc, descriptor_heaps);
 		i++;
 	}
@@ -374,7 +376,9 @@ void Renderer::compile() {
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 		
-		scene.sky.component->compile();
+		if (compile_components)
+			scene.sky.component->compile();
+
 		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, blend_desc, descriptor_heaps);
 	}
 
@@ -386,7 +390,7 @@ void Renderer::compile() {
 	ResourceManager::Release::release_all_resources();
 }
 
-void Renderer::update(float dt) {
+void Renderer::render(float dt) {
 	setup_imgui_section();
 	
 	if (skip_frame) return;
@@ -438,7 +442,7 @@ void Renderer::update(float dt) {
 	ResourceManager::Release::release_all_resources();
 }
 
-void Renderer::render() {
+void Renderer::present() {
 	if (skip_frame) {
 		skip_frame = false;
 		return;
@@ -459,11 +463,11 @@ void Renderer::render() {
 }
 
 void Renderer::tick(float dt) {
-	update(dt);
-	render();
+	render(dt);
+	present();
 }
 
-void Renderer::clean_up(bool full_clean) {
+void Renderer::clean_up() {
 	flush_gpu();
 
 	CloseHandle(fence_event);
@@ -490,6 +494,8 @@ void Renderer::clean_up(bool full_clean) {
 
 	debug_interface.Reset();
 	info_queue.Reset();
+	dxgi_debug.Reset();
+
 
 	device.Reset();
 	swap_chain.Reset();
@@ -505,9 +511,6 @@ void Renderer::clean_up(bool full_clean) {
 		command_allocators[i].Reset();
 		fences[i].Reset();
 	}
-
-	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY));
-	dxgi_debug.Reset();
 }
 
 void Renderer::increment_fence() {

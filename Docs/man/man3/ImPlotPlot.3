@@ -1,0 +1,137 @@
+.TH "ImPlotPlot" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotPlot
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBIsInputLocked\fP () const"
+.br
+.ti -1c
+.RI "void \fBClearTextBuffer\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetTitle\fP (const char *title)"
+.br
+.ti -1c
+.RI "bool \fBHasTitle\fP () const"
+.br
+.ti -1c
+.RI "const char * \fBGetTitle\fP () const"
+.br
+.ti -1c
+.RI "\fBImPlotAxis\fP & \fBXAxis\fP (int i)"
+.br
+.ti -1c
+.RI "const \fBImPlotAxis\fP & \fBXAxis\fP (int i) const"
+.br
+.ti -1c
+.RI "\fBImPlotAxis\fP & \fBYAxis\fP (int i)"
+.br
+.ti -1c
+.RI "const \fBImPlotAxis\fP & \fBYAxis\fP (int i) const"
+.br
+.ti -1c
+.RI "int \fBEnabledAxesX\fP ()"
+.br
+.ti -1c
+.RI "int \fBEnabledAxesY\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetAxisLabel\fP (\fBImPlotAxis\fP &axis, const char *label)"
+.br
+.ti -1c
+.RI "const char * \fBGetAxisLabel\fP (const \fBImPlotAxis\fP &axis) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "ImPlotFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "ImPlotFlags \fBPreviousFlags\fP"
+.br
+.ti -1c
+.RI "ImPlotLocation \fBMouseTextLocation\fP"
+.br
+.ti -1c
+.RI "ImPlotMouseTextFlags \fBMouseTextFlags\fP"
+.br
+.ti -1c
+.RI "\fBImPlotAxis\fP \fBAxes\fP [ImAxis_COUNT]"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBTextBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImPlotItemGroup\fP \fBItems\fP"
+.br
+.ti -1c
+.RI "ImAxis \fBCurrentX\fP"
+.br
+.ti -1c
+.RI "ImAxis \fBCurrentY\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBFrameRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBCanvasRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBPlotRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBAxesRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBSelectRect\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSelectStart\fP"
+.br
+.ti -1c
+.RI "int \fBTitleOffset\fP"
+.br
+.ti -1c
+.RI "bool \fBJustCreated\fP"
+.br
+.ti -1c
+.RI "bool \fBInitialized\fP"
+.br
+.ti -1c
+.RI "bool \fBSetupLocked\fP"
+.br
+.ti -1c
+.RI "bool \fBFitThisFrame\fP"
+.br
+.ti -1c
+.RI "bool \fBHovered\fP"
+.br
+.ti -1c
+.RI "bool \fBHeld\fP"
+.br
+.ti -1c
+.RI "bool \fBSelecting\fP"
+.br
+.ti -1c
+.RI "bool \fBSelected\fP"
+.br
+.ti -1c
+.RI "bool \fBContextLocked\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -89,18 +89,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac65f651c0a089838b90fd5d161bdf4f3"><td class="memItemLeft" align="right" valign="top"><a id="ac65f651c0a089838b90fd5d161bdf4f3" name="ac65f651c0a089838b90fd5d161bdf4f3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Renderer</b> (HWND window)</td></tr>
 <tr class="separator:ac65f651c0a089838b90fd5d161bdf4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a6ec0a47df6f4d4fd898f15380162bc"><td class="memItemLeft" align="right" valign="top"><a id="a5a6ec0a47df6f4d4fd898f15380162bc" name="a5a6ec0a47df6f4d4fd898f15380162bc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> ()</td></tr>
-<tr class="separator:a5a6ec0a47df6f4d4fd898f15380162bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c4adb4c806707f4add0ed66ed59ca09"><td class="memItemLeft" align="right" valign="top"><a id="a5c4adb4c806707f4add0ed66ed59ca09" name="a5c4adb4c806707f4add0ed66ed59ca09"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
+<tr class="memitem:a9dc81236b9e647269460ac850a016cf5"><td class="memItemLeft" align="right" valign="top"><a id="a9dc81236b9e647269460ac850a016cf5" name="a9dc81236b9e647269460ac850a016cf5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init_renderer</b> (HWND window)</td></tr>
+<tr class="separator:a9dc81236b9e647269460ac850a016cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af050b7268b175853339f37afbaeb425b"><td class="memItemLeft" align="right" valign="top"><a id="af050b7268b175853339f37afbaeb425b" name="af050b7268b175853339f37afbaeb425b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt)</td></tr>
+<tr class="memdesc:af050b7268b175853339f37afbaeb425b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls render and present. <br /></td></tr>
+<tr class="separator:af050b7268b175853339f37afbaeb425b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c4adb4c806707f4add0ed66ed59ca09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a5c4adb4c806707f4add0ed66ed59ca09">clean_up</a> ()</td></tr>
+<tr class="memdesc:a5c4adb4c806707f4add0ed66ed59ca09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases DirectX all interfaces.  <br /></td></tr>
 <tr class="separator:a5c4adb4c806707f4add0ed66ed59ca09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af39230ac153ec5e1b0e5f078ebe351e1"><td class="memItemLeft" align="right" valign="top"><a id="af39230ac153ec5e1b0e5f078ebe351e1" name="af39230ac153ec5e1b0e5f078ebe351e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:af39230ac153ec5e1b0e5f078ebe351e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7e5f8f68742f198e315fb4683a605a4"><td class="memItemLeft" align="right" valign="top"><a id="af7e5f8f68742f198e315fb4683a605a4" name="af7e5f8f68742f198e315fb4683a605a4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> ()</td></tr>
-<tr class="separator:af7e5f8f68742f198e315fb4683a605a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaca3d4a8695c7358baf17414b1c0e639"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#aaca3d4a8695c7358baf17414b1c0e639">render</a> (float dt)</td></tr>
+<tr class="memdesc:aaca3d4a8695c7358baf17414b1c0e639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills command list and calls pipelines.  <br /></td></tr>
+<tr class="separator:aaca3d4a8695c7358baf17414b1c0e639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d85cdc8646b62f8439d95309f2b8487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a7d85cdc8646b62f8439d95309f2b8487">present</a> ()</td></tr>
+<tr class="memdesc:a7d85cdc8646b62f8439d95309f2b8487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes swap chain.  <br /></td></tr>
+<tr class="separator:a7d85cdc8646b62f8439d95309f2b8487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a24e777a7f45dd989cacea5b05da242"><td class="memItemLeft" align="right" valign="top"><a id="a0a24e777a7f45dd989cacea5b05da242" name="a0a24e777a7f45dd989cacea5b05da242"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>increment_fence</b> ()</td></tr>
 <tr class="separator:a0a24e777a7f45dd989cacea5b05da242"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,9 +123,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wait_for_previous_fra
 <tr class="memitem:a3390e472d7a4c780a1cdb26cb8e54cc9"><td class="memItemLeft" align="right" valign="top"><a id="a3390e472d7a4c780a1cdb26cb8e54cc9" name="a3390e472d7a4c780a1cdb26cb8e54cc9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>execute_command_list</b> ()</td></tr>
 <tr class="separator:a3390e472d7a4c780a1cdb26cb8e54cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa32be67b33c55f1771c7f20b275aab9f"><td class="memItemLeft" align="right" valign="top"><a id="aa32be67b33c55f1771c7f20b275aab9f" name="aa32be67b33c55f1771c7f20b275aab9f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
-<tr class="separator:aa32be67b33c55f1771c7f20b275aab9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44689412aa18c89509e19296d9a51e71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a44689412aa18c89509e19296d9a51e71">compile</a> (bool compile_components=false)</td></tr>
+<tr class="memdesc:a44689412aa18c89509e19296d9a51e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles scene and pipelines.  <br /></td></tr>
+<tr class="separator:a44689412aa18c89509e19296d9a51e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d742cfe8b277aeb6eaed3cb9154d9fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a1d742cfe8b277aeb6eaed3cb9154d9fa">resize</a> (const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;size)</td></tr>
+<tr class="memdesc:a1d742cfe8b277aeb6eaed3cb9154d9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes swap chain, viewport/scissor rect, and depth stencil.  <br /></td></tr>
+<tr class="separator:a1d742cfe8b277aeb6eaed3cb9154d9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa63ddf2738980a6dd5a5689441162738"><td class="memItemLeft" align="right" valign="top"><a id="aa63ddf2738980a6dd5a5689441162738" name="aa63ddf2738980a6dd5a5689441162738"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_fullscreen</b> (bool fullscreen)</td></tr>
 <tr class="separator:aa63ddf2738980a6dd5a5689441162738"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,16 +141,21 @@ GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_fullscreen</b>
 <tr class="memitem:a8738f6a8aacf0db702e255c55c914af4"><td class="memItemLeft" align="right" valign="top"><a id="a8738f6a8aacf0db702e255c55c914af4" name="a8738f6a8aacf0db702e255c55c914af4"></a>
 GET <a class="el" href="class_t_vector2.html">UVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_resolution</b> () const noexcept</td></tr>
 <tr class="separator:a8738f6a8aacf0db702e255c55c914af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba7241ab53bfa47becf0621afe484167"><td class="memItemLeft" align="right" valign="top"><a id="aba7241ab53bfa47becf0621afe484167" name="aba7241ab53bfa47becf0621afe484167"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_resolution</b> (const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;resolution, bool stretch=true)</td></tr>
-<tr class="memdesc:aba7241ab53bfa47becf0621afe484167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doesn't work. <br /></td></tr>
-<tr class="separator:aba7241ab53bfa47becf0621afe484167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab657ef0d273d4a40a4ea4e034f2fba17"><td class="memItemLeft" align="right" valign="top"><a id="ab657ef0d273d4a40a4ea4e034f2fba17" name="ab657ef0d273d4a40a4ea4e034f2fba17"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_resolution</b> (const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;resolution)</td></tr>
+<tr class="separator:ab657ef0d273d4a40a4ea4e034f2fba17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a744d49bd82055f784d0d4316542c1fef"><td class="memItemLeft" align="right" valign="top"><a id="a744d49bd82055f784d0d4316542c1fef" name="a744d49bd82055f784d0d4316542c1fef"></a>
 <a class="el" href="class_graphics_scene.html">GraphicsScene</a>&#160;</td><td class="memItemRight" valign="bottom"><b>scene</b></td></tr>
 <tr class="separator:a744d49bd82055f784d0d4316542c1fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7898a87fec9e10f5e083323fa22735"><td class="memItemLeft" align="right" valign="top"><a id="a5b7898a87fec9e10f5e083323fa22735" name="a5b7898a87fec9e10f5e083323fa22735"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>vsync</b> {false}</td></tr>
+<tr class="separator:a5b7898a87fec9e10f5e083323fa22735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac19def4a5c88b6532a5f0f7ab1b31f7a"><td class="memItemLeft" align="right" valign="top"><a id="ac19def4a5c88b6532a5f0f7ab1b31f7a" name="ac19def4a5c88b6532a5f0f7ab1b31f7a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>restrict_present_to_adapter_output</b> {false}</td></tr>
+<tr class="separator:ac19def4a5c88b6532a5f0f7ab1b31f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -153,9 +165,130 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Window</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main class for rendering. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_renderer_8h_source.html">Renderer.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Renderer.cpp</li>
+<p>Holds DirectX interfaces and executes graphics pipelines </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_pipeline.html" title="D3D12 graphics pipeline wrapper.">GraphicsPipeline</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5c4adb4c806707f4add0ed66ed59ca09" name="a5c4adb4c806707f4add0ed66ed59ca09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4adb4c806707f4add0ed66ed59ca09">&#9670;&#160;</a></span>clean_up()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::clean_up </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases DirectX all interfaces. </p>
+<p>Cleans graphics scene. </p>
+
+</div>
+</div>
+<a id="a44689412aa18c89509e19296d9a51e71" name="a44689412aa18c89509e19296d9a51e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44689412aa18c89509e19296d9a51e71">&#9670;&#160;</a></span>compile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::compile </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>compile_components</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compiles scene and pipelines. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">compile_components</td><td>If mesh components are already compiled, keep false. Setting to true if mesh components are already compiled, it is unneccesary. You may set to true if the renderer was just cleaned. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7d85cdc8646b62f8439d95309f2b8487" name="a7d85cdc8646b62f8439d95309f2b8487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d85cdc8646b62f8439d95309f2b8487">&#9670;&#160;</a></span>present()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::present </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes swap chain. </p>
+<p>Presents and increments fence. </p>
+
+</div>
+</div>
+<a id="aaca3d4a8695c7358baf17414b1c0e639" name="aaca3d4a8695c7358baf17414b1c0e639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca3d4a8695c7358baf17414b1c0e639">&#9670;&#160;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::render </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills command list and calls pipelines. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Delta time. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1d742cfe8b277aeb6eaed3cb9154d9fa" name="a1d742cfe8b277aeb6eaed3cb9154d9fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d742cfe8b277aeb6eaed3cb9154d9fa">&#9670;&#160;</a></span>resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::resize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_t_vector2.html">UVector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resizes swap chain, viewport/scissor rect, and depth stencil. </p>
+<p>Automatically called when window resizes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Size of new buffer sizes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Renderer/<a class="el" href="_renderer_8h_source.html">Renderer.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Renderer/Renderer.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

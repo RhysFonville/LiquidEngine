@@ -1,4 +1,4 @@
-.TH "PointLightComponent" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "PointLightComponent" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -73,12 +73,6 @@ Public Member Functions inherited from \fBGraphicsComponent\fP
 .ti -1c
 .RI "virtual void \fBset_size\fP (\fBFVector3\fP size) noexcept"
 .br
-.ti -1c
-.RI "bool \fBhas_changed\fP () const noexcept"
-.br
-.ti -1c
-.RI "void \fBhas_changed\fP (bool changed) noexcept"
-.br
 .in -1c
 
 Public Member Functions inherited from \fBComponent\fP
@@ -142,7 +136,10 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
-.RI "virtual void \fBon_start\fP ()"
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBclean_up\fP ()"
@@ -152,6 +149,16 @@ Public Member Functions inherited from \fBControllable\fP
 .br
 .ti -1c
 .RI "virtual void \fBtick\fP (float dt)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool changed) noexcept"
 .br
 .in -1c
 .SS "Static Public Attributes"
@@ -167,7 +174,7 @@ Public Member Functions inherited from \fBControllable\fP
 Public Types inherited from \fBComponent\fP
 .in +1c
 .ti -1c
-.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP }"
+.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP, \fBMaterialComponent\fP }"
 .br
 .in -1c
 
@@ -192,23 +199,36 @@ Public Attributes inherited from \fBComponent\fP
 .br
 .in -1c
 
+Protected Member Functions inherited from \fBLightComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBrender_editor_gui_section\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBrender_light_component_editor_gui_section\fP ()"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
+.br
+.in -1c
+
 Protected Attributes inherited from \fBLightComponent\fP
 .in +1c
 .ti -1c
 .RI "\fBColor\fP \fBalbedo\fP = \fBColor\fP(255, 255, 255, 255)"
 .br
 .ti -1c
-.RI "\fBColor\fP \fBspecular\fP = \fBColor\fP(5, 5, 5, 255)"
+.RI "\fBColor\fP \fBspecular\fP = \fBColor\fP(50, 50, 50, 255)"
 .br
 .ti -1c
 .RI "bool \fBnull\fP = false"
-.br
-.in -1c
-
-Protected Attributes inherited from \fBGraphicsComponent\fP
-.in +1c
-.ti -1c
-.RI "bool \fBchanged\fP {false}"
 .br
 .in -1c
 
@@ -219,6 +239,13 @@ Protected Attributes inherited from \fBComponent\fP
 .br
 .ti -1c
 .RI "Type \fBtype\fP = Type::None"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBchanged\fP {false}"
 .br
 .in -1c
 .SH "Detailed Description"

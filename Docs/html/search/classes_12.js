@@ -1,25 +1,6 @@
 var searchData=
 [
-  ['tcolor_0',['TColor',['../struct_t_color.html',1,'']]],
-  ['tcolor_3c_20float_20_3e_1',['TColor&lt; float &gt;',['../struct_t_color.html',1,'']]],
-  ['tcolor_3c_20uchar_20_3e_2',['TColor&lt; UCHAR &gt;',['../struct_t_color.html',1,'']]],
-  ['tesselator_3',['Tesselator',['../class_graphics_pipeline_1_1_tesselator.html',1,'GraphicsPipeline']]],
-  ['texmetadata_4',['TexMetadata',['../struct_direct_x_1_1_tex_metadata.html',1,'DirectX']]],
-  ['texture_5',['Texture',['../class_texture.html',1,'']]],
-  ['throw_5fparams_6',['THROW_PARAMS',['../struct_t_h_r_o_w___p_a_r_a_m_s.html',1,'']]],
-  ['thumbsticks_7',['ThumbSticks',['../struct_direct_x_1_1_game_pad_1_1_thumb_sticks.html',1,'DirectX::GamePad']]],
-  ['tonemappostprocess_8',['ToneMapPostProcess',['../class_direct_x_1_1_tone_map_post_process.html',1,'DirectX']]],
-  ['transform_9',['Transform',['../struct_transform.html',1,'']]],
-  ['triangle_10',['Triangle',['../struct_triangle.html',1,'']]],
-  ['trianglerow_11',['TriangleRow',['../struct_direct_x_1_1_filters_1_1_triangle_row.html',1,'DirectX::Filters']]],
-  ['triggers_12',['Triggers',['../struct_direct_x_1_1_game_pad_1_1_triggers.html',1,'DirectX::GamePad']]],
-  ['truetypeimporter_13',['TrueTypeImporter',['../class_make_sprite_font_1_1_true_type_importer.html',1,'MakeSpriteFont']]],
-  ['tvector2_14',['TVector2',['../class_t_vector2.html',1,'']]],
-  ['tvector2_3c_20float_20_3e_15',['TVector2&lt; float &gt;',['../class_t_vector2.html',1,'']]],
-  ['tvector2_3c_20uint_20_3e_16',['TVector2&lt; UINT &gt;',['../class_t_vector2.html',1,'']]],
-  ['tvector3_17',['TVector3',['../class_t_vector3.html',1,'']]],
-  ['tvector3_3c_20float_20_3e_18',['TVector3&lt; float &gt;',['../class_t_vector3.html',1,'']]],
-  ['tvector3_3c_20int_20_3e_19',['TVector3&lt; int &gt;',['../class_t_vector3.html',1,'']]],
-  ['tvector4_20',['TVector4',['../class_t_vector4.html',1,'']]],
-  ['tvector4_3c_20float_20_3e_21',['TVector4&lt; float &gt;',['../class_t_vector4.html',1,'']]]
+  ['vector2f_0',['Vector2f',['../struct_my_im_plot_1_1_vector2f.html',1,'MyImPlot']]],
+  ['vertex_1',['Vertex',['../struct_vertex.html',1,'']]],
+  ['vertex_5fconstant_5fbuffer_5fdx12_2',['VERTEX_CONSTANT_BUFFER_DX12',['../struct_v_e_r_t_e_x___c_o_n_s_t_a_n_t___b_u_f_f_e_r___d_x12.html',1,'']]]
 ];

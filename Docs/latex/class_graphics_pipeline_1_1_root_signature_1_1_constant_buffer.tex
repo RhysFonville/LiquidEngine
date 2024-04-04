@@ -15,11 +15,11 @@ Constant buffer.
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a9f7f1b0bf7230651cea4b0bced109e58}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a9f7f1b0bf7230651cea4b0bced109e58}} 
 {\footnotesize template$<$typename T $>$ }\\{\bfseries Constant\+Buffer} (T \&cb, std\+::string name=\char`\"{}\char`\"{})
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a633ab3a8462fc97d891279a34c3c9dca}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a633ab3a8462fc97d891279a34c3c9dca}} 
-void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ descriptor\+\_\+heaps\mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]})
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a7e4e527e2086ce95648b1b5d4eafbd63}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a7e4e527e2086ce95648b1b5d4eafbd63}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a301a09387d2e1641f69be5574885feef}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a301a09387d2e1641f69be5574885feef}} 
-void {\bfseries apply} (int frame\+\_\+index) noexcept
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a0a2331c378738f70c0e5eb1558888bd3}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a0a2331c378738f70c0e5eb1558888bd3}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a745e0aa03180633599830a4831cd10c1}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a745e0aa03180633599830a4831cd10c1}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{Constant\+Buffer}} \&cb) const noexcept
@@ -33,17 +33,20 @@ void $\ast$ {\bfseries obj} = nullptr
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ae62f0537b355f39ab834a97747ee0fcb}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ae62f0537b355f39ab834a97747ee0fcb}} 
 size\+\_\+t {\bfseries obj\+\_\+size} = 0u
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ad0bc490261a7d4dfeeb69ef434364a87}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ad0bc490261a7d4dfeeb69ef434364a87}} 
-UINT $\ast$ {\bfseries gpu\+\_\+addresses} \mbox{[}NUMBER\+\_\+\+OF\+\_\+\+BUFFERS\mbox{]} = \{ \}
-\item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_acbc8376804abed553869bcf90933556d}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_acbc8376804abed553869bcf90933556d}} 
-UINT {\bfseries heap\+\_\+index} = 0u
+UINT {\bfseries heap\+\_\+index} \{(UINT)-\/1\}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a4ef4a314a9463b30439efa124e0d4a5f}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a4ef4a314a9463b30439efa124e0d4a5f}} 
 std\+::string {\bfseries name} = \char`\"{}\char`\"{}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a619b1a20ff0d657fbfb852e3a0c56cc2}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a619b1a20ff0d657fbfb852e3a0c56cc2}} 
 bool {\bfseries update\+\_\+signal} = true
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ab6ff1168b00c3285e610f7e8b6492a6b}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_ab6ff1168b00c3285e610f7e8b6492a6b}} 
+Com\+Ptr$<$ ID3\+D12\+Resource $>$ {\bfseries default\+\_\+heap} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a0a2bfce51536bf54e69033e06d0ce829}\label{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_a0a2bfce51536bf54e69033e06d0ce829}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{Descriptor\+Table}} $>$ {\bfseries descriptor\+\_\+table} \{nullptr\}
 \end{DoxyCompactItemize}
 
 
