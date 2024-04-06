@@ -23,6 +23,7 @@ void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh = mesh;
 	this->mesh.compile();
 
+	this->material.pipeline.input_assembler.set_proxy(proxy);
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 
@@ -35,6 +36,7 @@ Material & StaticMeshComponent::get_material() noexcept {
 
 void StaticMeshComponent::set_material(const Material &material) noexcept {
 	this->material = material;
+
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 

@@ -21,7 +21,9 @@ void GraphicsDescriptorHeaps::clean_up() {
 }
 
 UINT GraphicsDescriptorHeaps::get_open_heap_index() {
-	return (UINT)std::distance(occupation.begin(), std::ranges::find(occupation, false));
+	auto find = std::ranges::find(occupation, false);
+	if (find != occupation.end()) return std::distance(occupation.begin(), find);
+	else return occupation.size();
 }
 
 void GraphicsDescriptorHeaps::create_cbv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &upload_buffer, size_t obj_size, UINT frame_index, UINT heap_index) {

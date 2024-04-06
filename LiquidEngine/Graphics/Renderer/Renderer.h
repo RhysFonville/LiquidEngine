@@ -17,14 +17,44 @@ public:
 	Renderer() { }
 	Renderer(HWND window); // initializes direct3d 12
 
-	void init_renderer(HWND window);
+	/**
+	 * Initializes renderer.
+	 * 
+	 * \param window Window to pair the render to.
+	 * \param exclude Objects to exclude from creation. Add the integers to the vector that correlate to the object to wish to not create.
+	 * The integers correlate as follows:
+	 * 0: Factory
+	 * 1: Adapter
+	 * 2: Adapter output
+	 * 3: Device
+	 * 4: Command queue
+	 * 5: Swap chain
+	 * 6: Render target view desciptor heap
+	 * 7: Render target views
+	 * 8: Command allocators
+	 * 9: Command list
+	 * 10: Fences and fence event
+	 * 11: Depth stencil
+	 * 12: Descriptor heaps
+	 * 13: Blend state
+	 * 14: Viewport and scissor rect
+	 */
+	void init_renderer(HWND window, std::vector<int> exclude = {});
 
 	/** Calls render and present. */
 	void tick(float dt);
 
-	/** Releases DirectX all interfaces. Cleans graphics scene. */
+	/** Releases DirectX all interfaces. */
 	void clean_up();
 	
+	/**
+	* Cleans renderer and re-initializes it. Descriptors are automatically filled into descriptor heaps.
+	* 
+	* \param exclude Vector to be passed into init_renderer and the exclusions.
+	*/
+	
+	void refresh(std::vector<int> exclude = {}) { clean_up(); init_renderer(window, exclude); refill_descriptor_heaps(); }
+
 	/**
 	* Fills command list and calls pipelines.
 	* 
@@ -104,10 +134,11 @@ private:
 
 	GraphicsDescriptorHeaps descriptor_heaps;
 
+	void create_factory();
 	void create_device();
 	void create_command_queue();
 	void create_swap_chain();
-	void create_descriptor_heap();
+	void create_rtv_descriptor_heap();
 	void create_rtvs();
 	void create_command_allocators();
 	void create_command_list();
@@ -116,6 +147,8 @@ private:
 	void create_descriptor_heaps();
 	void set_blend_state();
 	void set_viewport_and_scissor_rect(const UVector2 &size);
+
+	void refill_descriptor_heaps();
 
 	void setup_imgui_section();
 

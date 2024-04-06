@@ -4,7 +4,7 @@ Renderer::Renderer(HWND window) {
 	init_renderer(window);
 }
 
-void Renderer::init_renderer(HWND window) {
+void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	this->window = window;
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
@@ -14,24 +14,31 @@ void Renderer::init_renderer(HWND window) {
 	DXGIGetDebugInterface1(NULL, IID_PPV_ARGS(&dxgi_debug));
 	dxgi_debug->EnableLeakTrackingForThread();
 
-	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
-
 	auto client_size = get_client_size(window);
 
-	adapter = GraphicsAdapter{factory};
-	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
-	create_device();
-	create_command_queue();
-	create_swap_chain();
-	create_descriptor_heap();
-	create_rtvs();
-	create_command_allocators();
-	create_command_list();
-	create_fences_and_fence_event();
-	create_depth_stencil(client_size);
-	create_descriptor_heaps();
-	set_blend_state();
-	set_viewport_and_scissor_rect(client_size);
+	int n = 0;
+	auto func = [&](const std::function<void()> &func) {
+		if (std::ranges::find(exclude, n) == exclude.end()) {
+			func();
+		}
+		n++;
+	};
+
+	func([&](){create_factory();});
+	func([&](){adapter = GraphicsAdapter{factory};});
+	func([&](){adapter_output = GraphicsAdapterOutput{device, adapter.adapter};});
+	func([&](){create_device();});
+	func([&](){create_command_queue();});
+	func([&](){create_swap_chain();});
+	func([&](){create_rtv_descriptor_heap();});
+	func([&](){create_rtvs();});
+	func([&](){create_command_allocators();});
+	func([&](){create_command_list();});
+	func([&](){create_fences_and_fence_event();});
+	func([&](){create_depth_stencil(client_size);});
+	func([&](){create_descriptor_heaps();});
+	func([&](){set_blend_state();});
+	func([&](){set_viewport_and_scissor_rect(client_size);});
 
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
@@ -41,6 +48,10 @@ void Renderer::init_renderer(HWND window) {
 
 	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
 	descriptor_heaps.reserve_descriptor_index(0u);
+}
+
+void Renderer::create_factory() {
+	HPEW(CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory)));
 }
 
 void Renderer::create_device() {
@@ -105,7 +116,7 @@ void Renderer::create_swap_chain() {
 	frame_index = swap_chain->GetCurrentBackBufferIndex();
 }
 
-void Renderer::create_descriptor_heap() {
+void Renderer::create_rtv_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
 	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
@@ -245,15 +256,23 @@ void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 	scissor_rect.bottom = size.y;
 }
 
+void Renderer::refill_descriptor_heaps() {
+	for (RenderingStaticMesh &mesh : scene.static_meshes) {
+		mesh.material.component->pipeline.root_signature.create_views(device, descriptor_heaps);
+	}
+}
+
 void Renderer::setup_imgui_section() {
+	auto end_imgui = [&]() {
+		ImGui::TreePop();
+		ImGui::End();
+		ImGui::Render();
+	};
+
 	if (ImGui::TreeNode("Renderer")) {
 		if (ImGui::Button("Re-initialize renderer")) {
-			ImGui::TreePop();
-			ImGui::End();
-			ImGui::Render();
-			clean_up();
-			init_renderer(window);
-			compile(true);
+			end_imgui();
+			refresh();
 			skip_frame = true;
 			return;
 		}
@@ -277,10 +296,14 @@ void Renderer::setup_imgui_section() {
 			auto desc = adapter.get_desc();
 			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
 			if (ImGui::InputInt("Adapter", &index, ImGuiInputTextFlags_EnterReturnsTrue)) {
-				flush_gpu();
+				end_imgui();
+				clean_up();
+				create_factory();
 				adapter = GraphicsAdapter{factory, (UINT)index};
-				device.Reset();
-				create_device();
+				init_renderer(window, {1});
+
+				skip_frame = true;
+				return;
 			}
 			ImGui::Text("Adapter description");
 			ImGui::Text(wstring_to_string(L"Name: " + std::wstring{desc.Description}).c_str());
@@ -294,9 +317,26 @@ void Renderer::setup_imgui_section() {
 			std::string name{wstring_to_string(adapter_output.get_desc().DeviceName)};
 			if (ImGui::InputText("Adapter output", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
 				flush_gpu();
+				end_imgui();
+
+				bool fs = is_fullscreen();
+				if (fs)
+					set_fullscreen(false);
+
+				swap_chain.Reset();
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					render_targets[i].Reset();
+				}
+
 				adapter_output = GraphicsAdapterOutput{device, adapter.adapter, name};
-				//swap_chain.Reset();
-				//create_swap_chain();
+				create_swap_chain();
+				create_rtvs();
+
+				if (fs)
+					set_fullscreen(true);
+
+				skip_frame = true;
+				return;
 			}
 			ImGui::Text("Adapter output description");
 			ImGui::Text(("Name: " + wstring_to_string(adapter_output.get_desc().DeviceName)).c_str());
@@ -443,7 +483,7 @@ void Renderer::render(float dt) {
 }
 
 void Renderer::present() {
-	if (skip_frame) {
+	if (skip_frame) { // Whenever we need to skip a frame its because of stupid imgui
 		skip_frame = false;
 		return;
 	}
@@ -475,7 +515,7 @@ void Renderer::clean_up() {
 	if (is_fullscreen())
 		set_fullscreen(false);
 
-	scene.clean_up();
+	//scene.clean_up();
 
 	ResourceManager::Release::release_all_resources();
 

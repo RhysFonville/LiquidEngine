@@ -255,62 +255,84 @@ public:
 		};
 
 		/**
+		 * Root objects with descriptor tables.
+		 * 
+		 * For constant buffers and shader resource views.
+		 * 
+		 * \see ConstantBuffer
+		 * \see ShaderResourceView
+		 */
+		class DescriptorRootObject {
+		public:
+			DescriptorRootObject() { }
+
+			virtual void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+			void clean_up();
+			
+			virtual void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+
+			/** Returns true if object is eligible for resource creation. */
+			virtual bool valid() { return heap_index != (UINT)-1; };
+
+			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
+			
+			bool update_signal{false};
+
+		protected:
+			UINT heap_index{(UINT)-1};
+
+			ComPtr<ID3D12Resource> default_heap{nullptr};
+		};
+
+		/**
 		* Constant buffer.
 		*/
-		class ConstantBuffer {
+		class ConstantBuffer : public DescriptorRootObject {
 		public:
-			ConstantBuffer() { }
+			ConstantBuffer() : DescriptorRootObject() { }
 
 			template <typename T>
 			ConstantBuffer(T &cb, std::string name = "")
 				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
 				name(name.empty() ? typeid(T).name() : name) { }
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
-
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+			
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+
+			bool valid() override { return (DescriptorRootObject::valid() && obj_size != 0); }
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
+			mutable std::string name{};
+
 			void* obj = nullptr;
 			size_t obj_size = 0u;
-
-			UINT heap_index{(UINT)-1};
-
-			mutable std::string name = "";
-
-			bool update_signal = true;
-
-			ComPtr<ID3D12Resource> default_heap{nullptr};
-
-			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
 		* Shader resource view. Used for uploading texture data.
 		*/
-		class ShaderResourceView {
+		class ShaderResourceView : public DescriptorRootObject {
 		public:
-			ShaderResourceView() { }
+			ShaderResourceView() : DescriptorRootObject() { }
 			ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
 			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
-			void compile() { compile_signal = true; }
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void compile() { update_signal = true; }
 
-			ComPtr<ID3D12Resource> default_heap{nullptr};
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			
+			bool valid() override { return (DescriptorRootObject::valid() && heap_desc.Width != 0 && heap_desc.Height != 0); }
+
 			D3D12_RESOURCE_DESC heap_desc{};
 
 			std::vector<D3D12_SUBRESOURCE_DATA> subresources{};
 
 			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc{};
-
-			UINT heap_index{(UINT)-1};
-
-			bool compile_signal{false};
-
-			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
@@ -422,6 +444,8 @@ public:
 		void bind_constant_buffer(ConstantBufferContainer<T> &cb, D3D12_SHADER_VISIBILITY shader) {
 			bind_constant_buffer(cb.cb, shader);
 		}
+
+		void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps);
 
 		const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
 		const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
