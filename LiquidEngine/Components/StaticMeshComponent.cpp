@@ -56,7 +56,7 @@ static bool enable_mipmap{true};
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
 	if (ImGui::InputText("Mesh", &mesh, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		this->mesh.set_vertices(mesh);
+		this->set_mesh(Mesh{mesh});
 	}
 
 	ImGui::Text("Material");

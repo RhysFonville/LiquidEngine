@@ -285,12 +285,12 @@ public:
 
 	void compile() {
 		if (component->exists()) {
-			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
-				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
+			srv->update_descs(component->get_mip_chain());
+			srv->compile();
 		}
 	}
 
-	void cleam_up() {
+	void clean_up() {
 		srv.reset();
 	}
 
@@ -334,6 +334,7 @@ public:
 	}
 
 	void clean_up() {
+		texture.clean_up();
 		wvp_data.clean_up();
 		transform_data.clean_up();
 		data.clean_up();
@@ -385,6 +386,9 @@ public:
 
 	void clean_up() {
 		material_data.clean_up();
+		albedo_texture.clean_up();
+		normal_map.clean_up();
+		environment_texture.clean_up();
 	}
 
 	RenderingTexture albedo_texture{};
@@ -445,6 +449,7 @@ public:
 	void clean_up() {
 		lights_data.clean_up();
 		transform_data.clean_up();
+		material.clean_up();
 	}
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
