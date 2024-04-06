@@ -33,7 +33,6 @@ public:
 	void compile(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc,
 		const D3D12_BLEND_DESC &blend,
 		GraphicsDescriptorHeaps &descriptor_heaps);
 
@@ -50,6 +49,8 @@ public:
 		{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
 		{ "TANGENT",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
 	};
+
+	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 
 	/**
 	 * Uploads mesh data.

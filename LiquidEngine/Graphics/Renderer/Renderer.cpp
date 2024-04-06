@@ -292,7 +292,7 @@ void Renderer::setup_imgui_section() {
 			set_fullscreen(fullscreen);
 		}
 
-		{
+		{ // Adapter
 			auto desc = adapter.get_desc();
 			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
 			if (ImGui::InputInt("Adapter", &index, ImGuiInputTextFlags_EnterReturnsTrue)) {
@@ -312,12 +312,12 @@ void Renderer::setup_imgui_section() {
 
 		ImGui::Spacing();
 
-		{
+		{ // Adapter output
 			auto desc = adapter_output.get_desc();
 			std::string name{wstring_to_string(adapter_output.get_desc().DeviceName)};
 			if (ImGui::InputText("Adapter output", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
-				flush_gpu();
 				end_imgui();
+				flush_gpu();
 
 				bool fs = is_fullscreen();
 				if (fs)
@@ -364,9 +364,9 @@ void Renderer::setup_imgui_section() {
 				ImPlot::PlotLine("f(x)", xs, ys, gamma_capability.NumGammaControlPoints);
 				ImPlot::EndPlot();
 			}*/
-			
-			ImGui::TreePop();
 		}
+
+		ImGui::TreePop();
 	}
 }
 
@@ -402,7 +402,7 @@ void Renderer::compile(bool compile_components) {
 		if (compile_components)
 			mesh.component->compile();
 
-		mesh.material.component->pipeline.compile(device, command_list, sample_desc, depth_stencil_desc, blend_desc, descriptor_heaps);
+		mesh.material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 		i++;
 	}
 
@@ -419,7 +419,7 @@ void Renderer::compile(bool compile_components) {
 		if (compile_components)
 			scene.sky.component->compile();
 
-		scene.sky.component->pipeline.compile(device, command_list, sample_desc, D3D12_DEPTH_STENCIL_DESC{}, blend_desc, descriptor_heaps);
+		scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 	}
 
 	HPEW(command_list->Close());

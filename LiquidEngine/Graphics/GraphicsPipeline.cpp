@@ -25,7 +25,7 @@ void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_lis
 	command_list->DrawInstanced(verts, 1, 0, 0);
 }
 
-void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
 	root_signature.compile(device, command_list, descriptor_heaps);
 	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
 	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
