@@ -223,20 +223,6 @@ void Renderer::create_descriptor_heaps() {
 }
 
 void Renderer::set_blend_state() {
-	blend_desc.AlphaToCoverageEnable = false;
-	blend_desc.IndependentBlendEnable = false;
-	blend_desc.RenderTarget[0] = D3D12_RENDER_TARGET_BLEND_DESC{
-		.BlendEnable = true,
-		.LogicOpEnable = false,
-		.SrcBlend = D3D12_BLEND_SRC_ALPHA,
-		.DestBlend = D3D12_BLEND_ONE,
-		.BlendOp = D3D12_BLEND_OP_ADD,
-		.SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA,
-		.DestBlendAlpha = D3D12_BLEND_ONE,
-		.BlendOpAlpha = D3D12_BLEND_OP_ADD,
-		.LogicOp = D3D12_LOGIC_OP_NOOP,
-		.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL
-	};
 	blend_desc = CommonStates::AlphaBlend;
 }
 
@@ -257,8 +243,8 @@ void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 }
 
 void Renderer::refill_descriptor_heaps() {
-	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.root_signature.create_views(device, descriptor_heaps);
+	for (auto &mesh : scene.static_meshes) {
+		mesh->material.component->pipeline.root_signature.create_views(device, descriptor_heaps);
 	}
 }
 
@@ -366,6 +352,13 @@ void Renderer::setup_imgui_section() {
 			}*/
 		}
 
+		{ // Viewport & scissor rect
+			int vec[2]{(int)viewport.Width, (int)viewport.Height};
+			if (ImGui::InputInt2("Viewport & scissor rect size", vec, ImGuiInputTextFlags_EnterReturnsTrue)) {
+				set_viewport_and_scissor_rect(UVector2{(UINT)vec[0], (UINT)vec[1]});
+			}
+		}
+
 		ImGui::TreePop();
 	}
 }
@@ -376,46 +369,18 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
 	scene.compile();
-	scene.update(resolution);
+	//scene.update(resolution);
 
 	int i = 0;
-	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.material.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(mesh.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
-		mesh.material.component->pipeline.root_signature.bind_root_constants(scene.camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
-		mesh.material.component->pipeline.root_signature.bind_constant_buffer(mesh.material.material_data, D3D12_SHADER_VISIBILITY_PIXEL);
-
-		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
-			*mesh.material.albedo_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
-			*mesh.material.normal_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		mesh.material.component->pipeline.root_signature.bind_shader_resource_view(
-			*mesh.material.environment_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		
+	for (auto &mesh : scene.static_meshes) {
 		if (compile_components)
-			mesh.component->compile();
+			mesh->component->compile();
 
-		mesh.material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		mesh->material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 		i++;
 	}
 
 	if (scene.sky.component != nullptr) {
-		scene.sky.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(scene.sky.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		scene.sky.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(scene.sky.transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		scene.sky.component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(scene.sky.data, D3D12_SHADER_VISIBILITY_PIXEL);
-		
-		scene.sky.component->pipeline.root_signature.bind_shader_resource_view(
-			*scene.sky.texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		
 		if (compile_components)
 			scene.sky.component->compile();
 
@@ -461,10 +426,10 @@ void Renderer::render(float dt) {
 	scene.update(resolution);
 	
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
+		scene.sky.component->pipeline.run(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
 	
-	for (RenderingStaticMesh &mesh : scene.static_meshes) {
-		mesh.material.component->pipeline.run(device, command_list, frame_index, descriptor_heaps);
+	for (auto &mesh : scene.static_meshes) {
+		mesh->material.component->pipeline.run(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
 	}
 
 	// Render Dear ImGui graphics

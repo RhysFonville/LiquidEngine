@@ -1,12 +1,17 @@
 #include "GraphicsPipeline.h"
 
-void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+	if (compile_signal) {
+		compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		compile_signal = false;
+	}
+	
 	input_assembler.check_for_update(device, command_list);
-	root_signature.check_for_update(device, command_list, frame_index, descriptor_heaps);
+	root_signature.check_for_update(device, command_list, descriptor_heaps);
 }
 
-void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
-	check_for_update(device, command_list, frame_index, descriptor_heaps);
+void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+	check_for_update(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
 
 	command_list->SetPipelineState(pipeline_state_object.Get());
 
@@ -26,6 +31,7 @@ void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_lis
 }
 
 void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
+	root_signature.check_for_update(device, command_list, descriptor_heaps);
 	root_signature.compile(device, command_list, descriptor_heaps);
 	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
 	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
@@ -86,21 +92,6 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 
 	rasterizer == pipeline.rasterizer &&
 	stream_output == pipeline.stream_output);
-}
-
-void GraphicsPipeline::operator=(const GraphicsPipeline &pipeline) noexcept {
-	pipeline_state_object = pipeline.pipeline_state_object;
-	root_signature = pipeline.root_signature;
-	input_assembler = pipeline.input_assembler;
-	
-	vs = pipeline.vs;
-	hs = pipeline.hs;
-	ds = pipeline.ds;
-	gs = pipeline.gs;
-	ps = pipeline.ps;
-
-	rasterizer = pipeline.rasterizer;
-	stream_output = pipeline.stream_output;
 }
 
 // +-----------------+
@@ -219,12 +210,12 @@ const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::
 // +----------------+
 
 void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
-	for (ShaderResourceView* srv : shader_resource_views) {
+	/*for (ShaderResourceView* srv : shader_resource_views) {
 		srv->compile(device, command_list, descriptor_heaps);
 	}
 	for (ConstantBuffer* cb : constant_buffers) {
 		cb->compile(device, command_list, descriptor_heaps);
-	}
+	}*/
 	
 	compilation_params.clear();
 	for (int i = 0; i < descriptor_tables.size()+root_constants.size(); i++) {
@@ -271,13 +262,18 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	error_buf.Reset();
 }
 
-void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
 	for (ShaderResourceView* srv : shader_resource_views) {
-		if (srv->update_signal) {
+		if (srv->compile_signal) {
 			srv->compile(device, command_list, descriptor_heaps);
 		}
 	}
 
+	for (ConstantBuffer* cb : constant_buffers) {
+		if (cb->compile_signal) {
+			cb->compile(device, command_list, descriptor_heaps);
+		}
+	}
 	for (ConstantBuffer* cb : constant_buffers) {
 		if (cb->update_signal) {
 			for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
@@ -342,6 +338,8 @@ void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D
 	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, parameter_index));
 	constant_buffers.push_back(&cb);
 	cb.descriptor_table = descriptor_tables.back();
+
+	cb.compile();
 }
 
 void GraphicsPipeline::RootSignature::bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader) {
@@ -350,6 +348,8 @@ void GraphicsPipeline::RootSignature::bind_shader_resource_view(ShaderResourceVi
 	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, parameter_index));
 	shader_resource_views.push_back(&srv);
 	srv.descriptor_table = descriptor_tables.back();
+
+	srv.compile();
 }
 
 void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
@@ -420,6 +420,8 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::compile(const ComPtr<ID3D1
 
 		update(device, command_list);
 	}
+
+	compile_signal = false;
 }
 
 void GraphicsPipeline::RootSignature::ConstantBuffer::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
@@ -458,7 +460,8 @@ bool GraphicsPipeline::RootSignature::ConstantBuffer::operator==(const ConstantB
 		obj_size == cb.obj_size);
 }
 
-GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
+GraphicsPipeline::RootSignature::ShaderResourceView::ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube)
+	: DescriptorRootObject{} {
 	update_descs(mip_chain, is_texture_cube);
 }
 
@@ -563,7 +566,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 		}*/
 	}
 
-	update_signal = false;
+	compile_signal = false;
 }
 
 void GraphicsPipeline::RootSignature::ShaderResourceView::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {

@@ -104,6 +104,8 @@ public:
 		}
 	}
 
+	void base_render_editor_gui_section() override;
+
 	std::string name = "";
 
 	/**

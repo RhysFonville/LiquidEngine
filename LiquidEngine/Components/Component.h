@@ -45,13 +45,10 @@ public:
 	virtual void operator=(const Component &component) noexcept;
 
 	Component* parent = nullptr;
+	
+	void base_render_editor_gui_section() override;
 
 protected:
-	friend class EditorGUI;
-
-	void base_render_editor_gui_section();
-	virtual void render_editor_gui_section();
-
 	Transform transform;
 	Type type = Type::None;
 };

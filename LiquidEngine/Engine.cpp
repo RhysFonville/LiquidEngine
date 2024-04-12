@@ -48,7 +48,7 @@ void Engine::loop() {
 				return;
 			}
 
-			window.editor_gui.update(dt.dt, world.active_scene->get_objects());
+			window.editor_gui.update(dt.dt);
 
 			world.tick(dt.dt);
 			renderer.tick(dt.dt);

@@ -41,10 +41,6 @@ int main() {
 	obj->get_component<StaticMeshComponent>()->get_material().set_shininess(1.0f);
 	obj->get_component<StaticMeshComponent>()->get_material().set_specular(Color{100, 100, 100, 255});
 
-	std::shared_ptr<Object> obj1 = std::make_shared<Object>();
-	engine.world.active_scene->add_object(obj1);
-	obj1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
-
 	engine.compile();
 	engine.loop();
 }

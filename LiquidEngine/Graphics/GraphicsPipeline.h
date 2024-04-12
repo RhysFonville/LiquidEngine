@@ -22,11 +22,15 @@ public:
 
 	void check_for_update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
-	
+		const DXGI_SAMPLE_DESC &sample_desc,
+		const D3D12_BLEND_DESC &blend_desc, int frame_index,
+		GraphicsDescriptorHeaps &descriptor_heaps);
+
 	void run(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		const DXGI_SAMPLE_DESC &sample_desc,
+		const D3D12_BLEND_DESC &blend_desc, int frame_index,
+		GraphicsDescriptorHeaps &descriptor_heaps);
 	
 	void draw(const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
@@ -36,12 +40,15 @@ public:
 		const D3D12_BLEND_DESC &blend,
 		GraphicsDescriptorHeaps &descriptor_heaps);
 
+	void compile() { compile_signal = true; }
+
 	void clean_up();
 
 	bool operator==(const GraphicsPipeline &pipeline) const noexcept;
-	void operator=(const GraphicsPipeline &pipeline) noexcept;
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
+
+	bool compile_signal = true;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -212,7 +219,7 @@ public:
 		*/
 		class RootConstants : public RootArgument {
 		public:
-			RootConstants() { }
+			RootConstants() : RootArgument{} { }
 
 			template <typename T>
 			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
@@ -277,7 +284,7 @@ public:
 
 			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 			
-			bool update_signal{false};
+			bool compile_signal{false};
 
 		protected:
 			UINT heap_index{(UINT)-1};
@@ -290,14 +297,16 @@ public:
 		*/
 		class ConstantBuffer : public DescriptorRootObject {
 		public:
-			ConstantBuffer() : DescriptorRootObject() { }
+			ConstantBuffer() : DescriptorRootObject{} { }
 
 			template <typename T>
 			ConstantBuffer(T &cb, std::string name = "")
 				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
-				name(name.empty() ? typeid(T).name() : name) { }
+				name(name.empty() ? typeid(T).name() : name), DescriptorRootObject{} { }
 
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void compile() { compile_signal = true; }
+			
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 			
 			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
@@ -307,6 +316,8 @@ public:
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
 			mutable std::string name{};
+			
+			bool update_signal{false};
 
 			void* obj = nullptr;
 			size_t obj_size = 0u;
@@ -323,7 +334,7 @@ public:
 			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
 			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
-			void compile() { update_signal = true; }
+			void compile() { compile_signal = true; }
 
 			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
 			
@@ -392,7 +403,7 @@ public:
 		
 		void clean_up();
 
-		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
 		
 		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
 

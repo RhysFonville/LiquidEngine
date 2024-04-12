@@ -26,7 +26,7 @@ public:
 
 	static bool check_input(HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam);
 
-	void update(float dt, const std::vector<std::shared_ptr<Object>> &objects);
+	void update(float dt);
 	
 	static void clean_up();
 

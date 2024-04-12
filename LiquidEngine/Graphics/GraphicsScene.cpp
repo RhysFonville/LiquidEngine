@@ -1,9 +1,9 @@
 #include "GraphicsScene.h"
 
 void GraphicsScene::clean_up() {
-	for (RenderingStaticMesh &mesh : static_meshes) {
-		mesh.clean_up();
-		mesh.component->clean_up();
+	for (auto &mesh : static_meshes) {
+		mesh->clean_up();
+		mesh->component->clean_up();
 	}
 
 	camera.clean_up();

@@ -25,7 +25,7 @@ bool EditorGUI::check_input(HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lpa
 	return false;
 }
 
-void EditorGUI::update(float dt, const std::vector<std::shared_ptr<Object>> &objects) {
+void EditorGUI::update(float dt) {
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
@@ -40,40 +40,6 @@ void EditorGUI::update(float dt, const std::vector<std::shared_ptr<Object>> &obj
 	if (show_demo_window) {
 		ImGui::ShowDemoWindow();
 		ImPlot::ShowDemoWindow();
-	}
-
-	ImGui::Text("Objects");
-	int i = 0;
-	for (auto &object : objects) {
-		if (ImGui::TreeNode(("Object" + std::to_string(i)).c_str())) {
-			ImGui::Text("Transform");
-			float vec[3]{object->get_position().x, object->get_position().y, object->get_position().z};
-			if (ImGui::InputFloat3("Position", vec))
-				object->set_position(vec);
-			vec[0] = object->get_rotation().x;
-			vec[1] = object->get_rotation().y;
-			vec[2] = object->get_rotation().z;
-			if (ImGui::InputFloat3("Rotation", vec))
-				object->set_rotation(vec);
-			vec[0] = object->get_size().x;
-			vec[1] = object->get_size().y;
-			vec[2] = object->get_size().z;
-			if (ImGui::InputFloat3("Size", vec))
-				object->set_size(vec);
-			
-			ImGui::Text("Components");
-			int i = 0;
-			for (std::shared_ptr<Component> &component : object->get_all_components()) {
-				if (ImGui::TreeNode(("Component " + std::to_string(i)).c_str())) {
-					component->base_render_editor_gui_section();
-					ImGui::TreePop();
-				}
-				i++;
-			}
-
-			ImGui::TreePop();
-		}
-		i++;
 	}
 }
 

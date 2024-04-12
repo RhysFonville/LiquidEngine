@@ -77,10 +77,5 @@ void Component::base_render_editor_gui_section() {
 	if (ImGui::InputFloat3("Size", vec))
 		set_size(vec);
 
-	ImGui::Text("Component variables");
 	render_editor_gui_section();
-}
-
-void Component::render_editor_gui_section() {
-	ImGui::Text("This component has nothing to view.");
 }
