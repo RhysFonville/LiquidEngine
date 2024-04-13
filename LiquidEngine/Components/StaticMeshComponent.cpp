@@ -52,15 +52,16 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 	mesh = component.mesh;
 }
 
-static bool enable_mipmap{true};
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
 	if (ImGui::InputText("Mesh", &mesh, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		this->set_mesh(Mesh{mesh});
+		if (fs::exists(mesh))
+			this->set_mesh(Mesh{mesh});
 	}
 
 	ImGui::Text("Material");
 
+	static bool enable_mipmap{true};
 	ImGui::Checkbox("Enable mipmap when setting texture", &enable_mipmap);
 
 	std::string tex = material.get_albedo_texture().get_file();
