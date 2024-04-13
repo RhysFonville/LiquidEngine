@@ -175,6 +175,25 @@ bool Object::has_component(Component::Type search) const noexcept {
 	return false;
 }
 
+//std::shared_ptr<Component> add_component(Component::Type type) {
+//	int count = 0;
+//	auto comp_if = [&]<typename T>(Component::Type comp_type) {
+//		if (comp_type == type) {
+//			auto sp = std::make_shared<T>();
+//			add_component(sp);
+//			count++;
+//			return sp;
+//		} else {
+//			return nullptr;
+//		}
+//	};
+//	
+//	if (auto comp = comp_if<StaticMeshComponent>(Component::Type::StaticMeshComponent);
+//		comp != nullptr) { }
+//
+//	if (count < (int)Component::Type::EnumEnd) { }
+//}
+
 void Object::base_render_editor_gui_section() {
 	ImGui::Text("Transform");
 	float vec[3]{transform.position.x, transform.position.y, transform.position.z};

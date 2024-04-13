@@ -4,7 +4,7 @@
 #include <d3d12.h>
 #include <vector>
 #include <memory>
-#include <typeinfo>
+#include <shobjidl.h>
 #include "imgui/imgui.h"
 #include "implot/implot.h"
 #include "imgui/imgui_impl_win32.h"
@@ -13,6 +13,12 @@
 #include "Object.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT32 msg, WPARAM wParam, LPARAM lParam);
+
+struct OpenFileRet {
+	bool success{};
+	std::string selected_file{};
+	std::string file_path{};
+};
 
 /**
 * ImGUI Editor GUI.
@@ -29,6 +35,8 @@ public:
 	void update(float dt);
 	
 	static void clean_up();
+
+	static OpenFileRet open_file();
 
 private:
 	friend class Window;

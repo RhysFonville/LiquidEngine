@@ -405,6 +405,8 @@ public:
 		environment_texture.compile();
 		material_data = PSMaterialCB{};
 
+		component->has_changed(true);
+
 		component->pipeline.root_signature.bind_constant_buffer(material_data, D3D12_SHADER_VISIBILITY_PIXEL);
 		component->pipeline.root_signature.bind_shader_resource_view(
 			*albedo_texture.srv,
@@ -418,6 +420,8 @@ public:
 			*environment_texture.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
+
+		component->pipeline.compile();
 	}
 
 	void clean_up() {
@@ -474,11 +478,12 @@ public:
 		}
 
 		lights_data.update();
+
+		update_lights_signal = false;
 	}
 
 	void compile(RenderingCamera &camera) {
 		component->has_changed(true);
-		material.component->has_changed(true);
 		lights_data = PSLightsCB{};
 		transform_data = VSTransformConstants{};
 
@@ -503,6 +508,8 @@ public:
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data{PSLightsCB{}};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{VSTransformConstants{}};
+
+	bool update_lights_signal = false;
 };
 
 /**
@@ -538,6 +545,7 @@ public:
 			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
 			if (camera.component != nullptr) {
 				static_meshes.back()->compile(camera);
+				static_meshes.back()->update_lights_signal = true;
 			}
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
@@ -614,7 +622,7 @@ public:
 
 		for (auto &mesh : static_meshes) {
 			mesh->update();
-			if (light_update) mesh->update_lights(directional_lights, point_lights, spotlights);
+			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
 
 		camera.component->has_changed(false);

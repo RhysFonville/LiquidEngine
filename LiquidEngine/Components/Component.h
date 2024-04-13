@@ -18,7 +18,7 @@ public:
 		SpotlightComponent,
 		BoxComponent,
 		SkyComponent,
-		MaterialComponent
+		EnumEnd
 	};
 
 	Component() : type(Type::None) { }

@@ -96,6 +96,8 @@ public:
 		components.back()->parent = &root_component;
 	}
 
+	std::shared_ptr<Component> add_component(Component::Type type);
+
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
 

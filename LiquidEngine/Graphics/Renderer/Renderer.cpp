@@ -369,7 +369,7 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
 	scene.compile();
-	//scene.update(resolution);
+	scene.update(resolution);
 
 	int i = 0;
 	for (auto &mesh : scene.static_meshes) {
@@ -384,7 +384,7 @@ void Renderer::compile(bool compile_components) {
 		if (compile_components)
 			scene.sky.component->compile();
 
-		scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		//scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 	}
 
 	HPEW(command_list->Close());
