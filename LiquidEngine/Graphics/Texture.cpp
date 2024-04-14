@@ -19,16 +19,14 @@ bool Texture::operator==(const Texture &texture) const noexcept {
 }
 
 void Texture::set_texture(const std::string &file, bool enable_mipmap) {
-	if (file != this->file) {
-		this->file = file;
-		if (exists()) {
-			load_texture(file, image, mip_chain, enable_mipmap);
-		} else {
-			image.Release();
-			mip_chain.Release();
-		}
-		changed = true;
+	this->file = file;
+	if (exists()) {
+		load_texture(file, image, mip_chain, enable_mipmap);
+	} else {
+		image.Release();
+		mip_chain.Release();
 	}
+	changed = true;
 }
 
 void Texture::load_texture(const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain, bool enable_mipmap) {

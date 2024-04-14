@@ -62,7 +62,9 @@ void StaticMeshComponent::render_editor_gui_section() {
 	ImGui::Text("Material");
 
 	static bool enable_mipmap{true};
-	ImGui::Checkbox("Enable mipmap when setting texture", &enable_mipmap);
+	if (ImGui::Checkbox("Enable mipmap", &enable_mipmap)) {
+		material.get_albedo_texture().set_texture(material.get_albedo_texture().get_file(), enable_mipmap);
+	}
 
 	std::string tex = material.get_albedo_texture().get_file();
 	if (ImGui::InputText("Albedo texture", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {

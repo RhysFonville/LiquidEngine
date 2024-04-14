@@ -384,7 +384,7 @@ void Renderer::compile(bool compile_components) {
 		if (compile_components)
 			scene.sky.component->compile();
 
-		//scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 	}
 
 	HPEW(command_list->Close());
