@@ -1,0 +1,50 @@
+.TH "ImPlotRect" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotRect
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "constexpr \fBImPlotRect\fP (double x_min, double x_max, double y_min, double y_max)"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const \fBImPlotPoint\fP &p) const"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (double x, double y) const"
+.br
+.ti -1c
+.RI "\fBImPlotPoint\fP \fBSize\fP () const"
+.br
+.ti -1c
+.RI "\fBImPlotPoint\fP \fBClamp\fP (const \fBImPlotPoint\fP &p)"
+.br
+.ti -1c
+.RI "\fBImPlotPoint\fP \fBClamp\fP (double x, double y)"
+.br
+.ti -1c
+.RI "\fBImPlotPoint\fP \fBMin\fP () const"
+.br
+.ti -1c
+.RI "\fBImPlotPoint\fP \fBMax\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImPlotRange\fP \fBX\fP"
+.br
+.ti -1c
+.RI "\fBImPlotRange\fP \fBY\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

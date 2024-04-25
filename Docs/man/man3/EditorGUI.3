@@ -1,0 +1,51 @@
+.TH "EditorGUI" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+EditorGUI \- ImGUI Editor GUI\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <EditorGUI\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEditorGUI\fP (\fBEditorGUI\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBEditorGUI\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (float dt, const std::vector< std::shared_ptr< \fBObject\fP > > &objects)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit_with_renderer\fP (HWND hwnd, ID3D12Device *device, int num_buffers, ID3D12DescriptorHeap *cbv_srv_heap)"
+.br
+.ti -1c
+.RI "static bool \fBcheck_input\fP (HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam)"
+.br
+.ti -1c
+.RI "static void \fBclean_up\fP ()"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBWindow\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+ImGUI Editor GUI\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

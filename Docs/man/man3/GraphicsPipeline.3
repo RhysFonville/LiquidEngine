@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -28,25 +28,21 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .RI "class \fBStreamOutput\fP"
 .br
 .RI "Stream output stage\&. "
-.ti -1c
-.RI "class \fBTesselator\fP"
-.br
-.RI "\fBTesselator\fP stage\&. "
 .in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline\fP (const ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
+.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBdraw\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
 .RI "void \fBclean_up\fP ()"
@@ -65,16 +61,13 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .RI "ComPtr< ID3D12PipelineState > \fBpipeline_state_object\fP = nullptr"
 .br
 .ti -1c
-.RI "bool \fBcompilation_signal\fP = true"
-.br
-.ti -1c
 .RI "std::vector< D3D12_INPUT_ELEMENT_DESC > \fBinput_layout\fP"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::InputAssembler\fP \fBinput_assembler\fP"
 .br
 .ti -1c
-.RI "std::string \fBvs\fP {'DefaultVertex\&.hlsl'}"
+.RI "std::string \fBvs\fP {'Graphics/DefaultVertex\&.hlsl'}"
 .br
 .ti -1c
 .RI "std::string \fBhs\fP {}"
@@ -86,10 +79,7 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .RI "std::string \fBgs\fP {}"
 .br
 .ti -1c
-.RI "std::string \fBps\fP {'LitPixel\&.hlsl'}"
-.br
-.ti -1c
-.RI "class \fBGraphicsPipeline::Tesselator\fP \fBtesselator\fP"
+.RI "std::string \fBps\fP {'Graphics/LitPixel\&.hlsl'}"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::Rasterizer\fP \fBrasterizer\fP"
@@ -99,13 +89,6 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::RootSignature\fP \fBroot_signature\fP"
-.br
-.in -1c
-.SS "Static Public Attributes"
-
-.in +1c
-.ti -1c
-.RI "static constexpr UINT \fBNUMBER_OF_BUFFERS\fP = 3u"
 .br
 .in -1c
 .SH "Detailed Description"

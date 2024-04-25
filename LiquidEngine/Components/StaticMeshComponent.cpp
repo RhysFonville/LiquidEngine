@@ -1,15 +1,14 @@
 #include "StaticMeshComponent.h"
 
 StaticMeshComponent::StaticMeshComponent(Mesh mesh)
-	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) {
-
-	material.pipeline.input_assembler.set_proxy(proxy);
-}
+	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) { }
 
 void StaticMeshComponent::compile() noexcept {
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
+
 	material.compile();
+	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
 void StaticMeshComponent::clean_up() {
@@ -24,6 +23,7 @@ void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh = mesh;
 	this->mesh.compile();
 
+	this->material.pipeline.input_assembler.set_proxy(proxy);
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 
@@ -36,7 +36,7 @@ Material & StaticMeshComponent::get_material() noexcept {
 
 void StaticMeshComponent::set_material(const Material &material) noexcept {
 	this->material = material;
-	this->material.pipeline.input_assembler.set_proxy(proxy);
+
 	proxy->remove_all_meshes();
 	proxy->add_mesh(mesh);
 
@@ -52,16 +52,19 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 	mesh = component.mesh;
 }
 
-static bool enable_mipmap{true};
 void StaticMeshComponent::render_editor_gui_section() {
 	std::string mesh{};
 	if (ImGui::InputText("Mesh", &mesh, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		this->mesh.set_vertices(mesh);
+		if (fs::exists(mesh))
+			this->set_mesh(Mesh{mesh});
 	}
 
 	ImGui::Text("Material");
 
-	ImGui::Checkbox("Enable mipmap when setting texture", &enable_mipmap);
+	static bool enable_mipmap{true};
+	if (ImGui::Checkbox("Enable mipmap", &enable_mipmap)) {
+		material.get_albedo_texture().set_texture(material.get_albedo_texture().get_file(), enable_mipmap);
+	}
 
 	std::string tex = material.get_albedo_texture().get_file();
 	if (ImGui::InputText("Albedo texture", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {

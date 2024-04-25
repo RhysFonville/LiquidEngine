@@ -59,5 +59,5 @@ private:
 	Color albedo{100, 100, 100, 255}; // kd
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka
-	float shininess{0.5f}; // a
+	float shininess{10.0f}; // a
 };

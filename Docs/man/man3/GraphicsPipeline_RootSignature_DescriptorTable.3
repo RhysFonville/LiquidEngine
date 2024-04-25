@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::DescriptorTable" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::DescriptorTable" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,13 +15,29 @@ Inherits \fBGraphicsPipeline::RootSignature::RootArgument\fP\&.
 
 .in +1c
 .ti -1c
-.RI "\fBDescriptorTable\fP (D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT heap_index, UINT parameter_index)"
+.RI "\fBDescriptorTable\fP (D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP (D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index)"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBDescriptorTable\fP &descriptor_table) const noexcept"
+.br
+.ti -1c
+.RI "const D3D12_ROOT_DESCRIPTOR_TABLE & \fBget_table\fP () const noexcept"
+.br
+.ti -1c
+.RI "const std::vector< CD3DX12_DESCRIPTOR_RANGE > & \fBget_ranges\fP () const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsPipeline::RootSignature::RootArgument\fP
+.in +1c
+.ti -1c
+.RI "\fBRootArgument\fP (UINT parameter_index)"
+.br
+.ti -1c
+.RI "UINT \fBget_parameter_index\fP ()"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -36,7 +52,7 @@ Protected Attributes inherited from \fBGraphicsPipeline::RootSignature::RootArgu
 .RI "std::vector< D3D12_ROOT_PARAMETER > \fBroot_parameters\fP = { }"
 .br
 .ti -1c
-.RI "UINT \fBparameter_index\fP = 0u"
+.RI "UINT \fBparameter_index\fP {(UINT)\-1}"
 .br
 .in -1c
 .SH "Detailed Description"

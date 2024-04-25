@@ -9,17 +9,9 @@
 #include "GraphicsPipelineMeshChange.h"
 #include "ResourceManager.h"
 #include "ShaderStorage.h"
-#include "GraphicsDescriptorHeaps.h"
+#include "Renderer/GraphicsDescriptorHeaps.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
-
-struct alignas(16) GenerateMipsCB {
-	UINT src_mip_level; // Texture level of source mip
-	UINT num_mip_levels; // Number of OutMips to write: [1-4]
-	UINT src_dimension; // Width and height of the source texture are even or odd.
-	bool is_srgb; // Must apply gamma correction to sRGB textures.
-	FVector2 texel_size; // 1.0 / OutMip1.Dimensions
-};
 
 /**
 * D3D12 graphics pipeline wrapper.
@@ -27,31 +19,36 @@ struct alignas(16) GenerateMipsCB {
 class GraphicsPipeline {
 public:
 	GraphicsPipeline() { }
-	GraphicsPipeline(const ComPtr<ID3D12Device> &device,
-		const DXGI_SAMPLE_DESC &sample_desc,
-		const UVector2 &resolution);
 
-	void update(const ComPtr<ID3D12Device> &device,
+	void check_for_update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		int frame_index, GraphicsDescriptorHeaps &descriptor_heap);
+		const DXGI_SAMPLE_DESC &sample_desc,
+		const D3D12_BLEND_DESC &blend_desc, int frame_index,
+		GraphicsDescriptorHeaps &descriptor_heaps);
 
 	void run(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		const DXGI_SAMPLE_DESC &sample_desc,
+		const D3D12_BLEND_DESC &blend_desc, int frame_index,
+		GraphicsDescriptorHeaps &descriptor_heaps);
+	
+	void draw(const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
 	void compile(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc,
-		const D3D12_BLEND_DESC &blend, const UVector2 &resolution,
+		const D3D12_BLEND_DESC &blend,
 		GraphicsDescriptorHeaps &descriptor_heaps);
+
+	void compile() { compile_signal = true; }
 
 	void clean_up();
 
 	bool operator==(const GraphicsPipeline &pipeline) const noexcept;
-	void operator=(const GraphicsPipeline &pipeline) noexcept;
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
+
+	bool compile_signal = true;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -59,6 +56,8 @@ public:
 		{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
 		{ "TANGENT",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
 	};
+
+	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 
 	/**
 	 * Uploads mesh data.
@@ -73,7 +72,10 @@ public:
 		void remove_mesh(size_t index);
 		void remove_all_meshes();
 
-		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+		void run(const ComPtr<ID3D12GraphicsCommandList> &command_list);
+
+		void clean_up();
 
 		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChange::Manager> &change_manager) {
 			this->change_manager = change_manager;
@@ -115,41 +117,9 @@ public:
 	class Rasterizer {
 	public:
 		Rasterizer() { }
-		Rasterizer(const UVector2 &resolution) {
-			compile(resolution);
-		}
-
-		void set_viewing_settings(const UVector2 &resolution) {
-			// Fill out the Viewport
-			viewport.TopLeftX = 0;
-			viewport.TopLeftY = 0;
-			viewport.Width = (float)resolution.x;
-			viewport.Height = (float)resolution.y;
-			viewport.MinDepth = 0.0f;
-			viewport.MaxDepth = 1.0f;
-
-			// Fill out a scissor rect
-			scissor_rect.left = 0;
-			scissor_rect.top = 0;
-			scissor_rect.right = resolution.x;
-			scissor_rect.bottom = resolution.y;
-		}
-		
-		void compile(const UVector2 &resolution) {
-			set_viewing_settings(resolution);
-		}
-
-		void update(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-			command_list->RSSetViewports(1, &viewport); // set the viewports
-			command_list->RSSetScissorRects(1, &scissor_rect); // set the scissor rects
-		}
 
 		bool operator==(const Rasterizer &rasterizer) const noexcept {
-			return (
-				viewport == rasterizer.viewport &&
-				//scissor_rect == rasterizer.scissor_rect &&
-				desc == rasterizer.desc
-			);
+			return (desc == rasterizer.desc);
 		}
 
 		void set_desc(const D3D12_RASTERIZER_DESC &desc) noexcept {
@@ -160,9 +130,6 @@ public:
 			return desc;
 		}
 
-		D3D12_VIEWPORT viewport = { }; // area that output from rasterizer will be stretched to.
-		D3D12_RECT scissor_rect = { }; // the area to draw in. pixels outside that area will not be drawn onto
-	
 	private:
 		friend GraphicsPipeline;
 
@@ -252,7 +219,7 @@ public:
 		*/
 		class RootConstants : public RootArgument {
 		public:
-			RootConstants() { }
+			RootConstants() : RootArgument{} { }
 
 			template <typename T>
 			RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
@@ -296,98 +263,88 @@ public:
 		};
 
 		/**
+		 * Root objects with descriptor tables.
+		 * 
+		 * For constant buffers and shader resource views.
+		 * 
+		 * \see ConstantBuffer
+		 * \see ShaderResourceView
+		 */
+		class DescriptorRootObject {
+		public:
+			DescriptorRootObject() { }
+
+			virtual void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+			void clean_up();
+			
+			virtual void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+
+			/** Returns true if object is eligible for resource creation. */
+			virtual bool valid() { return heap_index != (UINT)-1; };
+
+			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
+			
+			bool compile_signal{false};
+
+		protected:
+			UINT heap_index{(UINT)-1};
+
+			ComPtr<ID3D12Resource> default_heap{nullptr};
+		};
+
+		/**
 		* Constant buffer.
 		*/
-		class ConstantBuffer {
+		class ConstantBuffer : public DescriptorRootObject {
 		public:
-			ConstantBuffer() { }
+			ConstantBuffer() : DescriptorRootObject{} { }
 
 			template <typename T>
 			ConstantBuffer(T &cb, std::string name = "")
 				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
-				name(name.empty() ? typeid(T).name() : name) { }
+				name(name.empty() ? typeid(T).name() : name), DescriptorRootObject{} { }
 
-			/*ConstantBuffer(const ConstantBuffer &cb) {
-				obj = cb.obj;
-				obj_size = cb.obj_size;
-
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					gpu_addresses[i] = cb.gpu_addresses[i];
-				}
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					upload_heaps[i] = cb.upload_heaps[i];
-				}
-			}*/
-
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
-				if (heap_index == (UINT)-1) {
-					heap_index = descriptor_heaps.get_next_heap_index();
-					descriptor_table->heap_index = heap_index;
-					descriptor_heaps.increment_heap_index();
-				}
-				
-				auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-				auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
-				HPEW(device->CreateCommittedResource(
-					&props,
-					D3D12_HEAP_FLAG_NONE,
-					&buf,
-					D3D12_RESOURCE_STATE_COPY_DEST,
-					nullptr,
-					IID_PPV_ARGS(&default_heap)
-				));
-				HPEW(default_heap->SetName(L"CB default heap"));
-				
-				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-					descriptor_heaps.create_cbv(device, default_heap, obj_size, i, heap_index);
-				}
-
-				update(device, command_list);
-			}
-
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void compile() { compile_signal = true; }
+			
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+			
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+
+			bool valid() override { return (DescriptorRootObject::valid() && obj_size != 0); }
 
 			bool operator==(const ConstantBuffer &cb) const noexcept;
 
+			mutable std::string name{};
+			
+			bool update_signal{false};
+
 			void* obj = nullptr;
 			size_t obj_size = 0u;
-
-			UINT heap_index{(UINT)-1};
-
-			mutable std::string name = "";
-
-			bool update_signal = true;
-
-			ComPtr<ID3D12Resource> default_heap{nullptr};
-
-			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
 		* Shader resource view. Used for uploading texture data.
 		*/
-		class ShaderResourceView {
+		class ShaderResourceView : public DescriptorRootObject {
 		public:
-			ShaderResourceView() { }
+			ShaderResourceView() : DescriptorRootObject() { }
 			ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
 			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
 			void compile() { compile_signal = true; }
 
-			ComPtr<ID3D12Resource> default_heap{nullptr};
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			
+			bool valid() override { return (DescriptorRootObject::valid() && heap_desc.Width != 0 && heap_desc.Height != 0); }
+
 			D3D12_RESOURCE_DESC heap_desc{};
 
 			std::vector<D3D12_SUBRESOURCE_DATA> subresources{};
 
 			D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc{};
-
-			UINT heap_index{(UINT)-1};
-
-			bool compile_signal{false};
-
-			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 		};
 
 		/**
@@ -402,6 +359,10 @@ public:
 			ConstantBufferContainer(const T &obj)
 				: obj(std::make_shared<T>(obj)) {
 				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+			}
+
+			void clean_up() {
+				obj.reset();
 			}
 
 			void update() { cb.update_signal = true; }
@@ -428,6 +389,10 @@ public:
 				rc.set_obj<T>(this->obj.get());
 			}
 
+			void clean_up() {
+				obj.reset();
+			}
+
 			std::shared_ptr<T> obj = { };
 			GraphicsPipeline::RootSignature::RootConstants rc;
 		};
@@ -435,8 +400,12 @@ public:
 		RootSignature() { }
 
 		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+		
+		void clean_up();
 
-		void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+		
+		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 		
@@ -488,6 +457,8 @@ public:
 			bind_constant_buffer(cb.cb, shader);
 		}
 
+		void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps);
+
 		const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
 		const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
 		const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
@@ -495,9 +466,9 @@ public:
 		const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
 		const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
 
-		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
-
 	private:
+		friend GraphicsPipeline;
+
 		std::vector<std::shared_ptr<DescriptorTable>> descriptor_tables = { };
 
 		std::vector<ConstantBuffer*> constant_buffers = { };
@@ -507,5 +478,7 @@ public:
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 
 		std::vector<D3D12_ROOT_PARAMETER> compilation_params = { };
+
+		ComPtr<ID3D12RootSignature> signature = nullptr; // Root signature defines data shaders will access
 	} root_signature;
 };

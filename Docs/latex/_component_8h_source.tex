@@ -6,48 +6,55 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Controllable.h"{}}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_controllable}{Controllable}}\ \{}
-\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
-\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ None,}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}},}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_camera_component}{CameraComponent}},}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_directional_light_component}{DirectionalLightComponent}},}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point_light_component}{PointLightComponent}},}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_spotlight_component}{SpotlightComponent}},}
-\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_box_component}{BoxComponent}},}
-\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sky_component}{SkyComponent}}}
-\DoxyCodeLine{00020\ \ \ \ \ \};}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}()\ :\ type(Type::None)\ \{\ \}}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}(\textcolor{keyword}{const}\ Type\ \&type);}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_position(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_rotation(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ translate(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ rotate(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_position()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_rotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_transform(\mbox{\hyperlink{struct_transform}{Transform}}\ transform)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{struct_transform}{Transform}}\ get\_transform()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ GET\ Type\ get\_type()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../imgui/imgui.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_controllable}{Controllable}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ None,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}},}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_camera_component}{CameraComponent}},}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_directional_light_component}{DirectionalLightComponent}},}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point_light_component}{PointLightComponent}},}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_spotlight_component}{SpotlightComponent}},}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_box_component}{BoxComponent}},}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sky_component}{SkyComponent}},}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ MaterialComponent}
+\DoxyCodeLine{00022\ \ \ \ \ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}()\ :\ type(Type::None)\ \{\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}(\textcolor{keyword}{const}\ Type\ \&type);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_position(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_rotation(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ translate(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ rotate(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ size(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_position()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_rotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_transform(\mbox{\hyperlink{struct_transform}{Transform}}\ transform)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ GET\ \mbox{\hyperlink{struct_transform}{Transform}}\ get\_transform()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_component}{Component}}\ \&component)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_component}{Component}}\ \&component)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ parent\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00042\ \ \ \ \ GET\ Type\ get\_type()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_component}{Component}}\ \&component)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_component}{Component}}\ \&component)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform;}
-\DoxyCodeLine{00049\ \ \ \ \ Type\ type\ =\ Type::None;}
-\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ parent\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_render\_editor\_gui\_section();}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ render\_editor\_gui\_section();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform;}
+\DoxyCodeLine{00056\ \ \ \ \ Type\ type\ =\ Type::None;}
+\DoxyCodeLine{00057\ \};}
 
 \end{DoxyCode}

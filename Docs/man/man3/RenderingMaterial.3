@@ -1,0 +1,78 @@
+.TH "RenderingMaterial" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RenderingMaterial \- Graphics-side material\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsScene\&.h>\fP
+.PP
+Inherits \fBRenderingComponent< Material >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRenderingMaterial\fP (\fBMaterial\fP *mat)"
+.br
+.ti -1c
+.RI "bool \fBupdate\fP ()"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBRenderingComponent< Material >\fP
+.in +1c
+.ti -1c
+.RI "\fBRenderingComponent\fP (T *component)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (T component)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRenderingTexture\fP \fBalbedo_texture\fP {}"
+.br
+.ti -1c
+.RI "\fBRenderingTexture\fP \fBnormal_map\fP {}"
+.br
+.ti -1c
+.RI "\fBRenderingTexture\fP \fBenvironment_texture\fP {}"
+.br
+.ti -1c
+.RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSMaterialCB > \fBmaterial_data\fP = PSMaterialCB{}"
+.br
+.in -1c
+
+Public Attributes inherited from \fBRenderingComponent< Material >\fP
+.in +1c
+.ti -1c
+.RI "T * \fBcomponent\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Graphics-side material\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBMaterial\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

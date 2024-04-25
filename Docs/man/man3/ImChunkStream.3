@@ -1,0 +1,56 @@
+.TH "ImChunkStream< T >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImChunkStream< T >
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBempty\fP () const"
+.br
+.ti -1c
+.RI "int \fBsize\fP () const"
+.br
+.ti -1c
+.RI "T * \fBalloc_chunk\fP (size_t sz)"
+.br
+.ti -1c
+.RI "T * \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "T * \fBnext_chunk\fP (T *p)"
+.br
+.ti -1c
+.RI "int \fBchunk_size\fP (const T *p)"
+.br
+.ti -1c
+.RI "T * \fBend\fP ()"
+.br
+.ti -1c
+.RI "int \fBoffset_from_ptr\fP (const T *p)"
+.br
+.ti -1c
+.RI "T * \fBptr_from_offset\fP (int off)"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBImChunkStream\fP< T > &rhs)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< char > \fBBuf\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

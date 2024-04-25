@@ -71,7 +71,7 @@
     <ClInclude Include="Graphics\GraphicsPipelineMeshChange.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderer.h">
+    <ClInclude Include="Graphics\Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Material.h">
@@ -191,7 +191,7 @@
     <ClInclude Include="imgui\imgui_impl_win32.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsDescriptorHeaps.h">
+    <ClInclude Include="Graphics\Renderer\GraphicsDescriptorHeaps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="implot\implot.h">
@@ -202,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderer\GraphicsAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -256,7 +262,7 @@
     <ClCompile Include="Graphics\GraphicsPipelineMeshChange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderer.cpp">
+    <ClCompile Include="Graphics\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Material.cpp">
@@ -337,7 +343,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicsDescriptorHeaps.cpp">
+    <ClCompile Include="Graphics\Renderer\GraphicsDescriptorHeaps.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="implot\implot.cpp">
@@ -351,6 +357,12 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_stdlib.cpp">
       <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderer\GraphicsAdapter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,63 @@
+.TH "MyDocument" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MyDocument
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMyDocument\fP (const char *name, bool open=true, const \fBImVec4\fP &color=\fBImVec4\fP(1\&.0f, 1\&.0f, 1\&.0f, 1\&.0f))"
+.br
+.ti -1c
+.RI "void \fBDoOpen\fP ()"
+.br
+.ti -1c
+.RI "void \fBDoQueueClose\fP ()"
+.br
+.ti -1c
+.RI "void \fBDoForceClose\fP ()"
+.br
+.ti -1c
+.RI "void \fBDoSave\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBDisplayContents\fP (\fBMyDocument\fP *doc)"
+.br
+.ti -1c
+.RI "static void \fBDisplayContextMenu\fP (\fBMyDocument\fP *doc)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBName\fP"
+.br
+.ti -1c
+.RI "bool \fBOpen\fP"
+.br
+.ti -1c
+.RI "bool \fBOpenPrev\fP"
+.br
+.ti -1c
+.RI "bool \fBDirty\fP"
+.br
+.ti -1c
+.RI "bool \fBWantClose\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBColor\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

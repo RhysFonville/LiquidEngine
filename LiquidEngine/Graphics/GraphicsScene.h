@@ -75,6 +75,10 @@ public:
 		return false;
 	}
 
+	void compile() {
+		component->has_changed(true);
+	}
+
 	bool operator==(DirectionalLightComponent component) { return (component == *(this->component)); }
 
 	RenderingDirectionalLightData data{};
@@ -120,6 +124,10 @@ public:
 		return false;
 	}
 
+	void compile() {
+		component->has_changed(true);
+	}
+
 	bool operator==(PointLightComponent component) { return (component == *(this->component)); }
 
 	RenderingPointLightData data{};
@@ -158,6 +166,10 @@ public:
 			return true;
 		}
 		return false;
+	}
+
+	void compile() {
+		component->has_changed(true);
 	}
 
 	bool operator==(SpotlightComponent component) { return (component == *(this->component)); }
@@ -248,6 +260,17 @@ public:
 		return false;
 	}
 
+	void compile() {
+		component->has_changed(true);
+		wvp_data = VSWVPConstants{};
+		pos_data = PSCameraConstants{};
+	}
+
+	void clean_up() {
+		wvp_data.clean_up();
+		pos_data.clean_up();
+	}
+
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
@@ -261,23 +284,27 @@ public:
 class RenderingTexture : public RenderingComponent<Texture> {
 public:
 	RenderingTexture() { }
-	RenderingTexture(Texture* texture) : RenderingComponent{texture} {
-		if (texture->exists()) {
-			srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>
-				(GraphicsPipeline::RootSignature::ShaderResourceView{component->get_mip_chain()});
-			//srv->compile();
-		}
-	}
+	RenderingTexture(Texture* texture) : RenderingComponent{texture} { }
 
 	bool update() {
 		if (component->has_changed()) {
-			if (component->exists()) {
-				srv->update_descs(component->get_mip_chain());
-				srv->compile();
-			}
+			compile();
+
+			component->has_changed(false);
 			return true;
 		}
 		return false;
+	}
+
+	void compile() {
+		if (component->exists()) {
+			srv->update_descs(component->get_mip_chain());
+			srv->compile();
+		}
+	}
+
+	void clean_up() {
+		srv.reset();
 	}
 
 	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>()};
@@ -291,13 +318,7 @@ class RenderingSky : public RenderingComponent<SkyComponent> {
 public:
 	RenderingSky() { }
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky},
-		texture{&sky->get_albedo_texture()} {
-
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
+		texture{&sky->get_albedo_texture()} { }
 
 	bool update(const RenderingCamera &camera) {
 		bool ret{false};
@@ -314,9 +335,31 @@ public:
 			data.update();
 
 			component->has_changed(false);
-			texture.component->has_changed(false);
 		}
 		return ret;
+	}
+
+	void compile() {
+		component->has_changed(true);
+		texture.compile();
+		wvp_data = VSWVPConstants{};
+		transform_data = VSTransformConstants{};
+		data = PSSkyCB{};
+
+		component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(data, D3D12_SHADER_VISIBILITY_PIXEL);
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+	}
+
+	void clean_up() {
+		texture.clean_up();
+		wvp_data.clean_up();
+		transform_data.clean_up();
+		data.clean_up();
 	}
 
 	bool operator==(SkyComponent component) { return (component == *(this->component)); }
@@ -338,21 +381,7 @@ public:
 	RenderingMaterial(Material* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
 		normal_map{RenderingTexture{&mat->get_normal_map()}},
-		environment_texture{RenderingTexture{&mat->get_environment_texture()}} {
-
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*albedo_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*normal_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			*environment_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-	}
+		environment_texture{RenderingTexture{&mat->get_environment_texture()}} { }
 
 	bool update() {
 		bool ret{false};
@@ -365,12 +394,41 @@ public:
 			material_data.update();
 
 			component->has_changed(false);
-			albedo_texture.component->has_changed(false);
-			normal_map.component->has_changed(false);
-			environment_texture.component->has_changed(false);
 			return true;
 		}
 		return ret;
+	}
+
+	void compile() {
+		albedo_texture.compile();
+		normal_map.compile();
+		environment_texture.compile();
+		material_data = PSMaterialCB{};
+
+		component->has_changed(true);
+
+		component->pipeline.root_signature.bind_constant_buffer(material_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*albedo_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*normal_map.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+		component->pipeline.root_signature.bind_shader_resource_view(
+			*environment_texture.srv,
+			D3D12_SHADER_VISIBILITY_PIXEL
+		);
+
+		component->pipeline.compile();
+	}
+
+	void clean_up() {
+		material_data.clean_up();
+		albedo_texture.clean_up();
+		normal_map.clean_up();
+		environment_texture.clean_up();
 	}
 
 	RenderingTexture albedo_texture{};
@@ -420,14 +478,38 @@ public:
 		}
 
 		lights_data.update();
+
+		update_lights_signal = false;
+	}
+
+	void compile(RenderingCamera &camera) {
+		component->has_changed(true);
+		lights_data = PSLightsCB{};
+		transform_data = VSTransformConstants{};
+
+		material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		material.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		
+		material.component->pipeline.root_signature.bind_constant_buffer(lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
+		material.component->pipeline.root_signature.bind_root_constants(camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
+		
+		material.compile();
+	}
+
+	void clean_up() {
+		lights_data.clean_up();
+		transform_data.clean_up();
+		material.clean_up();
 	}
 
 	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
 
 	RenderingMaterial material{};
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data = PSLightsCB{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data = VSTransformConstants{};
+	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data{PSLightsCB{}};
+	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{VSTransformConstants{}};
+
+	bool update_lights_signal = false;
 };
 
 /**
@@ -449,16 +531,25 @@ public:
 	void add_component(const T *component) {
 		if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
+			camera.compile();
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
 			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
+			directional_lights.back().compile();
 		} else if (component->get_type() == Component::Type::PointLightComponent) {
 			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
+			point_lights.back().compile();
 		} else if (component->get_type() == Component::Type::SpotlightComponent) {
 			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
+			spotlights.back().compile();
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
-			static_meshes.push_back(RenderingStaticMesh{(StaticMeshComponent*)component});
+			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
+			if (camera.component != nullptr) {
+				static_meshes.back()->compile(camera);
+				static_meshes.back()->update_lights_signal = true;
+			}
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
+			sky.compile();
 		}
 	}
 
@@ -486,29 +577,24 @@ public:
 	}
 
 	void compile() {
-		camera.component->has_changed(true);
+		camera.compile();
 
 		if (sky.component != nullptr) {
-			sky.component->has_changed(true);
-			sky.texture.component->has_changed(true);
+			sky.compile();
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			dl.component->has_changed(true);
+			dl.compile();
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			pl.component->has_changed(true);
+			pl.compile();
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			sl.component->has_changed(true);
+			sl.compile();
 		}
 
-		for (RenderingStaticMesh &mesh : static_meshes) {
-			mesh.component->has_changed(true);
-			mesh.material.component->has_changed(true);
-			mesh.material.albedo_texture.component->has_changed(true);
-			mesh.material.normal_map.component->has_changed(true);
-			mesh.material.environment_texture.component->has_changed(true);
+		for (auto &mesh : static_meshes) {
+			mesh->compile(camera);
 		}
 	}
 
@@ -534,9 +620,9 @@ public:
 			if (!light_update) light_update = sl.update();
 		}
 
-		for (RenderingStaticMesh &mesh : static_meshes) {
-			mesh.update();
-			if (light_update) mesh.update_lights(directional_lights, point_lights, spotlights);
+		for (auto &mesh : static_meshes) {
+			mesh->update();
+			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
 
 		camera.component->has_changed(false);
@@ -547,7 +633,7 @@ public:
 private:
 	friend class Renderer;
 
-	std::vector<RenderingStaticMesh> static_meshes = { };
+	std::vector<std::shared_ptr<RenderingStaticMesh>> static_meshes = { };
 	std::vector<RenderingDirectionalLight> directional_lights = { };
 	std::vector<RenderingPointLight> point_lights = { };
 	std::vector<RenderingSpotlight> spotlights = { };

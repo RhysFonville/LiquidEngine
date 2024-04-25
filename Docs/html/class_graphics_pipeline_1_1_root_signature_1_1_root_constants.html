@@ -97,9 +97,6 @@ Inheritance diagram for GraphicsPipeline::RootSignature::RootConstants:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc0847443556774b284099b7b4b321b4"><td class="memItemLeft" align="right" valign="top"><a id="adc0847443556774b284099b7b4b321b4" name="adc0847443556774b284099b7b4b321b4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RootConstants</b> (UINT parameter_index)</td></tr>
-<tr class="separator:adc0847443556774b284099b7b4b321b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd5cc46f666660bb9cfdd8264993f47d"><td class="memTemplParams" colspan="2"><a id="afd5cc46f666660bb9cfdd8264993f47d" name="afd5cc46f666660bb9cfdd8264993f47d"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:afd5cc46f666660bb9cfdd8264993f47d"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>RootConstants</b> (T &amp;obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values=-1)</td></tr>
@@ -115,6 +112,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (D3D12_SH
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6fbc55b3ebbb41543a7125635076b71c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>compile</b> (T &amp;obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values=-1)</td></tr>
 <tr class="separator:a6fbc55b3ebbb41543a7125635076b71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810660e8201b39c7779ca20ad61d48f0"><td class="memItemLeft" align="right" valign="top"><a id="a810660e8201b39c7779ca20ad61d48f0" name="a810660e8201b39c7779ca20ad61d48f0"></a>
+const D3D12_ROOT_CONSTANTS &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_constants</b> () const noexcept</td></tr>
+<tr class="separator:a810660e8201b39c7779ca20ad61d48f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_argument.html">GraphicsPipeline::RootSignature::RootArgument</a></td></tr>
+<tr class="memitem:a342172fbac6859051b0d974c8c023f32 inherit pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memItemLeft" align="right" valign="top"><a id="a342172fbac6859051b0d974c8c023f32" name="a342172fbac6859051b0d974c8c023f32"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RootArgument</b> (UINT parameter_index)</td></tr>
+<tr class="separator:a342172fbac6859051b0d974c8c023f32 inherit pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5b5303045864e1db0bc28ce59e69d8 inherit pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memItemLeft" align="right" valign="top"><a id="a5a5b5303045864e1db0bc28ce59e69d8" name="a5a5b5303045864e1db0bc28ce59e69d8"></a>
+UINT&#160;</td><td class="memItemRight" valign="bottom"><b>get_parameter_index</b> ()</td></tr>
+<tr class="separator:a5a5b5303045864e1db0bc28ce59e69d8 inherit pub_methods_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -126,7 +133,7 @@ friend&#160;</td><td class="memItemRight" valign="bottom"><b>RootSignature</b></
 std::vector&lt; D3D12_ROOT_PARAMETER &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>root_parameters</b> = { }</td></tr>
 <tr class="separator:a38d158baf1c850f4a4d4d67e87d0cf3b inherit pro_attribs_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28bcdc834a5fe7ed7c7335c9d7add237 inherit pro_attribs_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memItemLeft" align="right" valign="top"><a id="a28bcdc834a5fe7ed7c7335c9d7add237" name="a28bcdc834a5fe7ed7c7335c9d7add237"></a>
-UINT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_index</b> = 0u</td></tr>
+UINT&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_index</b> {(UINT)-1}</td></tr>
 <tr class="separator:a28bcdc834a5fe7ed7c7335c9d7add237 inherit pro_attribs_class_graphics_pipeline_1_1_root_signature_1_1_root_argument"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>

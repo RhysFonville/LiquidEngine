@@ -1,4 +1,4 @@
-.TH "Texture" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Texture" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,6 +9,8 @@ Texture \- \fBTexture\fP for rendering onto objects\&.
 .PP
 .PP
 \fC#include <Texture\&.h>\fP
+.PP
+Inherits \fBGraphicsTracker\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
@@ -22,7 +24,7 @@ Texture \- \fBTexture\fP for rendering onto objects\&.
 .RI "bool \fBoperator==\fP (const \fBTexture\fP &texture) const noexcept"
 .br
 .ti -1c
-.RI "void \fBset_texture\fP (const std::string &file)"
+.RI "void \fBset_texture\fP (const std::string &file, bool enable_mipmap=true)"
 .br
 .ti -1c
 .RI "GET std::string \fBget_file\fP () const noexcept"
@@ -30,26 +32,38 @@ Texture \- \fBTexture\fP for rendering onto objects\&.
 .ti -1c
 .RI "bool \fBexists\fP () const noexcept"
 .br
+.ti -1c
+.RI "const DirectX::ScratchImage & \fBget_image\fP () const noexcept"
+.br
+.ti -1c
+.RI "const DirectX::ScratchImage & \fBget_mip_chain\fP () const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool changed) noexcept"
+.br
 .in -1c
 .SS "Static Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "static void \fBload_texture\fP (const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain)"
+.RI "static void \fBload_texture\fP (const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain, bool enable_mipmap=true)"
 .br
 .RI "Compile texture file\&. "
 .in -1c
-.SS "Public Attributes"
+.SS "Additional Inherited Members"
 
+
+Protected Attributes inherited from \fBGraphicsTracker\fP
 .in +1c
 .ti -1c
-.RI "DirectX::ScratchImage \fBimage\fP"
-.br
-.ti -1c
-.RI "DirectX::ScratchImage \fBmip_chain\fP"
-.br
-.ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::ShaderResourceView\fP \fBsrv\fP"
+.RI "bool \fBchanged\fP {false}"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -66,7 +80,7 @@ Texture \- \fBTexture\fP for rendering onto objects\&.
 
 .SH "Member Function Documentation"
 .PP 
-.SS "void Texture::load_texture (const std::string & file, DirectX::ScratchImage & image, DirectX::ScratchImage & mip_chain)\fC [static]\fP"
+.SS "void Texture::load_texture (const std::string & file, DirectX::ScratchImage & image, DirectX::ScratchImage & mip_chain, bool enable_mipmap = \fCtrue\fP)\fC [static]\fP"
 
 .PP
 Compile texture file\&. 

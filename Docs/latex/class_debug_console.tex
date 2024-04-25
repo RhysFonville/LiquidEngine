@@ -1,0 +1,104 @@
+\hypertarget{class_debug_console}{}\doxysection{Debug\+Console Class Reference}
+\label{class_debug_console}\index{DebugConsole@{DebugConsole}}
+
+
+Debug window input and output.  
+
+
+
+
+{\ttfamily \#include $<$Debug\+Console.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debug_console_a9f195cac3b4998c81eb4e55c51c8594b}\label{class_debug_console_a9f195cac3b4998c81eb4e55c51c8594b}} 
+enum class {\bfseries Color} \{ \newline
+{\bfseries BLACK} = 0
+, {\bfseries DARKBLUE} = FOREGROUND\+\_\+\+BLUE
+, {\bfseries DARKGREEN} = FOREGROUND\+\_\+\+GREEN
+, {\bfseries DARKCYAN} = FOREGROUND\+\_\+\+GREEN $\vert$ FOREGROUND\+\_\+\+BLUE
+, \newline
+{\bfseries DARKRED} = FOREGROUND\+\_\+\+RED
+, {\bfseries DARKMAGENTA} = FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+BLUE
+, {\bfseries DARKYELLOW} = FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+GREEN
+, {\bfseries DARKGRAY} = FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+GREEN $\vert$ FOREGROUND\+\_\+\+BLUE
+, \newline
+{\bfseries GRAY} = FOREGROUND\+\_\+\+INTENSITY
+, {\bfseries BLUE} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+BLUE
+, {\bfseries GREEN} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+GREEN
+, {\bfseries CYAN} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+GREEN $\vert$ FOREGROUND\+\_\+\+BLUE
+, \newline
+{\bfseries RED} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+RED
+, {\bfseries MAGENTA} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+BLUE
+, {\bfseries YELLOW} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+GREEN
+, {\bfseries WHITE} = FOREGROUND\+\_\+\+INTENSITY $\vert$ FOREGROUND\+\_\+\+RED $\vert$ FOREGROUND\+\_\+\+GREEN $\vert$ FOREGROUND\+\_\+\+BLUE
+, \newline
+{\bfseries BG\+\_\+\+NAVYBLUE} = 16
+, {\bfseries BG\+\_\+\+GREEN} = 32
+, {\bfseries BG\+\_\+\+TEAL} = 48
+, {\bfseries BG\+\_\+\+MAROON} = 64
+, \newline
+{\bfseries BG\+\_\+\+PURPLE} = 80
+, {\bfseries BG\+\_\+\+OLIVE} = 96
+, {\bfseries BG\+\_\+\+SILVER} = 112
+, {\bfseries BG\+\_\+\+GRAY} = 128
+, \newline
+{\bfseries BG\+\_\+\+BLUE} = 144
+, {\bfseries BG\+\_\+\+LIME} = 160
+, {\bfseries BG\+\_\+\+CYAN} = 176
+, {\bfseries BG\+\_\+\+RED} = 192
+, \newline
+{\bfseries BG\+\_\+\+MAGENTA} = 208
+, {\bfseries BG\+\_\+\+YELLOW} = 224
+, {\bfseries BG\+\_\+\+WHITE} = 240
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debug_console_a24ab5c38fa319c0b2c1197c07f3301bf}\label{class_debug_console_a24ab5c38fa319c0b2c1197c07f3301bf}} 
+{\bfseries Debug\+Console} (\mbox{\hyperlink{class_debug_console}{Debug\+Console}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_debug_console_af93598b8a7c9a03f987de275fa745645}\label{class_debug_console_af93598b8a7c9a03f987de275fa745645}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_debug_console}{Debug\+Console}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_debug_console_a3e79e00cc9e22c1d8737ab593dbfd323}\label{class_debug_console_a3e79e00cc9e22c1d8737ab593dbfd323}} 
+void {\bfseries destroy\+\_\+window} ()
+\item 
+\mbox{\Hypertarget{class_debug_console_aaad06088fef15b230870eaa406eef1ae}\label{class_debug_console_aaad06088fef15b230870eaa406eef1ae}} 
+\mbox{\hyperlink{class_debug_console}{Debug\+Console}} \& {\bfseries operator$<$$<$} (char out) noexcept
+\item 
+\mbox{\Hypertarget{class_debug_console_ac01ad37ac41cf610386410cc65435a1c}\label{class_debug_console_ac01ad37ac41cf610386410cc65435a1c}} 
+\mbox{\hyperlink{class_debug_console}{Debug\+Console}} \& {\bfseries operator$<$$<$} (const std\+::string \&out) noexcept
+\item 
+\mbox{\Hypertarget{class_debug_console_a9e952511ed59556f1c3b379bfb488348}\label{class_debug_console_a9e952511ed59556f1c3b379bfb488348}} 
+\mbox{\hyperlink{class_debug_console}{Debug\+Console}} \& {\bfseries operator$<$$<$} (const Color \&col) noexcept
+\item 
+\mbox{\Hypertarget{class_debug_console_a6c8a972ea1f111b8b258bd0152b9e261}\label{class_debug_console_a6c8a972ea1f111b8b258bd0152b9e261}} 
+\mbox{\hyperlink{class_debug_console}{Debug\+Console}} \& {\bfseries operator$>$$>$} (std\+::string \&in) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debug_console_a27037bbd378659a482ff1420d7bc4af9}\label{class_debug_console_a27037bbd378659a482ff1420d7bc4af9}} 
+static \mbox{\hyperlink{class_debug_console}{Debug\+Console}} $\ast$ {\bfseries get\+\_\+instance} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_debug_console_a24d9cdd9d790b9b603d633cb225abc64}\label{class_debug_console_a24d9cdd9d790b9b603d633cb225abc64}} 
+HANDLE {\bfseries std\+\_\+handle}
+\item 
+\mbox{\Hypertarget{class_debug_console_a9a2e7dab7df49a6996e379d95011ca2a}\label{class_debug_console_a9a2e7dab7df49a6996e379d95011ca2a}} 
+HWND {\bfseries hwnd}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Debug window input and output. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Debug/Debug\+Console.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Debug/Debug\+Console.\+cpp\end{DoxyCompactItemize}

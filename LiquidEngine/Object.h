@@ -96,6 +96,8 @@ public:
 		components.back()->parent = &root_component;
 	}
 
+	std::shared_ptr<Component> add_component(Component::Type type);
+
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
 
@@ -103,6 +105,8 @@ public:
 			graphics_scene->remove_component(std::static_pointer_cast<GraphicsComponent>(*(components.begin()+index)).get());
 		}
 	}
+
+	void base_render_editor_gui_section() override;
 
 	std::string name = "";
 

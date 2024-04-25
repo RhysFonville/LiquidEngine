@@ -15,18 +15,18 @@ Main class for rendering.
 \mbox{\Hypertarget{class_renderer_ac65f651c0a089838b90fd5d161bdf4f3}\label{class_renderer_ac65f651c0a089838b90fd5d161bdf4f3}} 
 {\bfseries Renderer} (HWND window)
 \item 
-\mbox{\Hypertarget{class_renderer_a5a6ec0a47df6f4d4fd898f15380162bc}\label{class_renderer_a5a6ec0a47df6f4d4fd898f15380162bc}} 
-void {\bfseries tick} ()
+\mbox{\Hypertarget{class_renderer_a9dc81236b9e647269460ac850a016cf5}\label{class_renderer_a9dc81236b9e647269460ac850a016cf5}} 
+void {\bfseries init\+\_\+renderer} (HWND window)
 \item 
-\mbox{\Hypertarget{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}\label{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}} 
-void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_renderer_af39230ac153ec5e1b0e5f078ebe351e1}\label{class_renderer_af39230ac153ec5e1b0e5f078ebe351e1}} 
-void {\bfseries update} ()
-\item 
-\mbox{\Hypertarget{class_renderer_af7e5f8f68742f198e315fb4683a605a4}\label{class_renderer_af7e5f8f68742f198e315fb4683a605a4}} 
-void {\bfseries render} ()
-\item 
+\mbox{\Hypertarget{class_renderer_af050b7268b175853339f37afbaeb425b}\label{class_renderer_af050b7268b175853339f37afbaeb425b}} 
+void {\bfseries tick} (float dt)
+\begin{DoxyCompactList}\small\item\em Calls render and present. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}{clean\+\_\+up}} ()
+\begin{DoxyCompactList}\small\item\em Releases DirectX all interfaces. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}{render}} (float dt)
+\begin{DoxyCompactList}\small\item\em Fills command list and calls pipelines. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}{present}} ()
+\begin{DoxyCompactList}\small\item\em Executes swap chain. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_renderer_a0a24e777a7f45dd989cacea5b05da242}\label{class_renderer_a0a24e777a7f45dd989cacea5b05da242}} 
 void {\bfseries increment\+\_\+fence} ()
 \item 
@@ -45,9 +45,10 @@ void {\bfseries wait\+\_\+for\+\_\+previous\+\_\+frame} ()
 \mbox{\Hypertarget{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}\label{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}} 
 void {\bfseries execute\+\_\+command\+\_\+list} ()
 \item 
-\mbox{\Hypertarget{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}\label{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}} 
-void {\bfseries compile} ()
-\item 
+void \mbox{\hyperlink{class_renderer_a44689412aa18c89509e19296d9a51e71}{compile}} (bool compile\+\_\+components=false)
+\begin{DoxyCompactList}\small\item\em Compiles scene and pipelines. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}{resize}} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&size)
+\begin{DoxyCompactList}\small\item\em Resizes swap chain, viewport/scissor rect, and depth stencil. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_renderer_aa63ddf2738980a6dd5a5689441162738}\label{class_renderer_aa63ddf2738980a6dd5a5689441162738}} 
 void {\bfseries set\+\_\+fullscreen} (bool fullscreen)
 \item 
@@ -60,14 +61,20 @@ GET bool {\bfseries is\+\_\+fullscreen} () const noexcept
 \mbox{\Hypertarget{class_renderer_a8738f6a8aacf0db702e255c55c914af4}\label{class_renderer_a8738f6a8aacf0db702e255c55c914af4}} 
 GET \mbox{\hyperlink{class_t_vector2}{UVector2}} {\bfseries get\+\_\+resolution} () const noexcept
 \item 
-\mbox{\Hypertarget{class_renderer_aba7241ab53bfa47becf0621afe484167}\label{class_renderer_aba7241ab53bfa47becf0621afe484167}} 
-void {\bfseries set\+\_\+resolution} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution, bool stretch=true)
-\begin{DoxyCompactList}\small\item\em Doesn\textquotesingle{}t work. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_renderer_ab657ef0d273d4a40a4ea4e034f2fba17}\label{class_renderer_ab657ef0d273d4a40a4ea4e034f2fba17}} 
+void {\bfseries set\+\_\+resolution} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_renderer_a744d49bd82055f784d0d4316542c1fef}\label{class_renderer_a744d49bd82055f784d0d4316542c1fef}} 
 \mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} {\bfseries scene}
+\item 
+\mbox{\Hypertarget{class_renderer_a5b7898a87fec9e10f5e083323fa22735}\label{class_renderer_a5b7898a87fec9e10f5e083323fa22735}} 
+bool {\bfseries vsync} \{false\}
+\item 
+\mbox{\Hypertarget{class_renderer_ac19def4a5c88b6532a5f0f7ab1b31f7a}\label{class_renderer_ac19def4a5c88b6532a5f0f7ab1b31f7a}} 
+bool {\bfseries restrict\+\_\+present\+\_\+to\+\_\+adapter\+\_\+output} \{false\}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -80,7 +87,82 @@ class {\bfseries Window}
 \doxysubsection{Detailed Description}
 Main class for rendering. 
 
+Holds DirectX interfaces and executes graphics pipelines \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_graphics_pipeline}{Graphics\+Pipeline}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}\label{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}} 
+\index{Renderer@{Renderer}!clean\_up@{clean\_up}}
+\index{clean\_up@{clean\_up}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
+{\footnotesize\ttfamily void Renderer\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Releases DirectX all interfaces. 
+
+Cleans graphics scene. \mbox{\Hypertarget{class_renderer_a44689412aa18c89509e19296d9a51e71}\label{class_renderer_a44689412aa18c89509e19296d9a51e71}} 
+\index{Renderer@{Renderer}!compile@{compile}}
+\index{compile@{compile}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{compile()}{compile()}}
+{\footnotesize\ttfamily void Renderer\+::compile (\begin{DoxyParamCaption}\item[{bool}]{compile\+\_\+components = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Compiles scene and pipelines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em compile\+\_\+components} & If mesh components are already compiled, keep false. Setting to true if mesh components are already compiled, it is unneccesary. You may set to true if the renderer was just cleaned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}\label{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}} 
+\index{Renderer@{Renderer}!present@{present}}
+\index{present@{present}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{present()}{present()}}
+{\footnotesize\ttfamily void Renderer\+::present (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Executes swap chain. 
+
+Presents and increments fence. \mbox{\Hypertarget{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}\label{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}} 
+\index{Renderer@{Renderer}!render@{render}}
+\index{render@{render}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Renderer\+::render (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Fills command list and calls pipelines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & Delta time. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}\label{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}} 
+\index{Renderer@{Renderer}!resize@{resize}}
+\index{resize@{resize}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily void Renderer\+::resize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&}]{size }\end{DoxyParamCaption})}
+
+
+
+Resizes swap chain, viewport/scissor rect, and depth stencil. 
+
+Automatically called when window resizes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Size of new buffer sizes. \\
+\hline
+\end{DoxyParams}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Renderer.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Renderer.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Renderer/Renderer.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Renderer/Renderer.\+cpp\end{DoxyCompactItemize}

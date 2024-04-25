@@ -1,0 +1,69 @@
+.TH "RenderingTexture" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RenderingTexture \- Graphics-side texture\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsScene\&.h>\fP
+.PP
+Inherits \fBRenderingComponent< Texture >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRenderingTexture\fP (\fBTexture\fP *texture)"
+.br
+.ti -1c
+.RI "bool \fBupdate\fP ()"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBcleam_up\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBRenderingComponent< Texture >\fP
+.in +1c
+.ti -1c
+.RI "\fBRenderingComponent\fP (T *component)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (T component)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::shared_ptr< \fBGraphicsPipeline::RootSignature::ShaderResourceView\fP > \fBsrv\fP {std::make_shared<\fBGraphicsPipeline::RootSignature::ShaderResourceView\fP>()}"
+.br
+.in -1c
+
+Public Attributes inherited from \fBRenderingComponent< Texture >\fP
+.in +1c
+.ti -1c
+.RI "T * \fBcomponent\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Graphics-side texture\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBSpotlightComponent\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

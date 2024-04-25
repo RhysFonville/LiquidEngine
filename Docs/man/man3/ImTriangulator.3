@@ -1,0 +1,66 @@
+.TH "ImTriangulator" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImTriangulator
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInit\fP (const \fBImVec2\fP *points, int points_count, void *scratch_buffer)"
+.br
+.ti -1c
+.RI "void \fBGetNextTriangle\fP (unsigned int out_triangle[3])"
+.br
+.ti -1c
+.RI "void \fBBuildNodes\fP (const \fBImVec2\fP *points, int points_count)"
+.br
+.ti -1c
+.RI "void \fBBuildReflexes\fP ()"
+.br
+.ti -1c
+.RI "void \fBBuildEars\fP ()"
+.br
+.ti -1c
+.RI "void \fBFlipNodeList\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsEar\fP (int i0, int i1, int i2, const \fBImVec2\fP &v0, const \fBImVec2\fP &v1, const \fBImVec2\fP &v2) const"
+.br
+.ti -1c
+.RI "void \fBReclassifyNode\fP (\fBImTriangulatorNode\fP *node)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBEstimateTriangleCount\fP (int points_count)"
+.br
+.ti -1c
+.RI "static int \fBEstimateScratchBufferSize\fP (int points_count)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fB_TrianglesLeft\fP = 0"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNode\fP * \fB_Nodes\fP = NULL"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNodeSpan\fP \fB_Ears\fP"
+.br
+.ti -1c
+.RI "\fBImTriangulatorNodeSpan\fP \fB_Reflexes\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

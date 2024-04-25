@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::InputAssembler" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::InputAssembler" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,7 +22,13 @@ GraphicsPipeline::InputAssembler \- Uploads mesh data\&.
 .RI "void \fBremove_all_meshes\fP ()"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.ti -1c
+.RI "void \fBrun\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
 .RI "void \fBset_proxy\fP (const std::shared_ptr< \fBGraphicsPipelineMeshChange::Manager\fP > &change_manager)"

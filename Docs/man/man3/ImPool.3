@@ -1,0 +1,74 @@
+.TH "ImPool< T >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPool< T >
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "T * \fBGetByKey\fP (ImGuiID key)"
+.br
+.ti -1c
+.RI "T * \fBGetByIndex\fP (ImPoolIdx n)"
+.br
+.ti -1c
+.RI "ImPoolIdx \fBGetIndex\fP (const T *p) const"
+.br
+.ti -1c
+.RI "T * \fBGetOrAddByKey\fP (ImGuiID key)"
+.br
+.ti -1c
+.RI "bool \fBContains\fP (const T *p) const"
+.br
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "T * \fBAdd\fP ()"
+.br
+.ti -1c
+.RI "void \fBRemove\fP (ImGuiID key, const T *p)"
+.br
+.ti -1c
+.RI "void \fBRemove\fP (ImGuiID key, ImPoolIdx idx)"
+.br
+.ti -1c
+.RI "void \fBReserve\fP (int capacity)"
+.br
+.ti -1c
+.RI "int \fBGetAliveCount\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetBufSize\fP () const"
+.br
+.ti -1c
+.RI "int \fBGetMapSize\fP () const"
+.br
+.ti -1c
+.RI "T * \fBTryGetMapData\fP (ImPoolIdx n)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< T > \fBBuf\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fBMap\fP"
+.br
+.ti -1c
+.RI "ImPoolIdx \fBFreeIdx\fP"
+.br
+.ti -1c
+.RI "ImPoolIdx \fBAliveCount\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

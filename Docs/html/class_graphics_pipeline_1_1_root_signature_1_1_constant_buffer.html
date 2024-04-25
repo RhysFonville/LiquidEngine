@@ -93,12 +93,12 @@ Public Member Functions</h2></td></tr>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a9f7f1b0bf7230651cea4b0bced109e58"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ConstantBuffer</b> (T &amp;cb, std::string name=&quot;&quot;)</td></tr>
 <tr class="separator:a9f7f1b0bf7230651cea4b0bced109e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a633ab3a8462fc97d891279a34c3c9dca"><td class="memItemLeft" align="right" valign="top"><a id="a633ab3a8462fc97d891279a34c3c9dca" name="a633ab3a8462fc97d891279a34c3c9dca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12DescriptorHeap &gt; descriptor_heaps[NUMBER_OF_BUFFERS])</td></tr>
-<tr class="separator:a633ab3a8462fc97d891279a34c3c9dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a301a09387d2e1641f69be5574885feef"><td class="memItemLeft" align="right" valign="top"><a id="a301a09387d2e1641f69be5574885feef" name="a301a09387d2e1641f69be5574885feef"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> (int frame_index) noexcept</td></tr>
-<tr class="separator:a301a09387d2e1641f69be5574885feef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4e527e2086ce95648b1b5d4eafbd63"><td class="memItemLeft" align="right" valign="top"><a id="a7e4e527e2086ce95648b1b5d4eafbd63" name="a7e4e527e2086ce95648b1b5d4eafbd63"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a7e4e527e2086ce95648b1b5d4eafbd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2331c378738f70c0e5eb1558888bd3"><td class="memItemLeft" align="right" valign="top"><a id="a0a2331c378738f70c0e5eb1558888bd3" name="a0a2331c378738f70c0e5eb1558888bd3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list)</td></tr>
+<tr class="separator:a0a2331c378738f70c0e5eb1558888bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a745e0aa03180633599830a4831cd10c1"><td class="memItemLeft" align="right" valign="top"><a id="a745e0aa03180633599830a4831cd10c1" name="a745e0aa03180633599830a4831cd10c1"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a> &amp;cb) const noexcept</td></tr>
 <tr class="separator:a745e0aa03180633599830a4831cd10c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,11 +111,8 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>obj</b> = nullptr</
 <tr class="memitem:ae62f0537b355f39ab834a97747ee0fcb"><td class="memItemLeft" align="right" valign="top"><a id="ae62f0537b355f39ab834a97747ee0fcb" name="ae62f0537b355f39ab834a97747ee0fcb"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>obj_size</b> = 0u</td></tr>
 <tr class="separator:ae62f0537b355f39ab834a97747ee0fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0bc490261a7d4dfeeb69ef434364a87"><td class="memItemLeft" align="right" valign="top"><a id="ad0bc490261a7d4dfeeb69ef434364a87" name="ad0bc490261a7d4dfeeb69ef434364a87"></a>
-UINT *&#160;</td><td class="memItemRight" valign="bottom"><b>gpu_addresses</b> [NUMBER_OF_BUFFERS] = { }</td></tr>
-<tr class="separator:ad0bc490261a7d4dfeeb69ef434364a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbc8376804abed553869bcf90933556d"><td class="memItemLeft" align="right" valign="top"><a id="acbc8376804abed553869bcf90933556d" name="acbc8376804abed553869bcf90933556d"></a>
-UINT&#160;</td><td class="memItemRight" valign="bottom"><b>heap_index</b> = 0u</td></tr>
+UINT&#160;</td><td class="memItemRight" valign="bottom"><b>heap_index</b> {(UINT)-1}</td></tr>
 <tr class="separator:acbc8376804abed553869bcf90933556d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ef4a314a9463b30439efa124e0d4a5f"><td class="memItemLeft" align="right" valign="top"><a id="a4ef4a314a9463b30439efa124e0d4a5f" name="a4ef4a314a9463b30439efa124e0d4a5f"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &quot;&quot;</td></tr>
@@ -123,6 +120,12 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &qu
 <tr class="memitem:a619b1a20ff0d657fbfb852e3a0c56cc2"><td class="memItemLeft" align="right" valign="top"><a id="a619b1a20ff0d657fbfb852e3a0c56cc2" name="a619b1a20ff0d657fbfb852e3a0c56cc2"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>update_signal</b> = true</td></tr>
 <tr class="separator:a619b1a20ff0d657fbfb852e3a0c56cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ff1168b00c3285e610f7e8b6492a6b"><td class="memItemLeft" align="right" valign="top"><a id="ab6ff1168b00c3285e610f7e8b6492a6b" name="ab6ff1168b00c3285e610f7e8b6492a6b"></a>
+ComPtr&lt; ID3D12Resource &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>default_heap</b> {nullptr}</td></tr>
+<tr class="separator:ab6ff1168b00c3285e610f7e8b6492a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2bfce51536bf54e69033e06d0ce829"><td class="memItemLeft" align="right" valign="top"><a id="a0a2bfce51536bf54e69033e06d0ce829" name="a0a2bfce51536bf54e69033e06d0ce829"></a>
+std::shared_ptr&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table.html">DescriptorTable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>descriptor_table</b> {nullptr}</td></tr>
+<tr class="separator:a0a2bfce51536bf54e69033e06d0ce829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Constant buffer. </p>

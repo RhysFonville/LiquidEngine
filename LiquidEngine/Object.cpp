@@ -174,3 +174,51 @@ bool Object::has_component(Component::Type search) const noexcept {
 	}
 	return false;
 }
+
+//std::shared_ptr<Component> add_component(Component::Type type) {
+//	int count = 0;
+//	auto comp_if = [&]<typename T>(Component::Type comp_type) {
+//		if (comp_type == type) {
+//			auto sp = std::make_shared<T>();
+//			add_component(sp);
+//			count++;
+//			return sp;
+//		} else {
+//			return nullptr;
+//		}
+//	};
+//	
+//	if (auto comp = comp_if<StaticMeshComponent>(Component::Type::StaticMeshComponent);
+//		comp != nullptr) { }
+//
+//	if (count < (int)Component::Type::EnumEnd) { }
+//}
+
+void Object::base_render_editor_gui_section() {
+	ImGui::Text("Transform");
+	float vec[3]{transform.position.x, transform.position.y, transform.position.z};
+	if (ImGui::InputFloat3("Position", vec))
+		set_position(vec);
+	vec[0] = transform.rotation.x;
+	vec[1] = transform.rotation.y;
+	vec[2] = transform.rotation.z;
+	if (ImGui::InputFloat3("Rotation", vec))
+		set_rotation(vec);
+	vec[0] = transform.size.x;
+	vec[1] = transform.size.y;
+	vec[2] = transform.size.z;
+	if (ImGui::InputFloat3("Size", vec))
+		set_size(vec);
+
+	ImGui::Text("Components");
+	int i = 0;
+	for (std::shared_ptr<Component> &component : get_all_components()) {
+		if (ImGui::TreeNode(("Component " + std::to_string(i)).c_str())) {
+			component->base_render_editor_gui_section();
+			ImGui::TreePop();
+		}
+		i++;
+	}
+
+	render_editor_gui_section();
+}

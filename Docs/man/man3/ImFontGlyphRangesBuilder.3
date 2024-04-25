@@ -1,0 +1,44 @@
+.TH "ImFontGlyphRangesBuilder" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFontGlyphRangesBuilder
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetBit\fP (size_t n) const"
+.br
+.ti -1c
+.RI "void \fBSetBit\fP (size_t n)"
+.br
+.ti -1c
+.RI "void \fBAddChar\fP (ImWchar c)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddText\fP (const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddRanges\fP (const ImWchar *ranges)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBBuildRanges\fP (\fBImVector\fP< ImWchar > *out_ranges)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< ImU32 > \fBUsedChars\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

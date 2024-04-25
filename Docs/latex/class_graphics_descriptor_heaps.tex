@@ -1,0 +1,35 @@
+\hypertarget{class_graphics_descriptor_heaps}{}\doxysection{Graphics\+Descriptor\+Heaps Class Reference}
+\label{class_graphics_descriptor_heaps}\index{GraphicsDescriptorHeaps@{GraphicsDescriptorHeaps}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_a3bd80193aae452201054870d86af68dc}\label{class_graphics_descriptor_heaps_a3bd80193aae452201054870d86af68dc}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device)
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_af8190ab45657b4cc002c5ea154821b31}\label{class_graphics_descriptor_heaps_af8190ab45657b4cc002c5ea154821b31}} 
+void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_a875a75acbfc5635abbdd7121a6f351e3}\label{class_graphics_descriptor_heaps_a875a75acbfc5635abbdd7121a6f351e3}} 
+Com\+Ptr$<$ ID3\+D12\+Descriptor\+Heap $>$ \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (UINT i)
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_a5f75522c0585ca2c9384901c964c8531}\label{class_graphics_descriptor_heaps_a5f75522c0585ca2c9384901c964c8531}} 
+UINT {\bfseries get\+\_\+open\+\_\+heap\+\_\+index} ()
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_a7de7167723f194e46c600c8fc383c272}\label{class_graphics_descriptor_heaps_a7de7167723f194e46c600c8fc383c272}} 
+void {\bfseries create\+\_\+cbv} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Resource $>$ \&upload\+\_\+buffer, size\+\_\+t obj\+\_\+size, UINT frame\+\_\+index, UINT heap\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_aaaf5a76b6101fa1f22c0e98953693c4e}\label{class_graphics_descriptor_heaps_aaaf5a76b6101fa1f22c0e98953693c4e}} 
+void {\bfseries create\+\_\+srv} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Resource $>$ \&default\+\_\+buffer, D3\+D12\+\_\+\+SHADER\+\_\+\+RESOURCE\+\_\+\+VIEW\+\_\+\+DESC srv\+\_\+desc, UINT frame\+\_\+index, UINT heap\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_a14a21d6f629922c5f659523754fbc314}\label{class_graphics_descriptor_heaps_a14a21d6f629922c5f659523754fbc314}} 
+void {\bfseries remove\+\_\+descriptor} (UINT heap\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_graphics_descriptor_heaps_afa65687f10671f48f95b60b79c3e0558}\label{class_graphics_descriptor_heaps_afa65687f10671f48f95b60b79c3e0558}} 
+void {\bfseries reserve\+\_\+descriptor\+\_\+index} (UINT heap\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Renderer/Graphics\+Descriptor\+Heaps.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Renderer/Graphics\+Descriptor\+Heaps.\+cpp\end{DoxyCompactItemize}

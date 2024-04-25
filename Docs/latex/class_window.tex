@@ -18,6 +18,9 @@ The main window for rendering.
 \mbox{\Hypertarget{class_window_a38e3819dbcab6640c33e49040717ed35}\label{class_window_a38e3819dbcab6640c33e49040717ed35}} 
 {\bfseries Window} (HINSTANCE h\+Instance, \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$graphics\+\_\+scene)
 \item 
+\mbox{\Hypertarget{class_window_a75b0a32a66c19ef02df5312f83bbfaa8}\label{class_window_a75b0a32a66c19ef02df5312f83bbfaa8}} 
+{\bfseries Window} (\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$renderer)
+\item 
 void \mbox{\hyperlink{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}{set\+\_\+up\+\_\+window}} (const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&position=\mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+\+USEDEFAULT, CW\+\_\+\+USEDEFAULT), const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&size=\mbox{\hyperlink{class_t_vector2}{Vector2}}(1200, 800), const std\+::string \&name=\char`\"{}Epic \mbox{\hyperlink{class_window}{Window}} \+:coolglasses\+:\char`\"{}, DWORD style=WS\+\_\+\+OVERLAPPEDWINDOW$\vert$WS\+\_\+\+VISIBLE, const HWND \&parent=NULL, DWORD extended\+\_\+style=NULL, HMENU menu=NULL, void $\ast$lp\+Param=NULL)
 \begin{DoxyCompactList}\small\item\em Creates and sets up the window. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_window_a2d5ea2f36a708db07539b4cff974f353}\label{class_window_a2d5ea2f36a708db07539b4cff974f353}} 
@@ -32,11 +35,8 @@ GET HWND \& {\bfseries get\+\_\+window} () noexcept
 \mbox{\Hypertarget{class_window_af45377463dafa4f89699ded01400dfbc}\label{class_window_af45377463dafa4f89699ded01400dfbc}} 
 GET HDC \& {\bfseries get\+\_\+dc} () noexcept
 \item 
-\mbox{\Hypertarget{class_window_ab86b10a183374b8f71d9c568b31ca52f}\label{class_window_ab86b10a183374b8f71d9c568b31ca52f}} 
-GET HINSTANCE \& {\bfseries get\+\_\+h\+Instance} () noexcept
-\item 
-\mbox{\Hypertarget{class_window_aa8b99818f22be3a66f023759dbc6a65a}\label{class_window_aa8b99818f22be3a66f023759dbc6a65a}} 
-GET WNDCLASSEXA \& {\bfseries get\+\_\+class} () noexcept
+\mbox{\Hypertarget{class_window_a099d44d4268f42ea72df4350ba2bc5de}\label{class_window_a099d44d4268f42ea72df4350ba2bc5de}} 
+GET WNDCLASSEXW \& {\bfseries get\+\_\+class} () noexcept
 \item 
 \mbox{\Hypertarget{class_window_aedb74b5cb7a2723bd06dcadf2cb70ff0}\label{class_window_aedb74b5cb7a2723bd06dcadf2cb70ff0}} 
 GET \mbox{\hyperlink{class_t_vector2}{UVector2}} {\bfseries get\+\_\+size} () const noexcept
@@ -55,6 +55,9 @@ void {\bfseries is\+\_\+running} (bool running) noexcept
 \item 
 \mbox{\Hypertarget{class_window_ae00eafe2c52a57e57b791eaf99612f93}\label{class_window_ae00eafe2c52a57e57b791eaf99612f93}} 
 \mbox{\hyperlink{class_renderer}{Renderer}} $\ast$ {\bfseries graphics\+\_\+scene} = nullptr
+\item 
+\mbox{\Hypertarget{class_window_aa3794f4ee8281c72536545d4dc4f3043}\label{class_window_aa3794f4ee8281c72536545d4dc4f3043}} 
+\mbox{\hyperlink{class_editor_g_u_i}{Editor\+GUI}} {\bfseries editor\+\_\+gui} \{\}
 \end{DoxyCompactItemize}
 
 

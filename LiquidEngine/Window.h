@@ -4,7 +4,7 @@
 
 #include <string>
 #include <functional>
-#include "Graphics/Renderer.h"
+#include "Graphics/Renderer/Renderer.h"
 #include "globalstructs.h"
 
 #ifndef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
@@ -48,7 +48,6 @@ public:
 
 	GET HWND & get_window() noexcept;
 	GET HDC & get_dc() noexcept;
-	GET HINSTANCE & get_hInstance() noexcept;
 	GET WNDCLASSEXW & get_class() noexcept;
 
 	GET UVector2 get_size() const noexcept;
@@ -64,7 +63,6 @@ public:
 private:
 	HWND window = NULL;
 	HDC dc = NULL;
-	HINSTANCE hInstance = GetModuleHandleA(NULL);
 	WNDCLASSEXW window_class = { };
 	
 	UVector2 size{};

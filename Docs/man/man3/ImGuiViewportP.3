@@ -1,0 +1,99 @@
+.TH "ImGuiViewportP" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiViewportP
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBImGuiViewport\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBCalcWorkRectPos\fP (const \fBImVec2\fP &off_min) const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBCalcWorkRectSize\fP (const \fBImVec2\fP &off_min, const \fBImVec2\fP &off_max) const"
+.br
+.ti -1c
+.RI "void \fBUpdateWorkRect\fP ()"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetMainRect\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetWorkRect\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBGetBuildWorkRect\fP () const"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBImGuiViewport\fP
+.in +1c
+.ti -1c
+.RI "\fBImVec2\fP \fBGetCenter\fP () const"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBGetWorkCenter\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBBgFgDrawListsLastFrame\fP [2]"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP * \fBBgFgDrawLists\fP [2]"
+.br
+.ti -1c
+.RI "\fBImDrawData\fP \fBDrawDataP\fP"
+.br
+.ti -1c
+.RI "\fBImDrawDataBuilder\fP \fBDrawDataBuilder\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkOffsetMin\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkOffsetMax\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBBuildWorkOffsetMin\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBBuildWorkOffsetMax\fP"
+.br
+.in -1c
+
+Public Attributes inherited from \fBImGuiViewport\fP
+.in +1c
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "ImGuiViewportFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWorkSize\fP"
+.br
+.ti -1c
+.RI "void * \fBPlatformHandleRaw\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,0 +1,74 @@
+.TH "ImGuiInputTextCallbackData" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiInputTextCallbackData
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "IMGUI_API void \fBDeleteChars\fP (int pos, int bytes_count)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBInsertChars\fP (int pos, const char *text, const char *text_end=NULL)"
+.br
+.ti -1c
+.RI "void \fBSelectAll\fP ()"
+.br
+.ti -1c
+.RI "void \fBClearSelection\fP ()"
+.br
+.ti -1c
+.RI "bool \fBHasSelection\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "ImGuiInputTextFlags \fBEventFlag\fP"
+.br
+.ti -1c
+.RI "ImGuiInputTextFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "ImWchar \fBEventChar\fP"
+.br
+.ti -1c
+.RI "ImGuiKey \fBEventKey\fP"
+.br
+.ti -1c
+.RI "char * \fBBuf\fP"
+.br
+.ti -1c
+.RI "int \fBBufTextLen\fP"
+.br
+.ti -1c
+.RI "int \fBBufSize\fP"
+.br
+.ti -1c
+.RI "bool \fBBufDirty\fP"
+.br
+.ti -1c
+.RI "int \fBCursorPos\fP"
+.br
+.ti -1c
+.RI "int \fBSelectionStart\fP"
+.br
+.ti -1c
+.RI "int \fBSelectionEnd\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

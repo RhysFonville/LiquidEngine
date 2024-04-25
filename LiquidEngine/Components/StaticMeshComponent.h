@@ -28,12 +28,10 @@ public:
 	static const Type component_type = Type::StaticMeshComponent;
 
 private:
-	friend class Renderer;
-
 	void render_editor_gui_section() override;
 
 	Mesh mesh;
 	Material material{};
 
-	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy = std::make_shared<GraphicsPipelineMeshChange::Manager>();
+	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy{std::make_shared<GraphicsPipelineMeshChange::Manager>()};
 };

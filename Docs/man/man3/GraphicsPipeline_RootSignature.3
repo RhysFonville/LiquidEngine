@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -45,10 +45,16 @@ GraphicsPipeline::RootSignature \- Uploads data and structures to shaders\&.
 
 .in +1c
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index)"
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.br
+.ti -1c
+.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
@@ -73,12 +79,20 @@ GraphicsPipeline::RootSignature \- Uploads data and structures to shaders\&.
 .RI "template<typename T > void \fBbind_constant_buffer\fP (\fBConstantBufferContainer\fP< T > &cb, D3D12_SHADER_VISIBILITY shader)"
 .br
 .RI "Binds a constant buffer to root signature\&. "
-.in -1c
-.SS "Public Attributes"
-
-.in +1c
 .ti -1c
-.RI "ComPtr< ID3D12RootSignature > \fBsignature\fP = nullptr"
+.RI "const std::vector< \fBConstantBuffer\fP * > & \fBget_constant_buffers\fP () const noexcept"
+.br
+.ti -1c
+.RI "const std::vector< \fBRootConstants\fP * > & \fBget_root_constants\fP () const noexcept"
+.br
+.ti -1c
+.RI "const std::vector< \fBShaderResourceView\fP * > & \fBget_shader_resource_views\fP () const noexcept"
+.br
+.ti -1c
+.RI "const std::vector< std::shared_ptr< \fBDescriptorTable\fP > > & \fBget_descriptor_tables\fP () const noexcept"
+.br
+.ti -1c
+.RI "const std::vector< D3D12_ROOT_PARAMETER > & \fBget_root_params\fP () const noexcept"
 .br
 .in -1c
 .SH "Detailed Description"

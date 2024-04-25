@@ -1,0 +1,53 @@
+.TH "ImSpanAllocator< CHUNKS >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImSpanAllocator< CHUNKS >
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBReserve\fP (int n, size_t sz, int a=4)"
+.br
+.ti -1c
+.RI "int \fBGetArenaSizeInBytes\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetArenaBasePtr\fP (void *base_ptr)"
+.br
+.ti -1c
+.RI "void * \fBGetSpanPtrBegin\fP (int n)"
+.br
+.ti -1c
+.RI "void * \fBGetSpanPtrEnd\fP (int n)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBGetSpan\fP (int n, \fBImSpan\fP< T > *span)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBBasePtr\fP"
+.br
+.ti -1c
+.RI "int \fBCurrOff\fP"
+.br
+.ti -1c
+.RI "int \fBCurrIdx\fP"
+.br
+.ti -1c
+.RI "int \fBOffsets\fP [CHUNKS]"
+.br
+.ti -1c
+.RI "int \fBSizes\fP [CHUNKS]"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

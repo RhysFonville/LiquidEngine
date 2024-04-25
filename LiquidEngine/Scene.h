@@ -30,6 +30,8 @@ public:
 
 	void remove_object(int index) noexcept;
 
+	void render_editor_gui_section();
+
 	//PhysicsScene physics_scene;
 	GraphicsScene* graphics_scene = nullptr;
 

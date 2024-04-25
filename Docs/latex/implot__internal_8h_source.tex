@@ -1,0 +1,1675 @@
+\hypertarget{implot__internal_8h_source}{}\doxysection{implot\+\_\+internal.\+h}
+\label{implot__internal_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/implot/implot\_internal.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/implot/implot\_internal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ MIT\ License}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Copyright\ (c)\ 2023\ Evan\ Pezent}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ SOFTWARE.}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ ImPlot\ v0.17}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ You\ may\ use\ this\ file\ to\ debug,\ understand\ or\ extend\ ImPlot\ features\ but\ we}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ don't\ provide\ any\ guarantee\ of\ forward\ compatibility!}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ [SECTION]\ Header\ Mess}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}imgui\_internal.h"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ IMPLOT\_VERSION}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#error\ Must\ include\ implot.h\ before\ implot\_internal.h}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ Support\ for\ pre-\/1.84\ versions.\ ImPool's\ GetSize()\ -\/>\ GetBufSize()}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ (IMGUI\_VERSION\_NUM\ <\ 18303)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ GetBufSize\ GetSize}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ [SECTION]\ Constants}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ Constants\ can\ be\ changed\ unless\ stated\ otherwise.\ We\ may\ move\ some\ of\ these}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ to\ ImPlotStyleVar\_\ over\ time.}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ Mimimum\ allowable\ timestamp\ value\ 01/01/1970\ @\ 12:00am\ (UTC)\ (DO\ NOT\ DECREASE\ THIS)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ IMPLOT\_MIN\_TIME\ \ 0}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Maximum\ allowable\ timestamp\ value\ 01/01/3000\ @\ 12:00am\ (UTC)\ (DO\ NOT\ INCREASE\ THIS)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ IMPLOT\_MAX\_TIME\ \ 32503680000}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Default\ label\ format\ for\ axis\ labels}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ IMPLOT\_LABEL\_FORMAT\ "{}\%g"{}}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ Max\ character\ size\ for\ tick\ labels}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ IMPLOT\_LABEL\_MAX\_SIZE\ 32}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ [SECTION]\ Macros}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ IMPLOT\_NUM\_X\_AXES\ ImAxis\_Y1}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ IMPLOT\_NUM\_Y\_AXES\ (ImAxis\_COUNT\ -\/\ IMPLOT\_NUM\_X\_AXES)}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Split\ ImU32\ color\ into\ RGB\ components\ [0\ 255]}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ IM\_COL32\_SPLIT\_RGB(col,r,g,b)\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ ImU32\ r\ =\ ((col\ >>\ IM\_COL32\_R\_SHIFT)\ \&\ 0xFF);\ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ ImU32\ g\ =\ ((col\ >>\ IM\_COL32\_G\_SHIFT)\ \&\ 0xFF);\ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ ImU32\ b\ =\ ((col\ >>\ IM\_COL32\_B\_SHIFT)\ \&\ 0xFF);}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ [SECTION]\ Forward\ Declarations}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}};}
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}};}
+\DoxyCodeLine{00082\ \textcolor{keyword}{struct\ }ImPlotAxisColor;}
+\DoxyCodeLine{00083\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}};}
+\DoxyCodeLine{00084\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_legend}{ImPlotLegend}};}
+\DoxyCodeLine{00085\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}};}
+\DoxyCodeLine{00086\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_next_plot_data}{ImPlotNextPlotData}};}
+\DoxyCodeLine{00087\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ [SECTION]\ Context\ Pointer}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifndef\ GImPlot}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{extern}\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ GImPlot;\ \textcolor{comment}{//\ Current\ implicit\ context\ pointer}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ [SECTION]\ Generic\ Helpers}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ Computes\ the\ common\ (base-\/10)\ logarithm}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \ ImLog10(\textcolor{keywordtype}{float}\ x)\ \ \{\ \textcolor{keywordflow}{return}\ log10f(x);\ \}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImLog10(\textcolor{keywordtype}{double}\ x)\ \{\ \textcolor{keywordflow}{return}\ log10(x);\ \ \}}
+\DoxyCodeLine{00104\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \ ImSinh(\textcolor{keywordtype}{float}\ x)\ \ \ \{\ \textcolor{keywordflow}{return}\ sinhf(x);\ \ \}}
+\DoxyCodeLine{00105\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImSinh(\textcolor{keywordtype}{double}\ x)\ \ \{\ \textcolor{keywordflow}{return}\ sinh(x);\ \ \ \}}
+\DoxyCodeLine{00106\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \ ImAsinh(\textcolor{keywordtype}{float}\ x)\ \ \{\ \textcolor{keywordflow}{return}\ asinhf(x);\ \}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImAsinh(\textcolor{keywordtype}{double}\ x)\ \{\ \textcolor{keywordflow}{return}\ asinh(x);\ \ \}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ Returns\ true\ if\ a\ flag\ is\ set}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ TSet,\ \textcolor{keyword}{typename}\ TFlag>}
+\DoxyCodeLine{00110\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ImHasFlag(TSet\ set,\ TFlag\ flag)\ \{\ \textcolor{keywordflow}{return}\ (set\ \&\ flag)\ ==\ flag;\ \}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Flips\ a\ flag\ in\ a\ flagset}}
+\DoxyCodeLine{00112\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ TSet,\ \textcolor{keyword}{typename}\ TFlag>}
+\DoxyCodeLine{00113\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ImFlipFlag(TSet\&\ set,\ TFlag\ flag)\ \{\ ImHasFlag(set,\ flag)\ ?\ set\ \&=\ \string~flag\ :\ set\ |=\ flag;\ \}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ Linearly\ remaps\ x\ from\ [x0\ x1]\ to\ [y0\ y1].}}
+\DoxyCodeLine{00115\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00116\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ T\ ImRemap(T\ x,\ T\ x0,\ T\ x1,\ T\ y0,\ T\ y1)\ \{\ \textcolor{keywordflow}{return}\ y0\ +\ (x\ -\/\ x0)\ *\ (y1\ -\/\ y0)\ /\ (x1\ -\/\ x0);\ \}}
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ Linear\ rempas\ x\ from\ [x0\ x1]\ to\ [0\ 1]}}
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00119\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ T\ ImRemap01(T\ x,\ T\ x0,\ T\ x1)\ \{\ \textcolor{keywordflow}{return}\ (x\ -\/\ x0)\ /\ (x1\ -\/\ x0);\ \}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ Returns\ always\ positive\ modulo\ (assumes\ r\ !=\ 0)}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ ImPosMod(\textcolor{keywordtype}{int}\ l,\ \textcolor{keywordtype}{int}\ r)\ \{\ \textcolor{keywordflow}{return}\ (l\ \%\ r\ +\ r)\ \%\ r;\ \}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ Returns\ true\ if\ val\ is\ NAN}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ImNan(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ isnan(val);\ \}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ Returns\ true\ if\ val\ is\ NAN\ or\ INFINITY}}
+\DoxyCodeLine{00125\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ImNanOrInf(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ !(val\ >=\ -\/DBL\_MAX\ \&\&\ val\ <=\ DBL\_MAX)\ ||\ ImNan(val);\ \}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ Turns\ NANs\ to\ 0s}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImConstrainNan(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ ImNan(val)\ ?\ 0\ :\ val;\ \}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ Turns\ infinity\ to\ floating\ point\ maximums}}
+\DoxyCodeLine{00129\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImConstrainInf(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ val\ >=\ DBL\_MAX\ ?\ \ DBL\_MAX\ :\ val\ <=\ -\/DBL\_MAX\ ?\ -\/\ DBL\_MAX\ :\ val;\ \}}
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ Turns\ numbers\ less\ than\ or\ equal\ to\ 0\ to\ 0.001\ (sort\ of\ arbitrary,\ is\ there\ a\ better\ way?)}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImConstrainLog(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ val\ <=\ 0\ ?\ 0.001f\ :\ val;\ \}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ Turns\ numbers\ less\ than\ 0\ to\ zero}}
+\DoxyCodeLine{00133\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImConstrainTime(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ val\ <\ IMPLOT\_MIN\_TIME\ ?\ IMPLOT\_MIN\_TIME\ :\ (val\ >\ IMPLOT\_MAX\_TIME\ ?\ IMPLOT\_MAX\_TIME\ :\ val);\ \}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ True\ if\ two\ numbers\ are\ approximately\ equal\ using\ units\ in\ the\ last\ place.}}
+\DoxyCodeLine{00135\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ImAlmostEqual(\textcolor{keywordtype}{double}\ v1,\ \textcolor{keywordtype}{double}\ v2,\ \textcolor{keywordtype}{int}\ ulp\ =\ 2)\ \{\ \textcolor{keywordflow}{return}\ ImAbs(v1-\/v2)\ <\ DBL\_EPSILON\ *\ ImAbs(v1+v2)\ *\ ulp\ ||\ ImAbs(v1-\/v2)\ <\ DBL\_MIN;\ \}}
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ Finds\ min\ value\ in\ an\ unsorted\ array}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00138\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ T\ ImMinArray(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count)\ \{\ T\ m\ =\ values[0];\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ count;\ ++i)\ \{\ \textcolor{keywordflow}{if}\ (values[i]\ <\ m)\ \{\ m\ =\ values[i];\ \}\ \}\ \textcolor{keywordflow}{return}\ m;\ \}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ Finds\ the\ max\ value\ in\ an\ unsorted\ array}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00141\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ T\ ImMaxArray(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count)\ \{\ T\ m\ =\ values[0];\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ count;\ ++i)\ \{\ \textcolor{keywordflow}{if}\ (values[i]\ >\ m)\ \{\ m\ =\ values[i];\ \}\ \}\ \textcolor{keywordflow}{return}\ m;\ \}}
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ Finds\ the\ min\ and\ max\ value\ in\ an\ unsorted\ array}}
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00144\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ImMinMaxArray(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ T*\ min\_out,\ T*\ max\_out)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ T\ Min\ =\ values[0];\ T\ Max\ =\ values[0];}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (values[i]\ <\ Min)\ \{\ Min\ =\ values[i];\ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (values[i]\ >\ Max)\ \{\ Max\ =\ values[i];\ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ *min\_out\ =\ Min;\ *max\_out\ =\ Max;}
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ Finds\ the\ sim\ of\ an\ array}}
+\DoxyCodeLine{00153\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00154\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ T\ ImSum(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ T\ sum\ \ =\ 0;}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ sum\ +=\ values[i];}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ Finds\ the\ mean\ of\ an\ array}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00162\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImMean(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{double}\ den\ =\ 1.0\ /\ count;}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ \ =\ 0;}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ mu\ +=\ (\textcolor{keywordtype}{double})values[i]\ *\ den;}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ mu;}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ Finds\ the\ sample\ standard\ deviation\ of\ an\ array}}
+\DoxyCodeLine{00170\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00171\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ ImStdDev(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{double}\ den\ =\ 1.0\ /\ (count\ -\/\ 1.0);}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{double}\ mu\ \ =\ ImMean(values,\ count);}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{double}\ x\ \ \ =\ 0;}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ x\ +=\ ((\textcolor{keywordtype}{double})values[i]\ -\/\ mu)\ *\ ((double)values[i]\ -\/\ mu)\ *\ den;}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{return}\ sqrt(x);}
+\DoxyCodeLine{00178\ \}}
+\DoxyCodeLine{00179\ \textcolor{comment}{//\ Mix\ color\ a\ and\ b\ by\ factor\ s\ in\ [0\ 256]}}
+\DoxyCodeLine{00180\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ ImMixU32(ImU32\ a,\ ImU32\ b,\ ImU32\ s)\ \{}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#ifdef\ IMPLOT\_MIX64}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ af\ =\ 256-\/s;}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ bf\ =\ s;}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{const}\ ImU64\ al\ =\ (a\ \&\ 0x00ff00ff)\ |\ (((ImU64)(a\ \&\ 0xff00ff00))\ <<\ 24);}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{const}\ ImU64\ bl\ =\ (b\ \&\ 0x00ff00ff)\ |\ (((ImU64)(b\ \&\ 0xff00ff00))\ <<\ 24);}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{const}\ ImU64\ mix\ =\ (al\ *\ af\ +\ bl\ *\ bf);}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ ((mix\ >>\ 32)\ \&\ 0xff00ff00)\ |\ ((mix\ \&\ 0xff00ff00)\ >>\ 8);}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ af\ =\ 256-\/s;}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ bf\ =\ s;}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ al\ =\ (a\ \&\ 0x00ff00ff);}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ ah\ =\ (a\ \&\ 0xff00ff00)\ >>\ 8;}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ bl\ =\ (b\ \&\ 0x00ff00ff);}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ bh\ =\ (b\ \&\ 0xff00ff00)\ >>\ 8;}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ ml\ =\ (al\ *\ af\ +\ bl\ *\ bf);}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ ImU32\ mh\ =\ (ah\ *\ af\ +\ bh\ *\ bf);}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{return}\ (mh\ \&\ 0xff00ff00)\ |\ ((ml\ \&\ 0xff00ff00)\ >>\ 8);}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00199\ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{//\ Lerp\ across\ an\ array\ of\ 32-\/bit\ collors\ given\ t\ in\ [0.0\ 1.0]}}
+\DoxyCodeLine{00202\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ ImLerpU32(\textcolor{keyword}{const}\ ImU32*\ colors,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{float}\ t)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{int}\ i1\ =\ (int)((size\ -\/\ 1\ )\ *\ t);}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{int}\ i2\ =\ i1\ +\ 1;}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (i2\ ==\ size\ ||\ size\ ==\ 1)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ colors[i1];}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{float}\ den\ =\ 1.0f\ /\ (size\ -\/\ 1);}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordtype}{float}\ t1\ =\ i1\ *\ den;}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{float}\ t2\ =\ i2\ *\ den;}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{float}\ tr\ =\ ImRemap01(t,\ t1,\ t2);}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{return}\ ImMixU32(colors[i1],\ colors[i2],\ (ImU32)(tr*256));}
+\DoxyCodeLine{00212\ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ Set\ alpha\ channel\ of\ 32-\/bit\ color\ from\ float\ in\ range\ [0.0\ 1.0]}}
+\DoxyCodeLine{00215\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ ImAlphaU32(ImU32\ col,\ \textcolor{keywordtype}{float}\ alpha)\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ col\ \&\ \string~((ImU32)((1.0f-\/alpha)*255)<<IM\_COL32\_A\_SHIFT);}
+\DoxyCodeLine{00217\ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{comment}{//\ Returns\ true\ of\ two\ ranges\ overlap}}
+\DoxyCodeLine{00220\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00221\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ ImOverlaps(T\ min\_a,\ T\ max\_a,\ T\ min\_b,\ T\ max\_b)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{return}\ min\_a\ <=\ max\_b\ \&\&\ min\_b\ <=\ max\_a;}
+\DoxyCodeLine{00223\ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00226\ \textcolor{comment}{//\ [SECTION]\ ImPlot\ Enums}}
+\DoxyCodeLine{00227\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotTimeUnit;\ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotTimeUnit\_}}
+\DoxyCodeLine{00230\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotDateFmt;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotDateFmt\_}}
+\DoxyCodeLine{00231\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ ImPlotTimeFmt;\ \ \ \ \ \textcolor{comment}{//\ -\/>\ enum\ ImPlotTimeFmt\_}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{enum}\ ImPlotTimeUnit\_\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ ImPlotTimeUnit\_Us,\ \ \textcolor{comment}{//\ microsecond}}
+\DoxyCodeLine{00235\ \ \ \ \ ImPlotTimeUnit\_Ms,\ \ \textcolor{comment}{//\ millisecond}}
+\DoxyCodeLine{00236\ \ \ \ \ ImPlotTimeUnit\_S,\ \ \ \textcolor{comment}{//\ second}}
+\DoxyCodeLine{00237\ \ \ \ \ ImPlotTimeUnit\_Min,\ \textcolor{comment}{//\ minute}}
+\DoxyCodeLine{00238\ \ \ \ \ ImPlotTimeUnit\_Hr,\ \ \textcolor{comment}{//\ hour}}
+\DoxyCodeLine{00239\ \ \ \ \ ImPlotTimeUnit\_Day,\ \textcolor{comment}{//\ day}}
+\DoxyCodeLine{00240\ \ \ \ \ ImPlotTimeUnit\_Mo,\ \ \textcolor{comment}{//\ month}}
+\DoxyCodeLine{00241\ \ \ \ \ ImPlotTimeUnit\_Yr,\ \ \textcolor{comment}{//\ year}}
+\DoxyCodeLine{00242\ \ \ \ \ ImPlotTimeUnit\_COUNT}
+\DoxyCodeLine{00243\ \};}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{enum}\ ImPlotDateFmt\_\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ default\ \ \ \ \ \ \ \ [\ ISO\ 8601\ \ \ \ \ ]}}
+\DoxyCodeLine{00246\ \ \ \ \ ImPlotDateFmt\_None\ =\ 0,}
+\DoxyCodeLine{00247\ \ \ \ \ ImPlotDateFmt\_DayMo,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 10/3\ \ \ \ \ \ \ \ \ \ \ [\ -\/-\/10-\/03\ \ \ \ \ \ ]}}
+\DoxyCodeLine{00248\ \ \ \ \ ImPlotDateFmt\_DayMoYr,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 10/3/91\ \ \ \ \ \ \ \ [\ 1991-\/10-\/03\ \ \ ]}}
+\DoxyCodeLine{00249\ \ \ \ \ ImPlotDateFmt\_MoYr,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Oct\ 1991\ \ \ \ \ \ \ [\ 1991-\/10\ \ \ \ \ \ ]}}
+\DoxyCodeLine{00250\ \ \ \ \ ImPlotDateFmt\_Mo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Oct\ \ \ \ \ \ \ \ \ \ \ \ [\ -\/-\/10\ \ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00251\ \ \ \ \ ImPlotDateFmt\_Yr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1991\ \ \ \ \ \ \ \ \ \ \ [\ 1991\ \ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00252\ \};}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{keyword}{enum}\ ImPlotTimeFmt\_\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ default\ \ \ \ \ \ \ \ [\ 24\ Hour\ Clock\ ]}}
+\DoxyCodeLine{00255\ \ \ \ \ ImPlotTimeFmt\_None\ =\ 0,}
+\DoxyCodeLine{00256\ \ \ \ \ ImPlotTimeFmt\_Us,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ .428\ 552\ \ \ \ \ \ \ [\ .428\ 552\ \ \ \ \ ]}}
+\DoxyCodeLine{00257\ \ \ \ \ ImPlotTimeFmt\_SUs,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ :29.428\ 552\ \ \ \ [\ :29.428\ 552\ \ ]}}
+\DoxyCodeLine{00258\ \ \ \ \ ImPlotTimeFmt\_SMs,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ :29.428\ \ \ \ \ \ \ \ [\ :29.428\ \ \ \ \ \ ]}}
+\DoxyCodeLine{00259\ \ \ \ \ ImPlotTimeFmt\_S,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ :29\ \ \ \ \ \ \ \ \ \ \ \ [\ :29\ \ \ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00260\ \ \ \ \ ImPlotTimeFmt\_MinSMs,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 21:29.428\ \ \ \ \ \ [\ 21:29.428\ \ \ \ ]}}
+\DoxyCodeLine{00261\ \ \ \ \ ImPlotTimeFmt\_HrMinSMs,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7:21:29.428pm\ \ [\ 19:21:29.428\ ]}}
+\DoxyCodeLine{00262\ \ \ \ \ ImPlotTimeFmt\_HrMinS,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7:21:29pm\ \ \ \ \ \ [\ 19:21:29\ \ \ \ \ ]}}
+\DoxyCodeLine{00263\ \ \ \ \ ImPlotTimeFmt\_HrMin,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7:21pm\ \ \ \ \ \ \ \ \ [\ 19:21\ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00264\ \ \ \ \ ImPlotTimeFmt\_Hr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7pm\ \ \ \ \ \ \ \ \ \ \ \ [\ 19:00\ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00265\ \};}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ [SECTION]\ Callbacks}}
+\DoxyCodeLine{00269\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{typedef}\ void\ (*ImPlotLocator)(\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\&\ ticker,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{float}\ pixels,\ \textcolor{keywordtype}{bool}\ vertical,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ formatter\_data);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ [SECTION]\ Structs}}
+\DoxyCodeLine{00275\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{comment}{//\ Combined\ date/time\ format\ spec}}
+\DoxyCodeLine{00278\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_date_time_spec}{ImPlotDateTimeSpec}}\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_date_time_spec}{ImPlotDateTimeSpec}}()\ \{\}}
+\DoxyCodeLine{00280\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_date_time_spec}{ImPlotDateTimeSpec}}(ImPlotDateFmt\ date\_fmt,\ ImPlotTimeFmt\ time\_fmt,\ \textcolor{keywordtype}{bool}\ use\_24\_hr\_clk\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ use\_iso\_8601\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ Date\ \ \ \ \ \ \ \ \ \ \ =\ date\_fmt;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ Time\ \ \ \ \ \ \ \ \ \ \ =\ time\_fmt;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ UseISO8601\ \ \ \ \ =\ use\_iso\_8601;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ Use24HourClock\ =\ use\_24\_hr\_clk;}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ ImPlotDateFmt\ Date;}
+\DoxyCodeLine{00287\ \ \ \ \ ImPlotTimeFmt\ Time;}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{bool}\ UseISO8601;}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordtype}{bool}\ Use24HourClock;}
+\DoxyCodeLine{00290\ \};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{//\ Two\ part\ timestamp\ struct.}}
+\DoxyCodeLine{00293\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ time\_t\ S;\ \ \textcolor{comment}{//\ second\ part}}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ Us;\ \textcolor{comment}{//\ microsecond\ part}}
+\DoxyCodeLine{00296\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}()\ \{\ S\ =\ 0;\ Us\ =\ 0;\ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}(time\_t\ s,\ \textcolor{keywordtype}{int}\ us\ =\ 0)\ \{\ S\ \ =\ s\ +\ us\ /\ 1000000;\ Us\ =\ us\ \%\ 1000000;\ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordtype}{void}\ RollOver()\ \{\ S\ \ =\ S\ +\ Us\ /\ 1000000;\ \ Us\ =\ Us\ \%\ 1000000;\ \}}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{double}\ ToDouble()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})S\ +\ (double)Us\ /\ 1000000.0;\ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ FromDouble(\textcolor{keywordtype}{double}\ t)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}((time\_t)t,\ (\textcolor{keywordtype}{int})(t\ *\ 1000000\ -\/\ floor(t)\ *\ 1000000));\ \}}
+\DoxyCodeLine{00301\ \};}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00304\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}(lhs.S\ +\ rhs.S,\ lhs.Us\ +\ rhs.Us);\ \}}
+\DoxyCodeLine{00305\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00306\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}(lhs.S\ -\/\ rhs.S,\ lhs.Us\ -\/\ rhs.Us);\ \}}
+\DoxyCodeLine{00307\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00308\ \{\ \textcolor{keywordflow}{return}\ lhs.S\ ==\ rhs.S\ \&\&\ lhs.Us\ ==\ rhs.Us;\ \}}
+\DoxyCodeLine{00309\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00310\ \{\ \textcolor{keywordflow}{return}\ lhs.S\ ==\ rhs.S\ ?\ lhs.Us\ <\ rhs.Us\ :\ lhs.S\ <\ rhs.S;\ \}}
+\DoxyCodeLine{00311\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator>(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00312\ \{\ \textcolor{keywordflow}{return}\ rhs\ <\ lhs;\ \}}
+\DoxyCodeLine{00313\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator<=(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00314\ \{\ \textcolor{keywordflow}{return}\ lhs\ <\ rhs\ ||\ lhs\ ==\ rhs;\ \}}
+\DoxyCodeLine{00315\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator>=(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ rhs)}
+\DoxyCodeLine{00316\ \{\ \textcolor{keywordflow}{return}\ lhs\ >\ rhs\ ||\ lhs\ ==\ rhs;\ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{comment}{//\ Colormap\ data\ storage}}
+\DoxyCodeLine{00319\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_colormap_data}{ImPlotColormapData}}\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImU32>}}\ Keys;}
+\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ KeyCounts;}
+\DoxyCodeLine{00322\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ KeyOffsets;}
+\DoxyCodeLine{00323\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImU32>}}\ Tables;}
+\DoxyCodeLine{00324\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ TableSizes;}
+\DoxyCodeLine{00325\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ TableOffsets;}
+\DoxyCodeLine{00326\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ Text;}
+\DoxyCodeLine{00327\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ TextOffsets;}
+\DoxyCodeLine{00328\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<bool>}}\ \ Quals;}
+\DoxyCodeLine{00329\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_storage}{ImGuiStorage}}\ \ \ \ Map;}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ Count;}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_colormap_data}{ImPlotColormapData}}()\ \{\ Count\ =\ 0;\ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordtype}{int}\ Append(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ ImU32*\ keys,\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{bool}\ qual)\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GetIndex(name)\ !=\ -\/1)}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ KeyOffsets.push\_back(Keys.size());}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ KeyCounts.push\_back(count);}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ Keys.reserve(Keys.size()+count);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ Keys.push\_back(keys[i]);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ TextOffsets.push\_back(Text.size());}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ Text.append(name,\ name\ +\ strlen(name)\ +\ 1);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ Quals.push\_back(qual);}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ ImGuiID\ \textcolor{keywordtype}{id}\ =\ ImHashStr(name);}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ Count++;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ Map.SetInt(\textcolor{keywordtype}{id},idx);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \_AppendTable(idx);}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idx;}
+\DoxyCodeLine{00350\ \ \ \ \ \}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordtype}{void}\ \_AppendTable(ImPlotColormap\ cmap)\ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ key\_count\ \ \ \ \ =\ GetKeyCount(cmap);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ImU32*\ keys\ =\ GetKeys(cmap);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ off\ =\ Tables.size();}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ TableOffsets.push\_back(off);}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsQual(cmap))\ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ Tables.reserve(key\_count);}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ key\_count;\ ++i)}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tables.push\_back(keys[i]);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ TableSizes.push\_back(key\_count);}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ max\_size\ =\ 255\ *\ (key\_count-\/1)\ +\ 1;}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ Tables.reserve(off\ +\ max\_size);}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImU32\ last\ =\ keys[0];}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tables.push\_back(last);}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int\ n\ =\ 1;}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ key\_count-\/1;\ ++i)\ \{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ s\ =\ 0;\ s\ <\ 255;\ ++s)\ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImU32\ a\ =\ keys[i];}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImU32\ b\ =\ keys[i+1];}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImU32\ c\ =\ ImMixU32(a,b,s);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (c\ !=\ last)\ \{}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tables.push\_back(c);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ last\ =\ c;}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ n++;}}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ ImU32\ c\ =\ keys[key\_count-\/1];}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (c\ !=\ last)\ \{}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tables.push\_back(c);}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ n++;}}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TableSizes.push\_back(n);}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ TableSizes.push\_back(max\_size);}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordtype}{void}\ RebuildTables()\ \{}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ Tables.resize(0);}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ TableSizes.resize(0);}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ TableOffsets.resize(0);}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Count;\ ++i)}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \_AppendTable(i);}
+\DoxyCodeLine{00397\ \ \ \ \ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ IsQual(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Quals[cmap];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \ \ \ GetName(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ cmap\ <\ Count\ ?\ Text.Buf.Data\ +\ TextOffsets[cmap]\ :\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keyword}{inline}\ ImPlotColormap\ GetIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ ImGuiID\ key\ =\ ImHashStr(name);\ \textcolor{keywordflow}{return}\ Map.GetInt(key,-\/1);\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ImU32*\ \ \ GetKeys(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \&Keys[KeyOffsets[cmap]];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ GetKeyCount(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ KeyCounts[cmap];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keyword}{inline}\ ImU32\ \ \ \ \ \ \ \ \ \ GetKeyColor(ImPlotColormap\ cmap,\ \textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Keys[KeyOffsets[cmap]+idx];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ SetKeyColor(ImPlotColormap\ cmap,\ \textcolor{keywordtype}{int}\ idx,\ ImU32\ value)\ \{\ Keys[KeyOffsets[cmap]+idx]\ =\ value;\ RebuildTables();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ ImU32*\ \ \ GetTable(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \&Tables[TableOffsets[cmap]];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ GetTableSize(ImPlotColormap\ cmap)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ TableSizes[cmap];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keyword}{inline}\ ImU32\ \ \ \ \ \ \ \ \ \ GetTableColor(ImPlotColormap\ cmap,\ \textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Tables[TableOffsets[cmap]+idx];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keyword}{inline}\ ImU32\ LerpTable(ImPlotColormap\ cmap,\ \textcolor{keywordtype}{float}\ t)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ off\ =\ TableOffsets[cmap];}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ siz\ =\ TableSizes[cmap];}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ Quals[cmap]\ ?\ ImClamp((\textcolor{keywordtype}{int})(siz*t),0,siz-\/1)\ :\ (int)((siz\ -\/\ 1)\ *\ t\ +\ 0.5f);}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Tables[off\ +\ idx];}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ \};}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{comment}{//\ ImPlotPoint\ with\ positive/negative\ error\ values}}
+\DoxyCodeLine{00421\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_point_error}{ImPlotPointError}}\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordtype}{double}\ X,\ Y,\ Neg,\ Pos;}
+\DoxyCodeLine{00423\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_point_error}{ImPlotPointError}}(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ neg,\ \textcolor{keywordtype}{double}\ pos)\ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ X\ =\ x;\ Y\ =\ y;\ Neg\ =\ neg;\ Pos\ =\ pos;}
+\DoxyCodeLine{00425\ \ \ \ \ \}}
+\DoxyCodeLine{00426\ \};}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{comment}{//\ Interior\ plot\ label/annotation}}
+\DoxyCodeLine{00429\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_annotation}{ImPlotAnnotation}}\ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ Pos;}
+\DoxyCodeLine{00431\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ Offset;}
+\DoxyCodeLine{00432\ \ \ \ \ ImU32\ \ ColorBg;}
+\DoxyCodeLine{00433\ \ \ \ \ ImU32\ \ ColorFg;}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ TextOffset;}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ Clamp;}
+\DoxyCodeLine{00436\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_annotation}{ImPlotAnnotation}}()\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ ColorBg\ =\ ColorFg\ =\ 0;}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ TextOffset\ =\ 0;}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ Clamp\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00440\ \ \ \ \ \}}
+\DoxyCodeLine{00441\ \};}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{comment}{//\ Collection\ of\ plot\ labels}}
+\DoxyCodeLine{00444\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_annotation_collection}{ImPlotAnnotationCollection}}\ \{}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotAnnotation>}}\ Annotations;}
+\DoxyCodeLine{00447\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ \ \ \ \ \ \ \ \ \ TextBuffer;}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Size;}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_annotation_collection}{ImPlotAnnotationCollection}}()\ \{\ Reset();\ \}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordtype}{void}\ AppendV(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ off,\ ImU32\ bg,\ ImU32\ fg,\ \textcolor{keywordtype}{bool}\ clamp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ \ va\_list\ args)\ IM\_FMTLIST(7)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_annotation}{ImPlotAnnotation}}\ an;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ an.Pos\ =\ pos;\ an.Offset\ =\ off;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ an.ColorBg\ =\ bg;\ an.ColorFg\ =\ fg;}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ an.TextOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ an.Clamp\ =\ clamp;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ Annotations.push\_back(an);}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ TextBuffer.appendfv(fmt,\ args);}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ nul[]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ TextBuffer.append(nul,nul+1);}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ Size++;}
+\DoxyCodeLine{00463\ \ \ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keywordtype}{void}\ Append(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ off,\ ImU32\ bg,\ ImU32\ fg,\ \textcolor{keywordtype}{bool}\ clamp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ \ ...)\ IM\_FMTARGS(7)\ \{}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ va\_list\ args;}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ va\_start(args,\ fmt);}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ AppendV(pos,\ off,\ bg,\ fg,\ clamp,\ fmt,\ args);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ va\_end(args);}
+\DoxyCodeLine{00470\ \ \ \ \ \}}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetText(\textcolor{keywordtype}{int}\ idx)\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TextBuffer.Buf.Data\ +\ Annotations[idx].TextOffset;}
+\DoxyCodeLine{00474\ \ \ \ \ \}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ Annotations.shrink(0);}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ TextBuffer.Buf.shrink(0);}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ Size\ =\ 0;}
+\DoxyCodeLine{00480\ \ \ \ \ \}}
+\DoxyCodeLine{00481\ \};}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_tag}{ImPlotTag}}\ \{}
+\DoxyCodeLine{00484\ \ \ \ \ ImAxis\ Axis;}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordtype}{double}\ Value;}
+\DoxyCodeLine{00486\ \ \ \ \ ImU32\ \ ColorBg;}
+\DoxyCodeLine{00487\ \ \ \ \ ImU32\ \ ColorFg;}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ TextOffset;}
+\DoxyCodeLine{00489\ \};}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_tag_collection}{ImPlotTagCollection}}\ \{}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotTag>}}\ Tags;}
+\DoxyCodeLine{00494\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ \ \ TextBuffer;}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Size;}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tag_collection}{ImPlotTagCollection}}()\ \{\ Reset();\ \}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordtype}{void}\ AppendV(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ value,\ ImU32\ bg,\ ImU32\ fg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ va\_list\ args)\ IM\_FMTLIST(6)\ \{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tag}{ImPlotTag}}\ tag;}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ tag.Axis\ =\ axis;}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ tag.Value\ =\ value;}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ tag.ColorBg\ =\ bg;}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ tag.ColorFg\ =\ fg;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ tag.TextOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ Tags.push\_back(tag);}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ TextBuffer.appendfv(fmt,\ args);}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ nul[]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ TextBuffer.append(nul,nul+1);}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ Size++;}
+\DoxyCodeLine{00511\ \ \ \ \ \}}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keywordtype}{void}\ Append(ImAxis\ axis,\ \textcolor{keywordtype}{double}\ value,\ ImU32\ bg,\ ImU32\ fg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ fmt,\ ...)\ IM\_FMTARGS(6)\ \{}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ va\_list\ args;}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ va\_start(args,\ fmt);}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ AppendV(axis,\ value,\ bg,\ fg,\ fmt,\ args);}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ va\_end(args);}
+\DoxyCodeLine{00518\ \ \ \ \ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetText(\textcolor{keywordtype}{int}\ idx)\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TextBuffer.Buf.Data\ +\ Tags[idx].TextOffset;}
+\DoxyCodeLine{00522\ \ \ \ \ \}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ Tags.shrink(0);}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ TextBuffer.Buf.shrink(0);}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ Size\ =\ 0;}
+\DoxyCodeLine{00528\ \ \ \ \ \}}
+\DoxyCodeLine{00529\ \};}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \textcolor{comment}{//\ Tick\ mark\ info}}
+\DoxyCodeLine{00532\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}}
+\DoxyCodeLine{00533\ \{}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordtype}{double}\ PlotPos;}
+\DoxyCodeLine{00535\ \ \ \ \ \textcolor{keywordtype}{float}\ \ PixelPos;}
+\DoxyCodeLine{00536\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ LabelSize;}
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ TextOffset;}
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ Major;}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ ShowLabel;}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ Level;}
+\DoxyCodeLine{00541\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ Idx;}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{bool}\ major,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{bool}\ show\_label)\ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ PixelPos\ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ PlotPos\ \ \ \ \ \ =\ value;}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ Major\ \ \ \ \ \ \ \ =\ major;}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ ShowLabel\ \ \ \ =\ show\_label;}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ Level\ \ \ \ \ \ \ \ =\ level;}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ TextOffset\ \ \ =\ -\/1;}
+\DoxyCodeLine{00550\ \ \ \ \ \}}
+\DoxyCodeLine{00551\ \};}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{comment}{//\ Collection\ of\ ticks}}
+\DoxyCodeLine{00554\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotTick>}}\ Ticks;}
+\DoxyCodeLine{00556\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ \ \ \ TextBuffer;}
+\DoxyCodeLine{00557\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MaxSize;}
+\DoxyCodeLine{00558\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LateSize;}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Levels;}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}()\ \{}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ Reset();}
+\DoxyCodeLine{00563\ \ \ \ \ \}}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\&\ AddTick(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{bool}\ major,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{bool}\ show\_label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ \{}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\ tick(value,\ major,\ level,\ show\_label);}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (show\_label\ \&\&\ label\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ tick.TextOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ TextBuffer.append(label,\ label\ +\ strlen(label)\ +\ 1);}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ tick.LabelSize\ =\ ImGui::CalcTextSize(TextBuffer.Buf.Data\ +\ tick.TextOffset);}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ AddTick(tick);}
+\DoxyCodeLine{00573\ \ \ \ \ \}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\&\ AddTick(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{bool}\ major,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{bool}\ show\_label,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ data)\ \{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\ tick(value,\ major,\ level,\ show\_label);}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (show\_label\ \&\&\ formatter\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buff[IMPLOT\_LABEL\_MAX\_SIZE];}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ tick.TextOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ formatter(tick.PlotPos,\ buff,\ \textcolor{keyword}{sizeof}(buff),\ data);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ TextBuffer.append(buff,\ buff\ +\ strlen(buff)\ +\ 1);}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ tick.LabelSize\ =\ ImGui::CalcTextSize(TextBuffer.Buf.Data\ +\ tick.TextOffset);}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ AddTick(tick);}
+\DoxyCodeLine{00585\ \ \ \ \ \}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\&\ AddTick(\mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\ tick)\ \{}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tick.ShowLabel)\ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ MaxSize.x\ \ \ \ \ =\ \ tick.LabelSize.x\ >\ MaxSize.x\ ?\ tick.LabelSize.x\ :\ MaxSize.x;}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ MaxSize.y\ \ \ \ \ =\ \ tick.LabelSize.y\ >\ MaxSize.y\ ?\ tick.LabelSize.y\ :\ MaxSize.y;}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ tick.Idx\ =\ Ticks.size();}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ Ticks.push\_back(tick);}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Ticks.back();}
+\DoxyCodeLine{00595\ \ \ \ \ \}}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetText(\textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TextBuffer.Buf.Data\ +\ Ticks[idx].TextOffset;}
+\DoxyCodeLine{00599\ \ \ \ \ \}}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetText(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_tick}{ImPlotTick}}\&\ tick)\ \{}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetText(tick.Idx);}
+\DoxyCodeLine{00603\ \ \ \ \ \}}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordtype}{void}\ OverrideSizeLate(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size)\ \{}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ LateSize.x\ =\ size.x\ >\ LateSize.x\ ?\ size.x\ :\ LateSize.x;}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ LateSize.y\ =\ size.y\ >\ LateSize.y\ ?\ size.y\ :\ LateSize.y;}
+\DoxyCodeLine{00608\ \ \ \ \ \}}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ Ticks.shrink(0);}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ TextBuffer.Buf.shrink(0);}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ MaxSize\ =\ LateSize;}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ LateSize\ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0);}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ Levels\ =\ 1;}
+\DoxyCodeLine{00616\ \ \ \ \ \}}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keywordtype}{int}\ TickCount()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Ticks.Size;}
+\DoxyCodeLine{00620\ \ \ \ \ \}}
+\DoxyCodeLine{00621\ \};}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \textcolor{comment}{//\ Axis\ state\ information\ that\ must\ persist\ after\ EndPlot}}
+\DoxyCodeLine{00624\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}}
+\DoxyCodeLine{00625\ \{}
+\DoxyCodeLine{00626\ \ \ \ \ ImGuiID\ \ \ \ \ \ \ \ \ \ \ \ \ \ ID;}
+\DoxyCodeLine{00627\ \ \ \ \ ImPlotAxisFlags\ \ \ \ \ \ Flags;}
+\DoxyCodeLine{00628\ \ \ \ \ ImPlotAxisFlags\ \ \ \ \ \ PreviousFlags;}
+\DoxyCodeLine{00629\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ \ \ \ \ \ \ \ \ \ Range;}
+\DoxyCodeLine{00630\ \ \ \ \ ImPlotCond\ \ \ \ \ \ \ \ \ \ \ RangeCond;}
+\DoxyCodeLine{00631\ \ \ \ \ ImPlotScale\ \ \ \ \ \ \ \ \ \ Scale;}
+\DoxyCodeLine{00632\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ \ \ \ \ \ \ \ \ \ FitExtents;}
+\DoxyCodeLine{00633\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ \ \ \ \ \ \ \ \ \ OrthoAxis;}
+\DoxyCodeLine{00634\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ \ \ \ \ \ \ \ \ \ ConstraintRange;}
+\DoxyCodeLine{00635\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ \ \ \ \ \ \ \ \ \ ConstraintZoom;}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\ \ \ \ \ \ \ \ \ Ticker;}
+\DoxyCodeLine{00638\ \ \ \ \ ImPlotFormatter\ \ \ \ \ \ Formatter;}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FormatterData;}
+\DoxyCodeLine{00640\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FormatSpec[16];}
+\DoxyCodeLine{00641\ \ \ \ \ ImPlotLocator\ \ \ \ \ \ \ \ Locator;}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordtype}{double}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ LinkedMin;}
+\DoxyCodeLine{00644\ \ \ \ \ \textcolor{keywordtype}{double}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ LinkedMax;}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PickerLevel;}
+\DoxyCodeLine{00647\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ \ \ \ \ \ \ \ \ \ \ PickerTimeMin,\ PickerTimeMax;}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \ \ \ \ ImPlotTransform\ \ \ \ \ \ TransformForward;}
+\DoxyCodeLine{00650\ \ \ \ \ ImPlotTransform\ \ \ \ \ \ TransformInverse;}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TransformData;}
+\DoxyCodeLine{00652\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PixelMin,\ PixelMax;}
+\DoxyCodeLine{00653\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ScaleMin,\ ScaleMax;}
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ScaleToPixel;}
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Datum1,\ Datum2;}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HoverRect;}
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LabelOffset;}
+\DoxyCodeLine{00659\ \ \ \ \ ImU32\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ColorMaj,\ ColorMin,\ ColorTick,\ ColorTxt,\ ColorBg,\ ColorHov,\ ColorAct,\ ColorHiLi;}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Enabled;}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertical;}
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FitThisFrame;}
+\DoxyCodeLine{00664\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HasRange;}
+\DoxyCodeLine{00665\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HasFormatSpec;}
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ShowDefaultTicks;}
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Hovered;}
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Held;}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}()\ \{}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ Flags\ \ \ \ \ \ \ \ \ \ \ \ =\ PreviousFlags\ =\ ImPlotAxisFlags\_None;}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ Range.Min\ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ Range.Max\ \ \ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ Scale\ \ \ \ \ \ \ \ \ \ \ \ =\ ImPlotScale\_Linear;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ TransformForward\ =\ TransformInverse\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ TransformData\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ FitExtents.Min\ \ \ =\ HUGE\_VAL;}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ FitExtents.Max\ \ \ =\ -\/HUGE\_VAL;}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ OrthoAxis\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ ConstraintRange\ \ =\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(-\/INFINITY,INFINITY);}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ ConstraintZoom\ \ \ =\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(DBL\_MIN,INFINITY);}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ LinkedMin\ \ \ \ \ \ \ \ =\ LinkedMax\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ PickerLevel\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ Datum1\ \ \ \ \ \ \ \ \ \ \ =\ Datum2\ =\ 0;}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ PixelMin\ \ \ \ \ \ \ \ \ =\ PixelMax\ =\ 0;}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ LabelOffset\ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ ColorMaj\ \ \ \ \ \ \ \ \ =\ ColorMin\ =\ ColorTick\ =\ ColorTxt\ =\ ColorBg\ =\ ColorHov\ =\ ColorAct\ =\ 0;}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ ColorHiLi\ \ \ \ \ \ \ \ =\ IM\_COL32\_BLACK\_TRANS;}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ Formatter\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ FormatterData\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ Locator\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ Enabled\ \ \ \ \ \ \ \ \ \ =\ Hovered\ =\ Held\ =\ FitThisFrame\ =\ HasRange\ =\ HasFormatSpec\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ ShowDefaultTicks\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00695\ \ \ \ \ \}}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ Enabled\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ Scale\ \ \ \ \ \ \ \ \ \ \ \ =\ ImPlotScale\_Linear;}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ TransformForward\ =\ TransformInverse\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ TransformData\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ LabelOffset\ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ HasFormatSpec\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ Formatter\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ FormatterData\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ Locator\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ ShowDefaultTicks\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ FitThisFrame\ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ FitExtents.Min\ \ \ =\ HUGE\_VAL;}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ FitExtents.Max\ \ \ =\ -\/HUGE\_VAL;}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ OrthoAxis\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ ConstraintRange\ \ =\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(-\/INFINITY,INFINITY);}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ ConstraintZoom\ \ \ =\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}(DBL\_MIN,INFINITY);}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ Ticker.Reset();}
+\DoxyCodeLine{00715\ \ \ \ \ \}}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SetMin(\textcolor{keywordtype}{double}\ \_min,\ \textcolor{keywordtype}{bool}\ force=\textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!force\ \&\&\ IsLockedMin())}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \_min\ =\ ImConstrainNan(ImConstrainInf(\_min));}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_min\ <\ ConstraintRange.Min)}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \_min\ =\ ConstraintRange.Min;}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ z\ =\ Range.Max\ -\/\ \_min;}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ <\ ConstraintZoom.Min)}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ \_min\ =\ Range.Max\ -\/\ ConstraintZoom.Min;}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ >\ ConstraintZoom.Max)}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ \_min\ =\ Range.Max\ -\/\ ConstraintZoom.Max;}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_min\ >=\ Range.Max)}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ Range.Min\ =\ \_min;}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ PickerTimeMin\ =\ ImPlotTime::FromDouble(Range.Min);}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ UpdateTransformCache();}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00734\ \ \ \ \ \};}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ SetMax(\textcolor{keywordtype}{double}\ \_max,\ \textcolor{keywordtype}{bool}\ force=\textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!force\ \&\&\ IsLockedMax())}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \_max\ =\ ImConstrainNan(ImConstrainInf(\_max));}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_max\ >\ ConstraintRange.Max)}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \ \ \ \ \_max\ =\ ConstraintRange.Max;}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ z\ =\ \_max\ -\/\ Range.Min;}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ <\ ConstraintZoom.Min)}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \ \ \ \ \_max\ =\ Range.Min\ +\ ConstraintZoom.Min;}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ >\ ConstraintZoom.Max)}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \_max\ =\ Range.Min\ +\ ConstraintZoom.Max;}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_max\ <=\ Range.Min)}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ Range.Max\ =\ \_max;}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ PickerTimeMax\ =\ ImPlotTime::FromDouble(Range.Max);}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ UpdateTransformCache();}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00753\ \ \ \ \ \};}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRange(\textcolor{keywordtype}{double}\ v1,\ \textcolor{keywordtype}{double}\ v2)\ \{}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ Range.Min\ =\ ImMin(v1,v2);}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ Range.Max\ =\ ImMax(v1,v2);}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ Constrain();}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ PickerTimeMin\ =\ ImPlotTime::FromDouble(Range.Min);}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ PickerTimeMax\ =\ ImPlotTime::FromDouble(Range.Max);}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ UpdateTransformCache();}
+\DoxyCodeLine{00762\ \ \ \ \ \}}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRange(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range)\ \{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ SetRange(range.Min,\ range.Max);}
+\DoxyCodeLine{00766\ \ \ \ \ \}}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAspect(\textcolor{keywordtype}{double}\ unit\_per\_pix)\ \{}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ new\_size\ =\ unit\_per\_pix\ *\ PixelSize();}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ delta\ \ \ \ =\ (new\_size\ -\/\ Range.Size())\ *\ 0.5;}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsLocked())}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (IsLockedMin()\ \&\&\ !IsLockedMax())}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ SetRange(Range.Min,\ Range.Max\ \ +\ 2*delta);}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!IsLockedMin()\ \&\&\ IsLockedMax())}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ SetRange(Range.Min\ -\/\ 2*delta,\ Range.Max);}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ SetRange(Range.Min\ -\/\ delta,\ Range.Max\ +\ delta);}
+\DoxyCodeLine{00779\ \ \ \ \ \}}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ PixelSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ ImAbs(PixelMax\ -\/\ PixelMin);\ \}}
+\DoxyCodeLine{00782\ }
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ GetAspect()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ Range.Size()\ /\ PixelSize();\ \}}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00785\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Constrain()\ \{}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ Range.Min\ =\ ImConstrainNan(ImConstrainInf(Range.Min));}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ Range.Max\ =\ ImConstrainNan(ImConstrainInf(Range.Max));}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Range.Min\ <\ ConstraintRange.Min)}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Min\ =\ ConstraintRange.Min;}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Range.Max\ >\ ConstraintRange.Max)}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ =\ ConstraintRange.Max;}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ z\ =\ Range.Size();}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ <\ ConstraintZoom.Min)\ \{}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ delta\ =\ (ConstraintZoom.Min\ -\/\ z)\ *\ 0.5;}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Min\ -\/=\ delta;}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ +=\ delta;}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (z\ >\ ConstraintZoom.Max)\ \{}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ delta\ =\ (z\ -\/\ ConstraintZoom.Max)\ *\ 0.5;}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Min\ +=\ delta;}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ -\/=\ delta;}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Range.Max\ <=\ Range.Min)}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ =\ Range.Min\ +\ DBL\_EPSILON;}
+\DoxyCodeLine{00805\ \ \ \ \ \}}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ UpdateTransformCache()\ \{}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ ScaleToPixel\ =\ (PixelMax\ -\/\ PixelMin)\ /\ Range.Size();}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TransformForward\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \ \ \ \ ScaleMin\ =\ TransformForward(Range.Min,\ TransformData);}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \ \ \ \ ScaleMax\ =\ TransformForward(Range.Max,\ TransformData);}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \ \ \ \ ScaleMin\ =\ Range.Min;}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ ScaleMax\ =\ Range.Max;}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00817\ \ \ \ \ \}}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ PlotToPixels(\textcolor{keywordtype}{double}\ plt)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (TransformForward\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ s\ =\ TransformForward(plt,\ TransformData);}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\ =\ (s\ -\/\ ScaleMin)\ /\ (ScaleMax\ -\/\ ScaleMin);}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ plt\ \ \ \ \ \ =\ Range.Min\ +\ Range.Size()\ *\ t;}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})(PixelMin\ +\ ScaleToPixel\ *\ (plt\ -\/\ Range.Min));}
+\DoxyCodeLine{00826\ \ \ \ \ \}}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ PixelsToPlot(\textcolor{keywordtype}{float}\ pix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ plt\ =\ (pix\ -\/\ PixelMin)\ /\ ScaleToPixel\ +\ Range.Min;}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ if\ (TransformInverse\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\ =\ (plt\ -\/\ Range.Min)\ /\ Range.Size();}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ s\ =\ t\ *\ (ScaleMax\ -\/\ ScaleMin)\ +\ ScaleMin;}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ plt\ =\ TransformInverse(s,\ TransformData);}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ plt;}
+\DoxyCodeLine{00837\ \ \ \ \ \}}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ExtendFit(\textcolor{keywordtype}{double}\ v)\ \{}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ImNanOrInf(v)\ \&\&\ v\ >=\ ConstraintRange.Min\ \&\&\ v\ <=\ ConstraintRange.Max)\ \{}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \ \ \ \ FitExtents.Min\ =\ v\ <\ FitExtents.Min\ ?\ v\ :\ FitExtents.Min;}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ FitExtents.Max\ =\ v\ >\ FitExtents.Max\ ?\ v\ :\ FitExtents.Max;}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00844\ \ \ \ \ \}}
+\DoxyCodeLine{00845\ }
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ExtendFitWith(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ alt,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{double}\ v\_alt)\ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ImHasFlag(Flags,\ ImPlotAxisFlags\_RangeFit)\ \&\&\ !alt.Range.Contains(v\_alt))}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ImNanOrInf(v)\ \&\&\ v\ >=\ ConstraintRange.Min\ \&\&\ v\ <=\ ConstraintRange.Max)\ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ FitExtents.Min\ =\ v\ <\ FitExtents.Min\ ?\ v\ :\ FitExtents.Min;}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ FitExtents.Max\ =\ v\ >\ FitExtents.Max\ ?\ v\ :\ FitExtents.Max;}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00853\ \ \ \ \ \}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00855\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ApplyFit(\textcolor{keywordtype}{float}\ padding)\ \{}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ ext\_size\ =\ FitExtents.Size()\ *\ 0.5;}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ FitExtents.Min\ -\/=\ ext\_size\ *\ padding;}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ FitExtents.Max\ +=\ ext\_size\ *\ padding;}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsLockedMin()\ \&\&\ !ImNanOrInf(FitExtents.Min))}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Min\ =\ FitExtents.Min;}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsLockedMax()\ \&\&\ !ImNanOrInf(FitExtents.Max))}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ =\ FitExtents.Max;}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ImAlmostEqual(Range.Min,\ Range.Max))\ \ \{}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Max\ +=\ 0.5;}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ \ \ Range.Min\ -\/=\ 0.5;}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ Constrain();}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ UpdateTransformCache();}
+\DoxyCodeLine{00869\ \ \ \ \ \}}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasLabel()\textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ LabelOffset\ !=\ -\/1\ \&\&\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoLabel);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00872\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasGridLines()\textcolor{keyword}{\ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoGridLines);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00873\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTickLabels()\textcolor{keyword}{\ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoTickLabels);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00874\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTickMarks()\textcolor{keyword}{\ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoTickMarks);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00875\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ WillRender()\textcolor{keyword}{\ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ Enabled\ \&\&\ (HasGridLines()\ ||\ HasTickLabels()\ ||\ HasTickMarks());\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00876\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsOpposite()\textcolor{keyword}{\ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ ImHasFlag(Flags,\ ImPlotAxisFlags\_Opposite);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00877\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsInverted()\textcolor{keyword}{\ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ ImHasFlag(Flags,\ ImPlotAxisFlags\_Invert);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00878\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsForeground()\textcolor{keyword}{\ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ ImHasFlag(Flags,\ ImPlotAxisFlags\_Foreground);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00879\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsAutoFitting()\textcolor{keyword}{\ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ ImHasFlag(Flags,\ ImPlotAxisFlags\_AutoFit);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00880\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ CanInitFit()\textcolor{keyword}{\ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoInitialFit)\ \&\&\ !HasRange\ \&\&\ !LinkedMin\ \&\&\ !LinkedMax;\ \}}
+\DoxyCodeLine{00881\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsRangeLocked()\textcolor{keyword}{\ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ HasRange\ \&\&\ RangeCond\ ==\ ImPlotCond\_Always;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsLockedMin()\textcolor{keyword}{\ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !Enabled\ ||\ IsRangeLocked()\ ||\ ImHasFlag(Flags,\ ImPlotAxisFlags\_LockMin);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00883\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsLockedMax()\textcolor{keyword}{\ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !Enabled\ ||\ IsRangeLocked()\ ||\ ImHasFlag(Flags,\ ImPlotAxisFlags\_LockMax);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00884\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsLocked()\textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ IsLockedMin()\ \&\&\ IsLockedMax();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsInputLockedMin()\textcolor{keyword}{\ \ const\ }\{\ \textcolor{keywordflow}{return}\ IsLockedMin()\ ||\ IsAutoFitting();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00886\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsInputLockedMax()\textcolor{keyword}{\ \ const\ }\{\ \textcolor{keywordflow}{return}\ IsLockedMax()\ ||\ IsAutoFitting();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00887\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsInputLocked()\textcolor{keyword}{\ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ IsLocked()\ \ \ \ ||\ IsAutoFitting();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00888\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasMenus()\textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ const\ }\{\ \textcolor{keywordflow}{return}\ !ImHasFlag(Flags,\ ImPlotAxisFlags\_NoMenus);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00889\ }
+\DoxyCodeLine{00890\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsPanLocked(\textcolor{keywordtype}{bool}\ increasing)\ \{}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ImHasFlag(Flags,\ ImPlotAxisFlags\_PanStretch))\ \{}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ IsInputLocked();}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsLockedMin()\ ||\ IsLockedMax()\ ||\ IsAutoFitting())}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (increasing)}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Range.Max\ ==\ ConstraintRange.Max;}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Range.Min\ ==\ ConstraintRange.Min;}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00902\ \ \ \ \ \}}
+\DoxyCodeLine{00903\ }
+\DoxyCodeLine{00904\ \ \ \ \ \textcolor{keywordtype}{void}\ PushLinks()\ \{}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LinkedMin)\ \{\ *LinkedMin\ =\ Range.Min;\ \}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LinkedMax)\ \{\ *LinkedMax\ =\ Range.Max;\ \}}
+\DoxyCodeLine{00907\ \ \ \ \ \}}
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ \ \ \ \ \textcolor{keywordtype}{void}\ PullLinks()\ \{}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (LinkedMin\ \&\&\ LinkedMax)\ \{\ SetRange(*LinkedMin,\ *LinkedMax);\ \}}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (LinkedMin)\ \{\ SetMin(*LinkedMin,\textcolor{keyword}{true});\ \}}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (LinkedMax)\ \{\ SetMax(*LinkedMax,\textcolor{keyword}{true});\ \}}
+\DoxyCodeLine{00913\ \ \ \ \ \}}
+\DoxyCodeLine{00914\ \};}
+\DoxyCodeLine{00915\ }
+\DoxyCodeLine{00916\ \textcolor{comment}{//\ Align\ plots\ group\ data}}
+\DoxyCodeLine{00917\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_alignment_data}{ImPlotAlignmentData}}\ \{}
+\DoxyCodeLine{00918\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ Vertical;}
+\DoxyCodeLine{00919\ \ \ \ \ \textcolor{keywordtype}{float}\ PadA;}
+\DoxyCodeLine{00920\ \ \ \ \ \textcolor{keywordtype}{float}\ PadB;}
+\DoxyCodeLine{00921\ \ \ \ \ \textcolor{keywordtype}{float}\ PadAMax;}
+\DoxyCodeLine{00922\ \ \ \ \ \textcolor{keywordtype}{float}\ PadBMax;}
+\DoxyCodeLine{00923\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_alignment_data}{ImPlotAlignmentData}}()\ \{}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ Vertical\ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ PadA\ =\ PadB\ =\ PadAMax\ =\ PadBMax\ =\ 0;}
+\DoxyCodeLine{00926\ \ \ \ \ \}}
+\DoxyCodeLine{00927\ \ \ \ \ \textcolor{keywordtype}{void}\ Begin()\ \{\ PadAMax\ =\ PadBMax\ =\ 0;\ \}}
+\DoxyCodeLine{00928\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{float}\&\ pad\_a,\ \textcolor{keywordtype}{float}\&\ pad\_b,\ \textcolor{keywordtype}{float}\&\ delta\_a,\ \textcolor{keywordtype}{float}\&\ delta\_b)\ \{}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bak\_a\ =\ pad\_a;\ \textcolor{keywordtype}{float}\ bak\_b\ =\ pad\_b;}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (PadAMax\ <\ pad\_a)\ \{\ PadAMax\ =\ pad\_a;\ \}}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (PadBMax\ <\ pad\_b)\ \{\ PadBMax\ =\ pad\_b;\ \}}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pad\_a\ <\ PadA)\ \ \ \ \{\ pad\_a\ =\ PadA;\ delta\_a\ =\ pad\_a\ -\/\ bak\_a;\ \}\ \textcolor{keywordflow}{else}\ \{\ delta\_a\ =\ 0;\ \}}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pad\_b\ <\ PadB)\ \ \ \ \{\ pad\_b\ =\ PadB;\ delta\_b\ =\ pad\_b\ -\/\ bak\_b;\ \}\ \textcolor{keywordflow}{else}\ \{\ delta\_b\ =\ 0;\ \}}
+\DoxyCodeLine{00934\ \ \ \ \ \}}
+\DoxyCodeLine{00935\ \ \ \ \ \textcolor{keywordtype}{void}\ End()\ \ \ \{\ PadA\ =\ PadAMax;\ PadB\ =\ PadBMax;\ \ \ \ \ \ \}}
+\DoxyCodeLine{00936\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{\ PadA\ =\ PadB\ =\ PadAMax\ =\ PadBMax\ =\ 0;\ \}}
+\DoxyCodeLine{00937\ \};}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \textcolor{comment}{//\ State\ information\ for\ Plot\ items}}
+\DoxyCodeLine{00940\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}}
+\DoxyCodeLine{00941\ \{}
+\DoxyCodeLine{00942\ \ \ \ \ ImGuiID\ \ \ \ \ \ ID;}
+\DoxyCodeLine{00943\ \ \ \ \ ImU32\ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}};}
+\DoxyCodeLine{00944\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ LegendHoverRect;}
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ NameOffset;}
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ Show;}
+\DoxyCodeLine{00947\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ LegendHovered;}
+\DoxyCodeLine{00948\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ SeenThisFrame;}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}()\ \{}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ \ \ \ \ \ \ \ \ =\ IM\_COL32\_WHITE;}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ NameOffset\ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ Show\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ SeenThisFrame\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ LegendHovered\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00957\ \ \ \ \ \}}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{\string~ImPlotItem}}()\ \{\ ID\ =\ 0;\ \}}
+\DoxyCodeLine{00960\ \};}
+\DoxyCodeLine{00961\ }
+\DoxyCodeLine{00962\ \textcolor{comment}{//\ Holds\ Legend\ state}}
+\DoxyCodeLine{00963\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_legend}{ImPlotLegend}}}
+\DoxyCodeLine{00964\ \{}
+\DoxyCodeLine{00965\ \ \ \ \ ImPlotLegendFlags\ Flags;}
+\DoxyCodeLine{00966\ \ \ \ \ ImPlotLegendFlags\ PreviousFlags;}
+\DoxyCodeLine{00967\ \ \ \ \ ImPlotLocation\ \ \ \ Location;}
+\DoxyCodeLine{00968\ \ \ \ \ ImPlotLocation\ \ \ \ PreviousLocation;}
+\DoxyCodeLine{00969\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ \ \ \ \ \ \ \ \ \ \ Scroll;}
+\DoxyCodeLine{00970\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ \ \ Indices;}
+\DoxyCodeLine{00971\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ Labels;}
+\DoxyCodeLine{00972\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ Rect;}
+\DoxyCodeLine{00973\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ RectClamped;}
+\DoxyCodeLine{00974\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ Hovered;}
+\DoxyCodeLine{00975\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ Held;}
+\DoxyCodeLine{00976\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CanGoInside;}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_legend}{ImPlotLegend}}()\ \{}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ Flags\ \ \ \ \ \ \ \ =\ PreviousFlags\ =\ ImPlotLegendFlags\_None;}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ CanGoInside\ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ Hovered\ \ \ \ \ \ =\ Held\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ Location\ \ \ \ \ =\ PreviousLocation\ =\ ImPlotLocation\_NorthWest;}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ Scroll\ \ \ \ \ \ \ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0);}
+\DoxyCodeLine{00984\ \ \ \ \ \}}
+\DoxyCodeLine{00985\ }
+\DoxyCodeLine{00986\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{\ Indices.shrink(0);\ Labels.Buf.shrink(0);\ \}}
+\DoxyCodeLine{00987\ \};}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \textcolor{comment}{//\ Holds\ Items\ and\ Legend\ data}}
+\DoxyCodeLine{00990\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}}
+\DoxyCodeLine{00991\ \{}
+\DoxyCodeLine{00992\ \ \ \ \ ImGuiID\ \ \ \ \ \ \ \ \ \ \ \ ID;}
+\DoxyCodeLine{00993\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_legend}{ImPlotLegend}}\ \ \ \ \ \ \ Legend;}
+\DoxyCodeLine{00994\ \ \ \ \ \mbox{\hyperlink{struct_im_pool}{ImPool<ImPlotItem>}}\ ItemPool;}
+\DoxyCodeLine{00995\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ColormapIdx;}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{00997\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}()\ \{\ ID\ =\ 0;\ ColormapIdx\ =\ 0;\ \}}
+\DoxyCodeLine{00998\ }
+\DoxyCodeLine{00999\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ GetItemCount()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ ItemPool.GetBufSize();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01000\ \ \ \ \ ImGuiID\ \ \ \ \ GetItemID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \ label\_id)\ \{\ \textcolor{keywordflow}{return}\ ImGui::GetID(label\_id);\ \textcolor{comment}{/*\ GetIDWithSeed\ */}\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01001\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetItem(ImGuiID\ \textcolor{keywordtype}{id})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ ItemPool.GetByKey(\textcolor{keywordtype}{id});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01002\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id)\ \ \ \ \{\ \textcolor{keywordflow}{return}\ GetItem(GetItemID(label\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01003\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetOrAddItem(ImGuiID\ \textcolor{keywordtype}{id})\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ ItemPool.GetOrAddByKey(\textcolor{keywordtype}{id});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01004\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetItemByIndex(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ ItemPool.GetByIndex(i);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01005\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ GetItemIndex(\mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ item)\ \ \ \{\ \textcolor{keywordflow}{return}\ ItemPool.GetIndex(item);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01006\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ GetLegendCount()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ Legend.Indices.size();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01007\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetLegendItem(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ ItemPool.GetByIndex(Legend.Indices[i]);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01008\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetLegendLabel(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ Legend.Labels.Buf.Data\ +\ GetLegendItem(i)-\/>NameOffset;\ \}}
+\DoxyCodeLine{01009\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ Reset()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ ItemPool.Clear();\ Legend.Reset();\ ColormapIdx\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01010\ \};}
+\DoxyCodeLine{01011\ }
+\DoxyCodeLine{01012\ \textcolor{comment}{//\ Holds\ Plot\ state\ information\ that\ must\ persist\ after\ EndPlot}}
+\DoxyCodeLine{01013\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}}
+\DoxyCodeLine{01014\ \{}
+\DoxyCodeLine{01015\ \ \ \ \ ImGuiID\ \ \ \ \ \ \ \ \ \ \ \ \ \ ID;}
+\DoxyCodeLine{01016\ \ \ \ \ ImPlotFlags\ \ \ \ \ \ \ \ \ \ Flags;}
+\DoxyCodeLine{01017\ \ \ \ \ ImPlotFlags\ \ \ \ \ \ \ \ \ \ PreviousFlags;}
+\DoxyCodeLine{01018\ \ \ \ \ ImPlotLocation\ \ \ \ \ \ \ MouseTextLocation;}
+\DoxyCodeLine{01019\ \ \ \ \ ImPlotMouseTextFlags\ MouseTextFlags;}
+\DoxyCodeLine{01020\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\ \ \ \ \ \ \ \ \ \ \ Axes[ImAxis\_COUNT];}
+\DoxyCodeLine{01021\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ \ \ \ TextBuffer;}
+\DoxyCodeLine{01022\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}\ \ \ \ \ \ Items;}
+\DoxyCodeLine{01023\ \ \ \ \ ImAxis\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CurrentX;}
+\DoxyCodeLine{01024\ \ \ \ \ ImAxis\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CurrentY;}
+\DoxyCodeLine{01025\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FrameRect;}
+\DoxyCodeLine{01026\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CanvasRect;}
+\DoxyCodeLine{01027\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlotRect;}
+\DoxyCodeLine{01028\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AxesRect;}
+\DoxyCodeLine{01029\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectRect;}
+\DoxyCodeLine{01030\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SelectStart;}
+\DoxyCodeLine{01031\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TitleOffset;}
+\DoxyCodeLine{01032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JustCreated;}
+\DoxyCodeLine{01033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Initialized;}
+\DoxyCodeLine{01034\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetupLocked;}
+\DoxyCodeLine{01035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FitThisFrame;}
+\DoxyCodeLine{01036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Hovered;}
+\DoxyCodeLine{01037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Held;}
+\DoxyCodeLine{01038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Selecting;}
+\DoxyCodeLine{01039\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Selected;}
+\DoxyCodeLine{01040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContextLocked;}
+\DoxyCodeLine{01041\ }
+\DoxyCodeLine{01042\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}()\ \{}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ Flags\ \ \ \ \ \ \ \ \ \ \ \ \ =\ PreviousFlags\ =\ ImPlotFlags\_None;}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_X\_AXES;\ ++i)}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ XAxis(i).Vertical\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_Y\_AXES;\ ++i)}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \ \ \ \ YAxis(i).Vertical\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ SelectStart\ \ \ \ \ \ \ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0);}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ CurrentX\ \ \ \ \ \ \ \ \ \ =\ ImAxis\_X1;}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ CurrentY\ \ \ \ \ \ \ \ \ \ =\ ImAxis\_Y1;}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ MouseTextLocation\ \ =\ ImPlotLocation\_South\ |\ ImPlotLocation\_East;}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ MouseTextFlags\ \ \ \ \ =\ ImPlotMouseTextFlags\_None;}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ TitleOffset\ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ JustCreated\ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ Initialized\ =\ SetupLocked\ =\ FitThisFrame\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ Hovered\ =\ Held\ =\ Selected\ =\ Selecting\ =\ ContextLocked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01057\ \ \ \ \ \}}
+\DoxyCodeLine{01058\ }
+\DoxyCodeLine{01059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsInputLocked()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_X\_AXES;\ ++i)\ \{}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!XAxis(i).IsInputLocked())}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_Y\_AXES;\ ++i)\ \{}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!YAxis(i).IsInputLocked())}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01069\ \ \ \ \ \}}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01071\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ClearTextBuffer()\ \{\ TextBuffer.Buf.shrink(0);\ \}}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01073\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetTitle(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title)\ \{}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (title\ \&\&\ ImGui::FindRenderedTextEnd(title,\ \textcolor{keyword}{nullptr})\ !=\ title)\ \{}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ TitleOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ TextBuffer.append(title,\ title\ +\ strlen(title)\ +\ 1);}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ \ TitleOffset\ =\ -\/1;}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01081\ \ \ \ \ \}}
+\DoxyCodeLine{01082\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ HasTitle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ TitleOffset\ !=\ -\/1\ \&\&\ !ImHasFlag(Flags,\ ImPlotFlags\_NoTitle);\ \}}
+\DoxyCodeLine{01083\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetTitle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ TextBuffer.Buf.Data\ +\ TitleOffset;\ \}}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01085\ \ \ \ \ \textcolor{keyword}{inline}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ XAxis(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ Axes[ImAxis\_X1\ +\ i];\ \}}
+\DoxyCodeLine{01086\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ XAxis(\textcolor{keywordtype}{int}\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ Axes[ImAxis\_X1\ +\ i];\ \}}
+\DoxyCodeLine{01087\ \ \ \ \ \textcolor{keyword}{inline}\ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ YAxis(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ Axes[ImAxis\_Y1\ +\ i];\ \}}
+\DoxyCodeLine{01088\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ YAxis(\textcolor{keywordtype}{int}\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ Axes[ImAxis\_Y1\ +\ i];\ \}}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01090\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ EnabledAxesX()\ \{}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cnt\ =\ 0;}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_X\_AXES;\ ++i)}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \ \ \ \ cnt\ +=\ XAxis(i).Enabled;}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cnt;}
+\DoxyCodeLine{01095\ \ \ \ \ \}}
+\DoxyCodeLine{01096\ }
+\DoxyCodeLine{01097\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ EnabledAxesY()\ \{}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cnt\ =\ 0;}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ IMPLOT\_NUM\_Y\_AXES;\ ++i)}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ cnt\ +=\ YAxis(i).Enabled;}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cnt;}
+\DoxyCodeLine{01102\ \ \ \ \ \}}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetAxisLabel(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label)\ \{}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (label\ \&\&\ ImGui::FindRenderedTextEnd(label,\ \textcolor{keyword}{nullptr})\ !=\ label)\ \{}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \ \ \ \ axis.LabelOffset\ =\ TextBuffer.size();}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \ \ \ \ TextBuffer.append(label,\ label\ +\ strlen(label)\ +\ 1);}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \ \ \ \ axis.LabelOffset\ =\ -\/1;}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01112\ \ \ \ \ \}}
+\DoxyCodeLine{01113\ }
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetAxisLabel(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ axis)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ TextBuffer.Buf.Data\ +\ axis.LabelOffset;\ \}}
+\DoxyCodeLine{01115\ \};}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01117\ \textcolor{comment}{//\ Holds\ subplot\ data\ that\ must\ persist\ after\ EndSubplot}}
+\DoxyCodeLine{01118\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_subplot}{ImPlotSubplot}}\ \{}
+\DoxyCodeLine{01119\ \ \ \ \ ImGuiID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID;}
+\DoxyCodeLine{01120\ \ \ \ \ ImPlotSubplotFlags\ \ \ \ \ \ \ \ \ \ \ \ Flags;}
+\DoxyCodeLine{01121\ \ \ \ \ ImPlotSubplotFlags\ \ \ \ \ \ \ \ \ \ \ \ PreviousFlags;}
+\DoxyCodeLine{01122\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Items;}
+\DoxyCodeLine{01123\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rows;}
+\DoxyCodeLine{01124\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cols;}
+\DoxyCodeLine{01125\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CurrentIdx;}
+\DoxyCodeLine{01126\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FrameRect;}
+\DoxyCodeLine{01127\ \ \ \ \ \mbox{\hyperlink{struct_im_rect}{ImRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GridRect;}
+\DoxyCodeLine{01128\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellSize;}
+\DoxyCodeLine{01129\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotAlignmentData>}}\ RowAlignmentData;}
+\DoxyCodeLine{01130\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotAlignmentData>}}\ ColAlignmentData;}
+\DoxyCodeLine{01131\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<float>}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RowRatios;}
+\DoxyCodeLine{01132\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<float>}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ColRatios;}
+\DoxyCodeLine{01133\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotRange>}}\ \ \ \ \ \ \ \ \ RowLinkData;}
+\DoxyCodeLine{01134\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotRange>}}\ \ \ \ \ \ \ \ \ ColLinkData;}
+\DoxyCodeLine{01135\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TempSizes[2];}
+\DoxyCodeLine{01136\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FrameHovered;}
+\DoxyCodeLine{01137\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HasTitle;}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_subplot}{ImPlotSubplot}}()\ \{}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ Flags\ =\ PreviousFlags\ \ \ \ \ \ \ =\ ImPlotSubplotFlags\_None;}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ Rows\ =\ Cols\ =\ CurrentIdx\ \ \ \ =\ 0;}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ Items.Legend.Location\ \ \ \ \ \ \ =\ ImPlotLocation\_North;}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ Items.Legend.Flags\ \ \ \ \ \ \ \ \ \ =\ ImPlotLegendFlags\_Horizontal|ImPlotLegendFlags\_Outside;}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ Items.Legend.CanGoInside\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ TempSizes[0]\ =\ TempSizes[1]\ =\ 0;}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ FrameHovered\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ HasTitle\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01149\ \ \ \ \ \}}
+\DoxyCodeLine{01150\ \};}
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01152\ \textcolor{comment}{//\ Temporary\ data\ storage\ for\ upcoming\ plot}}
+\DoxyCodeLine{01153\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_next_plot_data}{ImPlotNextPlotData}}}
+\DoxyCodeLine{01154\ \{}
+\DoxyCodeLine{01155\ \ \ \ \ ImPlotCond\ \ RangeCond[ImAxis\_COUNT];}
+\DoxyCodeLine{01156\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\ Range[ImAxis\_COUNT];}
+\DoxyCodeLine{01157\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ HasRange[ImAxis\_COUNT];}
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ Fit[ImAxis\_COUNT];}
+\DoxyCodeLine{01159\ \ \ \ \ \textcolor{keywordtype}{double}*\ \ \ \ \ LinkedMin[ImAxis\_COUNT];}
+\DoxyCodeLine{01160\ \ \ \ \ \textcolor{keywordtype}{double}*\ \ \ \ \ LinkedMax[ImAxis\_COUNT];}
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01162\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_next_plot_data}{ImPlotNextPlotData}}()\ \{\ Reset();\ \}}
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01164\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ImAxis\_COUNT;\ ++i)\ \{}
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ \ \ \ \ HasRange[i]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \ \ \ \ Fit[i]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \ \ \ \ LinkedMin[i]\ =\ LinkedMax[i]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01170\ \ \ \ \ \}}
+\DoxyCodeLine{01171\ }
+\DoxyCodeLine{01172\ \};}
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01174\ \textcolor{comment}{//\ Temporary\ data\ storage\ for\ upcoming\ item}}
+\DoxyCodeLine{01175\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_next_item_data}{ImPlotNextItemData}}\ \{}
+\DoxyCodeLine{01176\ \ \ \ \ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ \ \ \ \ \ \ \ \ \ Colors[5];\ \textcolor{comment}{//\ ImPlotCol\_Line,\ ImPlotCol\_Fill,\ ImPlotCol\_MarkerOutline,\ ImPlotCol\_MarkerFill,\ ImPlotCol\_ErrorBar}}
+\DoxyCodeLine{01177\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ LineWeight;}
+\DoxyCodeLine{01178\ \ \ \ \ ImPlotMarker\ \ \ \ Marker;}
+\DoxyCodeLine{01179\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ MarkerSize;}
+\DoxyCodeLine{01180\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ MarkerWeight;}
+\DoxyCodeLine{01181\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ FillAlpha;}
+\DoxyCodeLine{01182\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ ErrorBarSize;}
+\DoxyCodeLine{01183\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ ErrorBarWeight;}
+\DoxyCodeLine{01184\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ DigitalBitHeight;}
+\DoxyCodeLine{01185\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ DigitalBitGap;}
+\DoxyCodeLine{01186\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ RenderLine;}
+\DoxyCodeLine{01187\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ RenderFill;}
+\DoxyCodeLine{01188\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ RenderMarkerLine;}
+\DoxyCodeLine{01189\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ RenderMarkerFill;}
+\DoxyCodeLine{01190\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ HasHidden;}
+\DoxyCodeLine{01191\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ Hidden;}
+\DoxyCodeLine{01192\ \ \ \ \ ImPlotCond\ \ \ \ \ \ HiddenCond;}
+\DoxyCodeLine{01193\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_next_item_data}{ImPlotNextItemData}}()\ \{\ Reset();\ \}}
+\DoxyCodeLine{01194\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()\ \{}
+\DoxyCodeLine{01195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ ++i)}
+\DoxyCodeLine{01196\ \ \ \ \ \ \ \ \ \ \ \ \ Colors[i]\ =\ IMPLOT\_AUTO\_COL;}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ LineWeight\ \ \ \ =\ MarkerSize\ =\ MarkerWeight\ =\ FillAlpha\ =\ ErrorBarSize\ =\ ErrorBarWeight\ =\ DigitalBitHeight\ =\ DigitalBitGap\ =\ IMPLOT\_AUTO;}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ Marker\ \ \ \ \ \ \ \ =\ IMPLOT\_AUTO;}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ HasHidden\ \ \ \ \ =\ Hidden\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01200\ \ \ \ \ \}}
+\DoxyCodeLine{01201\ \};}
+\DoxyCodeLine{01202\ }
+\DoxyCodeLine{01203\ \textcolor{comment}{//\ Holds\ state\ information\ that\ must\ persist\ between\ calls\ to\ BeginPlot()/EndPlot()}}
+\DoxyCodeLine{01204\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}\ \{}
+\DoxyCodeLine{01205\ \ \ \ \ \textcolor{comment}{//\ Plot\ States}}
+\DoxyCodeLine{01206\ \ \ \ \ \mbox{\hyperlink{struct_im_pool}{ImPool<ImPlotPlot>}}\ \ \ \ Plots;}
+\DoxyCodeLine{01207\ \ \ \ \ \mbox{\hyperlink{struct_im_pool}{ImPool<ImPlotSubplot>}}\ Subplots;}
+\DoxyCodeLine{01208\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}*\ \ \ \ \ \ \ \ \ \ \ CurrentPlot;}
+\DoxyCodeLine{01209\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_subplot}{ImPlotSubplot}}*\ \ \ \ \ \ \ \ CurrentSubplot;}
+\DoxyCodeLine{01210\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}*\ \ \ \ \ \ CurrentItems;}
+\DoxyCodeLine{01211\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ \ \ \ \ \ \ \ \ \ \ CurrentItem;}
+\DoxyCodeLine{01212\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ \ \ \ \ \ \ \ \ \ \ PreviousItem;}
+\DoxyCodeLine{01213\ }
+\DoxyCodeLine{01214\ \ \ \ \ \textcolor{comment}{//\ Tick\ Marks\ and\ Labels}}
+\DoxyCodeLine{01215\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\ CTicker;}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \ \ \ \ \textcolor{comment}{//\ Annotation\ and\ Tabs}}
+\DoxyCodeLine{01218\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_annotation_collection}{ImPlotAnnotationCollection}}\ Annotations;}
+\DoxyCodeLine{01219\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_tag_collection}{ImPlotTagCollection}}\ \ \ \ \ \ \ \ Tags;}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \ \ \ \ \textcolor{comment}{//\ Style\ and\ Colormaps}}
+\DoxyCodeLine{01222\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_style}{ImPlotStyle}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Style;}
+\DoxyCodeLine{01223\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImGuiColorMod>}}\ \ \ \ \ ColorModifiers;}
+\DoxyCodeLine{01224\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImGuiStyleMod>}}\ \ \ \ \ StyleModifiers;}
+\DoxyCodeLine{01225\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_colormap_data}{ImPlotColormapData}}\ \ \ \ \ \ \ \ \ \ ColormapData;}
+\DoxyCodeLine{01226\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<ImPlotColormap>}}\ \ \ \ ColormapModifiers;}
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01228\ \ \ \ \ \textcolor{comment}{//\ Time}}
+\DoxyCodeLine{01229\ \ \ \ \ tm\ Tm;}
+\DoxyCodeLine{01230\ }
+\DoxyCodeLine{01231\ \ \ \ \ \textcolor{comment}{//\ Temp\ data\ for\ general\ use}}
+\DoxyCodeLine{01232\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<double>}}\ \ \ TempDouble1,\ TempDouble2;}
+\DoxyCodeLine{01233\ \ \ \ \ \mbox{\hyperlink{struct_im_vector}{ImVector<int>}}\ \ \ \ \ \ TempInt1;}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ \ \ \ \ \textcolor{comment}{//\ Misc}}
+\DoxyCodeLine{01236\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DigitalPlotItemCnt;}
+\DoxyCodeLine{01237\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DigitalPlotOffset;}
+\DoxyCodeLine{01238\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_next_plot_data}{ImPlotNextPlotData}}\ NextPlotData;}
+\DoxyCodeLine{01239\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_next_item_data}{ImPlotNextItemData}}\ NextItemData;}
+\DoxyCodeLine{01240\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_input_map}{ImPlotInputMap}}\ \ \ \ \ InputMap;}
+\DoxyCodeLine{01241\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OpenContextThisFrame;}
+\DoxyCodeLine{01242\ \ \ \ \ \mbox{\hyperlink{struct_im_gui_text_buffer}{ImGuiTextBuffer}}\ \ \ \ MousePosStringBuilder;}
+\DoxyCodeLine{01243\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}*\ \ \ SortItems;}
+\DoxyCodeLine{01244\ }
+\DoxyCodeLine{01245\ \ \ \ \ \textcolor{comment}{//\ Align\ plots}}
+\DoxyCodeLine{01246\ \ \ \ \ \mbox{\hyperlink{struct_im_pool}{ImPool<ImPlotAlignmentData>}}\ AlignmentData;}
+\DoxyCodeLine{01247\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_alignment_data}{ImPlotAlignmentData}}*\ \ \ \ \ \ \ \ CurrentAlignmentH;}
+\DoxyCodeLine{01248\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_alignment_data}{ImPlotAlignmentData}}*\ \ \ \ \ \ \ \ CurrentAlignmentV;}
+\DoxyCodeLine{01249\ \};}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01251\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01252\ \textcolor{comment}{//\ [SECTION]\ Internal\ API}}
+\DoxyCodeLine{01253\ \textcolor{comment}{//\ No\ guarantee\ of\ forward\ compatibility\ here!}}
+\DoxyCodeLine{01254\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01255\ }
+\DoxyCodeLine{01256\ \textcolor{keyword}{namespace\ }ImPlot\ \{}
+\DoxyCodeLine{01257\ }
+\DoxyCodeLine{01258\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01259\ \textcolor{comment}{//\ [SECTION]\ Context\ Utils}}
+\DoxyCodeLine{01260\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01261\ }
+\DoxyCodeLine{01262\ \textcolor{comment}{//\ Initializes\ an\ ImPlotContext}}
+\DoxyCodeLine{01263\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ Initialize(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx);}
+\DoxyCodeLine{01264\ \textcolor{comment}{//\ Resets\ an\ ImPlot\ context\ for\ the\ next\ call\ to\ BeginPlot}}
+\DoxyCodeLine{01265\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ResetCtxForNextPlot(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx);}
+\DoxyCodeLine{01266\ \textcolor{comment}{//\ Resets\ an\ ImPlot\ context\ for\ the\ next\ call\ to\ BeginAlignedPlots}}
+\DoxyCodeLine{01267\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ResetCtxForNextAlignedPlots(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx);}
+\DoxyCodeLine{01268\ \textcolor{comment}{//\ Resets\ an\ ImPlot\ context\ for\ the\ next\ call\ to\ BeginSubplot}}
+\DoxyCodeLine{01269\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ResetCtxForNextSubplot(\mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}*\ ctx);}
+\DoxyCodeLine{01270\ }
+\DoxyCodeLine{01271\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01272\ \textcolor{comment}{//\ [SECTION]\ Plot\ Utils}}
+\DoxyCodeLine{01273\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01275\ \textcolor{comment}{//\ Gets\ a\ plot\ from\ the\ current\ ImPlotContext}}
+\DoxyCodeLine{01276\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}*\ GetPlot(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title);}
+\DoxyCodeLine{01277\ \textcolor{comment}{//\ Gets\ the\ current\ plot\ from\ the\ current\ ImPlotContext}}
+\DoxyCodeLine{01278\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}*\ GetCurrentPlot();}
+\DoxyCodeLine{01279\ \textcolor{comment}{//\ Busts\ the\ cache\ for\ every\ plot\ in\ the\ current\ context}}
+\DoxyCodeLine{01280\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ BustPlotCache();}
+\DoxyCodeLine{01281\ }
+\DoxyCodeLine{01282\ \textcolor{comment}{//\ Shows\ a\ plot's\ context\ menu.}}
+\DoxyCodeLine{01283\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowPlotContextMenu(\mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}\&\ plot);}
+\DoxyCodeLine{01284\ }
+\DoxyCodeLine{01285\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01286\ \textcolor{comment}{//\ [SECTION]\ Setup\ Utils}}
+\DoxyCodeLine{01287\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01288\ }
+\DoxyCodeLine{01289\ \textcolor{comment}{//\ Lock\ Setup\ and\ call\ SetupFinish\ if\ necessary.}}
+\DoxyCodeLine{01290\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetupLock()\ \{}
+\DoxyCodeLine{01291\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_context}{ImPlotContext}}\&\ gp\ =\ *GImPlot;}
+\DoxyCodeLine{01292\ \ \ \ \ \textcolor{keywordflow}{if}\ (!gp.CurrentPlot-\/>SetupLocked)}
+\DoxyCodeLine{01293\ \ \ \ \ \ \ \ \ SetupFinish();}
+\DoxyCodeLine{01294\ \ \ \ \ gp.CurrentPlot-\/>SetupLocked\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01295\ \}}
+\DoxyCodeLine{01296\ }
+\DoxyCodeLine{01297\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01298\ \textcolor{comment}{//\ [SECTION]\ Subplot\ Utils}}
+\DoxyCodeLine{01299\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01300\ }
+\DoxyCodeLine{01301\ \textcolor{comment}{//\ Advances\ to\ next\ subplot}}
+\DoxyCodeLine{01302\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ SubplotNextCell();}
+\DoxyCodeLine{01303\ }
+\DoxyCodeLine{01304\ \textcolor{comment}{//\ Shows\ a\ subplot's\ context\ menu.}}
+\DoxyCodeLine{01305\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowSubplotsContextMenu(\mbox{\hyperlink{struct_im_plot_subplot}{ImPlotSubplot}}\&\ subplot);}
+\DoxyCodeLine{01306\ }
+\DoxyCodeLine{01307\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01308\ \textcolor{comment}{//\ [SECTION]\ Item\ Utils}}
+\DoxyCodeLine{01309\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01310\ }
+\DoxyCodeLine{01311\ \textcolor{comment}{//\ Begins\ a\ new\ item.\ Returns\ false\ if\ the\ item\ should\ not\ be\ plotted.\ Pushes\ PlotClipRect.}}
+\DoxyCodeLine{01312\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ BeginItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotItemFlags\ flags=0,\ ImPlotCol\ recolor\_from=IMPLOT\_AUTO);}
+\DoxyCodeLine{01313\ }
+\DoxyCodeLine{01314\ \textcolor{comment}{//\ Same\ as\ above\ but\ with\ fitting\ functionality.}}
+\DoxyCodeLine{01315\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \_Fitter>}
+\DoxyCodeLine{01316\ \textcolor{keywordtype}{bool}\ BeginItemEx(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ \textcolor{keyword}{const}\ \_Fitter\&\ fitter,\ ImPlotItemFlags\ flags=0,\ ImPlotCol\ recolor\_from=IMPLOT\_AUTO)\ \{}
+\DoxyCodeLine{01317\ \ \ \ \ \textcolor{keywordflow}{if}\ (BeginItem(label\_id,\ flags,\ recolor\_from))\ \{}
+\DoxyCodeLine{01318\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}\&\ plot\ =\ *GetCurrentPlot();}
+\DoxyCodeLine{01319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (plot.FitThisFrame\ \&\&\ !ImHasFlag(flags,\ ImPlotItemFlags\_NoFit))}
+\DoxyCodeLine{01320\ \ \ \ \ \ \ \ \ \ \ \ \ fitter.Fit(plot.Axes[plot.CurrentX],\ plot.Axes[plot.CurrentY]);}
+\DoxyCodeLine{01321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01322\ \ \ \ \ \}}
+\DoxyCodeLine{01323\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01324\ \}}
+\DoxyCodeLine{01325\ }
+\DoxyCodeLine{01326\ \textcolor{comment}{//\ Ends\ an\ item\ (call\ only\ if\ BeginItem\ returns\ true).\ Pops\ PlotClipRect.}}
+\DoxyCodeLine{01327\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ EndItem();}
+\DoxyCodeLine{01328\ }
+\DoxyCodeLine{01329\ \textcolor{comment}{//\ Register\ or\ get\ an\ existing\ item\ from\ the\ current\ plot.}}
+\DoxyCodeLine{01330\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ RegisterOrGetItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id,\ ImPlotItemFlags\ flags,\ \textcolor{keywordtype}{bool}*\ just\_created\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01331\ \textcolor{comment}{//\ Get\ a\ plot\ item\ from\ the\ current\ plot.}}
+\DoxyCodeLine{01332\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetItem(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ label\_id);}
+\DoxyCodeLine{01333\ \textcolor{comment}{//\ Gets\ the\ current\ item.}}
+\DoxyCodeLine{01334\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_item}{ImPlotItem}}*\ GetCurrentItem();}
+\DoxyCodeLine{01335\ \textcolor{comment}{//\ Busts\ the\ cache\ for\ every\ item\ for\ every\ plot\ in\ the\ current\ context.}}
+\DoxyCodeLine{01336\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ BustItemCache();}
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01338\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01339\ \textcolor{comment}{//\ [SECTION]\ Axis\ Utils}}
+\DoxyCodeLine{01340\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01341\ }
+\DoxyCodeLine{01342\ \textcolor{comment}{//\ Returns\ true\ if\ any\ enabled\ axis\ is\ locked\ from\ user\ input.}}
+\DoxyCodeLine{01343\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ AnyAxesInputLocked(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ axes,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{01344\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (axes[i].Enabled\ \&\&\ axes[i].IsInputLocked())}
+\DoxyCodeLine{01346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01347\ \ \ \ \ \}}
+\DoxyCodeLine{01348\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01349\ \}}
+\DoxyCodeLine{01350\ }
+\DoxyCodeLine{01351\ \textcolor{comment}{//\ Returns\ true\ if\ all\ enabled\ axes\ are\ locked\ from\ user\ input.}}
+\DoxyCodeLine{01352\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ AllAxesInputLocked(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ axes,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{01353\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{01354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (axes[i].Enabled\ \&\&\ !axes[i].IsInputLocked())}
+\DoxyCodeLine{01355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01356\ \ \ \ \ \}}
+\DoxyCodeLine{01357\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01358\ \}}
+\DoxyCodeLine{01359\ }
+\DoxyCodeLine{01360\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ AnyAxesHeld(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ axes,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{01361\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{01362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (axes[i].Enabled\ \&\&\ axes[i].Held)}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01364\ \ \ \ \ \}}
+\DoxyCodeLine{01365\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01366\ \}}
+\DoxyCodeLine{01367\ }
+\DoxyCodeLine{01368\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ AnyAxesHovered(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ axes,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{01369\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (axes[i].Enabled\ \&\&\ axes[i].Hovered)}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01372\ \ \ \ \ \}}
+\DoxyCodeLine{01373\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01374\ \}}
+\DoxyCodeLine{01375\ }
+\DoxyCodeLine{01376\ \textcolor{comment}{//\ Returns\ true\ if\ the\ user\ has\ requested\ data\ to\ be\ fit.}}
+\DoxyCodeLine{01377\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ FitThisFrame()\ \{}
+\DoxyCodeLine{01378\ \ \ \ \ \textcolor{keywordflow}{return}\ GImPlot-\/>CurrentPlot-\/>FitThisFrame;}
+\DoxyCodeLine{01379\ \}}
+\DoxyCodeLine{01380\ }
+\DoxyCodeLine{01381\ \textcolor{comment}{//\ Extends\ the\ current\ plot's\ axes\ so\ that\ it\ encompasses\ a\ vertical\ line\ at\ x}}
+\DoxyCodeLine{01382\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FitPointX(\textcolor{keywordtype}{double}\ x)\ \{}
+\DoxyCodeLine{01383\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}\&\ plot\ \ \ =\ *GetCurrentPlot();}
+\DoxyCodeLine{01384\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ x\_axis\ =\ plot.Axes[plot.CurrentX];}
+\DoxyCodeLine{01385\ \ \ \ \ x\_axis.ExtendFit(x);}
+\DoxyCodeLine{01386\ \}}
+\DoxyCodeLine{01387\ }
+\DoxyCodeLine{01388\ \textcolor{comment}{//\ Extends\ the\ current\ plot's\ axes\ so\ that\ it\ encompasses\ a\ horizontal\ line\ at\ y}}
+\DoxyCodeLine{01389\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FitPointY(\textcolor{keywordtype}{double}\ y)\ \{}
+\DoxyCodeLine{01390\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}\&\ plot\ \ \ =\ *GetCurrentPlot();}
+\DoxyCodeLine{01391\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ y\_axis\ =\ plot.Axes[plot.CurrentY];}
+\DoxyCodeLine{01392\ \ \ \ \ y\_axis.ExtendFit(y);}
+\DoxyCodeLine{01393\ \}}
+\DoxyCodeLine{01394\ }
+\DoxyCodeLine{01395\ \textcolor{comment}{//\ Extends\ the\ current\ plot's\ axes\ so\ that\ it\ encompasses\ point\ p}}
+\DoxyCodeLine{01396\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FitPoint(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_point}{ImPlotPoint}}\&\ p)\ \{}
+\DoxyCodeLine{01397\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_plot}{ImPlotPlot}}\&\ plot\ \ \ =\ *GetCurrentPlot();}
+\DoxyCodeLine{01398\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ x\_axis\ =\ plot.Axes[plot.CurrentX];}
+\DoxyCodeLine{01399\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ y\_axis\ =\ plot.Axes[plot.CurrentY];}
+\DoxyCodeLine{01400\ \ \ \ \ x\_axis.ExtendFitWith(y\_axis,\ p.x,\ p.y);}
+\DoxyCodeLine{01401\ \ \ \ \ y\_axis.ExtendFitWith(x\_axis,\ p.y,\ p.x);}
+\DoxyCodeLine{01402\ \}}
+\DoxyCodeLine{01403\ }
+\DoxyCodeLine{01404\ \textcolor{comment}{//\ Returns\ true\ if\ two\ ranges\ overlap}}
+\DoxyCodeLine{01405\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ RangesOverlap(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ r1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ r2)}
+\DoxyCodeLine{01406\ \{\ \textcolor{keywordflow}{return}\ r1.Min\ <=\ r2.Max\ \&\&\ r2.Min\ <=\ r1.Max;\ \}}
+\DoxyCodeLine{01407\ }
+\DoxyCodeLine{01408\ \textcolor{comment}{//\ Shows\ an\ axis's\ context\ menu.}}
+\DoxyCodeLine{01409\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowAxisContextMenu(\mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ axis,\ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}*\ equal\_axis,\ \textcolor{keywordtype}{bool}\ time\_allowed\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01410\ }
+\DoxyCodeLine{01411\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01412\ \textcolor{comment}{//\ [SECTION]\ Legend\ Utils}}
+\DoxyCodeLine{01413\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01414\ }
+\DoxyCodeLine{01415\ \textcolor{comment}{//\ Gets\ the\ position\ of\ an\ inner\ rect\ that\ is\ located\ inside\ of\ an\ outer\ rect\ according\ to\ an\ ImPlotLocation\ and\ padding\ amount.}}
+\DoxyCodeLine{01416\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ GetLocationPos(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_rect}{ImRect}}\&\ outer\_rect,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ inner\_size,\ ImPlotLocation\ location,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pad\ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0));}
+\DoxyCodeLine{01417\ \textcolor{comment}{//\ Calculates\ the\ bounding\ box\ size\ of\ a\ legend\ \_before\_\ clipping.}}
+\DoxyCodeLine{01418\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ CalcLegendSize(\mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}\&\ items,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pad,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ spacing,\ \textcolor{keywordtype}{bool}\ vertical);}
+\DoxyCodeLine{01419\ \textcolor{comment}{//\ Clips\ calculated\ legend\ size}}
+\DoxyCodeLine{01420\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ClampLegendRect(\mbox{\hyperlink{struct_im_rect}{ImRect}}\&\ legend\_rect,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_rect}{ImRect}}\&\ outer\_rect,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pad);}
+\DoxyCodeLine{01421\ \textcolor{comment}{//\ Renders\ legend\ entries\ into\ a\ bounding\ box}}
+\DoxyCodeLine{01422\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowLegendEntries(\mbox{\hyperlink{struct_im_plot_item_group}{ImPlotItemGroup}}\&\ items,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_rect}{ImRect}}\&\ legend\_bb,\ \textcolor{keywordtype}{bool}\ interactable,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ pad,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ spacing,\ \textcolor{keywordtype}{bool}\ vertical,\ \mbox{\hyperlink{struct_im_draw_list}{ImDrawList}}\&\ DrawList);}
+\DoxyCodeLine{01423\ \textcolor{comment}{//\ Shows\ an\ alternate\ legend\ for\ the\ plot\ identified\ by\ \#title\_id,\ outside\ of\ the\ plot\ frame\ (can\ be\ called\ before\ or\ after\ of\ Begin/EndPlot\ but\ must\ occur\ in\ the\ same\ ImGui\ window!\ This\ is\ not\ thoroughly\ tested\ nor\ scrollable!).}}
+\DoxyCodeLine{01424\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ ShowAltLegend(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ title\_id,\ \textcolor{keywordtype}{bool}\ vertical\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ size\ =\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(0,0),\ \textcolor{keywordtype}{bool}\ interactable\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01425\ \textcolor{comment}{//\ Shows\ a\ legend's\ context\ menu.}}
+\DoxyCodeLine{01426\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowLegendContextMenu(\mbox{\hyperlink{struct_im_plot_legend}{ImPlotLegend}}\&\ legend,\ \textcolor{keywordtype}{bool}\ visible);}
+\DoxyCodeLine{01427\ }
+\DoxyCodeLine{01428\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01429\ \textcolor{comment}{//\ [SECTION]\ Label\ Utils}}
+\DoxyCodeLine{01430\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01431\ }
+\DoxyCodeLine{01432\ \textcolor{comment}{//\ Create\ a\ a\ string\ label\ for\ a\ an\ axis\ value}}
+\DoxyCodeLine{01433\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ LabelAxisValue(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_axis}{ImPlotAxis}}\&\ axis,\ \textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ round\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01435\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01436\ \textcolor{comment}{//\ [SECTION]\ Styling\ Utils}}
+\DoxyCodeLine{01437\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01439\ \textcolor{comment}{//\ Get\ styling\ data\ for\ next\ item\ (call\ between\ Begin/EndItem)}}
+\DoxyCodeLine{01440\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_next_item_data}{ImPlotNextItemData}}\&\ GetItemData()\ \{\ \textcolor{keywordflow}{return}\ GImPlot-\/>NextItemData;\ \}}
+\DoxyCodeLine{01441\ }
+\DoxyCodeLine{01442\ \textcolor{comment}{//\ Returns\ true\ if\ a\ color\ is\ set\ to\ be\ automatically\ determined}}
+\DoxyCodeLine{01443\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsColorAuto(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ col)\ \{\ \textcolor{keywordflow}{return}\ col.w\ ==\ -\/1;\ \}}
+\DoxyCodeLine{01444\ \textcolor{comment}{//\ Returns\ true\ if\ a\ style\ color\ is\ set\ to\ be\ automatically\ determined}}
+\DoxyCodeLine{01445\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsColorAuto(ImPlotCol\ idx)\ \{\ \textcolor{keywordflow}{return}\ IsColorAuto(GImPlot-\/>Style.Colors[idx]);\ \}}
+\DoxyCodeLine{01446\ \textcolor{comment}{//\ Returns\ the\ automatically\ deduced\ style\ color}}
+\DoxyCodeLine{01447\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ GetAutoColor(ImPlotCol\ idx);}
+\DoxyCodeLine{01448\ }
+\DoxyCodeLine{01449\ \textcolor{comment}{//\ Returns\ the\ style\ color\ whether\ it\ is\ automatic\ or\ custom\ set}}
+\DoxyCodeLine{01450\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\ GetStyleColorVec4(ImPlotCol\ idx)\ \{\ \textcolor{keywordflow}{return}\ IsColorAuto(idx)\ ?\ GetAutoColor(idx)\ :\ GImPlot-\/>Style.Colors[idx];\ \}}
+\DoxyCodeLine{01451\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ \ GetStyleColorU32(ImPlotCol\ idx)\ \ \{\ \textcolor{keywordflow}{return}\ ImGui::ColorConvertFloat4ToU32(GetStyleColorVec4(idx));\ \}}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \textcolor{comment}{//\ Draws\ vertical\ text.\ The\ position\ is\ the\ bottom\ left\ of\ the\ text\ rect.}}
+\DoxyCodeLine{01454\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ AddTextVertical(\mbox{\hyperlink{struct_im_draw_list}{ImDrawList}}\ *DrawList,\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ pos,\ ImU32\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text\_begin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text\_end\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01455\ \textcolor{comment}{//\ Draws\ multiline\ horizontal\ text\ centered.}}
+\DoxyCodeLine{01456\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ AddTextCentered(\mbox{\hyperlink{struct_im_draw_list}{ImDrawList}}*\ DrawList,\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ top\_center,\ ImU32\ col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text\_begin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text\_end\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01457\ \textcolor{comment}{//\ Calculates\ the\ size\ of\ vertical\ text}}
+\DoxyCodeLine{01458\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ CalcTextSizeVertical(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text)\ \{}
+\DoxyCodeLine{01459\ \ \ \ \ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ sz\ =\ ImGui::CalcTextSize(text);}
+\DoxyCodeLine{01460\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}(sz.y,\ sz.x);}
+\DoxyCodeLine{01461\ \}}
+\DoxyCodeLine{01462\ \textcolor{comment}{//\ Returns\ white\ or\ black\ text\ given\ background\ color}}
+\DoxyCodeLine{01463\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ CalcTextColor(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec4}{ImVec4}}\&\ bg)\ \{\ \textcolor{keywordflow}{return}\ (bg.x\ *\ 0.299f\ +\ bg.y\ *\ 0.587f\ +\ bg.z\ *\ 0.114f)\ >\ 0.5f\ ?\ IM\_COL32\_BLACK\ :\ IM\_COL32\_WHITE;\ \}}
+\DoxyCodeLine{01464\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ CalcTextColor(ImU32\ bg)\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ CalcTextColor(ImGui::ColorConvertU32ToFloat4(bg));\ \}}
+\DoxyCodeLine{01465\ \textcolor{comment}{//\ Lightens\ or\ darkens\ a\ color\ for\ hover}}
+\DoxyCodeLine{01466\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ ImU32\ CalcHoverColor(ImU32\ col)\ \ \ \ \ \ \ \{\ \ \textcolor{keywordflow}{return}\ ImMixU32(col,\ CalcTextColor(col),\ 32);\ \}}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01468\ \textcolor{comment}{//\ Clamps\ a\ label\ position\ so\ that\ it\ fits\ a\ rect\ defined\ by\ Min/Max}}
+\DoxyCodeLine{01469\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ ClampLabelPos(\mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ size,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ Min,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ Max)\ \{}
+\DoxyCodeLine{01470\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos.x\ <\ Min.x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ pos.x\ =\ Min.x;}
+\DoxyCodeLine{01471\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos.y\ <\ Min.y)\ \ \ \ \ \ \ \ \ \ \ \ \ \ pos.y\ =\ Min.y;}
+\DoxyCodeLine{01472\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pos.x\ +\ size.x)\ >\ Max.x)\ \ \ pos.x\ =\ Max.x\ -\/\ size.x;}
+\DoxyCodeLine{01473\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pos.y\ +\ size.y)\ >\ Max.y)\ \ \ pos.y\ =\ Max.y\ -\/\ size.y;}
+\DoxyCodeLine{01474\ \ \ \ \ \textcolor{keywordflow}{return}\ pos;}
+\DoxyCodeLine{01475\ \}}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01477\ \textcolor{comment}{//\ Returns\ a\ color\ from\ the\ Color\ map\ given\ an\ index\ >=\ 0\ (modulo\ will\ be\ performed).}}
+\DoxyCodeLine{01478\ IMPLOT\_API\ ImU32\ \ GetColormapColorU32(\textcolor{keywordtype}{int}\ idx,\ ImPlotColormap\ cmap);}
+\DoxyCodeLine{01479\ \textcolor{comment}{//\ Returns\ the\ next\ unused\ colormap\ color\ and\ advances\ the\ colormap.\ Can\ be\ used\ to\ skip\ colors\ if\ desired.}}
+\DoxyCodeLine{01480\ IMPLOT\_API\ ImU32\ \ NextColormapColorU32();}
+\DoxyCodeLine{01481\ \textcolor{comment}{//\ Linearly\ interpolates\ a\ color\ from\ the\ current\ colormap\ given\ t\ between\ 0\ and\ 1.}}
+\DoxyCodeLine{01482\ IMPLOT\_API\ ImU32\ \ SampleColormapU32(\textcolor{keywordtype}{float}\ t,\ ImPlotColormap\ cmap);}
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01484\ \textcolor{comment}{//\ Render\ a\ colormap\ bar}}
+\DoxyCodeLine{01485\ IMPLOT\_API\ \textcolor{keywordtype}{void}\ RenderColorBar(\textcolor{keyword}{const}\ ImU32*\ colors,\ \textcolor{keywordtype}{int}\ size,\ \mbox{\hyperlink{struct_im_draw_list}{ImDrawList}}\&\ DrawList,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_rect}{ImRect}}\&\ bounds,\ \textcolor{keywordtype}{bool}\ vert,\ \textcolor{keywordtype}{bool}\ reversed,\ \textcolor{keywordtype}{bool}\ continuous);}
+\DoxyCodeLine{01486\ }
+\DoxyCodeLine{01487\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01488\ \textcolor{comment}{//\ [SECTION]\ Math\ and\ Misc\ Utils}}
+\DoxyCodeLine{01489\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01490\ }
+\DoxyCodeLine{01491\ \textcolor{comment}{//\ Rounds\ x\ to\ powers\ of\ 2,5\ and\ 10\ for\ generating\ axis\ labels\ (from\ Graphics\ Gems\ 1\ Chapter\ 11.2)}}
+\DoxyCodeLine{01492\ IMPLOT\_API\ \textcolor{keywordtype}{double}\ NiceNum(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{bool}\ round);}
+\DoxyCodeLine{01493\ \textcolor{comment}{//\ Computes\ order\ of\ magnitude\ of\ double.}}
+\DoxyCodeLine{01494\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ OrderOfMagnitude(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ val\ ==\ 0\ ?\ 0\ :\ (int)(floor(log10(fabs(val))));\ \}}
+\DoxyCodeLine{01495\ \textcolor{comment}{//\ Returns\ the\ precision\ required\ for\ a\ order\ of\ magnitude.}}
+\DoxyCodeLine{01496\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ OrderToPrecision(\textcolor{keywordtype}{int}\ order)\ \{\ \textcolor{keywordflow}{return}\ order\ >\ 0\ ?\ 0\ :\ 1\ -\/\ order;\ \}}
+\DoxyCodeLine{01497\ \textcolor{comment}{//\ Returns\ a\ floating\ point\ precision\ to\ use\ given\ a\ value}}
+\DoxyCodeLine{01498\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Precision(\textcolor{keywordtype}{double}\ val)\ \{\ \textcolor{keywordflow}{return}\ OrderToPrecision(OrderOfMagnitude(val));\ \}}
+\DoxyCodeLine{01499\ \textcolor{comment}{//\ Round\ a\ value\ to\ a\ given\ precision}}
+\DoxyCodeLine{01500\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ RoundTo(\textcolor{keywordtype}{double}\ val,\ \textcolor{keywordtype}{int}\ prec)\ \{\ \textcolor{keywordtype}{double}\ p\ =\ pow(10,(\textcolor{keywordtype}{double})prec);\ \textcolor{keywordflow}{return}\ floor(val*p+0.5)/p;\ \}}
+\DoxyCodeLine{01501\ }
+\DoxyCodeLine{01502\ \textcolor{comment}{//\ Returns\ the\ intersection\ point\ of\ two\ lines\ A\ and\ B\ (assumes\ they\ are\ not\ parallel!)}}
+\DoxyCodeLine{01503\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\ Intersection(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ a1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ a2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ b1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}\&\ b2)\ \{}
+\DoxyCodeLine{01504\ \ \ \ \ \textcolor{keywordtype}{float}\ v1\ =\ (a1.x\ *\ a2.y\ -\/\ a1.y\ *\ a2.x);\ \ \textcolor{keywordtype}{float}\ v2\ =\ (b1.x\ *\ b2.y\ -\/\ b1.y\ *\ b2.x);}
+\DoxyCodeLine{01505\ \ \ \ \ \textcolor{keywordtype}{float}\ v3\ =\ ((a1.x\ -\/\ a2.x)\ *\ (b1.y\ -\/\ b2.y)\ -\/\ (a1.y\ -\/\ a2.y)\ *\ (b1.x\ -\/\ b2.x));}
+\DoxyCodeLine{01506\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_im_vec2}{ImVec2}}((v1\ *\ (b1.x\ -\/\ b2.x)\ -\/\ v2\ *\ (a1.x\ -\/\ a2.x))\ /\ v3,\ (v1\ *\ (b1.y\ -\/\ b2.y)\ -\/\ v2\ *\ (a1.y\ -\/\ a2.y))\ /\ v3);}
+\DoxyCodeLine{01507\ \}}
+\DoxyCodeLine{01508\ }
+\DoxyCodeLine{01509\ \textcolor{comment}{//\ Fills\ a\ buffer\ with\ n\ samples\ linear\ interpolated\ from\ vmin\ to\ vmax}}
+\DoxyCodeLine{01510\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01511\ \textcolor{keywordtype}{void}\ FillRange(\mbox{\hyperlink{struct_im_vector}{ImVector<T>}}\&\ buffer,\ \textcolor{keywordtype}{int}\ n,\ T\ vmin,\ T\ vmax)\ \{}
+\DoxyCodeLine{01512\ \ \ \ \ buffer.resize(n);}
+\DoxyCodeLine{01513\ \ \ \ \ T\ step\ =\ (vmax\ -\/\ vmin)\ /\ (n\ -\/\ 1);}
+\DoxyCodeLine{01514\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{01515\ \ \ \ \ \ \ \ \ buffer[i]\ =\ vmin\ +\ i\ *\ step;}
+\DoxyCodeLine{01516\ \ \ \ \ \}}
+\DoxyCodeLine{01517\ \}}
+\DoxyCodeLine{01518\ }
+\DoxyCodeLine{01519\ \textcolor{comment}{//\ Calculate\ histogram\ bin\ counts\ and\ widths}}
+\DoxyCodeLine{01520\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01521\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ CalculateBins(\textcolor{keyword}{const}\ T*\ values,\ \textcolor{keywordtype}{int}\ count,\ ImPlotBin\ meth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{int}\&\ bins\_out,\ \textcolor{keywordtype}{double}\&\ width\_out)\ \{}
+\DoxyCodeLine{01522\ \ \ \ \ \textcolor{keywordflow}{switch}\ (meth)\ \{}
+\DoxyCodeLine{01523\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImPlotBin\_Sqrt:}
+\DoxyCodeLine{01524\ \ \ \ \ \ \ \ \ \ \ \ \ bins\_out\ \ =\ (int)ceil(sqrt(count));}
+\DoxyCodeLine{01525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01526\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImPlotBin\_Sturges:}
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \ \ \ \ bins\_out\ \ =\ (int)ceil(1.0\ +\ log2(count));}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01529\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImPlotBin\_Rice:}
+\DoxyCodeLine{01530\ \ \ \ \ \ \ \ \ \ \ \ \ bins\_out\ \ =\ (int)ceil(2\ *\ cbrt(count));}
+\DoxyCodeLine{01531\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImPlotBin\_Scott:}
+\DoxyCodeLine{01533\ \ \ \ \ \ \ \ \ \ \ \ \ width\_out\ =\ 3.49\ *\ ImStdDev(values,\ count)\ /\ cbrt(count);}
+\DoxyCodeLine{01534\ \ \ \ \ \ \ \ \ \ \ \ \ bins\_out\ \ =\ (int)round(range.Size()\ /\ width\_out);}
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01536\ \ \ \ \ \}}
+\DoxyCodeLine{01537\ \ \ \ \ width\_out\ =\ range.Size()\ /\ bins\_out;}
+\DoxyCodeLine{01538\ \}}
+\DoxyCodeLine{01539\ }
+\DoxyCodeLine{01540\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01541\ \textcolor{comment}{//\ Time\ Utils}}
+\DoxyCodeLine{01542\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01543\ }
+\DoxyCodeLine{01544\ \textcolor{comment}{//\ Returns\ true\ if\ year\ is\ leap\ year\ (366\ days\ long)}}
+\DoxyCodeLine{01545\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ IsLeapYear(\textcolor{keywordtype}{int}\ year)\ \{}
+\DoxyCodeLine{01546\ \ \ \ \ \textcolor{keywordflow}{return}\ \ year\ \%\ 4\ ==\ 0\ \&\&\ (year\ \%\ 100\ !=\ 0\ ||\ year\ \%\ 400\ ==\ 0);}
+\DoxyCodeLine{01547\ \}}
+\DoxyCodeLine{01548\ \textcolor{comment}{//\ Returns\ the\ number\ of\ days\ in\ a\ month,\ accounting\ for\ Feb.\ leap\ years.\ \#month\ is\ zero\ indexed.}}
+\DoxyCodeLine{01549\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ GetDaysInMonth(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ month)\ \{}
+\DoxyCodeLine{01550\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ days[12]\ =\ \{31,\ 28,\ 31,\ 30,\ 31,\ 30,\ 31,\ 31,\ 30,\ 31,\ 30,\ 31\};}
+\DoxyCodeLine{01551\ \ \ \ \ \textcolor{keywordflow}{return}\ \ days[month]\ +\ (int)(month\ ==\ 1\ \&\&\ IsLeapYear(year));}
+\DoxyCodeLine{01552\ \}}
+\DoxyCodeLine{01553\ }
+\DoxyCodeLine{01554\ \textcolor{comment}{//\ Make\ a\ UNIX\ timestamp\ from\ a\ tm\ struct\ expressed\ in\ UTC\ time\ (i.e.\ GMT\ timezone).}}
+\DoxyCodeLine{01555\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ MkGmtTime(\textcolor{keyword}{struct}\ tm\ *ptm);}
+\DoxyCodeLine{01556\ \textcolor{comment}{//\ Make\ a\ tm\ struct\ expressed\ in\ UTC\ time\ (i.e.\ GMT\ timezone)\ from\ a\ UNIX\ timestamp.}}
+\DoxyCodeLine{01557\ IMPLOT\_API\ tm*\ GetGmtTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ tm*\ ptm);}
+\DoxyCodeLine{01558\ }
+\DoxyCodeLine{01559\ \textcolor{comment}{//\ Make\ a\ UNIX\ timestamp\ from\ a\ tm\ struct\ expressed\ in\ local\ time.}}
+\DoxyCodeLine{01560\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ MkLocTime(\textcolor{keyword}{struct}\ tm\ *ptm);}
+\DoxyCodeLine{01561\ \textcolor{comment}{//\ Make\ a\ tm\ struct\ expressed\ in\ local\ time\ from\ a\ UNIX\ timestamp.}}
+\DoxyCodeLine{01562\ IMPLOT\_API\ tm*\ GetLocTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ tm*\ ptm);}
+\DoxyCodeLine{01563\ }
+\DoxyCodeLine{01564\ \textcolor{comment}{//\ NB:\ The\ following\ functions\ only\ work\ if\ there\ is\ a\ current\ ImPlotContext\ because\ the}}
+\DoxyCodeLine{01565\ \textcolor{comment}{//\ internal\ tm\ struct\ is\ owned\ by\ the\ context!\ They\ are\ aware\ of\ ImPlotStyle.UseLocalTime.}}
+\DoxyCodeLine{01566\ }
+\DoxyCodeLine{01567\ \textcolor{comment}{//\ Make\ a\ timestamp\ from\ time\ components.}}
+\DoxyCodeLine{01568\ \textcolor{comment}{//\ year[1970-\/3000],\ month[0-\/11],\ day[1-\/31],\ hour[0-\/23],\ min[0-\/59],\ sec[0-\/59],\ us[0,999999]}}
+\DoxyCodeLine{01569\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ MakeTime(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ month\ =\ 0,\ \textcolor{keywordtype}{int}\ day\ =\ 1,\ \textcolor{keywordtype}{int}\ hour\ =\ 0,\ \textcolor{keywordtype}{int}\ min\ =\ 0,\ \textcolor{keywordtype}{int}\ sec\ =\ 0,\ \textcolor{keywordtype}{int}\ us\ =\ 0);}
+\DoxyCodeLine{01570\ \textcolor{comment}{//\ Get\ year\ component\ from\ timestamp\ [1970-\/3000]}}
+\DoxyCodeLine{01571\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ GetYear(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t);}
+\DoxyCodeLine{01572\ }
+\DoxyCodeLine{01573\ \textcolor{comment}{//\ Adds\ or\ subtracts\ time\ from\ a\ timestamp.\ \#count\ >\ 0\ to\ add,\ <\ 0\ to\ subtract.}}
+\DoxyCodeLine{01574\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ AddTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ ImPlotTimeUnit\ unit,\ \textcolor{keywordtype}{int}\ count);}
+\DoxyCodeLine{01575\ \textcolor{comment}{//\ Rounds\ a\ timestamp\ down\ to\ nearest\ unit.}}
+\DoxyCodeLine{01576\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ FloorTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ ImPlotTimeUnit\ unit);}
+\DoxyCodeLine{01577\ \textcolor{comment}{//\ Rounds\ a\ timestamp\ up\ to\ the\ nearest\ unit.}}
+\DoxyCodeLine{01578\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ CeilTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ ImPlotTimeUnit\ unit);}
+\DoxyCodeLine{01579\ \textcolor{comment}{//\ Rounds\ a\ timestamp\ up\ or\ down\ to\ the\ nearest\ unit.}}
+\DoxyCodeLine{01580\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ RoundTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ ImPlotTimeUnit\ unit);}
+\DoxyCodeLine{01581\ \textcolor{comment}{//\ Combines\ the\ date\ of\ one\ timestamp\ with\ the\ time-\/of-\/day\ of\ another\ timestamp.}}
+\DoxyCodeLine{01582\ IMPLOT\_API\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ CombineDateTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ date\_part,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ time\_part);}
+\DoxyCodeLine{01583\ }
+\DoxyCodeLine{01584\ \textcolor{comment}{//\ Formats\ the\ time\ part\ of\ timestamp\ t\ into\ a\ buffer\ according\ to\ \#fmt}}
+\DoxyCodeLine{01585\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ FormatTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ \textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{int}\ size,\ ImPlotTimeFmt\ fmt,\ \textcolor{keywordtype}{bool}\ use\_24\_hr\_clk);}
+\DoxyCodeLine{01586\ \textcolor{comment}{//\ Formats\ the\ date\ part\ of\ timestamp\ t\ into\ a\ buffer\ according\ to\ \#fmt}}
+\DoxyCodeLine{01587\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ FormatDate(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ \textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{int}\ size,\ ImPlotDateFmt\ fmt,\ \textcolor{keywordtype}{bool}\ use\_iso\_8601);}
+\DoxyCodeLine{01588\ \textcolor{comment}{//\ Formats\ the\ time\ and/or\ date\ parts\ of\ a\ timestamp\ t\ into\ a\ buffer\ according\ to\ \#fmt}}
+\DoxyCodeLine{01589\ IMPLOT\_API\ \textcolor{keywordtype}{int}\ FormatDateTime(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\&\ t,\ \textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{int}\ size,\ \mbox{\hyperlink{struct_im_plot_date_time_spec}{ImPlotDateTimeSpec}}\ fmt);}
+\DoxyCodeLine{01590\ }
+\DoxyCodeLine{01591\ \textcolor{comment}{//\ Shows\ a\ date\ picker\ widget\ block\ (year/month/day).}}
+\DoxyCodeLine{01592\ \textcolor{comment}{//\ \#level\ =\ 0\ for\ day,\ 1\ for\ month,\ 2\ for\ year.\ Modified\ by\ user\ interaction.}}
+\DoxyCodeLine{01593\ \textcolor{comment}{//\ \#t\ will\ be\ set\ when\ a\ day\ is\ clicked\ and\ the\ function\ will\ return\ true.}}
+\DoxyCodeLine{01594\ \textcolor{comment}{//\ \#t1\ and\ \#t2\ are\ optional\ dates\ to\ highlight.}}
+\DoxyCodeLine{01595\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowDatePicker(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}*\ level,\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}*\ t,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}*\ t1\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}*\ t2\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01596\ \textcolor{comment}{//\ Shows\ a\ time\ picker\ widget\ block\ (hour/min/sec).}}
+\DoxyCodeLine{01597\ \textcolor{comment}{//\ \#t\ will\ be\ set\ when\ a\ new\ hour,\ minute,\ or\ sec\ is\ selected\ or\ am/pm\ is\ toggled,\ and\ the\ function\ will\ return\ true.}}
+\DoxyCodeLine{01598\ IMPLOT\_API\ \textcolor{keywordtype}{bool}\ ShowTimePicker(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}*\ t);}
+\DoxyCodeLine{01599\ }
+\DoxyCodeLine{01600\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01601\ \textcolor{comment}{//\ [SECTION]\ Transforms}}
+\DoxyCodeLine{01602\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01603\ }
+\DoxyCodeLine{01604\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformForward\_Log10(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01605\ \ \ \ \ v\ =\ v\ <=\ 0.0\ ?\ DBL\_MIN\ :\ v;}
+\DoxyCodeLine{01606\ \ \ \ \ \textcolor{keywordflow}{return}\ ImLog10(v);}
+\DoxyCodeLine{01607\ \}}
+\DoxyCodeLine{01608\ }
+\DoxyCodeLine{01609\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformInverse\_Log10(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01610\ \ \ \ \ \textcolor{keywordflow}{return}\ ImPow(10,\ v);}
+\DoxyCodeLine{01611\ \}}
+\DoxyCodeLine{01612\ }
+\DoxyCodeLine{01613\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformForward\_SymLog(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01614\ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ ImAsinh(v\ /\ 2.0);}
+\DoxyCodeLine{01615\ \}}
+\DoxyCodeLine{01616\ }
+\DoxyCodeLine{01617\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformInverse\_SymLog(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01618\ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ ImSinh(v\ /\ 2.0);}
+\DoxyCodeLine{01619\ \}}
+\DoxyCodeLine{01620\ }
+\DoxyCodeLine{01621\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformForward\_Logit(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01622\ \ \ \ \ v\ =\ ImClamp(v,\ DBL\_MIN,\ 1.0\ -\/\ DBL\_EPSILON);}
+\DoxyCodeLine{01623\ \ \ \ \ \textcolor{keywordflow}{return}\ ImLog10(v\ /\ (1\ -\/\ v));}
+\DoxyCodeLine{01624\ \}}
+\DoxyCodeLine{01625\ }
+\DoxyCodeLine{01626\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ TransformInverse\_Logit(\textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01627\ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ /\ (1.0\ +\ ImPow(10,-\/v));}
+\DoxyCodeLine{01628\ \}}
+\DoxyCodeLine{01629\ }
+\DoxyCodeLine{01630\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01631\ \textcolor{comment}{//\ [SECTION]\ Formatters}}
+\DoxyCodeLine{01632\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01633\ }
+\DoxyCodeLine{01634\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Formatter\_Default(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*\ data)\ \{}
+\DoxyCodeLine{01635\ \ \ \ \ \textcolor{keywordtype}{char}*\ fmt\ =\ (\textcolor{keywordtype}{char}*)data;}
+\DoxyCodeLine{01636\ \ \ \ \ \textcolor{keywordflow}{return}\ ImFormatString(buff,\ size,\ fmt,\ value);}
+\DoxyCodeLine{01637\ \}}
+\DoxyCodeLine{01638\ }
+\DoxyCodeLine{01639\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Formatter\_Logit(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{01640\ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0.5)}
+\DoxyCodeLine{01641\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ImFormatString(buff,size,\textcolor{stringliteral}{"{}1/2"{}});}
+\DoxyCodeLine{01642\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (value\ <\ 0.5)}
+\DoxyCodeLine{01643\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ImFormatString(buff,size,\textcolor{stringliteral}{"{}\%g"{}},\ value);}
+\DoxyCodeLine{01644\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01645\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ImFormatString(buff,size,\textcolor{stringliteral}{"{}1\ -\/\ \%g"{}},\ 1\ -\/\ value);}
+\DoxyCodeLine{01646\ \}}
+\DoxyCodeLine{01647\ }
+\DoxyCodeLine{01648\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_im_plot_1_1_formatter___time___data}{Formatter\_Time\_Data}}\ \{}
+\DoxyCodeLine{01649\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_time}{ImPlotTime}}\ Time;}
+\DoxyCodeLine{01650\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_date_time_spec}{ImPlotDateTimeSpec}}\ Spec;}
+\DoxyCodeLine{01651\ \ \ \ \ ImPlotFormatter\ UserFormatter;}
+\DoxyCodeLine{01652\ \ \ \ \ \textcolor{keywordtype}{void}*\ UserFormatterData;}
+\DoxyCodeLine{01653\ \};}
+\DoxyCodeLine{01654\ }
+\DoxyCodeLine{01655\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Formatter\_Time(\textcolor{keywordtype}{double},\ \textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*\ data)\ \{}
+\DoxyCodeLine{01656\ \ \ \ \ \mbox{\hyperlink{struct_im_plot_1_1_formatter___time___data}{Formatter\_Time\_Data}}*\ ftd\ =\ (\mbox{\hyperlink{struct_im_plot_1_1_formatter___time___data}{Formatter\_Time\_Data}}*)data;}
+\DoxyCodeLine{01657\ \ \ \ \ \textcolor{keywordflow}{return}\ FormatDateTime(ftd-\/>Time,\ buff,\ size,\ ftd-\/>Spec);}
+\DoxyCodeLine{01658\ \}}
+\DoxyCodeLine{01659\ }
+\DoxyCodeLine{01660\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01661\ \textcolor{comment}{//\ [SECTION]\ Locator}}
+\DoxyCodeLine{01662\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01663\ }
+\DoxyCodeLine{01664\ \textcolor{keywordtype}{void}\ Locator\_Default(\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\&\ ticker,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{float}\ pixels,\ \textcolor{keywordtype}{bool}\ vertical,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ formatter\_data);}
+\DoxyCodeLine{01665\ \textcolor{keywordtype}{void}\ Locator\_Time(\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\&\ ticker,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{float}\ pixels,\ \textcolor{keywordtype}{bool}\ vertical,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ formatter\_data);}
+\DoxyCodeLine{01666\ \textcolor{keywordtype}{void}\ Locator\_Log10(\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\&\ ticker,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{float}\ pixels,\ \textcolor{keywordtype}{bool}\ vertical,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ formatter\_data);}
+\DoxyCodeLine{01667\ \textcolor{keywordtype}{void}\ Locator\_SymLog(\mbox{\hyperlink{struct_im_plot_ticker}{ImPlotTicker}}\&\ ticker,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_im_plot_range}{ImPlotRange}}\&\ range,\ \textcolor{keywordtype}{float}\ pixels,\ \textcolor{keywordtype}{bool}\ vertical,\ ImPlotFormatter\ formatter,\ \textcolor{keywordtype}{void}*\ formatter\_data);}
+\DoxyCodeLine{01668\ }
+\DoxyCodeLine{01669\ \}\ \textcolor{comment}{//\ namespace\ ImPlot}}
+
+\end{DoxyCode}

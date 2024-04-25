@@ -127,6 +127,8 @@ Additional Inherited Members</h2></td></tr>
 , <b>SpotlightComponent</b>
 , <b>BoxComponent</b>
 , <b>SkyComponent</b>
+, <br />
+&#160;&#160;<b>MaterialComponent</b>
 <br />
  }</td></tr>
 <tr class="separator:afd50861fbf83f7ff7777a5e6dd7b7ca4 inherit pub_types_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,9 +192,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_compile<
 <tr class="memitem:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a61e410a136d98711221d0745674724cc" name="a61e410a136d98711221d0745674724cc"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_tick</b> (float dt)</td></tr>
 <tr class="separator:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787ecd58e4dad2882659158e43107bc1 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a787ecd58e4dad2882659158e43107bc1" name="a787ecd58e4dad2882659158e43107bc1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>on_start</b> ()</td></tr>
-<tr class="separator:a787ecd58e4dad2882659158e43107bc1 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a95e3caee0d964a3512b36fad47bca0b3" name="a95e3caee0d964a3512b36fad47bca0b3"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pre_scene_compile</b> ()</td></tr>
+<tr class="separator:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5850c2973f4c76d9412ed861cb21afb5 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a5850c2973f4c76d9412ed861cb21afb5" name="a5850c2973f4c76d9412ed861cb21afb5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>post_scene_compile</b> ()</td></tr>
+<tr class="separator:a5850c2973f4c76d9412ed861cb21afb5 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34341e4eb1189435b8f159d4cac09da inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="aa34341e4eb1189435b8f159d4cac09da" name="aa34341e4eb1189435b8f159d4cac09da"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:aa34341e4eb1189435b8f159d4cac09da inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,6 +207,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (
 <tr class="memitem:a869af510ef0d4280b091cd4b634bfb56 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a869af510ef0d4280b091cd4b634bfb56" name="a869af510ef0d4280b091cd4b634bfb56"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt)</td></tr>
 <tr class="separator:a869af510ef0d4280b091cd4b634bfb56 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_component"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_component')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_component.html">Component</a></td></tr>
+<tr class="memitem:a2cf7b69b297665a1bbd4c81ed2299f7c inherit pro_methods_class_component"><td class="memItemLeft" align="right" valign="top"><a id="a2cf7b69b297665a1bbd4c81ed2299f7c" name="a2cf7b69b297665a1bbd4c81ed2299f7c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>base_render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:a2cf7b69b297665a1bbd4c81ed2299f7c inherit pro_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82946cd236dcf9b778b49b4b8fb6a3ca inherit pro_methods_class_component"><td class="memItemLeft" align="right" valign="top"><a id="a82946cd236dcf9b778b49b4b8fb6a3ca" name="a82946cd236dcf9b778b49b4b8fb6a3ca"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:a82946cd236dcf9b778b49b4b8fb6a3ca inherit pro_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_component"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_component')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_component.html">Component</a></td></tr>
 <tr class="memitem:ad997f65735dd8a4496bbe479446bfd98 inherit pro_attribs_class_component"><td class="memItemLeft" align="right" valign="top"><a id="ad997f65735dd8a4496bbe479446bfd98" name="ad997f65735dd8a4496bbe479446bfd98"></a>
 <a class="el" href="struct_transform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b></td></tr>

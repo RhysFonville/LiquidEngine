@@ -1,4 +1,4 @@
-.TH "RenderingSky" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingSky" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,7 +18,13 @@ Inherits \fBRenderingComponent< SkyComponent >\fP\&.
 .RI "\fBRenderingSky\fP (\fBSkyComponent\fP *sky)"
 .br
 .ti -1c
-.RI "bool \fBupdate\fP (\fBFVector3\fP camera_pos)"
+.RI "bool \fBupdate\fP (const \fBRenderingCamera\fP &camera)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (\fBSkyComponent\fP component)"
@@ -38,10 +44,16 @@ Public Member Functions inherited from \fBRenderingComponent< SkyComponent >\fP
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSSkyCB > \fBdata\fP = PSSkyCB{}"
+.RI "\fBRenderingTexture\fP \fBtexture\fP {}"
+.br
+.ti -1c
+.RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< VSWVPConstants > \fBwvp_data\fP = VSWVPConstants{}"
 .br
 .ti -1c
 .RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< VSTransformConstants > \fBtransform_data\fP = VSTransformConstants{}"
+.br
+.ti -1c
+.RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSSkyCB > \fBdata\fP = PSSkyCB{}"
 .br
 .in -1c
 

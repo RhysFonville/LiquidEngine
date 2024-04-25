@@ -1,0 +1,41 @@
+.TH "ImGuiTextIndex" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiTextIndex
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.ti -1c
+.RI "int \fBsize\fP ()"
+.br
+.ti -1c
+.RI "const char * \fBget_line_begin\fP (const char *base, int n)"
+.br
+.ti -1c
+.RI "const char * \fBget_line_end\fP (const char *base, int n)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const char *base, int old_size, int new_size)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< int > \fBLineOffsets\fP"
+.br
+.ti -1c
+.RI "int \fBEndOffset\fP = 0"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

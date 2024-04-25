@@ -1,4 +1,4 @@
-.TH "BoxComponent" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "BoxComponent" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -45,7 +45,7 @@ Public Attributes inherited from \fBComponent\fP
 Public Types inherited from \fBComponent\fP
 .in +1c
 .ti -1c
-.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP }"
+.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP, \fBMaterialComponent\fP }"
 .br
 .in -1c
 
@@ -117,7 +117,10 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
-.RI "virtual void \fBon_start\fP ()"
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBclean_up\fP ()"
@@ -127,6 +130,16 @@ Public Member Functions inherited from \fBControllable\fP
 .br
 .ti -1c
 .RI "virtual void \fBtick\fP (float dt)"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
 .br
 .in -1c
 

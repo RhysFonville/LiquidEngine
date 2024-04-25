@@ -1,0 +1,173 @@
+.TH "ImFontAtlas" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFontAtlas
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFont\fP (const \fBImFontConfig\fP *font_cfg)"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFontDefault\fP (const \fBImFontConfig\fP *font_cfg=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFontFromFileTTF\fP (const char *filename, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const ImWchar *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFontFromMemoryTTF\fP (void *font_data, int font_data_size, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const ImWchar *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFontFromMemoryCompressedTTF\fP (const void *compressed_font_data, int compressed_font_data_size, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const ImWchar *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImFont\fP * \fBAddFontFromMemoryCompressedBase85TTF\fP (const char *compressed_font_data_base85, float size_pixels, const \fBImFontConfig\fP *font_cfg=NULL, const ImWchar *glyph_ranges=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearInputData\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearTexData\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearFonts\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClear\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API bool \fBBuild\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBGetTexDataAsAlpha8\fP (unsigned char **out_pixels, int *out_width, int *out_height, int *out_bytes_per_pixel=NULL)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBGetTexDataAsRGBA32\fP (unsigned char **out_pixels, int *out_width, int *out_height, int *out_bytes_per_pixel=NULL)"
+.br
+.ti -1c
+.RI "bool \fBIsBuilt\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetTexID\fP (ImTextureID id)"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesDefault\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesGreek\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesKorean\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesJapanese\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesChineseFull\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesChineseSimplifiedCommon\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesCyrillic\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesThai\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API const ImWchar * \fBGetGlyphRangesVietnamese\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API int \fBAddCustomRectRegular\fP (int width, int height)"
+.br
+.ti -1c
+.RI "IMGUI_API int \fBAddCustomRectFontGlyph\fP (\fBImFont\fP *font, ImWchar id, int width, int height, float advance_x, const \fBImVec2\fP &offset=\fBImVec2\fP(0, 0))"
+.br
+.ti -1c
+.RI "\fBImFontAtlasCustomRect\fP * \fBGetCustomRectByIndex\fP (int index)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBCalcCustomRectUV\fP (const \fBImFontAtlasCustomRect\fP *rect, \fBImVec2\fP *out_uv_min, \fBImVec2\fP *out_uv_max) const"
+.br
+.ti -1c
+.RI "IMGUI_API bool \fBGetMouseCursorTexData\fP (ImGuiMouseCursor cursor, \fBImVec2\fP *out_offset, \fBImVec2\fP *out_size, \fBImVec2\fP out_uv_border[2], \fBImVec2\fP out_uv_fill[2])"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImFontAtlasFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "ImTextureID \fBTexID\fP"
+.br
+.ti -1c
+.RI "int \fBTexDesiredWidth\fP"
+.br
+.ti -1c
+.RI "int \fBTexGlyphPadding\fP"
+.br
+.ti -1c
+.RI "bool \fBLocked\fP"
+.br
+.ti -1c
+.RI "void * \fBUserData\fP"
+.br
+.ti -1c
+.RI "bool \fBTexReady\fP"
+.br
+.ti -1c
+.RI "bool \fBTexPixelsUseColors\fP"
+.br
+.ti -1c
+.RI "unsigned char * \fBTexPixelsAlpha8\fP"
+.br
+.ti -1c
+.RI "unsigned int * \fBTexPixelsRGBA32\fP"
+.br
+.ti -1c
+.RI "int \fBTexWidth\fP"
+.br
+.ti -1c
+.RI "int \fBTexHeight\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTexUvScale\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBTexUvWhitePixel\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFont\fP * > \fBFonts\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontAtlasCustomRect\fP > \fBCustomRects\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontConfig\fP > \fBConfigData\fP"
+.br
+.ti -1c
+.RI "\fBImVec4\fP \fBTexUvLines\fP [IM_DRAWLIST_TEX_LINES_WIDTH_MAX+1]"
+.br
+.ti -1c
+.RI "const \fBImFontBuilderIO\fP * \fBFontBuilderIO\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBFontBuilderFlags\fP"
+.br
+.ti -1c
+.RI "int \fBPackIdMouseCursors\fP"
+.br
+.ti -1c
+.RI "int \fBPackIdLines\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,4 +1,4 @@
-.TH "StaticMeshComponent" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "StaticMeshComponent" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,25 +21,19 @@ Inherits \fBGraphicsComponent\fP\&.
 .RI "void \fBclean_up\fP () override"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const \fBUVector2\fP &resolution) noexcept"
-.br
-.ti -1c
 .RI "void \fBcompile\fP () noexcept override"
 .br
 .ti -1c
-.RI "GET const \fBMesh\fP & \fBget_mesh\fP () const noexcept"
+.RI "GET const \fBMesh\fP & \fBget_mesh\fP () noexcept"
 .br
 .ti -1c
 .RI "void \fBset_mesh\fP (const \fBMesh\fP &mesh) noexcept"
 .br
 .ti -1c
-.RI "GET const \fBMaterial\fP & \fBget_material\fP () const noexcept"
+.RI "GET \fBMaterial\fP & \fBget_material\fP () noexcept"
 .br
 .ti -1c
 .RI "void \fBset_material\fP (const \fBMaterial\fP &material) noexcept"
-.br
-.ti -1c
-.RI "void \fBset_material_data\fP (const \fBMaterial\fP &material) noexcept"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBStaticMeshComponent\fP &mesh) const noexcept"
@@ -62,12 +56,6 @@ Public Member Functions inherited from \fBGraphicsComponent\fP
 .br
 .ti -1c
 .RI "virtual void \fBset_size\fP (\fBFVector3\fP size) noexcept"
-.br
-.ti -1c
-.RI "bool \fBhas_changed\fP () const noexcept"
-.br
-.ti -1c
-.RI "void \fBhas_changed\fP (bool changed) noexcept"
 .br
 .in -1c
 
@@ -132,7 +120,10 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
-.RI "virtual void \fBon_start\fP ()"
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBclean_up\fP ()"
@@ -144,18 +135,21 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBtick\fP (float dt)"
 .br
 .in -1c
+
+Public Member Functions inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool changed) noexcept"
+.br
+.in -1c
 .SS "Static Public Attributes"
 
 .in +1c
 .ti -1c
 .RI "static const Type \fBcomponent_type\fP = Type::StaticMeshComponent"
-.br
-.in -1c
-.SS "Friends"
-
-.in +1c
-.ti -1c
-.RI "class \fBRenderer\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -164,7 +158,7 @@ Public Member Functions inherited from \fBControllable\fP
 Public Types inherited from \fBComponent\fP
 .in +1c
 .ti -1c
-.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP }"
+.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP, \fBMaterialComponent\fP }"
 .br
 .in -1c
 
@@ -182,10 +176,13 @@ Public Attributes inherited from \fBComponent\fP
 .br
 .in -1c
 
-Protected Attributes inherited from \fBGraphicsComponent\fP
+Protected Member Functions inherited from \fBComponent\fP
 .in +1c
 .ti -1c
-.RI "bool \fBchanged\fP {false}"
+.RI "void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
 .br
 .in -1c
 
@@ -196,6 +193,13 @@ Protected Attributes inherited from \fBComponent\fP
 .br
 .ti -1c
 .RI "Type \fBtype\fP = Type::None"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBGraphicsTracker\fP
+.in +1c
+.ti -1c
+.RI "bool \fBchanged\fP {false}"
 .br
 .in -1c
 .SH "Detailed Description"

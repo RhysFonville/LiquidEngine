@@ -1,0 +1,56 @@
+.TH "GraphicsAdapterOutput" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsAdapterOutput
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsAdapterOutput\fP (const ComPtr< ID3D12Device > &device, const ComPtr< IDXGIAdapter > &adapter)"
+.br
+.ti -1c
+.RI "\fBGraphicsAdapterOutput\fP (const ComPtr< ID3D12Device > &device, const ComPtr< IDXGIAdapter > &adapter, UINT adapter_output)"
+.br
+.ti -1c
+.RI "\fBGraphicsAdapterOutput\fP (const ComPtr< ID3D12Device > &device, const ComPtr< IDXGIAdapter > &adapter, const std::string &adapter_output)"
+.br
+.ti -1c
+.RI "\fBGraphicsAdapterOutput\fP (const ComPtr< ID3D12Device > &device, const ComPtr< IDXGIOutput > &adapter_output)"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBGraphicsAdapterOutput\fP &adapter_output)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "DXGI_OUTPUT_DESC \fBget_desc\fP ()"
+.br
+.ti -1c
+.RI "DXGI_GAMMA_CONTROL \fBget_gamma_control\fP ()"
+.br
+.ti -1c
+.RI "DXGI_GAMMA_CONTROL_CAPABILITIES \fBget_gamma_control_capabilities\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_gamma_control\fP (const DXGI_GAMMA_CONTROL &gamma_control)"
+.br
+.ti -1c
+.RI "void \fBfind_closest_display_mode_to_current\fP (DXGI_MODE_DESC *out_current_display_mode)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ComPtr< IDXGIOutput > \fBadapter_output\fP = nullptr"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

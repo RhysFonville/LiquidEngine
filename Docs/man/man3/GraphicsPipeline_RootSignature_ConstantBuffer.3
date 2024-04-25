@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::ConstantBuffer" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::ConstantBuffer" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,10 +16,10 @@ GraphicsPipeline::RootSignature::ConstantBuffer \- Constant buffer\&.
 .RI "template<typename T > \fBConstantBuffer\fP (T &cb, std::string name='')"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12DescriptorHeap > descriptor_heaps[NUMBER_OF_BUFFERS])"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBapply\fP (int frame_index) noexcept"
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBConstantBuffer\fP &cb) const noexcept"
@@ -35,16 +35,19 @@ GraphicsPipeline::RootSignature::ConstantBuffer \- Constant buffer\&.
 .RI "size_t \fBobj_size\fP = 0u"
 .br
 .ti -1c
-.RI "UINT * \fBgpu_addresses\fP [NUMBER_OF_BUFFERS] = { }"
-.br
-.ti -1c
-.RI "UINT \fBheap_index\fP = 0u"
+.RI "UINT \fBheap_index\fP {(UINT)\-1}"
 .br
 .ti -1c
 .RI "std::string \fBname\fP = ''"
 .br
 .ti -1c
 .RI "bool \fBupdate_signal\fP = true"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12Resource > \fBdefault_heap\fP {nullptr}"
+.br
+.ti -1c
+.RI "std::shared_ptr< \fBDescriptorTable\fP > \fBdescriptor_table\fP {nullptr}"
 .br
 .in -1c
 .SH "Detailed Description"

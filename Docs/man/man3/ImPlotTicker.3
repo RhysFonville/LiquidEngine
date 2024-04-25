@@ -1,0 +1,59 @@
+.TH "ImPlotTicker" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImPlotTicker
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImPlotTick\fP & \fBAddTick\fP (double value, bool major, int level, bool show_label, const char *label)"
+.br
+.ti -1c
+.RI "\fBImPlotTick\fP & \fBAddTick\fP (double value, bool major, int level, bool show_label, ImPlotFormatter formatter, void *data)"
+.br
+.ti -1c
+.RI "\fBImPlotTick\fP & \fBAddTick\fP (\fBImPlotTick\fP tick)"
+.br
+.ti -1c
+.RI "const char * \fBGetText\fP (int idx) const"
+.br
+.ti -1c
+.RI "const char * \fBGetText\fP (const \fBImPlotTick\fP &tick)"
+.br
+.ti -1c
+.RI "void \fBOverrideSizeLate\fP (const \fBImVec2\fP &size)"
+.br
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.ti -1c
+.RI "int \fBTickCount\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< \fBImPlotTick\fP > \fBTicks\fP"
+.br
+.ti -1c
+.RI "\fBImGuiTextBuffer\fP \fBTextBuffer\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBMaxSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBLateSize\fP"
+.br
+.ti -1c
+.RI "int \fBLevels\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

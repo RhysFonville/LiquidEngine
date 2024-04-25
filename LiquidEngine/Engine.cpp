@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine()
-	: world(World()), window(Window{&renderer}) {
+	: world{World{}}, window{Window{&renderer}} {
 	// Init COM
 //#if (_WIN32_WINNT >= 0x0A00 /*_WIN32_WINNT_WIN10*/)
 //	Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
@@ -14,7 +14,7 @@ Engine::Engine()
 //#endif
 
 	window.set_up_window();
-	renderer = Renderer(window.get_window());
+	renderer.init_renderer(window.get_window());
 
 	world.scenes.push_back(Scene(&renderer.scene));
 	world.active_scene = world.scenes.begin();
@@ -48,7 +48,7 @@ void Engine::loop() {
 				return;
 			}
 
-			window.editor_gui.update(dt.dt, world.active_scene->get_objects());
+			window.editor_gui.update(dt.dt);
 
 			world.tick(dt.dt);
 			renderer.tick(dt.dt);

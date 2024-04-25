@@ -12,6 +12,7 @@ namespace ResourceManager {
 			for (auto &resource : resources) {
 				resource.Reset();
 			}
+			resources.clear();
 		}
 	};
 };

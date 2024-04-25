@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::RootSignature::RootArgument" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature::RootArgument" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,6 +11,16 @@ GraphicsPipeline::RootSignature::RootArgument \- Root argument to be bound to pi
 \fC#include <GraphicsPipeline\&.h>\fP
 .PP
 Inherited by \fBGraphicsPipeline::RootSignature::DescriptorTable\fP, and \fBGraphicsPipeline::RootSignature::RootConstants\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRootArgument\fP (UINT parameter_index)"
+.br
+.ti -1c
+.RI "UINT \fBget_parameter_index\fP ()"
+.br
+.in -1c
 .SS "Protected Attributes"
 
 .in +1c
@@ -21,7 +31,7 @@ Inherited by \fBGraphicsPipeline::RootSignature::DescriptorTable\fP, and \fBGrap
 .RI "std::vector< D3D12_ROOT_PARAMETER > \fBroot_parameters\fP = { }"
 .br
 .ti -1c
-.RI "UINT \fBparameter_index\fP = 0u"
+.RI "UINT \fBparameter_index\fP {(UINT)\-1}"
 .br
 .in -1c
 .SH "Detailed Description"

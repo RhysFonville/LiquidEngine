@@ -18,19 +18,13 @@ Inheritance diagram for Sky\+Component\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_sky_component_ae012b1d159e861a5513b92659f3810de}\label{class_sky_component_ae012b1d159e861a5513b92659f3810de}} 
-void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
-\item 
 void \mbox{\hyperlink{class_sky_component_a11e85814deddde1359c8f4970eae7124}{compile}} () override
 \item 
 \mbox{\Hypertarget{class_sky_component_aadd144bdfd8946d91f4eebaff4803a42}\label{class_sky_component_aadd144bdfd8946d91f4eebaff4803a42}} 
 bool {\bfseries has\+\_\+texture} () const noexcept
 \item 
-\mbox{\Hypertarget{class_sky_component_a12a077b6b3e41ac1cd77283934807896}\label{class_sky_component_a12a077b6b3e41ac1cd77283934807896}} 
-const \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} () const
-\item 
-\mbox{\Hypertarget{class_sky_component_a415d28ee1f04590ce2bd985ff4d780ef}\label{class_sky_component_a415d28ee1f04590ce2bd985ff4d780ef}} 
-void {\bfseries set\+\_\+albedo\+\_\+texture} (std\+::string texture)
+\mbox{\Hypertarget{class_sky_component_a5bc5f3e9604696e9b9be69cbd00ff59f}\label{class_sky_component_a5bc5f3e9604696e9b9be69cbd00ff59f}} 
+\mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} ()
 \item 
 \mbox{\Hypertarget{class_sky_component_ab160e1d8b477de63940f6efe467b1e7c}\label{class_sky_component_ab160e1d8b477de63940f6efe467b1e7c}} 
 \mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const
@@ -49,12 +43,6 @@ virtual void \mbox{\hyperlink{class_graphics_component_a585ccb1ab984a71b17bb2abc
 virtual void \mbox{\hyperlink{class_graphics_component_ade90005bd1685ad846420782e4999578}{set\+\_\+rotation}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} rotation) noexcept
 \item 
 virtual void \mbox{\hyperlink{class_graphics_component_a2b3303a0ec40ced315c864a7643e535d}{set\+\_\+size}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} size) noexcept
-\item 
-\mbox{\Hypertarget{class_graphics_component_a5deb0e32c9461e2b5cf01348e3bca183}\label{class_graphics_component_a5deb0e32c9461e2b5cf01348e3bca183}} 
-bool {\bfseries has\+\_\+changed} () const noexcept
-\item 
-\mbox{\Hypertarget{class_graphics_component_a36065bf780bd0269f18227619073f25e}\label{class_graphics_component_a36065bf780bd0269f18227619073f25e}} 
-void {\bfseries has\+\_\+changed} (bool changed) noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
 \begin{DoxyCompactItemize}
@@ -116,8 +104,11 @@ virtual void {\bfseries base\+\_\+compile} ()
 \mbox{\Hypertarget{class_controllable_a61e410a136d98711221d0745674724cc}\label{class_controllable_a61e410a136d98711221d0745674724cc}} 
 virtual void {\bfseries base\+\_\+tick} (float dt)
 \item 
-\mbox{\Hypertarget{class_controllable_a787ecd58e4dad2882659158e43107bc1}\label{class_controllable_a787ecd58e4dad2882659158e43107bc1}} 
-virtual void {\bfseries on\+\_\+start} ()
+\mbox{\Hypertarget{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}\label{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}} 
+virtual void {\bfseries pre\+\_\+scene\+\_\+compile} ()
+\item 
+\mbox{\Hypertarget{class_controllable_a5850c2973f4c76d9412ed861cb21afb5}\label{class_controllable_a5850c2973f4c76d9412ed861cb21afb5}} 
+virtual void {\bfseries post\+\_\+scene\+\_\+compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_aa34341e4eb1189435b8f159d4cac09da}\label{class_controllable_aa34341e4eb1189435b8f159d4cac09da}} 
 virtual void {\bfseries clean\+\_\+up} ()
@@ -127,6 +118,15 @@ virtual void {\bfseries compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a869af510ef0d4280b091cd4b634bfb56}\label{class_controllable_a869af510ef0d4280b091cd4b634bfb56}} 
 virtual void {\bfseries tick} (float dt)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_adf7967db53cd804b0d520e4a9da71ae5}\label{class_graphics_tracker_adf7967db53cd804b0d520e4a9da71ae5}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}\label{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}} 
+void {\bfseries has\+\_\+changed} (bool changed) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -173,13 +173,18 @@ enum class {\bfseries Type} \{ \newline
 , {\bfseries Spotlight\+Component}
 , {\bfseries Box\+Component}
 , {\bfseries Sky\+Component}
+, \newline
+{\bfseries Material\+Component}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}}
+\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_component_aed51673dc2d4d1412a72553c79c99588}\label{class_graphics_component_aed51673dc2d4d1412a72553c79c99588}} 
-bool {\bfseries changed} \{false\}
+\mbox{\Hypertarget{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}\label{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}} 
+void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section} ()
+\item 
+\mbox{\Hypertarget{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}\label{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}} 
+virtual void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
 \begin{DoxyCompactItemize}
@@ -189,6 +194,12 @@ bool {\bfseries changed} \{false\}
 \item 
 \mbox{\Hypertarget{class_component_a18de93d5a176aa3cd6dc6724788dfacb}\label{class_component_a18de93d5a176aa3cd6dc6724788dfacb}} 
 Type {\bfseries type} = Type\+::\+None
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}\label{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}} 
+bool {\bfseries changed} \{false\}
 \end{DoxyCompactItemize}
 
 

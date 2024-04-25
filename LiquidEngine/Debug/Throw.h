@@ -109,7 +109,7 @@ static bool YESNO_MESSAGE(std::string message) {
 static bool CHECK_RESULT(THROW_PARAMS params) {
 	if (FAILED(params.hr)) {
 		_com_error error(params.hr);
-		return ERROR_MESSAGE(THROW_PARAMS({
+		return ERROR_MESSAGE(THROW_PARAMS{
 			error.Error(),
 			wstring_to_string(error.ErrorMessage()),
 			params.function_that_threw,
@@ -117,7 +117,7 @@ static bool CHECK_RESULT(THROW_PARAMS params) {
 			params.file_location,
 			params.line_location,
 			params.extra_message
-		}));
+		});
 	} else {
 		return false;
 	}
@@ -126,7 +126,7 @@ static bool CHECK_RESULT(THROW_PARAMS params) {
 // HPEW - Handle Possible Exception (Windows)
 #define HPEW_1_ARG(function) \
 hpewr = function; \
-while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__ }))) { \
+while (CHECK_RESULT(THROW_PARAMS{hpewr, "", #function, __func__, __FILE__, __LINE__})) { \
 	hpewr = function; \
 } \
 if (hpewquit) { \
@@ -135,8 +135,8 @@ if (hpewquit) { \
 
 #define HPEW_2_ARGS(function, extra_message) \
 hpewr = function; \
-while (CHECK_RESULT(THROW_PARAMS({ hpewr, "", #function, __func__, __FILE__, __LINE__, extra_message })))) { \
-	OutputDebugStringA(extra_message); \
+while (CHECK_RESULT(THROW_PARAMS{hpewr, "", #function, __func__, __FILE__, __LINE__, extra_message}))) { \
+	OutputDebugStringA((std::string{"THROW EXTRA MESSAGE:"} + extra_message).c_str()); \
 	hpewr = function; \
 } \
 if (hpewquit) { \

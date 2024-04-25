@@ -1,0 +1,128 @@
+.TH "ImFont" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImFont
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "IMGUI_API const \fBImFontGlyph\fP * \fBFindGlyph\fP (ImWchar c) const"
+.br
+.ti -1c
+.RI "IMGUI_API const \fBImFontGlyph\fP * \fBFindGlyphNoFallback\fP (ImWchar c) const"
+.br
+.ti -1c
+.RI "float \fBGetCharAdvance\fP (ImWchar c) const"
+.br
+.ti -1c
+.RI "bool \fBIsLoaded\fP () const"
+.br
+.ti -1c
+.RI "const char * \fBGetDebugName\fP () const"
+.br
+.ti -1c
+.RI "IMGUI_API \fBImVec2\fP \fBCalcTextSizeA\fP (float size, float max_width, float wrap_width, const char *text_begin, const char *text_end=NULL, const char **remaining=NULL) const"
+.br
+.ti -1c
+.RI "IMGUI_API const char * \fBCalcWordWrapPositionA\fP (float scale, const char *text, const char *text_end, float wrap_width) const"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBRenderChar\fP (\fBImDrawList\fP *draw_list, float size, const \fBImVec2\fP &pos, ImU32 col, ImWchar c) const"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBRenderText\fP (\fBImDrawList\fP *draw_list, float size, const \fBImVec2\fP &pos, ImU32 col, const \fBImVec4\fP &clip_rect, const char *text_begin, const char *text_end, float wrap_width=0\&.0f, bool cpu_fine_clip=false) const"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBBuildLookupTable\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBClearOutputData\fP ()"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBGrowIndex\fP (int new_size)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddGlyph\fP (const \fBImFontConfig\fP *src_cfg, ImWchar c, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float advance_x)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBAddRemapChar\fP (ImWchar dst, ImWchar src, bool overwrite_dst=true)"
+.br
+.ti -1c
+.RI "IMGUI_API void \fBSetGlyphVisible\fP (ImWchar c, bool visible)"
+.br
+.ti -1c
+.RI "IMGUI_API bool \fBIsGlyphRangeUnused\fP (unsigned int c_begin, unsigned int c_last)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImVector\fP< float > \fBIndexAdvanceX\fP"
+.br
+.ti -1c
+.RI "float \fBFallbackAdvanceX\fP"
+.br
+.ti -1c
+.RI "float \fBFontSize\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< ImWchar > \fBIndexLookup\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImFontGlyph\fP > \fBGlyphs\fP"
+.br
+.ti -1c
+.RI "const \fBImFontGlyph\fP * \fBFallbackGlyph\fP"
+.br
+.ti -1c
+.RI "\fBImFontAtlas\fP * \fBContainerAtlas\fP"
+.br
+.ti -1c
+.RI "const \fBImFontConfig\fP * \fBConfigData\fP"
+.br
+.ti -1c
+.RI "short \fBConfigDataCount\fP"
+.br
+.ti -1c
+.RI "ImWchar \fBFallbackChar\fP"
+.br
+.ti -1c
+.RI "ImWchar \fBEllipsisChar\fP"
+.br
+.ti -1c
+.RI "short \fBEllipsisCharCount\fP"
+.br
+.ti -1c
+.RI "float \fBEllipsisWidth\fP"
+.br
+.ti -1c
+.RI "float \fBEllipsisCharStep\fP"
+.br
+.ti -1c
+.RI "bool \fBDirtyLookupTables\fP"
+.br
+.ti -1c
+.RI "float \fBScale\fP"
+.br
+.ti -1c
+.RI "float \fBAscent\fP"
+.br
+.ti -1c
+.RI "float \fBDescent\fP"
+.br
+.ti -1c
+.RI "int \fBMetricsTotalSurface\fP"
+.br
+.ti -1c
+.RI "ImU8 \fBUsed4kPagesMap\fP [(IM_UNICODE_CODEPOINT_MAX+1)/4096/8]"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

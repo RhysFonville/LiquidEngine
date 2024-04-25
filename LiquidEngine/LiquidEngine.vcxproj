@@ -162,7 +162,9 @@
     <ClInclude Include="Controllable.h" />
     <ClInclude Include="Debug\DebugConsole.h" />
     <ClInclude Include="EditorGUI.h" />
-    <ClInclude Include="Graphics\GraphicsDescriptorHeaps.h" />
+    <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h" />
+    <ClInclude Include="Graphics\Renderer\GraphicsAdapter.h" />
+    <ClInclude Include="Graphics\Renderer\GraphicsDescriptorHeaps.h" />
     <ClInclude Include="Graphics\ComputePipeline.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
@@ -194,7 +196,7 @@
     <ClInclude Include="Graphics\d3dx12.h" />
     <ClInclude Include="Graphics\GraphicsPipeline.h" />
     <ClInclude Include="Graphics\GraphicsPipelineMeshChange.h" />
-    <ClInclude Include="Graphics\Renderer.h" />
+    <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Mesh.h" />
@@ -219,7 +221,9 @@
     <ClCompile Include="Controllable.cpp" />
     <ClCompile Include="Debug\DebugConsole.cpp" />
     <ClCompile Include="EditorGUI.cpp" />
-    <ClCompile Include="Graphics\GraphicsDescriptorHeaps.cpp" />
+    <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp" />
+    <ClCompile Include="Graphics\Renderer\GraphicsAdapter.cpp" />
+    <ClCompile Include="Graphics\Renderer\GraphicsDescriptorHeaps.cpp" />
     <ClCompile Include="Graphics\ComputePipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
@@ -246,7 +250,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
     <ClCompile Include="Graphics\GraphicsPipelineMeshChange.cpp" />
-    <ClCompile Include="Graphics\Renderer.cpp" />
+    <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="main.cpp" />

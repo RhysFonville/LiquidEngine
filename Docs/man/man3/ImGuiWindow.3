@@ -1,0 +1,350 @@
+.TH "ImGuiWindow" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImGuiWindow
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiWindow\fP (\fBImGuiContext\fP *context, const char *name)"
+.br
+.ti -1c
+.RI "ImGuiID \fBGetID\fP (const char *str, const char *str_end=NULL)"
+.br
+.ti -1c
+.RI "ImGuiID \fBGetID\fP (const void *ptr)"
+.br
+.ti -1c
+.RI "ImGuiID \fBGetID\fP (int n)"
+.br
+.ti -1c
+.RI "ImGuiID \fBGetIDFromRectangle\fP (const \fBImRect\fP &r_abs)"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBRect\fP () const"
+.br
+.ti -1c
+.RI "float \fBCalcFontSize\fP () const"
+.br
+.ti -1c
+.RI "float \fBTitleBarHeight\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBTitleBarRect\fP () const"
+.br
+.ti -1c
+.RI "float \fBMenuBarHeight\fP () const"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBMenuBarRect\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiContext\fP * \fBCtx\fP"
+.br
+.ti -1c
+.RI "char * \fBName\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBID\fP"
+.br
+.ti -1c
+.RI "ImGuiWindowFlags \fBFlags\fP"
+.br
+.ti -1c
+.RI "ImGuiChildFlags \fBChildFlags\fP"
+.br
+.ti -1c
+.RI "\fBImGuiViewportP\fP * \fBViewport\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBPos\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSizeFull\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSizeIdeal\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBContentSizeExplicit\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBWindowPadding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowRounding\fP"
+.br
+.ti -1c
+.RI "float \fBWindowBorderSize\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeX1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeY1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeX2\fP"
+.br
+.ti -1c
+.RI "float \fBDecoOuterSizeY2\fP"
+.br
+.ti -1c
+.RI "float \fBDecoInnerSizeX1\fP"
+.br
+.ti -1c
+.RI "float \fBDecoInnerSizeY1\fP"
+.br
+.ti -1c
+.RI "int \fBNameBufLen\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBMoveId\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBChildId\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScroll\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollMax\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTarget\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTargetCenterRatio\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollTargetEdgeSnapDist\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBScrollbarSizes\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollbarX\fP"
+.br
+.ti -1c
+.RI "bool \fBScrollbarY\fP"
+.br
+.ti -1c
+.RI "bool \fBActive\fP"
+.br
+.ti -1c
+.RI "bool \fBWasActive\fP"
+.br
+.ti -1c
+.RI "bool \fBWriteAccessed\fP"
+.br
+.ti -1c
+.RI "bool \fBCollapsed\fP"
+.br
+.ti -1c
+.RI "bool \fBWantCollapseToggle\fP"
+.br
+.ti -1c
+.RI "bool \fBSkipItems\fP"
+.br
+.ti -1c
+.RI "bool \fBAppearing\fP"
+.br
+.ti -1c
+.RI "bool \fBHidden\fP"
+.br
+.ti -1c
+.RI "bool \fBIsFallbackWindow\fP"
+.br
+.ti -1c
+.RI "bool \fBIsExplicitChild\fP"
+.br
+.ti -1c
+.RI "bool \fBHasCloseButton\fP"
+.br
+.ti -1c
+.RI "signed char \fBResizeBorderHovered\fP"
+.br
+.ti -1c
+.RI "signed char \fBResizeBorderHeld\fP"
+.br
+.ti -1c
+.RI "short \fBBeginCount\fP"
+.br
+.ti -1c
+.RI "short \fBBeginCountPreviousFrame\fP"
+.br
+.ti -1c
+.RI "short \fBBeginOrderWithinParent\fP"
+.br
+.ti -1c
+.RI "short \fBBeginOrderWithinContext\fP"
+.br
+.ti -1c
+.RI "short \fBFocusOrder\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBPopupId\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBAutoFitFramesX\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBAutoFitFramesY\fP"
+.br
+.ti -1c
+.RI "bool \fBAutoFitOnlyGrows\fP"
+.br
+.ti -1c
+.RI "ImGuiDir \fBAutoPosLastDirection\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBHiddenFramesCanSkipItems\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBHiddenFramesCannotSkipItems\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBHiddenFramesForRenderOnly\fP"
+.br
+.ti -1c
+.RI "ImS8 \fBDisableInputsFrames\fP"
+.br
+.ti -1c
+.RI "ImGuiCond \fBSetWindowPosAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "ImGuiCond \fBSetWindowSizeAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "ImGuiCond \fBSetWindowCollapsedAllowFlags\fP: 8"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSetWindowPosVal\fP"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBSetWindowPosPivot\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< ImGuiID > \fBIDStack\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindowTempData\fP \fBDC\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBOuterRectClipped\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBInnerClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBWorkRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBParentWorkRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBClipRect\fP"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBContentRegionRect\fP"
+.br
+.ti -1c
+.RI "\fBImVec2ih\fP \fBHitTestHoleSize\fP"
+.br
+.ti -1c
+.RI "\fBImVec2ih\fP \fBHitTestHoleOffset\fP"
+.br
+.ti -1c
+.RI "int \fBLastFrameActive\fP"
+.br
+.ti -1c
+.RI "float \fBLastTimeActive\fP"
+.br
+.ti -1c
+.RI "float \fBItemWidthDefault\fP"
+.br
+.ti -1c
+.RI "\fBImGuiStorage\fP \fBStateStorage\fP"
+.br
+.ti -1c
+.RI "\fBImVector\fP< \fBImGuiOldColumns\fP > \fBColumnsStorage\fP"
+.br
+.ti -1c
+.RI "float \fBFontWindowScale\fP"
+.br
+.ti -1c
+.RI "int \fBSettingsOffset\fP"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP * \fBDrawList\fP"
+.br
+.ti -1c
+.RI "\fBImDrawList\fP \fBDrawListInst\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindowInBeginStack\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindow\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowPopupTree\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowForTitleBarHighlight\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBRootWindowForNav\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBParentWindowForFocusRoute\fP"
+.br
+.ti -1c
+.RI "\fBImGuiWindow\fP * \fBNavLastChildNavWindow\fP"
+.br
+.ti -1c
+.RI "ImGuiID \fBNavLastIds\fP [ImGuiNavLayer_COUNT]"
+.br
+.ti -1c
+.RI "\fBImRect\fP \fBNavRectRel\fP [ImGuiNavLayer_COUNT]"
+.br
+.ti -1c
+.RI "\fBImVec2\fP \fBNavPreferredScoringPosRel\fP [ImGuiNavLayer_COUNT]"
+.br
+.ti -1c
+.RI "ImGuiID \fBNavRootFocusScopeId\fP"
+.br
+.ti -1c
+.RI "int \fBMemoryDrawListIdxCapacity\fP"
+.br
+.ti -1c
+.RI "int \fBMemoryDrawListVtxCapacity\fP"
+.br
+.ti -1c
+.RI "bool \fBMemoryCompacted\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

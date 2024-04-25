@@ -1,4 +1,4 @@
-.TH "DefaultShapes::Cube" 3 "Thu Feb 8 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "DefaultShapes::Cube" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ Inherits \fBObject\fP\&.
 
 .in +1c
 .ti -1c
-.RI "void \fBon_start\fP () override"
+.RI "void \fBpre_scene_compile\fP () override"
 .br
 .in -1c
 
@@ -94,6 +94,9 @@ Public Member Functions inherited from \fBObject\fP
 .RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > GET std::vector< T * > \fBget_components\fP () noexcept"
 .br
 .ti -1c
+.RI "GET std::vector< std::shared_ptr< \fBComponent\fP > > & \fBget_all_components\fP () noexcept"
+.br
+.ti -1c
 .RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > void \fBadd_component\fP (const std::shared_ptr< T > &component)"
 .br
 .ti -1c
@@ -113,7 +116,10 @@ Public Member Functions inherited from \fBControllable\fP
 .RI "virtual void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
-.RI "virtual void \fBon_start\fP ()"
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBclean_up\fP ()"
@@ -143,7 +149,7 @@ Public Attributes inherited from \fBObject\fP
 .in -1c
 .SH "Member Function Documentation"
 .PP 
-.SS "void DefaultShapes::Cube::on_start ()\fC [override]\fP, \fC [virtual]\fP"
+.SS "void DefaultShapes::Cube::pre_scene_compile ()\fC [override]\fP, \fC [virtual]\fP"
 
 .PP
 Reimplemented from \fBControllable\fP\&.

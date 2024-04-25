@@ -3,6 +3,8 @@
 Scene::Scene(GraphicsScene* graphics_scene) : graphics_scene(graphics_scene) { }
 
 void Scene::tick(float dt) {
+	render_editor_gui_section();
+
 	input_listener.handle_input(dt);
 
 	for (std::shared_ptr<Object> &object : objects) {
@@ -19,7 +21,7 @@ void Scene::clean_up() {
 
 void Scene::compile() {
 	for (std::shared_ptr<Object> &object : objects) {
-		object->compile();
+		object->base_compile();
 	}
 }
 
@@ -40,4 +42,23 @@ void Scene::add_character(const std::shared_ptr<Character> &character) noexcept 
 
 void Scene::remove_object(int index) noexcept {
 	objects.erase(objects.begin()+index);
+}
+
+void Scene::render_editor_gui_section() {
+	if (ImGui::Button("Add object")) {
+		add_object(std::make_shared<Object>());
+		objects.back()->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
+		objects.back()->base_compile();
+	}
+
+	ImGui::Text("Objects");
+	int i = 0;
+	for (auto &object : objects) {
+		if (ImGui::TreeNode(("Object" + std::to_string(i)).c_str())) {
+			ImGui::InputText("Name", &object->name);
+			object->base_render_editor_gui_section();
+			ImGui::TreePop();
+		}
+		i++;
+	}
 }

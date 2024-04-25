@@ -7,9 +7,9 @@
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <exception>}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <comdef.h>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stacktrace>}\ \textcolor{comment}{//idk\ why\ it\ doesn't\ know\ what\ this\ is..\ I\ put\ it\ on\ /std:c++latest,\ and\ https://learn.microsoft.com/en-\/us/cpp/overview/what-\/s-\/new-\/for-\/visual-\/cpp-\/in-\/visual-\/studio?view=msvc-\/170\ says\ that\ should\ work...}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stacktrace>}}
 \DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}DebugOutput.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}DebugConsole.h"{}}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{keyword}{static}\ HRESULT\ hpewr\ =\ S\_OK;\ \textcolor{comment}{//\ Handle\ Possible\ Excpetion\ (Windows)\ Result}}
 \DoxyCodeLine{00011\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ hpewquit\ =\ \textcolor{keyword}{false};}
@@ -25,21 +25,21 @@
 \DoxyCodeLine{00024\ \};}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00031\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ ERROR\_MESSAGE(\mbox{\hyperlink{struct_t_h_r_o_w___p_a_r_a_m_s}{THROW\_PARAMS}}\ params)\ \{}
-\DoxyCodeLine{00032\ \ \ \ \ std::string\ final\_message\ =\ \textcolor{stringliteral}{"{}+=====\ ERROR\ AT\ "{}}\ +\ format\_time\_point(std::chrono::system\_clock::now())\ +\ \textcolor{stringliteral}{"{}\ =====+"{}};}
-\DoxyCodeLine{00033\ \ \ \ \ std::string\ print\_final\_message\ =\ params.message\ +\ \textcolor{stringliteral}{"{}\ :\ "{}}\ +\ params.extra\_message\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}}\ +\ params.function\_that\_threw;}
-\DoxyCodeLine{00034\ \ \ \ \ }
-\DoxyCodeLine{00035\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)nERROR\ CODE\ "{}}\ +\ std::to\_string(params.hr)\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +\ params.message\ +\ (!params.extra\_message.empty()\ ?\ \textcolor{stringliteral}{"{}\ :\ "{}}\ +\ params.extra\_message\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
-\DoxyCodeLine{00036\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}FUNCTION\ THAT\ THREW:\ "{}}\ +\ params.function\_that\_threw\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}};}
-\DoxyCodeLine{00037\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}LOCATION:\(\backslash\)n"{}};}
-\DoxyCodeLine{00038\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tFUNCTION:\ "{}}\ +\ params.func\_location\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
-\DoxyCodeLine{00039\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tFILE:\ "{}}\ +\ params.file\_location\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
-\DoxyCodeLine{00040\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tLINE:\ "{}}\ +\ std::to\_string(params.line\_location);}
-\DoxyCodeLine{00041\ \ \ \ \ final\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)nSTACK\ TRACE:\(\backslash\)n"{}}\ +\ std::to\_string(std::stacktrace::current());}
-\DoxyCodeLine{00042\ \ \ \ \ append\_to\_file(final\_message\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}throw\_details.log"{}});}
-\DoxyCodeLine{00043\ \ \ \ \ }
-\DoxyCodeLine{00044\ \ \ \ \ *debug\_out\ <<\ DebugOutput::Color::RED\ <<\ \textcolor{stringliteral}{"{}ERROR\ IN\ "{}}\ <<\ params.file\_location\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ file\_message\{\};}
+\DoxyCodeLine{00033\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}+=====\ ERROR\ AT\ "{}}\ +\ format\_time\_point(std::chrono::system\_clock::now())\ +\ \textcolor{stringliteral}{"{}\ =====+"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)nERROR\ CODE\ "{}}\ +\ std::to\_string(params.hr)\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +\ params.message\ +\ (!params.extra\_message.empty()\ ?\ \textcolor{stringliteral}{"{}\ :\ "{}}\ +\ params.extra\_message\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00035\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}FUNCTION\ THAT\ THREW:\ "{}}\ +\ params.function\_that\_threw\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00036\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}LOCATION:\(\backslash\)n"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tFUNCTION:\ "{}}\ +\ params.func\_location\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00038\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tFILE:\ "{}}\ +\ params.file\_location\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00039\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)tLINE:\ "{}}\ +\ std::to\_string(params.line\_location);}
+\DoxyCodeLine{00040\ \ \ \ \ file\_message\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)nSTACK\ TRACE:\(\backslash\)n"{}}\ +\ std::to\_string(std::stacktrace::current());}
+\DoxyCodeLine{00041\ \ \ \ \ append\_to\_file(file\_message\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}throw\_details.log"{}});}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ print\_message\ =\ params.message\ +\ \textcolor{stringliteral}{"{}\ :\ "{}}\ +\ params.extra\_message\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}}\ +\ params.function\_that\_threw;}
+\DoxyCodeLine{00044\ \ \ \ \ *debug\_console\ <<\ DebugConsole::Color::RED\ <<\ \textcolor{stringliteral}{"{}ERROR:\ "{}}\ <<\ print\_message\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ out\ =\ MessageBoxExA(NULL,\ print\_final\_message.c\_str(),\ \textcolor{stringliteral}{"{}Error!"{}},\ MB\_ABORTRETRYIGNORE\ |\ MB\_ICONERROR,\ 0);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ out\ =\ MessageBoxExA(NULL,\ print\_message.c\_str(),\ \textcolor{stringliteral}{"{}Error!"{}},\ MB\_ABORTRETRYIGNORE\ |\ MB\_ICONERROR,\ 0);}
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{if}\ (out\ ==\ IDABORT)\ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ hpewquit\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
@@ -81,7 +81,7 @@
 \DoxyCodeLine{00109\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ CHECK\_RESULT(\mbox{\hyperlink{struct_t_h_r_o_w___p_a_r_a_m_s}{THROW\_PARAMS}}\ params)\ \{}
 \DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{if}\ (FAILED(params.hr))\ \{}
 \DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_com\_error\ error(params.hr);}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_MESSAGE(\mbox{\hyperlink{struct_t_h_r_o_w___p_a_r_a_m_s}{THROW\_PARAMS}}(\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_MESSAGE(\mbox{\hyperlink{struct_t_h_r_o_w___p_a_r_a_m_s}{THROW\_PARAMS}}\{}
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ error.Error(),}
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ wstring\_to\_string(error.ErrorMessage()),}
 \DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ params.function\_that\_threw,}
@@ -89,7 +89,7 @@
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ params.file\_location,}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ params.line\_location,}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ params.extra\_message}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}));}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00121\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
 \DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00123\ \ \ \ \ \}}
@@ -98,21 +98,21 @@
 \DoxyCodeLine{00126\ \textcolor{comment}{//\ HPEW\ -\/\ Handle\ Possible\ Exception\ (Windows)}}
 \DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ HPEW\_1\_ARG(function)\ \(\backslash\)}}
 \DoxyCodeLine{00128\ \textcolor{preprocessor}{hpewr\ =\ function;\ \(\backslash\)}}
-\DoxyCodeLine{00129\ \textcolor{preprocessor}{while\ (CHECK\_RESULT(THROW\_PARAMS(\{\ hpewr,\ "{}"{}},\ \#function,\ \_\_func\_\_,\ \_\_FILE\_\_,\ \_\_LINE\_\_\ \})))\ \{\ \(\backslash\)}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{while\ (CHECK\_RESULT(THROW\_PARAMS\{hpewr,\ "{}"{}},\ \#function,\ \_\_func\_\_,\ \_\_FILE\_\_,\ \_\_LINE\_\_\}))\ \{\ \(\backslash\)}
 \DoxyCodeLine{00130\ \ \ \ \ hpewr\ =\ function;\ \(\backslash\)}
 \DoxyCodeLine{00131\ \}\ \(\backslash\)}
 \DoxyCodeLine{00132\ if\ (hpewquit)\ \{\ \(\backslash\)}
-\DoxyCodeLine{00133\ \ \ \ \ throw\ std::exception();\ \(\backslash\)}
+\DoxyCodeLine{00133\ \ \ \ \ throw\ std::exception\{\};\ \(\backslash\)}
 \DoxyCodeLine{00134\ \}}
 \DoxyCodeLine{00135\ }
 \DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ HPEW\_2\_ARGS(function,\ extra\_message)\ \(\backslash\)}}
 \DoxyCodeLine{00137\ \textcolor{preprocessor}{hpewr\ =\ function;\ \(\backslash\)}}
-\DoxyCodeLine{00138\ \textcolor{preprocessor}{while\ (CHECK\_RESULT(THROW\_PARAMS(\{\ hpewr,\ "{}"{}},\ \#function,\ \_\_func\_\_,\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ extra\_message\ \}))))\ \{\ \(\backslash\)}
-\DoxyCodeLine{00139\ \ \ \ \ OutputDebugStringA(extra\_message);\ \(\backslash\)}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{while\ (CHECK\_RESULT(THROW\_PARAMS\{hpewr,\ "{}"{}},\ \#function,\ \_\_func\_\_,\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ extra\_message\})))\ \{\ \(\backslash\)}
+\DoxyCodeLine{00139\ \ \ \ \ OutputDebugStringA((std::string\{"{}THROW\ EXTRA\ MESSAGE:"{}\}\ +\ extra\_message).c\_str());\ \(\backslash\)}
 \DoxyCodeLine{00140\ \ \ \ \ hpewr\ =\ function;\ \(\backslash\)}
 \DoxyCodeLine{00141\ \}\ \(\backslash\)}
 \DoxyCodeLine{00142\ if\ (hpewquit)\ \{\ \(\backslash\)}
-\DoxyCodeLine{00143\ \ \ \ \ throw\ std::exception();\ \(\backslash\)}
+\DoxyCodeLine{00143\ \ \ \ \ throw\ std::exception\{\};\ \(\backslash\)}
 \DoxyCodeLine{00144\ \}}
 \DoxyCodeLine{00145\ }
 \DoxyCodeLine{00146\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ hper\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Handle\ Possible\ Excpetion\ Result}}

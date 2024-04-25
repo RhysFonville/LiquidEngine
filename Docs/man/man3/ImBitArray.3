@@ -1,0 +1,44 @@
+.TH "ImBitArray< BITCOUNT, OFFSET >" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ImBitArray< BITCOUNT, OFFSET >
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBClearAllBits\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetAllBits\fP ()"
+.br
+.ti -1c
+.RI "bool \fBTestBit\fP (int n) const"
+.br
+.ti -1c
+.RI "void \fBSetBit\fP (int n)"
+.br
+.ti -1c
+.RI "void \fBClearBit\fP (int n)"
+.br
+.ti -1c
+.RI "void \fBSetBitRange\fP (int n, int n2)"
+.br
+.ti -1c
+.RI "bool \fBoperator[]\fP (int n) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "ImU32 \fBStorage\fP [(BITCOUNT+31) > > 5]"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.
