@@ -14,6 +14,7 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\Graphic
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ComputePipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ComputePipeline.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsScene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\LightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\LightComponent.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ResourceManager.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ResourceManager.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_demo.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui_demo.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\imgui\imgui_draw.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\imgui_draw.obj

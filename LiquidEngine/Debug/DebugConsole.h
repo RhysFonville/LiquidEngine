@@ -50,7 +50,7 @@ public:
 	DebugConsole(DebugConsole &) = delete;
 	void operator=(const DebugConsole &) = delete;
 
-	GET static DebugConsole* get_instance();
+	static DebugConsole* get_instance();
 
 	void destroy_window();
 

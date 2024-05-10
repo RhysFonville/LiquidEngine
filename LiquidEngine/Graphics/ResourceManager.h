@@ -17,7 +17,7 @@ public:
 	ResourceManager(ResourceManager &) = delete;
 	void operator=(const ResourceManager &) = delete;
 
-	GET static ResourceManager* get_instance() {
+	static ResourceManager* get_instance() {
 		if (resource_manager == nullptr) {
 			resource_manager = new ResourceManager{};
 		}
