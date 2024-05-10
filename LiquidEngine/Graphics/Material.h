@@ -21,27 +21,27 @@ public:
 	void set_data(const std::string &file);
 	void set_data(const Material &material);
 
-	bool has_texture() const noexcept;
-	bool has_normal_map() const noexcept;
-	bool has_environment_texture() const noexcept;
+	GET bool has_texture() const noexcept;
+	GET bool has_normal_map() const noexcept;
+	GET bool has_environment_texture() const noexcept;
 
 	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
-	Texture & get_albedo_texture() { return albedo_texture; }
-	Texture & get_normal_map() { return normal_map; }
-	Texture & get_environment_texture() { return environment_texture; }
+	GET Texture & get_albedo_texture() { return albedo_texture; }
+	GET Texture & get_normal_map() { return normal_map; }
+	GET Texture & get_environment_texture() { return environment_texture; }
 
-	Color get_albedo() const { return albedo; }
+	GET Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &albedo) { this->albedo = albedo; changed = true; }
 	
-	Color get_specular() const { return specular; }
+	GET Color get_specular() const { return specular; }
 	void set_specular(const Color &specular) { this->specular = specular; changed = true; }
 
-	Color get_ambient() const { return ambient; }
+	GET Color get_ambient() const { return ambient; }
 	void set_ambient(const Color &ambient) { this->ambient = ambient; changed = true; }
 
-	float get_shininess() const { return shininess; }
+	GET float get_shininess() const { return shininess; }
 	void set_shininess(float shininess) { this->shininess = shininess; changed = true; }
 
 	GraphicsPipeline pipeline{};

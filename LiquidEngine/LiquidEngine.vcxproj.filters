@@ -364,6 +364,9 @@
     <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Graphics\mipmapcs.hlsl" />

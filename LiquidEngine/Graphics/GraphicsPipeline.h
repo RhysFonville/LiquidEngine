@@ -81,7 +81,7 @@ public:
 			this->change_manager = change_manager;
 		}
 
-		const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
+		GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
 
 		bool operator==(const InputAssembler &input_assembler) const noexcept {
 			return (
@@ -126,7 +126,7 @@ public:
 			this->desc = desc;
 		}
 
-		D3D12_RASTERIZER_DESC get_desc() const noexcept {
+		GET D3D12_RASTERIZER_DESC get_desc() const noexcept {
 			return desc;
 		}
 
@@ -149,7 +149,7 @@ public:
 			return (desc == stream_output.desc);
 		}
 
-		D3D12_STREAM_OUTPUT_DESC get_desc() const noexcept {
+		GET D3D12_STREAM_OUTPUT_DESC get_desc() const noexcept {
 			return desc;
 		}
 
@@ -172,7 +172,7 @@ public:
 			RootArgument() { }
 			RootArgument(UINT parameter_index);
 
-			UINT get_parameter_index() { return parameter_index; }
+			GET UINT get_parameter_index() { return parameter_index; }
 
 		protected:
 			friend RootSignature;
@@ -202,8 +202,8 @@ public:
 			
 			bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
-			const D3D12_ROOT_DESCRIPTOR_TABLE & get_table() const noexcept { return table; }
-			const std::vector<CD3DX12_DESCRIPTOR_RANGE> & get_ranges() const noexcept { return ranges; }
+			GET const D3D12_ROOT_DESCRIPTOR_TABLE & get_table() const noexcept { return table; }
+			GET const std::vector<CD3DX12_DESCRIPTOR_RANGE> & get_ranges() const noexcept { return ranges; }
 		private:
 			friend RootSignature;
 
@@ -251,7 +251,7 @@ public:
 				compile(shader, index, number_of_values);
 			}
 
-			const D3D12_ROOT_CONSTANTS & get_constants() const noexcept { return constants; }
+			GET const D3D12_ROOT_CONSTANTS & get_constants() const noexcept { return constants; }
 
 		private:
 			friend RootSignature;
@@ -459,12 +459,12 @@ public:
 
 		void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps);
 
-		const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
-		const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
-		const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
+		GET const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
+		GET const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
+		GET const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
 
-		const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
-		const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
+		GET const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
+		GET const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
 
 	private:
 		friend GraphicsPipeline;

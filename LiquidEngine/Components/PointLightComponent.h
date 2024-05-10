@@ -13,10 +13,10 @@ public:
 	bool operator==(const PointLightComponent &component) const noexcept;
 	void operator=(const PointLightComponent &light) noexcept;
 
-	float get_range() const noexcept { return range; }
+	GET float get_range() const noexcept { return range; }
 	void set_range(float range) noexcept { this->range = range; changed = true; }
 
-	FVector3 get_attenuation() const noexcept { return attenuation; }
+	GET FVector3 get_attenuation() const noexcept { return attenuation; }
 	void set_attenuation(FVector3 attenuation) noexcept { this->attenuation = attenuation; changed = true; }
 
 	static const Type component_type = Type::PointLightComponent;

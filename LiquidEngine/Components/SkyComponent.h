@@ -15,9 +15,9 @@ public:
 
 	bool has_texture() const noexcept;
 
-	Texture & get_albedo_texture() { return albedo_texture; }
+	GET Texture & get_albedo_texture() { return albedo_texture; }
 
-	Color get_albedo() const { return albedo; }
+	GET Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &new_albedo) { albedo = new_albedo; changed = true; }
 
 	static Mesh create_sphere(UINT lat_lines, UINT long_lines);

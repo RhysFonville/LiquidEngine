@@ -20,9 +20,9 @@ public:
 
 	void clean_up();
 
-	DXGI_OUTPUT_DESC get_desc() { return desc; }
-	DXGI_GAMMA_CONTROL get_gamma_control() { return gamma_control; }
-	DXGI_GAMMA_CONTROL_CAPABILITIES get_gamma_control_capabilities() { return gamma_control_capabilities; }
+	GET DXGI_OUTPUT_DESC get_desc() { return desc; }
+	GET DXGI_GAMMA_CONTROL get_gamma_control() { return gamma_control; }
+	GET DXGI_GAMMA_CONTROL_CAPABILITIES get_gamma_control_capabilities() { return gamma_control_capabilities; }
 
 	void set_gamma_control(const DXGI_GAMMA_CONTROL &gamma_control) {
 		adapter_output->SetGammaControl(&gamma_control);

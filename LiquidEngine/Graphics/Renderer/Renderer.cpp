@@ -368,16 +368,17 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	scene.compile();
+	for (auto &mesh : scene.static_meshes) {
+		mesh->compile(scene.camera);
+	}
+
 	scene.update(resolution);
 
-	int i = 0;
 	for (auto &mesh : scene.static_meshes) {
 		if (compile_components)
 			mesh->component->compile();
 
 		mesh->material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
-		i++;
 	}
 
 	if (scene.sky.component != nullptr) {
@@ -392,7 +393,7 @@ void Renderer::compile(bool compile_components) {
 
 	increment_fence();
 
-	ResourceManager::Release::release_all_resources();
+	resource_manager->release_all_resources();
 }
 
 void Renderer::render(float dt) {
@@ -401,6 +402,8 @@ void Renderer::render(float dt) {
 	if (skip_frame) return;
 
 	wait_for_previous_frame();
+
+	resource_manager->release_all_resources();
 
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
@@ -443,8 +446,6 @@ void Renderer::render(float dt) {
 	command_list->ResourceBarrier(1, &barrier);
 
 	HPEW(command_list->Close());
-
-	ResourceManager::Release::release_all_resources();
 }
 
 void Renderer::present() {
@@ -482,7 +483,7 @@ void Renderer::clean_up() {
 
 	//scene.clean_up();
 
-	ResourceManager::Release::release_all_resources();
+	resource_manager->release_all_resources();
 
 	EditorGUI::clean_up();
 

@@ -20,7 +20,7 @@ public:
 
 	void clean_up() { adapter.Reset(); }
 
-	DXGI_ADAPTER_DESC get_desc() { return desc; }
+	GET DXGI_ADAPTER_DESC get_desc() { return desc; }
 
 	ComPtr<IDXGIAdapter> adapter = nullptr;
 

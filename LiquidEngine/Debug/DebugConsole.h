@@ -3,6 +3,8 @@
 #include <fstream>
 #include <Windows.h>
 #include <iostream>
+#include <deque>
+#include "../globalutil.h"
 
 /**
  * Debug window input and output.
@@ -48,9 +50,13 @@ public:
 	DebugConsole(DebugConsole &) = delete;
 	void operator=(const DebugConsole &) = delete;
 
-	static DebugConsole* get_instance();
+	GET static DebugConsole* get_instance();
 
 	void destroy_window();
+
+	GET const std::deque<std::string> & get_history() const noexcept { return history; } 
+
+	void clear_old_history(int number_of_logs = -1);
 
 	DebugConsole & operator<<(char out) noexcept;
 	DebugConsole & operator<<(const std::string &out) noexcept;
@@ -62,6 +68,8 @@ public:
 
 private:
 	DebugConsole();
+
+	std::deque<std::string> history;
 
 	static DebugConsole* debug_console;
 };

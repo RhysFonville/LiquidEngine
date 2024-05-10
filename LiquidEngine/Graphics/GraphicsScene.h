@@ -330,8 +330,7 @@ public:
 		}
 
 		if (component->has_changed() || ret) {
-			data.obj->albedo = component->get_albedo();
-			data.obj->has_texture = component->has_texture();
+			*data.obj = PSSkyCB{*component};
 			data.update();
 
 			component->has_changed(false);

@@ -118,7 +118,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 		nullptr,
 		IID_PPV_ARGS(&vertex_buffer_upload));
 
-	ResourceManager::Release::resources.push_back(vertex_buffer_upload);
+	resource_manager->add_resource_to_release(vertex_buffer_upload);
 	HPEW(vertex_buffer_upload->SetName(L"Vertex Buffer Upload Resource Heap"));
 
 	void* p = nullptr;
@@ -155,14 +155,14 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 }
 
 void GraphicsPipeline::InputAssembler::remove_mesh(size_t index) {
-	ResourceManager::Release::resources.push_back(vertex_buffers[index]);
+	resource_manager->add_resource_to_release(vertex_buffers[index]);
 	vertex_buffers.erase(vertex_buffers.begin() + index);
 	vertex_buffer_views.erase(vertex_buffer_views.begin() + index);
 }
 
 void GraphicsPipeline::InputAssembler::remove_all_meshes() {
 	for (auto &buffer : vertex_buffers) {
-		ResourceManager::Release::resources.push_back(buffer);
+		resource_manager->add_resource_to_release(buffer);
 	}
 
 	vertex_buffers.clear();
@@ -442,7 +442,7 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::update(const ComPtr<ID3D12
 		nullptr, // we do not have use an optimized clear value for constant buffers
 		IID_PPV_ARGS(&upload_heap)));
 
-	ResourceManager::Release::resources.push_back(upload_heap);
+	resource_manager->add_resource_to_release(upload_heap);
 	HPEW(upload_heap->SetName(L"CB upload heap"));
 
 	CD3DX12_RANGE read_range{0, 0};	// We do not intend to read from this resource on the CPU. (End is less than or equal to begin)
@@ -542,7 +542,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 			IID_PPV_ARGS(&upload_heap)
 		));
 
-		ResourceManager::Release::resources.push_back(upload_heap);
+		resource_manager->add_resource_to_release(upload_heap);
 		HPEW(upload_heap->SetName(L"SRV upload buffer"));
 
 		// write commands to copy data to upload texture (copying each subresource) 
@@ -580,9 +580,9 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::create_views(const Com
 /*
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager() { }
+resource_manager->ResourceManager() { }
 
-size_t ResourceManager::create_vertex_default_buffers(size_t number_of_verts, ComPtr<ID3D12Device> &device) {
+size_t resource_manager->create_vertex_default_buffers(size_t number_of_verts, ComPtr<ID3D12Device> &device) {
 	const double p = static_cast<int32_t>(number_of_verts)-(BUFFER_VERTEX_COUNT_LIMIT - static_cast<int32_t>(vertex_buffer_it.second));
 	const uint16_t number_of_new_buffers_needed = std::ceil(p/BUFFER_VERTEX_COUNT_LIMIT) + (vertex_buffers.size() ? 0 : 1);
 
@@ -612,7 +612,7 @@ size_t ResourceManager::create_vertex_default_buffers(size_t number_of_verts, Co
 	return number_of_new_buffers_needed;
 }
 
-void ResourceManager::fill_vertex_buffers(const std::vector<Vertex> &verts, size_t num_bufs, ComPtr<ID3D12Device> &device,
+void resource_manager->fill_vertex_buffers(const std::vector<Vertex> &verts, size_t num_bufs, ComPtr<ID3D12Device> &device,
 	ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	// create upload heap
 	// upload heaps are used to upload data to the GPU. CPU can write to it, GPU can read from it
@@ -667,7 +667,7 @@ void ResourceManager::fill_vertex_buffers(const std::vector<Vertex> &verts, size
 	}
 }
 
-void ResourceManager::update_vertex_buffers(const std::vector<Vertex> &verts,
+void resource_manager->update_vertex_buffers(const std::vector<Vertex> &verts,
 	ComPtr<ID3D12Device> &device, ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	const auto leftover_verts_in_buffer = BUFFER_VERTEX_COUNT_LIMIT - vertex_buffer_it.second;
 	const UINT number_of_new_buffers_needed = create_vertex_default_buffers(verts.size(), device);
@@ -675,7 +675,7 @@ void ResourceManager::update_vertex_buffers(const std::vector<Vertex> &verts,
 	fill_vertex_buffers(verts, create_vertex_default_buffers(verts.size(), device), device, command_list);
 }
 
-void ResourceManager::create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device) {
+void resource_manager->create_depth_stencil(const UVector2 &resolution, ComPtr<ID3D12Device> &device) {
 	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
 	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
 	dsv_heap_desc.NumDescriptors = 1;
@@ -710,7 +710,7 @@ void ResourceManager::create_depth_stencil(const UVector2 &resolution, ComPtr<ID
 	depth_stencil_buffer->SetName(L"Depth Stencil Buffer");
 }
 
-void ResourceManager::clean_up() {
+void resource_manager->clean_up() {
 	SAFE_RELEASE(depth_stencil_buffer);
 	SAFE_RELEASE(depth_stencil_descriptor_heap);
 	for (auto &buffer : vertex_buffers) {

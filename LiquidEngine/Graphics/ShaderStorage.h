@@ -117,9 +117,9 @@ class ShaderStorage {
 public:
 	ShaderStorage(ShaderStorage &other) = delete;
 	void operator=(const ShaderStorage &) = delete;
-	static ShaderStorage *get_instance();
+	GET static ShaderStorage *get_instance();
 
-	std::optional<std::reference_wrapper<Shader>> get_shader(const std::string &file) noexcept;
+	GET std::optional<std::reference_wrapper<Shader>> get_shader(const std::string &file) noexcept;
 
 	void add_and_compile_shader(Shader::Type type, const std::string &file);
 

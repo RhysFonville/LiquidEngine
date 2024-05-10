@@ -18,13 +18,22 @@ void DebugConsole::destroy_window() {
 	DestroyWindow(hwnd);
 }
 
+void DebugConsole::clear_old_history(int number_of_logs) {
+	if (number_of_logs == -1) {
+		history.clear();
+	} else {
+		history.erase(history.begin(), history.begin()+number_of_logs+1);
+	}
+}
+
 DebugConsole & DebugConsole::operator<<(char out) noexcept {
-	std::cout << out;
+	*this << std::string{1, out};
 	return *this;
 }
 
 DebugConsole & DebugConsole::operator<<(const std::string &out) noexcept {
 	std::cout << out;
+	history.push_back(out);
 	return *this;
 }
 

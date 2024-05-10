@@ -30,7 +30,7 @@ public:
 	void remove_mesh(size_t index);
 	void remove_all_meshes();
 
-	 std::vector<Command> get_changes(bool clear_changes);
+	GET std::vector<Command> get_changes(bool clear_changes);
 	void clear_change_info();
 
 private:

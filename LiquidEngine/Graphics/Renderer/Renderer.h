@@ -88,9 +88,9 @@ public:
 
 	void set_fullscreen(bool fullscreen);
 	void toggle_fullscreen();
-	GET bool is_fullscreen() const noexcept;
+	GET GET bool is_fullscreen() const noexcept;
 
-	GET UVector2 get_resolution() const noexcept;
+	GET GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution);
 
 	GraphicsScene scene;

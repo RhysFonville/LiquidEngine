@@ -35,8 +35,8 @@ public:
 	 */
 	static void load_texture(const std::string &file, DirectX::ScratchImage &image, DirectX::ScratchImage &mip_chain, bool enable_mipmap = true);
 
-	const DirectX::ScratchImage & get_image() const noexcept { return image; }
-	const DirectX::ScratchImage & get_mip_chain() const noexcept { return mip_chain; }
+	GET const DirectX::ScratchImage & get_image() const noexcept { return image; }
+	GET const DirectX::ScratchImage & get_mip_chain() const noexcept { return mip_chain; }
 
 private:
 	std::string file = "";

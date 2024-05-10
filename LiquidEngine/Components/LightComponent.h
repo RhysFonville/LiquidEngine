@@ -16,13 +16,13 @@ public:
 			(component.get_type() == Component::Type::SpotlightComponent));
 	}
 
-	Color get_albedo() const noexcept { return albedo; }
+	GET Color get_albedo() const noexcept { return albedo; }
 	void set_albedo(const Color &albedo) { this->albedo = albedo; changed = true; }
 
-	Color get_specular() const noexcept { return specular; }
+	GET Color get_specular() const noexcept { return specular; }
 	void set_specular(const Color &specular) { this->specular = specular; changed = true; }
 
-	bool is_null() const noexcept { return null; }
+	GET bool is_null() const noexcept { return null; }
 	void is_null(bool null) noexcept { this->null = null; changed = true; }
 
 protected:

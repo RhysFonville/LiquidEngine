@@ -15,7 +15,7 @@ public:
 
 	ComPtr<ID3D12DescriptorHeap> & operator[](UINT i) { return descriptor_heaps[i]; }
 
-	UINT get_open_heap_index();
+	GET UINT get_open_heap_index();
 
 	void create_cbv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &upload_buffer, size_t obj_size, UINT frame_index, UINT heap_index);
 	void create_srv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &default_buffer, D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc, UINT frame_index, UINT heap_index);
