@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "Graphics/GraphicsScene.h"
-#include "PhysicsScene.h"
 #include "Object.h"
 #include "Window.h"
 #include "Character.h"
@@ -32,8 +30,8 @@ public:
 
 	void render_editor_gui_section();
 
-	//PhysicsScene physics_scene;
-	GraphicsScene* graphics_scene = nullptr;
+	PhysicsScene physics_scene{};
+	GraphicsScene* graphics_scene{nullptr};
 
 	Input::InputListener input_listener;
 private:

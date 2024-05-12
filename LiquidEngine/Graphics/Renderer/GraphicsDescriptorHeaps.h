@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../globalutil.h"
+#include "../../Utility/commonmacros.h"
 #include "../Debug/Throw.h"
 
 static constexpr UINT NUMBER_OF_BUFFERS = 3u;

@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <comdef.h>
 #include <stacktrace>
-#include "../globalutil.h"
+#include "../Utility/globalutil.h"
 #include "DebugConsole.h"
 
 static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result

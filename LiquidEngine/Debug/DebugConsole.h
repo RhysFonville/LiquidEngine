@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <deque>
-#include "../globalutil.h"
+#include "../Utility/commonmacros.h"
 
 /**
  * Debug window input and output.

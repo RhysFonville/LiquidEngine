@@ -41,10 +41,10 @@
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globalstructs.h">
+    <ClInclude Include="Utility\globalstructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globalutil.h">
+    <ClInclude Include="Utility\globalutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -53,7 +53,7 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsScene.h">
+    <ClInclude Include="Physics\PhysicsScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -92,7 +92,7 @@
     <ClInclude Include="Components\PhysicalComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsBody.h">
+    <ClInclude Include="Physics\PhysicsBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\PointLightComponent.h">
@@ -123,9 +123,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StaticEngineProcessToggles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\ComputePipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\SkyComponent.h">
@@ -209,6 +206,21 @@
     <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\physicsutil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\SimpleShapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Vectors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\ObjectStructs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\commonmacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -223,7 +235,7 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsScene.cpp">
+    <ClCompile Include="Physics\PhysicsScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -244,7 +256,7 @@
     <ClCompile Include="Components\PhysicalComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsBody.cpp">
+    <ClCompile Include="Physics\PhysicsBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\PointLightComponent.cpp">
@@ -287,9 +299,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\ComputePipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\SkyComponent.cpp">

@@ -7,7 +7,7 @@
 #include "../Components/SpotlightComponent.h"
 #include "../Components/StaticMeshComponent.h"
 #include "../Components/SkyComponent.h"
-#include "../globalutil.h"
+#include "../Utility/Vectors.h"
 
 static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
 
@@ -66,7 +66,7 @@ public:
 		if (component->has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
-			data.direction = component->get_rotation();
+			data.direction = component->get_rotation() / 360.0f;
 			data.null = component->is_null();
 
 			component->has_changed(false);

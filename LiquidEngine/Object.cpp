@@ -129,6 +129,16 @@ void Object::base_tick(float dt) {
 		comp->base_tick(dt);
 	}
 
+	if (mimic_position_component != nullptr) {
+		set_position(mimic_position_component->get_position());
+	}
+	if (mimic_rotation_component != nullptr) {
+		set_rotation(mimic_rotation_component->get_rotation());
+	}
+	if (mimic_size_component != nullptr) {
+		set_size(mimic_size_component->get_size());
+	}
+
 	tick(dt);
 }
 

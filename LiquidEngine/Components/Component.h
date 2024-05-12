@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../globalutil.h"
+#include "../Utility/ObjectStructs.h"
 #include "../Controllable.h"
 #include "../imgui/imgui.h"
 

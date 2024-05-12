@@ -2,6 +2,7 @@
 
 #include "GraphicsComponent.h"
 #include "SimpleMath.h"
+#include "../Utility/globalutil.h"
 
 /**
 * Component for a camera.

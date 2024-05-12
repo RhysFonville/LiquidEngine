@@ -1,10 +1,11 @@
 #pragma once
 
 #include <DirectXMath.h>
-#include "globalstructs.h"
+#include "Utility/globalstructs.h"
 #include "Mesh.h"
 #include "Components/Component.h"
 #include "Graphics/GraphicsScene.h"
+#include "Physics/PhysicsScene.h"
 #include "Controllable.h"
 
 using namespace DirectX;
@@ -89,14 +90,19 @@ public:
 	void add_component(const std::shared_ptr<T> &component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
 		components.push_back(component);
 
-		if (GraphicsComponent::is_graphics_component(*components.back())) {
+		//if (GraphicsComponent::is_graphics_component(*components.back())) {
+		if (dynamic_cast<GraphicsComponent*>(component.get())) {
 			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
+		}
+
+		if (dynamic_cast<PhysicalComponent*>(component.get())) {
+			physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
 		}
 
 		components.back()->parent = &root_component;
 	}
 
-	std::shared_ptr<Component> add_component(Component::Type type);
+	//std::shared_ptr<Component> add_component(Component::Type type);
 
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
@@ -115,7 +121,12 @@ public:
 	 */
 	Component root_component;
 
-	GraphicsScene* graphics_scene = nullptr;
+	Component* mimic_position_component{nullptr};
+	Component* mimic_rotation_component{nullptr};
+	Component* mimic_size_component{nullptr};
+
+	GraphicsScene* graphics_scene{nullptr};
+	PhysicsScene* physics_scene{nullptr};
 
 private:
 	Transform transform;

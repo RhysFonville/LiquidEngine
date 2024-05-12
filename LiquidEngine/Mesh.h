@@ -1,6 +1,7 @@
 #pragma once
 
-#include "globalutil.h"
+#include <string>
+#include "../Utility/globalutil.h"
 
 /**
  * A mesh for collision and rendering. Contains a model's geometric data.

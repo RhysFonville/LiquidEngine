@@ -2,7 +2,7 @@
 
 Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<UINT> &indices)
 	: indices(indices),
-	bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
+	//bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
 	triangles(split_into_triangles(vertices)) { 
 
 	set_vertices(vertices);
@@ -11,7 +11,7 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<UINT> &indices
 
 Mesh::Mesh(const std::vector<Vertex> &vertices)
 	: indices(std::vector<UINT>()),
-	bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
+	//bounding_box(SimpleBox(verts_to_simple_verts(vertices))),
 	triangles(split_into_triangles(vertices)) {
 
 	set_vertices(vertices);
@@ -20,7 +20,7 @@ Mesh::Mesh(const std::vector<Vertex> &vertices)
 
 Mesh::Mesh(const std::string &file) : indices(std::vector<UINT>()) {
 	set_vertices(file);
-	bounding_box = SimpleBox(verts_to_simple_verts(vertices));
+	//bounding_box = SimpleBox(verts_to_simple_verts(vertices));
 	triangles = split_into_triangles(vertices);
 	compile();
 }
@@ -169,9 +169,9 @@ void Mesh::set_vertices(const std::vector<Vertex> &new_verts, size_t physics_ver
 		//}
 
 		//physics_vertices = new_physics_verts;
-		physics_vertices = verts_to_simple_verts(vertices);
-		physics_triangles = split_into_simple_triangles(physics_vertices);
-		bounding_box = SimpleBox(physics_vertices);
+		//physics_vertices = verts_to_simple_verts(vertices);
+		//physics_triangles = split_into_simple_triangles(physics_vertices);
+		//bounding_box = SimpleBox(physics_vertices);
 
 		compile();
 
