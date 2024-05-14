@@ -12,12 +12,7 @@ public:
 	
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
 	static bool is_physical_component(const T &component) {
-		return ((component.get_type() == Component::Type::CameraComponent) ||
-			(component.get_type() == Component::Type::DirectionalLightComponent) ||
-			(component.get_type() == Component::Type::PointLightComponent) ||
-			(component.get_type() == Component::Type::SpotlightComponent) ||
-			(component.get_type() == Component::Type::StaticMeshComponent) ||
-			(component.get_type() == Component::Type::SkyComponent));
+		return false;
 	}
 
 	void tick(float dt) override;
@@ -26,4 +21,5 @@ public:
 
 protected:
 	void render_editor_gui_section() override;
+	virtual void render_physical_component_editor_gui_section() { }
 };

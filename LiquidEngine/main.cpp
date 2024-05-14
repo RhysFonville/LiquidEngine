@@ -24,16 +24,16 @@ int main() {
 
 	std::shared_ptr<Object> obj = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj);
-	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
-	obj->add_component(std::make_shared<BoxComponent>());
-	obj->mimic_position_component = obj->get_component<BoxComponent>();
+	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/sphere.obj"}));
+	obj->add_component(std::make_shared<SphereComponent>());
+	obj->mimic_position_component = obj->get_component<SphereComponent>();
 
 	std::shared_ptr<Object> obj1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj1);
-	obj1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
-	obj1->add_component(std::make_shared<BoxComponent>());
-	obj1->set_position(FVector3{0.0f, 0.0f, 3.0f});
-	obj1->mimic_position_component = obj1->get_component<BoxComponent>();
+	obj1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/sphere.obj"}));
+	obj1->add_component(std::make_shared<SphereComponent>());
+	obj1->set_position(FVector3{0.0f, 0.0f, 5.0f});
+	obj1->mimic_position_component = obj1->get_component<SphereComponent>();
 
 	engine.compile();
 	engine.loop();

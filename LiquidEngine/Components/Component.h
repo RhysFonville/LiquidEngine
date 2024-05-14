@@ -18,6 +18,7 @@ public:
 		SpotlightComponent,
 		BoxComponent,
 		SkyComponent,
+		SphereComponent,
 		EnumEnd
 	};
 

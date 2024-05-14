@@ -221,6 +221,18 @@
     <ClInclude Include="Utility\commonmacros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\SphereComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\OverlapHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\InteractionHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -374,6 +386,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SphereComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\OverlapHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\CollisionHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\InteractionHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

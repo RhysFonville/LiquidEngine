@@ -66,7 +66,12 @@ public:
 		if (component->has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
-			data.direction = component->get_rotation() / 360.0f;
+			
+			auto rot = component->get_rotation();
+			data.direction = XMVector3TransformCoord(global_forward,
+				XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z)
+			);
+
 			data.null = component->is_null();
 
 			component->has_changed(false);

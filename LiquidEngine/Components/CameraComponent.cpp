@@ -22,9 +22,9 @@ void CameraComponent::rotate(FVector3 rotation) noexcept {
 	if (!rotation.is_zero()) {
 		transform.rotation += rotation;
 
-		rotation.x = degrees_to_theta(transform.rotation.x);
-		rotation.y = degrees_to_theta(transform.rotation.y);
-		rotation.z = degrees_to_theta(transform.rotation.z);
+		rotation.x = degrees_to_radians(transform.rotation.x);
+		rotation.y = degrees_to_radians(transform.rotation.y);
+		rotation.z = degrees_to_radians(transform.rotation.z);
 
 		XMMATRIX rot_matrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
 

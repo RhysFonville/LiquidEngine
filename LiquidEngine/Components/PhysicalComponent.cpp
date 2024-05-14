@@ -2,7 +2,7 @@
 
 void PhysicalComponent::tick(float dt) {
 	physics_body.tick(dt);
-	translate(physics_body.get_velocity ()* dt);
+	translate(physics_body.get_velocity() * dt);
 }
 
 void PhysicalComponent::render_editor_gui_section() {
@@ -24,4 +24,6 @@ void PhysicalComponent::render_editor_gui_section() {
 	if (ImGui::InputFloat3("Acceleration", vec, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue)) {
 		physics_body.set_acceleration(vec);
 	}
+	
+	render_physical_component_editor_gui_section();
 }

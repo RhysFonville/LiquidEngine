@@ -152,6 +152,8 @@
     <Text Include="out.log" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Physics\InteractionHandler.h" />
+    <ClInclude Include="Physics\CollisionHandler.h" />
     <ClInclude Include="Components\BoxComponent.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Components\CameraComponent.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Input\KeybindSet.h" />
     <ClInclude Include="Input\KeyCodes.h" />
     <ClInclude Include="Objects\MyStatue.h" />
+    <ClInclude Include="Physics\OverlapHandler.h" />
     <ClInclude Include="Physics\PhysicsBody.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="Physics\physicsutil.h" />
     <ClInclude Include="Shapes\Cube.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Components\SphereComponent.h" />
     <ClInclude Include="Utility\commonmacros.h" />
     <ClInclude Include="Utility\globalstructs.h" />
     <ClInclude Include="Utility\globalutil.h" />
@@ -215,6 +219,8 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Physics\InteractionHandler.cpp" />
+    <ClCompile Include="Physics\CollisionHandler.cpp" />
     <ClCompile Include="Components\BoxComponent.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
@@ -245,6 +251,7 @@
     <ClCompile Include="Input\InputListener.cpp" />
     <ClCompile Include="Input\KeybindSet.cpp" />
     <ClCompile Include="Objects\MyStatue.cpp" />
+    <ClCompile Include="Physics\OverlapHandler.cpp" />
     <ClCompile Include="Physics\PhysicsBody.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
@@ -264,6 +271,7 @@
     <ClCompile Include="Physics\PhysicsScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Components\SkyComponent.cpp" />
+    <ClCompile Include="Components\SphereComponent.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>

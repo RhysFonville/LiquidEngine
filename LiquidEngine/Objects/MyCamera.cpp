@@ -79,7 +79,7 @@ void MyCamera::tick(float dt) {
 
 void MyCamera::on_turn(float dt) {
 	if (cursor_diff.x != 0 || cursor_diff.y != 0) {
-		rotate(FVector3((float)cursor_diff.y / 7, (float)cursor_diff.x / 7, 0.0f));
+		rotate(FVector3{(float)cursor_diff.y / 7.0f, (float)cursor_diff.x / 7.0f, 0.0f});
 	}
 }
 

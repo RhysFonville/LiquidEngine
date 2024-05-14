@@ -113,6 +113,10 @@ struct SimpleBox {
 	}
 };
 
+struct Sphere {
+	float radius{1.0f};
+};
+
 struct Line {
 	FVector3 p1, p2;
 };

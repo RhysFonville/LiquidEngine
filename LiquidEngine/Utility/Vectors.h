@@ -14,6 +14,7 @@ public:
 	T y = 0;
 
 	TVector2() : x(T()), y(T()) {}
+	TVector2(T v) : x{v}, y{v} {}
 	TVector2(T vec[2]) : x(vec[0]), y(vec[1]) { }
 	TVector2(T x, T y) : x(x), y(y) {}
 	TVector2(XMVECTOR vector) : x((T)XMVectorGetX(vector)), y((T)XMVectorGetY(vector)) { }
@@ -66,6 +67,7 @@ public:
 	T z = 0;
 
 	TVector3() {}
+	TVector3(T v) : x{v}, y{v}, z{v} {}
 	TVector3(T vec[3]) : x(vec[0]), y(vec[1]), z(vec[2]) { }
 	TVector3(const TVector3 &vector) : x(vector.x), y(vector.y), z(vector.z) { }
 	constexpr TVector3(T x, T y, T z) : x(x), y(y), z(z) {}
@@ -74,20 +76,12 @@ public:
 		return (x == 0 && y == 0 && z == 0);
 	}
 
-	TVector3<T> operator+(TVector3<T> vector) {
-		vector.x += x;
-		vector.y += y;
-		vector.z += z;
-		return vector;
+	TVector3<T> operator+(const TVector3<T> &vector) {
+		return TVector3<T>{x+vector.x, y+vector.y, z+vector.z};
 	}
 
 	TVector3<T> operator-(const TVector3<T> &vector) noexcept {
-		TVector3<T> ret = *this;
-		ret.x -= vector.x;
-		ret.y -= vector.y;
-		ret.z -= vector.z;
-
-		return ret;
+		return TVector3<T>(x-vector.x, y-vector.y, z-vector.z);
 	}
 
 	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
@@ -144,6 +138,10 @@ public:
 				throw std::exception("Index out of bounds when using [] operator on TVector3.");
 		}
 	}
+
+	float magnitude() {
+		return sqrtf(x*x + y*y + z*z);
+	}
 };
 
 template <ACCEPT_DIGIT_ONLY(typename T)>
@@ -155,6 +153,7 @@ public:
 	T w = 0;
 
 	TVector4() {}
+	TVector4(T v) : x{v}, y{v}, z{v}, w{v} {}
 	TVector4(T vec[4]) : x(vec[0]), y(vec[1]), z(vec[2]), w(vec[3]) { }
 	constexpr TVector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) { }
 	constexpr TVector4(TVector3<T> vector, T w) : x(vector.x), y(vector.y), z(vector.z), w(w) { }
