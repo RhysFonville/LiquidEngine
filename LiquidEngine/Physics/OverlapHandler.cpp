@@ -5,10 +5,10 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 	auto type2 = obj2->get_type();
 
 	// Box-box
-	if (type1 == Component::Type::BoxComponent && type2 == Component::Type::BoxComponent) {
-		if (box_box_overlap(
-			transform_simple_box(static_cast<BoxComponent*>(obj1)->box, obj1->get_transform()),
-			transform_simple_box(static_cast<BoxComponent*>(obj2)->box, obj2->get_transform())
+	if (type1 == Component::Type::BoundingBoxComponent && type2 == Component::Type::BoundingBoxComponent) {
+		if (bounding_box_box_overlap(
+			obj1->get_position(), static_cast<BoundingBoxComponent*>(obj1)->box,
+			obj2->get_position(), static_cast<BoundingBoxComponent*>(obj2)->box
 		)) {
 			collision_handler.handle_collision(obj1->get_position(), obj1->physics_body, obj2->get_position(), obj2->physics_body);
 		}
@@ -38,46 +38,15 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 	}
 }
 
-bool OverlapHandler::box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept {
-	auto extremes_x = [](const auto &verts) {
-		return std::ranges::minmax_element(verts,
-			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
-			return lhs.position.x < rhs.position.x;
-		}
-		);
-	};
-	auto extremes_y = [](const auto &verts) {
-		return std::ranges::minmax_element(verts,
-			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
-			return lhs.position.y < rhs.position.y;
-		}
-		);
-	};
-	auto extremes_z = [](const auto &verts) {
-		return std::ranges::minmax_element(verts,
-			[](const SimpleVertex &lhs, const SimpleVertex &rhs) {
-			return lhs.position.z < rhs.position.z;
-		}
-		);
-	};
-
-	auto box1_x_extremes = extremes_x(box1.vertices);
-	auto box2_x_extremes = extremes_x(box2.vertices);
-
-	auto box1_y_extremes = extremes_y(box1.vertices);
-	auto box2_y_extremes = extremes_y(box2.vertices);
-
-	auto box1_z_extremes = extremes_z(box1.vertices);
-	auto box2_z_extremes = extremes_z(box2.vertices);
-
+bool OverlapHandler::bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept {
 	return (
-		box1_x_extremes.min->position.x <= box2_x_extremes.max->position.x &&
-		box1_x_extremes.max->position.x >= box2_x_extremes.min->position.x &&
-		box1_y_extremes.min->position.y <= box2_y_extremes.max->position.y &&
-		box1_y_extremes.max->position.y >= box2_y_extremes.min->position.y &&
-		box1_z_extremes.min->position.z <= box2_z_extremes.max->position.z &&
-		box1_z_extremes.max->position.z >= box2_z_extremes.min->position.z
-		);
+		box1_pos.x-box1.length <= box2_pos.x+box2.length &&
+		box1_pos.x+box1.length >= box2_pos.x-box2.length &&
+		box1_pos.y-box1.height <= box2_pos.y+box2.height &&
+		box1_pos.y+box1.height >= box2_pos.y-box2.height &&
+		box1_pos.z-box1.width <= box2_pos.z+box2.width &&
+		box1_pos.z+box1.width >= box2_pos.z-box2.width
+	);
 }
 
 bool OverlapHandler::sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept {

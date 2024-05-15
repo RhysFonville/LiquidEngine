@@ -19,6 +19,7 @@ public:
 		BoxComponent,
 		SkyComponent,
 		SphereComponent,
+		BoundingBoxComponent,
 		EnumEnd
 	};
 

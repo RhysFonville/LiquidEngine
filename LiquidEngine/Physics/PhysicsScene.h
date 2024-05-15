@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Components/BoxComponent.h"
-#include "../Components/SphereComponent.h"
 #include "OverlapHandler.h"
 
 class PhysicsScene {

@@ -4,6 +4,7 @@
 #include "../Components/PhysicalComponent.h"
 #include "../Components/BoxComponent.h"
 #include "../Components/SphereComponent.h"
+#include "../Components/BoundingBoxComponent.h"
 
 class OverlapHandler {
 public:
@@ -11,7 +12,7 @@ public:
 
 	void handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2) noexcept;
 
-	static bool box_box_overlap(const SimpleBox &box1, const SimpleBox &box2) noexcept;
+	static bool bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept;
 
 	static bool sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept;
 

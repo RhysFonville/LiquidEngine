@@ -113,6 +113,12 @@ struct SimpleBox {
 	}
 };
 
+struct SimpleBoundingBox {
+	float length{1.0f};
+	float width{1.0f};
+	float height{1.0f};
+};
+
 struct Sphere {
 	float radius{1.0f};
 };

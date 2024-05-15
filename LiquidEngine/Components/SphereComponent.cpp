@@ -6,4 +6,3 @@ void SphereComponent::render_physical_component_editor_gui_section() {
 		sphere.radius = radius;
 	}
 }
-
