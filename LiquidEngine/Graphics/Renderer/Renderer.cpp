@@ -263,13 +263,16 @@ void Renderer::setup_imgui_section() {
 			return;
 		}
 
+		ImGui::Checkbox("Clear render target", &clear_render_target);
+
 		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
 		if (ImGui::InputFloat4("Background color", color)) {
 			background_color = FColor{color[0], color[1], color[2], color[3]};
 		}
 
-		int res[2]{(int)resolution.x, (int)resolution.y};
-		if (ImGui::InputInt2("Resolution", res, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		static int res[2]{(int)resolution.x, (int)resolution.y};
+		ImGui::InputInt2("Resolution", res);
+		if (ImGui::Button("Set resolution")) {
 			set_resolution(UVector2{(UINT)res[0], (UINT)res[1]});
 		}
 
@@ -353,8 +356,9 @@ void Renderer::setup_imgui_section() {
 		}
 
 		{ // Viewport & scissor rect
-			int vec[2]{(int)viewport.Width, (int)viewport.Height};
-			if (ImGui::InputInt2("Viewport & scissor rect size", vec, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			static int vec[2]{(int)viewport.Width, (int)viewport.Height};
+			ImGui::InputInt2("Viewport & scissor rect size", vec);
+			if (ImGui::Button("Set viewport & scissor rect size")) {
 				set_viewport_and_scissor_rect(UVector2{(UINT)vec[0], (UINT)vec[1]});
 			}
 		}
@@ -419,10 +423,12 @@ void Renderer::render(float dt) {
 
 	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
 
-	float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
-	command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
+	if (clear_render_target) {
+		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
+		command_list->ClearRenderTargetView(rtv_handle, color, 0, nullptr);
+	}
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
-
+	
 	ID3D12DescriptorHeap* dh[] = { descriptor_heaps[frame_index].Get() };
 	command_list->SetDescriptorHeaps(_countof(dh), dh);
 

@@ -42,10 +42,7 @@ void PhysicalComponent::render_editor_gui_section() {
 		physics_body.set_angular_acceleration(vec);
 	}
 
-	bool frozen{physics_body.frozen};
-	if (ImGui::Checkbox("Is frozen", &frozen)) {
-		physics_body.frozen = frozen;
-	}
+	ImGui::Checkbox("Is frozen", &physics_body.frozen);
 
 	render_physical_component_editor_gui_section();
 }

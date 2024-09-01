@@ -88,15 +88,18 @@ public:
 
 	void set_fullscreen(bool fullscreen);
 	void toggle_fullscreen();
-	GET GET bool is_fullscreen() const noexcept;
+	GET bool is_fullscreen() const noexcept;
 
-	GET GET UVector2 get_resolution() const noexcept;
+	GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution);
 
 	GraphicsScene scene;
 
 	bool vsync{false};
 	bool restrict_present_to_adapter_output{false};
+	
+	/** Clear the render target at the beginning each frame. If false, the frame will be cleared with the background color. */
+	bool clear_render_target{true};
 
 private:
 	friend class Window;
