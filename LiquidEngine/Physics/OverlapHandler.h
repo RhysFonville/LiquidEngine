@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+#include <iostream>
 #include "CollisionHandler.h"
 #include "../Components/PhysicalComponent.h"
 #include "../Components/BoxComponent.h"
@@ -12,9 +14,11 @@ public:
 
 	void handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2) noexcept;
 
-	static bool bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept;
+	static FVector3 closest_point_on_AABB(const FVector3 &point, const FVector3 &box_pos, const SimpleBoundingBox &aabb) noexcept;
 
-	static bool sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept;
+	static OverlapEventInfo bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept;
+
+	static OverlapEventInfo sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept;
 
 	static bool tri_tri_overlap(const SimpleTriangle &tri1, const SimpleTriangle &tri2) noexcept;
 

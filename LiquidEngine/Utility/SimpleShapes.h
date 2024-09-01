@@ -117,6 +117,14 @@ struct SimpleBoundingBox {
 	float length{1.0f};
 	float width{1.0f};
 	float height{1.0f};
+
+	FVector3 get_min() const {
+		return FVector3{-length / 2.0f, -width / 2.0f, -height / 2.0f};
+	}
+
+	FVector3 get_max() const {
+		return FVector3{length / 2.0f, width / 2.0f, height / 2.0f};
+	}
 };
 
 struct Sphere {

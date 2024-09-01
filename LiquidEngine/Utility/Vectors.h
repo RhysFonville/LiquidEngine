@@ -1,8 +1,15 @@
 #pragma once
 
+#define NOMINMAX
+
+#undef min
+#undef max
+
 #include <algorithm>
 #include <DirectXMath.h>
 #include <dxgi1_4.h>
+#include <iostream>
+#include <string>
 #include "commonmacros.h"
 
 using namespace DirectX;
@@ -16,21 +23,20 @@ public:
 	TVector2() : x(T()), y(T()) {}
 	TVector2(T v) : x{v}, y{v} {}
 	TVector2(T vec[2]) : x(vec[0]), y(vec[1]) { }
-	TVector2(T x, T y) : x(x), y(y) {}
-	TVector2(XMVECTOR vector) : x((T)XMVectorGetX(vector)), y((T)XMVectorGetY(vector)) { }
+	constexpr TVector2(T x, T y) : x(x), y(y) {}
 
 	bool is_zero() const noexcept {
 		return (x == 0 && y == 0);
 	}
 
-	TVector2 operator+(TVector2 vector) {
+	TVector2 operator+(const TVector2 &vector) const noexcept {
 		TVector2 ret = vector;
 		ret.x += x;
 		ret.y += y;
 		return ret;
 	}
 
-	void operator+=(TVector2 vector) {
+	void operator+=(TVector2 vector) noexcept {
 		x += vector.x;
 		y += vector.y;
 	}
@@ -45,19 +51,26 @@ public:
 			y != vector.y);
 	}
 
-	operator XMVECTOR() const {
-		return XMVectorSet(x, y, 0.0f, 1.0f);
-	}
-
-	operator XMFLOAT2() const noexcept {
-		return { (float)x, (float)y };
-	}
-
 	void operator=(const TVector2<T> &vector) noexcept {
 		x = vector.x;
 		y = vector.y;
 	}
+	
+	friend std::ostream & operator<<(std::ostream &os, const TVector2<T> &vec);
 };
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+std::ostream & operator<<(std::ostream &os, const TVector2<T> &vec) {
+	os << std::to_string(vec.x) << ", "
+	<< std::to_string(vec.y);
+
+	return os;
+}
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+TVector2<T> operator*(T lhs, const TVector2<T> &rhs) noexcept {
+	return rhs * lhs;
+}
 
 template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector3 {
@@ -76,12 +89,16 @@ public:
 		return (x == 0 && y == 0 && z == 0);
 	}
 
-	TVector3<T> operator+(const TVector3<T> &vector) {
+	TVector3<T> operator+(const TVector3<T> &vector) const noexcept {
 		return TVector3<T>{x+vector.x, y+vector.y, z+vector.z};
 	}
 
-	TVector3<T> operator-(const TVector3<T> &vector) noexcept {
+	TVector3<T> operator-(const TVector3<T> &vector) const noexcept {
 		return TVector3<T>(x-vector.x, y-vector.y, z-vector.z);
+	}
+
+	TVector3<T> operator-() const noexcept {
+		return TVector3<T>(-x, -y, -z);
 	}
 
 	TVector3<T> operator*(const TVector3<T> &vector) const noexcept {
@@ -126,7 +143,7 @@ public:
 		z = vector.z;
 	}
 
-	T & operator[](UCHAR index) {
+	T & operator[](UCHAR index) const {
 		switch (index) {
 			case 0:
 				return x;
@@ -139,10 +156,26 @@ public:
 		}
 	}
 
-	float magnitude() {
-		return sqrtf(x*x + y*y + z*z);
+	std::string to_string() {
+		return std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z);
 	}
+
+	friend std::ostream & operator<<(std::ostream &os, const TVector3<T> &vec);
 };
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+std::ostream & operator<<(std::ostream &os, const TVector3<T> &vec) {
+	os << std::to_string(vec.x) << ", "
+		<< std::to_string(vec.y) << ", "
+		<< std::to_string(vec.z);
+
+	return os;
+}
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+TVector3<T> operator*(T lhs, const TVector3<T> &rhs) noexcept {
+	return rhs * lhs;
+}
 
 template <ACCEPT_DIGIT_ONLY(typename T)>
 class TVector4 {
@@ -156,28 +189,18 @@ public:
 	TVector4(T v) : x{v}, y{v}, z{v}, w{v} {}
 	TVector4(T vec[4]) : x(vec[0]), y(vec[1]), z(vec[2]), w(vec[3]) { }
 	constexpr TVector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) { }
-	constexpr TVector4(TVector3<T> vector, T w) : x(vector.x), y(vector.y), z(vector.z), w(w) { }
+	TVector4(TVector3<T> vector, T w) : x(vector.x), y(vector.y), z(vector.z), w(w) { }
 
 	bool is_zero() const noexcept {
 		return (x == 0 && y == 0 && z == 0 && w == 0);
 	}
 
-	TVector4<T> operator+(TVector4<T> vector) {
-		vector.x += x;
-		vector.y += y;
-		vector.z += z;
-		vector.w += w;
-		return vector;
+	TVector4<T> operator+(TVector4<T> vector) const noexcept {
+		return TVector4<T>{x+vector.x, y+vector.y, z+vector.z, w+vector.w};
 	}
 
-	TVector4<T> operator-(const TVector4<T> &vector) noexcept {
-		TVector4<T> ret = *this;
-		ret.x -= vector.x;
-		ret.y -= vector.y;
-		ret.z -= vector.z;
-		ret.w -= vector.w;
-
-		return ret;
+	TVector4<T> operator-(const TVector4<T> &vector) const noexcept {
+		return TVector4<T>{x-vector.x, y-vector.y, z-vector.z, w-vector.w};
 	}
 
 	TVector4<T> operator*(const TVector4<T> &vector) const noexcept {
@@ -232,7 +255,7 @@ public:
 		w = XMVectorGetW(vector);
 	}
 
-	T & operator[](UCHAR index) {
+	T & operator[](UCHAR index) const {
 		switch (index) {
 			case 0:
 				return x;
@@ -247,8 +270,27 @@ public:
 		}
 	}
 
+	std::string to_string() {
+		return std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ", " + std::to_string(w);
+	}
 
+	friend std::ostream & operator<<(std::ostream &os, const TVector4<T> &vec);
 };
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+std::ostream & operator<<(std::ostream &os, const TVector4<T> &vec) {
+	os << std::to_string(vec.x) << ", "
+		<< std::to_string(vec.y) << ", "
+		<< std::to_string(vec.z) << ", "
+		<< std::to_string(vec.w);
+
+	return os;
+}
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+TVector4<T> operator*(T lhs, const TVector4<T> &rhs) noexcept {
+	return rhs * lhs;
+}
 
 using Vector4 = TVector4<int>;
 using Vector3 = TVector3<int>;
@@ -263,24 +305,51 @@ public:
 		: TVector3<float>(vector) { }
 	constexpr FVector3(float x, float y, float z)
 		: TVector3<float>(x, y, z) { }
-	FVector3(XMVECTOR vector)
-		: TVector3<float>(XMVectorGetX(vector), XMVectorGetY(vector), XMVectorGetZ(vector)) { }
 	FVector3(float* vector) : FVector3{vector[0], vector[1], vector[2]} { }
+	FVector3(const XMVECTOR &vec) : TVector3<float>{XMVectorGetY(vec), XMVectorGetY(vec), XMVectorGetX(vec)} { }
 
 	operator TVector3<float>() const noexcept {
-		return TVector3<float>(x, y, z);
+		return TVector3(x, y, z);
 	}
 
-	operator XMVECTOR() const noexcept {
-		return XMVectorSet(x, y, z, 1.0f);
+	FVector3 operator+(FVector3 vector) const noexcept {
+		return FVector3{x+vector.x, y+vector.y, z+vector.z};
 	}
 
-	operator XMFLOAT3() const noexcept {
-		return { x, y, z };
+	FVector3 operator-() const noexcept {
+		return FVector3{-x, -y, -z};
 	}
 
-	FVector3 pow(float p) noexcept {
+	FVector3 operator-(const FVector3 &vector) const noexcept {
+		return FVector3{x-vector.x, y-vector.y, z-vector.z};
+	}
+
+	FVector3 operator*(const FVector3 &vector) const noexcept {
+		return FVector3(x*vector.x, y*vector.y, z*vector.z);
+	}
+
+	FVector3 operator*(float n) const noexcept {
+		return FVector3(x*n, y*n, z*n);
+	}
+
+	FVector3 operator/(const FVector3 &vector) const noexcept {
+		return FVector3(x/vector.x, y/vector.y, z/vector.z);
+	}
+
+	FVector3 operator/(float n) const noexcept {
+		return FVector3(x/n, y/n, z/n);
+	}
+
+	FVector3 pow(float p) const noexcept {
 		return FVector3(powf(x, p), powf(y, p), powf(z, p));
+	}
+
+	FVector3 clamp(const FVector3 &_min, const FVector3 &_max) const noexcept {
+		return FVector3{
+			std::max(_min.x, std::min(x, _max.x)),
+			std::max(_min.y, std::min(y, _max.y)),
+			std::max(_min.z, std::min(z, _max.z))
+		};
 	}
 
 	float matrix_multiplication(const FVector3 &vector) const noexcept {
@@ -292,7 +361,26 @@ public:
 		y = XMVectorGetY(vector);
 		z = XMVectorGetZ(vector);
 	}
+
+	float magnitude() const noexcept {
+		return sqrtf(x*x + y*y + z*z);
+	}
+
+	XMVECTOR to_xmvec() const noexcept {
+		return XMVectorSet(x, y, z, 1.0f);
+	}
+
+	friend std::ostream & operator<<(std::ostream &os, const FVector3 &vec);
 };
+
+template <ACCEPT_DIGIT_ONLY(typename T)>
+std::ostream & operator<<(std::ostream &os, const FVector3 &vec) {
+	os << std::to_string(vec.x) << ", "
+		<< std::to_string(vec.y) << ", "
+		<< std::to_string(vec.z);
+
+	return os;
+}
 
 class FVector4 : public TVector4<float> {
 public:
@@ -306,16 +394,28 @@ public:
 		return FVector4(x, y, z, w);
 	}
 
-	operator XMVECTOR() const noexcept {
-		return XMVectorSet(x, y, z, w);
+	FVector4 operator+(FVector4 vector) const noexcept {
+		return FVector4{x+vector.x, y+vector.y, z+vector.z, w+vector.w};
 	}
 
-	operator XMFLOAT4() const noexcept {
-		return { x, y, z, w };
+	FVector4 operator-(const FVector4 &vector) const noexcept {
+		return FVector4{x-vector.x, y-vector.y, z-vector.z, w-vector.w};
 	}
 
-	FVector4 operator/(float f) const noexcept {
-		return FVector4(x/f, y/f, z/f, w/f);
+	FVector4 operator*(const FVector4 &vector) const noexcept {
+		return FVector4(x*vector.x, y*vector.y, z*vector.z, w*vector.w);
+	}
+
+	FVector4 operator*(float n) const noexcept {
+		return FVector4(x*n, y*n, z*n, w*n);
+	}
+
+	FVector4 operator/(const FVector4 &vector) const noexcept {
+		return FVector4(x/vector.x, y/vector.y, z/vector.z, w/vector.w);
+	}
+
+	FVector4 operator/(float n) const noexcept {
+		return FVector4(x/n, y/n, z/n, w/n);
 	}
 
 	FVector4 pow(float p) noexcept {
@@ -325,6 +425,10 @@ public:
 
 	float matrix_multiplication(const FVector4 &vector) const noexcept {
 		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
+	}
+
+	float magnitude() const noexcept {
+		return sqrtf(x*x + y*y + z*z + w*w);
 	}
 };
 

@@ -26,14 +26,36 @@ int main() {
 	engine.world.active_scene->add_object(obj);
 	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
 	obj->add_component(std::make_shared<BoundingBoxComponent>());
+	obj->set_position(FVector3{0.0f, 0.0f, 3.0f});
 	obj->mimic_position_component = obj->get_component<BoundingBoxComponent>();
+	obj->mimic_rotation_component = obj->get_component<BoundingBoxComponent>();
 
 	std::shared_ptr<Object> obj1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj1);
 	obj1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
 	obj1->add_component(std::make_shared<BoundingBoxComponent>());
-	obj1->set_position(FVector3{0.0f, 0.0f, 5.0f});
+	obj1->set_position(FVector3{0.0f, 0.0f, -3.0f});
+	obj1->get_component<BoundingBoxComponent>()->physics_body.set_mass(1.0f);
 	obj1->mimic_position_component = obj1->get_component<BoundingBoxComponent>();
+	obj1->mimic_rotation_component = obj1->get_component<BoundingBoxComponent>();
+
+	/*std::shared_ptr<Object> wall1 = std::make_shared<Object>();
+	engine.world.active_scene->add_object(wall1);
+	wall1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
+	wall1->add_component(std::make_shared<BoundingBoxComponent>());
+	wall1->set_position(FVector3{0.0f, 0.0f, 5.0f});
+	wall1->get_component<BoundingBoxComponent>()->physics_body.set_mass(2.0f);
+	wall1->mimic_position_component = wall1->get_component<BoundingBoxComponent>();
+	wall1->mimic_rotation_component = wall1->get_component<BoundingBoxComponent>();
+
+	std::shared_ptr<Object> wall2 = std::make_shared<Object>();
+	engine.world.active_scene->add_object(wall2);
+	wall2->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
+	wall2->add_component(std::make_shared<BoundingBoxComponent>());
+	wall2->set_position(FVector3{0.0f, 0.0f, -5.0f});
+	wall2->get_component<BoundingBoxComponent>()->physics_body.set_mass(2.0f);
+	wall2->mimic_position_component = wall2->get_component<BoundingBoxComponent>();
+	wall2->mimic_rotation_component = wall2->get_component<BoundingBoxComponent>();*/
 
 	engine.compile();
 	engine.loop();

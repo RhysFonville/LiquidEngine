@@ -68,7 +68,7 @@ public:
 			data.specular = component->get_specular().to_vec_normalized();
 			
 			auto rot = component->get_rotation();
-			data.direction = XMVector3TransformCoord(global_forward,
+			data.direction = XMVector3TransformCoord(global_forward.to_xmvec(),
 				XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z)
 			);
 

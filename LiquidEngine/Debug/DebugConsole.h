@@ -61,6 +61,7 @@ public:
 	DebugConsole & operator<<(char out) noexcept;
 	DebugConsole & operator<<(const std::string &out) noexcept;
 	DebugConsole & operator<<(const Color &col) noexcept;
+	DebugConsole & operator<<(std::ostream &os) noexcept;
 	DebugConsole & operator>>(std::string &in) noexcept;
 
 	HANDLE std_handle;

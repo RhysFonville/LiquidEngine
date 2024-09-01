@@ -6,20 +6,35 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 
 	// Box-box
 	if (type1 == Component::Type::BoundingBoxComponent && type2 == Component::Type::BoundingBoxComponent) {
-		if (bounding_box_box_overlap(
-			obj1->get_position(), static_cast<BoundingBoxComponent*>(obj1)->box,
-			obj2->get_position(), static_cast<BoundingBoxComponent*>(obj2)->box
-		)) {
-			collision_handler.handle_collision(obj1->get_position(), obj1->physics_body, obj2->get_position(), obj2->physics_body);
+		BoundingBoxComponent* comp1 = static_cast<BoundingBoxComponent*>(obj1);
+		BoundingBoxComponent* comp2 = static_cast<BoundingBoxComponent*>(obj2);
+		if (OverlapEventInfo info = bounding_box_box_overlap(
+			obj1->get_position(), comp1->box,
+			obj2->get_position(), comp2->box
+		); info.overlapped) {
+			info.objects.first.component = obj1;
+			info.objects.second.component = obj2;
+
+			auto v1 = comp1->physics_body.get_velocity();
+			comp1->translate(-info.overlap_info.axis_overlap * v1);
+
+			auto v2 = comp2->physics_body.get_velocity();
+			comp2->translate(-info.overlap_info.axis_overlap * v2);
+
+			collision_handler.handle_collision(info);
+
+			std::cout << info.overlap_info.axis_overlap.to_string() << std::endl;
 		}
 	} else if (type1 == Component::Type::SphereComponent && type2 == Component::Type::SphereComponent) {
 		auto sphere1 = static_cast<SphereComponent*>(obj1);
 		auto sphere2 = static_cast<SphereComponent*>(obj2);
-		if (sphere_sphere_overlap(
+		if (OverlapEventInfo info = sphere_sphere_overlap(
 			obj1->get_position(), sphere1->sphere,
 			obj2->get_position(), sphere2->sphere
-		)) {
-			collision_handler.handle_collision(obj1->get_position(), obj1->physics_body, obj2->get_position(), obj2->physics_body);
+		); info.overlapped) {
+			info.objects.first.component = obj1;
+			info.objects.second.component = obj2;
+			collision_handler.handle_collision(info);
 		}
 	} else {
 		/*bool bounding_box_intersecting = false;
@@ -38,19 +53,51 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 	}
 }
 
-bool OverlapHandler::bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept {
-	return (
-		box1_pos.x-box1.length <= box2_pos.x+box2.length &&
-		box1_pos.x+box1.length >= box2_pos.x-box2.length &&
-		box1_pos.y-box1.height <= box2_pos.y+box2.height &&
-		box1_pos.y+box1.height >= box2_pos.y-box2.height &&
-		box1_pos.z-box1.width <= box2_pos.z+box2.width &&
-		box1_pos.z+box1.width >= box2_pos.z-box2.width
-	);
+OverlapEventInfo OverlapHandler::bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept {
+	FVector3 box1_min = box1.get_min() + box1_pos;
+	FVector3 box1_max = box1.get_max() + box1_pos;
+	FVector3 box2_min = box2.get_min() + box2_pos;
+	FVector3 box2_max = box2.get_max() + box2_pos;
+
+	OverlapEventInfo info{};
+
+	// Calculate the overlap along each axis
+	info.overlap_info.axis_overlap.x = std::max(0.0f, std::min(box1_max.x, box2_max.x) - std::max(box1_min.x, box2_min.x));
+	info.overlap_info.axis_overlap.y = std::max(0.0f, std::min(box1_max.y, box2_max.y) - std::max(box1_min.y, box2_min.y));
+	info.overlap_info.axis_overlap.z = std::max(0.0f, std::min(box1_max.z, box2_max.z) - std::max(box1_min.z, box2_min.z));
+
+	//SimpleBoundingBox overlap_box{};
+
+	// If there is overlap along all three axes, calculate the overlap box
+	if (info.overlap_info.axis_overlap.x > 0.0f &&
+		info.overlap_info.axis_overlap.y > 0.0f &&
+		info.overlap_info.axis_overlap.z > 0.0f) {
+
+		info.overlapped = true;
+
+		info.overlap_info.point_of_overlap.x = (std::max(box1_min.x, box2_min.x) + std::min(box1_max.x, box2_max.x)) / 2.0f;
+		info.overlap_info.point_of_overlap.y = (std::max(box1_min.y, box2_min.y) + std::min(box1_max.y, box2_max.y)) / 2.0f;
+		info.overlap_info.point_of_overlap.z = (std::max(box1_min.z, box2_min.z) + std::min(box1_max.z, box2_max.z)) / 2.0f;
+		
+		//overlap_box.length = overlap_x;
+		//overlap_box.width = overlap_y;
+		//overlap_box.height = overlap_z;
+	}
+
+	return info;
 }
 
-bool OverlapHandler::sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept {
-	return (distance(sphere1_pos, sphere2_pos) <= sphere1.radius+sphere2.radius);
+OverlapEventInfo OverlapHandler::sphere_sphere_overlap(const FVector3 &sphere1_pos, const Sphere &sphere1, const FVector3 &sphere2_pos, const Sphere &sphere2) noexcept {
+	float dist{distance(sphere1_pos, sphere2_pos)};
+	bool overlap{dist <= sphere1.radius+sphere2.radius};
+	OverlapEventInfo info{overlap};
+	
+	if (overlap) {
+		info.overlap_info.point_of_overlap = (sphere2_pos - sphere1_pos) / 2.0f;
+	}
+
+
+	return info;
 }
 
 // https://stackoverflow.com/questions/1496215/triangle-triangle-intersection-in-3d-space

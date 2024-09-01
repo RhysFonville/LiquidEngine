@@ -28,26 +28,26 @@ void CameraComponent::rotate(FVector3 rotation) noexcept {
 
 		XMMATRIX rot_matrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
 
-		target = XMVector3TransformCoord(global_forward,
+		target = XMVector3TransformCoord(global_forward.to_xmvec(),
 			rot_matrix
 		);
-		XMVector3Normalize(target);
+		XMVector3Normalize(target.to_xmvec());
 
-		up = XMVector3TransformCoord(global_up,
+		up = XMVector3TransformCoord(global_up.to_xmvec(),
 			rot_matrix
 		);
-		XMVector3Normalize(up);
+		XMVector3Normalize(up.to_xmvec());
 
 		target += transform.position;
 
-		forward = XMVector3TransformCoord(global_forward, rot_matrix);
-		backward = XMVector3TransformCoord(global_backward, rot_matrix);
-		left = XMVector3TransformCoord(global_left, rot_matrix);
-		right = XMVector3TransformCoord(global_right, rot_matrix);
+		forward = XMVector3TransformCoord(global_forward.to_xmvec(), rot_matrix);
+		backward = XMVector3TransformCoord(global_backward.to_xmvec(), rot_matrix);
+		left = XMVector3TransformCoord(global_left.to_xmvec(), rot_matrix);
+		right = XMVector3TransformCoord(global_right.to_xmvec(), rot_matrix);
 
 		XMMATRIX roll_matrix = XMMatrixRotationZ(rotation.z);
 
-		down = XMVector3TransformCoord(global_up, roll_matrix);
+		down = XMVector3TransformCoord(global_up.to_xmvec(), roll_matrix);
 
 		set_view();
 	}
@@ -138,7 +138,7 @@ void CameraComponent::update(const FVector2 &size) noexcept {
 }
 
 void CameraComponent::set_view() noexcept {
-	view = XMMatrixLookAtLH((XMVECTOR)transform.position, (XMVECTOR)this->target, (XMVECTOR)this->up);
+	view = XMMatrixLookAtLH(transform.position.to_xmvec(), this->target.to_xmvec(), this->up.to_xmvec());
 	changed = true;
 }
 

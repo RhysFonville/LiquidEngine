@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <DirectXMath.h>
 #include "../Utility/ObjectStructs.h"
 #include "../Utility/SimpleShapes.h"
 
@@ -33,15 +34,19 @@ public:
 };
 
 static FVector3 cross(const FVector3 &a, const FVector3 &b) {
-	FVector3 ret;  
-	ret.x = a.y*b.z-a.z*b.y;
-	ret.y = a.z*b.x-a.x*b.z;
-	ret.z = a.x*b.y-a.y*b.x;
-	return ret;
+	return FVector3{
+		a.y * b.z - a.z * b.y,
+		-(a.x * b.z - a.z * b.x),
+		a.x * b.y - a.y * b.x
+	};
 }
 
 static float dot(const FVector3 &v1, const FVector3 &v2){
 	return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
+}
+
+static FVector3 dot(const XMMATRIX &mat, const FVector3 &v) {
+	return XMVector3TransformCoord(v.to_xmvec(), mat);
 }
 
 static float normalize(float f) {
@@ -49,11 +54,15 @@ static float normalize(float f) {
 }
 
 static float distance(const FVector3 &p1, const FVector3 &p2) noexcept {
-	return (float)sqrt(pow((p2.x-p1.x), 2) + pow((p2.y-p1.y), 2) + pow((p2.z-p1.z), 2));
+	return (p2 - p1).magnitude();
+}
+
+static FVector3 operator*(const XMMATRIX &mat, const FVector3 &vec) {
+	return dot(mat, vec);
 }
 
 static FVector3 transform_vector(FVector3 vector, Transform transform) noexcept {
-	XMVECTOR vec = XMVector3Transform(vector,
+	XMVECTOR vec = XMVector3Transform(vector.to_xmvec(),
 		XMMatrixTranspose(transform));
 
 	FVector3 ret;

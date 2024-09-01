@@ -37,12 +37,12 @@ DebugConsole & DebugConsole::operator<<(const std::string &out) noexcept {
 	return *this;
 }
 
-DebugConsole & DebugConsole::operator>>(std::string &in) noexcept {
-	std::cin >> in;
+DebugConsole & DebugConsole::operator<<(const Color &col) noexcept {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (WORD)col);
 	return *this;
 }
 
-DebugConsole & DebugConsole::operator<<(const Color &col) noexcept {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (WORD)col);
+DebugConsole & DebugConsole::operator>>(std::string &in) noexcept {
+	std::cin >> in;
 	return *this;
 }
