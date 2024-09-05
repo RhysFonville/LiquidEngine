@@ -6,6 +6,7 @@ void PhysicsBody::tick(float dt) noexcept {
 	acceleration += (get_net_force() / get_mass()) * dt;
 	angular_acceleration += (get_net_torque() / get_moment_of_inertia()) * dt;
 	set_velocity(velocity+(acceleration*dt));
+	set_angular_velocity(angular_velocity+(angular_acceleration*dt));
 
 	std::erase_if(forces, [&](const Force &f){return f.type == Force::Type::Impulse;});
 }

@@ -17,10 +17,10 @@ int main() {
 	engine.world.active_scene->add_object(sun);
 	sun->add_component(std::make_shared<DirectionalLightComponent>());
 
-	/*std::shared_ptr<Object> sky = std::make_shared<Object>();
+	std::shared_ptr<Object> sky = std::make_shared<Object>();
 	engine.world.active_scene->add_object(sky);
 	sky->add_component(std::make_shared<SkyComponent>());
-	sky->get_component<SkyComponent>()->set_albedo(Color{0, 0, 0, 255});*/
+	sky->get_component<SkyComponent>()->get_albedo_texture().set_texture("Skybox.png");
 
 	std::shared_ptr<Object> obj = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj);

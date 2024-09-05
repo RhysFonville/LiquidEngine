@@ -43,6 +43,9 @@ void CollisionHandler::handle_collision(const OverlapEventInfo &info) noexcept {
 	FVector3 wf1 = w1 + I1inv*(cross(r1, J*n));
 	FVector3 wf2 = w2 + I2inv*(cross(r2, J*n));
 
+	std::swap(wf1.x, wf1.z);
+	std::swap(wf2.x, wf2.z);
+
 	obj1->physics_body.set_velocity(vf1);
 	obj2->physics_body.set_velocity(vf2);
 

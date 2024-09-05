@@ -16,10 +16,10 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 			info.objects.second.component = obj2;
 
 			auto v1 = comp1->physics_body.get_velocity();
-			comp1->translate(-info.overlap_info.axis_overlap * v1);
+			comp1->translate((-info.overlap_info.axis_overlap) * v1);
 
 			auto v2 = comp2->physics_body.get_velocity();
-			comp2->translate(-info.overlap_info.axis_overlap * v2);
+			comp2->translate((-info.overlap_info.axis_overlap) * v2);
 
 			collision_handler.handle_collision(info);
 

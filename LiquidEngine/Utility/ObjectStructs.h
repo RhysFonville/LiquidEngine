@@ -19,7 +19,7 @@ struct Transform {
 
 	operator XMMATRIX() const noexcept {
 		return DirectX::XMMatrixTranspose(
-			DirectX::XMMatrixRotationRollPitchYaw(rotation.y, rotation.x, rotation.z)  *
+			DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z)  *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
 			DirectX::XMMatrixScaling(size.x, size.y, size.z)
 		);
