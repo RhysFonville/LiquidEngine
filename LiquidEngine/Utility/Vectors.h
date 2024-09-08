@@ -270,7 +270,7 @@ public:
 		}
 	}
 
-	std::string to_string() {
+	std::string to_string() const noexcept {
 		return std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ", " + std::to_string(w);
 	}
 
@@ -362,12 +362,18 @@ public:
 		z = XMVectorGetZ(vector);
 	}
 
-	float magnitude() const noexcept {
+	float length() const noexcept {
 		return sqrtf(x*x + y*y + z*z);
 	}
 
 	XMVECTOR to_xmvec() const noexcept {
 		return XMVectorSet(x, y, z, 1.0f);
+	}
+
+	FVector3 normalize() const noexcept {
+		float len{length()};
+		if (len == 0.0f) return {0.0f, 0.0f, 0.0f};
+		return { x / len, y / len, z / len};
 	}
 
 	friend std::ostream & operator<<(std::ostream &os, const FVector3 &vec);
@@ -427,7 +433,7 @@ public:
 		return x*vector.x + y*vector.y + z*vector.z + w*vector.w;
 	}
 
-	float magnitude() const noexcept {
+	float length() const noexcept {
 		return sqrtf(x*x + y*y + z*z + w*w);
 	}
 };

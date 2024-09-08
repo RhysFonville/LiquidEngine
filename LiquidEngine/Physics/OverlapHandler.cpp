@@ -1,6 +1,6 @@
 #include "OverlapHandler.h"
 
-void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2) noexcept {
+void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2, float dt) noexcept {
 	auto type1 = obj1->get_type();
 	auto type2 = obj2->get_type();
 
@@ -15,15 +15,12 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 			info.objects.first.component = obj1;
 			info.objects.second.component = obj2;
 
-			auto v1 = comp1->physics_body.get_velocity();
-			comp1->translate((-info.overlap_info.axis_overlap) * v1);
-
-			auto v2 = comp2->physics_body.get_velocity();
-			comp2->translate((-info.overlap_info.axis_overlap) * v2);
-
-			collision_handler.handle_collision(info);
+			comp1->translate((-info.overlap_info.axis_overlap)*comp1->physics_body.get_velocity().normalize());
+			comp2->translate((-info.overlap_info.axis_overlap)*comp2->physics_body.get_velocity().normalize());
 
 			std::cout << info.overlap_info.axis_overlap.to_string() << std::endl;
+
+			collision_handler.handle_collision(info);
 		}
 	} else if (type1 == Component::Type::SphereComponent && type2 == Component::Type::SphereComponent) {
 		auto sphere1 = static_cast<SphereComponent*>(obj1);

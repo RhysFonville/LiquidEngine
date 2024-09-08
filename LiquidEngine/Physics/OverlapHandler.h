@@ -12,7 +12,7 @@ class OverlapHandler {
 public:
 	OverlapHandler() { }
 
-	void handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2) noexcept;
+	void handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2, float dt) noexcept;
 
 	static FVector3 closest_point_on_AABB(const FVector3 &point, const FVector3 &box_pos, const SimpleBoundingBox &aabb) noexcept;
 

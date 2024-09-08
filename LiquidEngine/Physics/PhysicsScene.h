@@ -6,7 +6,7 @@ class PhysicsScene {
 public:
 	PhysicsScene() { }
 
-	void tick();
+	void tick(float dt);
 
 	void clean_up();
 

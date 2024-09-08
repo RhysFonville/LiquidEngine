@@ -49,12 +49,12 @@ static FVector3 dot(const XMMATRIX &mat, const FVector3 &v) {
 	return XMVector3TransformCoord(v.to_xmvec(), mat);
 }
 
-static float normalize(float f) {
-	return 1.0f / f;
-}
+//static float normalize(float f) {
+//	return 1.0f / f;
+//}
 
 static float distance(const FVector3 &p1, const FVector3 &p2) noexcept {
-	return (p2 - p1).magnitude();
+	return (p2 - p1).length();
 }
 
 static FVector3 operator*(const XMMATRIX &mat, const FVector3 &vec) {

@@ -7,7 +7,7 @@ class InteractionHandler {
 public:
 	InteractionHandler() { }
 
-	void handle_interaction(PhysicalComponent* obj1, PhysicalComponent* obj2) noexcept;
+	void handle_interaction(PhysicalComponent* obj1, PhysicalComponent* obj2, float dt) noexcept;
 
 private:
 	OverlapHandler overlap_handler{};

@@ -7,7 +7,7 @@ void Scene::tick(float dt) {
 
 	input_listener.handle_input(dt);
 
-	physics_scene.tick();
+	physics_scene.tick(dt);
 
 	for (std::shared_ptr<Object> &object : objects) {
 		object->base_tick(dt);

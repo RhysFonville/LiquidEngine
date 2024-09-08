@@ -26,12 +26,12 @@ void CollisionHandler::handle_collision(const OverlapEventInfo &info) noexcept {
 	//FVector3 vrel = (v2 + w2*r2) + (v1 + w1*r1);
 	FVector3 v12 = v1 - v2;
 	
-	FVector3 n = (obj2->get_position() - obj1->get_position()) / FVector3{obj2->get_position() - obj1->get_position()}.magnitude();
+	FVector3 n = (obj2->get_position() - obj1->get_position()) / FVector3{obj2->get_position() - obj1->get_position()}.length();
 	//float meff = 1.0f / ((1.0f/m1) + (1.0f/m2));
 	//float vimp = dot(n, v1-v2);
 	//float J = (1.0f+e)*meff*vimp;
 	float Jnum = -(1.0f + e) * dot(v12, n);
-	float J1 = powf(n.magnitude(), 2) * (1.0f/m1 + 1.0f/m2);
+	float J1 = powf(n.length(), 2) * (1.0f/m1 + 1.0f/m2);
 	FVector3 J2 = cross(I1inv*cross(r1, n), r1);
 	FVector3 J3 = cross(I2inv*cross(r2, n), r2);
 	float Jden = (J1 + dot(J2 + J3, n));
