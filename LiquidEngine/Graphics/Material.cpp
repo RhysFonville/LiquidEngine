@@ -1,11 +1,17 @@
 #include "Material.h"
 
-Material::Material(const Material &mat) : Material{} {
+Material::Material(const Material& mat)
+	: vs{mat.vs}, hs{mat.hs}, ds{mat.ds}, gs{mat.gs}, ps{mat.ps}, GraphicsTracker{} {
 	set_data(mat);
 }
 
-Material::Material(const std::string &file) : Material{} {
+Material::Material(const std::string& file) : GraphicsTracker{} {
 	set_data(file);
+}
+
+Material::Material(const std::string& vs, const std::string& ps, const std::string& data_file)
+	: GraphicsTracker{}, vs{vs}, ps{ps} {
+	if (!data_file.empty()) set_data(data_file);
 }
 
 void Material::compile() {
@@ -111,10 +117,6 @@ bool Material::has_environment_texture() const noexcept {
 	return environment_texture.exists();
 }
 
-void Material::operator=(const Material &material) noexcept {
-	set_data(material);
-}
-
 bool Material::operator==(const Material &material) const noexcept {
 	return (
 		vs == material.vs &&
@@ -126,5 +128,33 @@ bool Material::operator==(const Material &material) const noexcept {
 		specular == material.specular &&
 		albedo == material.albedo &&
 		ambient == material.ambient &&
-		shininess == material.shininess);
+		shininess == material.shininess
+	);
+}
+
+void Material::add_shader_argument(GraphicsPipeline::RootSignature::ConstantBuffer* cb) {
+	order.push_back(std::make_pair(0, cbs.size()));
+	cbs.push_back(cb);
+}
+
+void Material::add_shader_argument(GraphicsPipeline::RootSignature::RootConstants* rc) {
+	order.push_back(std::make_pair(1, rcs.size()));
+	rcs.push_back(rc);
+}
+
+void Material::add_shader_argument(GraphicsPipeline::RootSignature::ShaderResourceView* srv) {
+	order.push_back(std::make_pair(2, srvs.size()));
+	srvs.push_back(srv);
+}
+
+void Material::bind_shader_arguments() {
+	for (auto argument : order) {
+		if (argument.first == 0) {
+			pipeline.root_signature.bind_constant_buffer(*cbs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+		} else if (argument.first == 1) {
+			pipeline.root_signature.bind_root_constants(*rcs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+		} else if (argument.first == 2) {
+			pipeline.root_signature.bind_shader_resource_view(*srvs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+		}
+	}
 }

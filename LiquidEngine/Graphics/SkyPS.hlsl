@@ -1,4 +1,4 @@
-#include "BaseShader.hlsl"
+#include "BaseShader.hlsli"
 
 SamplerState static_sampler : register(s0);
 Texture2D albedo_texture : register(t0);

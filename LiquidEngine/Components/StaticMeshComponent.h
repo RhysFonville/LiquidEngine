@@ -10,7 +10,7 @@
  */
 class StaticMeshComponent : public GraphicsComponent {
 public:
-	StaticMeshComponent(Mesh mesh = Mesh());
+	StaticMeshComponent(Mesh mesh = Mesh{}, Material mat = Material{});
 
 	void clean_up() override;
 
@@ -20,7 +20,7 @@ public:
 	void set_mesh(const Mesh &mesh) noexcept;
 
 	GET Material & get_material() noexcept;
-	void set_material(const Material &material) noexcept;
+	//void set_material(const Material &material) noexcept;
 
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;

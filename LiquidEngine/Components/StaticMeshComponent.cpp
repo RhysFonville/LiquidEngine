@@ -1,7 +1,7 @@
 #include "StaticMeshComponent.h"
 
-StaticMeshComponent::StaticMeshComponent(Mesh mesh)
-	: GraphicsComponent(Type::StaticMeshComponent), mesh(mesh) { }
+StaticMeshComponent::StaticMeshComponent(Mesh mesh, Material mat)
+	: GraphicsComponent{Type::StaticMeshComponent}, mesh{mesh}, material{mat} { }
 
 void StaticMeshComponent::compile() noexcept {
 	proxy->remove_all_meshes();
@@ -34,14 +34,14 @@ Material & StaticMeshComponent::get_material() noexcept {
 	return material;
 }
 
-void StaticMeshComponent::set_material(const Material &material) noexcept {
-	this->material = material;
-
-	proxy->remove_all_meshes();
-	proxy->add_mesh(mesh);
-
-	changed = true;
-}
+//void StaticMeshComponent::set_material(const Material &material) noexcept {
+//	this->material = material;
+//
+//	proxy->remove_all_meshes();
+//	proxy->add_mesh(mesh);
+//
+//	changed = true;
+//}
 
 bool StaticMeshComponent::operator==(const StaticMeshComponent &mesh) const noexcept {
 	return ((Component*)this == (Component*)&mesh &&

@@ -11,8 +11,9 @@
 class Material : public GraphicsTracker {
 public:
 	Material() : GraphicsTracker{} { }
-	Material(const Material &mat);
-	Material(const std::string &file);
+	Material(const Material& mat);
+	Material(const std::string& file);
+	Material(const std::string& vs, const std::string& ps, const std::string& data_file = "");
 
 	void compile();
 	
@@ -25,7 +26,6 @@ public:
 	GET bool has_normal_map() const noexcept;
 	GET bool has_environment_texture() const noexcept;
 
-	void operator=(const Material &material) noexcept;
 	bool operator==(const Material &material) const noexcept;
 
 	GET Texture & get_albedo_texture() { return albedo_texture; }
@@ -46,6 +46,16 @@ public:
 
 	GraphicsPipeline pipeline{};
 
+	void add_shader_argument(GraphicsPipeline::RootSignature::ConstantBuffer* cb);
+	void add_shader_argument(GraphicsPipeline::RootSignature::RootConstants* rc);
+	void add_shader_argument(GraphicsPipeline::RootSignature::ShaderResourceView* srv);
+
+	void bind_shader_arguments();
+
+	std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> get_shader_cbs() const noexcept;
+	std::vector<GraphicsPipeline::RootSignature::RootConstants*> get_shader_rcs() const noexcept;
+	std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> get_shader_srvs() const noexcept;
+
 private:
 	std::string vs{"Graphics/DefaultVertex.hlsl"};
 	std::string hs{};
@@ -60,4 +70,9 @@ private:
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka
 	float shininess{10.0f}; // a
+
+	std::vector<std::pair<char, size_t>> order{};
+	std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> cbs{};
+	std::vector<GraphicsPipeline::RootSignature::RootConstants*> rcs{};
+	std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> srvs{};
 };

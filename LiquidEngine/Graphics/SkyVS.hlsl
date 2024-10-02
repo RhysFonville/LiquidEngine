@@ -1,4 +1,4 @@
-#include "BaseVS.hlsl"
+#include "BaseVS.hlsli"
 
 struct SkyboxVSOut {
 	float4 position : SV_Position;

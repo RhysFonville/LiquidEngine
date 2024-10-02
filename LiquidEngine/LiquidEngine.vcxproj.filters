@@ -31,6 +31,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="Graphics\BaseShader.hlsli" />
+    <None Include="Graphics\BaseLitPS.hlsli" />
+    <None Include="Graphics\BaseVS.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log">
@@ -236,6 +239,9 @@
     <ClInclude Include="Components\BoundingBoxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\MyShaderCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -406,11 +412,17 @@
     <ClCompile Include="Components\BoundingBoxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\MyShaderCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Graphics\mipmapcs.hlsl" />
     <FxCompile Include="Graphics\SkyPS.hlsl" />
     <FxCompile Include="Graphics\SkyVS.hlsl" />
-    <FxCompile Include="Graphics\BaseVS.hlsl" />
+    <FxCompile Include="Graphics\LitPixel.hlsl" />
+    <FxCompile Include="Graphics\DefaultVertex.hlsl" />
+    <FxCompile Include="Graphics\UnlitPixel.hlsl" />
+    <FxCompile Include="Graphics\MyPixelShader.hlsl" />
   </ItemGroup>
 </Project>

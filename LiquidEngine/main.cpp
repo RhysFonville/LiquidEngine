@@ -2,6 +2,7 @@
 #include "Objects/MyCamera.h"
 #include "Shapes/Cube.h"
 #include "Objects/MyStatue.h"
+#include "Objects/MyShaderCube.h"
 
 int main() {
 	if (FAILED(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED))) {
@@ -22,22 +23,17 @@ int main() {
 	sky->add_component(std::make_shared<SkyComponent>());
 	sky->get_component<SkyComponent>()->get_albedo_texture().set_texture("Skybox.png");
 
-	std::shared_ptr<Object> obj = std::make_shared<Object>();
+	std::shared_ptr<Object> obj = std::make_shared<MyShaderCube>();
 	engine.world.active_scene->add_object(obj);
-	obj->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
-	obj->add_component(std::make_shared<BoundingBoxComponent>());
-	obj->set_position(FVector3{0.0f, 0.0f, 3.0f});
-	obj->mimic_position_component = obj->get_component<BoundingBoxComponent>();
-	obj->mimic_rotation_component = obj->get_component<BoundingBoxComponent>();
 
-	std::shared_ptr<Object> obj1 = std::make_shared<Object>();
+	/*std::shared_ptr<Object> obj1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(obj1);
 	obj1->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
 	obj1->add_component(std::make_shared<BoundingBoxComponent>());
 	obj1->set_position(FVector3{0.0f, 0.0f, -3.0f});
 	obj1->get_component<BoundingBoxComponent>()->physics_body.set_mass(1.0f);
 	obj1->mimic_position_component = obj1->get_component<BoundingBoxComponent>();
-	obj1->mimic_rotation_component = obj1->get_component<BoundingBoxComponent>();
+	obj1->mimic_rotation_component = obj1->get_component<BoundingBoxComponent>();*/
 
 	/*std::shared_ptr<Object> wall1 = std::make_shared<Object>();
 	engine.world.active_scene->add_object(wall1);

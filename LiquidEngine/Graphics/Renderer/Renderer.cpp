@@ -372,16 +372,13 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	for (auto &mesh : scene.static_meshes) {
-		mesh->compile(scene.camera);
-	}
-
 	scene.update(resolution);
 
 	for (auto &mesh : scene.static_meshes) {
 		if (compile_components)
 			mesh->component->compile();
 
+		mesh->material.component->bind_shader_arguments();
 		mesh->material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 	}
 
