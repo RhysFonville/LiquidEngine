@@ -15,4 +15,3 @@ private:
 
 	GraphicsPipeline::RootSignature::RootConstantsContainer<float> time = 0.0f;
 };
-

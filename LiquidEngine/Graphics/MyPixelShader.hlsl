@@ -5,5 +5,7 @@ cbuffer TimeCB : register(b5) {
 }
 
 float4 main(PS_INPUT ps_in) : SV_TARGET {
-	return float4(material.kd.xyz * sin(time), 1.0f);
+	return float4(material.kd.r * sin(time),
+				material.kd.g * cos(time),
+				material.kd.g * tan(time), 1.0f);
 }

@@ -3,6 +3,7 @@
 #include "../Graphics/GraphicsPipeline.h"
 #include "../Graphics/Texture.h"
 #include "GraphicsComponent.h"
+#include "../imgui/imgui_stdlib.h"
 
 /**
 * Component for a sky.

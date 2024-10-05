@@ -1,7 +1,7 @@
 #include "MyShaderCube.h"
 
 MyShaderCube::MyShaderCube()
-	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}, Material{"Graphics/DefaultVertex.hlsl", "Graphics/MyPixelShader.hlsl"})},
+	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"}, Material{"Graphics/DefaultVertex.hlsl", "Graphics/LitPixel.hlsl"})},
 	box{std::make_shared<BoundingBoxComponent>()} {
 	
 	mesh->get_material().get_environment_texture().set_texture("Skybox.png");
@@ -10,8 +10,6 @@ MyShaderCube::MyShaderCube()
 	mimic_rotation_component = box.get();
 
 	mesh->get_material().add_shader_argument(&time.rc);
-
-	set_position(FVector3{0.0f, 0.0f, 3.0f});
 }
 
 void MyShaderCube::pre_scene_compile() {

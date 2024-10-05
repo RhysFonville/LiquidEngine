@@ -154,7 +154,7 @@ bool SkyComponent::has_texture() const noexcept {
 
 void SkyComponent::render_editor_gui_section() {
 	std::string albedo_texture{this->albedo_texture.get_file()};
-	if (ImGui::InputText("Albedo texure", &albedo_texture[0], albedo_texture.max_size())) {
+	if (ImGui::InputText("Albedo texure", &albedo_texture, ImGuiInputTextFlags_EnterReturnsTrue)) {
 		this->albedo_texture.set_texture(albedo_texture);
 	}
 
