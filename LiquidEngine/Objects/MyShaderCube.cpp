@@ -8,8 +8,6 @@ MyShaderCube::MyShaderCube()
 
 	mimic_position_component = box.get();
 	mimic_rotation_component = box.get();
-
-	mesh->get_material().add_shader_argument(&time.rc);
 }
 
 void MyShaderCube::pre_scene_compile() {
@@ -18,5 +16,5 @@ void MyShaderCube::pre_scene_compile() {
 }
 
 void MyShaderCube::tick(float dt) {
-	*time.obj += dt;
+
 }

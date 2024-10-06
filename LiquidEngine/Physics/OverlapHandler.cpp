@@ -31,6 +31,10 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 		); info.overlapped) {
 			info.objects.first.component = obj1;
 			info.objects.second.component = obj2;
+
+			sphere1->translate((-info.overlap_info.axis_overlap) * sphere1->physics_body.get_velocity().normalize());
+			sphere2->translate((-info.overlap_info.axis_overlap) * sphere2->physics_body.get_velocity().normalize());
+
 			collision_handler.handle_collision(info);
 		}
 	} else {
@@ -92,7 +96,6 @@ OverlapEventInfo OverlapHandler::sphere_sphere_overlap(const FVector3 &sphere1_p
 	if (overlap) {
 		info.overlap_info.point_of_overlap = (sphere2_pos - sphere1_pos) / 2.0f;
 	}
-
 
 	return info;
 }

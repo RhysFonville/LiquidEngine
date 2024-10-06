@@ -12,6 +12,4 @@ public:
 private:
 	std::shared_ptr<StaticMeshComponent> mesh{nullptr};
 	std::shared_ptr<BoundingBoxComponent> box{nullptr};
-
-	GraphicsPipeline::RootSignature::RootConstantsContainer<float> time = 0.0f;
 };
