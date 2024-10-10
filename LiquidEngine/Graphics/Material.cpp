@@ -113,8 +113,8 @@ bool Material::has_normal_map() const noexcept {
 	return normal_map.exists();
 }
 
-bool Material::has_environment_texture() const noexcept {
-	return environment_texture.exists();
+bool Material::has_specular_map() const noexcept {
+	return specular_map.exists();
 }
 
 bool Material::operator==(const Material &material) const noexcept {
@@ -157,4 +157,16 @@ void Material::bind_shader_arguments() {
 			pipeline.root_signature.bind_shader_resource_view(*srvs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
 		}
 	}
+}
+
+std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> Material::get_shader_cbs() const noexcept {
+	return cbs;
+}
+
+std::vector<GraphicsPipeline::RootSignature::RootConstants*> Material::get_shader_rcs() const noexcept {
+	return rcs;
+}
+
+std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> Material::get_shader_srvs() const noexcept {
+	return srvs;
 }

@@ -188,14 +188,14 @@ public:
 	RenderingMaterialData() { }
 	RenderingMaterialData(const Material &material)
 		: has_texture{material.has_texture()}, has_normal_map{material.has_normal_map()},
-		has_environment_texture{material.has_environment_texture()}, a(material.get_shininess()),
+		has_specular_map{material.has_specular_map()}, a(material.get_shininess()),
 		ks(material.get_specular().to_vec_normalized()),
 		kd(material.get_albedo().to_vec_normalized()),
 		ka(material.get_ambient().to_vec_normalized()) { }
 
 	int has_texture = 1;
 	int has_normal_map = 1;
-	int has_environment_texture = 1;
+	int has_specular_map = 1;
 	float pad = 0.0f;
 	FVector4 ks = FVector4(0.3f, 0.3f, 0.3f, 0.3f); // Specular
 	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
@@ -329,17 +329,27 @@ public:
 		bool ret{false};
 		if (texture.update()) ret = true;
 
+		bool change{false};
 		if (camera.component->has_changed()) {
 			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
-			transform_data.obj->transform = Transform{camera.pos_data.obj->camera_position};
+			change = true;
 		}
-
-		if (component->has_changed() || ret) {
+		if (component->has_changed()) {
 			*data.obj = PSSkyCB{*component};
 			data.update();
 
 			component->has_changed(false);
+			change = true;
 		}
+
+		if (change) {
+			transform_data.obj->transform = Transform{
+				camera.pos_data.obj->camera_position,
+				component->get_rotation(),
+				component->get_size()
+			};
+		}
+
 		return ret;
 	}
 
@@ -385,13 +395,13 @@ public:
 	RenderingMaterial(Material* mat) : RenderingComponent{mat},
 		albedo_texture{RenderingTexture{&mat->get_albedo_texture()}},
 		normal_map{RenderingTexture{&mat->get_normal_map()}},
-		environment_texture{RenderingTexture{&mat->get_environment_texture()}} { }
+		specular_map{RenderingTexture{&mat->get_specular_map()}} { }
 
 	bool update() {
 		bool ret{false};
 		if (albedo_texture.update()) ret = true;
 		if (normal_map.update()) ret = true;
-		if (environment_texture.update()) ret = true;
+		if (specular_map.update()) ret = true;
 
 		if (component->has_changed() || ret) {
 			material_data.obj->material = RenderingMaterialData{*component};
@@ -406,7 +416,7 @@ public:
 	void compile() {
 		albedo_texture.compile();
 		normal_map.compile();
-		environment_texture.compile();
+		specular_map.compile();
 		material_data = PSMaterialCB{};
 
 		component->has_changed(true);
@@ -421,7 +431,7 @@ public:
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 		component->pipeline.root_signature.bind_shader_resource_view(
-			*environment_texture.srv,
+			*specular_map.srv,
 			D3D12_SHADER_VISIBILITY_PIXEL
 		);
 
@@ -432,12 +442,12 @@ public:
 		material_data.clean_up();
 		albedo_texture.clean_up();
 		normal_map.clean_up();
-		environment_texture.clean_up();
+		specular_map.clean_up();
 	}
 
 	RenderingTexture albedo_texture{};
 	RenderingTexture normal_map{};
-	RenderingTexture environment_texture{};
+	RenderingTexture specular_map{};
 
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data = PSMaterialCB{};
 };

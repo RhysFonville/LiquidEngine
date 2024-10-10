@@ -76,9 +76,9 @@ void StaticMeshComponent::render_editor_gui_section() {
 		material.get_normal_map().set_texture(tex, enable_mipmap);
 	}
 
-	tex = material.get_environment_texture().get_file();
-	if (ImGui::InputText("Environment texture", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		material.get_environment_texture().set_texture(tex, enable_mipmap);
+	tex = material.get_specular_map().get_file();
+	if (ImGui::InputText("Specular map", &tex, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		material.get_specular_map().set_texture(tex, enable_mipmap);
 	}
 
 	FVector4 alb{color_to_fvector(material.get_albedo())};

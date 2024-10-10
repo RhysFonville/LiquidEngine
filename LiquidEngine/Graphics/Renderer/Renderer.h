@@ -118,6 +118,7 @@ private:
 	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap = nullptr;
 	UINT rtv_descriptor_size = 0u; // size of the rtv descriptor on the device (all front and back buffers will be the same size)
 	ComPtr<ID3D12Resource> render_targets[NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12Resource> msaa_render_targets[NUMBER_OF_BUFFERS] = { };
 
 	ComPtr<IDXGIFactory2> factory = nullptr;
 
@@ -156,7 +157,8 @@ private:
 
 	UINT frame_index = 0u;
 
-	DXGI_SAMPLE_DESC sample_desc{};
+	DXGI_SAMPLE_DESC msaa_sample_desc{8u, 0u};
+	DXGI_SAMPLE_DESC sample_desc{1u, 0u};
 	D3D12_BLEND_DESC blend_desc{};
 
 	D3D12_VIEWPORT viewport{};

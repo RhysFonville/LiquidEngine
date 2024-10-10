@@ -2,7 +2,6 @@
 
 MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"})} {
 	mesh->set_size(FVector3(0.3f, 0.3f, 0.3f));
-	mesh->get_material().get_environment_texture().set_texture("Skybox.png");
 }
 
 void MyStatue::pre_scene_compile() {

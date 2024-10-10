@@ -67,16 +67,13 @@ void Renderer::create_command_queue() {
 		.NodeMask = 0,
 	};
 
-	HPEW(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&command_queue))); // create the command queue
+	HPEW(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&command_queue)));
 	HPEW(command_queue->SetName(L"Main Command Queue"));
 
 	HPEW(command_queue->QueryInterface(IID_PPV_ARGS(&debug_command_queue)));
 }
 
 void Renderer::create_swap_chain() {
-	// describe our multi-sampling. We are not multi-sampling, so we set the count to 1 (we need at least one sample of course)
-	sample_desc.Count = 1; // multisample count (no multisampling, so we just put 1, since we still need 1 sample)
-
 	const DXGI_SWAP_CHAIN_DESC1 swap_chain_desc{
 		.Width = 0u,
 		.Height = 0u,
@@ -119,7 +116,7 @@ void Renderer::create_swap_chain() {
 void Renderer::create_rtv_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
-	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS; // number of descriptors for this heap.
+	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS*2u; // number of descriptors for this heap.
 	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
 														 // this heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
 														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
@@ -135,7 +132,7 @@ void Renderer::create_rtv_descriptor_heap() {
 void Renderer::create_rtvs() {
 	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
-
+	
 	// Create a RTV for each buffer
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		// first we get the n'th buffer in the swap chain and store it in the n'th
@@ -147,6 +144,53 @@ void Renderer::create_rtvs() {
 		HPEW(render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str()));
 
 		// we increment the rtv handle by the rtv descriptor size we got above
+		rtv_handle.Offset(1, rtv_descriptor_size);
+	}
+
+	auto size = get_client_size(window);
+
+	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS ms_levels{
+		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
+		.SampleCount = msaa_sample_desc.Count,
+		.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE
+	};
+
+	HPEW(device->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &ms_levels, sizeof(ms_levels)));
+
+	D3D12_RESOURCE_DESC msaa_render_target_desc{
+		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
+		.Alignment = 0u,
+		.Width = size.x,
+		.Height = size.y,
+		.DepthOrArraySize = 1,
+		.MipLevels = 1u,
+		.Format = ms_levels.Format,
+		.SampleDesc = {ms_levels.SampleCount, 0u/*ms_levels.NumQualityLevels*/},
+		.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
+		.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
+	};
+
+	D3D12_CLEAR_VALUE clear_value = {};
+	clear_value.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	clear_value.Color[0] = background_color.r;
+	clear_value.Color[1] = background_color.g;
+	clear_value.Color[2] = background_color.b;
+	clear_value.Color[3] = background_color.a;
+
+	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+		auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		HPEW(device->CreateCommittedResource(
+			&prop,
+			D3D12_HEAP_FLAG_NONE,
+			&msaa_render_target_desc,
+			D3D12_RESOURCE_STATE_RESOLVE_SOURCE,
+			&clear_value,
+			IID_PPV_ARGS(msaa_render_targets[i].GetAddressOf())
+		));
+
+		device->CreateRenderTargetView(msaa_render_targets[i].Get(), nullptr, rtv_handle);
+		HPEW(render_targets[i]->SetName(string_to_wstring("MSAA Render Target #" + std::to_string(i)).c_str()));
+		
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
 }
@@ -195,7 +239,7 @@ void Renderer::create_depth_stencil(const UVector2 &size) {
 
 	D3D12_DEPTH_STENCIL_VIEW_DESC depth_stencil_desc = {};
 	depth_stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
-	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+	depth_stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2DMS;
 	depth_stencil_desc.Flags = D3D12_DSV_FLAG_NONE;
 
 	D3D12_CLEAR_VALUE depth_clear_value = {};
@@ -204,7 +248,13 @@ void Renderer::create_depth_stencil(const UVector2 &size) {
 	depth_clear_value.DepthStencil.Stencil = 0;
 
 	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, size.x, size.y, 1, 1, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+	auto tex = CD3DX12_RESOURCE_DESC::Tex2D(
+		DXGI_FORMAT_D32_FLOAT,
+		size.x, size.y, 1u, 1u,
+		msaa_sample_desc.Count, msaa_sample_desc.Quality,
+		D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL
+	);
+	
 	HPEW(device->CreateCommittedResource(
 		&heap_properties,
 		D3D12_HEAP_FLAG_NONE,
@@ -379,14 +429,14 @@ void Renderer::compile(bool compile_components) {
 			mesh->component->compile();
 
 		mesh->material.component->bind_shader_arguments();
-		mesh->material.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		mesh->material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heaps);
 	}
 
 	if (scene.sky.component != nullptr) {
 		if (compile_components)
 			scene.sky.component->compile();
 
-		scene.sky.component->pipeline.compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
+		scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heaps);
 	}
 
 	HPEW(command_list->Close());
@@ -409,13 +459,16 @@ void Renderer::render(float dt) {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_SOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	command_list->ResourceBarrier(1, &barrier);
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	command_list->ResourceBarrier(1, &barrier);
 
 	command_list->RSSetViewports(1u, &viewport);
 	command_list->RSSetScissorRects(1u, &scissor_rect);
 
-	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index, rtv_descriptor_size);
+	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index+3, rtv_descriptor_size);
 	CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
@@ -432,21 +485,29 @@ void Renderer::render(float dt) {
 	scene.update(resolution);
 	
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
+		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, frame_index, descriptor_heaps);
 	
 	for (auto &mesh : scene.static_meshes) {
-		mesh->material.component->pipeline.run(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
+		mesh->material.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, frame_index, descriptor_heaps);
 	}
 
 	// Render Dear ImGui graphics
 	ImGui::End();
 	ImGui::Render();
-	ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
-	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
+	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
+	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-	command_list->ResourceBarrier(1, &barrier);
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
+	command_list->ResourceBarrier(1u, &barrier);
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_DEST);
+	command_list->ResourceBarrier(1u, &barrier);
+
+	command_list->ResolveSubresource(render_targets[frame_index].Get(), 0u, msaa_render_targets[frame_index].Get(), 0u, DXGI_FORMAT_R8G8B8A8_UNORM);
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_DEST, D3D12_RESOURCE_STATE_PRESENT);
+	command_list->ResourceBarrier(1u, &barrier);
 
 	HPEW(command_list->Close());
 }

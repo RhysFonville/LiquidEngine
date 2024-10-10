@@ -28,7 +28,7 @@ struct Spotlight {
 struct Material {
 	int has_texture;
 	int has_normal_map;
-	int has_environment_texture;
+	int has_specular_map;
 	float4 ks;
 	float4 kd;
 	float4 ka;
@@ -55,7 +55,7 @@ cbuffer PerObjectPSCB : register(b4) {
 
 Texture2D object_texture : register(t0);
 Texture2D normal_map : register(t1);
-Texture2D environment_texture : register(t2);
+Texture2D specular_map : register(t2);
 SamplerState static_sampler_state : register(s0);
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
@@ -72,7 +72,10 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	float a = material.a;
 
 	if (material.has_texture) {
-		kd = object_texture.Sample(static_sampler_state, ps_in.texcoord);
+		kd *= object_texture.Sample(static_sampler_state, ps_in.texcoord);
+	}
+	if (material.has_specular_map) {
+		ks *= specular_map.Sample(static_sampler_state, ps_in.texcoord);
 	}
 	
 	float4 final_color = float4(0.0f, 0.0f, 0.0f, kd.a);
@@ -97,8 +100,7 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 
 		// Convert normal from normal map to texture space and store in input.normal
 		n = normalize(mul(normal_map_result, tex_space));
-	}
-	else {
+	} else {
 		n = normalize(ps_in.normal);
 	}
 

@@ -24,13 +24,13 @@ public:
 
 	GET bool has_texture() const noexcept;
 	GET bool has_normal_map() const noexcept;
-	GET bool has_environment_texture() const noexcept;
+	GET bool has_specular_map() const noexcept;
 
 	bool operator==(const Material &material) const noexcept;
 
 	GET Texture & get_albedo_texture() { return albedo_texture; }
 	GET Texture & get_normal_map() { return normal_map; }
-	GET Texture & get_environment_texture() { return environment_texture; }
+	GET Texture & get_specular_map() { return specular_map; }
 
 	GET Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &albedo) { this->albedo = albedo; changed = true; }
@@ -65,8 +65,8 @@ private:
 
 	Texture albedo_texture{};
 	Texture normal_map{};
-	Texture environment_texture{};
-	Color albedo{100, 100, 100, 255}; // kd
+	Texture specular_map{};
+	Color albedo{255, 255, 255, 255}; // kd
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka
 	float shininess{10.0f}; // a

@@ -33,10 +33,19 @@ public:
 	GET float get_fov() const noexcept;
 	void set_fov(float fov) noexcept;
 
-	void update(const FVector2 &size) noexcept;
+	void update(const FVector2& size) noexcept;
 
-	bool operator==(const CameraComponent &component) const noexcept;
-	void operator=(const CameraComponent &component) noexcept;
+	GET float get_near_plane() const noexcept;
+	void set_near_plane(float near_plane) noexcept;
+
+	GET float get_far_plane() const noexcept;
+	void set_far_plane(float far_plane) noexcept;
+
+	GET bool is_perspective() const noexcept;
+	void is_perspective(bool perspective) noexcept;
+
+	bool operator==(const CameraComponent& component) const noexcept;
+	void operator=(const CameraComponent& component) noexcept;
 
 	static const Type component_type = Type::CameraComponent;
 
@@ -47,6 +56,14 @@ private:
 	friend class Renderer;
 
 	void set_view() noexcept;
+
+	float near_plane{0.1f};
+	float far_plane{100.0f};
+
+	/**
+	 * If true, projection is perspective. If false, projection is orthographic.
+	 */
+	bool perspective{true};
 
 	float fov = 90.0f;
 
