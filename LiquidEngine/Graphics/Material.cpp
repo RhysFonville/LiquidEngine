@@ -132,17 +132,17 @@ bool Material::operator==(const Material &material) const noexcept {
 	);
 }
 
-void Material::add_shader_argument(GraphicsPipeline::RootSignature::ConstantBuffer* cb) {
+void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>& cb) {
 	order.push_back(std::make_pair(0, cbs.size()));
 	cbs.push_back(cb);
 }
 
-void Material::add_shader_argument(GraphicsPipeline::RootSignature::RootConstants* rc) {
+void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>& rc) {
 	order.push_back(std::make_pair(1, rcs.size()));
 	rcs.push_back(rc);
 }
 
-void Material::add_shader_argument(GraphicsPipeline::RootSignature::ShaderResourceView* srv) {
+void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>& srv) {
 	order.push_back(std::make_pair(2, srvs.size()));
 	srvs.push_back(srv);
 }
@@ -150,23 +150,23 @@ void Material::add_shader_argument(GraphicsPipeline::RootSignature::ShaderResour
 void Material::bind_shader_arguments() {
 	for (auto argument : order) {
 		if (argument.first == 0) {
-			pipeline.root_signature.bind_constant_buffer(*cbs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+			pipeline.root_signature.bind_constant_buffer(cbs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
 		} else if (argument.first == 1) {
-			pipeline.root_signature.bind_root_constants(*rcs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+			pipeline.root_signature.bind_root_constants(rcs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
 		} else if (argument.first == 2) {
-			pipeline.root_signature.bind_shader_resource_view(*srvs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
+			pipeline.root_signature.bind_shader_resource_view(srvs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
 		}
 	}
 }
 
-std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> Material::get_shader_cbs() const noexcept {
+std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> Material::get_shader_cbs() const noexcept {
 	return cbs;
 }
 
-std::vector<GraphicsPipeline::RootSignature::RootConstants*> Material::get_shader_rcs() const noexcept {
+std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> Material::get_shader_rcs() const noexcept {
 	return rcs;
 }
 
-std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> Material::get_shader_srvs() const noexcept {
+std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> Material::get_shader_srvs() const noexcept {
 	return srvs;
 }

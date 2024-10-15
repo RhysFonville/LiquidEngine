@@ -14,6 +14,8 @@ public:
 
 	void compile() override;
 
+	void clean_up() override;
+
 	bool has_texture() const noexcept;
 
 	GET Texture & get_albedo_texture() { return albedo_texture; }

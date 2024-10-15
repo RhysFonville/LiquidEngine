@@ -251,6 +251,10 @@ public:
 				compile(shader, index, number_of_values);
 			}
 
+			bool operator==(const RootConstants& rc) const noexcept {
+				return (obj == rc.obj);
+			}
+
 			GET const D3D12_ROOT_CONSTANTS & get_constants() const noexcept { return constants; }
 
 		private:
@@ -285,6 +289,10 @@ public:
 			std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
 			
 			bool compile_signal{false};
+			
+			bool operator==(const DescriptorRootObject& dro) const noexcept {
+				return (heap_index == dro.heap_index);
+			}
 
 		protected:
 			UINT heap_index{(UINT)-1};
@@ -340,6 +348,10 @@ public:
 			
 			bool valid() override { return (DescriptorRootObject::valid() && heap_desc.Width != 0 && heap_desc.Height != 0); }
 
+			bool operator==(const ShaderResourceView& srv) const noexcept {
+				return (heap_desc == srv.heap_desc);
+			}
+
 			D3D12_RESOURCE_DESC heap_desc{};
 
 			std::vector<D3D12_SUBRESOURCE_DATA> subresources{};
@@ -358,21 +370,22 @@ public:
 
 			ConstantBufferContainer(const T &obj)
 				: obj(std::make_shared<T>(obj)) {
-				cb = GraphicsPipeline::RootSignature::ConstantBuffer(*this->obj);
+				cb = std::make_shared<GraphicsPipeline::RootSignature::ConstantBuffer>(*this->obj);
 			}
 
 			void clean_up() {
-				obj.reset();
+				obj = nullptr;
+				cb = nullptr;
 			}
 
-			void update() { cb.update_signal = true; }
+			void update() { cb->update_signal = true; }
 
-			bool operator==(ConstantBufferContainer &c) {
-				return (obj == c.obj);
+			bool operator==(const ConstantBufferContainer &cb) const noexcept {
+				return (obj == cb.obj);
 			}
 
-			std::shared_ptr<T> obj = { };
-			GraphicsPipeline::RootSignature::ConstantBuffer cb;
+			std::shared_ptr<T> obj{};
+			std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer> cb{nullptr};
 		};
 
 		/**
@@ -385,16 +398,21 @@ public:
 
 			RootConstantsContainer(const T &obj)
 				: obj(std::make_shared<T>(obj)) {
-				rc = GraphicsPipeline::RootSignature::RootConstants();
-				rc.set_obj<T>(this->obj.get());
+				rc = std::make_shared<GraphicsPipeline::RootSignature::RootConstants>();
+				rc->set_obj<T>(this->obj.get());
 			}
 
 			void clean_up() {
-				obj.reset();
+				obj = nullptr;
+				rc = nullptr;
 			}
 
-			std::shared_ptr<T> obj = { };
-			GraphicsPipeline::RootSignature::RootConstants rc;
+			bool operator==(const RootConstantsContainer& rc) const noexcept {
+				return (obj == rc.obj);
+			}
+
+			std::shared_ptr<T> obj{};
+			std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants> rc{nullptr};
 		};
 
 		RootSignature() { }
@@ -415,7 +433,7 @@ public:
 		* \param shader Shader the root constants will be used in.
 		* \param number of root constants to bind.
 		*/
-		void bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader);
+		void bind_shader_resource_view(std::shared_ptr<ShaderResourceView>& srv, D3D12_SHADER_VISIBILITY shader);
 
 		/**
 		 * Binds root constants to root signature.
@@ -423,10 +441,10 @@ public:
 		 * \param shader Shader the root constants will be used in.
 		 * \param number of root constants to bind.
 		 */
-		void bind_root_constants(RootConstants &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
+		void bind_root_constants(std::shared_ptr<RootConstants>& rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			rc.compile(shader, index + (UINT)shader_resource_views.size(), index, number_of_values);
-			root_constants.push_back(&rc);
+			rc->compile(shader, index + (UINT)shader_resource_views.size(), index, number_of_values);
+			root_constants.push_back(rc);
 		}
 
 		/**
@@ -436,7 +454,7 @@ public:
 		* \param number of root constants to bind.
 		*/
 		template <typename T>
-		void bind_root_constants(RootConstantsContainer<T> &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
+		void bind_root_constants(RootConstantsContainer<T>& obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
 			bind_root_constants(obj.rc, shader, number_of_values);
 		}
 
@@ -445,7 +463,7 @@ public:
 		* \param rc Constant buffer to be bound.
 		* \param shader Shader the constant buffer will be used in.
 		*/
-		void bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader);
+		void bind_constant_buffer(std::shared_ptr<ConstantBuffer>& cb, D3D12_SHADER_VISIBILITY shader);
 
 		/**
 		* Binds a constant buffer to root signature. Uses the ConstantBuffer class from the container to bind.
@@ -453,15 +471,15 @@ public:
 		* \param shader Shader the root constants will be used in.
 		*/
 		template <typename T>
-		void bind_constant_buffer(ConstantBufferContainer<T> &cb, D3D12_SHADER_VISIBILITY shader) {
+		void bind_constant_buffer(ConstantBufferContainer<T>& cb, D3D12_SHADER_VISIBILITY shader) {
 			bind_constant_buffer(cb.cb, shader);
 		}
 
 		void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps);
 
-		GET const std::vector<ConstantBuffer*> & get_constant_buffers() const noexcept { return constant_buffers; }
-		GET const std::vector<RootConstants*> & get_root_constants() const noexcept { return root_constants; }
-		GET const std::vector<ShaderResourceView*> & get_shader_resource_views() const noexcept { return shader_resource_views; }
+		GET const std::vector<std::weak_ptr<ConstantBuffer>> & get_constant_buffers() const noexcept { return constant_buffers; }
+		GET const std::vector<std::weak_ptr<RootConstants>> & get_root_constants() const noexcept { return root_constants; }
+		GET const std::vector<std::weak_ptr<ShaderResourceView>> & get_shader_resource_views() const noexcept { return shader_resource_views; }
 
 		GET const std::vector<std::shared_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
 		GET const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
@@ -471,9 +489,9 @@ public:
 
 		std::vector<std::shared_ptr<DescriptorTable>> descriptor_tables = { };
 
-		std::vector<ConstantBuffer*> constant_buffers = { };
-		std::vector<RootConstants*> root_constants = { };
-		std::vector<ShaderResourceView*> shader_resource_views = { };
+		std::vector<std::weak_ptr<ConstantBuffer>> constant_buffers = { };
+		std::vector<std::weak_ptr<RootConstants>> root_constants = { };
+		std::vector<std::weak_ptr<ShaderResourceView>> shader_resource_views = { };
 
 		CD3DX12_ROOT_SIGNATURE_DESC signature_desc = { };
 

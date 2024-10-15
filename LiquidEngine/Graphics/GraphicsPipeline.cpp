@@ -193,10 +193,12 @@ void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandLis
 }
 
 void GraphicsPipeline::InputAssembler::clean_up() {
-	for (auto &vb : vertex_buffers) {
+	/*for (auto &vb : vertex_buffers) {
 		vb.Reset();
 	}
-	vertex_buffer_views.clear();
+	vertex_buffers.clear();
+	vertex_buffer_views.clear();*/
+	remove_all_meshes();
 
 	change_manager = nullptr;
 }
@@ -223,9 +225,10 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 			if (table->parameter_index == i)
 				compilation_params.push_back(table->root_parameters[0]);
 		}
-		for (const RootConstants* constants : root_constants) {
-			if (constants->parameter_index == i)
-				compilation_params.push_back(constants->root_parameters[0]);
+		for (const auto& constants_wp : root_constants) {
+			if (auto constants = constants_wp.lock())
+				if (constants->parameter_index == i)
+					compilation_params.push_back(constants->root_parameters[0]);
 		}
 	}
 
@@ -263,40 +266,52 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 }
 
 void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
-	for (ShaderResourceView* srv : shader_resource_views) {
-		if (srv->compile_signal) {
-			srv->compile(device, command_list, descriptor_heaps);
+	for (std::weak_ptr<ShaderResourceView>& srv_wp : shader_resource_views) {
+		if (auto srv = srv_wp.lock()) {
+			if (srv->compile_signal) {
+				srv->compile(device, command_list, descriptor_heaps);
+			}
 		}
 	}
 
-	for (ConstantBuffer* cb : constant_buffers) {
-		if (cb->compile_signal) {
-			cb->compile(device, command_list, descriptor_heaps);
+	for (std::weak_ptr<ConstantBuffer>& cb_wp : constant_buffers) {
+		if (auto cb = cb_wp.lock()) {
+			if (cb->compile_signal) {
+				cb->compile(device, command_list, descriptor_heaps);
+			}
 		}
 	}
-	for (ConstantBuffer* cb : constant_buffers) {
-		if (cb->update_signal) {
-			for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-				cb->update(device, command_list);
+	for (std::weak_ptr<ConstantBuffer>& cb_wp : constant_buffers) {
+		if (auto cb = cb_wp.lock()) {
+			if (cb->update_signal) {
+				for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
+					cb->update(device, command_list);
+				}
 			}
 		}
 	}
 }
 
 void GraphicsPipeline::RootSignature::clean_up() {
-	for (auto &cb : constant_buffers) {
-		cb->clean_up();
+	for (auto& cb_wp : constant_buffers) {
+		if (auto cb = cb_wp.lock()) {
+			cb->clean_up();
+		}
 	}
 	constant_buffers.clear();
 
-	for (auto &srv : shader_resource_views) {
-		srv->clean_up();
+	for (auto& srv_wp : shader_resource_views) {
+		if (auto rc = srv_wp.lock()) {
+			rc->clean_up();
+		}
 	}
 	shader_resource_views.clear();
 
-	for (auto rc : root_constants) {
-		rc->obj = nullptr;
-		rc->root_parameters.clear();
+	for (auto& rc_wp : root_constants) {
+		if (auto rc = rc_wp.lock()) {
+			rc->obj = nullptr;
+			rc->root_parameters.clear();
+		}
 	}
 	root_constants.clear();
 
@@ -320,47 +335,51 @@ void GraphicsPipeline::RootSignature::run(const ComPtr<ID3D12Device> &device, co
 		command_list->SetGraphicsRootDescriptorTable(descriptor_table->parameter_index, handle);
 	}
 
-	for (const RootConstants* constants : root_constants) {
-		command_list->SetGraphicsRoot32BitConstants(constants->parameter_index, constants->constants.Num32BitValues, constants->obj, 0u);
+	for (const auto& constants_wp : root_constants) {
+		if (auto constants = constants_wp.lock())
+			command_list->SetGraphicsRoot32BitConstants(constants->parameter_index, constants->constants.Num32BitValues, constants->obj, 0u);
 	}
 }
 
 bool GraphicsPipeline::RootSignature::operator==(const RootSignature &root_signature) const noexcept {
 	return (signature == root_signature.signature &&
 		descriptor_tables == root_signature.descriptor_tables &&
-		constant_buffers == root_signature.constant_buffers &&
 		signature_desc == root_signature.signature_desc);
 }
 
-void GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &cb, D3D12_SHADER_VISIBILITY shader) {
+void GraphicsPipeline::RootSignature::bind_constant_buffer(std::shared_ptr<ConstantBuffer>& cb, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	UINT parameter_index = index + (UINT)shader_resource_views.size();
 	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, parameter_index));
-	constant_buffers.push_back(&cb);
-	cb.descriptor_table = descriptor_tables.back();
+	constant_buffers.push_back(cb);
+	cb->descriptor_table = descriptor_tables.back();
 
-	cb.compile();
+	cb->compile();
 }
 
-void GraphicsPipeline::RootSignature::bind_shader_resource_view(ShaderResourceView &srv, D3D12_SHADER_VISIBILITY shader) {
+void GraphicsPipeline::RootSignature::bind_shader_resource_view(std::shared_ptr<ShaderResourceView>& srv, D3D12_SHADER_VISIBILITY shader) {
 	UINT index = (UINT)shader_resource_views.size();
 	UINT parameter_index = index + (UINT)constant_buffers.size() + (UINT)root_constants.size();
 	descriptor_tables.push_back(std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, parameter_index));
-	shader_resource_views.push_back(&srv);
-	srv.descriptor_table = descriptor_tables.back();
+	shader_resource_views.push_back(srv);
+	srv->descriptor_table = descriptor_tables.back();
 
-	srv.compile();
+	srv->compile();
 }
 
 void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
-	for (ConstantBuffer* cb : constant_buffers) {
-		if (cb->valid()) {
-			cb->create_views(device, descriptor_heaps);
+	for (auto& cb_wp : constant_buffers) {
+		if (auto cb = cb_wp.lock()) {
+			if (cb->valid()) {
+				cb->create_views(device, descriptor_heaps);
+			}
 		}
 	}
-	for (ShaderResourceView* srv : shader_resource_views) {
-		if (srv->valid()) {
-			srv->create_views(device, descriptor_heaps);
+	for (auto& srv_wp : shader_resource_views) {
+		if (auto srv = srv_wp.lock()) {
+			if (srv->valid()) {
+				srv->create_views(device, descriptor_heaps);
+			}
 		}
 	}
 }

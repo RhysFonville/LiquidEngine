@@ -422,6 +422,8 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
+	scene.compile();
+
 	scene.update(resolution);
 
 	for (auto &mesh : scene.static_meshes) {
@@ -449,7 +451,7 @@ void Renderer::compile(bool compile_components) {
 
 void Renderer::render(float dt) {
 	setup_imgui_section();
-	
+
 	if (skip_frame) return;
 
 	wait_for_previous_frame();
@@ -459,16 +461,24 @@ void Renderer::render(float dt) {
 	HPEW(command_allocators[frame_index]->Reset());
 	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
 
-	CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_SOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	command_list->ResourceBarrier(1, &barrier);
+	bool msaa{msaa_sample_desc.Count > sample_desc.Count};
 
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	command_list->ResourceBarrier(1, &barrier);
+	CD3DX12_RESOURCE_BARRIER barrier{};
+	if (msaa) {
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_SOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		command_list->ResourceBarrier(1, &barrier);
+
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		command_list->ResourceBarrier(1, &barrier);
+	} else {
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		command_list->ResourceBarrier(1, &barrier);
+	}
 
 	command_list->RSSetViewports(1u, &viewport);
 	command_list->RSSetScissorRects(1u, &scissor_rect);
 
-	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), frame_index+3, rtv_descriptor_size);
+	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), (msaa ? frame_index+3 : frame_index), rtv_descriptor_size);
 	CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
 	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
@@ -498,16 +508,21 @@ void Renderer::render(float dt) {
 	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
 	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
-	command_list->ResourceBarrier(1u, &barrier);
+	if (msaa) {
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
+		command_list->ResourceBarrier(1u, &barrier);
 
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_DEST);
-	command_list->ResourceBarrier(1u, &barrier);
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_DEST);
+		command_list->ResourceBarrier(1u, &barrier);
 
-	command_list->ResolveSubresource(render_targets[frame_index].Get(), 0u, msaa_render_targets[frame_index].Get(), 0u, DXGI_FORMAT_R8G8B8A8_UNORM);
-
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_DEST, D3D12_RESOURCE_STATE_PRESENT);
-	command_list->ResourceBarrier(1u, &barrier);
+		command_list->ResolveSubresource(render_targets[frame_index].Get(), 0u, msaa_render_targets[frame_index].Get(), 0u, DXGI_FORMAT_R8G8B8A8_UNORM);
+	
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RESOLVE_DEST, D3D12_RESOURCE_STATE_PRESENT);
+		command_list->ResourceBarrier(1u, &barrier);
+	} else {
+		barrier = CD3DX12_RESOURCE_BARRIER::Transition(render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		command_list->ResourceBarrier(1u, &barrier);
+	}
 
 	HPEW(command_list->Close());
 }
@@ -532,9 +547,24 @@ void Renderer::present() {
 	));
 }
 
+#include <conio.h>
+
 void Renderer::tick(float dt) {
 	render(dt);
 	present();
+
+#ifndef NDEBUG
+	if (_kbhit()) {
+		char c{(char)_getch()};
+		if (c == 'm') {
+			std::string in{};
+			std::cin >> in;
+			UINT sample{(UINT)std::max(std::stoi(in), 1)};
+			std::cout << "Setting msaa sample count to: " << sample << std::endl;
+			set_msaa_sample_count(sample);
+		}
+	}
+#endif
 }
 
 void Renderer::clean_up() {
@@ -545,7 +575,7 @@ void Renderer::clean_up() {
 	if (is_fullscreen())
 		set_fullscreen(false);
 
-	//scene.clean_up();
+	scene.clean_up();
 
 	resource_manager->release_all_resources();
 
@@ -639,11 +669,29 @@ void Renderer::execute_command_list() {
 void Renderer::resize(const UVector2 &size) {
 	flush_gpu();
 	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) render_targets[i].Reset();
+	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) msaa_render_targets[i].Reset();
 	depth_stencil_buffer.Reset();
+
 	HPEW(swap_chain->ResizeBuffers(NUMBER_OF_BUFFERS, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, NULL));
+	
 	create_rtvs();
 	set_viewport_and_scissor_rect(size);
 	create_depth_stencil(size);
+}
+
+void Renderer::set_msaa_sample_count(UINT count) {
+	flush_gpu();
+	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) render_targets[i].Reset();
+	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) msaa_render_targets[i].Reset();
+	scene.clean_up();
+	depth_stencil_buffer.Reset();
+
+	msaa_sample_desc.Count = count;
+
+	create_rtvs();
+	auto size = get_client_size(window);
+	create_depth_stencil(size);
+	compile(true);
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {

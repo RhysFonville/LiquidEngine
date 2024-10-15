@@ -26,6 +26,10 @@ void SkyComponent::compile() {
 	proxy->add_mesh(Mesh("Shapes/skybox.obj"));
 }
 
+void SkyComponent::clean_up() {
+	pipeline.clean_up();
+}
+
 bool SkyComponent::has_texture() const noexcept {
 	return albedo_texture.exists();
 }

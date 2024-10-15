@@ -46,15 +46,15 @@ public:
 
 	GraphicsPipeline pipeline{};
 
-	void add_shader_argument(GraphicsPipeline::RootSignature::ConstantBuffer* cb);
-	void add_shader_argument(GraphicsPipeline::RootSignature::RootConstants* rc);
-	void add_shader_argument(GraphicsPipeline::RootSignature::ShaderResourceView* srv);
+	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>& cb);
+	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>& rc);
+	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>& srv);
 
 	void bind_shader_arguments();
 
-	std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> get_shader_cbs() const noexcept;
-	std::vector<GraphicsPipeline::RootSignature::RootConstants*> get_shader_rcs() const noexcept;
-	std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> get_shader_srvs() const noexcept;
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> get_shader_cbs() const noexcept;
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> get_shader_rcs() const noexcept;
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> get_shader_srvs() const noexcept;
 
 private:
 	std::string vs{"Graphics/DefaultVertex.hlsl"};
@@ -72,7 +72,7 @@ private:
 	float shininess{10.0f}; // a
 
 	std::vector<std::pair<char, size_t>> order{};
-	std::vector<GraphicsPipeline::RootSignature::ConstantBuffer*> cbs{};
-	std::vector<GraphicsPipeline::RootSignature::RootConstants*> rcs{};
-	std::vector<GraphicsPipeline::RootSignature::ShaderResourceView*> srvs{};
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> cbs{};
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> rcs{};
+	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> srvs{};
 };

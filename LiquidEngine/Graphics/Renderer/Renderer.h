@@ -75,7 +75,8 @@ public:
 	/**
 	 * Compiles scene and pipelines.
 	 * 
-	 * \param compile_components If mesh components are already compiled, keep false. Setting to true if mesh components are already compiled, it is unneccesary. You may set to true if the renderer was just cleaned.
+	 * \param compile_components If components are already compiled, keep false. You may set to true if the renderer was just cleaned.
+	 * \param compile_scene If graphics scene components are already compiled, keep false. You may set to true if the renderer was just cleaned.
 	 */
 	void compile(bool compile_components = false);
 
@@ -85,6 +86,8 @@ public:
 	 * \param size Size of new buffer sizes.
 	 */
 	void resize(const UVector2 &size);
+
+	void set_msaa_sample_count(UINT count);
 
 	void set_fullscreen(bool fullscreen);
 	void toggle_fullscreen();
