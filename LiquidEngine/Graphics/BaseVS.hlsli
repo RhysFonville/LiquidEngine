@@ -61,7 +61,7 @@ static VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 no
 	float3 instance_position, float3 instance_rotation, float3 instance_size) {
 	VS_OUTPUT output;
 	
-	matrix new_transform = mul(transform, rotation_matrix(instance_position));
+	matrix new_transform = mul(transform, position_matrix(instance_position));
 	new_transform = mul(new_transform, rotation_matrix(instance_rotation));
 	new_transform = mul(new_transform, size_matrix(instance_size));
 	

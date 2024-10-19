@@ -8,7 +8,7 @@ MyShaderCube::MyShaderCube()
 	for (int x = -1; x <= 5; x++) {
 		for (int y = -1; y <= 5; y++) {
 			for (int z = -1; z <= 5; z++) {
-				instances.push_back(Transform{FVector3{(float)x, (float)y, (float)z}});
+				instances.push_back(Transform{FVector3{(float)x*3, (float)y*3, (float)z*3}});
 			}
 		}
 	}
