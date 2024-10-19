@@ -132,6 +132,15 @@ bool Material::operator==(const Material &material) const noexcept {
 	);
 }
 
+bool Material::is_opaque() const noexcept {
+	bool is_albedo_opaque = albedo_texture.exists() ? albedo_texture.is_opaque() : (albedo.a == 1.0f);
+	bool is_normal_opaque = normal_map.exists() ? normal_map.is_opaque() : (albedo.a == 1.0f);
+	bool is_specular_opaque = specular_map.exists() ? specular_map.is_opaque() : (albedo.a == 1.0f);
+	bool is_ambient_opaque = (ambient.a == 1.0f);
+
+	return (is_albedo_opaque && is_normal_opaque && is_specular_opaque && is_ambient_opaque);
+}
+
 void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>& cb) {
 	order.push_back(std::make_pair(0, cbs.size()));
 	cbs.push_back(cb);

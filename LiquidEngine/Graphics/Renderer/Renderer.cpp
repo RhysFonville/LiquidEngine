@@ -547,13 +547,13 @@ void Renderer::present() {
 	));
 }
 
-#include <conio.h>
+//#include <conio.h>
 
 void Renderer::tick(float dt) {
 	render(dt);
 	present();
 
-#ifndef NDEBUG
+/*#ifndef NDEBUG
 	if (_kbhit()) {
 		char c{(char)_getch()};
 		if (c == 'm') {
@@ -564,7 +564,7 @@ void Renderer::tick(float dt) {
 			set_msaa_sample_count(sample);
 		}
 	}
-#endif
+#endif*/
 }
 
 void Renderer::clean_up() {

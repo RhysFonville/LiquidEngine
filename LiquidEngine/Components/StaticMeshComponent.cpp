@@ -1,14 +1,14 @@
 #include "StaticMeshComponent.h"
 
-StaticMeshComponent::StaticMeshComponent(Mesh mesh, Material mat)
-	: GraphicsComponent{Type::StaticMeshComponent}, mesh{mesh}, material{mat} { }
+StaticMeshComponent::StaticMeshComponent(const Mesh& mesh, const Material& mat, const std::vector<Transform>& instances)
+	: GraphicsComponent{Type::StaticMeshComponent}, mesh{mesh}, material{mat}, instances{instances} { }
 
 void StaticMeshComponent::compile() noexcept {
-	proxy->remove_all_meshes();
-	proxy->add_mesh(mesh);
-
+	material.pipeline.input_assembler.clear_commands();
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIARemoveAllMeshesCommand>());
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>(mesh)));
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(instances));
 	material.compile();
-	material.pipeline.input_assembler.set_proxy(proxy);
 }
 
 void StaticMeshComponent::clean_up() {
@@ -23,15 +23,22 @@ void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->mesh = mesh;
 	this->mesh.compile();
 
-	this->material.pipeline.input_assembler.set_proxy(proxy);
-	proxy->remove_all_meshes();
-	proxy->add_mesh(mesh);
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIARemoveAllMeshesCommand>());
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>(mesh)));
 
 	changed = true;
 }
 
 Material & StaticMeshComponent::get_material() noexcept {
 	return material;
+}
+
+void StaticMeshComponent::set_instances(const std::vector<Transform>& instances) noexcept {
+	this->instances = instances;
+
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(instances));
+
+	changed = true;
 }
 
 //void StaticMeshComponent::set_material(const Material &material) noexcept {

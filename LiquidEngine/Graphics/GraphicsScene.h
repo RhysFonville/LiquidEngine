@@ -335,6 +335,7 @@ public:
 		bool change{false};
 		if (camera.component->has_changed()) {
 			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
+			camera.component->has_changed(false);
 			change = true;
 		}
 		if (component->has_changed()) {
@@ -627,7 +628,7 @@ public:
 	 * \param resolution Render resolution. Needed for updating camera.
 	 */
 	void update(UVector2 resolution) {
-		camera.update(resolution);
+		bool cam_update{camera.update(resolution)};
 		
 		if (sky.component != nullptr)
 			sky.update(camera);
@@ -643,12 +644,27 @@ public:
 			if (!light_update) light_update = sl.update();
 		}
 
+		bool mesh_update{false};
 		for (auto &mesh : static_meshes) {
-			mesh->update();
+			if (mesh->update()) mesh_update = true;
 			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
 
-		camera.component->has_changed(false);
+		/*if (cam_update || mesh_update) {
+			// Sort list for opaque, distant non-opaque, closeer non-opaque
+			static int i{0};
+			//std::cout << "sort " << i++ << '\n';
+			std::ranges::sort(static_meshes, [&](const auto& s1, const auto& s2) {
+				if (s1->component->get_material().is_opaque() ||
+					s2->component->get_material().is_opaque()) return true;
+				
+				bool b{distance(s1->component->get_position(), camera.component->get_position()) >
+					distance(s2->component->get_position(), camera.component->get_position())};
+				//std::cout << std::boolalpha << b << '\n';
+
+				return b;
+			});
+		}*/
 	}
 
 	void clean_up();
@@ -656,10 +672,10 @@ public:
 private:
 	friend class Renderer;
 
-	std::vector<std::shared_ptr<RenderingStaticMesh>> static_meshes = { };
-	std::vector<RenderingDirectionalLight> directional_lights = { };
-	std::vector<RenderingPointLight> point_lights = { };
-	std::vector<RenderingSpotlight> spotlights = { };
+	std::vector<std::shared_ptr<RenderingStaticMesh>> static_meshes{};
+	std::vector<RenderingDirectionalLight> directional_lights{};
+	std::vector<RenderingPointLight> point_lights{};
+	std::vector<RenderingSpotlight> spotlights{};
 	RenderingCamera camera{};
 	RenderingSky sky{};
 };

@@ -91,7 +91,7 @@ public:
 		components.push_back(component);
 
 		//if (GraphicsComponent::is_graphics_component(*components.back())) {
-		if (dynamic_cast<GraphicsComponent*>(component.get())) {
+		if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
 			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
 		}
 
@@ -107,7 +107,7 @@ public:
 	void remove_component(size_t index) {
 		components.erase(components.begin()+index);
 
-		if (GraphicsComponent::is_graphics_component(*components.back())) {
+		if (std::dynamic_pointer_cast<GraphicsComponent>(components.back())) {
 			graphics_scene->remove_component(std::static_pointer_cast<GraphicsComponent>(*(components.begin()+index)).get());
 		}
 	}

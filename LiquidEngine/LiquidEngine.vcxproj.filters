@@ -71,7 +71,7 @@
     <ClInclude Include="Graphics\GraphicsPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsPipelineMeshChange.h">
+    <ClInclude Include="Graphics\GraphicsPipelineIACommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Renderer\Renderer.h">
@@ -158,7 +158,7 @@
     <ClInclude Include="Debug\DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\ShaderStorage.h">
+    <ClInclude Include="Graphics\Storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\MyStatue.h">
@@ -292,9 +292,6 @@
     <ClCompile Include="Graphics\GraphicsPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicsPipelineMeshChange.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -343,7 +340,7 @@
     <ClCompile Include="Debug\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\ShaderStorage.cpp">
+    <ClCompile Include="Graphics\Storage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\MyStatue.cpp">

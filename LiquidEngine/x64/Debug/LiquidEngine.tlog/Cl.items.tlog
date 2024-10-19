@@ -37,11 +37,10 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\PhysicsBody.cpp;C
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\PointLightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\PointLightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\SpotlightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\SpotlightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\StaticMeshComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\StaticMeshComponent.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ShaderStorage.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ShaderStorage.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Storage.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Storage.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Shapes\Cube.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Cube.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Engine.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Engine.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsPipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipeline.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsPipelineMeshChange.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipelineMeshChange.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\Renderer.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Renderer.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Material.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Material.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Texture.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Texture.obj

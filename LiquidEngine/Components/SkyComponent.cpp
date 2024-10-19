@@ -3,8 +3,6 @@
 SkyComponent::SkyComponent() : GraphicsComponent{Type::SkyComponent} { }
 
 void SkyComponent::compile() {
-	pipeline.input_assembler.set_proxy(proxy);
-
 	pipeline.input_layout = {
 		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
@@ -23,7 +21,8 @@ void SkyComponent::compile() {
 		albedo_texture.compile();
 	}
 
-	proxy->add_mesh(Mesh("Shapes/skybox.obj"));
+	pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>("Shapes/skybox.obj")));
+	pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(std::vector<Transform>{Transform{}}));
 }
 
 void SkyComponent::clean_up() {

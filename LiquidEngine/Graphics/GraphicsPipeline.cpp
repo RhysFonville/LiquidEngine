@@ -21,13 +21,7 @@ void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D
 }
 
 void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffers = input_assembler.get_vertex_buffer_views();
-	UINT verts = 0;
-	for (const D3D12_VERTEX_BUFFER_VIEW &view : vertex_buffers) {
-		verts += view.SizeInBytes/sizeof(Vertex);
-	}
-
-	command_list->DrawInstanced(verts, 1, 0, 0);
+	input_assembler.draw_meshes(command_list);
 }
 
 void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
@@ -98,12 +92,57 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 // | Input Assembler |
 // +-----------------+
 
+void GraphicsPipeline::InputAssembler::set_instances(const std::vector<Transform>& instances, const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList>& command_list) {
+	ID3D12Resource* instance_buffer_upload = nullptr;
+	auto upload_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	auto upload_buffer = CD3DX12_RESOURCE_DESC::Buffer(instances.size() * sizeof(Transform));
+	device->CreateCommittedResource(
+		&upload_heap_properties, // upload heap
+		D3D12_HEAP_FLAG_NONE, // no flags
+		&upload_buffer, // resource desc for a buffer
+		D3D12_RESOURCE_STATE_GENERIC_READ, // GPU will read from this buffer and copy its contents to the default heap
+		nullptr,
+		IID_PPV_ARGS(&instance_buffer_upload));
+
+	resource_manager->add_resource_to_release(instance_buffer_upload);
+	HPEW(instance_buffer_upload->SetName(L"Instance Buffer Upload Resource Heap"));
+
+	void* p = nullptr;
+	instance_buffer_upload->Map(0, nullptr, &p);
+	memcpy(p, &instances[0], sizeof(Transform) * instances.size());
+	instance_buffer_upload->Unmap(0, nullptr);
+
+	auto default_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	auto default_buffer = CD3DX12_RESOURCE_DESC::Buffer(instances.size() * sizeof(Transform));
+	device->CreateCommittedResource(
+		&default_heap_properties, // a default heap
+		D3D12_HEAP_FLAG_NONE, // no flags
+		&default_buffer, // resource desc for a buffer
+		D3D12_RESOURCE_STATE_COPY_DEST, // we will start this heap in the copy destination state since we will copy data
+		// from the upload heap to this heap
+		nullptr, // optimized clear value must be null for this type of resource. used for render targets and depth/stencil buffers
+		IID_PPV_ARGS(&instance_buffer)
+	);
+
+	HPEW(instance_buffer->SetName(L"Instance Buffer Default Resource Heap"));
+
+	command_list->CopyResource(instance_buffer.Get(), instance_buffer_upload);
+
+	instance_buffer_view.BufferLocation = instance_buffer->GetGPUVirtualAddress();
+	instance_buffer_view.SizeInBytes = (UINT)instances.size() * sizeof(Transform);
+	instance_buffer_view.StrideInBytes = sizeof(Transform);
+
+	// transition the vertex buffer data from copy destination state to vertex buffer state
+	auto transition = CD3DX12_RESOURCE_BARRIER::Transition(instance_buffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+	command_list->ResourceBarrier(1, &transition);
+}
+
 void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<ID3D12Device> &device,
 	const ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index) {
 
 	const std::vector<Vertex> &verts = mesh.get_vertices();
 
-	if (index == (size_t)-1) {
+ 	if (index == (size_t)-1) {
 		index = vertex_buffers.size();
 	}
 
@@ -170,26 +209,44 @@ void GraphicsPipeline::InputAssembler::remove_all_meshes() {
 }
 
 void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	std::vector<GraphicsPipelineMeshChange::Command> changes = change_manager->get_changes(true);
-	
-	for (const auto &change : changes) {
-		if (change.type == GraphicsPipelineMeshChange::Command::Type::Add) {
-			std::pair<Mesh, size_t> addition = std::get<std::pair<Mesh, size_t>>(change.change);
-			add_mesh(addition.first, device, command_list, addition.second);
+	while (!commands.empty()) {
+		auto command{commands.front()};
+
+		if (command->get_type() == GraphicsPipelineIACommand::Type::AddMesh) {
+			auto add{std::static_pointer_cast<GraphicsPipelineIAAddMeshCommand>(command)};
+			auto index{add->get_index()};
+			add_mesh(*add->get_mesh(), device, command_list, (index.has_value() ? index.value() : (size_t)-1));
+		} else if (command->get_type() == GraphicsPipelineIACommand::Type::RemoveMesh) {
+			auto remove{std::static_pointer_cast<GraphicsPipelineIARemoveMeshCommand>(command)};
+			remove_mesh(remove->get_index());
+		} else if (command->get_type() == GraphicsPipelineIACommand::Type::RemoveAll) {
+			remove_all_meshes();
 		} else {
-			size_t subtraction = std::get<size_t>(change.change);
-			if (subtraction == (size_t)-1) {
-				remove_all_meshes();
-			} else {
-				remove_mesh(subtraction);
-			}
+			auto set{std::static_pointer_cast<GraphicsPipelineIASetInstancesCommand>(command)};
+			set_instances(set->get_instances(), device, command_list);
 		}
+
+		commands.pop();
 	}
 }
 
 void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
 	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
+	command_list->IASetVertexBuffers(1u, 1u, &instance_buffer_view);
+}
+
+void GraphicsPipeline::InputAssembler::draw_meshes(const ComPtr<ID3D12GraphicsCommandList> &command_list) {
+	UINT verts = 0;
+	for (const D3D12_VERTEX_BUFFER_VIEW &view : vertex_buffer_views) {
+		verts += view.SizeInBytes / sizeof(Vertex);
+	}
+
+	command_list->DrawInstanced(
+		verts,
+		instance_buffer_view.SizeInBytes / sizeof(Transform),
+		0u, 0u
+	);
 }
 
 void GraphicsPipeline::InputAssembler::clean_up() {
@@ -199,12 +256,14 @@ void GraphicsPipeline::InputAssembler::clean_up() {
 	vertex_buffers.clear();
 	vertex_buffer_views.clear();*/
 	remove_all_meshes();
-
-	change_manager = nullptr;
 }
 
 const std::vector<D3D12_VERTEX_BUFFER_VIEW> & GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {
 	return vertex_buffer_views;
+}
+
+D3D12_VERTEX_BUFFER_VIEW GraphicsPipeline::InputAssembler::get_instance_buffer_view() const noexcept {
+	return instance_buffer_view;
 }
 
 // +----------------+

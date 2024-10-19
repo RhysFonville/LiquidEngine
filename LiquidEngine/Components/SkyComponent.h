@@ -34,6 +34,4 @@ private:
 
 	Texture albedo_texture = Texture();
 	Color albedo = Color(0, 0, 0, 255);
-	
-	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy = std::make_shared<GraphicsPipelineMeshChange::Manager>();
 };

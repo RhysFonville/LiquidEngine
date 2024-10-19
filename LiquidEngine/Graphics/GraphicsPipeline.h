@@ -6,9 +6,10 @@
 #pragma warning(pop)
 #include <DirectXTex.h>
 #include <iostream>
-#include "GraphicsPipelineMeshChange.h"
+#include <queue>
+#include "GraphicsPipelineIACommand.h"
 #include "ResourceManager.h"
-#include "ShaderStorage.h"
+#include "Storage.h"
 #include "Renderer/GraphicsDescriptorHeaps.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
@@ -51,10 +52,13 @@ public:
 	bool compile_signal = true;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
-		{ "POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
-		{ "NORMAL",		0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 },
-		{ "TANGENT",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,	0 }
+		{ "POSITION",			0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	0u,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
+		{ "TEXCOORD",			0u,	DXGI_FORMAT_R32G32_FLOAT,		0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
+		{ "NORMAL",				0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
+		{ "TANGENT",			0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
+		{ "INSTANCE_POSITION",	0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, 0u,								D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
+		{ "INSTANCE_ROTATION",	0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
+		{ "INSTANCE_SIZE",		0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
 	};
 
 	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
@@ -68,6 +72,8 @@ public:
 	public:
 		InputAssembler() { }
 
+		void set_instances(const std::vector<Transform>& instances, const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list);
+
 		void add_mesh(const Mesh &mesh, const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
 		void remove_mesh(size_t index);
 		void remove_all_meshes();
@@ -75,13 +81,18 @@ public:
 		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 		void run(const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
+		void draw_meshes(const ComPtr<ID3D12GraphicsCommandList> &command_list);
+
 		void clean_up();
 
-		void set_proxy(const std::shared_ptr<GraphicsPipelineMeshChange::Manager> &change_manager) {
-			this->change_manager = change_manager;
-		}
-
 		GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
+		GET D3D12_VERTEX_BUFFER_VIEW get_instance_buffer_view() const noexcept;
+
+		void clear_commands() noexcept { commands = std::queue<std::shared_ptr<GraphicsPipelineIACommand>>{}; }
+
+		void add_command(const std::shared_ptr<GraphicsPipelineIACommand>&& command) noexcept {
+			commands.push(command);
+		}
 
 		bool operator==(const InputAssembler &input_assembler) const noexcept {
 			return (
@@ -95,14 +106,17 @@ public:
 	private:
 		friend GraphicsPipeline;
 		
-		std::shared_ptr<GraphicsPipelineMeshChange::Manager> change_manager = nullptr;
-
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-		std::vector<ComPtr<ID3D12Resource>> vertex_buffers; // a default buffer in GPU memory that we will load vertex data for our triangle into
-		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views; // a structure containing a pointer to the vertex data in gpu memory
+		std::vector<ComPtr<ID3D12Resource>> vertex_buffers{}; // a default buffer in GPU memory that we will load vertex data for our triangle into
+		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views{}; // a structure containing a pointer to the vertex data in gpu memory
 																   // the total size of the buffer, and the size of each element (vertex)
+		ComPtr<ID3D12Resource> instance_buffer{};
+		D3D12_VERTEX_BUFFER_VIEW instance_buffer_view{};
+		
+		std::queue<std::shared_ptr<GraphicsPipelineIACommand>> commands;
+
 	} input_assembler;
 
 	std::string vs{"Graphics/DefaultVertex.hlsl"};

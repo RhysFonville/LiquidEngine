@@ -10,7 +10,6 @@
 class Component : public Controllable {
 public:
 	enum class Type {
-		None,
 		StaticMeshComponent,
 		CameraComponent,
 		DirectionalLightComponent,
@@ -20,7 +19,8 @@ public:
 		SkyComponent,
 		SphereComponent,
 		BoundingBoxComponent,
-		EnumEnd
+		InstanceComponent,
+		None
 	};
 
 	Component() : type(Type::None) { }

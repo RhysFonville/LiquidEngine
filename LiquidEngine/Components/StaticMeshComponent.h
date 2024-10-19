@@ -10,7 +10,7 @@
  */
 class StaticMeshComponent : public GraphicsComponent {
 public:
-	StaticMeshComponent(Mesh mesh = Mesh{}, Material mat = Material{});
+	StaticMeshComponent(const Mesh& mesh = Mesh{}, const Material& mat = Material{}, const std::vector<Transform>& instances = {});
 
 	void clean_up() override;
 
@@ -22,6 +22,8 @@ public:
 	GET Material & get_material() noexcept;
 	//void set_material(const Material &material) noexcept;
 
+	void set_instances(const std::vector<Transform>& mesh) noexcept;
+
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
 
@@ -30,8 +32,8 @@ public:
 private:
 	void render_editor_gui_section() override;
 
-	Mesh mesh;
+	Mesh mesh{};
 	Material material{};
 
-	std::shared_ptr<GraphicsPipelineMeshChange::Manager> proxy{std::make_shared<GraphicsPipelineMeshChange::Manager>()};
+	std::vector<Transform> instances{Transform{}};
 };

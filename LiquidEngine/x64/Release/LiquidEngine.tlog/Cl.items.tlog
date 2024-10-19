@@ -1,3 +1,7 @@
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\BoundingBoxComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\BoundingBoxComponent.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyShaderCube.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\MyShaderCube.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\InteractionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\InteractionHandler.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\CollisionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\CollisionHandler.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\BoxComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\BoxComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Character.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\Character.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\CameraComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\CameraComponent.obj
@@ -11,7 +15,6 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\EditorGUI.cpp;C:\Users\Fa
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapterOutput.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\GraphicsAdapterOutput.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapter.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\GraphicsAdapter.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsDescriptorHeaps.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\GraphicsDescriptorHeaps.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ComputePipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\ComputePipeline.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\GraphicsScene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\LightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\LightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ResourceManager.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\ResourceManager.obj
@@ -29,7 +32,8 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\implot\implot_items.cpp;C
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Input\InputListener.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\InputListener.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Input\KeybindSet.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\KeybindSet.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyStatue.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\MyStatue.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\PhysicsBody.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\PhysicsBody.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\OverlapHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\OverlapHandler.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\PhysicsBody.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\PhysicsBody.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\PointLightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\PointLightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\SpotlightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\SpotlightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\StaticMeshComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\StaticMeshComponent.obj
@@ -45,8 +49,9 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\main.cpp;C:\Users\Family\
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Mesh.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\Mesh.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyCamera.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\MyCamera.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Object.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\Object.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\PhysicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\PhysicsScene.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\PhysicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\PhysicsScene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Scene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\Scene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\SkyComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\SkyComponent.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\SphereComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\SphereComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Window.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\Window.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\World.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Release\World.obj

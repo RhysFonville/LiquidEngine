@@ -522,3 +522,27 @@ static FVector4 ctofvec(const Color &color) noexcept {
 static FVector2 UVector2_to_FVector2(const UVector2 &vector) noexcept {
 	return FVector2((float)vector.x, (float)vector.y);
 }
+
+static float distance(const FVector3& p1, const FVector3& p2) noexcept {
+	return (p2 - p1).length();
+}
+
+static FVector3 cross(const FVector3& a, const FVector3& b) {
+	return FVector3{
+		a.y * b.z - a.z * b.y,
+		-(a.x * b.z - a.z * b.x),
+		a.x * b.y - a.y * b.x
+	};
+}
+
+static float dot(const FVector3& v1, const FVector3& v2) {
+	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
+
+static FVector3 dot(const XMMATRIX& mat, const FVector3& v) {
+	return XMVector3TransformCoord(v.to_xmvec(), mat);
+}
+
+static FVector3 operator*(const XMMATRIX& mat, const FVector3& vec) {
+	return dot(mat, vec);
+}

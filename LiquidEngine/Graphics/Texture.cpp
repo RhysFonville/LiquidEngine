@@ -60,3 +60,7 @@ void Texture::load_texture(const std::string &file, DirectX::ScratchImage &image
 		//}
 	}
 }
+
+bool Texture::is_opaque() const noexcept {
+	return image.IsAlphaAllOpaque();
+}

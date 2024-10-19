@@ -204,7 +204,7 @@
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
     <ClInclude Include="Components\StaticMeshComponent.h" />
-    <ClInclude Include="Graphics\ShaderStorage.h" />
+    <ClInclude Include="Graphics\Storage.h" />
     <ClInclude Include="Physics\physicsutil.h" />
     <ClInclude Include="Shapes\Cube.h" />
     <ClInclude Include="Engine.h" />
@@ -214,7 +214,7 @@
     <ClInclude Include="Utility\globalutil.h" />
     <ClInclude Include="Graphics\d3dx12.h" />
     <ClInclude Include="Graphics\GraphicsPipeline.h" />
-    <ClInclude Include="Graphics\GraphicsPipelineMeshChange.h" />
+    <ClInclude Include="Graphics\GraphicsPipelineIACommand.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Texture.h" />
@@ -272,11 +272,10 @@
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
     <ClCompile Include="Components\StaticMeshComponent.cpp" />
-    <ClCompile Include="Graphics\ShaderStorage.cpp" />
+    <ClCompile Include="Graphics\Storage.cpp" />
     <ClCompile Include="Shapes\Cube.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
-    <ClCompile Include="Graphics\GraphicsPipelineMeshChange.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />

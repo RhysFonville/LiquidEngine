@@ -78,7 +78,7 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 		ks *= specular_map.Sample(static_sampler_state, ps_in.texcoord);
 	}
 	
-	float4 final_color = float4(0.0f, 0.0f, 0.0f, kd.a);
+	float4 final_color = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	float4 light_final_color = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float3 n = float3(0.0f, 0.0f, 0.0f);
