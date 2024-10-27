@@ -61,6 +61,7 @@ struct ImGui_ImplDX12_Data
     ID3D12RootSignature*        pRootSignature;
     ID3D12PipelineState*        pPipelineState;
     DXGI_FORMAT                 RTVFormat;
+    DXGI_SAMPLE_DESC            sampleDesc;
     ID3D12Resource*             pFontTextureResource;
     D3D12_CPU_DESCRIPTOR_HANDLE hFontSrvCpuDescHandle;
     D3D12_GPU_DESCRIPTOR_HANDLE hFontSrvGpuDescHandle;
@@ -549,7 +550,7 @@ bool    ImGui_ImplDX12_CreateDeviceObjects()
     psoDesc.SampleMask = UINT_MAX;
     psoDesc.NumRenderTargets = 1;
     psoDesc.RTVFormats[0] = bd->RTVFormat;
-    psoDesc.SampleDesc.Count = 1;
+    psoDesc.SampleDesc = bd->sampleDesc;
     psoDesc.Flags = D3D12_PIPELINE_STATE_FLAG_NONE;
 
     ID3DBlob* vertexShaderBlob;
@@ -698,7 +699,7 @@ void    ImGui_ImplDX12_InvalidateDeviceObjects()
     }
 }
 
-bool ImGui_ImplDX12_Init(ID3D12Device* device, int num_frames_in_flight, DXGI_FORMAT rtv_format, ID3D12DescriptorHeap* cbv_srv_heap,
+bool ImGui_ImplDX12_Init(ID3D12Device* device, int num_frames_in_flight, DXGI_FORMAT rtv_format, DXGI_SAMPLE_DESC sample_desc, ID3D12DescriptorHeap* cbv_srv_heap,
                          D3D12_CPU_DESCRIPTOR_HANDLE font_srv_cpu_desc_handle, D3D12_GPU_DESCRIPTOR_HANDLE font_srv_gpu_desc_handle)
 {
     ImGuiIO& io = ImGui::GetIO();
@@ -712,6 +713,7 @@ bool ImGui_ImplDX12_Init(ID3D12Device* device, int num_frames_in_flight, DXGI_FO
 
     bd->pd3dDevice = device;
     bd->RTVFormat = rtv_format;
+    bd->sampleDesc = sample_desc;
     bd->hFontSrvCpuDescHandle = font_srv_cpu_desc_handle;
     bd->hFontSrvGpuDescHandle = font_srv_gpu_desc_handle;
     bd->pFrameResources = new ImGui_ImplDX12_RenderBuffers[num_frames_in_flight];

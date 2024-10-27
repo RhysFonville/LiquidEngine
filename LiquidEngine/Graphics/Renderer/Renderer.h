@@ -53,7 +53,7 @@ public:
 	* \param exclude Vector to be passed into init_renderer and the exclusions.
 	*/
 	
-	void refresh(std::vector<int> exclude = {}) { clean_up(); init_renderer(window, exclude); refill_descriptor_heaps(); }
+	void refresh(std::vector<int> exclude = {}) { clean_up(); init_renderer(window, exclude); refill_descriptor_heap(); }
 
 	/**
 	* Fills command list and calls pipelines.
@@ -110,12 +110,12 @@ private:
 	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
 
 	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
-	ComPtr<ID3D12CommandAllocator> command_allocators[NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12CommandAllocator> command_allocator = { };
 	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
 
-	ComPtr<ID3D12Fence> fences[NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12Fence> fence = { };
 	HANDLE fence_event = nullptr;
-	ULONGLONG fence_values[NUMBER_OF_BUFFERS] = { };
+	ULONGLONG fence_value = { };
 
 	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap = nullptr;
 	UINT rtv_descriptor_size = 0u; // size of the rtv descriptor on the device (all front and back buffers will be the same size)
@@ -137,7 +137,7 @@ private:
 	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
 	ComPtr<ID3D12InfoQueue> info_queue = nullptr;
 
-	GraphicsDescriptorHeaps descriptor_heaps;
+	GraphicsResourceDescriptorHeap descriptor_heap{};
 
 	void create_factory();
 	void create_device();
@@ -149,11 +149,11 @@ private:
 	void create_command_list();
 	void create_fences_and_fence_event();
 	void create_depth_stencil(const UVector2 &size);
-	void create_descriptor_heaps();
+	void create_descriptor_heap();
 	void set_blend_state();
 	void set_viewport_and_scissor_rect(const UVector2 &size);
 
-	void refill_descriptor_heaps();
+	void refill_descriptor_heap();
 
 	void setup_imgui_section();
 

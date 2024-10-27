@@ -36,7 +36,7 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	func([&](){create_command_list();});
 	func([&](){create_fences_and_fence_event();});
 	func([&](){create_depth_stencil(client_size);});
-	func([&](){create_descriptor_heaps();});
+	func([&](){create_descriptor_heap();});
 	func([&](){set_blend_state();});
 	func([&](){set_viewport_and_scissor_rect(client_size);});
 
@@ -46,8 +46,8 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
 	//HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
 
-	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, descriptor_heaps[0].Get());
-	descriptor_heaps.reserve_descriptor_index(0u);
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
+	descriptor_heap.reserve_descriptor_index(0u);
 }
 
 void Renderer::create_factory() {
@@ -197,14 +197,14 @@ void Renderer::create_rtvs() {
 
 void Renderer::create_command_allocators() {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocators[i])));
-		HPEW(command_allocators[i]->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str()));
+		HPEW(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&command_allocator)));
+		HPEW(command_allocator->SetName(string_to_wstring("Command Allocator #" + std::to_string(i)).c_str()));
 	}
 }
 
 void Renderer::create_command_list() {
 	// create the command list with the first allocator
-	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocators[0].Get(), NULL, IID_PPV_ARGS(&command_list)));
+	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator.Get(), NULL, IID_PPV_ARGS(&command_list)));
 	HPEW(command_list->SetName(L"Main command list"));
 
 	HPEW(command_list->QueryInterface(IID_PPV_ARGS(&debug_command_list)));
@@ -215,10 +215,10 @@ void Renderer::create_command_list() {
 void Renderer::create_fences_and_fence_event() {
 	// create the fences
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fences[i])));
-		HPEW(fences[i]->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str()));
+		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence)));
+		HPEW(fence->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str()));
 
-		fence_values[i] = 0; // set the initial fences value to 0
+		fence_value = 0; // set the initial fences value to 0
 	}
 
 	// create a handle to a fences event
@@ -268,8 +268,8 @@ void Renderer::create_depth_stencil(const UVector2 &size) {
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
-void Renderer::create_descriptor_heaps() {
-	descriptor_heaps.compile(device);
+void Renderer::create_descriptor_heap() {
+	descriptor_heap.compile(device);
 }
 
 void Renderer::set_blend_state() {
@@ -292,9 +292,9 @@ void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 	scissor_rect.bottom = size.y;
 }
 
-void Renderer::refill_descriptor_heaps() {
+void Renderer::refill_descriptor_heap() {
 	for (auto &mesh : scene.static_meshes) {
-		mesh->material.component->pipeline.root_signature.create_views(device, descriptor_heaps);
+		mesh->material.component->pipeline.root_signature.create_views(device, descriptor_heap);
 	}
 }
 
@@ -419,8 +419,8 @@ void Renderer::setup_imgui_section() {
 
 void Renderer::compile(bool compile_components) {
 	// reset command list and allocator   
-	HPEW(command_allocators[frame_index]->Reset());
-	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
+	HPEW(command_allocator->Reset());
+	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
 
 	scene.compile();
 
@@ -431,14 +431,14 @@ void Renderer::compile(bool compile_components) {
 			mesh->component->compile();
 
 		mesh->material.component->bind_shader_arguments();
-		mesh->material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heaps);
+		mesh->material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	if (scene.sky.component != nullptr) {
 		if (compile_components)
 			scene.sky.component->compile();
 
-		scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heaps);
+		scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	HPEW(command_list->Close());
@@ -457,8 +457,8 @@ void Renderer::render(float dt) {
 	
 	resource_manager->release_all_resources();
 
-	HPEW(command_allocators[frame_index]->Reset());
-	HPEW(command_list->Reset(command_allocators[frame_index].Get(), nullptr));
+	HPEW(command_allocator->Reset());
+	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
 
 	bool msaa{msaa_sample_desc.Count > sample_desc.Count};
 
@@ -488,22 +488,22 @@ void Renderer::render(float dt) {
 	}
 	command_list->ClearDepthStencilView(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 	
-	ID3D12DescriptorHeap* dh[] = { descriptor_heaps[frame_index].Get() };
+	ID3D12DescriptorHeap* dh[] = { descriptor_heap.get().Get() };
 	command_list->SetDescriptorHeaps(_countof(dh), dh);
 	
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, frame_index, descriptor_heaps);
+		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	
 	for (auto &mesh : scene.static_meshes) {
-		mesh->material.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, frame_index, descriptor_heaps);
+		mesh->material.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	// Render Dear ImGui graphics
 	ImGui::End();
 	ImGui::Render();
-	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heaps[0].Get() };
-	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
-	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
+	ID3D12DescriptorHeap* imguidh[] = { descriptor_heap.get().Get() };
+	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	if (msaa) {
 		barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
@@ -575,7 +575,7 @@ void Renderer::clean_up() {
 
 	EditorGUI::clean_up();
 
-	descriptor_heaps.clean_up();
+	descriptor_heap.clean_up();
 
 	adapter.clean_up();
 	adapter_output.clean_up();
@@ -595,8 +595,8 @@ void Renderer::clean_up() {
 
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		render_targets[i].Reset();
-		command_allocators[i].Reset();
-		fences[i].Reset();
+		command_allocator.Reset();
+		fence.Reset();
 	}
 
 	device.Reset();
@@ -611,9 +611,9 @@ void Renderer::wait_for_previous_frame() {
 
 	// if the current fences value is still less than "fencesValue", then we know the GPU has not finished executing
 	// the command queue since it has not reached the "commandQueue->Signal(fences, fencesValue)" command
-	if (fences[frame_index]->GetCompletedValue() < fence_values[frame_index]) {
+	if (fence->GetCompletedValue() < fence_value) {
 		// we have the fences create an event which is signaled once the fences's current value is "fence_values"
-		HPEW(fences[frame_index]->SetEventOnCompletion(fence_values[frame_index], fence_event));
+		HPEW(fence->SetEventOnCompletion(fence_value, fence_event));
 
 		// We will wait until the fences has triggered the event that it's current value has reached "fence_values". once it's value
 		// has reached "fencesValue", we know the command queue has finished executing
@@ -621,21 +621,19 @@ void Renderer::wait_for_previous_frame() {
 	}
 
 	// increment fence_values for next frame
-	fence_values[frame_index]++;
+	fence_value++;
 }
 
 void Renderer::wait_for_fence_gpu() {
-	HPEW(command_queue->Wait(fences[frame_index].Get(), fence_values[frame_index]));
+	HPEW(command_queue->Wait(fence.Get(), fence_value));
 }
 
 void Renderer::flush_gpu() {
-	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		uint64_t fenceValueForSignal = ++fence_values[i];
-		HPEW(command_queue->Signal(fences[i].Get(), fenceValueForSignal));
-		if (fences[i]->GetCompletedValue() < fence_values[i]) {
-			HPEW(fences[i]->SetEventOnCompletion(fenceValueForSignal, fence_event));
-			WaitForSingleObject(fence_event, INFINITE);
-		}
+	uint64_t fenceValueForSignal = ++fence_value;
+	HPEW(command_queue->Signal(fence.Get(), fenceValueForSignal));
+	if (fence->GetCompletedValue() < fence_value) {
+		HPEW(fence->SetEventOnCompletion(fenceValueForSignal, fence_event));
+		WaitForSingleObject(fence_event, INFINITE);
 	}
 	frame_index = 0;
 }
@@ -652,7 +650,7 @@ void Renderer::signal() {
 	// this command goes in at the end of our command queue. we will know when our command queue 
 	// has finished because the fences value will be set to "fence_values" from the GPU since the command
 	// queue is being executed on the GPU
-	HPEW(command_queue->Signal(fences[frame_index].Get(), fence_values[frame_index]));
+	HPEW(command_queue->Signal(fence.Get(), fence_value));
 }
 
 void Renderer::set_frame_index() {

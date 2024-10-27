@@ -10,7 +10,7 @@
 #include "GraphicsPipelineIACommand.h"
 #include "ResourceManager.h"
 #include "Storage.h"
-#include "Renderer/GraphicsDescriptorHeaps.h"
+#include "Renderer/GraphicsResourceDescriptorHeap.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
@@ -24,14 +24,14 @@ public:
 	void check_for_update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_BLEND_DESC &blend_desc, int frame_index,
-		GraphicsDescriptorHeaps &descriptor_heaps);
+		const D3D12_BLEND_DESC &blend_desc,
+		GraphicsResourceDescriptorHeap &descriptor_heaps);
 
 	void run(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_BLEND_DESC &blend_desc, int frame_index,
-		GraphicsDescriptorHeaps &descriptor_heaps);
+		const D3D12_BLEND_DESC &blend_desc,
+		GraphicsResourceDescriptorHeap &descriptor_heaps);
 	
 	void draw(const ComPtr<ID3D12GraphicsCommandList> &command_list);
 
@@ -39,7 +39,7 @@ public:
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
 		const D3D12_BLEND_DESC &blend,
-		GraphicsDescriptorHeaps &descriptor_heaps);
+		GraphicsResourceDescriptorHeap &descriptor_heaps);
 
 	void compile() { compile_signal = true; }
 
@@ -292,10 +292,10 @@ public:
 		public:
 			DescriptorRootObject() { }
 
-			virtual void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+			virtual void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
 			void clean_up();
 			
-			virtual void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) = 0;
+			virtual void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
 
 			/** Returns true if object is eligible for resource creation. */
 			virtual bool valid() { return heap_index != (UINT)-1; };
@@ -326,12 +326,12 @@ public:
 				: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
 				name(name.empty() ? typeid(T).name() : name), DescriptorRootObject{} { }
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 			void compile() { compile_signal = true; }
 			
 			void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
 			
-			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 
 			bool valid() override { return (DescriptorRootObject::valid() && obj_size != 0); }
 
@@ -355,10 +355,10 @@ public:
 
 			void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
-			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 			void compile() { compile_signal = true; }
 
-			void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) override;
+			void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 			
 			bool valid() override { return (DescriptorRootObject::valid() && heap_desc.Width != 0 && heap_desc.Height != 0); }
 
@@ -431,13 +431,13 @@ public:
 
 		RootSignature() { }
 
-		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 		
 		void clean_up();
 
-		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps);
+		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 		
-		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps);
+		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
 		bool operator==(const RootSignature &root_signature) const noexcept;
 		
@@ -489,7 +489,7 @@ public:
 			bind_constant_buffer(cb.cb, shader);
 		}
 
-		void create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps);
+		void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
 		GET const std::vector<std::weak_ptr<ConstantBuffer>> & get_constant_buffers() const noexcept { return constant_buffers; }
 		GET const std::vector<std::weak_ptr<RootConstants>> & get_root_constants() const noexcept { return root_constants; }

@@ -1,7 +1,7 @@
 #include "EditorGUI.h"
 
 void EditorGUI::init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buffers,
-	ID3D12DescriptorHeap* cbv_srv_heap) {
+	DXGI_SAMPLE_DESC sample_desc, ID3D12DescriptorHeap* cbv_srv_heap) {
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -13,7 +13,7 @@ void EditorGUI::init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buff
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplWin32_Init((void*)hwnd);
-	ImGui_ImplDX12_Init(device, num_buffers, DXGI_FORMAT_R8G8B8A8_UNORM, cbv_srv_heap,
+	ImGui_ImplDX12_Init(device, num_buffers, DXGI_FORMAT_R8G8B8A8_UNORM, sample_desc, cbv_srv_heap,
 		cbv_srv_heap->GetCPUDescriptorHandleForHeapStart(),
 		cbv_srv_heap->GetGPUDescriptorHandleForHeapStart());
 }
@@ -48,62 +48,4 @@ void EditorGUI::clean_up() {
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 	ImPlot::DestroyContext();
-}
-
-OpenFileRet EditorGUI::open_file() {
-	std::string sSelectedFile;
-	std::string sFilePath;
-
-	//  CREATE FILE OBJECT INSTANCE
-	HRESULT f_SysHr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-	if (FAILED(f_SysHr))
-		return {false, sSelectedFile, sFilePath};
-
-	// CREATE FileOpenDialog OBJECT
-	IFileOpenDialog* f_FileSystem;
-	f_SysHr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&f_FileSystem));
-	if (FAILED(f_SysHr)) {
-		CoUninitialize();
-		return {false, sSelectedFile, sFilePath};
-	}
-
-	//  SHOW OPEN FILE DIALOG WINDOW
-	f_SysHr = f_FileSystem->Show(NULL);
-	if (FAILED(f_SysHr)) {
-		f_FileSystem->Release();
-		CoUninitialize();
-		return {false, sSelectedFile, sFilePath};
-	}
-
-	//  RETRIEVE FILE NAME FROM THE SELECTED ITEM
-	IShellItem* f_Files;
-	f_SysHr = f_FileSystem->GetResult(&f_Files);
-	if (FAILED(f_SysHr)) {
-		f_FileSystem->Release();
-		CoUninitialize();
-		return {false, sSelectedFile, sFilePath};
-	}
-
-	//  STORE AND CONVERT THE FILE NAME
-	PWSTR f_Path;
-	f_SysHr = f_Files->GetDisplayName(SIGDN_FILESYSPATH, &f_Path);
-	if (FAILED(f_SysHr)) {
-		f_Files->Release();
-		f_FileSystem->Release();
-		CoUninitialize();
-		return {false, sSelectedFile, sFilePath};
-	}
-
-	sFilePath = wstring_to_string(std::wstring{f_Path});
-
-	//  FORMAT STRING FOR EXECUTABLE NAME
-	const size_t slash = sFilePath.find_last_of("/\\");
-	sSelectedFile = sFilePath.substr(slash + 1);
-
-	//  SUCCESS, CLEAN UP
-	CoTaskMemFree(f_Path);
-	f_Files->Release();
-	f_FileSystem->Release();
-	CoUninitialize();
-	return {true, sSelectedFile, sFilePath};
 }

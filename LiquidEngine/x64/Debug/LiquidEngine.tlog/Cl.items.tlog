@@ -14,7 +14,7 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Debug\DebugConsole.cpp;C:
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\EditorGUI.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\EditorGUI.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapterOutput.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsAdapterOutput.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapter.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsAdapter.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsDescriptorHeaps.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsDescriptorHeaps.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsResourceDescriptorHeap.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsScene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\LightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\LightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ResourceManager.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ResourceManager.obj

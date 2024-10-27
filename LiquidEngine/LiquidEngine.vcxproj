@@ -180,7 +180,7 @@
     <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapter.h" />
-    <ClInclude Include="Graphics\Renderer\GraphicsDescriptorHeaps.h" />
+    <ClInclude Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Graphics\ResourceManager.h" />
@@ -249,7 +249,7 @@
     <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapter.cpp" />
-    <ClCompile Include="Graphics\Renderer\GraphicsDescriptorHeaps.cpp" />
+    <ClCompile Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Graphics\ResourceManager.cpp" />

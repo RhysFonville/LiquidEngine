@@ -1,6 +1,6 @@
 #include "GraphicsPipeline.h"
 
-void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	if (compile_signal) {
 		compile(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 		compile_signal = false;
@@ -10,13 +10,13 @@ void GraphicsPipeline::check_for_update(const ComPtr<ID3D12Device> &device, cons
 	root_signature.check_for_update(device, command_list, descriptor_heaps);
 }
 
-void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
-	check_for_update(device, command_list, sample_desc, blend_desc, frame_index, descriptor_heaps);
+void GraphicsPipeline::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsResourceDescriptorHeap &descriptor_heaps) {
+	check_for_update(device, command_list, sample_desc, blend_desc, descriptor_heaps);
 
 	command_list->SetPipelineState(pipeline_state_object.Get());
 
 	input_assembler.run(command_list);
-	root_signature.run(device, command_list, frame_index, descriptor_heaps);
+	root_signature.run(device, command_list, descriptor_heaps);
 	draw(command_list);
 }
 
@@ -24,7 +24,7 @@ void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_lis
 	input_assembler.draw_meshes(command_list);
 }
 
-void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	root_signature.check_for_update(device, command_list, descriptor_heaps);
 	root_signature.compile(device, command_list, descriptor_heaps);
 	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
@@ -270,7 +270,7 @@ D3D12_VERTEX_BUFFER_VIEW GraphicsPipeline::InputAssembler::get_instance_buffer_v
 // | Root Signature |
 // +----------------+
 
-void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	/*for (ShaderResourceView* srv : shader_resource_views) {
 		srv->compile(device, command_list, descriptor_heaps);
 	}
@@ -324,7 +324,7 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 	error_buf.Reset();
 }
 
-void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	for (std::weak_ptr<ShaderResourceView>& srv_wp : shader_resource_views) {
 		if (auto srv = srv_wp.lock()) {
 			if (srv->compile_signal) {
@@ -385,11 +385,11 @@ void GraphicsPipeline::RootSignature::clean_up() {
 	signature.Reset();
 }
 
-void GraphicsPipeline::RootSignature::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, int frame_index, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heap) {
 	command_list->SetGraphicsRootSignature(signature.Get()); // set the root signature
 
 	for (const std::shared_ptr<DescriptorTable> &descriptor_table : descriptor_tables) {
-		D3D12_GPU_DESCRIPTOR_HANDLE handle = descriptor_heaps[frame_index]->GetGPUDescriptorHandleForHeapStart();
+		D3D12_GPU_DESCRIPTOR_HANDLE handle = descriptor_heap.get()->GetGPUDescriptorHandleForHeapStart();
 		handle.ptr += descriptor_table->heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		command_list->SetGraphicsRootDescriptorTable(descriptor_table->parameter_index, handle);
 	}
@@ -426,7 +426,7 @@ void GraphicsPipeline::RootSignature::bind_shader_resource_view(std::shared_ptr<
 	srv->compile();
 }
 
-void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	for (auto& cb_wp : constant_buffers) {
 		if (auto cb = cb_wp.lock()) {
 			if (cb->valid()) {
@@ -474,7 +474,7 @@ void GraphicsPipeline::RootSignature::DescriptorRootObject::clean_up() {
 	descriptor_table = nullptr;
 }
 
-void GraphicsPipeline::RootSignature::ConstantBuffer::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::ConstantBuffer::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	if (heap_index == (UINT)-1) {
 		heap_index = descriptor_heaps.get_open_heap_index();
 		descriptor_table->heap_index = heap_index;
@@ -502,7 +502,7 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::compile(const ComPtr<ID3D1
 	compile_signal = false;
 }
 
-void GraphicsPipeline::RootSignature::ConstantBuffer::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::ConstantBuffer::create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		descriptor_heaps.create_cbv(device, default_heap, obj_size, i, heap_index);
 	}
@@ -583,7 +583,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::update_descs(const Dir
 	}
 }
 
-void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	if (heap_index == (UINT)-1) {
 		heap_index = descriptor_heaps.get_open_heap_index();
 		descriptor_table->heap_index = heap_index;
@@ -647,7 +647,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 	compile_signal = false;
 }
 
-void GraphicsPipeline::RootSignature::ShaderResourceView::create_views(const ComPtr<ID3D12Device> &device, GraphicsDescriptorHeaps &descriptor_heaps) {
+void GraphicsPipeline::RootSignature::ShaderResourceView::create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		descriptor_heaps.create_srv(device, default_heap, srv_desc, i, heap_index);
 	}

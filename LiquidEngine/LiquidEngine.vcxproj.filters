@@ -191,7 +191,7 @@
     <ClInclude Include="imgui\imgui_impl_win32.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderer\GraphicsDescriptorHeaps.h">
+    <ClInclude Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="implot\implot.h">
@@ -370,7 +370,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderer\GraphicsDescriptorHeaps.cpp">
+    <ClCompile Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="implot\implot.cpp">

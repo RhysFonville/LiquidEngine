@@ -14,12 +14,6 @@
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT32 msg, WPARAM wParam, LPARAM lParam);
 
-struct OpenFileRet {
-	bool success{};
-	std::string selected_file{};
-	std::string file_path{};
-};
-
 /**
 * ImGUI Editor GUI.
 */
@@ -28,15 +22,13 @@ public:
 	EditorGUI(EditorGUI &) = delete;
 	void operator=(const EditorGUI &) = delete;
 
-	static void init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buffers, ID3D12DescriptorHeap* cbv_srv_heap);
+	static void init_with_renderer(HWND hwnd, ID3D12Device* device, int num_buffers, DXGI_SAMPLE_DESC sample_desc, ID3D12DescriptorHeap* cbv_srv_heap);
 
 	static bool check_input(HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam);
 
 	void update(float dt);
 	
 	static void clean_up();
-
-	static OpenFileRet open_file();
 
 private:
 	friend class Window;
