@@ -328,16 +328,13 @@ public:
 	RenderingSky() { }
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky} { }
 
-	bool update(const RenderingCamera &camera) {
+	bool update(const RenderingCamera& camera) {
 		bool ret{false};
 		if (texture.update()) ret = true;
 
 		bool change{false};
-		if (camera.component->has_changed()) {
-			wvp_data.obj->WVP = camera.wvp_data.obj->WVP;
-			camera.component->has_changed(false);
-			change = true;
-		}
+		if (camera.component->has_changed()) change = true;
+
 		if (component->has_changed()) {
 			*data.obj = PSSkyCB{*component};
 			data.update();
@@ -357,15 +354,14 @@ public:
 		return ret;
 	}
 
-	void compile() {
+	void compile(RenderingCamera& camera) {
 		component->has_changed(true);
 		texture = RenderingTexture{&component->get_albedo_texture()};
 		texture.compile();
-		wvp_data = VSWVPConstants{};
 		transform_data = VSTransformConstants{};
 		data = PSSkyCB{};
 
-		component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
+		component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(data, D3D12_SHADER_VISIBILITY_PIXEL);
 		component->pipeline.root_signature.bind_shader_resource_view(texture.srv, D3D12_SHADER_VISIBILITY_PIXEL);
@@ -373,7 +369,6 @@ public:
 
 	void clean_up() {
 		texture.clean_up();
-		wvp_data.clean_up();
 		transform_data.clean_up();
 		data.clean_up();
 	}
@@ -382,7 +377,6 @@ public:
 
 	RenderingTexture texture{};
 
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data{};
 	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{};
 	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data{};
 };
@@ -510,7 +504,6 @@ public:
 
 		material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		material.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		
 		material.component->pipeline.root_signature.bind_constant_buffer(lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
 		material.component->pipeline.root_signature.bind_root_constants(camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
 		
@@ -601,7 +594,7 @@ public:
 		camera.compile();
 
 		if (sky.component != nullptr) {
-			sky.compile();
+			sky.compile(camera);
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {

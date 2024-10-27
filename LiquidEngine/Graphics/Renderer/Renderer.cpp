@@ -443,10 +443,7 @@ void Renderer::compile(bool compile_components) {
 
 	HPEW(command_list->Close());
 	execute_command_list();
-
-	increment_fence();
-
-	resource_manager->release_all_resources();
+	signal();
 }
 
 void Renderer::render(float dt) {
@@ -454,8 +451,10 @@ void Renderer::render(float dt) {
 
 	if (skip_frame) return;
 
-	wait_for_previous_frame();
+	scene.update(resolution);
 
+	wait_for_previous_frame();
+	
 	resource_manager->release_all_resources();
 
 	HPEW(command_allocators[frame_index]->Reset());
@@ -491,8 +490,6 @@ void Renderer::render(float dt) {
 	
 	ID3D12DescriptorHeap* dh[] = { descriptor_heaps[frame_index].Get() };
 	command_list->SetDescriptorHeaps(_countof(dh), dh);
-
-	scene.update(resolution);
 	
 	if (scene.sky.component != nullptr)
 		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, frame_index, descriptor_heaps);
@@ -535,11 +532,8 @@ void Renderer::present() {
 
 	execute_command_list();
 
-	// this command goes in at the end of our command queue. we will know when our command queue 
-	// has finished because the fences value will be set to "fence_values" from the GPU since the command
-	// queue is being executed on the GPU
-	HPEW(command_queue->Signal(fences[frame_index].Get(), fence_values[frame_index]));
-
+	signal();
+	
 	// present the current backbuffer
 	HPEW(swap_chain->Present(
 		vsync,
@@ -596,13 +590,6 @@ void Renderer::clean_up() {
 	info_queue.Reset();
 	dxgi_debug.Reset();
 
-
-	device.Reset();
-	swap_chain.Reset();
-	command_queue.Reset();
-	rtv_descriptor_heap.Reset();
-	command_list.Reset();
-
 	depth_stencil_buffer.Reset();
 	depth_stencil_descriptor_heap.Reset();
 
@@ -611,14 +598,17 @@ void Renderer::clean_up() {
 		command_allocators[i].Reset();
 		fences[i].Reset();
 	}
+
+	device.Reset();
+	swap_chain.Reset();
+	command_queue.Reset();
+	rtv_descriptor_heap.Reset();
+	command_list.Reset();
 }
 
-void Renderer::increment_fence() {
-	fence_values[frame_index]++;
-	HPEW(command_queue->Signal(fences[frame_index].Get(), fence_values[frame_index]));
-}
+void Renderer::wait_for_previous_frame() {
+	set_frame_index();
 
-void Renderer::wait_for_fence_cpu() {
 	// if the current fences value is still less than "fencesValue", then we know the GPU has not finished executing
 	// the command queue since it has not reached the "commandQueue->Signal(fences, fencesValue)" command
 	if (fences[frame_index]->GetCompletedValue() < fence_values[frame_index]) {
@@ -629,6 +619,9 @@ void Renderer::wait_for_fence_cpu() {
 		// has reached "fencesValue", we know the command queue has finished executing
 		WaitForSingleObject(fence_event, INFINITE);
 	}
+
+	// increment fence_values for next frame
+	fence_values[frame_index]++;
 }
 
 void Renderer::wait_for_fence_gpu() {
@@ -639,8 +632,7 @@ void Renderer::flush_gpu() {
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
 		uint64_t fenceValueForSignal = ++fence_values[i];
 		HPEW(command_queue->Signal(fences[i].Get(), fenceValueForSignal));
-		if (fences[i]->GetCompletedValue() < fence_values[i])
-		{
+		if (fences[i]->GetCompletedValue() < fence_values[i]) {
 			HPEW(fences[i]->SetEventOnCompletion(fenceValueForSignal, fence_event));
 			WaitForSingleObject(fence_event, INFINITE);
 		}
@@ -648,22 +640,24 @@ void Renderer::flush_gpu() {
 	frame_index = 0;
 }
 
-void Renderer::wait_for_previous_frame() {
-	// swap the current rtv buffer index so we draw on the correct buffer
-	frame_index = swap_chain->GetCurrentBackBufferIndex();
-
-	wait_for_fence_cpu();
-
-	// increment fence_values for next frame
-	fence_values[frame_index]++;
-}
-
 void Renderer::execute_command_list() {
 	// create an array of command lists (only one command list here)
-	ID3D12CommandList* const commandLists[] = { command_list.Get() };
+	ID3D12CommandList* const command_lists[] = { command_list.Get() };
 
 	// execute the array of command lists
-	command_queue->ExecuteCommandLists((UINT)std::size(commandLists), commandLists);
+	command_queue->ExecuteCommandLists((UINT)std::size(command_lists), command_lists);
+}
+
+void Renderer::signal() {
+	// this command goes in at the end of our command queue. we will know when our command queue 
+	// has finished because the fences value will be set to "fence_values" from the GPU since the command
+	// queue is being executed on the GPU
+	HPEW(command_queue->Signal(fences[frame_index].Get(), fence_values[frame_index]));
+}
+
+void Renderer::set_frame_index() {
+	// swap the current rtv buffer index so we draw on the correct buffer
+	frame_index = swap_chain->GetCurrentBackBufferIndex();
 }
 
 void Renderer::resize(const UVector2 &size) {

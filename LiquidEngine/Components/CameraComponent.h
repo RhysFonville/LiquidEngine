@@ -58,7 +58,7 @@ private:
 	void set_view() noexcept;
 
 	float near_plane{0.1f};
-	float far_plane{100.0f};
+	float far_plane{1000.0f};
 
 	/**
 	 * If true, projection is perspective. If false, projection is orthographic.

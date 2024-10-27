@@ -24,11 +24,11 @@ public:
 		return resource_manager;
 	}
 
-	void add_resource_to_release(ID3D12Resource* resource) {
+	/*void add_resource_to_release(ID3D12Resource* resource) {
 		resources.push_back(resource);
-	}
+	}*/
 
-	void add_resource_to_release(ComPtr<ID3D12Resource> &resource) {
+	void add_resource_to_release(ComPtr<ID3D12Resource> resource) {
 		resources.push_back(resource);
 	}
 

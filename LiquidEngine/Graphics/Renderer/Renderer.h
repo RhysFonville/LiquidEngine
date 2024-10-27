@@ -64,13 +64,12 @@ public:
 	
 	/** Executes swap chain. Presents and increments fence. */
 	void present();
-	void increment_fence(); // increment fences
-	void wait_for_fence_cpu(); // wait for fences incrementation on cpu side
+	void wait_for_previous_frame(); // wait for fences incrementation on cpu side
 	void wait_for_fence_gpu(); // wait for fences incrementation on gpu side
 	void flush_gpu();
-	void wait_for_previous_frame(); // wait for command list completion
-
 	void execute_command_list();
+	void signal();
+	void set_frame_index();
 
 	/**
 	 * Compiles scene and pipelines.
@@ -161,7 +160,7 @@ private:
 	UINT frame_index = 0u;
 
 	DXGI_SAMPLE_DESC msaa_sample_desc{8u, 0u};
-	DXGI_SAMPLE_DESC sample_desc{1u, 0u};
+	const DXGI_SAMPLE_DESC sample_desc{1u, 0u};
 	D3D12_BLEND_DESC blend_desc{};
 
 	D3D12_VIEWPORT viewport{};

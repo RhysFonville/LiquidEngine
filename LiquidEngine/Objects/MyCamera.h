@@ -30,7 +30,7 @@ private:
 	POINT cursor_diff = { 0, 0 };
 	POINT previous_cursor_pos = current_cursor_pos;
 
-	float regular_speed = 6.0f;
+	float regular_speed = 20.0f;
 	float slow_speed = regular_speed / 2.0f;
 	float current_speed = regular_speed;
 

@@ -5,9 +5,9 @@ MyShaderCube::MyShaderCube()
 	box{std::make_shared<BoundingBoxComponent>()} {
 	
 	std::vector<Transform> instances{};
-	for (int x = -1; x <= 5; x++) {
-		for (int y = -1; y <= 5; y++) {
-			for (int z = -1; z <= 5; z++) {
+	for (int x = -20; x <= 20; x++) {
+		for (int y = -20; y <= 20; y++) {
+			for (int z = -20; z <= 20; z++) {
 				instances.push_back(Transform{FVector3{(float)x*3, (float)y*3, (float)z*3}});
 			}
 		}

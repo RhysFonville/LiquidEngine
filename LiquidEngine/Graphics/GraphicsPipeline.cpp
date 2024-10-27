@@ -93,7 +93,7 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 // +-----------------+
 
 void GraphicsPipeline::InputAssembler::set_instances(const std::vector<Transform>& instances, const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList>& command_list) {
-	ID3D12Resource* instance_buffer_upload = nullptr;
+	ComPtr<ID3D12Resource> instance_buffer_upload{nullptr};
 	auto upload_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	auto upload_buffer = CD3DX12_RESOURCE_DESC::Buffer(instances.size() * sizeof(Transform));
 	device->CreateCommittedResource(
@@ -126,7 +126,7 @@ void GraphicsPipeline::InputAssembler::set_instances(const std::vector<Transform
 
 	HPEW(instance_buffer->SetName(L"Instance Buffer Default Resource Heap"));
 
-	command_list->CopyResource(instance_buffer.Get(), instance_buffer_upload);
+	command_list->CopyResource(instance_buffer.Get(), instance_buffer_upload.Get());
 
 	instance_buffer_view.BufferLocation = instance_buffer->GetGPUVirtualAddress();
 	instance_buffer_view.SizeInBytes = (UINT)instances.size() * sizeof(Transform);
@@ -146,7 +146,7 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 		index = vertex_buffers.size();
 	}
 
-	ID3D12Resource* vertex_buffer_upload = nullptr;
+	ComPtr<ID3D12Resource> vertex_buffer_upload{nullptr};
 	auto upload_heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	auto upload_buffer = CD3DX12_RESOURCE_DESC::Buffer(verts.size() * sizeof(Vertex));
 	device->CreateCommittedResource(
@@ -182,8 +182,8 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh &mesh, const ComPtr<I
 
 	HPEW(vertex_buffers[index]->SetName(L"Vertex Buffer Default Resource Heap"));
 
-	command_list->CopyResource(vertex_buffers[index].Get(), vertex_buffer_upload);
-
+	command_list->CopyResource(vertex_buffers[index].Get(), vertex_buffer_upload.Get());
+	
 	vertex_buffer_views[index].BufferLocation = vertex_buffers[index]->GetGPUVirtualAddress();
 	vertex_buffer_views[index].SizeInBytes = (UINT)verts.size() * sizeof(Vertex);
 	vertex_buffer_views[index].StrideInBytes = sizeof(Vertex);
@@ -509,7 +509,7 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::create_views(const ComPtr<
 }
 
 void GraphicsPipeline::RootSignature::ConstantBuffer::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
-	ID3D12Resource* upload_heap;
+	ComPtr<ID3D12Resource> upload_heap{nullptr};
 	auto type = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
 	HPEW(device->CreateCommittedResource(
@@ -528,8 +528,8 @@ void GraphicsPipeline::RootSignature::ConstantBuffer::update(const ComPtr<ID3D12
 	HPEW(upload_heap->Map(0u, &read_range, reinterpret_cast<void**>(&gpu_address[0])));
 	memcpy(*gpu_address, obj, obj_size);
 
-	command_list->CopyResource(default_heap.Get(), upload_heap);
-
+	command_list->CopyResource(default_heap.Get(), upload_heap.Get());
+	
 	update_signal = false;
 }
 
@@ -605,7 +605,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 		HPEW(default_heap->SetName(string_to_wstring("SRV Default heap").c_str()));
 
 		// create the intermediate upload buffer 
-		ID3D12Resource* upload_heap;
+		ComPtr<ID3D12Resource> upload_heap{nullptr};
 		const CD3DX12_HEAP_PROPERTIES heapProps{D3D12_HEAP_TYPE_UPLOAD};
 		const auto upload_heap_size = GetRequiredIntermediateSize(
 			default_heap.Get(), 0, (UINT)subresources.size()
@@ -627,7 +627,7 @@ void GraphicsPipeline::RootSignature::ShaderResourceView::compile(const ComPtr<I
 		UpdateSubresources(
 			command_list.Get(),
 			default_heap.Get(),
-			upload_heap,
+			upload_heap.Get(),
 			0, 0,
 			(UINT)subresources.size(),
 			subresources.data()
