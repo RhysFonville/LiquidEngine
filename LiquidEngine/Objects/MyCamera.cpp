@@ -122,3 +122,8 @@ void MyCamera::on_increase_fov(float dt) {
 void MyCamera::on_decrease_fov(float dt) {
 	camera->set_fov(camera->get_fov()-15.0f*dt);
 }
+
+void MyCamera::render_editor_gui_section() {
+	ImGui::InputFloat("Regular speed", &regular_speed);
+	ImGui::InputFloat("Slow speed", &slow_speed);
+}

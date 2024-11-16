@@ -10,7 +10,7 @@
  */
 class StaticMeshComponent : public GraphicsComponent {
 public:
-	StaticMeshComponent(const Mesh& mesh = Mesh{}, const Material& mat = Material{}, const std::vector<Transform>& instances = {});
+	StaticMeshComponent(const Mesh& mesh = Mesh{}, const Material& mat = Material{}, const std::vector<Transform>& instances = {Transform{}});
 
 	void clean_up() override;
 

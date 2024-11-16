@@ -9,11 +9,6 @@
 class PhysicalComponent : public Component {
 public:
 	PhysicalComponent(Type type) : Component(type) { }
-	
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	static bool is_physical_component(const T &component) {
-		return false;
-	}
 
 	void tick(float dt) override;
 

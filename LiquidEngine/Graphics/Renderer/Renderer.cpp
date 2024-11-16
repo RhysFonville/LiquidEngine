@@ -44,7 +44,7 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true));
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
-	//HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
+	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
 
 	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
 	descriptor_heap.reserve_descriptor_index(0u);
@@ -309,6 +309,7 @@ void Renderer::setup_imgui_section() {
 		if (ImGui::Button("Re-initialize renderer")) {
 			end_imgui();
 			refresh();
+			compile(true);
 			skip_frame = true;
 			return;
 		}
@@ -327,8 +328,16 @@ void Renderer::setup_imgui_section() {
 		}
 
 		ImGui::Checkbox("V-sync", &vsync);
+		
 		if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
 			set_fullscreen(fullscreen);
+		}
+
+		if (ImGui::InputInt("Sample count", (int*)&msaa_sample_desc.Count, 1, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			end_imgui();
+			refresh();
+			skip_frame = true;
+			return;
 		}
 
 		{ // Adapter

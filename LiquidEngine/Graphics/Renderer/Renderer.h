@@ -106,36 +106,36 @@ public:
 private:
 	friend class Window;
 
-	ComPtr<ID3D12Device> device = nullptr;
-	ComPtr<IDXGISwapChain3> swap_chain = nullptr;
+	ComPtr<ID3D12Device> device{nullptr};
+	ComPtr<IDXGISwapChain3> swap_chain{nullptr};
 
-	ComPtr<ID3D12CommandQueue> command_queue = nullptr;
-	ComPtr<ID3D12CommandAllocator> command_allocator = { };
-	ComPtr<ID3D12GraphicsCommandList> command_list = nullptr;
+	ComPtr<ID3D12CommandQueue> command_queue{nullptr};
+	ComPtr<ID3D12CommandAllocator> command_allocator{nullptr};
+	ComPtr<ID3D12GraphicsCommandList> command_list{nullptr};
 
-	ComPtr<ID3D12Fence> fence = { };
-	HANDLE fence_event = nullptr;
-	ULONGLONG fence_value = { };
+	ComPtr<ID3D12Fence> fence{nullptr};
+	HANDLE fence_event{nullptr};
+	ULONGLONG fence_value{};
 
-	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap = nullptr;
+	ComPtr<ID3D12DescriptorHeap> rtv_descriptor_heap{nullptr};
 	UINT rtv_descriptor_size = 0u; // size of the rtv descriptor on the device (all front and back buffers will be the same size)
-	ComPtr<ID3D12Resource> render_targets[NUMBER_OF_BUFFERS] = { };
-	ComPtr<ID3D12Resource> msaa_render_targets[NUMBER_OF_BUFFERS] = { };
+	ComPtr<ID3D12Resource> render_targets[NUMBER_OF_BUFFERS]{};
+	ComPtr<ID3D12Resource> msaa_render_targets[NUMBER_OF_BUFFERS]{};
 
-	ComPtr<IDXGIFactory2> factory = nullptr;
+	ComPtr<IDXGIFactory2> factory{nullptr};
 
 	GraphicsAdapter adapter{};
 	GraphicsAdapterOutput adapter_output{};
 
-	ComPtr<ID3D12Resource> depth_stencil_buffer = nullptr; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
-	ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap = nullptr; // This is a heap for our depth/stencil buffer descriptor
+	ComPtr<ID3D12Resource> depth_stencil_buffer{nullptr}; // This is the memory for our depth buffer. it will also be used for a stencil buffer in a later tutorial
+	ComPtr<ID3D12DescriptorHeap> depth_stencil_descriptor_heap{nullptr}; // This is a heap for our depth/stencil buffer descriptor
 
-	ComPtr<IDXGIDebug1> dxgi_debug = nullptr;
-	ComPtr<ID3D12Debug> debug_interface = nullptr;
-	ComPtr<ID3D12DebugDevice> debug_device = nullptr;
-	ComPtr<ID3D12DebugCommandList> debug_command_list = nullptr;
-	ComPtr<ID3D12DebugCommandQueue> debug_command_queue = nullptr;
-	ComPtr<ID3D12InfoQueue> info_queue = nullptr;
+	ComPtr<IDXGIDebug1> dxgi_debug{nullptr};
+	ComPtr<ID3D12Debug> debug_interface{nullptr};
+	ComPtr<ID3D12DebugDevice> debug_device{nullptr};
+	ComPtr<ID3D12DebugCommandList> debug_command_list{nullptr};
+	ComPtr<ID3D12DebugCommandQueue> debug_command_queue{nullptr};
+	ComPtr<ID3D12InfoQueue> info_queue{nullptr};
 
 	GraphicsResourceDescriptorHeap descriptor_heap{};
 
@@ -166,7 +166,7 @@ private:
 	D3D12_VIEWPORT viewport{};
 	D3D12_RECT scissor_rect{};
 
-	HWND window = nullptr;
+	HWND window{nullptr};
 
 	bool fullscreen = false;
 

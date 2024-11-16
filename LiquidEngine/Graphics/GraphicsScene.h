@@ -260,6 +260,7 @@ public:
 			component->update(UVector2_to_FVector2(resolution));
 			wvp_data.obj->WVP = XMMatrixTranspose(component->get_wvp());
 			pos_data.obj->camera_position = component->get_position();
+
 			return true;
 		}
 		return false;
@@ -339,16 +340,17 @@ public:
 			*data.obj = PSSkyCB{*component};
 			data.update();
 
-			component->has_changed(false);
 			change = true;
 		}
 
 		if (change) {
 			transform_data.obj->transform = Transform{
-				camera.pos_data.obj->camera_position,
+				camera.pos_data.obj->camera_position+component->get_position(),
 				component->get_rotation(),
 				component->get_size()
 			};
+
+			component->has_changed(false);
 		}
 
 		return ret;
@@ -545,25 +547,16 @@ public:
 	void add_component(const T *component) {
 		if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
-			//camera.compile();
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
 			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
-			//directional_lights.back().compile();
 		} else if (component->get_type() == Component::Type::PointLightComponent) {
 			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
-			//point_lights.back().compile();
 		} else if (component->get_type() == Component::Type::SpotlightComponent) {
 			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
-			//spotlights.back().compile();
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
 			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
-			/*if (camera.component != nullptr) {
-				static_meshes.back()->compile(camera);
-				static_meshes.back()->update_lights_signal = true;
-			}*/
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
-			//sky.compile();
 		}
 	}
 
@@ -622,7 +615,7 @@ public:
 	 */
 	void update(UVector2 resolution) {
 		bool cam_update{camera.update(resolution)};
-		
+
 		if (sky.component != nullptr)
 			sky.update(camera);
 
@@ -642,6 +635,8 @@ public:
 			if (mesh->update()) mesh_update = true;
 			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
+
+		camera.component->has_changed(false);
 
 		/*if (cam_update || mesh_update) {
 			// Sort list for opaque, distant non-opaque, closeer non-opaque

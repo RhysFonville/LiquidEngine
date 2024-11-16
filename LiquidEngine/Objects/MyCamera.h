@@ -25,6 +25,8 @@ public:
 	void on_increase_fov(float dt);
 	void on_decrease_fov(float dt);
 
+	void render_editor_gui_section() override;
+
 private:
 	POINT current_cursor_pos = { 0, 0 };
 	POINT cursor_diff = { 0, 0 };
