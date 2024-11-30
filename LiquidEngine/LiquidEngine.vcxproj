@@ -146,15 +146,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="Graphics\BaseShader.hlsli">
+    <None Include="Graphics\Shaders\BaseShader.hlsli">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="Graphics\BaseLitPS.hlsli">
+    <None Include="Graphics\Shaders\BaseLitPS.hlsli">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="Graphics\BaseVS.hlsli">
+    <None Include="Graphics\Shaders\BaseVS.hlsli">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
@@ -165,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\BoundingBoxComponent.h" />
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h" />
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h" />
     <ClInclude Include="Objects\MyShaderCube.h" />
     <ClInclude Include="Physics\InteractionHandler.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
@@ -180,7 +182,7 @@
     <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapter.h" />
-    <ClInclude Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.h" />
+    <ClInclude Include="Graphics\GraphicsResourceDescriptorHeap.h" />
     <ClInclude Include="Graphics\GraphicsScene.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Graphics\ResourceManager.h" />
@@ -204,7 +206,7 @@
     <ClInclude Include="Components\PointLightComponent.h" />
     <ClInclude Include="Components\SpotlightComponent.h" />
     <ClInclude Include="Components\StaticMeshComponent.h" />
-    <ClInclude Include="Graphics\Storage.h" />
+    <ClInclude Include="Graphics\Pipeline\Storage.h" />
     <ClInclude Include="Physics\physicsutil.h" />
     <ClInclude Include="Shapes\Cube.h" />
     <ClInclude Include="Engine.h" />
@@ -213,8 +215,8 @@
     <ClInclude Include="Utility\globalstructs.h" />
     <ClInclude Include="Utility\globalutil.h" />
     <ClInclude Include="Graphics\d3dx12.h" />
-    <ClInclude Include="Graphics\GraphicsPipeline.h" />
-    <ClInclude Include="Graphics\GraphicsPipelineIACommand.h" />
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipeline.h" />
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineIACommand.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Texture.h" />
@@ -234,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\BoundingBoxComponent.cpp" />
+    <ClCompile Include="Graphics\Pipeline\GraphicsPipelineRootArguments.cpp" />
     <ClCompile Include="Objects\MyShaderCube.cpp" />
     <ClCompile Include="Physics\InteractionHandler.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
@@ -249,7 +252,7 @@
     <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapter.cpp" />
-    <ClCompile Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp" />
+    <ClCompile Include="Graphics\GraphicsResourceDescriptorHeap.cpp" />
     <ClCompile Include="Graphics\GraphicsScene.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Graphics\ResourceManager.cpp" />
@@ -272,10 +275,10 @@
     <ClCompile Include="Components\PointLightComponent.cpp" />
     <ClCompile Include="Components\SpotlightComponent.cpp" />
     <ClCompile Include="Components\StaticMeshComponent.cpp" />
-    <ClCompile Include="Graphics\Storage.cpp" />
+    <ClCompile Include="Graphics\Pipeline\Storage.cpp" />
     <ClCompile Include="Shapes\Cube.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Graphics\GraphicsPipeline.cpp" />
+    <ClCompile Include="Graphics\Pipeline\GraphicsPipeline.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
@@ -291,7 +294,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Graphics\mipmapcs.hlsl">
+    <FxCompile Include="Graphics\Shaders\mipmapcs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
@@ -303,7 +306,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\LitPixel.hlsl">
+    <FxCompile Include="Graphics\Shaders\LitPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -311,7 +314,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\UnlitPixel.hlsl">
+    <FxCompile Include="Graphics\Shaders\UnlitPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -319,7 +322,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\SkyPS.hlsl">
+    <FxCompile Include="Graphics\Shaders\SkyPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -327,7 +330,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\SkyVS.hlsl">
+    <FxCompile Include="Graphics\Shaders\SkyVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -335,7 +338,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\DefaultVertex.hlsl">
+    <FxCompile Include="Graphics\Shaders\DefaultVertex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -343,7 +346,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Graphics\MyPixelShader.hlsl">
+    <FxCompile Include="Graphics\Shaders\MyPixelShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

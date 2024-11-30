@@ -141,17 +141,17 @@ bool Material::is_opaque() const noexcept {
 	return (is_albedo_opaque && is_normal_opaque && is_specular_opaque && is_ambient_opaque);
 }
 
-void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>& cb) {
+void Material::add_shader_argument(std::shared_ptr<ConstantBuffer>& cb) {
 	order.push_back(std::make_pair(0, cbs.size()));
 	cbs.push_back(cb);
 }
 
-void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>& rc) {
+void Material::add_shader_argument(std::shared_ptr<RootConstants>& rc) {
 	order.push_back(std::make_pair(1, rcs.size()));
 	rcs.push_back(rc);
 }
 
-void Material::add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>& srv) {
+void Material::add_shader_argument(std::shared_ptr<ShaderResourceView>& srv) {
 	order.push_back(std::make_pair(2, srvs.size()));
 	srvs.push_back(srv);
 }
@@ -168,14 +168,14 @@ void Material::bind_shader_arguments() {
 	}
 }
 
-std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> Material::get_shader_cbs() const noexcept {
+std::vector<std::shared_ptr<ConstantBuffer>> Material::get_shader_cbs() const noexcept {
 	return cbs;
 }
 
-std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> Material::get_shader_rcs() const noexcept {
+std::vector<std::shared_ptr<RootConstants>> Material::get_shader_rcs() const noexcept {
 	return rcs;
 }
 
-std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> Material::get_shader_srvs() const noexcept {
+std::vector<std::shared_ptr<ShaderResourceView>> Material::get_shader_srvs() const noexcept {
 	return srvs;
 }

@@ -1,4 +1,5 @@
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\BoundingBoxComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\BoundingBoxComponent.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Pipeline\GraphicsPipelineRootArguments.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipelineRootArguments.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyShaderCube.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\MyShaderCube.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\InteractionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\InteractionHandler.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\CollisionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\CollisionHandler.obj
@@ -14,7 +15,7 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Debug\DebugConsole.cpp;C:
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\EditorGUI.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\EditorGUI.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapterOutput.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsAdapterOutput.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsAdapter.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsAdapter.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsResourceDescriptorHeap.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsResourceDescriptorHeap.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsResourceDescriptorHeap.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsScene.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsScene.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\LightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\LightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\ResourceManager.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ResourceManager.obj
@@ -37,10 +38,10 @@ C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\PhysicsBody.cpp;C
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\PointLightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\PointLightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\SpotlightComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\SpotlightComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\StaticMeshComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\StaticMeshComponent.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Storage.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Storage.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Pipeline\Storage.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Storage.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Shapes\Cube.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Cube.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Engine.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Engine.obj
-C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\GraphicsPipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipeline.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Pipeline\GraphicsPipeline.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipeline.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Renderer\Renderer.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Renderer.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Material.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Material.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Texture.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\Texture.obj

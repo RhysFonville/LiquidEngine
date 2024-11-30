@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Graphics/GraphicsPipeline.h"
+#include "../Graphics/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Texture.h"
 #include "GraphicsComponent.h"
 #include "../imgui/imgui_stdlib.h"

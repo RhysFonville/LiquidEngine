@@ -279,8 +279,8 @@ public:
 
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
+	RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
+	RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
 };
 
 /**
@@ -303,7 +303,7 @@ public:
 	}
 
 	void compile() {
-		srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>();
+		srv = std::make_shared<ShaderResourceView>();
 	}
 
 	void update_descs_and_compile_srv() {
@@ -317,7 +317,7 @@ public:
 		srv = nullptr;
 	}
 
-	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{nullptr};
+	std::shared_ptr<ShaderResourceView> srv{nullptr};
 };
 
 /**
@@ -379,8 +379,8 @@ public:
 
 	RenderingTexture texture{};
 
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{};
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
+	ConstantBufferContainer<PSSkyCB> data{};
 };
 
 /**
@@ -450,7 +450,7 @@ public:
 	RenderingTexture normal_map{};
 	RenderingTexture specular_map{};
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data{};
+	ConstantBufferContainer<PSMaterialCB> material_data{};
 };
 
 /**
@@ -522,8 +522,8 @@ public:
 
 	RenderingMaterial material{};
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{};
+	ConstantBufferContainer<PSLightsCB> lights_data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
 
 	bool update_lights_signal = false;
 };

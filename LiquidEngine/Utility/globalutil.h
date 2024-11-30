@@ -165,7 +165,7 @@ static std::string trim_copy(std::string s) {
 }
 
 static void remove_extra_spaces(std::string &s) {
-	for (int i = 0; i < s.size(); i++) {
+	for (size_t i = 0; i < s.size(); i++) {
 		if (s[i] == ' ' && s[i+1] == ' ')
 			s.erase(i, 1u);
 	}

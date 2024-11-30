@@ -1,7 +1,7 @@
 #include "MyShaderCube.h"
 
 MyShaderCube::MyShaderCube()
-	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"crate.obj"}, Material{"Graphics/DefaultVertex.hlsl", "Graphics/MyPixelShader.hlsl"})},
+	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"crate.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})},
 	box{std::make_shared<BoundingBoxComponent>()} {
 	
 	/*std::vector<Transform> instances{};

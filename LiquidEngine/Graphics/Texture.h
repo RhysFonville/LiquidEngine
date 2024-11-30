@@ -1,12 +1,12 @@
 #pragma once
 
 #include <DirectXTex.h>
-#include "GraphicsPipeline.h"
+#include "Pipeline/GraphicsPipeline.h"
 #include "../Components/GraphicsComponent.h"
 
 /**
  * Texture for rendering onto objects.
- * \see GraphicsPipeline::RootSignature::ShaderResourceView
+ * \see ShaderResourceView
  */
 class Texture : public GraphicsTracker {
 public:

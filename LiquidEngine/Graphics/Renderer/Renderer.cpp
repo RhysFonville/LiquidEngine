@@ -500,6 +500,9 @@ void Renderer::render(float dt) {
 	ID3D12DescriptorHeap* dh[] = { descriptor_heap.get().Get() };
 	command_list->SetDescriptorHeaps(_countof(dh), dh);
 	
+	// OpenGL shadow mapping video
+	// https://www.youtube.com/watch?v=kCCsko29pv0
+
 	if (scene.sky.component != nullptr)
 		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	
