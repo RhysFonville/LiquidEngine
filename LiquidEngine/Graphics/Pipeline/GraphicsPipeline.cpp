@@ -27,11 +27,6 @@ void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_lis
 void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	root_signature.check_for_update(device, command_list, descriptor_heaps);
 	root_signature.compile(device, command_list, descriptor_heaps);
-	shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
-	shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
-	shader_storage->add_and_compile_shader(Shader::Type::Domain, ds);
-	shader_storage->add_and_compile_shader(Shader::Type::Geometry, gs);
-	shader_storage->add_and_compile_shader(Shader::Type::Pixel, ps);
 
 	// Fill PSO
 
@@ -45,13 +40,13 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	pso_desc.pRootSignature = root_signature.signature.Get(); // the root signature that describes the input data this pso needs
 	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
 	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
-	pso_desc.VS = shader_storage->get_shader(vs)->get().get_bytecode(); // structure describing where to find the vertex shader bytecode and how large it is
-	pso_desc.HS = shader_storage->get_shader(hs)->get().get_bytecode();
-	pso_desc.DS = shader_storage->get_shader(ds)->get().get_bytecode();
+	if (!this->vs.expired()) pso_desc.VS = this->vs.lock()->get_bytecode(); // structure describing where to find the vertex shader bytecode and how large it is
+	if (!this->hs.expired()) pso_desc.HS = this->hs.lock()->get_bytecode();
+	if (!this->ds.expired()) pso_desc.DS = this->ds.lock()->get_bytecode();
 	pso_desc.StreamOutput = stream_output.desc;
-	pso_desc.GS = shader_storage->get_shader(gs)->get().get_bytecode();
+	if (!this->gs.expired()) pso_desc.GS = this->gs.lock()->get_bytecode();
 	pso_desc.RasterizerState = rasterizer.desc;
-	pso_desc.PS = shader_storage->get_shader(ps)->get().get_bytecode();
+	if (!this->ps.expired()) pso_desc.PS = this->ps.lock()->get_bytecode();
 	pso_desc.DepthStencilState = depth_stencil_desc; // a default depth stencil state
 	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
 	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
@@ -78,11 +73,11 @@ bool GraphicsPipeline::operator==(const GraphicsPipeline &pipeline) const noexce
 	root_signature == pipeline.root_signature &&
 	input_assembler == pipeline.input_assembler &&
 
-	vs == pipeline.vs &&
-	hs == pipeline.hs &&
-	ds == pipeline.ds &&
-	gs == pipeline.gs &&
-	ps == pipeline.ps &&
+	vs.lock() == pipeline.vs.lock() &&
+	hs.lock() == pipeline.hs.lock() &&
+	ds.lock() == pipeline.ds.lock() &&
+	gs.lock() == pipeline.gs.lock() &&
+	ps.lock() == pipeline.ps.lock() &&
 
 	rasterizer == pipeline.rasterizer &&
 	stream_output == pipeline.stream_output);
@@ -326,21 +321,31 @@ void GraphicsPipeline::RootSignature::compile(const ComPtr<ID3D12Device> &device
 }
 
 void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
+	int i{0};
 	for (const std::weak_ptr<ShaderResourceView>& srv_wp : shader_resource_views) {
 		if (const auto& srv = srv_wp.lock()) {
 			if (srv->compile_signal) {
 				srv->compile(device, command_list, descriptor_heaps);
 			}
+		} else {
+			shader_resource_views.erase(shader_resource_views.begin()+i);
 		}
+		i++;
 	}
 
+	i = 0;
 	for (const std::weak_ptr<ConstantBuffer>& cb_wp : constant_buffers) {
 		if (const auto& cb = cb_wp.lock()) {
 			if (cb->compile_signal) {
 				cb->compile(device, command_list, descriptor_heaps);
 			}
+		} else {
+			constant_buffers.erase(constant_buffers.begin()+i);
 		}
+		i++;
 	}
+
+	i = 0;
 	for (const std::weak_ptr<ConstantBuffer>& cb_wp : constant_buffers) {
 		if (const auto& cb = cb_wp.lock()) {
 			if (cb->update_signal) {
@@ -348,7 +353,10 @@ void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device
 					cb->update(device, command_list);
 				}
 			}
+		} else {
+			constant_buffers.erase(constant_buffers.begin()+i);
 		}
+		i++;
 	}
 }
 

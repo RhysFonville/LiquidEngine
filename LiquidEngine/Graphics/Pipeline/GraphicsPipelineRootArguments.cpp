@@ -157,7 +157,7 @@ ShaderResourceView::ShaderResourceView(const DirectX::ScratchImage &mip_chain, b
 }
 
 void ShaderResourceView::update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
-	const Image &chain_base = *mip_chain.GetImages();
+	const DirectX::Image &chain_base = *mip_chain.GetImages();
 	heap_desc = D3D12_RESOURCE_DESC{
 		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
 		.Width = (UINT)chain_base.width,

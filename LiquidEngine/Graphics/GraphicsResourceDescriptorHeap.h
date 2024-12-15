@@ -1,7 +1,11 @@
 #pragma once
 
-#include "../../Utility/commonmacros.h"
+#include <d3d12.h>
+#include <wrl.h>
+#include "../Utility/commonmacros.h"
 #include "../Debug/Throw.h"
+
+using Microsoft::WRL::ComPtr;
 
 static constexpr UINT NUMBER_OF_BUFFERS = 3u;
 

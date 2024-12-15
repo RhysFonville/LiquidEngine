@@ -270,6 +270,8 @@ public:
 		component->has_changed(true);
 		wvp_data = VSWVPConstants{};
 		pos_data = PSCameraConstants{};
+
+		component->needs_compile(false);
 	}
 
 	void clean_up() {
@@ -304,6 +306,8 @@ public:
 
 	void compile() {
 		srv = std::make_shared<ShaderResourceView>();
+
+		component->needs_compile(false);
 	}
 
 	void update_descs_and_compile_srv() {
@@ -367,6 +371,8 @@ public:
 		component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
 		component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(data, D3D12_SHADER_VISIBILITY_PIXEL);
 		component->pipeline.root_signature.bind_shader_resource_view(texture.srv, D3D12_SHADER_VISIBILITY_PIXEL);
+
+		component->needs_compile(false);
 	}
 
 	void clean_up() {
@@ -437,6 +443,8 @@ public:
 		);
 
 		component->pipeline.compile();
+
+		component->needs_compile(false);
 	}
 
 	void clean_up() {
@@ -510,6 +518,8 @@ public:
 		material.component->pipeline.root_signature.bind_root_constants(camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
 		
 		material.compile();
+
+		component->needs_compile(false);
 	}
 
 	void clean_up() {
@@ -547,16 +557,22 @@ public:
 	void add_component(const T *component) {
 		if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
+			camera.component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
 			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
+			directional_lights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::PointLightComponent) {
 			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
+			point_lights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::SpotlightComponent) {
 			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
+			spotlights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
 			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
+			static_meshes.back()->component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
+			sky.component->needs_compile(true);
 		}
 	}
 
@@ -584,24 +600,28 @@ public:
 	}
 
 	void compile() {
-		camera.compile();
+		if (camera.component->needs_compile())
+			camera.compile();
 
-		if (sky.component != nullptr) {
+		if (sky.component != nullptr && sky.component->needs_compile()) {
 			sky.compile(camera);
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			dl.compile();
+			if (dl.component->needs_compile())
+				dl.compile();
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			pl.compile();
+			if (pl.component->needs_compile())
+				pl.compile();
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			sl.compile();
+			if (sl.component->needs_compile())
+				sl.compile();
 		}
 
 		for (auto &mesh : static_meshes) {
-			if (camera.component != nullptr) {
+			if (camera.component != nullptr && mesh->component->needs_compile()) {
 				mesh->compile(camera);
 				mesh->update_lights_signal = true;
 			}

@@ -432,7 +432,6 @@ void Renderer::compile(bool compile_components) {
 	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
 
 	scene.compile();
-
 	scene.update(resolution);
 
 	for (auto &mesh : scene.static_meshes) {
@@ -460,6 +459,7 @@ void Renderer::render(float dt) {
 
 	if (skip_frame) return;
 
+	scene.compile();
 	scene.update(resolution);
 
 	wait_for_previous_frame();

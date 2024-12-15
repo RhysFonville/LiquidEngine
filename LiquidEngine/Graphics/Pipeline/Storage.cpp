@@ -9,21 +9,28 @@ ShaderStorage* ShaderStorage::get_instance() {
 	return shader_storage;
 }
 
-std::optional<std::reference_wrapper<Shader>> ShaderStorage::get_shader(const std::string &file) noexcept {
-	for (Shader &shader : shaders) {
-		if (shader.get_file() == file) {
-			return shader;
+std::optional<std::weak_ptr<Shader>> ShaderStorage::get_shader(const std::string &file) noexcept {
+	for (std::shared_ptr<Shader>& shader : shaders) {
+		if (*shader == file) {
+			return std::weak_ptr<Shader>{shader};
 		}
 	}
 	return std::nullopt;
 }
 
-void ShaderStorage::add_and_compile_shader(Shader::Type type, const std::string &file) {
-	for (Shader &shader : shaders) {
-		if (shader == file) {
-			return;
+std::weak_ptr<Shader> ShaderStorage::add_and_compile_shader(Shader::Type type, const std::string &file) {
+	if (file.empty()) return std::weak_ptr<Shader>{};
+	
+	for (std::shared_ptr<Shader>& shader : shaders) {
+		if (*shader == file) {
+			return std::weak_ptr<Shader>{shader};
 		}
 	}
-	shaders.push_back(Shader{type, file});
-	shaders.back().compile();
+
+	std::shared_ptr<Shader> s{std::make_shared<Shader>(type, file)};
+	s->compile();
+
+	shaders.push_back(s);
+
+	return std::weak_ptr<Shader>{s};
 }

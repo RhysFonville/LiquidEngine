@@ -248,6 +248,12 @@
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\windowsconversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\graphicsoperatoroverloading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

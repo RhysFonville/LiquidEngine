@@ -113,17 +113,18 @@ public:
 
 	} input_assembler;
 
-	std::string vs{"Graphics/DefaultVertex.hlsl"};
-	std::string hs{};
-	std::string ds{};
-	std::string gs{};
-	std::string ps{"Graphics/LitPixel.hlsl"};
+	std::weak_ptr<Shader> vs{};
+	std::weak_ptr<Shader> hs{};
+	std::weak_ptr<Shader> ds{};
+	std::weak_ptr<Shader> gs{};
+	std::weak_ptr<Shader> ps{};
 
 	/**
 	* Rasterizer stage.
 	*/
 	class Rasterizer {
 	public:
+		Rasterizer() { }
 		Rasterizer(const D3D12_RASTERIZER_DESC& desc) : desc{desc} { }
 
 		bool operator==(const Rasterizer &rasterizer) const noexcept {
@@ -141,7 +142,7 @@ public:
 	private:
 		friend GraphicsPipeline;
 
-		D3D12_RASTERIZER_DESC desc{CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT)};
+		D3D12_RASTERIZER_DESC desc{CD3DX12_RASTERIZER_DESC{D3D12_DEFAULT}};
 	} rasterizer;
 
 	/**

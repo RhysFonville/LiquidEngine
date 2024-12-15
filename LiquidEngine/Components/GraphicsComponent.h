@@ -7,8 +7,12 @@ public:
 	bool has_changed() const noexcept { return changed; }
 	void has_changed(bool changed) noexcept { this->changed = changed; }
 
+	bool needs_compile() const noexcept { return compile; }
+	void needs_compile(bool compile) noexcept { this->compile = compile; }
+
 protected:
 	bool changed{false};
+	bool compile{false};
 };
 
 /**

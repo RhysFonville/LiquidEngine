@@ -15,11 +15,11 @@ Material::Material(const std::string& vs, const std::string& ps, const std::stri
 }
 
 void Material::compile() {
-	pipeline.vs = vs;
-	pipeline.hs = hs;
-	pipeline.ds = ds;
-	pipeline.gs = gs;
-	pipeline.ps = ps;
+	pipeline.vs = shader_storage->add_and_compile_shader(Shader::Type::Vertex, vs);
+	pipeline.hs = shader_storage->add_and_compile_shader(Shader::Type::Hull, hs);
+	pipeline.ds = shader_storage->add_and_compile_shader(Shader::Type::Domain, ds);
+	pipeline.gs = shader_storage->add_and_compile_shader(Shader::Type::Geometry, gs);
+	pipeline.ps = shader_storage->add_and_compile_shader(Shader::Type::Pixel, ps);
 
 	if (has_texture()) {
 		albedo_texture.compile();

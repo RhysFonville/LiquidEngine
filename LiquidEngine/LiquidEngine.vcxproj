@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\BoundingBoxComponent.h" />
+    <ClInclude Include="Graphics\graphicsoperatoroverloading.h" />
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h" />
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h" />
     <ClInclude Include="Objects\MyShaderCube.h" />
@@ -231,6 +232,7 @@
     <ClInclude Include="Utility\ObjectStructs.h" />
     <ClInclude Include="Utility\SimpleShapes.h" />
     <ClInclude Include="Utility\Vectors.h" />
+    <ClInclude Include="Utility\windowsconversion.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

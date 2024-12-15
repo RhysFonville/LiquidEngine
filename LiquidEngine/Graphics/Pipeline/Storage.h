@@ -1,8 +1,14 @@
 #pragma once
 
-#include "../Debug/Throw.h"
 #include <d3dcompiler.h>
+#include <d3d12.h>
 #include <ranges>
+#include <filesystem>
+#include <wrl.h>
+#include "../Debug/Throw.h"
+
+namespace fs = std::filesystem;
+using namespace Microsoft::WRL;
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 
@@ -46,21 +52,25 @@ public:
 
 	void compile() {
 		if (!file_name.empty()) {
-			// compile vertex shader
-			HPEW(D3DCompileFromFile(
-				string_to_wstring(file_name).c_str(),
-				&defines,
-				D3D_COMPILE_STANDARD_FILE_INCLUDE,
-				entrypoint.c_str(),
-				target.c_str(),
-				shader_compile_options,
-				effect_compile_options,
-				&blob,
-				&error_buffer
-			), HPEW_ERR_BLOB_PARAM(error_buffer));
+			if (fs::exists(file_name)) {
+				// compile vertex shader
+				HPEW(D3DCompileFromFile(
+					string_to_wstring(file_name).c_str(),
+					&defines,
+					D3D_COMPILE_STANDARD_FILE_INCLUDE,
+					entrypoint.c_str(),
+					target.c_str(),
+					shader_compile_options,
+					effect_compile_options,
+					&blob,
+					&error_buffer
+				), HPEW_ERR_BLOB_PARAM(error_buffer));
 
-			bytecode.BytecodeLength = blob->GetBufferSize();
-			bytecode.pShaderBytecode = blob->GetBufferPointer();
+				bytecode.BytecodeLength = blob->GetBufferSize();
+				bytecode.pShaderBytecode = blob->GetBufferPointer();
+			} else {
+				throw std::exception{"Shader file does not exist."};
+			}
 		}
 	}
 
@@ -119,15 +129,15 @@ public:
 	void operator=(const ShaderStorage &) = delete;
 	GET static ShaderStorage *get_instance();
 
-	GET std::optional<std::reference_wrapper<Shader>> get_shader(const std::string &file) noexcept;
+	GET std::optional<std::weak_ptr<Shader>> get_shader(const std::string &file) noexcept;
 
-	void add_and_compile_shader(Shader::Type type, const std::string &file);
+	std::weak_ptr<Shader> add_and_compile_shader(Shader::Type type, const std::string &file);
 
 private:
 	ShaderStorage() { }
 
 	static ShaderStorage* shader_storage;
-	std::vector<Shader> shaders;
+	std::vector<std::shared_ptr<Shader>> shaders;
 };
 
 static ShaderStorage* shader_storage = ShaderStorage::get_instance();
