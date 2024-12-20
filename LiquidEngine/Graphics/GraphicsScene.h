@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <array>
 #include "../Components/CameraComponent.h"
 #include "../Components/DirectionalLightComponent.h"
 #include "../Components/PointLightComponent.h"
@@ -9,7 +9,7 @@
 #include "../Components/SkyComponent.h"
 #include "../Utility/Vectors.h"
 
-static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
+static constexpr UCHAR MAX_LIGHTS_PER_TYPE = 255u;
 
 //_declspec(align(16))
 //class DXLight {
@@ -82,6 +82,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(DirectionalLightComponent component) { return (component == *(this->component)); }
@@ -131,6 +132,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(PointLightComponent component) { return (component == *(this->component)); }
@@ -175,6 +177,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(SpotlightComponent component) { return (component == *(this->component)); }
@@ -219,9 +222,9 @@ struct PSLightsCB { // b2
 	UINT point_light_count = 0;
 	UINT spotlight_count = 0;
 
-	RenderingDirectionalLightData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	RenderingPointLightData point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	RenderingSpotlightData spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	std::array<RenderingDirectionalLightData, MAX_LIGHTS_PER_TYPE> directional_lights{};
+	std::array<RenderingPointLightData, MAX_LIGHTS_PER_TYPE> point_lights{};
+	std::array<RenderingSpotlightData, MAX_LIGHTS_PER_TYPE> spotlights{};
 };
 
 __declspec(align(16))
@@ -623,7 +626,7 @@ public:
 		for (auto &mesh : static_meshes) {
 			if (camera.component != nullptr && mesh->component->needs_compile()) {
 				mesh->compile(camera);
-				mesh->update_lights_signal = true;
+				mesh->update_lights(directional_lights, point_lights, spotlights);
 			}
 		}
 	}
@@ -641,13 +644,16 @@ public:
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			if (!light_update) light_update = dl.update();
+			bool update = dl.update();
+			if (!light_update) light_update = true;
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			if (!light_update) light_update = pl.update();
+			bool update = pl.update();
+			if (!light_update) light_update = true;
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			if (!light_update) light_update = sl.update();
+			bool update = sl.update();
+			if (!light_update) light_update = true;
 		}
 
 		bool mesh_update{false};

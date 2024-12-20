@@ -76,7 +76,7 @@ public:
 
 	GET Type get_type() const noexcept { return type; }
 	GET std::string get_file() const noexcept { return file_name; }
-	GET D3D12_SHADER_BYTECODE get_bytecode() const noexcept { return bytecode; };
+	GET D3D12_SHADER_BYTECODE get_bytecode() const noexcept { return bytecode; }
 
 	bool operator==(const Shader &shader) const noexcept {
 		return (file_name == shader.file_name);

@@ -25,5 +25,5 @@ private:
 	void render_light_component_editor_gui_section() override;
 
 	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.3f, 1.0f, 0.0f);
+	FVector3 attenuation = FVector3(0.1f, 0.1f, 0.0f);
 };

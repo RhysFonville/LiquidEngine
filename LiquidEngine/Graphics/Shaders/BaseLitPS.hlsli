@@ -1,62 +1,5 @@
 #include "BaseShader.hlsli"
-
-#define MAX_LIGHTS_PER_TYPE 16
-
-struct DirectionalLight {
-	float4 diffuse;
-	float4 specular;
-	float3 direction;
-	int null;
-};
-
-struct PointLight {
-	float4 diffuse;
-	float4 specular;
-	float range;
-	float3 attenuation;
-	int null;
-	float3 position;
-};
-
-struct Spotlight {
-	float4 diffuse;
-	float4 specular;
-	float3 direction;
-	int null;
-};
-
-struct Material {
-	int has_texture;
-	int has_normal_map;
-	int has_specular_map;
-	float4 ks;
-	float4 kd;
-	float4 ka;
-	float a;
-};
-
-cbuffer PSLightsCB : register(b2) {
-	uint directional_light_count;
-	uint point_light_count;
-	uint spotlight_count;
-	
-	DirectionalLight directional_lights[MAX_LIGHTS_PER_TYPE];
-	PointLight point_lights[MAX_LIGHTS_PER_TYPE];
-	Spotlight spotlights[MAX_LIGHTS_PER_TYPE];
-}
-
-cbuffer PSCameraConstants : register(b3) {
-	float3 camera_position;
-}
-
-cbuffer PerObjectPSCB : register(b4) {
-	Material material;
-}
-
-Texture2D object_texture : register(t0);
-Texture2D normal_map : register(t1);
-Texture2D specular_map : register(t2);
-SamplerState static_sampler_state : register(s0);
+#include "PSBuffers.hlsli"
 
 static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
@@ -65,14 +8,14 @@ static float4 falloff_equation(float obj_pos) {
 	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
 }
 
-static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
+static float4 calculate_lit(PS_INPUT ps_in) {
 	float4 kd = material.kd;
 	float4 ks = material.ks;
 	float4 ka = material.ka;
 	float a = material.a;
-
+	
 	if (material.has_texture) {
-		kd *= object_texture.Sample(static_sampler_state, ps_in.texcoord);
+		kd *= albedo_texture.Sample(static_sampler_state, ps_in.texcoord);
 	}
 	if (material.has_specular_map) {
 		ks *= specular_map.Sample(static_sampler_state, ps_in.texcoord);
@@ -185,5 +128,4 @@ static float4 calculate_lit_ps_main(PS_INPUT ps_in) {
 	final_color *= float4(distance_falloff, 1.0f);
 	
 	return final_color;
-
 }

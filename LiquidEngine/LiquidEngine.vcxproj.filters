@@ -34,6 +34,7 @@
     <None Include="Graphics\Shaders\BaseShader.hlsli" />
     <None Include="Graphics\Shaders\BaseLitPS.hlsli" />
     <None Include="Graphics\Shaders\BaseVS.hlsli" />
+    <None Include="Graphics\Shaders\PSBuffers.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log">
