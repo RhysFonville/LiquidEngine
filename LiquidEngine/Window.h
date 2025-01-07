@@ -38,7 +38,7 @@ public:
 	 */
 	void set_up_window(const Vector2 &position = Vector2(CW_USEDEFAULT, CW_USEDEFAULT),
 		const Vector2 &size = Vector2(1200, 800),
-		const std::string &name = "Epic Window :coolglasses:",
+		std::string name = "Epic Window :coolglasses:",
 		DWORD style = WS_OVERLAPPEDWINDOW | WS_VISIBLE, const HWND &parent = NULL,
 		DWORD extended_style = NULL, HMENU menu = NULL, void* lpParam = NULL);
 
@@ -48,7 +48,7 @@ public:
 
 	GET HWND & get_window() noexcept;
 	GET HDC & get_dc() noexcept;
-	GET WNDCLASSEXW & get_class() noexcept;
+	GET WNDCLASSEXA & get_class() noexcept;
 
 	GET UVector2 get_size() const noexcept;
 	void set_size(const UVector2 &size) noexcept;
@@ -63,8 +63,9 @@ public:
 private:
 	HWND window = NULL;
 	HDC dc = NULL;
-	WNDCLASSEXW window_class = { };
+	WNDCLASSEXA window_class = { };
 	
+	std::string name{};
 	UVector2 size{};
 
 	bool running = true;

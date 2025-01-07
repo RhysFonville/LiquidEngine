@@ -1,10 +1,10 @@
 #pragma once
 
-#include <d3dcompiler.h>
-#include <d3d12.h>
-#include <ranges>
-#include <filesystem>
 #include <wrl.h>
+#include <dxcapi.h>
+#include <d3d12shader.h>
+#include <vector>
+#include <filesystem>
 #include "../Debug/Throw.h"
 
 namespace fs = std::filesystem;
@@ -12,111 +12,130 @@ using namespace Microsoft::WRL;
 
 #define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
 
+inline ComPtr<IDxcUtils> utils{};
+
+class CustomIncludeHandler : public IDxcIncludeHandler {
+public:
+	HRESULT STDMETHODCALLTYPE LoadSource(_In_ LPCWSTR pFilename, _COM_Outptr_result_maybenull_ IDxcBlob** ppIncludeSource) override {
+		ComPtr<IDxcBlobEncoding> encoding{nullptr};
+
+		std::filesystem::path path = std::filesystem::path{wstring_to_string(pFilename)};
+		if (std::ranges::find_if(included_files, [&](const auto& x) { return fs::equivalent(path, x); }) != included_files.end()) {
+			// Return empty string blob if this file has been included before
+			static const char null_str[] = "";
+			utils->CreateBlobFromPinned(null_str, ARRAYSIZE(null_str), DXC_CP_ACP, encoding.GetAddressOf());
+			*ppIncludeSource = encoding.Detach();
+			return S_OK;
+		}
+
+		HRESULT hr = utils->LoadFile(pFilename, nullptr, encoding.GetAddressOf());
+		if (SUCCEEDED(hr)) {
+			included_files.push_back(path);
+			*ppIncludeSource = encoding.Detach();
+		}
+
+		return hr;
+	}
+
+	HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, _COM_Outptr_ void __RPC_FAR* __RPC_FAR* ppvObject) override { return E_NOINTERFACE; }
+	ULONG STDMETHODCALLTYPE AddRef(void) override { return 0; }
+	ULONG STDMETHODCALLTYPE Release(void) override { return 0; }
+
+	std::vector<std::filesystem::path> included_files;
+};
+
 /**
  * Shader data for rendering.
  */
 class Shader {
 public:
-	enum class Type {
-		Vertex,
-		Hull,
-		Domain,
-		Geometry,
-		Pixel
-	};
-
 	Shader() { }
-	Shader(Type type) { }
-	Shader(Type type, const std::string &file_name)
-		: type(type), file_name(file_name) {
-		set_target_from_type(type);
+	Shader(const std::string& target, const std::string &file_name)
+		: target{target}, file_name{file_name} { }
+
+	bool operator==(const std::string &file) { 
+		return file_name == file;
 	}
 
-	void operator=(const Shader &shader) {
-		file_name = shader.file_name;
-		defines = shader.defines;
-		entrypoint = shader.entrypoint;
-		entrypoint = shader.entrypoint;
-		target = shader.target;
-		shader_compile_options = shader.shader_compile_options;
-		effect_compile_options = shader.effect_compile_options;
-		bytecode = shader.bytecode;
-		blob = shader.blob;
-		error_buffer = shader.error_buffer;
-		type = shader.type;
-	}
+	void compile(const ComPtr<IDxcCompiler3>& compiler) {
+		ComPtr<IDxcBlobEncoding> source{};
+		
+		std::wstring wsource{string_to_wstring(file_name)};
+		HPEW(utils->LoadFile(wsource.c_str(), nullptr, source.GetAddressOf()));
 
-	bool operator==(const std::string &file) {
-		return (file_name == file);
-	}
+		fs::path cd{fs::current_path()};
+		fs::current_path(fs::path{file_name}.parent_path());
 
-	void compile() {
-		if (!file_name.empty()) {
-			if (fs::exists(file_name)) {
-				// compile vertex shader
-				HPEW(D3DCompileFromFile(
-					string_to_wstring(file_name).c_str(),
-					&defines,
-					D3D_COMPILE_STANDARD_FILE_INCLUDE,
-					entrypoint.c_str(),
-					target.c_str(),
-					shader_compile_options,
-					effect_compile_options,
-					&blob,
-					&error_buffer
-				), HPEW_ERR_BLOB_PARAM(error_buffer));
+		std::wstring wentry{string_to_wstring(entrypoint)};
+		std::wstring wtarget{string_to_wstring(target)};
+		std::wstring winclude{string_to_wstring(fs::current_path().root_path().string())};
 
-				bytecode.BytecodeLength = blob->GetBufferSize();
-				bytecode.pShaderBytecode = blob->GetBufferPointer();
-			} else {
-				throw std::exception{"Shader file does not exist."};
-			}
+		std::vector<LPCWSTR> arguments{
+			L"-E", wentry.c_str(),
+			L"-T", wtarget.c_str(),
+			L"-Qstrip_debug",
+			L"-Qstrip_reflect",
+			DXC_ARG_WARNINGS_ARE_ERRORS,
+			DXC_ARG_ALL_RESOURCES_BOUND,
+			L"-I", winclude.c_str()
+		};
+
+#ifdef _DEBUG
+		arguments.push_back(DXC_ARG_DEBUG);
+		arguments.push_back(DXC_ARG_SKIP_OPTIMIZATIONS);
+#else
+		arguments.push_back(DXC_ARG_OPTIMIZATION_LEVEL3);
+#endif
+
+		for (const std::string& define : defines) {
+			arguments.push_back(L"-D");
+			arguments.push_back(string_to_wstring(define).c_str());
 		}
+
+		ComPtr<CustomIncludeHandler> include_handler{new CustomIncludeHandler{}};
+		/*for (const auto& entry : fs::directory_iterator("Includes")) {
+			include_handler->included_files.push_back(entry.path());
+		}*/
+
+		DxcBuffer source_buffer{
+			.Ptr = source->GetBufferPointer(),
+			.Size = source->GetBufferSize(),
+			.Encoding = 0u
+		};
+
+		HPEW(compiler->Compile(&source_buffer, arguments.data(), (UINT32)arguments.size(), include_handler.Get(), IID_PPV_ARGS(compile_result.GetAddressOf())));
+
+		// Error Handling. Note that this will also include warnings unless disabled.
+		ComPtr<IDxcBlobUtf8> errors{};
+		HPEW(compile_result->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(errors.GetAddressOf()), NULL));
+		if (errors && errors->GetStringLength() > 0) {
+			std::cout << (char*)errors->GetBufferPointer();
+			throw std::exception{(char*)errors->GetBufferPointer()};
+		}
+
+		fs::current_path(cd);
 	}
 
-	GET Type get_type() const noexcept { return type; }
+	GET std::string get_target() const noexcept { return target; }
 	GET std::string get_file() const noexcept { return file_name; }
-	GET D3D12_SHADER_BYTECODE get_bytecode() const noexcept { return bytecode; }
+	GET std::vector<std::string> get_defines() const noexcept { return defines; }
+	GET ComPtr<IDxcResult> get_compile_result() const noexcept { return compile_result; }
+	GET ComPtr<IDxcBlob> get_bytecode_blob() const {
+		ComPtr<IDxcBlob> blob{};
+		HPEW(compile_result->GetResult(blob.GetAddressOf()));
+		return blob;
+	}
 
 	bool operator==(const Shader &shader) const noexcept {
 		return (file_name == shader.file_name);
 	}
 
 private:
-	std::string file_name = "";
-	D3D_SHADER_MACRO defines = { };
-	// Add ID3DInclude someday
-	std::string entrypoint = "main";
-	std::string target = "ps_5_0";
-	UINT shader_compile_options = D3DCOMPILE_DEBUG;
-	UINT effect_compile_options = NULL;
-	D3D12_SHADER_BYTECODE bytecode = { };
-	ComPtr<ID3DBlob> blob = nullptr; // d3d blob for holding vertex shader bytecode
-	ComPtr<ID3DBlob> error_buffer = nullptr; // a buffer holding the error data from compilation if any
-
-	void set_target_from_type(Type type) {
-		const std::string suffix = "_5_0";
-		switch (type) {
-			case Type::Vertex:
-				target = "vs";
-				break;
-			case Type::Hull:
-				target = "hs";
-				break;
-			case Type::Domain:
-				target = "ds";
-				break;
-			case Type::Geometry:
-				target = "gs";
-				break;
-			case Type::Pixel:
-				target = "ps";
-				break;
-		}
-		target += suffix;
-	}
-
-	Type type = Type::Pixel;
+	std::string file_name{""};
+	std::string entrypoint{"main"};
+	std::string target{"vs_6_0"};
+	std::vector<std::string> defines{};
+	ComPtr<IDxcResult> compile_result{};
 };
 
 /**
@@ -131,13 +150,16 @@ public:
 
 	GET std::optional<std::weak_ptr<Shader>> get_shader(const std::string &file) noexcept;
 
-	std::weak_ptr<Shader> add_and_compile_shader(Shader::Type type, const std::string &file);
+	std::weak_ptr<Shader> add_and_compile_shader(const std::string& target, const std::string &file);
 
 private:
-	ShaderStorage() { }
+	ShaderStorage();
 
 	static ShaderStorage* shader_storage;
-	std::vector<std::shared_ptr<Shader>> shaders;
+	std::vector<std::shared_ptr<Shader>> shaders{};
+
+	ComPtr<IDxcCompiler3> compiler{};
+	ComPtr<IDxcIncludeHandler> include_handler{};
 };
 
 static ShaderStorage* shader_storage = ShaderStorage::get_instance();

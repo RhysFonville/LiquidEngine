@@ -31,10 +31,10 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="packages.config" />
-    <None Include="Graphics\Shaders\BaseShader.hlsli" />
-    <None Include="Graphics\Shaders\BaseLitPS.hlsli" />
-    <None Include="Graphics\Shaders\BaseVS.hlsli" />
-    <None Include="Graphics\Shaders\PSBuffers.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseShader.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseLitPS.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseVS.hlsli" />
+    <None Include="Graphics\Shaders\Includes\PSBuffers.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log">

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <DirectXTex.h>
+#include <filesystem>
 #include "Pipeline/GraphicsPipeline.h"
 #include "../Components/GraphicsComponent.h"
 

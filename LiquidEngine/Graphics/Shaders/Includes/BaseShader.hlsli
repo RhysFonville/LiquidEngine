@@ -22,18 +22,18 @@ static const matrix ZERO_MATRIX = {
 	{ 0, 0, 0, 0 }
 };
 
+static float invert(float color) {
+	return 1.0f - color;
+}
+
+static float2 invert(float2 color) {
+	return float2(1.0f - color.r, 1.0f - color.g);
+}
+
+static float3 invert(float3 color) {
+	return float3(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
+}
+
 static float4 invert(float4 color) {
-	return float4(1 - color.r, 1 - color.g, 1 - color.b, color.a);
-}
-
-static float4 float_to_float4(float f) {
-	return float4(f, f, f, f);
-}
-
-static float3 float_to_float3(float f) {
-	return float3(f, f, f);
-}
-
-static float4 float_to_a1float4(float f) {
-	return float4(f, f, f, 1.0f);
+	return float4(1.0f - color.r, 1.0f - color.g, 1.0f - color.b, 1.0f - color.a);
 }

@@ -28,35 +28,39 @@ void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<
 	root_signature.check_for_update(device, command_list, descriptor_heaps);
 	root_signature.compile(device, command_list, descriptor_heaps);
 
-	// Fill PSO
-
-	// fill out an input layout desc structure
 	D3D12_INPUT_LAYOUT_DESC input_layout_desc = {};
 
 	input_layout_desc.NumElements = (UINT)input_layout.size();
 	input_layout_desc.pInputElementDescs = &input_layout[0];
 
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc = {}; // a structure to define a pso
-	pso_desc.pRootSignature = root_signature.signature.Get(); // the root signature that describes the input data this pso needs
-	pso_desc.InputLayout = input_layout_desc; // the structure describing our input layout
-	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type; // type of topology we are drawing
-	if (!this->vs.expired()) pso_desc.VS = this->vs.lock()->get_bytecode(); // structure describing where to find the vertex shader bytecode and how large it is
-	if (!this->hs.expired()) pso_desc.HS = this->hs.lock()->get_bytecode();
-	if (!this->ds.expired()) pso_desc.DS = this->ds.lock()->get_bytecode();
+	auto set_shader = [](D3D12_SHADER_BYTECODE& pso_bytecode, const std::weak_ptr<Shader>& shader) {
+		if (!shader.expired()) {
+			ComPtr<IDxcBlob> blob{shader.lock()->get_bytecode_blob()};
+			pso_bytecode.pShaderBytecode = blob->GetBufferPointer();
+			pso_bytecode.BytecodeLength = blob->GetBufferSize();
+		}
+	};
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC pso_desc{};
+	pso_desc.pRootSignature = root_signature.signature.Get();
+	pso_desc.InputLayout = input_layout_desc;
+	pso_desc.PrimitiveTopologyType = input_assembler.primitive_topology_type;
+	set_shader(pso_desc.VS, this->vs);
+	set_shader(pso_desc.HS, this->hs);
+	set_shader(pso_desc.DS, this->ds);
 	pso_desc.StreamOutput = stream_output.desc;
-	if (!this->gs.expired()) pso_desc.GS = this->gs.lock()->get_bytecode();
+	set_shader(pso_desc.GS, this->gs);
 	pso_desc.RasterizerState = rasterizer.desc;
-	if (!this->ps.expired()) pso_desc.PS = this->ps.lock()->get_bytecode();
-	pso_desc.DepthStencilState = depth_stencil_desc; // a default depth stencil state
-	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM; // format of the render target
-	pso_desc.SampleDesc = sample_desc; // must be the same sample desc as the swapchain and depth/stencil buffer
-	pso_desc.SampleMask = UINT_MAX; // sample mask has to do with multi-sampling. 0xffffffff means point sampling is done
-	pso_desc.BlendState = blend_desc; // a default blend state.
-	pso_desc.NumRenderTargets = 1; // we are only binding one render target
+	set_shader(pso_desc.PS, this->ps);
+	pso_desc.DepthStencilState = depth_stencil_desc;
+	pso_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	pso_desc.SampleDesc = sample_desc; // Must be the same sample desc as the swapchain and depth/stencil buffer
+	pso_desc.SampleMask = UINT_MAX;
+	pso_desc.BlendState = blend_desc;
+	pso_desc.NumRenderTargets = 1;
 	pso_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	//pso_desc.Flags = D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG;
 
-	// create the pso
 	HPEW(device->CreateGraphicsPipelineState(&pso_desc, IID_PPV_ARGS(&pipeline_state_object)));
 	HPEW(pipeline_state_object->SetName(L"Main PSO"));
 }

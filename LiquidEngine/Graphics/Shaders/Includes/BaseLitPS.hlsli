@@ -27,7 +27,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 	float3 n = float3(0.0f, 0.0f, 0.0f);
 	
 	if (material.has_normal_map) {
-		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord);
+		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord).xyz;
 
 		// Change normal map range from [0, 1] to [-1, 1]
 		normal_map_result = (2.0f * normal_map_result) - 1.0f;
@@ -49,23 +49,6 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 
 	for (uint i = 0; i < directional_light_count; i++) {
 		if (!directional_lights[i].null) {
-			//float4 is = directional_lights[i].specular;
-			//float4 id = directional_lights[i].diffuse;
-
-			//float4 ks = material.ks;
-			//float4 kd = material.kd;
-			//float a = material.a;
-
-			//float3 lm = normalize(-directional_lights[i].direction);
-
-			//if (dot(lm, n) > 0.0f) {
-			//	light_final_color += saturate(kd * dot(lm, n) * id);
-			//}
-			
-			////light_final_color += ia;
-			
-			//final_color += light_final_color;
-			
 			float3 light_dir = normalize(-directional_lights[i].direction);
 			float3 view_dir = normalize(camera_position - ps_in.world_position);
 			float3 reflect_dir = reflect(-light_dir, n);
@@ -74,8 +57,8 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 			float spec_power = pow(max(dot(view_dir, reflect_dir), 0.0f), a);
 			
 			float4 ambient = ka;
-			float4 diffuse = (directional_lights[i].diffuse * kd) * float_to_a1float4(diff_power);
-			float4 specular = (directional_lights[i].specular * ks) * float_to_a1float4(spec_power);
+			float4 diffuse = (directional_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
+			float4 specular = (directional_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
 			
 			light_final_color = (ambient + diffuse + specular);
 			final_color += light_final_color;
@@ -94,8 +77,8 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 				float spec_power = pow(max(dot(view_dir, reflect_dir), 0.0f), a);
 			
 				float4 ambient = ka;
-				float4 diffuse = (point_lights[i].diffuse * kd) * float_to_a1float4(diff_power);
-				float4 specular = (point_lights[i].specular * ks) * float_to_a1float4(spec_power);
+				float4 diffuse = (point_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
+				float4 specular = (point_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
 			
 				float att =
 				1.0 / (
@@ -103,7 +86,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 						distance * point_lights[i].attenuation.y +
 						(distance * distance) * point_lights[i].attenuation.z
 				);
-				float4 attenuation = float_to_a1float4(att);
+				float4 attenuation = float4(att.xxx, 1.0f);
 				
 				ambient *= attenuation;
 				diffuse *= attenuation;

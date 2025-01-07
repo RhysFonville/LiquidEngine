@@ -1,4 +1,4 @@
-#include "BaseLitPS.hlsli"
+#include "Includes/BaseLitPS.hlsli"
 
 float4 main(PS_INPUT ps_in) : SV_TARGET {
 	float4 kd = material.kd;
