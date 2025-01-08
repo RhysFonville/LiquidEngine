@@ -173,6 +173,7 @@
     <ClInclude Include="Graphics\graphicsoperatoroverloading.h" />
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h" />
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h" />
+    <ClInclude Include="Graphics\Pipeline\ShaderCompiler.h" />
     <ClInclude Include="Objects\MyShaderCube.h" />
     <ClInclude Include="Physics\InteractionHandler.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
@@ -244,6 +245,7 @@
   <ItemGroup>
     <ClCompile Include="Components\BoundingBoxComponent.cpp" />
     <ClCompile Include="Graphics\Pipeline\GraphicsPipelineRootArguments.cpp" />
+    <ClCompile Include="Graphics\Pipeline\ShaderCompiler.cpp" />
     <ClCompile Include="Objects\MyShaderCube.cpp" />
     <ClCompile Include="Physics\InteractionHandler.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />

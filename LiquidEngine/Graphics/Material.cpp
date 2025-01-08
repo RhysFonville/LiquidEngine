@@ -15,6 +15,7 @@ Material::Material(const std::string& vs, const std::string& ps, const std::stri
 }
 
 void Material::compile() {
+	ShaderStorage* shader_storage{ShaderStorage::get_instance()};
 	pipeline.vs = shader_storage->add_and_compile_shader("vs_6_0", vs);
 	pipeline.hs = shader_storage->add_and_compile_shader("hs_6_0", hs);
 	pipeline.ds = shader_storage->add_and_compile_shader("ds_6_0", ds);

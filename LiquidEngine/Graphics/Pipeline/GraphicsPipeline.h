@@ -8,6 +8,8 @@
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
+#define HPEW_ERR_BLOB_PARAM(buf) ((buf == nullptr ? "" : (char*)buf->GetBufferPointer()))
+
 /**
 * D3D12 graphics pipeline wrapper.
 */

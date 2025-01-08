@@ -1,7 +1,6 @@
 #pragma once
 
 #include <exception>
-#include <Windows.h>
 #include <comdef.h>
 #include <stacktrace>
 #include "../Utility/windowsconversion.h"

@@ -1,5 +1,6 @@
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Components\BoundingBoxComponent.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\BoundingBoxComponent.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Pipeline\GraphicsPipelineRootArguments.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\GraphicsPipelineRootArguments.obj
+C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Graphics\Pipeline\ShaderCompiler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\ShaderCompiler.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Objects\MyShaderCube.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\MyShaderCube.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\InteractionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\InteractionHandler.obj
 C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\Physics\CollisionHandler.cpp;C:\Users\Family\source\repos\LiquidEngine\LiquidEngine\x64\Debug\CollisionHandler.obj

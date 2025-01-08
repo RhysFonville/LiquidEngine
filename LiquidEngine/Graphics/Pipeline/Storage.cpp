@@ -2,12 +2,6 @@
 
 ShaderStorage* ShaderStorage::shader_storage = nullptr;
 
-ShaderStorage::ShaderStorage() {
-	HPEW(DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(utils.GetAddressOf())));
-	HPEW(DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(compiler.GetAddressOf())));
-	HPEW(utils->CreateDefaultIncludeHandler(include_handler.GetAddressOf()));
-}
-
 ShaderStorage* ShaderStorage::get_instance() {
 	if (shader_storage == nullptr){
 		shader_storage = new ShaderStorage{};
@@ -34,7 +28,7 @@ std::weak_ptr<Shader> ShaderStorage::add_and_compile_shader(const std::string& t
 	}
 
 	std::shared_ptr<Shader> s{std::make_shared<Shader>(target, file)};
-	s->compile(compiler);
+	ShaderCompiler::get_instance()->compile(*s);
 
 	shaders.push_back(s);
 

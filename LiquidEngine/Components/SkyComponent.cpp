@@ -14,6 +14,7 @@ void SkyComponent::compile() {
 	rdesc.CullMode = D3D12_CULL_MODE_FRONT;
 	pipeline.rasterizer.set_desc(rdesc);
 
+	ShaderStorage* shader_storage{ShaderStorage::get_instance()};
 	pipeline.vs = shader_storage->add_and_compile_shader("vs_6_0", "Graphics/Shaders/SkyVS.hlsl");
 	pipeline.ps = shader_storage->add_and_compile_shader("ps_6_0", "Graphics/Shaders/SkyPS.hlsl");
 
