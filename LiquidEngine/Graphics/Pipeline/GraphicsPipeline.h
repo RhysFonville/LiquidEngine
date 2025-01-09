@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <queue>
+#include <ranges>
+#include <map>
 #include "GraphicsPipelineRootArgumentContainers.h"
 #include "GraphicsPipelineIACommand.h"
 #include "Storage.h"
@@ -12,6 +14,8 @@
 
 /**
 * D3D12 graphics pipeline wrapper.
+* 
+*  <a href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12">Pipeline</a>
 */
 class GraphicsPipeline {
 public:
@@ -47,28 +51,22 @@ public:
 
 	bool compile_signal = true;
 
-	std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
-		{ "POSITION",			0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	0u,								D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
-		{ "TEXCOORD",			0u,	DXGI_FORMAT_R32G32_FLOAT,		0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
-		{ "NORMAL",				0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
-		{ "TANGENT",			0u,	DXGI_FORMAT_R32G32B32_FLOAT,	0u,	D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,		0u },
-		{ "INSTANCE_POSITION",	0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, 0u,								D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
-		{ "INSTANCE_ROTATION",	0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
-		{ "INSTANCE_SIZE",		0u, DXGI_FORMAT_R32G32B32_FLOAT,	1u, D3D12_APPEND_ALIGNED_ELEMENT,	D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,	1u },
-	};
-
 	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 
 	/**
-	 * Uploads mesh data.
+	 * Input assembler stage.
 	 * \see Mesh
-	 * \see GraphicsPipelineMeshChange::Manager
+	 * \see GraphicsPipelineIACommand
 	 */
 	class InputAssembler {
 	public:
 		InputAssembler() { }
 
-		void set_instances(const std::vector<Transform>& instances, const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list);
+		bool operator==(const InputAssembler& input_assembler) const noexcept;
+
+		void compile(const std::weak_ptr<Shader>& vs);
+
+		//void set_instances(const std::vector<Transform>& instances, const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list);
 
 		void add_mesh(const Mesh &mesh, const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, size_t index = -1);
 		void remove_mesh(size_t index);
@@ -81,23 +79,16 @@ public:
 
 		void clean_up();
 
-		GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
-		GET D3D12_VERTEX_BUFFER_VIEW get_instance_buffer_view() const noexcept;
+		//GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
+		//GET D3D12_VERTEX_BUFFER_VIEW get_instance_buffer_view() const noexcept;
 
-		void clear_commands() noexcept { commands = std::queue<std::shared_ptr<GraphicsPipelineIACommand>>{}; }
+		void clear_commands() noexcept;
+		void add_command(const std::shared_ptr<GraphicsPipelineIACommand>&& command) noexcept;
 
-		void add_command(const std::shared_ptr<GraphicsPipelineIACommand>&& command) noexcept {
-			commands.push(command);
-		}
+		const std::vector<D3D12_INPUT_ELEMENT_DESC>& get_input_layout() const noexcept;
+		void set_input_layout(const std::vector<D3D12_INPUT_ELEMENT_DESC>& layout) noexcept;
 
-		bool operator==(const InputAssembler &input_assembler) const noexcept {
-			return (
-				vertex_buffers == input_assembler.vertex_buffers &&
-				vertex_buffer_views == input_assembler.vertex_buffer_views &&
-				primitive_topology_type == input_assembler.primitive_topology_type &&
-				primitive_topology == input_assembler.primitive_topology
-			);
-		}
+		D3D12_INPUT_LAYOUT_DESC get_input_layout_desc() const noexcept;
 
 	private:
 		friend GraphicsPipeline;
@@ -113,13 +104,25 @@ public:
 		
 		std::queue<std::shared_ptr<GraphicsPipelineIACommand>> commands;
 
-	} input_assembler;
+		std::vector<D3D12_INPUT_ELEMENT_DESC> input_layout = {
+			{"POSITION", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 0u, 0u, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0u},
+			{"TEXCOORD", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0u},
+			{"NORMAL", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 0u, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0u},
+			{"TANGENT", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 0u, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0u},
+			//{"INSTANCE_POSITION", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 1u, 0u, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1u},
+			//{"INSTANCE_ROTATION", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 1u, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1u},
+			//{"INSTANCE_SIZE", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 1u, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1u},
+		};
 
-	std::weak_ptr<Shader> vs{};
-	std::weak_ptr<Shader> hs{};
-	std::weak_ptr<Shader> ds{};
-	std::weak_ptr<Shader> gs{};
-	std::weak_ptr<Shader> ps{};
+	} input_assembler;
+	
+	struct Shaders {
+		std::weak_ptr<Shader> vs{};
+		std::weak_ptr<Shader> hs{};
+		std::weak_ptr<Shader> ds{};
+		std::weak_ptr<Shader> gs{};
+		std::weak_ptr<Shader> ps{};
+	} shaders;
 
 	/**
 	* Rasterizer stage.
@@ -148,7 +151,7 @@ public:
 	} rasterizer;
 
 	/**
-	* Stream output stage.
+	* Stream output of the pipeline.
 	*/
 	class StreamOutput {
 	public:
@@ -170,22 +173,24 @@ public:
 	} stream_output;
 
 	/**
-	* Uploads data and structures to shaders.
+	* Root signature of the pipeline. Uploads data and structures to shaders.
 	*/
-	class RootSignature { // https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12
+	class RootSignature {
 	public:
 		RootSignature() { }
 
-		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
+		bool operator==(const RootSignature& root_signature) const noexcept;
+
+		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps, const Shaders& shaders);
 		
+		void bind_shader_resource_parameters(const std::weak_ptr<Shader>& s);
+
 		void clean_up();
 
 		void check_for_update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 		
 		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-		bool operator==(const RootSignature &root_signature) const noexcept;
-		
 		/**
 		* Binds root constants to root signature. Uses the RootConstants class from the container to bind.
 		* \param obj Root constants container to bind.
@@ -241,7 +246,7 @@ public:
 		GET const std::vector<std::weak_ptr<ShaderResourceView>> & get_shader_resource_views() const noexcept { return shader_resource_views; }
 
 		GET const std::vector<std::weak_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
-		GET const std::vector<D3D12_ROOT_PARAMETER> & get_root_params() const noexcept { return compilation_params; }
+		GET const std::vector<D3D12_ROOT_PARAMETER1> & get_root_params() const noexcept { return root_params; }
 
 	private:
 		friend GraphicsPipeline;
@@ -252,9 +257,11 @@ public:
 		std::vector<std::weak_ptr<RootConstants>> root_constants{};
 		std::vector<std::weak_ptr<ShaderResourceView>> shader_resource_views{};
 
-		CD3DX12_ROOT_SIGNATURE_DESC signature_desc{};
+		D3D12_VERSIONED_ROOT_SIGNATURE_DESC signature_desc{};
 
-		std::vector<D3D12_ROOT_PARAMETER> compilation_params{};
+		std::vector<D3D12_ROOT_PARAMETER1> root_params{};
+		std::map<std::string, UINT> root_param_index_map{};
+		std::vector<D3D12_DESCRIPTOR_RANGE1> descriptor_ranges{};
 
 		ComPtr<ID3D12RootSignature> signature{nullptr}; // Root signature defines data shaders will access
 	} root_signature;

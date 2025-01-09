@@ -29,12 +29,16 @@ public:
 	GET std::string get_entrypoint() const noexcept { return entrypoint; }
 	GET std::string get_file() const noexcept { return file_name; }
 	GET std::vector<DxcDefine> get_defines() const noexcept { return defines; }
-	GET ComPtr<IDxcResult> & get_compile_result() noexcept { return compile_result; }
+	GET ComPtr<IDxcResult>& get_compile_result() noexcept { return compile_result; }
+	GET ComPtr<ID3D12ShaderReflection> & get_reflection() noexcept { return reflection; }
+
 	GET ComPtr<IDxcBlob> get_bytecode_blob() const {
 		ComPtr<IDxcBlob> blob{};
 		HPEW(compile_result->GetResult(blob.GetAddressOf()));
 		return blob;
 	}
+
+	GET 
 
 	bool operator==(const Shader& shader) const noexcept {
 		return (file_name == shader.file_name);
@@ -46,6 +50,7 @@ private:
 	std::string target{"vs_6_0"};
 	std::vector<DxcDefine> defines{};
 	ComPtr<IDxcResult> compile_result{};
+	ComPtr<ID3D12ShaderReflection> reflection{};
 };
 
 /*
@@ -93,38 +98,35 @@ public:
 	void operator=(const ShaderCompiler&) = delete;
 	GET static ShaderCompiler* get_instance();
 
-	void compile(Shader& shader) {
+	ComPtr<IDxcResult> compile(const std::wstring& file, const std::wstring& entrypoint, const std::wstring& target, const std::vector<DxcDefine>& defines = {}, const std::vector<LPCWSTR>& additional_params = {}) {
 		ComPtr<ShaderCompilerIncludeHandler> include_handler{new ShaderCompilerIncludeHandler{}};
 
 		ComPtr<IDxcBlobEncoding> source{};
-		std::wstring wsource{string_to_wstring(shader.get_file())};
-		HPEW(utils->LoadFile(wsource.c_str(), nullptr, source.GetAddressOf()));
+		HPEW(utils->LoadFile(file.c_str(), nullptr, source.GetAddressOf()));
 
 		ComPtr<IDxcCompilerArgs> compiler_args{};
 
 		std::wstring include{fs::current_path().wstring()};
-
 		std::vector<LPCWSTR> arguments{
-			L"-Qstrip_debug",
-			L"-Qstrip_reflect",
 			L"-WX",
 			L"-all_resources_bound",
 			L"-I", include.c_str()
 		};
+
+		arguments.insert(arguments.cend(), additional_params.begin(), additional_params.end());
 
 #ifdef _DEBUG
 		arguments.push_back(L"-Zi");
 		arguments.push_back(L"-Od");
 #else
 		arguments.push_back(L"-O3");
+		arguments.push_back(L"-Qstrip_debug");
 #endif
 
-		std::wstring wentry{string_to_wstring(shader.get_entrypoint())};
-		std::wstring wtarget{string_to_wstring(shader.get_target())};
 		HPEW(utils->BuildArguments(
-			wsource.c_str(), wentry.c_str(), wtarget.c_str(),
+			file.c_str(), entrypoint.c_str(), target.c_str(),
 			arguments.data(), (UINT)arguments.size(),
-			shader.get_defines().data(), (UINT)shader.get_defines().size(),
+			defines.data(), (UINT)defines.size(),
 			compiler_args.GetAddressOf()
 		));
 
@@ -134,15 +136,43 @@ public:
 			.Encoding = 0u
 		};
 
-		HPEW(compiler->Compile(&source_buffer, compiler_args->GetArguments(), (UINT32)arguments.size(), include_handler.Get(), IID_PPV_ARGS(shader.get_compile_result().GetAddressOf())));
+		ComPtr<IDxcResult> result{};
+		HPEW(compiler->Compile(&source_buffer, compiler_args->GetArguments(), (UINT32)arguments.size(), include_handler.Get(), IID_PPV_ARGS(result.GetAddressOf())));
 
 		// Error Handling. Note that this will also include warnings unless disabled.
 		ComPtr<IDxcBlobUtf8> errors{};
-		HPEW(shader.get_compile_result()->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(errors.GetAddressOf()), NULL));
+		HPEW(result->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(errors.GetAddressOf()), NULL));
 		if (errors && errors->GetStringLength() > 0) {
-			std::cout << (char*)errors->GetBufferPointer();
 			throw std::exception{(char*)errors->GetBufferPointer()};
 		}
+
+		return result;
+	}
+
+	ComPtr<ID3D12ShaderReflection> get_shader_reflection(const ComPtr<IDxcResult>& result) {
+		ComPtr<IDxcBlob> reflection_blob{};
+		HPEW(result->GetOutput(DXC_OUT_REFLECTION, IID_PPV_ARGS(&reflection_blob), nullptr));
+
+		const DxcBuffer reflection_buffer{
+			.Ptr = reflection_blob->GetBufferPointer(),
+			.Size = reflection_blob->GetBufferSize(),
+			.Encoding = 0u,
+		};
+
+		ComPtr<ID3D12ShaderReflection> shader_reflection{};
+		utils->CreateReflection(&reflection_buffer, IID_PPV_ARGS(&shader_reflection));
+		D3D12_SHADER_DESC shader_desc{};
+		HPEW(shader_reflection->GetDesc(&shader_desc));
+	}
+
+	void compile(Shader& shader) {
+		shader.get_compile_result() = compile(
+			string_to_wstring(shader.get_file()),
+			string_to_wstring(shader.get_entrypoint()),
+			string_to_wstring(shader.get_target()),
+			shader.get_defines()
+		);
+		shader.get_reflection() = get_shader_reflection(shader.get_compile_result());
 	}
 
 private:

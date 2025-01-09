@@ -246,6 +246,8 @@
     <ClCompile Include="Components\BoundingBoxComponent.cpp" />
     <ClCompile Include="Graphics\Pipeline\GraphicsPipelineRootArguments.cpp" />
     <ClCompile Include="Graphics\Pipeline\ShaderCompiler.cpp" />
+    <ClCompile Include="Graphics\Pipeline\Stages\InputAssembler.cpp" />
+    <ClCompile Include="Graphics\Pipeline\Stages\RootSignature.cpp" />
     <ClCompile Include="Objects\MyShaderCube.cpp" />
     <ClCompile Include="Physics\InteractionHandler.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
