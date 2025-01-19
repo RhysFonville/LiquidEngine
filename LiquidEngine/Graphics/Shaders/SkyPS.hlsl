@@ -1,10 +1,12 @@
-SamplerState static_sampler : register(s0);
-Texture2D albedo_texture : register(t0);
+SamplerState STATIC_SAMPLER : register(s0);
+Texture2D ALBEDO_TEXTURE : register(t0);
 
-cbuffer PSSkyCB : register(b2) {
+struct PSSkyCB {
 	int has_texture;
 	float4 albedo;
 };
+
+ConstantBuffer<PSSkyCB> SKY_BUFFER : register(b2);
 
 struct SkyboxVSOut {
 	float4 position : SV_Position;
@@ -12,8 +14,8 @@ struct SkyboxVSOut {
 };
 
 float4 main(SkyboxVSOut ps_in) : SV_TARGET {
-	if (has_texture)
-		return albedo_texture.Sample(static_sampler, ps_in.texcoord);
+	if (SKY_BUFFER.has_texture)
+		return ALBEDO_TEXTURE.Sample(STATIC_SAMPLER, ps_in.texcoord);
 	else
-		return albedo;
+		return SKY_BUFFER.albedo;
 }

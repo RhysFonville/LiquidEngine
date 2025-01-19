@@ -3,7 +3,7 @@
 Scene::Scene(GraphicsScene* graphics_scene) : graphics_scene(graphics_scene) { }
 
 void Scene::tick(float dt) {
-	render_editor_gui_section();
+	//render_editor_gui_section();
 
 	input_listener.handle_input(dt);
 

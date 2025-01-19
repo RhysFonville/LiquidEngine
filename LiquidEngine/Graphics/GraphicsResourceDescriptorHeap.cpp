@@ -24,7 +24,7 @@ UINT GraphicsResourceDescriptorHeap::get_open_heap_index() {
 	else return (UINT)occupation.size();
 }
 
-void GraphicsResourceDescriptorHeap::create_cbv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &upload_buffer, size_t obj_size, UINT frame_index, UINT heap_index) {
+void GraphicsResourceDescriptorHeap::create_cbv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &upload_buffer, size_t obj_size, UINT heap_index) {
 	D3D12_CONSTANT_BUFFER_VIEW_DESC view_desc = { };
 	view_desc.BufferLocation = upload_buffer->GetGPUVirtualAddress();
 	view_desc.SizeInBytes = (obj_size + 255) & ~255; // CB size is required to be 256-byte aligned.
@@ -36,7 +36,7 @@ void GraphicsResourceDescriptorHeap::create_cbv(const ComPtr<ID3D12Device> &devi
 	reserve_descriptor_index(heap_index);
 }
 
-void GraphicsResourceDescriptorHeap::create_srv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &default_buffer, D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc, UINT frame_index, UINT heap_index) {
+void GraphicsResourceDescriptorHeap::create_srv(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12Resource> &default_buffer, D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc, UINT heap_index) {
 	// Taking the first descriptor of the heap as a simple example  
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = { };
 	handle.ptr = descriptor_heap->GetCPUDescriptorHandleForHeapStart().ptr + heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); 

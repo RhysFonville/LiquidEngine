@@ -46,8 +46,8 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
 
-	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
-	descriptor_heap.reserve_descriptor_index(0u);
+	//EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
+	//descriptor_heap.reserve_descriptor_index(0u);
 }
 
 void Renderer::create_factory() {
@@ -309,7 +309,7 @@ void Renderer::setup_imgui_section() {
 		if (ImGui::Button("Re-initialize renderer")) {
 			end_imgui();
 			refresh();
-			compile(true);
+			compile();
 			skip_frame = true;
 			return;
 		}
@@ -426,28 +426,33 @@ void Renderer::setup_imgui_section() {
 	}
 }
 
-void Renderer::compile(bool compile_components) {
+void Renderer::compile() {
 	// reset command list and allocator   
 	HPEW(command_allocator->Reset());
 	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
-
+	
 	scene.compile();
-	scene.update(resolution);
 
 	for (auto &mesh : scene.static_meshes) {
-		if (compile_components)
-			mesh->component->compile();
-
-		mesh->material.component->bind_shader_arguments();
+		//mesh->component->compile();
 		mesh->material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	if (scene.sky.component != nullptr) {
-		if (compile_components)
-			scene.sky.component->compile();
-
+		//scene.sky.component->compile();
 		scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
+	
+	scene.set_resources();
+	
+	for (auto& mesh : scene.static_meshes) {
+		mesh->material.component->pipeline.root_signature.compile_resources(device, command_list, descriptor_heap);
+	}
+	if (scene.sky.component != nullptr) {
+		scene.sky.component->pipeline.root_signature.compile_resources(device, command_list, descriptor_heap);
+	}
+
+	scene.update(resolution);
 
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -455,7 +460,7 @@ void Renderer::compile(bool compile_components) {
 }
 
 void Renderer::render(float dt) {
-	setup_imgui_section();
+	//setup_imgui_section();
 
 	if (skip_frame) return;
 
@@ -511,11 +516,11 @@ void Renderer::render(float dt) {
 	}
 
 	// Render Dear ImGui graphics
-	ImGui::End();
-	ImGui::Render();
-	ID3D12DescriptorHeap* imguidh[] = { descriptor_heap.get().Get() };
-	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
+	//ImGui::End();
+	//ImGui::Render();
+	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heap.get().Get() };
+	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	if (msaa) {
 		barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
@@ -695,7 +700,7 @@ void Renderer::set_msaa_sample_count(UINT count) {
 	create_rtvs();
 	auto size = get_client_size(window);
 	create_depth_stencil(size);
-	compile(true);
+	compile();
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {

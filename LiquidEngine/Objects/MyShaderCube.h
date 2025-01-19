@@ -20,5 +20,5 @@ private:
 		float intensity{1.0f};
 	};
 
-	RootConstantsContainer<s> rc{s{}};
+	//RootConstantsContainer<s> rc{s{}};
 };

@@ -1,5 +1,9 @@
 #include "Texture.h"
 
+Texture::Texture(const Texture& texture) {
+	set_texture(texture.file);
+}
+
 Texture::Texture(const std::string &file) {
 	set_texture(file);
 }

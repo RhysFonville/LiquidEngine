@@ -163,6 +163,8 @@ public:
 		utils->CreateReflection(&reflection_buffer, IID_PPV_ARGS(&shader_reflection));
 		D3D12_SHADER_DESC shader_desc{};
 		HPEW(shader_reflection->GetDesc(&shader_desc));
+
+		return shader_reflection;
 	}
 
 	void compile(Shader& shader) {

@@ -1,6 +1,8 @@
 #pragma once
 
+#include <memory>
 #include "GraphicsPipelineRootArguments.h"
+#include "../Texture.h"
 
 /**
 * Stores a structure and the constant buffer. The structure is the data to be written to the constant buffer. Not required, but useful.
@@ -12,28 +14,54 @@ public:
 	ConstantBufferContainer() { }
 
 	ConstantBufferContainer(const T &obj)
-		: obj(std::make_shared<T>(obj)),
-		cb{std::make_shared<ConstantBuffer>(*this->obj)} { }
+		: obj(std::make_shared<T>(obj)) { }
 
 	void clean_up() {
 		obj = nullptr;
-		cb = nullptr;
+		cb.reset();
 	}
 
-	void update() { cb->update_signal = true; }
+	void update() {
+		if (auto cb_sp{cb.lock()}; cb_sp)
+			cb_sp->update();
+	}
+
+	const std::shared_ptr<T>& get_obj() const noexcept {
+		return obj;
+	}
+
+	void set_obj_ptr(const T&& obj) {
+		this->obj = std::make_shared<T>(obj);
+		if (auto sp{cb.lock()}) sp->set_obj(*this->obj);
+	}
+
+	void set_obj_ptr(T& obj) {
+		this->obj = std::make_shared<T>(obj);
+		if (auto sp{cb.lock()}) sp->set_obj(*this->obj);
+	}
+
+	/*const std::weak_ptr<ConstantBuffer>& get_cb() {
+		return cb;
+	}*/
+
+	void set_cb(const std::weak_ptr<ConstantBuffer>& cb) {
+		this->cb = cb;
+		if (auto sp{cb.lock()}) sp->set_obj(*obj);
+	}
 
 	bool operator==(const ConstantBufferContainer &cb) const noexcept {
 		return (obj == cb.obj);
 	}
 
+private:
 	std::shared_ptr<T> obj{};
-	std::shared_ptr<ConstantBuffer> cb{nullptr};
+	std::weak_ptr<ConstantBuffer> cb{};
 };
 
 /**
 * Stores a structure and the root constants. The structure is the data to be written to the root constants. Not required, but useful.
 */
-template <typename T>
+/*template <typename T>
 class RootConstantsContainer {
 public:
 	RootConstantsContainer() { }
@@ -55,4 +83,58 @@ public:
 
 	std::shared_ptr<T> obj{};
 	std::shared_ptr<RootConstants> rc{nullptr};
+};*/
+
+/**
+* Stores a texture and the shader resource view. The texture is the data to be written to the shader resource view. Not required, but useful.
+* \see ConstantBuffer
+*/
+class ShaderResourceViewContainer {
+public:
+	ShaderResourceViewContainer() { }
+
+	ShaderResourceViewContainer(const Texture& texture)
+		: texture(std::make_shared<Texture>(texture)) { }
+
+	void clean_up() {
+		texture = nullptr;
+		srv.reset();
+	}
+
+	void update() {
+		if (auto srv_sp{srv.lock()}; srv_sp) {
+			srv_sp->update_descs(texture->get_mip_chain());
+		}
+	}
+
+	const std::shared_ptr<Texture>& get_texture() const noexcept {
+		return texture;
+	}
+
+	void set_texture(const Texture& texture) {
+		this->texture = std::make_shared<Texture>(texture);
+		if (auto sp{srv.lock()}) sp->update_descs(texture.get_mip_chain());
+	}
+
+	void set_texture(const Texture&& texture) {
+		this->texture = std::make_shared<Texture>(texture);
+		if (auto sp{srv.lock()}) sp->update_descs(texture.get_mip_chain());
+	}
+
+	/*const std::weak_ptr<ShaderResourceView>& get_srv() {
+		return srv;
+	}*/
+
+	void set_srv(const std::weak_ptr<ShaderResourceView>& srv) {
+		this->srv = srv;
+		if (auto sp{srv.lock()}) sp->update_descs(texture->get_mip_chain());
+	}
+
+	bool operator==(const ShaderResourceViewContainer& cb) const noexcept {
+		return (texture == cb.texture);
+	}
+
+private:
+	std::shared_ptr<Texture> texture{};
+	std::weak_ptr<ShaderResourceView> srv{};
 };

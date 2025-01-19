@@ -2,7 +2,8 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-#include "../Graphics/Texture.h"
+#include "Pipeline/GraphicsPipeline.h"
+#include "Texture.h"
 #include "../Components/GraphicsComponent.h"
 
 /**
@@ -48,16 +49,6 @@ public:
 
 	GraphicsPipeline pipeline{};
 
-	void add_shader_argument(std::shared_ptr<ConstantBuffer>& cb);
-	void add_shader_argument(std::shared_ptr<RootConstants>& rc);
-	void add_shader_argument(std::shared_ptr<ShaderResourceView>& srv);
-
-	void bind_shader_arguments();
-
-	std::vector<std::shared_ptr<ConstantBuffer>> get_shader_cbs() const noexcept;
-	std::vector<std::shared_ptr<RootConstants>> get_shader_rcs() const noexcept;
-	std::vector<std::shared_ptr<ShaderResourceView>> get_shader_srvs() const noexcept;
-
 private:
 	std::string vs{"Graphics/Shaders/DefaultVertex.hlsl"};
 	std::string hs{};
@@ -72,9 +63,4 @@ private:
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka
 	float shininess{10.0f}; // a
-
-	std::vector<std::pair<char, size_t>> order{};
-	std::vector<std::shared_ptr<ConstantBuffer>> cbs{};
-	std::vector<std::shared_ptr<RootConstants>> rcs{};
-	std::vector<std::shared_ptr<ShaderResourceView>> srvs{};
 };

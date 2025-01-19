@@ -77,7 +77,7 @@ public:
 	 * \param compile_components If components are already compiled, keep false. You may set to true if the renderer was just cleaned.
 	 * \param compile_scene If graphics scene components are already compiled, keep false. You may set to true if the renderer was just cleaned.
 	 */
-	void compile(bool compile_components = false);
+	void compile();
 
 	/**
 	 * Resizes swap chain, viewport/scissor rect, and depth stencil. Automatically called when window resizes.

@@ -5,20 +5,20 @@ static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
 
 static float4 falloff_equation(float obj_pos) {
-	return pow(1.0f / distance(camera_position, obj_pos), 0.0f);
+	return pow(1.0f / distance(CAMERA_BUFFER.camera_position, obj_pos), 0.0f);
 }
 
 static float4 calculate_lit(PS_INPUT ps_in) {
-	float4 kd = material.kd;
-	float4 ks = material.ks;
-	float4 ka = material.ka;
-	float a = material.a;
+	float4 kd = OBJECT_BUFFER.material.kd;
+	float4 ks = OBJECT_BUFFER.material.ks;
+	float4 ka = OBJECT_BUFFER.material.ka;
+	float a = OBJECT_BUFFER.material.a;
 	
-	if (material.has_texture) {
-		kd *= albedo_texture.Sample(static_sampler_state, ps_in.texcoord);
+	if (OBJECT_BUFFER.material.has_texture) {
+		kd *= ALBEDO_TEXTURE.Sample(STATIC_SAMPLER, ps_in.texcoord);
 	}
-	if (material.has_specular_map) {
-		ks *= specular_map.Sample(static_sampler_state, ps_in.texcoord);
+	if (OBJECT_BUFFER.material.has_specular_map) {
+		ks *= SPECULAR_MAP.Sample(STATIC_SAMPLER, ps_in.texcoord);
 	}
 	
 	float4 final_color = float4(0.0f, 0.0f, 0.0f, 1.0f);
@@ -26,8 +26,8 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 
 	float3 n = float3(0.0f, 0.0f, 0.0f);
 	
-	if (material.has_normal_map) {
-		float3 normal_map_result = normal_map.Sample(static_sampler_state, ps_in.texcoord).xyz;
+	if (OBJECT_BUFFER.material.has_normal_map) {
+		float3 normal_map_result = NORMAL_MAP.Sample(STATIC_SAMPLER, ps_in.texcoord).xyz;
 
 		// Change normal map range from [0, 1] to [-1, 1]
 		normal_map_result = (2.0f * normal_map_result) - 1.0f;
@@ -47,44 +47,44 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 		n = normalize(ps_in.normal);
 	}
 
-	for (uint i = 0; i < directional_light_count; i++) {
-		if (!directional_lights[i].null) {
-			float3 light_dir = normalize(-directional_lights[i].direction);
-			float3 view_dir = normalize(camera_position - ps_in.world_position);
+	for (uint i = 0; i < LIGHTS_BUFFER.directional_light_count; i++) {
+		if (!LIGHTS_BUFFER.directional_lights[i].null) {
+			float3 light_dir = normalize(-LIGHTS_BUFFER.directional_lights[i].direction);
+			float3 view_dir = normalize(CAMERA_BUFFER.camera_position - ps_in.world_position);
 			float3 reflect_dir = reflect(-light_dir, n);
 			
 			float diff_power = max(dot(n, light_dir), 0.0f);
 			float spec_power = pow(max(dot(view_dir, reflect_dir), 0.0f), a);
 			
 			float4 ambient = ka;
-			float4 diffuse = (directional_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
-			float4 specular = (directional_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
+			float4 diffuse = (LIGHTS_BUFFER.directional_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
+			float4 specular = (LIGHTS_BUFFER.directional_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
 			
 			light_final_color = (ambient + diffuse + specular);
 			final_color += light_final_color;
 		}
 	}
 
-	for (uint i = 0; i < point_light_count; i++) {
-		if (!point_lights[i].null) {
-			float distance = length(point_lights[i].position - ps_in.world_position);
-			if (distance <= point_lights[i].range) {
-				float3 light_dir = normalize(point_lights[i].position - ps_in.world_position);
-				float3 view_dir = normalize(camera_position - ps_in.world_position);
+	for (uint i = 0; i < LIGHTS_BUFFER.point_light_count; i++) {
+		if (!LIGHTS_BUFFER.point_lights[i].null) {
+			float distance = length(LIGHTS_BUFFER.point_lights[i].position - ps_in.world_position);
+			if (distance <= LIGHTS_BUFFER.point_lights[i].range) {
+				float3 light_dir = normalize(LIGHTS_BUFFER.point_lights[i].position - ps_in.world_position);
+				float3 view_dir = normalize(CAMERA_BUFFER.camera_position - ps_in.world_position);
 				float3 reflect_dir = reflect(-light_dir, n);
 			
 				float diff_power = max(dot(n, light_dir), 0.0f);
 				float spec_power = pow(max(dot(view_dir, reflect_dir), 0.0f), a);
 			
 				float4 ambient = ka;
-				float4 diffuse = (point_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
-				float4 specular = (point_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
+				float4 diffuse = (LIGHTS_BUFFER.point_lights[i].diffuse * kd) * float4(diff_power.xxx, 1.0f);
+				float4 specular = (LIGHTS_BUFFER.point_lights[i].specular * ks) * float4(spec_power.xxx, 1.0f);
 			
 				float att =
 				1.0 / (
-						point_lights[i].attenuation.x +
-						distance * point_lights[i].attenuation.y +
-						(distance * distance) * point_lights[i].attenuation.z
+						LIGHTS_BUFFER.point_lights[i].attenuation.x +
+						distance * LIGHTS_BUFFER.point_lights[i].attenuation.y +
+						(distance * distance) * LIGHTS_BUFFER.point_lights[i].attenuation.z
 				);
 				float4 attenuation = float4(att.xxx, 1.0f);
 				
@@ -103,7 +103,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 	float3 distance_falloff = saturate(
 		1 /
 		pow(
-			distance(ps_in.world_position, camera_position),
+			distance(ps_in.world_position, CAMERA_BUFFER.camera_position),
 			DISTANCE_FALLOFF_POWER
 		) / DISTANCE_FALLOFF_INTENSITY
 	);

@@ -33,7 +33,7 @@ struct Material {
 
 #define MAX_LIGHTS_PER_TYPE 255
 
-cbuffer PSLightsCB : register(b2) {
+struct PSLightsCB {
 	uint directional_light_count;
 	uint point_light_count;
 	uint spotlight_count;
@@ -41,17 +41,20 @@ cbuffer PSLightsCB : register(b2) {
 	DirectionalLight directional_lights[MAX_LIGHTS_PER_TYPE];
 	PointLight point_lights[MAX_LIGHTS_PER_TYPE];
 	Spotlight spotlights[MAX_LIGHTS_PER_TYPE];
-}
+};
+ConstantBuffer<PSLightsCB> LIGHTS_BUFFER : register(b2);
 
-cbuffer PSCameraConstants : register(b3) {
+struct PSCameraConstants {
 	float3 camera_position;
-}
+};
+ConstantBuffer<PSCameraConstants> CAMERA_BUFFER : register(b3);
 
-cbuffer PerObjectPSCB : register(b4) {
+struct PerObjectPSCB {
 	Material material;
-}
+};
+ConstantBuffer<PerObjectPSCB> OBJECT_BUFFER : register(b4);
 
-Texture2D albedo_texture : register(t0);
-Texture2D normal_map : register(t1);
-Texture2D specular_map : register(t2);
-SamplerState static_sampler_state : register(s0);
+Texture2D ALBEDO_TEXTURE : register(t0);
+Texture2D NORMAL_MAP : register(t1);
+Texture2D SPECULAR_MAP : register(t2);
+SamplerState STATIC_SAMPLER : register(s0);

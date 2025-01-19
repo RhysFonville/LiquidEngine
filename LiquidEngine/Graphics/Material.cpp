@@ -16,11 +16,11 @@ Material::Material(const std::string& vs, const std::string& ps, const std::stri
 
 void Material::compile() {
 	ShaderStorage* shader_storage{ShaderStorage::get_instance()};
-	pipeline.vs = shader_storage->add_and_compile_shader("vs_6_0", vs);
-	pipeline.hs = shader_storage->add_and_compile_shader("hs_6_0", hs);
-	pipeline.ds = shader_storage->add_and_compile_shader("ds_6_0", ds);
-	pipeline.gs = shader_storage->add_and_compile_shader("gs_6_0", gs);
-	pipeline.ps = shader_storage->add_and_compile_shader("ps_6_0", ps);
+	pipeline.shaders.vs = shader_storage->add_and_compile_shader("vs_6_0", vs);
+	pipeline.shaders.hs = shader_storage->add_and_compile_shader("hs_6_0", hs);
+	pipeline.shaders.ds = shader_storage->add_and_compile_shader("ds_6_0", ds);
+	pipeline.shaders.gs = shader_storage->add_and_compile_shader("gs_6_0", gs);
+	pipeline.shaders.ps = shader_storage->add_and_compile_shader("ps_6_0", ps);
 
 	if (has_texture()) {
 		albedo_texture.compile();
@@ -140,43 +140,4 @@ bool Material::is_opaque() const noexcept {
 	bool is_ambient_opaque = (ambient.a == 1.0f);
 
 	return (is_albedo_opaque && is_normal_opaque && is_specular_opaque && is_ambient_opaque);
-}
-
-void Material::add_shader_argument(std::shared_ptr<ConstantBuffer>& cb) {
-	order.push_back(std::make_pair(0, cbs.size()));
-	cbs.push_back(cb);
-}
-
-void Material::add_shader_argument(std::shared_ptr<RootConstants>& rc) {
-	order.push_back(std::make_pair(1, rcs.size()));
-	rcs.push_back(rc);
-}
-
-void Material::add_shader_argument(std::shared_ptr<ShaderResourceView>& srv) {
-	order.push_back(std::make_pair(2, srvs.size()));
-	srvs.push_back(srv);
-}
-
-void Material::bind_shader_arguments() {
-	for (auto argument : order) {
-		if (argument.first == 0) {
-			pipeline.root_signature.bind_constant_buffer(cbs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
-		} else if (argument.first == 1) {
-			pipeline.root_signature.bind_root_constants(rcs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
-		} else if (argument.first == 2) {
-			pipeline.root_signature.bind_shader_resource_view(srvs[argument.second], D3D12_SHADER_VISIBILITY_PIXEL);
-		}
-	}
-}
-
-std::vector<std::shared_ptr<ConstantBuffer>> Material::get_shader_cbs() const noexcept {
-	return cbs;
-}
-
-std::vector<std::shared_ptr<RootConstants>> Material::get_shader_rcs() const noexcept {
-	return rcs;
-}
-
-std::vector<std::shared_ptr<ShaderResourceView>> Material::get_shader_srvs() const noexcept {
-	return srvs;
 }

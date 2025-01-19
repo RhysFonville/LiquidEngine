@@ -12,6 +12,7 @@
 #include <vector>
 #include <DirectXTex.h>
 #include <ranges>
+#include <d3d12shader.h>
 #include "../GraphicsResourceDescriptorHeap.h"
 #include "../ResourceManager.h"
 #include "../graphicsoperatoroverloading.h"
@@ -21,15 +22,16 @@
 */
 class RootArgument {
 public:
+	RootArgument(UINT index);
 	RootArgument() { }
-	RootArgument(UINT parameter_index);
 
-	GET UINT get_parameter_index() const noexcept;
-	GET const std::vector<D3D12_ROOT_PARAMETER>& get_root_parameters() const noexcept;
+	virtual void clean_up() = 0;
+
+	GET virtual D3D12_ROOT_PARAMETER1 get_root_param() const noexcept = 0;
+	GET UINT get_index() const noexcept;
 
 protected:
-	std::vector<D3D12_ROOT_PARAMETER> root_parameters{};
-	UINT parameter_index{(UINT)-1};
+	UINT index{};
 };
 
 /**
@@ -37,40 +39,30 @@ protected:
 */
 class DescriptorTable : public RootArgument {
 public:
-	DescriptorTable(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index);
+	DescriptorTable() { }
+	DescriptorTable(const D3D12_DESCRIPTOR_RANGE1& range, UINT param_index);
+	DescriptorTable(D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_DESCRIPTOR_RANGE_TYPE type, UINT param_index);
+	DescriptorTable(const DescriptorTable& dt);
+
+	void clean_up() override { }
 	
-	/*DescriptorTable(const DescriptorTable &t) {
-		table = t.table;
-		for (auto i = 0; i < RANGES_SIZE; i++) {
-			ranges[i] = t.ranges[i];
-		}
-		for (auto i = 0; i < PARAMS_SIZE; i++) {
-			root_parameters[i] = t.root_parameters[i];
-		}
-	}*/
+	D3D12_ROOT_PARAMETER1 get_root_param() const noexcept;
 
-	void compile(D3D12_DESCRIPTOR_RANGE_TYPE type, D3D12_SHADER_VISIBILITY shader, UINT index);
-
-	void clean_up();
-
-	void set_descriptor_table(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap);
+	void set_descriptor_table(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap) const;
 
 	bool operator==(const DescriptorTable &descriptor_table) const noexcept;
 
-	GET const D3D12_ROOT_DESCRIPTOR_TABLE & get_table() const noexcept;
-	GET const std::vector<CD3DX12_DESCRIPTOR_RANGE> & get_ranges() const noexcept;
+	GET D3D12_ROOT_DESCRIPTOR_TABLE1 get_table() const noexcept;
+	GET const D3D12_DESCRIPTOR_RANGE1& get_range() const noexcept;
 	
-	UINT heap_index{(UINT)-1};
-
 private:
-	D3D12_ROOT_DESCRIPTOR_TABLE table{};
-	std::vector<CD3DX12_DESCRIPTOR_RANGE> ranges{}; // In practice you often only have one descriptor range per-table.
+	D3D12_DESCRIPTOR_RANGE1 range{};
 };
 
 /**
 * Root constants.
 */
-class RootConstants : public RootArgument {
+/*class RootConstants : public RootArgument {
 public:
 	RootConstants() : RootArgument{} { }
 
@@ -93,7 +85,7 @@ public:
 		compile(shader, index, number_of_values);
 	}
 
-	void clean_up();
+	void clean_up() override;
 
 	void set_constants(const ComPtr<ID3D12GraphicsCommandList>& command_list);
 
@@ -106,7 +98,7 @@ private:
 	size_t obj_size{0u};
 
 	D3D12_ROOT_CONSTANTS constants{};
-};
+};*/
 
 /**
  * Root objects with descriptor tables.
@@ -119,26 +111,24 @@ private:
 class DescriptorRootObject {
 public:
 	DescriptorRootObject() { }
+	DescriptorRootObject(const DescriptorTable& dt) : descriptor_table{dt} { }
+	
+	bool operator==(const DescriptorRootObject& dro) const noexcept;
 
 	virtual void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
-	
-	void clean_up();
+	void compile() noexcept;
+	bool will_compile() const noexcept;
 
-	virtual void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
+	virtual void clean_up();
 
-	/** Returns true if object is eligible for resource creation. */
-	virtual bool valid() { return heap_index != (UINT)-1; };
+	virtual void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
 
-	bool operator==(const DescriptorRootObject& dro) const noexcept {
-		return (heap_index == dro.heap_index);
-	}
-
-	std::shared_ptr<DescriptorTable> descriptor_table{nullptr};
-
-	bool compile_signal{false};
+	DescriptorTable descriptor_table{};
 
 protected:
-	UINT heap_index{(UINT)-1};
+	//UINT heap_index{(UINT)-1};
+
+	bool compile_signal{false};
 
 	ComPtr<ID3D12Resource> default_heap{nullptr};
 };
@@ -148,30 +138,31 @@ protected:
 */
 class ConstantBuffer : public DescriptorRootObject {
 public:
-	ConstantBuffer() : DescriptorRootObject{} { }
+	ConstantBuffer(const DescriptorTable& dt) : DescriptorRootObject{dt} { }
 
 	template <typename T>
-	ConstantBuffer(T &cb, std::string name = "")
-		: obj(static_cast<void*>(&cb)), obj_size(sizeof(T)),
-		name(name.empty() ? typeid(T).name() : name), DescriptorRootObject{} { }
+	void set_obj(T& cb) {
+		obj = static_cast<void*>(&cb);
+		obj_size = sizeof(T);
+	}
 
 	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
-	void compile() { compile_signal = true; }
 
-	void update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list);
+	void update(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list);
+	void update() noexcept { update_signal = true; }
+	bool will_update() const noexcept {  return update_signal; }
 
-	void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
+	void clean_up() override;
 
-	bool valid() override { return (DescriptorRootObject::valid() && obj_size != 0); }
+	void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 
 	bool operator==(const ConstantBuffer &cb) const noexcept;
 
-	mutable std::string name{};
-
-	bool update_signal{false};
-
 	void* obj{nullptr};
 	size_t obj_size{0u};
+
+private:
+	bool update_signal{false};
 };
 
 /**
@@ -179,17 +170,17 @@ public:
 */
 class ShaderResourceView : public DescriptorRootObject {
 public:
-	ShaderResourceView() : DescriptorRootObject() { }
-	ShaderResourceView(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
+	ShaderResourceView() : DescriptorRootObject{} { }
+	ShaderResourceView(const DescriptorTable& dt) : DescriptorRootObject{dt} { }
 
 	void update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube = false);
 
 	void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 	void compile() { compile_signal = true; }
+	
+	void clean_up() override;
 
-	void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
-
-	bool valid() override { return (DescriptorRootObject::valid() && heap_desc.Width != 0 && heap_desc.Height != 0); }
+	void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 
 	bool operator==(const ShaderResourceView& srv) const noexcept;
 

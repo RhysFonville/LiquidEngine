@@ -4,9 +4,9 @@
 #include <queue>
 #include <ranges>
 #include <map>
-#include "GraphicsPipelineRootArgumentContainers.h"
 #include "GraphicsPipelineIACommand.h"
 #include "Storage.h"
+#include "GraphicsPipelineRootArguments.h"
 
 #define ZeroStruct(STRUCT) ZeroMemory(STRUCT, sizeof(STRUCT))
 
@@ -41,7 +41,9 @@ public:
 		const D3D12_BLEND_DESC &blend,
 		GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-	void compile() { compile_signal = true; }
+	void compile() { 
+		compile_signal = true;
+	}
 
 	void clean_up();
 
@@ -79,7 +81,7 @@ public:
 
 		void clean_up();
 
-		//GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
+		GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
 		//GET D3D12_VERTEX_BUFFER_VIEW get_instance_buffer_view() const noexcept;
 
 		void clear_commands() noexcept;
@@ -182,7 +184,8 @@ public:
 		bool operator==(const RootSignature& root_signature) const noexcept;
 
 		void compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps, const Shaders& shaders);
-		
+		void compile_resources(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heaps);
+
 		void bind_shader_resource_parameters(const std::weak_ptr<Shader>& s);
 
 		void clean_up();
@@ -191,77 +194,29 @@ public:
 		
 		void run(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-		/**
-		* Binds root constants to root signature. Uses the RootConstants class from the container to bind.
-		* \param obj Root constants container to bind.
-		* \param shader Shader the root constants will be used in.
-		* \param number of root constants to bind.
-		*/
-		void bind_shader_resource_view(std::shared_ptr<ShaderResourceView>& srv, D3D12_SHADER_VISIBILITY shader);
-
-		/**
-		 * Binds root constants to root signature.
-		 * \param rc Root constants to be bound.
-		 * \param shader Shader the root constants will be used in.
-		 * \param number of root constants to bind.
-		 */
-		void bind_root_constants(std::shared_ptr<RootConstants>& rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
-			UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-			rc->compile(shader, index + (UINT)shader_resource_views.size(), index, number_of_values);
-			root_constants.push_back(rc);
-		}
-
-		/**
-		* Binds root constants to root signature. Uses the RootConstants class from the container to bind.
-		* \param obj Root constants container to bind.
-		* \param shader Shader the root constants will be used in.
-		* \param number of root constants to bind.
-		*/
-		template <typename T>
-		void bind_root_constants(RootConstantsContainer<T>& obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = -1) {
-			bind_root_constants(obj.rc, shader, number_of_values);
-		}
-
-		/**
-		* Binds a constant buffer to root signature.
-		* \param rc Constant buffer to be bound.
-		* \param shader Shader the constant buffer will be used in.
-		*/
-		void bind_constant_buffer(std::shared_ptr<ConstantBuffer>& cb, D3D12_SHADER_VISIBILITY shader);
-
-		/**
-		* Binds a constant buffer to root signature. Uses the ConstantBuffer class from the container to bind.
-		* \param obj Constant buffer container to bind.
-		* \param shader Shader the root constants will be used in.
-		*/
-		template <typename T>
-		void bind_constant_buffer(ConstantBufferContainer<T>& cb, D3D12_SHADER_VISIBILITY shader) {
-			bind_constant_buffer(cb.cb, shader);
-		}
-
 		void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-		GET const std::vector<std::weak_ptr<ConstantBuffer>> & get_constant_buffers() const noexcept { return constant_buffers; }
-		GET const std::vector<std::weak_ptr<RootConstants>> & get_root_constants() const noexcept { return root_constants; }
-		GET const std::vector<std::weak_ptr<ShaderResourceView>> & get_shader_resource_views() const noexcept { return shader_resource_views; }
+		GET const std::map<std::string, std::shared_ptr<ConstantBuffer>> & get_constant_buffers() const noexcept { return constant_buffers; }
+		//GET const std::vector<std::shared_ptr<RootConstants>> & get_root_constants() const noexcept { return root_constants; }
+		GET const std::map<std::string, std::shared_ptr<ShaderResourceView>> & get_shader_resource_views() const noexcept { return shader_resource_views; }
 
-		GET const std::vector<std::weak_ptr<DescriptorTable>> & get_descriptor_tables() const noexcept { return descriptor_tables; }
-		GET const std::vector<D3D12_ROOT_PARAMETER1> & get_root_params() const noexcept { return root_params; }
+		GET std::weak_ptr<DescriptorRootObject> get_resource(const std::string& name) const;
+		GET std::weak_ptr<ConstantBuffer> get_constant_buffer(const std::string& name) const;
+		GET std::weak_ptr<ShaderResourceView> get_shader_resource_view(const std::string& name) const;
+
+		GET std::vector<DescriptorTable> get_descriptor_tables() const noexcept;
+		GET std::vector<D3D12_ROOT_PARAMETER1> get_root_params() const noexcept;
 
 	private:
 		friend GraphicsPipeline;
 
-		std::vector<std::weak_ptr<DescriptorTable>> descriptor_tables{};
+		std::vector<const DescriptorTable*> descriptor_tables{};
 
-		std::vector<std::weak_ptr<ConstantBuffer>> constant_buffers{};
-		std::vector<std::weak_ptr<RootConstants>> root_constants{};
-		std::vector<std::weak_ptr<ShaderResourceView>> shader_resource_views{};
+		std::map<std::string, std::shared_ptr<ConstantBuffer>> constant_buffers{};
+		//std::vector<std::shared_ptr<RootConstants>> root_constants{};
+		std::map<std::string, std::shared_ptr<ShaderResourceView>> shader_resource_views{};
 
 		D3D12_VERSIONED_ROOT_SIGNATURE_DESC signature_desc{};
-
-		std::vector<D3D12_ROOT_PARAMETER1> root_params{};
-		std::map<std::string, UINT> root_param_index_map{};
-		std::vector<D3D12_DESCRIPTOR_RANGE1> descriptor_ranges{};
 
 		ComPtr<ID3D12RootSignature> signature{nullptr}; // Root signature defines data shaders will access
 	} root_signature;

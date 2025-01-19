@@ -27,7 +27,7 @@ static DXGI_FORMAT mask_to_format(int mask) {
 
 void GraphicsPipeline::InputAssembler::compile(const std::weak_ptr<Shader>& vs) {
 	std::shared_ptr<Shader> shader{nullptr};
-	if (std::shared_ptr<Shader> sp{vs.lock()}; sp) shader = sp;
+	if (std::shared_ptr<Shader> sp{vs.lock()}) shader = sp;
 	else throw std::exception{"VS weak pointer not assigned to shader pointer."};
 
 	ComPtr<ID3D12ShaderReflection> reflection{shader->get_reflection()};
@@ -36,9 +36,10 @@ void GraphicsPipeline::InputAssembler::compile(const std::weak_ptr<Shader>& vs) 
 	HPEW(reflection->GetDesc(&desc));
 	input_layout.reserve(desc.InputParameters);
 
-	for (const uint32_t parameterIndex : std::views::iota(0u, desc.InputParameters)) {
+	input_layout.clear();
+	for (const uint32_t param_index : std::views::iota(0u, desc.InputParameters)) {
 		D3D12_SIGNATURE_PARAMETER_DESC signature_param_desc{};
-		reflection->GetInputParameterDesc(parameterIndex, &signature_param_desc);
+		reflection->GetInputParameterDesc(param_index, &signature_param_desc);
 
 		input_layout.emplace_back(D3D12_INPUT_ELEMENT_DESC{
 			.SemanticName = signature_param_desc.SemanticName,
@@ -185,7 +186,7 @@ void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Devic
 			remove_all_meshes();
 		} else {
 			auto set{std::static_pointer_cast<GraphicsPipelineIASetInstancesCommand>(command)};
-			set_instances(set->get_instances(), device, command_list);
+			//set_instances(set->get_instances(), device, command_list);
 		}
 
 		commands.pop();
@@ -194,8 +195,8 @@ void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Devic
 
 void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
 	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
-	command_list->IASetVertexBuffers(0, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
-	command_list->IASetVertexBuffers(1u, 1u, &instance_buffer_view);
+	command_list->IASetVertexBuffers(0u, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
+	//command_list->IASetVertexBuffers(1u, 1u, &instance_buffer_view);
 }
 
 void GraphicsPipeline::InputAssembler::draw_meshes(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
@@ -206,7 +207,7 @@ void GraphicsPipeline::InputAssembler::draw_meshes(const ComPtr<ID3D12GraphicsCo
 
 	command_list->DrawInstanced(
 		verts,
-		instance_buffer_view.SizeInBytes / sizeof(Transform),
+		/*instance_buffer_view.SizeInBytes / sizeof(Transform)*/1u,
 		0u, 0u
 	);
 }
@@ -224,9 +225,9 @@ const std::vector<D3D12_VERTEX_BUFFER_VIEW>& GraphicsPipeline::InputAssembler::g
 	return vertex_buffer_views;
 }
 
-D3D12_VERTEX_BUFFER_VIEW GraphicsPipeline::InputAssembler::get_instance_buffer_view() const noexcept {
+/*D3D12_VERTEX_BUFFER_VIEW GraphicsPipeline::InputAssembler::get_instance_buffer_view() const noexcept {
 	return instance_buffer_view;
-}
+}*/
 
 void GraphicsPipeline::InputAssembler::clear_commands() noexcept {
 	commands = std::queue<std::shared_ptr<GraphicsPipelineIACommand>>{};

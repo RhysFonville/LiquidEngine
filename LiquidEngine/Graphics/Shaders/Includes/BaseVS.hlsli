@@ -1,11 +1,14 @@
 #include "BaseShader.hlsli"
 
-cbuffer VSWVPConstants : register(b0) {
+struct VSWVPConstants {
 	matrix WVP;
-}
-cbuffer VSTransformConstants : register(b1) {
+};
+ConstantBuffer<VSWVPConstants> WVP_BUFFER : register(b0);
+
+struct VSTransformConstants {
 	matrix transform;
-}
+};
+ConstantBuffer<VSTransformConstants> TRANSFORM_BUFFER : register(b1);
 
 static matrix position_matrix(float3 position) {
 	return float4x4(
@@ -61,13 +64,13 @@ static VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 no
 	float3 instance_position, float3 instance_rotation, float3 instance_size) {
 	VS_OUTPUT output;
 	
-	matrix new_transform = mul(transform, position_matrix(instance_position));
+	matrix new_transform = mul(TRANSFORM_BUFFER.transform, position_matrix(instance_position));
 	new_transform = mul(new_transform, rotation_matrix(instance_rotation));
 	new_transform = mul(new_transform, size_matrix(instance_size));
 	
 	output.world_position = mul(float4(position, 1.0f), new_transform).
 	xyz;
-	output.position = mul(float4(output.world_position, 1.0f), WVP);
+	output.position = mul(float4(output.world_position, 1.0f), WVP_BUFFER.WVP);
 	output.normal = mul(float4(normal, 0.0f), new_transform).xyz;
 	
 	output.texcoord = texcoord;
@@ -79,12 +82,12 @@ static VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 no
 static VS_OUTPUT calculate_vs_output(float3 position, float2 texcoord, float3 normal, float3 tangent) {
 	VS_OUTPUT output;
 	
-	output.world_position = mul(float4(position, 1.0f), transform).xyz;
-	output.position = mul(float4(output.world_position, 1.0f), WVP);
-	output.normal = mul(float4(normal, 0.0f), transform).xyz;
+	output.world_position = mul(float4(position, 1.0f), TRANSFORM_BUFFER.transform).xyz;
+	output.position = mul(float4(output.world_position, 1.0f), WVP_BUFFER.WVP);
+	output.normal = mul(float4(normal, 0.0f), TRANSFORM_BUFFER.transform).xyz;
 	
 	output.texcoord = texcoord;
-	output.tangent = mul(float4(tangent, 0.0f), transform).xyz;
+	output.tangent = mul(float4(tangent, 0.0f), TRANSFORM_BUFFER.transform).xyz;
 	
 	return output;
 }
