@@ -143,6 +143,7 @@ public:
 		ComPtr<IDxcBlobUtf8> errors{};
 		HPEW(result->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(errors.GetAddressOf()), NULL));
 		if (errors && errors->GetStringLength() > 0) {
+			std::cerr << (char*)errors->GetBufferPointer() << std::endl;
 			throw std::exception{(char*)errors->GetBufferPointer()};
 		}
 

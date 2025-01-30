@@ -4,7 +4,7 @@ Renderer::Renderer(HWND window) {
 	init_renderer(window);
 }
 
-void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
+void Renderer::init_renderer(HWND window) {
 	this->window = window;
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
@@ -16,29 +16,21 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 
 	auto client_size = get_client_size(window);
 
-	int n = 0;
-	auto func = [&](const std::function<void()> &func) {
-		if (std::ranges::find(exclude, n) == exclude.end()) {
-			func();
-		}
-		n++;
-	};
-
-	func([&](){create_factory();});
-	func([&](){adapter = GraphicsAdapter{factory};});
-	func([&](){adapter_output = GraphicsAdapterOutput{device, adapter.adapter};});
-	func([&](){create_device();});
-	func([&](){create_command_queue();});
-	func([&](){create_swap_chain();});
-	func([&](){create_rtv_descriptor_heap();});
-	func([&](){create_rtvs();});
-	func([&](){create_command_allocators();});
-	func([&](){create_command_list();});
-	func([&](){create_fences_and_fence_event();});
-	func([&](){create_depth_stencil(client_size);});
-	func([&](){create_descriptor_heap();});
-	func([&](){set_blend_state();});
-	func([&](){set_viewport_and_scissor_rect(client_size);});
+	create_factory();
+	adapter = GraphicsAdapter{factory};
+	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
+	create_device();
+	create_command_queue();
+	create_swap_chain();
+	create_rtv_descriptor_heap();
+	create_rtvs();
+	create_command_allocators();
+	create_command_list();
+	create_fences_and_fence_event();
+	create_depth_stencil(client_size);
+	create_descriptor_heap();
+	set_blend_state();
+	set_viewport_and_scissor_rect(client_size);
 
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
@@ -46,8 +38,8 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true));
 	HPEW(info_queue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true));
 
-	//EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
-	//descriptor_heap.reserve_descriptor_index(0u);
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
+	descriptor_heap.reserve_descriptor_index(0u);
 }
 
 void Renderer::create_factory() {
@@ -306,14 +298,6 @@ void Renderer::setup_imgui_section() {
 	};
 
 	if (ImGui::TreeNode("Renderer")) {
-		if (ImGui::Button("Re-initialize renderer")) {
-			end_imgui();
-			refresh();
-			compile();
-			skip_frame = true;
-			return;
-		}
-
 		ImGui::Checkbox("Clear render target", &clear_render_target);
 
 		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
@@ -333,13 +317,6 @@ void Renderer::setup_imgui_section() {
 			set_fullscreen(fullscreen);
 		}
 
-		if (ImGui::InputInt("Sample count", (int*)&msaa_sample_desc.Count, 1, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
-			end_imgui();
-			refresh();
-			skip_frame = true;
-			return;
-		}
-
 		{ // Adapter
 			auto desc = adapter.get_desc();
 			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
@@ -348,7 +325,7 @@ void Renderer::setup_imgui_section() {
 				clean_up();
 				create_factory();
 				adapter = GraphicsAdapter{factory, (UINT)index};
-				init_renderer(window, {1});
+				init_renderer(window);
 
 				skip_frame = true;
 				return;
@@ -444,14 +421,6 @@ void Renderer::compile() {
 	}
 	
 	scene.set_resources();
-	
-	for (auto& mesh : scene.static_meshes) {
-		mesh->material.component->pipeline.root_signature.compile_resources(device, command_list, descriptor_heap);
-	}
-	if (scene.sky.component != nullptr) {
-		scene.sky.component->pipeline.root_signature.compile_resources(device, command_list, descriptor_heap);
-	}
-
 	scene.update(resolution);
 
 	HPEW(command_list->Close());
@@ -460,7 +429,7 @@ void Renderer::compile() {
 }
 
 void Renderer::render(float dt) {
-	//setup_imgui_section();
+	setup_imgui_section();
 
 	if (skip_frame) return;
 
@@ -516,11 +485,11 @@ void Renderer::render(float dt) {
 	}
 
 	// Render Dear ImGui graphics
-	//ImGui::End();
-	//ImGui::Render();
-	//ID3D12DescriptorHeap* imguidh[] = { descriptor_heap.get().Get() };
-	//command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
-	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
+	ImGui::End();
+	ImGui::Render();
+	ID3D12DescriptorHeap* imguidh[] = { descriptor_heap.get().Get() };
+	command_list->SetDescriptorHeaps(_countof(imguidh), imguidh);
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), command_list.Get());
 
 	if (msaa) {
 		barrier = CD3DX12_RESOURCE_BARRIER::Transition(msaa_render_targets[frame_index].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_RESOLVE_SOURCE);
@@ -586,11 +555,7 @@ void Renderer::clean_up() {
 	if (is_fullscreen())
 		set_fullscreen(false);
 
-	scene.clean_up();
-
 	resource_manager->release_all_resources();
-
-	EditorGUI::clean_up();
 
 	descriptor_heap.clean_up();
 

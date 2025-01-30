@@ -25,7 +25,6 @@ void GraphicsPipeline::draw(const ComPtr<ID3D12GraphicsCommandList> &command_lis
 
 void GraphicsPipeline::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, GraphicsResourceDescriptorHeap &descriptor_heaps) {
 	input_assembler.compile(shaders.vs);
-	root_signature.check_for_update(device, command_list, descriptor_heaps);
 	root_signature.compile(device, command_list, descriptor_heaps, shaders);
 
 	auto set_shader = [](D3D12_SHADER_BYTECODE& pso_bytecode, const std::weak_ptr<Shader>& shader) {

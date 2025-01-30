@@ -59,6 +59,11 @@ void GraphicsPipeline::RootSignature::compile_resources(const ComPtr<ID3D12Devic
 	}
 }
 
+static bool ends_with(std::string const& value, std::string const& ending) {
+	if (ending.size() > value.size()) return false;
+	return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+}
+
 void GraphicsPipeline::RootSignature::bind_shader_resource_parameters(const std::weak_ptr<Shader>& s) {
 	std::shared_ptr<Shader> shader{nullptr};
 	if (std::shared_ptr<Shader> shared{s.lock()}) shader = shared;
@@ -72,34 +77,44 @@ void GraphicsPipeline::RootSignature::bind_shader_resource_parameters(const std:
 	for (const uint32_t i : std::views::iota(0u, desc.BoundResources)) {
 		D3D12_SHADER_INPUT_BIND_DESC shader_input_bind_desc{};
 		HPEW(reflection->GetResourceBindingDesc(i, &shader_input_bind_desc));
-
+		
 		if (shader_input_bind_desc.Type == D3D_SIT_CBUFFER) {
-			//root_param_index_map[shader_input_bind_desc.Name] = (UINT)root_params.size();
-			
-			std::shared_ptr<ConstantBuffer> cb{std::make_shared<ConstantBuffer>(
-				ConstantBuffer{
-					DescriptorTable{
-						shader_input_bind_desc,
-						D3D12_DESCRIPTOR_RANGE_TYPE_CBV,
-						(UINT)descriptor_tables.size()
-					}
-				}
-			)};
+			if (ends_with(shader_input_bind_desc.Name, "_CONSTANTS")) {
+				ID3D12ShaderReflectionConstantBuffer* buffer = reflection->GetConstantBufferByIndex(i);
+				D3D12_SHADER_BUFFER_DESC buffer_desc{};
+				buffer->GetDesc(&buffer_desc);
 
-			constant_buffers.insert(
-				std::make_pair(std::string{shader_input_bind_desc.Name}, cb)
-			);
-			descriptor_tables.push_back(&cb->descriptor_table);
+				std::shared_ptr<RootConstants> rc{std::make_shared<RootConstants>(
+					RootConstants{shader_input_bind_desc, buffer_desc, (UINT)get_number_of_params()}
+				)};
+
+				root_constants.insert(
+					std::make_pair(std::string{shader_input_bind_desc.Name}, rc)
+				);
+				root_params.push_back((RootArgument*)rc.get());
+			} else {
+				std::shared_ptr<ConstantBuffer> cb{std::make_shared<ConstantBuffer>(
+					ConstantBuffer{
+						DescriptorTable{
+							shader_input_bind_desc,
+							D3D12_DESCRIPTOR_RANGE_TYPE_CBV,
+							(UINT)get_number_of_params()
+						}
+					}
+				)};
+
+				constant_buffers.insert(
+					std::make_pair(std::string{shader_input_bind_desc.Name}, cb)
+				);
+				root_params.push_back((RootArgument*)&cb->descriptor_table);
+			}
 		} else if (shader_input_bind_desc.Type == D3D_SIT_TEXTURE) {
-			// For now, each individual texture belongs in its own descriptor table. This can cause the root signature to quickly exceed the 64WORD size limit.
-			//root_param_index_map[shader_input_bind_desc.Name] = (UINT)root_params.size();
-			
 			std::shared_ptr<ShaderResourceView> srv{std::make_shared<ShaderResourceView>(
 				ShaderResourceView{
 					DescriptorTable{
 						shader_input_bind_desc,
 						D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
-						(UINT)descriptor_tables.size()
+						(UINT)get_number_of_params()
 					}
 				}
 			)};
@@ -107,7 +122,7 @@ void GraphicsPipeline::RootSignature::bind_shader_resource_parameters(const std:
 			shader_resource_views.insert(
 				std::make_pair(std::string{shader_input_bind_desc.Name}, srv)
 			);
-			descriptor_tables.push_back(&srv->descriptor_table);
+			root_params.push_back((RootArgument*)&srv->descriptor_table);
 		}
 	}
 }
@@ -122,75 +137,52 @@ void GraphicsPipeline::RootSignature::clean_up() {
 
 	rm(constant_buffers);
 	rm(shader_resource_views);
-	//rm(root_constants);
+	rm(root_constants);
 
-	descriptor_tables.clear();
+	root_params.clear();
 	signature.Reset();
 }
 
-void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heaps) {
-	int i{0};
-	for (const std::pair<std::string, std::shared_ptr<ConstantBuffer>>& cb : constant_buffers) {
-		if (cb.second->will_compile()) {
-			cb.second->compile(device, command_list, descriptor_heaps);
+void GraphicsPipeline::RootSignature::check_for_update(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap) {
+	command_list->SetGraphicsRootSignature(signature.Get());
+	
+	std::vector<std::map<std::string, std::shared_ptr<ConstantBuffer>>::iterator> set_cb{};
+	set_cb.reserve(constant_buffers.size());
+
+	for (auto it{constant_buffers.begin()}; it != constant_buffers.end(); it++) {
+		if (it->second->will_compile() && !it->second->is_null()) {
+			it->second->compile(device, command_list, descriptor_heap);
+			set_cb.push_back(it);
 		}
-		i++;
 	}
 
-	i = 0;
-	for (const std::pair<std::string, std::shared_ptr<ConstantBuffer>>& cb : constant_buffers) {
-		if (cb.second->will_update()) {
-			cb.second->update(device, command_list);
+	for (auto it{constant_buffers.begin()}; it != constant_buffers.end(); it++) {
+		if (it->second->will_update()) {
+			it->second->update(device, command_list);
+			set_cb.push_back(it);
 		}
-		i++;
 	}
 
-	i = 0;
+	for (auto it : set_cb)
+		it->second->descriptor_table.set_descriptor_table(device, command_list, descriptor_heap);
+
 	for (const std::pair<std::string, std::shared_ptr<ShaderResourceView>>& srv : shader_resource_views) {
-		if (srv.second->will_compile()) {
-			srv.second->compile(device, command_list, descriptor_heaps);
+		if (srv.second->will_compile() && !srv.second->is_null()) {
+			srv.second->compile(device, command_list, descriptor_heap);
+			srv.second->descriptor_table.set_descriptor_table(device, command_list, descriptor_heap);
 		}
-		i++;
 	}
 }
 
 void GraphicsPipeline::RootSignature::run(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap) {
-	command_list->SetGraphicsRootSignature(signature.Get()); // set the root signature
-
-	for (const DescriptorTable* dt : descriptor_tables) {
-		dt->set_descriptor_table(device, command_list, descriptor_heap);
+	for (const std::pair<std::string, std::shared_ptr<RootConstants>>& constants : root_constants) {
+		constants.second->set_constants(command_list);
 	}
-
-	/*for (const auto& constants : root_constants) {
-		constants->set_constants(command_list);
-	}*/
 }
 
 bool GraphicsPipeline::RootSignature::operator==(const RootSignature& root_signature) const noexcept {
 	return (signature == root_signature.signature);
 }
-
-/*void GraphicsPipeline::RootSignature::bind_constant_buffer(std::shared_ptr<ConstantBuffer>& cb, D3D12_SHADER_VISIBILITY shader) {
-	UINT index = (UINT)constant_buffers.size() + (UINT)root_constants.size();
-	UINT parameter_index = index + (UINT)shader_resource_views.size();
-
-	cb->descriptor_table = std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, shader, index, parameter_index);
-	cb->compile();
-
-	descriptor_tables.push_back(cb->descriptor_table);
-	constant_buffers.push_back(cb);
-}
-
-void GraphicsPipeline::RootSignature::bind_shader_resource_view(std::shared_ptr<ShaderResourceView>& srv, D3D12_SHADER_VISIBILITY shader) {
-	UINT index = (UINT)shader_resource_views.size();
-	UINT parameter_index = index + (UINT)constant_buffers.size() + (UINT)root_constants.size();
-
-	srv->descriptor_table = std::make_shared<DescriptorTable>(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, shader, index, parameter_index);
-	srv->compile();
-
-	descriptor_tables.push_back(srv->descriptor_table);
-	shader_resource_views.push_back(srv);
-}*/
 
 void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device>& device, GraphicsResourceDescriptorHeap& descriptor_heaps) {
 	for (const auto& cb : constant_buffers) {
@@ -201,7 +193,7 @@ void GraphicsPipeline::RootSignature::create_views(const ComPtr<ID3D12Device>& d
 	}
 }
 
-std::vector<DescriptorTable> GraphicsPipeline::RootSignature::get_descriptor_tables() const noexcept {
+/*std::vector<DescriptorTable> GraphicsPipeline::RootSignature::get_descriptor_tables() const noexcept {
 	std::vector<DescriptorTable> dts{};
 	dts.reserve(descriptor_tables.size());
 	for (const DescriptorTable* dt : descriptor_tables) {
@@ -209,13 +201,12 @@ std::vector<DescriptorTable> GraphicsPipeline::RootSignature::get_descriptor_tab
 	}
 
 	return dts;
-}
+}*/
 
 std::vector<D3D12_ROOT_PARAMETER1> GraphicsPipeline::RootSignature::get_root_params() const noexcept {
 	std::vector<D3D12_ROOT_PARAMETER1> params{};
-	params.reserve(descriptor_tables.size());
-	for (const DescriptorTable* dt : descriptor_tables) {
-		params.push_back(dt->get_root_param());
+	for (const auto& param : root_params) {
+		params.push_back(param->get_root_param());
 	}
 
 	return params;
@@ -225,26 +216,54 @@ std::weak_ptr<DescriptorRootObject> GraphicsPipeline::RootSignature::get_resourc
 	auto cb{constant_buffers.find(name)};
 	auto srv{shader_resource_views.find(name)};
 
-	if (cb != constant_buffers.end())
+	if (cb != constant_buffers.end()) {
 		return std::static_pointer_cast<DescriptorRootObject>(cb->second);
-	else if (srv != shader_resource_views.end())
+	} else if (srv != shader_resource_views.end()) {
 		return std::static_pointer_cast<DescriptorRootObject>(srv->second);
-	else
+	} else {
 		throw std::exception{"Can't find root signature resource of that name."};
+		return std::weak_ptr<DescriptorRootObject>{};
+	}
 }
 
 std::weak_ptr<ConstantBuffer> GraphicsPipeline::RootSignature::get_constant_buffer(const std::string& name) const {
+	if (ends_with(name, "_CONSTANTS")) {
+		throw std::exception{"Only root constants can have a name that ends with '_CONSTANTS'."};
+		return std::weak_ptr<ConstantBuffer>{};
+	}
+	
 	if (auto cb{constant_buffers.find(name)}; cb != constant_buffers.end()) {
 		return cb->second;
 	} else {
+		throw std::exception{"Can't find constant buffer of that name."};
 		return std::weak_ptr<ConstantBuffer>{};
 	}
 }
 
+std::weak_ptr<RootConstants> GraphicsPipeline::RootSignature::get_root_constants(const std::string& name) const {
+	if (!ends_with(name, "_CONSTANTS")) {
+		throw std::exception{"Root constants name must end with '_CONSTANTS'."};
+		return std::weak_ptr<RootConstants>{};
+	}
+	
+	if (auto rc{root_constants.find(name)}; rc != root_constants.end()) {
+		return rc->second;
+	} else {
+		throw std::exception{"Can't find root constants of that name."};
+		return std::weak_ptr<RootConstants>{};
+	}
+}
+
 std::weak_ptr<ShaderResourceView> GraphicsPipeline::RootSignature::get_shader_resource_view(const std::string& name) const {
+	if (ends_with(name, "_CONSTANTS")) {
+		throw std::exception{"Only root constants can have a name that ends with '_CONSTANTS'."};
+		return std::weak_ptr<ShaderResourceView>{};
+	}
+	
 	if (auto srv{shader_resource_views.find(name)}; srv != shader_resource_views.end()) {
 		return srv->second;
 	} else {
+		throw std::exception{"Can't find shader resource view of that name."};
 		return std::weak_ptr<ShaderResourceView>{};
 	}
 }

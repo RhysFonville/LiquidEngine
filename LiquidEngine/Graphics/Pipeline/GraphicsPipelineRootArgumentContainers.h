@@ -32,12 +32,12 @@ public:
 
 	void set_obj_ptr(const T&& obj) {
 		this->obj = std::make_shared<T>(obj);
-		if (auto sp{cb.lock()}) sp->set_obj(*this->obj);
+		if (auto sp{cb.lock()}) sp->set_obj(this->obj.get());
 	}
 
 	void set_obj_ptr(T& obj) {
 		this->obj = std::make_shared<T>(obj);
-		if (auto sp{cb.lock()}) sp->set_obj(*this->obj);
+		if (auto sp{cb.lock()}) sp->set_obj(this->obj.get());
 	}
 
 	/*const std::weak_ptr<ConstantBuffer>& get_cb() {
@@ -46,7 +46,7 @@ public:
 
 	void set_cb(const std::weak_ptr<ConstantBuffer>& cb) {
 		this->cb = cb;
-		if (auto sp{cb.lock()}) sp->set_obj(*obj);
+		if (auto sp{cb.lock()}) sp->set_obj(obj.get());
 	}
 
 	bool operator==(const ConstantBufferContainer &cb) const noexcept {
@@ -61,29 +61,55 @@ private:
 /**
 * Stores a structure and the root constants. The structure is the data to be written to the root constants. Not required, but useful.
 */
-/*template <typename T>
+template <typename T>
 class RootConstantsContainer {
 public:
 	RootConstantsContainer() { }
 
-	RootConstantsContainer(const T &obj)
-		: obj(std::make_shared<T>(obj)),
-		rc{std::make_shared<RootConstants>()} {
-		rc->set_obj<T>(this->obj.get());
-	}
+	RootConstantsContainer(const T& obj)
+		: obj(std::make_shared<T>(obj)) { }
 
 	void clean_up() {
 		obj = nullptr;
-		rc = nullptr;
+		rc.reset();
+	}
+
+	const std::shared_ptr<T>& get_obj() const noexcept {
+		return obj;
+	}
+
+	void set_obj_ptr(const T&& obj) {
+		this->obj = std::make_shared<T>(obj);
+		if (auto sp{rc.lock()}) sp->set_obj(this->obj.get());
+	}
+
+	void set_obj_ptr(T& obj) {
+		this->obj = std::make_shared<T>(obj);
+		if (auto sp{rc.lock()}) sp->set_obj(this->obj.get());
+	}
+
+	void set_obj_ptr(const std::shared_ptr<T>& obj) {
+		this->obj = obj;
+		if (auto sp{rc.lock()}) sp->set_obj(this->obj.get());
+	}
+
+	/*const std::weak_ptr<RootConstants>& get_rc() {
+		return rc;
+	}*/
+
+	void set_rc(const std::weak_ptr<RootConstants>& rc) {
+		this->rc = rc;
+		if (auto sp{rc.lock()}) sp->set_obj(obj.get());
 	}
 
 	bool operator==(const RootConstantsContainer& rc) const noexcept {
 		return (obj == rc.obj);
 	}
 
+private:
 	std::shared_ptr<T> obj{};
-	std::shared_ptr<RootConstants> rc{nullptr};
-};*/
+	std::weak_ptr<RootConstants> rc{};
+};
 
 /**
 * Stores a texture and the shader resource view. The texture is the data to be written to the shader resource view. Not required, but useful.
@@ -104,6 +130,12 @@ public:
 	void update() {
 		if (auto srv_sp{srv.lock()}; srv_sp) {
 			srv_sp->update_descs(texture->get_mip_chain());
+		}
+	}
+
+	void compile() {
+		if (auto srv_sp{srv.lock()}; srv_sp) {
+			srv_sp->compile();
 		}
 	}
 

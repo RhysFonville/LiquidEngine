@@ -196,24 +196,30 @@ public:
 
 		void create_views(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-		GET const std::map<std::string, std::shared_ptr<ConstantBuffer>> & get_constant_buffers() const noexcept { return constant_buffers; }
-		//GET const std::vector<std::shared_ptr<RootConstants>> & get_root_constants() const noexcept { return root_constants; }
-		GET const std::map<std::string, std::shared_ptr<ShaderResourceView>> & get_shader_resource_views() const noexcept { return shader_resource_views; }
+		GET const std::map<std::string, std::shared_ptr<ConstantBuffer>>& get_constant_buffers() const noexcept { return constant_buffers; }
+		GET const std::map<std::string, std::shared_ptr<RootConstants>>& get_root_constants() const noexcept { return root_constants; }
+		GET const std::map<std::string, std::shared_ptr<ShaderResourceView>>& get_shader_resource_views() const noexcept { return shader_resource_views; }
 
 		GET std::weak_ptr<DescriptorRootObject> get_resource(const std::string& name) const;
 		GET std::weak_ptr<ConstantBuffer> get_constant_buffer(const std::string& name) const;
+		GET std::weak_ptr<RootConstants> get_root_constants(const std::string& name) const;
 		GET std::weak_ptr<ShaderResourceView> get_shader_resource_view(const std::string& name) const;
 
-		GET std::vector<DescriptorTable> get_descriptor_tables() const noexcept;
+		//GET std::vector<DescriptorTable> get_descriptor_tables() const noexcept;
 		GET std::vector<D3D12_ROOT_PARAMETER1> get_root_params() const noexcept;
+
+		GET size_t get_number_of_params() const noexcept {
+			return constant_buffers.size() + root_constants.size() + shader_resource_views.size();
+		}
 
 	private:
 		friend GraphicsPipeline;
 
-		std::vector<const DescriptorTable*> descriptor_tables{};
+		//std::vector<const DescriptorTable*> descriptor_tables{};
+		std::vector<const RootArgument*> root_params{};
 
 		std::map<std::string, std::shared_ptr<ConstantBuffer>> constant_buffers{};
-		//std::vector<std::shared_ptr<RootConstants>> root_constants{};
+		std::map<std::string, std::shared_ptr<RootConstants>> root_constants{};
 		std::map<std::string, std::shared_ptr<ShaderResourceView>> shader_resource_views{};
 
 		D3D12_VERSIONED_ROOT_SIGNATURE_DESC signature_desc{};

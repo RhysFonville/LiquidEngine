@@ -33,7 +33,7 @@ D3D12_ROOT_PARAMETER1 DescriptorTable::get_root_param() const noexcept {
 
 void DescriptorTable::set_descriptor_table(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap) const {
 	D3D12_GPU_DESCRIPTOR_HANDLE handle = descriptor_heap.get()->GetGPUDescriptorHandleForHeapStart();
-	handle.ptr += index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	handle.ptr += heap_index * device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	command_list->SetGraphicsRootDescriptorTable(index, handle);
 }
 
@@ -94,8 +94,37 @@ void DescriptorRootObject::clean_up() {
 	default_heap.Reset();
 }
 
+RootConstants::RootConstants(D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_SHADER_BUFFER_DESC buffer_desc, UINT param_index)
+	: RootArgument{param_index},
+	constants{
+		.ShaderRegister = bind_desc.BindPoint,
+		.RegisterSpace = bind_desc.Space,
+		.Num32BitValues = (UINT)ceil(buffer_desc.Size/4u)
+	} { }
+
+bool RootConstants::operator==(const RootConstants& rc) const noexcept {
+	return (obj == rc.obj && obj_size == rc.obj_size);
+}
+
+D3D12_ROOT_PARAMETER1 RootConstants::get_root_param() const noexcept {
+	return D3D12_ROOT_PARAMETER1{
+		.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS,
+		.Constants = constants
+	};
+}
+
+GET const D3D12_ROOT_CONSTANTS& RootConstants::get_constants() const noexcept {
+	return constants;
+}
+
+
+void RootConstants::set_constants(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
+	command_list->SetGraphicsRoot32BitConstants(index, constants.Num32BitValues, obj, 0u);
+}
+
 void ConstantBuffer::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
-	descriptor_heaps.reserve_descriptor_index(descriptor_table.get_index());
+	descriptor_table.heap_index = descriptor_heaps.get_open_heap_index();
+	descriptor_heaps.reserve_descriptor_index(descriptor_table.heap_index);
 
 	auto props = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	auto buf = CD3DX12_RESOURCE_DESC::Buffer((obj_size + 255) & ~255);
@@ -117,7 +146,7 @@ void ConstantBuffer::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID
 }
 
 void ConstantBuffer::create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) {
-	descriptor_heaps.create_cbv(device, default_heap, obj_size, descriptor_table.get_index());
+	descriptor_heaps.create_cbv(device, default_heap, obj_size, descriptor_table.heap_index);
 }
 
 void ConstantBuffer::update(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list) {
@@ -162,14 +191,16 @@ bool ConstantBuffer::operator==(const ConstantBuffer &cb) const noexcept {
 }
 
 void ShaderResourceView::update_descs(const DirectX::ScratchImage &mip_chain, bool is_texture_cube) {
-	const DirectX::Image &chain_base = *mip_chain.GetImages();
+	const DirectX::Image* chain_base = mip_chain.GetImages();
+	if (chain_base == nullptr) return;
+
 	heap_desc = D3D12_RESOURCE_DESC{
 		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
-		.Width = (UINT)chain_base.width,
-		.Height = (UINT)chain_base.height,
+		.Width = (UINT)chain_base->width,
+		.Height = (UINT)chain_base->height,
 		.DepthOrArraySize = 1,
 		.MipLevels = (UINT16)mip_chain.GetImageCount(),
-		.Format = chain_base.format,
+		.Format = chain_base->format,
 		.SampleDesc = {.Count = 1},
 		.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		.Flags = D3D12_RESOURCE_FLAG_NONE,
@@ -198,10 +229,13 @@ void ShaderResourceView::update_descs(const DirectX::ScratchImage &mip_chain, bo
 	} else {
 		srv_desc.Texture2D.MipLevels = (UINT)mip_chain.GetImageCount();
 	}
+
+	compile();
 }
 
 void ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPtr<ID3D12GraphicsCommandList> &command_list, GraphicsResourceDescriptorHeap &descriptor_heaps) {
-	descriptor_heaps.reserve_descriptor_index(descriptor_table.get_index());
+	descriptor_table.heap_index = descriptor_heaps.get_open_heap_index();
+	descriptor_heaps.reserve_descriptor_index(descriptor_table.heap_index);
 
 	if (default_heap != nullptr) default_heap.Reset();
 
@@ -250,8 +284,9 @@ void ShaderResourceView::compile(const ComPtr<ID3D12Device> &device, const ComPt
 	// write command to transition texture to texture state  
 	{
 		const auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		default_heap.Get(),
-		D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+			default_heap.Get(),
+			D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE | D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE
+		);
 		command_list->ResourceBarrier(1, &barrier);
 	}
 
@@ -263,7 +298,7 @@ void ShaderResourceView::clean_up() {
 }
 
 void ShaderResourceView::create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) {
-	descriptor_heaps.create_srv(device, default_heap, srv_desc, descriptor_table.get_index());
+	descriptor_heaps.create_srv(device, default_heap, srv_desc, descriptor_table.heap_index);
 }
 
 bool ShaderResourceView::operator==(const ShaderResourceView& srv) const noexcept {

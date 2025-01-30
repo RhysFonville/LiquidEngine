@@ -5,7 +5,6 @@ struct PSSkyCB {
 	int has_texture;
 	float4 albedo;
 };
-
 ConstantBuffer<PSSkyCB> SKY_BUFFER : register(b2);
 
 struct SkyboxVSOut {

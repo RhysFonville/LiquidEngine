@@ -5,7 +5,7 @@ static const float DISTANCE_FALLOFF_POWER = 1.0f;
 static const float DISTANCE_FALLOFF_INTENSITY = 0.05f;
 
 static float4 falloff_equation(float obj_pos) {
-	return pow(1.0f / distance(CAMERA_BUFFER.camera_position, obj_pos), 0.0f);
+	return pow(1.0f / distance(CAMERA_CONSTANTS.camera_position, obj_pos), 0.0f);
 }
 
 static float4 calculate_lit(PS_INPUT ps_in) {
@@ -50,7 +50,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 	for (uint i = 0; i < LIGHTS_BUFFER.directional_light_count; i++) {
 		if (!LIGHTS_BUFFER.directional_lights[i].null) {
 			float3 light_dir = normalize(-LIGHTS_BUFFER.directional_lights[i].direction);
-			float3 view_dir = normalize(CAMERA_BUFFER.camera_position - ps_in.world_position);
+			float3 view_dir = normalize(CAMERA_CONSTANTS.camera_position - ps_in.world_position);
 			float3 reflect_dir = reflect(-light_dir, n);
 			
 			float diff_power = max(dot(n, light_dir), 0.0f);
@@ -70,7 +70,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 			float distance = length(LIGHTS_BUFFER.point_lights[i].position - ps_in.world_position);
 			if (distance <= LIGHTS_BUFFER.point_lights[i].range) {
 				float3 light_dir = normalize(LIGHTS_BUFFER.point_lights[i].position - ps_in.world_position);
-				float3 view_dir = normalize(CAMERA_BUFFER.camera_position - ps_in.world_position);
+				float3 view_dir = normalize(CAMERA_CONSTANTS.camera_position - ps_in.world_position);
 				float3 reflect_dir = reflect(-light_dir, n);
 			
 				float diff_power = max(dot(n, light_dir), 0.0f);
@@ -103,7 +103,7 @@ static float4 calculate_lit(PS_INPUT ps_in) {
 	float3 distance_falloff = saturate(
 		1 /
 		pow(
-			distance(ps_in.world_position, CAMERA_BUFFER.camera_position),
+			distance(ps_in.world_position, CAMERA_CONSTANTS.camera_position),
 			DISTANCE_FALLOFF_POWER
 		) / DISTANCE_FALLOFF_INTENSITY
 	);

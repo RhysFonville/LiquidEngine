@@ -262,10 +262,8 @@ public:
 	bool update(UVector2 resolution) {
 		if (component->has_changed()) {
 			component->update(UVector2_to_FVector2(resolution));
-			wvp_data.get_obj()->WVP = XMMatrixTranspose(component->get_wvp());
-			pos_data.get_obj()->camera_position = component->get_position();
-			wvp_data.update();
-			pos_data.update();
+			wvp_data->WVP = XMMatrixTranspose(component->get_wvp());
+			pos_data->camera_position = component->get_position();
 
 			return true;
 		}
@@ -274,21 +272,15 @@ public:
 
 	void compile() {
 		component->has_changed(true);
-		wvp_data = VSWVPConstants{};
-		pos_data = PSCameraConstants{};
-
 		component->needs_compile(false);
 	}
 
-	void clean_up() {
-		wvp_data.clean_up();
-		pos_data.clean_up();
-	}
+	void clean_up() { }
 
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
-	ConstantBufferContainer<VSWVPConstants> wvp_data{VSWVPConstants{}};
-	ConstantBufferContainer<PSCameraConstants> pos_data{PSCameraConstants{}};
+	std::shared_ptr<VSWVPConstants> wvp_data{std::make_shared<VSWVPConstants>()};
+	std::shared_ptr<PSCameraConstants> pos_data{std::make_shared<PSCameraConstants>()};
 };
 
 /**
@@ -341,6 +333,7 @@ public:
 	bool update(const RenderingCamera& camera) {
 		if (texture.get_texture()->has_changed()) {
 			texture.update();
+			texture.get_texture()->has_changed(false);
 		}
 
 		bool change{false};
@@ -355,7 +348,7 @@ public:
 
 		if (change) {
 			transform_data.get_obj()->transform = Transform{
-				camera.pos_data.get_obj()->camera_position+component->get_position(),
+				camera.pos_data->camera_position+component->get_position(),
 				component->get_rotation(),
 				component->get_size()
 			};
@@ -376,8 +369,10 @@ public:
 	}
 
 	void set_resources(RenderingCamera& camera) {
-		camera.wvp_data.set_cb(component->pipeline.root_signature.get_constant_buffer("WVP_BUFFER"));
-		transform_data.set_cb(component->pipeline.root_signature.get_constant_buffer("TRANSFORM_BUFFER"));
+		wvp_data.set_rc(component->pipeline.root_signature.get_root_constants("WVP_CONSTANTS"));
+		wvp_data.set_obj_ptr(camera.wvp_data);
+		
+		transform_data.set_rc(component->pipeline.root_signature.get_root_constants("TRANSFORM_CONSTANTS"));
 		data.set_cb(component->pipeline.root_signature.get_constant_buffer("SKY_BUFFER"));
 		texture.set_srv(component->pipeline.root_signature.get_shader_resource_view("ALBEDO_TEXTURE"));
 	}
@@ -392,8 +387,9 @@ public:
 
 	ShaderResourceViewContainer texture{};
 
-	ConstantBufferContainer<VSTransformConstants> transform_data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
 	ConstantBufferContainer<PSSkyCB> data{};
+	RootConstantsContainer<VSWVPConstants> wvp_data{};
 };
 
 /**
@@ -409,14 +405,17 @@ public:
 		bool ret{false};
 		if (albedo_texture.get_texture()->has_changed()) {
 			albedo_texture.update();
+			albedo_texture.get_texture()->has_changed(false);
 			ret = true;
 		}
 		if (normal_map.get_texture()->has_changed()) {
 			normal_map.update();
+			normal_map.get_texture()->has_changed(false);
 			ret = true;
 		}
 		if (specular_map.get_texture()->has_changed()) {
 			specular_map.update();
+			specular_map.get_texture()->has_changed(false);
 			ret = true;
 		}
 
@@ -476,7 +475,6 @@ public:
 
 		if (component->has_changed()) {
 			transform_data.get_obj()->transform = component->get_transform();
-			transform_data.update();
 			component->has_changed(false);
 			return true;
 		}
@@ -518,10 +516,14 @@ public:
 	}
 
 	void set_resources(RenderingCamera& camera) {
-		camera.wvp_data.set_cb(material.component->pipeline.root_signature.get_constant_buffer("WVP_BUFFER"));
-		transform_data.set_cb(material.component->pipeline.root_signature.get_constant_buffer("TRANSFORM_BUFFER"));
+		wvp_data.set_rc(material.component->pipeline.root_signature.get_root_constants("WVP_CONSTANTS"));
+		wvp_data.set_obj_ptr(camera.wvp_data);
+		
+		pos_data.set_rc(material.component->pipeline.root_signature.get_root_constants("CAMERA_CONSTANTS"));
+		pos_data.set_obj_ptr(camera.pos_data);
+
+		transform_data.set_rc(material.component->pipeline.root_signature.get_root_constants("TRANSFORM_CONSTANTS"));
 		lights_data.set_cb(material.component->pipeline.root_signature.get_constant_buffer("LIGHTS_BUFFER"));
-		camera.pos_data.set_cb(material.component->pipeline.root_signature.get_constant_buffer("CAMERA_BUFFER"));
 
 		material.set_resources();
 	}
@@ -536,8 +538,10 @@ public:
 
 	RenderingMaterial material{};
 
+	RootConstantsContainer<VSWVPConstants> wvp_data{};
+	RootConstantsContainer<PSCameraConstants> pos_data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
 	ConstantBufferContainer<PSLightsCB> lights_data{};
-	ConstantBufferContainer<VSTransformConstants> transform_data{};
 
 	bool update_lights_signal = false;
 };
@@ -658,15 +662,15 @@ public:
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
 			bool update = dl.update();
-			if (!light_update) light_update = true;
+			if (update) light_update = true;
 		}
 		for (RenderingPointLight &pl : point_lights) {
 			bool update = pl.update();
-			if (!light_update) light_update = true;
+			if (update) light_update = true;
 		}
 		for (RenderingSpotlight &sl : spotlights) {
 			bool update = sl.update();
-			if (!light_update) light_update = true;
+			if (update) light_update = true;
 		}
 
 		bool mesh_update{false};

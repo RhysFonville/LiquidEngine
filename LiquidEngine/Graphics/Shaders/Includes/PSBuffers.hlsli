@@ -47,7 +47,7 @@ ConstantBuffer<PSLightsCB> LIGHTS_BUFFER : register(b2);
 struct PSCameraConstants {
 	float3 camera_position;
 };
-ConstantBuffer<PSCameraConstants> CAMERA_BUFFER : register(b3);
+ConstantBuffer<PSCameraConstants> CAMERA_CONSTANTS : register(b3);
 
 struct PerObjectPSCB {
 	Material material;

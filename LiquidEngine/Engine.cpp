@@ -48,7 +48,7 @@ void Engine::loop() {
 				return;
 			}
 
-			//window.editor_gui.update(dt.dt);
+			window.editor_gui.update(dt.dt);
 
 			world.tick(dt.dt);
 			renderer.tick(dt.dt);

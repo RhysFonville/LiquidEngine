@@ -44,8 +44,8 @@ public:
 	DescriptorTable(D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_DESCRIPTOR_RANGE_TYPE type, UINT param_index);
 	DescriptorTable(const DescriptorTable& dt);
 
-	void clean_up() override { }
-	
+	virtual void clean_up() { }
+
 	D3D12_ROOT_PARAMETER1 get_root_param() const noexcept;
 
 	void set_descriptor_table(const ComPtr<ID3D12Device>& device, const ComPtr<ID3D12GraphicsCommandList>& command_list, GraphicsResourceDescriptorHeap& descriptor_heap) const;
@@ -55,6 +55,8 @@ public:
 	GET D3D12_ROOT_DESCRIPTOR_TABLE1 get_table() const noexcept;
 	GET const D3D12_DESCRIPTOR_RANGE1& get_range() const noexcept;
 	
+	UINT heap_index{(UINT)-1};
+
 private:
 	D3D12_DESCRIPTOR_RANGE1 range{};
 };
@@ -62,43 +64,30 @@ private:
 /**
 * Root constants.
 */
-/*class RootConstants : public RootArgument {
+class RootConstants : public RootArgument {
 public:
-	RootConstants() : RootArgument{} { }
+	RootConstants(D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_SHADER_BUFFER_DESC buffer_desc, UINT param_index);
 
 	template <typename T>
-	RootConstants(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT parameter_index, UINT number_of_values = -1) {
-		compile<T>(obj, shader, index, number_of_values);
-	}
-
-	template <typename T>
-	void set_obj(T *obj) {
+	void set_obj(T* obj) {
 		this->obj = static_cast<void*>(obj);
 		obj_size = sizeof(obj);
 	}
 
-	void compile(D3D12_SHADER_VISIBILITY shader, UINT parameter_index, UINT index, UINT number_of_values = -1);
+	void clean_up() { }
 
-	template <typename T>
-	void compile(T &obj, D3D12_SHADER_VISIBILITY shader, UINT index, UINT number_of_values = -1) {
-		set_obj<T>(obj);
-		compile(shader, index, number_of_values);
-	}
-
-	void clean_up() override;
-
-	void set_constants(const ComPtr<ID3D12GraphicsCommandList>& command_list);
+	D3D12_ROOT_PARAMETER1 get_root_param() const noexcept;
 
 	bool operator==(const RootConstants& rc) const noexcept;
 
 	GET const D3D12_ROOT_CONSTANTS & get_constants() const noexcept;
+	void set_constants(const ComPtr<ID3D12GraphicsCommandList>& command_list);
 
 private:
 	void* obj{nullptr};
 	size_t obj_size{0u};
-
 	D3D12_ROOT_CONSTANTS constants{};
-};*/
+};
 
 /**
  * Root objects with descriptor tables.
@@ -121,14 +110,14 @@ public:
 
 	virtual void clean_up();
 
+	virtual bool is_null() = 0;
+
 	virtual void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) = 0;
 
 	DescriptorTable descriptor_table{};
 
 protected:
-	//UINT heap_index{(UINT)-1};
-
-	bool compile_signal{false};
+	bool compile_signal{true};
 
 	ComPtr<ID3D12Resource> default_heap{nullptr};
 };
@@ -141,8 +130,8 @@ public:
 	ConstantBuffer(const DescriptorTable& dt) : DescriptorRootObject{dt} { }
 
 	template <typename T>
-	void set_obj(T& cb) {
-		obj = static_cast<void*>(&cb);
+	void set_obj(T* cb) {
+		obj = static_cast<void*>(cb);
 		obj_size = sizeof(T);
 	}
 
@@ -153,6 +142,8 @@ public:
 	bool will_update() const noexcept {  return update_signal; }
 
 	void clean_up() override;
+	
+	bool is_null() override { return obj_size == 0; }
 
 	void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
 
@@ -181,6 +172,8 @@ public:
 	void clean_up() override;
 
 	void create_view(const ComPtr<ID3D12Device> &device, GraphicsResourceDescriptorHeap &descriptor_heaps) override;
+
+	bool is_null() override { return heap_desc.Width == 0 || heap_desc.Height == 0 || heap_desc.DepthOrArraySize == 0; }
 
 	bool operator==(const ShaderResourceView& srv) const noexcept;
 
