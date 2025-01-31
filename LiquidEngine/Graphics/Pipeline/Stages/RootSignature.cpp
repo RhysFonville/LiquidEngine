@@ -221,7 +221,6 @@ std::weak_ptr<DescriptorRootObject> GraphicsPipeline::RootSignature::get_resourc
 	} else if (srv != shader_resource_views.end()) {
 		return std::static_pointer_cast<DescriptorRootObject>(srv->second);
 	} else {
-		throw std::exception{"Can't find root signature resource of that name."};
 		return std::weak_ptr<DescriptorRootObject>{};
 	}
 }
@@ -235,7 +234,6 @@ std::weak_ptr<ConstantBuffer> GraphicsPipeline::RootSignature::get_constant_buff
 	if (auto cb{constant_buffers.find(name)}; cb != constant_buffers.end()) {
 		return cb->second;
 	} else {
-		throw std::exception{"Can't find constant buffer of that name."};
 		return std::weak_ptr<ConstantBuffer>{};
 	}
 }
@@ -249,7 +247,6 @@ std::weak_ptr<RootConstants> GraphicsPipeline::RootSignature::get_root_constants
 	if (auto rc{root_constants.find(name)}; rc != root_constants.end()) {
 		return rc->second;
 	} else {
-		throw std::exception{"Can't find root constants of that name."};
 		return std::weak_ptr<RootConstants>{};
 	}
 }
@@ -263,7 +260,6 @@ std::weak_ptr<ShaderResourceView> GraphicsPipeline::RootSignature::get_shader_re
 	if (auto srv{shader_resource_views.find(name)}; srv != shader_resource_views.end()) {
 		return srv->second;
 	} else {
-		throw std::exception{"Can't find shader resource view of that name."};
 		return std::weak_ptr<ShaderResourceView>{};
 	}
 }

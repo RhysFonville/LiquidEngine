@@ -18,8 +18,6 @@ MyShaderCube::MyShaderCube()
 	mesh->get_material().get_albedo_texture().set_texture("cratealbedo.png");
 	mesh->get_material().get_specular_map().set_texture("cratespecular.png");
 
-	//mesh->get_material().add_shader_argument(rc.rc);
-
 	mimic_position_component = box.get();
 	mimic_rotation_component = box.get();
 }
@@ -29,10 +27,16 @@ void MyShaderCube::pre_scene_compile() {
 	add_component(box);
 }
 
+void MyShaderCube::post_scene_compile() {
+	rc.set_rc(mesh->get_material().pipeline.root_signature.get_root_constants("WAVE_CONSTANTS"));
+}
+
 void MyShaderCube::tick(float dt) {
-	//rc.obj->time += dt;
+	rc.get_obj()->time += dt;
 }
 
 void MyShaderCube::render_editor_gui_section() {
-	//ImGui::InputFloat("Intensity", &rc.obj->intensity);
+	ImGui::InputFloat("Amplitude", &rc.get_obj()->amplitude);
+	ImGui::InputFloat("Frequency", &rc.get_obj()->frequency);
+	ImGui::InputFloat("Phase", &rc.get_obj()->phase);
 }

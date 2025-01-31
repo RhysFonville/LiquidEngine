@@ -108,34 +108,24 @@ void Renderer::create_swap_chain() {
 void Renderer::create_rtv_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
-	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS*2u; // number of descriptors for this heap.
-	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
-														 // this heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
-														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
+	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS*2u;
+	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 	rtv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&rtv_heap_desc, IID_PPV_ARGS(&rtv_descriptor_heap)));
 
-	// get the size of a descriptor in this heap (this is a rtv heap, so only rtv descriptors should be stored in it.
-	// descriptor sizes may vary from device to device, which is why there is no set size and we must ask the 
-	// device to give us the size. we will use this size to increment a descriptor handle offset
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 }
 	
 void Renderer::create_rtvs() {
-	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 	
 	// Create a RTV for each buffer
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		// first we get the n'th buffer in the swap chain and store it in the n'th
-		// position of our ID3D12Resource array
 		HPEW(swap_chain->GetBuffer(i, IID_PPV_ARGS(&render_targets[i])));
 
-		// the we "create" a render target view which binds the swap chain buffer (ID3D12Resource[n]) to the rtv handle
 		device->CreateRenderTargetView(render_targets[i].Get(), nullptr, rtv_handle);
 		HPEW(render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str()));
 
-		// we increment the rtv handle by the rtv descriptor size we got above
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
 
@@ -195,7 +185,6 @@ void Renderer::create_command_allocators() {
 }
 
 void Renderer::create_command_list() {
-	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator.Get(), NULL, IID_PPV_ARGS(&command_list)));
 	HPEW(command_list->SetName(L"Main command list"));
 
@@ -210,10 +199,9 @@ void Renderer::create_fences_and_fence_event() {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence)));
 		HPEW(fence->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str()));
 
-		fence_value = 0; // set the initial fences value to 0
+		fence_value = 0;
 	}
 
-	// create a handle to a fences event
 	fence_event = CreateEventA(nullptr, false, false, nullptr);
 	if (fence_event == nullptr) {
 		throw std::exception("Failed to create fences event.");
@@ -221,7 +209,6 @@ void Renderer::create_fences_and_fence_event() {
 }
 
 void Renderer::create_depth_stencil(const UVector2 &size) {
-	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
 	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
 	dsv_heap_desc.NumDescriptors = 1;
 	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
@@ -404,7 +391,6 @@ void Renderer::setup_imgui_section() {
 }
 
 void Renderer::compile() {
-	// reset command list and allocator   
 	HPEW(command_allocator->Reset());
 	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
 	
@@ -520,7 +506,6 @@ void Renderer::present() {
 
 	signal();
 	
-	// present the current backbuffer
 	HPEW(swap_chain->Present(
 		vsync,
 		(restrict_present_to_adapter_output && !fullscreen ? DXGI_PRESENT_RESTRICT_TO_OUTPUT : 0u)
@@ -532,19 +517,6 @@ void Renderer::present() {
 void Renderer::tick(float dt) {
 	render(dt);
 	present();
-
-/*#ifndef NDEBUG
-	if (_kbhit()) {
-		char c{(char)_getch()};
-		if (c == 'm') {
-			std::string in{};
-			std::cin >> in;
-			UINT sample{(UINT)std::max(std::stoi(in), 1)};
-			std::cout << "Setting msaa sample count to: " << sample << std::endl;
-			set_msaa_sample_count(sample);
-		}
-	}
-#endif*/
 }
 
 void Renderer::clean_up() {
@@ -570,7 +542,6 @@ void Renderer::clean_up() {
 
 	debug_interface.Reset();
 	info_queue.Reset();
-	dxgi_debug.Reset();
 
 	depth_stencil_buffer.Reset();
 	depth_stencil_descriptor_heap.Reset();
@@ -586,6 +557,9 @@ void Renderer::clean_up() {
 	command_queue.Reset();
 	rtv_descriptor_heap.Reset();
 	command_list.Reset();
+
+	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_DXGI, DXGI_DEBUG_RLO_ALL));
+	dxgi_debug.Reset();
 }
 
 void Renderer::wait_for_previous_frame() {

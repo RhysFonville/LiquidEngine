@@ -7,6 +7,7 @@ public:
 	MyShaderCube();
 
 	void pre_scene_compile() override;
+	void post_scene_compile() override;
 	void tick(float dt) override;
 
 	void render_editor_gui_section() override;
@@ -16,9 +17,11 @@ private:
 	std::shared_ptr<BoundingBoxComponent> box{nullptr};
 
 	struct s {
-		float time{0.0f};
-		float intensity{1.0f};
+		float amplitude;
+		float frequency;
+		float phase;
+		float time;
 	};
 
-	//RootConstantsContainer<s> rc{s{}};
+	RootConstantsContainer<s> rc{s{}};
 };
