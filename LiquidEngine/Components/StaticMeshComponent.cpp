@@ -33,13 +33,13 @@ Material & StaticMeshComponent::get_material() noexcept {
 	return material;
 }
 
-void StaticMeshComponent::set_instances(const std::vector<Transform>& instances) noexcept {
+/*void StaticMeshComponent::set_instances(const std::vector<Transform>& instances) noexcept {
 	this->instances = instances;
 
 	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(instances));
 
 	changed = true;
-}
+}*/
 
 //void StaticMeshComponent::set_material(const Material &material) noexcept {
 //	this->material = material;

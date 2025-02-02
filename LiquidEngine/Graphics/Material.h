@@ -2,7 +2,8 @@
 
 #include <d3dcompiler.h>
 #include <fstream>
-#include "../Graphics/Texture.h"
+#include "Pipeline/GraphicsPipeline.h"
+#include "Texture.h"
 #include "../Components/GraphicsComponent.h"
 
 /**
@@ -48,22 +49,12 @@ public:
 
 	GraphicsPipeline pipeline{};
 
-	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>& cb);
-	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>& rc);
-	void add_shader_argument(std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>& srv);
-
-	void bind_shader_arguments();
-
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> get_shader_cbs() const noexcept;
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> get_shader_rcs() const noexcept;
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> get_shader_srvs() const noexcept;
-
 private:
-	std::string vs{"Graphics/DefaultVertex.hlsl"};
+	std::string vs{"Graphics/Shaders/DefaultVertex.hlsl"};
 	std::string hs{};
 	std::string ds{};
 	std::string gs{};
-	std::string ps{"Graphics/LitPixel.hlsl"};
+	std::string ps{"Graphics/Shaders/LitPixel.hlsl"};
 
 	Texture albedo_texture{};
 	Texture normal_map{};
@@ -72,9 +63,4 @@ private:
 	Color specular{5, 5, 5, 255}; // ks
 	Color ambient{0, 0, 0, 255}; // ka
 	float shininess{10.0f}; // a
-
-	std::vector<std::pair<char, size_t>> order{};
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ConstantBuffer>> cbs{};
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::RootConstants>> rcs{};
-	std::vector<std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView>> srvs{};
 };

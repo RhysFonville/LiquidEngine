@@ -4748,7 +4748,7 @@ inline HRESULT CD3DX12FeatureSupport::QueryHighestShaderModel()
         D3D_SHADER_MODEL_6_4,
         D3D_SHADER_MODEL_6_3,
         D3D_SHADER_MODEL_6_2,
-        D3D_SHADER_MODEL_6_1,
+        D3D_SHADER_MODEL_6_0,
         D3D_SHADER_MODEL_6_0,
         D3D_SHADER_MODEL_5_1
     };

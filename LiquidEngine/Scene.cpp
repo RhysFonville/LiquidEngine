@@ -51,6 +51,7 @@ void Scene::render_editor_gui_section() {
 		objects.back()->add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}));
 		objects.back()->add_component(std::make_shared<BoundingBoxComponent>());
 		objects.back()->mimic_position_component = objects.back()->get_component<BoundingBoxComponent>();
+		objects.back()->mimic_rotation_component = objects.back()->get_component<BoundingBoxComponent>();
 		objects.back()->base_compile();
 	}
 

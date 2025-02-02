@@ -22,7 +22,7 @@ public:
 	GET Material & get_material() noexcept;
 	//void set_material(const Material &material) noexcept;
 
-	void set_instances(const std::vector<Transform>& mesh) noexcept;
+	//void set_instances(const std::vector<Transform>& mesh) noexcept;
 
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;

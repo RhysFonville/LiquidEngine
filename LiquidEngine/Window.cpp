@@ -44,19 +44,19 @@ Window::Window() : Window{GetModuleHandleA(NULL)} { }
 Window::Window(HINSTANCE hInstance) {
 	this_window_wndproc = this;
 
-	window_class.cbSize = sizeof(WNDCLASSEXW);
+	window_class.cbSize = sizeof(WNDCLASSEXA);
 	window_class.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
 	window_class.lpfnWndProc = wndproc;
 	window_class.cbClsExtra = 0u;
 	window_class.cbWndExtra = 0u;
 	window_class.hInstance = hInstance;
-	window_class.hIcon = LoadIconW(NULL, IDI_APPLICATION);
-	window_class.hCursor = LoadCursorW(NULL, IDC_CROSS);
+	window_class.hIcon = LoadIconA(hInstance, MAKEINTRESOURCEA(32512)); // IDI_APPLICATION
+	window_class.hCursor = LoadCursorA(hInstance, MAKEINTRESOURCEA(32515)); // IDC_CROSS
 	window_class.hbrBackground = nullptr;
-	window_class.lpszMenuName = L"Main window class";
-	window_class.lpszClassName = L"Main window class";
+	window_class.lpszMenuName = "Main window menu";
+	window_class.lpszClassName = "Main window class";
 
-	RegisterClassExW(&window_class);
+	RegisterClassExA(&window_class);
 }
 
 Window::Window(HINSTANCE hInstance, Renderer* graphics_scene)
@@ -68,8 +68,9 @@ Window::Window(Renderer* renderer) : Window{GetModuleHandleA(NULL)} {
 	graphics_scene = renderer;
 }
 
-void Window::set_up_window(const Vector2 &position, const Vector2 &size, const std::string &name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
-	window = CreateWindowExW(extended_style, window_class.lpszClassName, string_to_wstring(name).c_str(),
+void Window::set_up_window(const Vector2 &position, const Vector2 &size, std::string name, DWORD style, const HWND &parent, DWORD extended_style, HMENU menu, void *lpParam) {
+	this->name = name;
+	window = CreateWindowExA(extended_style, window_class.lpszClassName, this->name.c_str(),
 		style, position.x, position.y,
 		size.x, size.y, parent, menu, window_class.hInstance, lpParam);
 
@@ -91,7 +92,7 @@ void Window::check_input() {
 void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
-	UnregisterClassW(window_class.lpszClassName, window_class.hInstance);
+	UnregisterClassA(window_class.lpszClassName, window_class.hInstance);
 #ifndef NDEBUG
 	debug_console->destroy_window();
 #endif // !NDEBUG
@@ -108,7 +109,7 @@ HDC & Window::get_dc() noexcept {
 	return dc;
 }
 
-WNDCLASSEXW & Window::get_class() noexcept {
+WNDCLASSEXA & Window::get_class() noexcept {
 	return window_class;
 }
 

@@ -21,39 +21,14 @@ public:
 	 * Initializes renderer.
 	 * 
 	 * \param window Window to pair the render to.
-	 * \param exclude Objects to exclude from creation. Add the integers to the vector that correlate to the object to wish to not create.
-	 * The integers correlate as follows:
-	 * 0: Factory
-	 * 1: Adapter
-	 * 2: Adapter output
-	 * 3: Device
-	 * 4: Command queue
-	 * 5: Swap chain
-	 * 6: Render target view desciptor heap
-	 * 7: Render target views
-	 * 8: Command allocators
-	 * 9: Command list
-	 * 10: Fences and fence event
-	 * 11: Depth stencil
-	 * 12: Descriptor heaps
-	 * 13: Blend state
-	 * 14: Viewport and scissor rect
 	 */
-	void init_renderer(HWND window, std::vector<int> exclude = {});
+	void init_renderer(HWND window);
 
 	/** Calls render and present. */
 	void tick(float dt);
 
 	/** Releases DirectX all interfaces. */
 	void clean_up();
-	
-	/**
-	* Cleans renderer and re-initializes it. Descriptors are automatically filled into descriptor heaps.
-	* 
-	* \param exclude Vector to be passed into init_renderer and the exclusions.
-	*/
-	
-	void refresh(std::vector<int> exclude = {}) { clean_up(); init_renderer(window, exclude); refill_descriptor_heap(); }
 
 	/**
 	* Fills command list and calls pipelines.
@@ -77,7 +52,7 @@ public:
 	 * \param compile_components If components are already compiled, keep false. You may set to true if the renderer was just cleaned.
 	 * \param compile_scene If graphics scene components are already compiled, keep false. You may set to true if the renderer was just cleaned.
 	 */
-	void compile(bool compile_components = false);
+	void compile();
 
 	/**
 	 * Resizes swap chain, viewport/scissor rect, and depth stencil. Automatically called when window resizes.

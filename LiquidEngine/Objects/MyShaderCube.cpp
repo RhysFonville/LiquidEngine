@@ -1,7 +1,7 @@
 #include "MyShaderCube.h"
 
 MyShaderCube::MyShaderCube()
-	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"crate.obj"}, Material{"Graphics/DefaultVertex.hlsl", "Graphics/MyPixelShader.hlsl"})},
+	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"crate.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})},
 	box{std::make_shared<BoundingBoxComponent>()} {
 	
 	/*std::vector<Transform> instances{};
@@ -27,6 +27,16 @@ void MyShaderCube::pre_scene_compile() {
 	add_component(box);
 }
 
-void MyShaderCube::tick(float dt) {
+void MyShaderCube::post_scene_compile() {
+	rc.set_rc(mesh->get_material().pipeline.root_signature.get_root_constants("WAVE_CONSTANTS"));
+}
 
+void MyShaderCube::tick(float dt) {
+	rc.get_obj()->time += dt;
+}
+
+void MyShaderCube::render_editor_gui_section() {
+	ImGui::InputFloat("Amplitude", &rc.get_obj()->amplitude);
+	ImGui::InputFloat("Frequency", &rc.get_obj()->frequency);
+	ImGui::InputFloat("Phase", &rc.get_obj()->phase);
 }

@@ -4,7 +4,7 @@ Renderer::Renderer(HWND window) {
 	init_renderer(window);
 }
 
-void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
+void Renderer::init_renderer(HWND window) {
 	this->window = window;
 
 	HPEW(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_interface)));
@@ -16,29 +16,21 @@ void Renderer::init_renderer(HWND window, std::vector<int> exclude) {
 
 	auto client_size = get_client_size(window);
 
-	int n = 0;
-	auto func = [&](const std::function<void()> &func) {
-		if (std::ranges::find(exclude, n) == exclude.end()) {
-			func();
-		}
-		n++;
-	};
-
-	func([&](){create_factory();});
-	func([&](){adapter = GraphicsAdapter{factory};});
-	func([&](){adapter_output = GraphicsAdapterOutput{device, adapter.adapter};});
-	func([&](){create_device();});
-	func([&](){create_command_queue();});
-	func([&](){create_swap_chain();});
-	func([&](){create_rtv_descriptor_heap();});
-	func([&](){create_rtvs();});
-	func([&](){create_command_allocators();});
-	func([&](){create_command_list();});
-	func([&](){create_fences_and_fence_event();});
-	func([&](){create_depth_stencil(client_size);});
-	func([&](){create_descriptor_heap();});
-	func([&](){set_blend_state();});
-	func([&](){set_viewport_and_scissor_rect(client_size);});
+	create_factory();
+	adapter = GraphicsAdapter{factory};
+	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
+	create_device();
+	create_command_queue();
+	create_swap_chain();
+	create_rtv_descriptor_heap();
+	create_rtvs();
+	create_command_allocators();
+	create_command_list();
+	create_fences_and_fence_event();
+	create_depth_stencil(client_size);
+	create_descriptor_heap();
+	set_blend_state();
+	set_viewport_and_scissor_rect(client_size);
 
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&debug_device)));
 	HPEW(device->QueryInterface(IID_PPV_ARGS(&info_queue)));
@@ -116,34 +108,24 @@ void Renderer::create_swap_chain() {
 void Renderer::create_rtv_descriptor_heap() {
 	// describe an rtv descriptor heap and create
 	D3D12_DESCRIPTOR_HEAP_DESC rtv_heap_desc = {};
-	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS*2u; // number of descriptors for this heap.
-	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // this heap is a render target view heap
-														 // this heap will not be directly referenced by the shaders (not shader visible), as this will store the output from the pipeline
-														 // otherwise we would set the heap's flag to D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
+	rtv_heap_desc.NumDescriptors = NUMBER_OF_BUFFERS*2u;
+	rtv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 	rtv_heap_desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 	HPEW(device->CreateDescriptorHeap(&rtv_heap_desc, IID_PPV_ARGS(&rtv_descriptor_heap)));
 
-	// get the size of a descriptor in this heap (this is a rtv heap, so only rtv descriptors should be stored in it.
-	// descriptor sizes may vary from device to device, which is why there is no set size and we must ask the 
-	// device to give us the size. we will use this size to increment a descriptor handle offset
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 }
 	
 void Renderer::create_rtvs() {
-	// get a handle to the first descriptor in the descriptor heap.
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 	
 	// Create a RTV for each buffer
 	for (int i = 0; i < NUMBER_OF_BUFFERS; i++) {
-		// first we get the n'th buffer in the swap chain and store it in the n'th
-		// position of our ID3D12Resource array
 		HPEW(swap_chain->GetBuffer(i, IID_PPV_ARGS(&render_targets[i])));
 
-		// the we "create" a render target view which binds the swap chain buffer (ID3D12Resource[n]) to the rtv handle
 		device->CreateRenderTargetView(render_targets[i].Get(), nullptr, rtv_handle);
 		HPEW(render_targets[i]->SetName(string_to_wstring("Render Target #" + std::to_string(i)).c_str()));
 
-		// we increment the rtv handle by the rtv descriptor size we got above
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
 
@@ -203,7 +185,6 @@ void Renderer::create_command_allocators() {
 }
 
 void Renderer::create_command_list() {
-	// create the command list with the first allocator
 	HPEW(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator.Get(), NULL, IID_PPV_ARGS(&command_list)));
 	HPEW(command_list->SetName(L"Main command list"));
 
@@ -218,10 +199,9 @@ void Renderer::create_fences_and_fence_event() {
 		HPEW(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence)));
 		HPEW(fence->SetName(string_to_wstring("Fence #" + std::to_string(i)).c_str()));
 
-		fence_value = 0; // set the initial fences value to 0
+		fence_value = 0;
 	}
 
-	// create a handle to a fences event
 	fence_event = CreateEventA(nullptr, false, false, nullptr);
 	if (fence_event == nullptr) {
 		throw std::exception("Failed to create fences event.");
@@ -229,7 +209,6 @@ void Renderer::create_fences_and_fence_event() {
 }
 
 void Renderer::create_depth_stencil(const UVector2 &size) {
-	// create a depth stencil descriptor heap so we can get a pointer to the depth stencil buffer
 	D3D12_DESCRIPTOR_HEAP_DESC dsv_heap_desc = {};
 	dsv_heap_desc.NumDescriptors = 1;
 	dsv_heap_desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
@@ -306,14 +285,6 @@ void Renderer::setup_imgui_section() {
 	};
 
 	if (ImGui::TreeNode("Renderer")) {
-		if (ImGui::Button("Re-initialize renderer")) {
-			end_imgui();
-			refresh();
-			compile(true);
-			skip_frame = true;
-			return;
-		}
-
 		ImGui::Checkbox("Clear render target", &clear_render_target);
 
 		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
@@ -333,13 +304,6 @@ void Renderer::setup_imgui_section() {
 			set_fullscreen(fullscreen);
 		}
 
-		if (ImGui::InputInt("Sample count", (int*)&msaa_sample_desc.Count, 1, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
-			end_imgui();
-			refresh();
-			skip_frame = true;
-			return;
-		}
-
 		{ // Adapter
 			auto desc = adapter.get_desc();
 			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
@@ -348,7 +312,7 @@ void Renderer::setup_imgui_section() {
 				clean_up();
 				create_factory();
 				adapter = GraphicsAdapter{factory, (UINT)index};
-				init_renderer(window, {1});
+				init_renderer(window);
 
 				skip_frame = true;
 				return;
@@ -426,29 +390,24 @@ void Renderer::setup_imgui_section() {
 	}
 }
 
-void Renderer::compile(bool compile_components) {
-	// reset command list and allocator   
+void Renderer::compile() {
 	HPEW(command_allocator->Reset());
 	HPEW(command_list->Reset(command_allocator.Get(), nullptr));
-
+	
 	scene.compile();
 
-	scene.update(resolution);
-
 	for (auto &mesh : scene.static_meshes) {
-		if (compile_components)
-			mesh->component->compile();
-
-		mesh->material.component->bind_shader_arguments();
+		//mesh->component->compile();
 		mesh->material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	if (scene.sky.component != nullptr) {
-		if (compile_components)
-			scene.sky.component->compile();
-
+		//scene.sky.component->compile();
 		scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
+	
+	scene.set_resources();
+	scene.update(resolution);
 
 	HPEW(command_list->Close());
 	execute_command_list();
@@ -460,6 +419,7 @@ void Renderer::render(float dt) {
 
 	if (skip_frame) return;
 
+	scene.compile();
 	scene.update(resolution);
 
 	wait_for_previous_frame();
@@ -500,6 +460,9 @@ void Renderer::render(float dt) {
 	ID3D12DescriptorHeap* dh[] = { descriptor_heap.get().Get() };
 	command_list->SetDescriptorHeaps(_countof(dh), dh);
 	
+	// OpenGL shadow mapping video
+	// https://www.youtube.com/watch?v=kCCsko29pv0
+
 	if (scene.sky.component != nullptr)
 		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	
@@ -543,7 +506,6 @@ void Renderer::present() {
 
 	signal();
 	
-	// present the current backbuffer
 	HPEW(swap_chain->Present(
 		vsync,
 		(restrict_present_to_adapter_output && !fullscreen ? DXGI_PRESENT_RESTRICT_TO_OUTPUT : 0u)
@@ -555,19 +517,6 @@ void Renderer::present() {
 void Renderer::tick(float dt) {
 	render(dt);
 	present();
-
-/*#ifndef NDEBUG
-	if (_kbhit()) {
-		char c{(char)_getch()};
-		if (c == 'm') {
-			std::string in{};
-			std::cin >> in;
-			UINT sample{(UINT)std::max(std::stoi(in), 1)};
-			std::cout << "Setting msaa sample count to: " << sample << std::endl;
-			set_msaa_sample_count(sample);
-		}
-	}
-#endif*/
 }
 
 void Renderer::clean_up() {
@@ -578,11 +527,7 @@ void Renderer::clean_up() {
 	if (is_fullscreen())
 		set_fullscreen(false);
 
-	scene.clean_up();
-
 	resource_manager->release_all_resources();
-
-	EditorGUI::clean_up();
 
 	descriptor_heap.clean_up();
 
@@ -597,7 +542,6 @@ void Renderer::clean_up() {
 
 	debug_interface.Reset();
 	info_queue.Reset();
-	dxgi_debug.Reset();
 
 	depth_stencil_buffer.Reset();
 	depth_stencil_descriptor_heap.Reset();
@@ -613,6 +557,9 @@ void Renderer::clean_up() {
 	command_queue.Reset();
 	rtv_descriptor_heap.Reset();
 	command_list.Reset();
+
+	HPEW(dxgi_debug->ReportLiveObjects(DXGI_DEBUG_DXGI, DXGI_DEBUG_RLO_ALL));
+	dxgi_debug.Reset();
 }
 
 void Renderer::wait_for_previous_frame() {
@@ -692,7 +639,7 @@ void Renderer::set_msaa_sample_count(UINT count) {
 	create_rtvs();
 	auto size = get_client_size(window);
 	create_depth_stencil(size);
-	compile(true);
+	compile();
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {

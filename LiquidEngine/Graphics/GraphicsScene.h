@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <array>
 #include "../Components/CameraComponent.h"
 #include "../Components/DirectionalLightComponent.h"
 #include "../Components/PointLightComponent.h"
@@ -8,8 +8,9 @@
 #include "../Components/StaticMeshComponent.h"
 #include "../Components/SkyComponent.h"
 #include "../Utility/Vectors.h"
+#include "Pipeline/GraphicsPipelineRootArgumentContainers.h"
 
-static constexpr UINT MAX_LIGHTS_PER_TYPE = 16u;
+static constexpr UCHAR MAX_LIGHTS_PER_TYPE = 255u;
 
 //_declspec(align(16))
 //class DXLight {
@@ -82,6 +83,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(DirectionalLightComponent component) { return (component == *(this->component)); }
@@ -131,6 +133,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(PointLightComponent component) { return (component == *(this->component)); }
@@ -175,6 +178,7 @@ public:
 
 	void compile() {
 		component->has_changed(true);
+		component->needs_compile(false);
 	}
 
 	bool operator==(SpotlightComponent component) { return (component == *(this->component)); }
@@ -219,9 +223,9 @@ struct PSLightsCB { // b2
 	UINT point_light_count = 0;
 	UINT spotlight_count = 0;
 
-	RenderingDirectionalLightData directional_lights[MAX_LIGHTS_PER_TYPE] = { };
-	RenderingPointLightData point_lights[MAX_LIGHTS_PER_TYPE] = { };
-	RenderingSpotlightData spotlights[MAX_LIGHTS_PER_TYPE] = { };
+	std::array<RenderingDirectionalLightData, MAX_LIGHTS_PER_TYPE> directional_lights{};
+	std::array<RenderingPointLightData, MAX_LIGHTS_PER_TYPE> point_lights{};
+	std::array<RenderingSpotlightData, MAX_LIGHTS_PER_TYPE> spotlights{};
 };
 
 __declspec(align(16))
@@ -258,8 +262,8 @@ public:
 	bool update(UVector2 resolution) {
 		if (component->has_changed()) {
 			component->update(UVector2_to_FVector2(resolution));
-			wvp_data.obj->WVP = XMMatrixTranspose(component->get_wvp());
-			pos_data.obj->camera_position = component->get_position();
+			wvp_data->WVP = XMMatrixTranspose(component->get_wvp());
+			pos_data->camera_position = component->get_position();
 
 			return true;
 		}
@@ -268,26 +272,21 @@ public:
 
 	void compile() {
 		component->has_changed(true);
-		wvp_data = VSWVPConstants{};
-		pos_data = PSCameraConstants{};
+		component->needs_compile(false);
 	}
 
-	void clean_up() {
-		wvp_data.clean_up();
-		pos_data.clean_up();
-	}
+	void clean_up() { }
 
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSWVPConstants> wvp_data = VSWVPConstants{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<PSCameraConstants> pos_data = PSCameraConstants{};
+	std::shared_ptr<VSWVPConstants> wvp_data{std::make_shared<VSWVPConstants>()};
+	std::shared_ptr<PSCameraConstants> pos_data{std::make_shared<PSCameraConstants>()};
 };
 
 /**
 * Graphics-side texture.
-* \see SpotlightComponent
 */
-class RenderingTexture : public RenderingComponent<Texture> {
+/*class RenderingTexture : public RenderingComponent<Texture> {
 public:
 	RenderingTexture() { }
 	RenderingTexture(Texture* texture) : RenderingComponent{texture} { }
@@ -302,8 +301,10 @@ public:
 		return false;
 	}
 
-	void compile() {
-		srv = std::make_shared<GraphicsPipeline::RootSignature::ShaderResourceView>();
+	void compile(const std::string& name) {
+		camera.wvp_data.rc = component->pipeline.root_signature.get_resource(name);
+
+		component->needs_compile(false);
 	}
 
 	void update_descs_and_compile_srv() {
@@ -317,8 +318,8 @@ public:
 		srv = nullptr;
 	}
 
-	std::shared_ptr<GraphicsPipeline::RootSignature::ShaderResourceView> srv{nullptr};
-};
+	ShaderResourceView srv{};
+};*/
 
 /**
 * Graphics-side sky.
@@ -330,22 +331,24 @@ public:
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky} { }
 
 	bool update(const RenderingCamera& camera) {
-		bool ret{false};
-		if (texture.update()) ret = true;
+		if (texture.get_texture()->has_changed()) {
+			texture.update();
+			texture.get_texture()->has_changed(false);
+		}
 
 		bool change{false};
 		if (camera.component->has_changed()) change = true;
 
 		if (component->has_changed()) {
-			*data.obj = PSSkyCB{*component};
+			data.set_obj_ptr(PSSkyCB{*component});
 			data.update();
 
 			change = true;
 		}
 
 		if (change) {
-			transform_data.obj->transform = Transform{
-				camera.pos_data.obj->camera_position+component->get_position(),
+			transform_data.get_obj()->transform = Transform{
+				camera.pos_data->camera_position+component->get_position(),
 				component->get_rotation(),
 				component->get_size()
 			};
@@ -353,20 +356,25 @@ public:
 			component->has_changed(false);
 		}
 
-		return ret;
+		return true;
 	}
 
 	void compile(RenderingCamera& camera) {
-		component->has_changed(true);
-		texture = RenderingTexture{&component->get_albedo_texture()};
-		texture.compile();
+		texture.set_texture(component->get_albedo_texture());
 		transform_data = VSTransformConstants{};
 		data = PSSkyCB{};
 
-		component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		component->pipeline.root_signature.bind_constant_buffer<PSSkyCB>(data, D3D12_SHADER_VISIBILITY_PIXEL);
-		component->pipeline.root_signature.bind_shader_resource_view(texture.srv, D3D12_SHADER_VISIBILITY_PIXEL);
+		component->has_changed(true);
+		component->needs_compile(false);
+	}
+
+	void set_resources(RenderingCamera& camera) {
+		wvp_data.set_rc(component->pipeline.root_signature.get_root_constants("WVP_CONSTANTS"));
+		wvp_data.set_obj_ptr(camera.wvp_data);
+		
+		transform_data.set_rc(component->pipeline.root_signature.get_root_constants("TRANSFORM_CONSTANTS"));
+		data.set_cb(component->pipeline.root_signature.get_constant_buffer("SKY_BUFFER"));
+		texture.set_srv(component->pipeline.root_signature.get_shader_resource_view("ALBEDO_TEXTURE"));
 	}
 
 	void clean_up() {
@@ -377,10 +385,11 @@ public:
 
 	bool operator==(SkyComponent component) { return (component == *(this->component)); }
 
-	RenderingTexture texture{};
+	ShaderResourceViewContainer texture{};
 
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{};
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSSkyCB> data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
+	ConstantBufferContainer<PSSkyCB> data{};
+	RootConstantsContainer<VSWVPConstants> wvp_data{};
 };
 
 /**
@@ -394,12 +403,24 @@ public:
 
 	bool update() {
 		bool ret{false};
-		if (albedo_texture.update()) ret = true;
-		if (normal_map.update()) ret = true;
-		if (specular_map.update()) ret = true;
+		if (albedo_texture.get_texture()->has_changed()) {
+			albedo_texture.update();
+			albedo_texture.get_texture()->has_changed(false);
+			ret = true;
+		}
+		if (normal_map.get_texture()->has_changed()) {
+			normal_map.update();
+			normal_map.get_texture()->has_changed(false);
+			ret = true;
+		}
+		if (specular_map.get_texture()->has_changed()) {
+			specular_map.update();
+			specular_map.get_texture()->has_changed(false);
+			ret = true;
+		}
 
 		if (component->has_changed() || ret) {
-			material_data.obj->material = RenderingMaterialData{*component};
+			material_data.get_obj()->material = RenderingMaterialData{*component};
 			material_data.update();
 
 			component->has_changed(false);
@@ -409,34 +430,20 @@ public:
 	}
 
 	void compile() {
-		albedo_texture = RenderingTexture{&component->get_albedo_texture()};
-		albedo_texture.compile();
-
-		normal_map = RenderingTexture{&component->get_normal_map()};
-		normal_map.compile();
-
-		specular_map = RenderingTexture{&component->get_specular_map()};
-		specular_map.compile();
-
+		albedo_texture.set_texture(component->get_albedo_texture());
+		normal_map.set_texture(component->get_normal_map());
+		specular_map.set_texture(component->get_specular_map());
 		material_data = PSMaterialCB{};
 
 		component->has_changed(true);
+		component->needs_compile(false);
+	}
 
-		component->pipeline.root_signature.bind_constant_buffer(material_data, D3D12_SHADER_VISIBILITY_PIXEL);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			albedo_texture.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			normal_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-		component->pipeline.root_signature.bind_shader_resource_view(
-			specular_map.srv,
-			D3D12_SHADER_VISIBILITY_PIXEL
-		);
-
-		component->pipeline.compile();
+	void set_resources() {
+		material_data.set_cb(component->pipeline.root_signature.get_constant_buffer("OBJECT_BUFFER"));
+		albedo_texture.set_srv(component->pipeline.root_signature.get_shader_resource_view("ALBEDO_TEXTURE"));
+		normal_map.set_srv(component->pipeline.root_signature.get_shader_resource_view("NORMAL_MAP"));
+		specular_map.set_srv(component->pipeline.root_signature.get_shader_resource_view("SPECULAR_MAP"));
 	}
 
 	void clean_up() {
@@ -446,11 +453,11 @@ public:
 		specular_map.clean_up();
 	}
 
-	RenderingTexture albedo_texture{};
-	RenderingTexture normal_map{};
-	RenderingTexture specular_map{};
+	ShaderResourceViewContainer albedo_texture{};
+	ShaderResourceViewContainer normal_map{};
+	ShaderResourceViewContainer specular_map{};
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSMaterialCB> material_data{};
+	ConstantBufferContainer<PSMaterialCB> material_data{};
 };
 
 /**
@@ -467,7 +474,7 @@ public:
 		if (material.update()) ret = true;
 
 		if (component->has_changed()) {
-			transform_data.obj->transform = component->get_transform();
+			transform_data.get_obj()->transform = component->get_transform();
 			component->has_changed(false);
 			return true;
 		}
@@ -478,18 +485,18 @@ public:
 		const std::vector<RenderingPointLight> &pl,
 		const std::vector<RenderingSpotlight> &sl) {
 
-		lights_data.obj->directional_light_count = (UINT)dl.size();
-		lights_data.obj->point_light_count = (UINT)pl.size();
-		lights_data.obj->spotlight_count = (UINT)sl.size();
+		lights_data.get_obj()->directional_light_count = (UINT)dl.size();
+		lights_data.get_obj()->point_light_count = (UINT)pl.size();
+		lights_data.get_obj()->spotlight_count = (UINT)sl.size();
 
 		for (int i = 0; i < dl.size(); i++) {
-			lights_data.obj->directional_lights[i] = dl[i].data;
+			lights_data.get_obj()->directional_lights[i] = dl[i].data;
 		}
 		for (int i = 0; i < pl.size(); i++) {
-			lights_data.obj->point_lights[i] = pl[i].data;
+			lights_data.get_obj()->point_lights[i] = pl[i].data;
 		}
 		for (int i = 0; i < sl.size(); i++) {
-			lights_data.obj->spotlights[i] = sl[i].data;
+			lights_data.get_obj()->spotlights[i] = sl[i].data;
 		}
 
 		lights_data.update();
@@ -498,18 +505,27 @@ public:
 	}
 
 	void compile(RenderingCamera &camera) {
-		component->has_changed(true);
-
 		material = RenderingMaterial{&component->get_material()};
 		lights_data = PSLightsCB{};
 		transform_data = VSTransformConstants{};
-
-		material.component->pipeline.root_signature.bind_root_constants<VSWVPConstants>(camera.wvp_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		material.component->pipeline.root_signature.bind_root_constants<VSTransformConstants>(transform_data, D3D12_SHADER_VISIBILITY_VERTEX, 16u);
-		material.component->pipeline.root_signature.bind_constant_buffer(lights_data, D3D12_SHADER_VISIBILITY_PIXEL);
-		material.component->pipeline.root_signature.bind_root_constants(camera.pos_data, D3D12_SHADER_VISIBILITY_PIXEL, 4u);
 		
 		material.compile();
+
+		component->has_changed(true);
+		component->needs_compile(false);
+	}
+
+	void set_resources(RenderingCamera& camera) {
+		wvp_data.set_rc(material.component->pipeline.root_signature.get_root_constants("WVP_CONSTANTS"));
+		wvp_data.set_obj_ptr(camera.wvp_data);
+		
+		pos_data.set_rc(material.component->pipeline.root_signature.get_root_constants("CAMERA_CONSTANTS"));
+		pos_data.set_obj_ptr(camera.pos_data);
+
+		transform_data.set_rc(material.component->pipeline.root_signature.get_root_constants("TRANSFORM_CONSTANTS"));
+		lights_data.set_cb(material.component->pipeline.root_signature.get_constant_buffer("LIGHTS_BUFFER"));
+
+		material.set_resources();
 	}
 
 	void clean_up() {
@@ -522,8 +538,10 @@ public:
 
 	RenderingMaterial material{};
 
-	GraphicsPipeline::RootSignature::ConstantBufferContainer<PSLightsCB> lights_data{};
-	GraphicsPipeline::RootSignature::RootConstantsContainer<VSTransformConstants> transform_data{};
+	RootConstantsContainer<VSWVPConstants> wvp_data{};
+	RootConstantsContainer<PSCameraConstants> pos_data{};
+	RootConstantsContainer<VSTransformConstants> transform_data{};
+	ConstantBufferContainer<PSLightsCB> lights_data{};
 
 	bool update_lights_signal = false;
 };
@@ -547,16 +565,22 @@ public:
 	void add_component(const T *component) {
 		if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
+			camera.component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
 			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
+			directional_lights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::PointLightComponent) {
 			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
+			point_lights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::SpotlightComponent) {
 			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
+			spotlights.back().component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
 			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
+			static_meshes.back()->component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
+			sky.component->needs_compile(true);
 		}
 	}
 
@@ -584,26 +608,42 @@ public:
 	}
 
 	void compile() {
-		camera.compile();
+		if (camera.component->needs_compile())
+			camera.compile();
 
-		if (sky.component != nullptr) {
+		if (sky.component != nullptr && sky.component->needs_compile()) {
 			sky.compile(camera);
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			dl.compile();
+			if (dl.component->needs_compile())
+				dl.compile();
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			pl.compile();
+			if (pl.component->needs_compile())
+				pl.compile();
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			sl.compile();
+			if (sl.component->needs_compile())
+				sl.compile();
 		}
 
 		for (auto &mesh : static_meshes) {
-			if (camera.component != nullptr) {
+			if (camera.component != nullptr && mesh->component->needs_compile()) {
 				mesh->compile(camera);
-				mesh->update_lights_signal = true;
+				mesh->update_lights(directional_lights, point_lights, spotlights);
+			}
+		}
+	}
+
+	void set_resources() {
+		if (sky.component != nullptr) {
+			sky.set_resources(camera);
+		}
+
+		for (auto& mesh : static_meshes) {
+			if (camera.component != nullptr) {
+				mesh->set_resources(camera);
 			}
 		}
 	}
@@ -621,13 +661,16 @@ public:
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			if (!light_update) light_update = dl.update();
+			bool update = dl.update();
+			if (update) light_update = true;
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			if (!light_update) light_update = pl.update();
+			bool update = pl.update();
+			if (update) light_update = true;
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			if (!light_update) light_update = sl.update();
+			bool update = sl.update();
+			if (update) light_update = true;
 		}
 
 		bool mesh_update{false};

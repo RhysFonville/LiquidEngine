@@ -1,10 +1,9 @@
 #pragma once
 
 #include <exception>
-#include <Windows.h>
 #include <comdef.h>
 #include <stacktrace>
-#include "../Utility/globalutil.h"
+#include "../Utility/windowsconversion.h"
 #include "DebugConsole.h"
 
 static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
@@ -22,6 +21,18 @@ struct THROW_PARAMS {
 	long line_location;
 	std::string extra_message = "";
 };
+
+static std::string format_time_point(const std::chrono::time_point<std::chrono::system_clock>& time_point) {
+	//return std::format("{0:%F %R %Z}", floor<std::chrono::milliseconds>(time_point));
+	return "";
+}
+
+static void append_to_file(const std::string& message, const std::string& path = "out.log") {
+	std::ofstream file;
+	file.open(path, std::ios_base::app);
+
+	file << message << std::endl;
+}
 
 /**
 * Displays an error message and logs the information into throw_details.log and the console.

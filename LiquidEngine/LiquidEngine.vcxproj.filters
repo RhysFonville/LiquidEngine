@@ -31,9 +31,10 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="packages.config" />
-    <None Include="Graphics\BaseShader.hlsli" />
-    <None Include="Graphics\BaseLitPS.hlsli" />
-    <None Include="Graphics\BaseVS.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseShader.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseLitPS.hlsli" />
+    <None Include="Graphics\Shaders\Includes\BaseVS.hlsli" />
+    <None Include="Graphics\Shaders\Includes\PSBuffers.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="out.log">
@@ -68,10 +69,10 @@
     <ClInclude Include="Graphics\d3dx12.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsPipeline.h">
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicsPipelineIACommand.h">
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineIACommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Renderer\Renderer.h">
@@ -158,7 +159,7 @@
     <ClInclude Include="Debug\DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Storage.h">
+    <ClInclude Include="Graphics\Pipeline\Storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\MyStatue.h">
@@ -191,7 +192,7 @@
     <ClInclude Include="imgui\imgui_impl_win32.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.h">
+    <ClInclude Include="Graphics\GraphicsResourceDescriptorHeap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="implot\implot.h">
@@ -242,6 +243,21 @@
     <ClInclude Include="Objects\MyShaderCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\windowsconversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\graphicsoperatoroverloading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Pipeline\ShaderCompiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -289,7 +305,7 @@
     <ClCompile Include="Components\StaticMeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicsPipeline.cpp">
+    <ClCompile Include="Graphics\Pipeline\GraphicsPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Renderer\Renderer.cpp">
@@ -340,7 +356,7 @@
     <ClCompile Include="Debug\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Storage.cpp">
+    <ClCompile Include="Graphics\Pipeline\Storage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\MyStatue.cpp">
@@ -370,7 +386,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderer\GraphicsResourceDescriptorHeap.cpp">
+    <ClCompile Include="Graphics\GraphicsResourceDescriptorHeap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="implot\implot.cpp">
@@ -412,14 +428,26 @@
     <ClCompile Include="Objects\MyShaderCube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\Pipeline\GraphicsPipelineRootArguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Pipeline\ShaderCompiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Pipeline\Stages\InputAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Pipeline\Stages\RootSignature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Graphics\mipmapcs.hlsl" />
-    <FxCompile Include="Graphics\SkyPS.hlsl" />
-    <FxCompile Include="Graphics\SkyVS.hlsl" />
-    <FxCompile Include="Graphics\LitPixel.hlsl" />
-    <FxCompile Include="Graphics\DefaultVertex.hlsl" />
-    <FxCompile Include="Graphics\UnlitPixel.hlsl" />
-    <FxCompile Include="Graphics\MyPixelShader.hlsl" />
+    <FxCompile Include="Graphics\Shaders\mipmapcs.hlsl" />
+    <FxCompile Include="Graphics\Shaders\SkyPS.hlsl" />
+    <FxCompile Include="Graphics\Shaders\SkyVS.hlsl" />
+    <FxCompile Include="Graphics\Shaders\LitPixel.hlsl" />
+    <FxCompile Include="Graphics\Shaders\DefaultVertex.hlsl" />
+    <FxCompile Include="Graphics\Shaders\UnlitPixel.hlsl" />
+    <FxCompile Include="Graphics\Shaders\MyPixelShader.hlsl" />
   </ItemGroup>
 </Project>

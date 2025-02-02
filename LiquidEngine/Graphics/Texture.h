@@ -1,21 +1,23 @@
 #pragma once
 
 #include <DirectXTex.h>
-#include "GraphicsPipeline.h"
+#include <filesystem>
 #include "../Components/GraphicsComponent.h"
+#include "../Debug/Throw.h"
+
+namespace fs = std::filesystem;
 
 /**
  * Texture for rendering onto objects.
- * \see GraphicsPipeline::RootSignature::ShaderResourceView
+ * \see ShaderResourceView
  */
 class Texture : public GraphicsTracker {
 public:
 	Texture() { }
+	Texture(const Texture& texture);
 	Texture(const std::string &file);
 
 	void compile();
-
-	//void operator=(const Texture &texture) noexcept;
 
 	bool operator==(const Texture &texture) const noexcept;
 

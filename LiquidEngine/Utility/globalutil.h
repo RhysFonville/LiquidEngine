@@ -8,46 +8,13 @@
 #include <numbers>
 #include <chrono>
 #include <functional>
-#include <filesystem>
-
-#include <initguid.h>
-#include <d3d12.h>
-#include <wrl.h>
 
 #include "Vectors.h"
 #include "SimpleShapes.h"
 #include "ObjectStructs.h"
 #include "commonmacros.h"
 
-namespace fs = std::filesystem;
-
-using Microsoft::WRL::ComPtr;
-
-static std::wstring string_to_wstring(const std::string &string, bool is_utf8 = true) {
-	int len;
-	int slength = (int)string.length() + 1;
-	len = MultiByteToWideChar(is_utf8 ? CP_UTF8 : CP_ACP, 0, string.c_str(), slength, 0, 0);
-	std::wstring buf;
-	buf.resize(len);
-	MultiByteToWideChar(is_utf8 ? CP_UTF8 : CP_ACP, 0, string.c_str(), slength,
-		const_cast<wchar_t*>(buf.c_str()), len);
-	return buf;
-}
-
-static std::string wstring_to_string(const std::wstring &wstring) {
-	std::string str;
-	str.resize(wstring.size());
-	std::transform(wstring.begin(), wstring.end(), str.begin(),
-		[](auto wc) {return static_cast<char>(wc); }
-	);
-	return str;
-}
-
-static std::wstring BSTR_to_wstring(BSTR bstr) {
-	return std::wstring(bstr, SysStringLen(bstr));
-}
-
-static std::string to_lower(std::string str) {
+static std::string to_lower(std::string str) { // Must be copy
 	std::transform(str.begin(), str.end(), str.begin(),
 		[](unsigned char c){ return std::tolower(c); });
 	
@@ -113,13 +80,6 @@ static std::vector<std::string> split(const std::string &s, char delim) {
 	return elems;
 }
 
-static void append_to_file(const std::string &message, const std::string &path = "out.log") {
-	std::ofstream file;
-	file.open(path, std::ios_base::app);
-
-	file << message << std::endl;
-}
-
 static bool compf(float x, float y, float epsilon = 0.01f) {
 	if(fabs(x - y) < epsilon)
 		return true; //they are same
@@ -165,7 +125,7 @@ static std::string trim_copy(std::string s) {
 }
 
 static void remove_extra_spaces(std::string &s) {
-	for (int i = 0; i < s.size(); i++) {
+	for (size_t i = 0; i < s.size(); i++) {
 		if (s[i] == ' ' && s[i+1] == ' ')
 			s.erase(i, 1u);
 	}
@@ -178,67 +138,6 @@ static std::string get_parent_directory(const std::string &str, bool add_ending_
 	}
 
 	return ret;
-}
-
-static std::string format_time_point(const std::chrono::time_point<std::chrono::system_clock> &time_point) {
-	return std::format("{0:%F %R %Z}", floor<std::chrono::milliseconds>(time_point));
-}
-
-//static bool operator==(const D3D12_RECT &lhs, const D3D12_RECT &rhs) noexcept {
-//	return (lhs.left == rhs.left &&
-//		lhs.right == rhs.right &&
-//		lhs.top == rhs.top &&
-//		lhs.bottom == rhs.bottom);
-//}
-
-static bool operator==(const D3D12_VERTEX_BUFFER_VIEW &lhs, const D3D12_VERTEX_BUFFER_VIEW &rhs) noexcept {
-	return (lhs.BufferLocation == rhs.BufferLocation &&
-		lhs.SizeInBytes == rhs.SizeInBytes &&
-		lhs.StrideInBytes && rhs.StrideInBytes);
-}
-
-static bool operator==(const D3D12_STREAM_OUTPUT_DESC &lhs, const D3D12_STREAM_OUTPUT_DESC &rhs) noexcept {
-	return (lhs.NumEntries == rhs.NumEntries &&
-		lhs.NumStrides == rhs.NumStrides &&
-		lhs.pBufferStrides == rhs.pBufferStrides &&
-		lhs.pSODeclaration == rhs.pSODeclaration &&
-		lhs.RasterizedStream == rhs.RasterizedStream);
-}
-
-static bool operator==(const D3D12_RASTERIZER_DESC &lhs, const D3D12_RASTERIZER_DESC &rhs) noexcept {
-	return (lhs.AntialiasedLineEnable == rhs.AntialiasedLineEnable &&
-		lhs.ConservativeRaster == rhs.ConservativeRaster &&
-		lhs.CullMode == rhs.CullMode &&
-		lhs.DepthBias == rhs.DepthBias &&
-		lhs.DepthBiasClamp == rhs.DepthBiasClamp &&
-		lhs.DepthClipEnable == rhs.DepthClipEnable &&
-		lhs.FillMode == rhs.FillMode &&
-		lhs.ForcedSampleCount == rhs.ForcedSampleCount &&
-		lhs.FrontCounterClockwise == rhs.FrontCounterClockwise &&
-		lhs.MultisampleEnable == rhs.MultisampleEnable &&
-		lhs.SlopeScaledDepthBias == rhs.SlopeScaledDepthBias);
-}
-
-static bool operator==(const D3D12_ROOT_SIGNATURE_DESC &lhs, const D3D12_ROOT_SIGNATURE_DESC &rhs) noexcept {
-	return (lhs.Flags == rhs.Flags &&
-		lhs.NumParameters == rhs.NumParameters &&
-		lhs.NumStaticSamplers == rhs.NumStaticSamplers &&
-		lhs.pParameters == rhs.pParameters &&
-		lhs.pStaticSamplers == rhs.pStaticSamplers
-	);
-}
-
-static bool operator==(const D3D12_ROOT_DESCRIPTOR_TABLE &lhs, const D3D12_ROOT_DESCRIPTOR_TABLE &rhs) noexcept {
-	return (lhs.NumDescriptorRanges == rhs.NumDescriptorRanges &&
-		lhs.pDescriptorRanges == rhs.pDescriptorRanges);
-}
-
-static bool operator==(const D3D12_DESCRIPTOR_RANGE &lhs, const D3D12_DESCRIPTOR_RANGE &rhs) noexcept {
-	return (lhs.BaseShaderRegister == rhs.BaseShaderRegister &&
-		lhs.NumDescriptors == rhs.NumDescriptors &&
-		lhs.OffsetInDescriptorsFromTableStart == rhs.OffsetInDescriptorsFromTableStart &&
-		lhs.RangeType == rhs.RangeType &&
-		lhs.RegisterSpace == rhs.RegisterSpace);
 }
 
 template <ACCEPT_DIGIT_ONLY(typename T)>
