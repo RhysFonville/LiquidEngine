@@ -105,8 +105,14 @@ void GraphicsPipeline::InputAssembler::add_mesh(const Mesh& mesh, const ComPtr<I
 
 	const std::vector<Vertex>& verts = mesh.get_vertices();
 
+	if (verts.size() == 0) {
+		vertex_buffer_views.push_back(D3D12_VERTEX_BUFFER_VIEW{});
+		vertex_buffers.push_back(nullptr);
+		return;
+	}
+
 	if (index == (size_t)-1) {
-		index = vertex_buffers.size();
+		index = vertex_buffer_views.size();
 	}
 
 	ComPtr<ID3D12Resource> vertex_buffer_upload{nullptr};
@@ -194,12 +200,16 @@ void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Devic
 }
 
 void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
+	if (vertex_buffer_views[buffer_view_to_draw].SizeInBytes == 0u) return;
+	
 	command_list->IASetPrimitiveTopology(primitive_topology);
 	command_list->IASetVertexBuffers(0u, 1u, &vertex_buffer_views[buffer_view_to_draw]);
 	//command_list->IASetVertexBuffers(1u, 1u, &instance_buffer_view);
 }
 
 void GraphicsPipeline::InputAssembler::draw_meshes(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
+	if (vertex_buffer_views[buffer_view_to_draw].SizeInBytes == 0u) return;
+	
 	command_list->DrawInstanced(
 		vertex_buffer_views[buffer_view_to_draw].SizeInBytes / sizeof(Vertex),
 		/*instance_buffer_view.SizeInBytes / sizeof(Transform)*/1u,

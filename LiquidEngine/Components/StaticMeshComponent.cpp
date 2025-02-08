@@ -2,7 +2,11 @@
 
 StaticMeshComponent::StaticMeshComponent(const std::map<float, Mesh>& meshes, const Material& mat, const std::vector<Transform>& instances)
 	: GraphicsComponent{Type::StaticMeshComponent},
-	meshes{meshes}, material{mat}, instances{instances}, current_mesh{this->meshes.begin()} { }
+	meshes{meshes}, material{mat}, instances{instances}, current_mesh{this->meshes.begin()} {
+	if (meshes.begin()->first != 0.0f) {
+		this->meshes.insert(std::make_pair(0.0f, Mesh{}));
+	}
+}
 
 StaticMeshComponent::StaticMeshComponent(const Mesh& mesh, const Material& mat, const std::vector<Transform>& instances)
 	: StaticMeshComponent{std::map<float, Mesh>{std::make_pair(0.0f, mesh)},
@@ -33,6 +37,7 @@ const Mesh & StaticMeshComponent::get_mesh() noexcept {
 
 void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
 	this->meshes = std::map<float, Mesh>{{0.0f, mesh}};
+	fill_mesh_commands();
 	changed = true;
 }
 
@@ -87,11 +92,6 @@ void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexce
 }
 
 void StaticMeshComponent::render_editor_gui_section() {
-	std::string mesh{};
-	if (ImGui::InputText("Mesh", &mesh, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		if (fs::exists(mesh))
-			this->set_mesh(Mesh{mesh});
-	}
 
 	ImGui::Text("Material");
 
