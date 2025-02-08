@@ -1,7 +1,15 @@
 #include "MyShaderCube.h"
 
 MyShaderCube::MyShaderCube()
-	: mesh{std::make_shared<StaticMeshComponent>(Mesh{"crate.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})},
+	: mesh{std::make_shared<StaticMeshComponent>(
+		std::map<float, Mesh>{
+			//std::make_pair<float, Mesh>(0.0f, Mesh{"lodstatue1.obj"}),
+			//std::make_pair<float, Mesh>(20.0f, Mesh{"lodstatue2.obj"}),
+			//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
+			std::make_pair<float, Mesh>(0.0f, Mesh{"lodstatue4.obj"})
+		},
+		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})
+	},
 	box{std::make_shared<BoundingBoxComponent>()} {
 	
 	/*std::vector<Transform> instances{};
@@ -15,8 +23,8 @@ MyShaderCube::MyShaderCube()
 
 	mesh->set_instances(instances);*/
 
-	mesh->get_material().get_albedo_texture().set_texture("cratealbedo.png");
-	mesh->get_material().get_specular_map().set_texture("cratespecular.png");
+	//mesh->get_material().get_albedo_texture().set_texture("cratealbedo.png");
+	//mesh->get_material().get_specular_map().set_texture("cratespecular.png");
 
 	mimic_position_component = box.get();
 	mimic_rotation_component = box.get();

@@ -14,7 +14,7 @@ public:
 	ConstantBufferContainer() { }
 
 	ConstantBufferContainer(const T &obj)
-		: obj(std::make_shared<T>(obj)) { }
+		: obj{std::make_shared<T>(obj)} { }
 
 	void clean_up() {
 		obj = nullptr;
@@ -67,7 +67,7 @@ public:
 	RootConstantsContainer() { }
 
 	RootConstantsContainer(const T& obj)
-		: obj(std::make_shared<T>(obj)) { }
+		: obj{std::make_shared<T>(obj)} { }
 
 	void clean_up() {
 		obj = nullptr;
@@ -119,8 +119,8 @@ class ShaderResourceViewContainer {
 public:
 	ShaderResourceViewContainer() { }
 
-	ShaderResourceViewContainer(const Texture& texture)
-		: texture(std::make_shared<Texture>(texture)) { }
+	ShaderResourceViewContainer(Texture* texture)
+		: texture{texture} { }
 
 	void clean_up() {
 		texture = nullptr;
@@ -139,18 +139,13 @@ public:
 		}
 	}
 
-	const std::shared_ptr<Texture>& get_texture() const noexcept {
+	const Texture* get_texture() const noexcept {
 		return texture;
 	}
 
-	void set_texture(const Texture& texture) {
-		this->texture = std::make_shared<Texture>(texture);
-		if (auto sp{srv.lock()}) sp->update_descs(texture.get_mip_chain());
-	}
-
-	void set_texture(const Texture&& texture) {
-		this->texture = std::make_shared<Texture>(texture);
-		if (auto sp{srv.lock()}) sp->update_descs(texture.get_mip_chain());
+	void set_texture(Texture* texture) {
+		this->texture = texture;
+		if (auto sp{srv.lock()}) sp->update_descs(texture->get_mip_chain());
 	}
 
 	/*const std::weak_ptr<ShaderResourceView>& get_srv() {
@@ -167,6 +162,6 @@ public:
 	}
 
 private:
-	std::shared_ptr<Texture> texture{};
+	Texture* texture{nullptr};
 	std::weak_ptr<ShaderResourceView> srv{};
 };

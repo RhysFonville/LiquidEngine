@@ -84,6 +84,8 @@ public:
 		GET const std::vector<D3D12_VERTEX_BUFFER_VIEW> & get_vertex_buffer_views() const noexcept;
 		//GET D3D12_VERTEX_BUFFER_VIEW get_instance_buffer_view() const noexcept;
 
+		void set_vertex_buffer_view_to_draw(size_t index) noexcept;
+
 		void clear_commands() noexcept;
 		void add_command(const std::shared_ptr<GraphicsPipelineIACommand>&& command) noexcept;
 
@@ -98,9 +100,10 @@ public:
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitive_topology_type = D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		D3D12_PRIMITIVE_TOPOLOGY primitive_topology = D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-		std::vector<ComPtr<ID3D12Resource>> vertex_buffers{}; // a default buffer in GPU memory that we will load vertex data for our triangle into
-		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views{}; // a structure containing a pointer to the vertex data in gpu memory
-																   // the total size of the buffer, and the size of each element (vertex)
+		std::vector<ComPtr<ID3D12Resource>> vertex_buffers{};
+		std::vector<D3D12_VERTEX_BUFFER_VIEW> vertex_buffer_views{};
+		size_t buffer_view_to_draw{0};
+
 		ComPtr<ID3D12Resource> instance_buffer{};
 		D3D12_VERTEX_BUFFER_VIEW instance_buffer_view{};
 		

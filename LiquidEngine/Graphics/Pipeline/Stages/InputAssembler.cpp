@@ -194,19 +194,14 @@ void GraphicsPipeline::InputAssembler::check_for_update(const ComPtr<ID3D12Devic
 }
 
 void GraphicsPipeline::InputAssembler::run(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
-	command_list->IASetPrimitiveTopology(primitive_topology); // set the primitive topology
-	command_list->IASetVertexBuffers(0u, (UINT)vertex_buffer_views.size(), vertex_buffer_views.data()); // set the vertex buffer (using the vertex buffer view)
+	command_list->IASetPrimitiveTopology(primitive_topology);
+	command_list->IASetVertexBuffers(0u, 1u, &vertex_buffer_views[buffer_view_to_draw]);
 	//command_list->IASetVertexBuffers(1u, 1u, &instance_buffer_view);
 }
 
 void GraphicsPipeline::InputAssembler::draw_meshes(const ComPtr<ID3D12GraphicsCommandList>& command_list) {
-	UINT verts = 0;
-	for (const D3D12_VERTEX_BUFFER_VIEW& view : vertex_buffer_views) {
-		verts += view.SizeInBytes / sizeof(Vertex);
-	}
-
 	command_list->DrawInstanced(
-		verts,
+		vertex_buffer_views[buffer_view_to_draw].SizeInBytes / sizeof(Vertex),
 		/*instance_buffer_view.SizeInBytes / sizeof(Transform)*/1u,
 		0u, 0u
 	);
@@ -223,6 +218,10 @@ void GraphicsPipeline::InputAssembler::clean_up() {
 
 const std::vector<D3D12_VERTEX_BUFFER_VIEW>& GraphicsPipeline::InputAssembler::get_vertex_buffer_views() const noexcept {
 	return vertex_buffer_views;
+}
+
+void GraphicsPipeline::InputAssembler::set_vertex_buffer_view_to_draw(size_t index) noexcept {
+	buffer_view_to_draw = index;
 }
 
 /*D3D12_VERTEX_BUFFER_VIEW GraphicsPipeline::InputAssembler::get_instance_buffer_view() const noexcept {

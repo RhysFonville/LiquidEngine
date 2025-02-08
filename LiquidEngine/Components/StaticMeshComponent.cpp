@@ -1,14 +1,26 @@
 #include "StaticMeshComponent.h"
 
+StaticMeshComponent::StaticMeshComponent(const std::map<float, Mesh>& meshes, const Material& mat, const std::vector<Transform>& instances)
+	: GraphicsComponent{Type::StaticMeshComponent},
+	meshes{meshes}, material{mat}, instances{instances}, current_mesh{this->meshes.begin()} { }
+
 StaticMeshComponent::StaticMeshComponent(const Mesh& mesh, const Material& mat, const std::vector<Transform>& instances)
-	: GraphicsComponent{Type::StaticMeshComponent}, mesh{mesh}, material{mat}, instances{instances} { }
+	: StaticMeshComponent{std::map<float, Mesh>{std::make_pair(0.0f, mesh)},
+	mat, instances} { }
+
+void StaticMeshComponent::fill_mesh_commands() {
+	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIARemoveAllMeshesCommand>());
+	for (auto mesh : meshes) {
+		material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>(mesh.second)));
+	}
+}
 
 void StaticMeshComponent::compile() noexcept {
 	material.pipeline.input_assembler.clear_commands();
-	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIARemoveAllMeshesCommand>());
-	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>(mesh)));
-	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(instances));
+	fill_mesh_commands();
+	//material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIASetInstancesCommand>(instances));
 	material.compile();
+	changed = true;
 }
 
 void StaticMeshComponent::clean_up() {
@@ -16,17 +28,32 @@ void StaticMeshComponent::clean_up() {
 }
 
 const Mesh & StaticMeshComponent::get_mesh() noexcept {
-	return mesh;
+	return meshes.begin()->second;
 }
 
 void StaticMeshComponent::set_mesh(const Mesh &mesh) noexcept {
-	this->mesh = mesh;
-	this->mesh.compile();
-
-	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIARemoveAllMeshesCommand>());
-	material.pipeline.input_assembler.add_command(std::make_shared<GraphicsPipelineIAAddMeshCommand>(std::make_shared<Mesh>(mesh)));
-
+	this->meshes = std::map<float, Mesh>{{0.0f, mesh}};
 	changed = true;
+}
+
+const std::map<float, Mesh>& StaticMeshComponent::get_lod_meshes() const noexcept {
+	return meshes;
+}
+
+void StaticMeshComponent::set_lod_meshes(std::map<float, Mesh>& meshes) noexcept {
+	this->meshes = meshes;
+	fill_mesh_commands();
+	changed = true;
+}
+
+std::map<float, Mesh>::const_iterator& StaticMeshComponent::get_current_mesh() noexcept {
+	return current_mesh;
+}
+
+std::map<float, Mesh>::const_iterator StaticMeshComponent::get_mesh_for_point(const FVector3& pos) noexcept {
+	auto it{meshes.upper_bound(distance(get_position(), pos))};
+	if (it != meshes.begin()) it--;
+	return it;
 }
 
 Material & StaticMeshComponent::get_material() noexcept {
@@ -52,11 +79,11 @@ Material & StaticMeshComponent::get_material() noexcept {
 
 bool StaticMeshComponent::operator==(const StaticMeshComponent &mesh) const noexcept {
 	return ((Component*)this == (Component*)&mesh &&
-		this->mesh == mesh.mesh);
+		this->meshes == mesh.meshes);
 }
 
 void StaticMeshComponent::operator=(const StaticMeshComponent &component) noexcept {
-	mesh = component.mesh;
+	meshes = component.meshes;
 }
 
 void StaticMeshComponent::render_editor_gui_section() {

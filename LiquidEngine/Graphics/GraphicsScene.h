@@ -331,9 +331,10 @@ public:
 	RenderingSky(SkyComponent* sky) : RenderingComponent{sky} { }
 
 	bool update(const RenderingCamera& camera) {
-		if (texture.get_texture()->has_changed()) {
+		if (component->get_albedo_texture().has_changed()) {
 			texture.update();
-			texture.get_texture()->has_changed(false);
+			texture.compile();
+			component->get_albedo_texture().has_changed(false);
 		}
 
 		bool change{false};
@@ -360,7 +361,7 @@ public:
 	}
 
 	void compile(RenderingCamera& camera) {
-		texture.set_texture(component->get_albedo_texture());
+		texture.set_texture(&component->get_albedo_texture());
 		transform_data = VSTransformConstants{};
 		data = PSSkyCB{};
 
@@ -403,19 +404,22 @@ public:
 
 	bool update() {
 		bool ret{false};
-		if (albedo_texture.get_texture()->has_changed()) {
+		if (component->get_albedo_texture().has_changed()) {
 			albedo_texture.update();
-			albedo_texture.get_texture()->has_changed(false);
+			albedo_texture.compile();
+			component->get_albedo_texture().has_changed(false);
 			ret = true;
 		}
-		if (normal_map.get_texture()->has_changed()) {
+		if (component->get_normal_map().has_changed()) {
 			normal_map.update();
-			normal_map.get_texture()->has_changed(false);
+			albedo_texture.compile();
+			component->get_normal_map().has_changed(false);
 			ret = true;
 		}
-		if (specular_map.get_texture()->has_changed()) {
+		if (component->get_specular_map().has_changed()) {
 			specular_map.update();
-			specular_map.get_texture()->has_changed(false);
+			albedo_texture.compile();
+			component->get_specular_map().has_changed(false);
 			ret = true;
 		}
 
@@ -430,9 +434,9 @@ public:
 	}
 
 	void compile() {
-		albedo_texture.set_texture(component->get_albedo_texture());
-		normal_map.set_texture(component->get_normal_map());
-		specular_map.set_texture(component->get_specular_map());
+		albedo_texture.set_texture(&component->get_albedo_texture());
+		normal_map.set_texture(&component->get_normal_map());
+		specular_map.set_texture(&component->get_specular_map());
 		material_data = PSMaterialCB{};
 
 		component->has_changed(true);
@@ -469,9 +473,21 @@ public:
 	RenderingStaticMesh() { }
 	RenderingStaticMesh(StaticMeshComponent* smc) : RenderingComponent{smc} { }
 
-	bool update() {
+	bool update(RenderingCamera& camera) {
 		bool ret{false};
 		if (material.update()) ret = true;
+		
+		if (camera.component->has_changed() && component->get_lod_meshes().size() > 1) {
+			auto it{component->get_mesh_for_point(camera.component->get_position())};
+			component->get_current_mesh() = it;
+			
+			component->get_material().pipeline.input_assembler.set_vertex_buffer_view_to_draw(
+				std::distance(
+					component->get_lod_meshes().begin(),
+					std::map<float, Mesh>::const_iterator{component->get_current_mesh()}
+				)
+			);
+		}
 
 		if (component->has_changed()) {
 			transform_data.get_obj()->transform = component->get_transform();
@@ -675,7 +691,7 @@ public:
 
 		bool mesh_update{false};
 		for (auto &mesh : static_meshes) {
-			if (mesh->update()) mesh_update = true;
+			if (mesh->update(camera)) mesh_update = true;
 			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
 
