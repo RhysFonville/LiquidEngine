@@ -70,7 +70,7 @@ public:
 	GET UVector2 get_resolution() const noexcept;
 	void set_resolution(const UVector2 &resolution);
 
-	GraphicsScene scene;
+	GraphicsScene scene{};
 
 	bool vsync{false};
 	bool restrict_present_to_adapter_output{false};
@@ -145,9 +145,9 @@ private:
 
 	bool fullscreen = false;
 
-	UVector2 resolution = UVector2(1920u, 1080u);
+	UVector2 resolution = UVector2{1920u, 1080u};
 
-	FColor background_color = { 0.25f, 0.25f, 0.25f, 1.0f };
+	FColor background_color{0.25f, 0.25f, 0.25f, 1.0f};
 
-	bool skip_frame = false;
+	bool skip_frame{false};
 };

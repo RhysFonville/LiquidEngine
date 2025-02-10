@@ -257,7 +257,10 @@ struct PSSkyCB { // b2
 class RenderingCamera : public RenderingComponent<CameraComponent> {
 public:
 	RenderingCamera() { }
-	RenderingCamera(CameraComponent* camera) : RenderingComponent{camera} { }
+	RenderingCamera(CameraComponent* camera)
+		: RenderingComponent{camera},
+		wvp_data{std::make_shared<VSWVPConstants>()},
+		pos_data{std::make_shared<PSCameraConstants>()} { }
 
 	bool update(UVector2 resolution) {
 		if (component->has_changed()) {
@@ -279,8 +282,8 @@ public:
 
 	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
-	std::shared_ptr<VSWVPConstants> wvp_data{std::make_shared<VSWVPConstants>()};
-	std::shared_ptr<PSCameraConstants> pos_data{std::make_shared<PSCameraConstants>()};
+	std::shared_ptr<VSWVPConstants> wvp_data{};
+	std::shared_ptr<PSCameraConstants> pos_data{};
 };
 
 /**
@@ -662,6 +665,12 @@ public:
 				mesh->set_resources(camera);
 			}
 		}
+	}
+
+	void refresh_pipelines(const ComPtr<ID3D12Device>& device, const DXGI_SAMPLE_DESC& msaa_sample_desc, const D3D12_BLEND_DESC& blend_desc) {
+		sky.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
+		for (auto& mesh : static_meshes)
+			mesh->material.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
 	}
 
 	/**

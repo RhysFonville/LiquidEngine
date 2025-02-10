@@ -29,7 +29,7 @@ void Material::compile() {
 		normal_map.compile();
 	}
 
-	pipeline.compile();
+	changed = true;
 }
 
 void Material::clean_up() {

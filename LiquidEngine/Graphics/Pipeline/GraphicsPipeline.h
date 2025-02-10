@@ -23,14 +23,10 @@ public:
 
 	void check_for_update(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_BLEND_DESC &blend_desc,
 		GraphicsResourceDescriptorHeap &descriptor_heaps);
 
 	void run(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
-		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_BLEND_DESC &blend_desc,
 		GraphicsResourceDescriptorHeap &descriptor_heaps);
 	
 	void draw(const ComPtr<ID3D12GraphicsCommandList> &command_list);
@@ -38,20 +34,17 @@ public:
 	void compile(const ComPtr<ID3D12Device> &device,
 		const ComPtr<ID3D12GraphicsCommandList> &command_list,
 		const DXGI_SAMPLE_DESC &sample_desc,
-		const D3D12_BLEND_DESC &blend,
+		const D3D12_BLEND_DESC &blend_desc,
 		GraphicsResourceDescriptorHeap &descriptor_heaps);
 
-	void compile() { 
-		compile_signal = true;
-	}
-
 	void clean_up();
+
+	void refresh_pipeline(const ComPtr<ID3D12Device>& device, const DXGI_SAMPLE_DESC& sample_desc, const D3D12_BLEND_DESC& blend_desc);
+	void create_pipeline(const ComPtr<ID3D12Device>& device, const DXGI_SAMPLE_DESC& sample_desc, const D3D12_BLEND_DESC& blend_desc);
 
 	bool operator==(const GraphicsPipeline &pipeline) const noexcept;
 
 	ComPtr<ID3D12PipelineState> pipeline_state_object = nullptr; // pso containing a pipeline state
-
-	bool compile_signal = true;
 
 	D3D12_DEPTH_STENCIL_DESC depth_stencil_desc = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 

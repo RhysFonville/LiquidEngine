@@ -138,7 +138,9 @@ void Renderer::create_rtvs() {
 	};
 
 	HPEW(device->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &ms_levels, sizeof(ms_levels)));
-
+	
+	if (msaa_sample_desc.Quality > ms_levels.NumQualityLevels-1u) throw std::exception{"Invalid MSAA quality level."};
+	
 	D3D12_RESOURCE_DESC msaa_render_target_desc{
 		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
 		.Alignment = 0u,
@@ -147,7 +149,7 @@ void Renderer::create_rtvs() {
 		.DepthOrArraySize = 1,
 		.MipLevels = 1u,
 		.Format = ms_levels.Format,
-		.SampleDesc = {ms_levels.SampleCount, 0u/*ms_levels.NumQualityLevels*/},
+		.SampleDesc = {msaa_sample_desc.Count, msaa_sample_desc.Quality},
 		.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
 	};
@@ -292,6 +294,13 @@ void Renderer::setup_imgui_section() {
 			background_color = FColor{color[0], color[1], color[2], color[3]};
 		}
 
+		UINT count{msaa_sample_desc.Count};
+		if (ImGui::InputInt("Sample count", (int*)&count, 2, 4, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			set_msaa_sample_count(count);
+			skip_frame = true;
+			return;
+		}
+
 		static int res[2]{(int)resolution.x, (int)resolution.y};
 		ImGui::InputInt2("Resolution", res);
 		if (ImGui::Button("Set resolution")) {
@@ -307,7 +316,7 @@ void Renderer::setup_imgui_section() {
 		{ // Adapter
 			auto desc = adapter.get_desc();
 			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
-			if (ImGui::InputInt("Adapter", &index, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			if (ImGui::InputInt("Adapter", &index, 1, 2, ImGuiInputTextFlags_EnterReturnsTrue)) {
 				end_imgui();
 				clean_up();
 				create_factory();
@@ -464,10 +473,10 @@ void Renderer::render(float dt) {
 	// https://www.youtube.com/watch?v=kCCsko29pv0
 
 	if (scene.sky.component != nullptr)
-		scene.sky.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
+		scene.sky.component->pipeline.run(device, command_list, descriptor_heap);
 	
 	for (auto &mesh : scene.static_meshes) {
-		mesh->material.component->pipeline.run(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
+		mesh->material.component->pipeline.run(device, command_list, descriptor_heap);
 	}
 
 	// Render Dear ImGui graphics
@@ -631,15 +640,16 @@ void Renderer::set_msaa_sample_count(UINT count) {
 	flush_gpu();
 	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) render_targets[i].Reset();
 	for (UINT i = 0; i < NUMBER_OF_BUFFERS; i++) msaa_render_targets[i].Reset();
-	scene.clean_up();
 	depth_stencil_buffer.Reset();
+	EditorGUI::clean_up();
 
 	msaa_sample_desc.Count = count;
 
 	create_rtvs();
 	auto size = get_client_size(window);
 	create_depth_stencil(size);
-	compile();
+	scene.refresh_pipelines(device, msaa_sample_desc, blend_desc);
+	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
 }
 
 void Renderer::set_fullscreen(bool fullscreen) {
