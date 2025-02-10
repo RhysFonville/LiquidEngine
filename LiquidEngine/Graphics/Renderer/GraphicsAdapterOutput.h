@@ -21,6 +21,8 @@ public:
 	void clean_up();
 
 	GET DXGI_OUTPUT_DESC get_desc() { return desc; }
+	GET DXGI_MODE_DESC get_mode_desc() { return mode_desc; }
+	GET MONITORINFOEXA get_monitor_info() { return monitor_info; }
 	GET DXGI_GAMMA_CONTROL get_gamma_control() { return gamma_control; }
 	GET DXGI_GAMMA_CONTROL_CAPABILITIES get_gamma_control_capabilities() { return gamma_control_capabilities; }
 
@@ -29,7 +31,7 @@ public:
 		this->gamma_control = gamma_control;
 	}
 
-	void find_closest_display_mode_to_current(DXGI_MODE_DESC* out_current_display_mode);
+	DXGI_MODE_DESC find_closest_display_mode_to_current();
 	
 	ComPtr<IDXGIOutput> adapter_output = nullptr;
 
@@ -37,6 +39,8 @@ private:
 	DXGI_OUTPUT_DESC desc{};
 	DXGI_GAMMA_CONTROL gamma_control{};
 	DXGI_GAMMA_CONTROL_CAPABILITIES gamma_control_capabilities{};
+	DXGI_MODE_DESC mode_desc{};
+	MONITORINFOEXA monitor_info{};
 
 	void set_info(const DXGI_OUTPUT_DESC &desc);
 	void set_info();

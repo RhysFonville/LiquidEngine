@@ -119,20 +119,23 @@ private:
 	void create_command_queue();
 	void create_swap_chain();
 	void create_rtv_descriptor_heap();
+	void create_rtvs(const UVector2& size);
 	void create_rtvs();
 	void create_command_allocators();
 	void create_command_list();
 	void create_fences_and_fence_event();
-	void create_depth_stencil(const UVector2 &size);
+	void create_depth_stencil(const UVector2& size);
+	void create_depth_stencil();
 	void create_descriptor_heap();
 	void set_blend_state();
-	void set_viewport_and_scissor_rect(const UVector2 &size);
+	void set_viewport_and_scissor_rect(const UVector2& size);
+	void set_viewport_and_scissor_rect();
 
 	void refill_descriptor_heap();
 
 	void setup_imgui_section();
 
-	UINT frame_index = 0u;
+	UINT frame_index{0u};
 
 	DXGI_SAMPLE_DESC msaa_sample_desc{8u, 0u};
 	const DXGI_SAMPLE_DESC sample_desc{1u, 0u};
@@ -143,9 +146,9 @@ private:
 
 	HWND window{nullptr};
 
-	bool fullscreen = false;
+	bool fullscreen{false};
 
-	UVector2 resolution = UVector2{1920u, 1080u};
+	UVector2 resolution{};
 
 	FColor background_color{0.25f, 0.25f, 0.25f, 1.0f};
 

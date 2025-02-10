@@ -14,16 +14,21 @@ void Renderer::init_renderer(HWND window) {
 	DXGIGetDebugInterface1(NULL, IID_PPV_ARGS(&dxgi_debug));
 	dxgi_debug->EnableLeakTrackingForThread();
 
-	auto client_size = get_client_size(window);
-
 	create_factory();
 	adapter = GraphicsAdapter{factory};
-	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
+
 	create_device();
+	adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
+	
+	auto mode_desc{adapter_output.get_mode_desc()};
+	resolution = UVector2{mode_desc.Width, mode_desc.Height};
+
+	UVector2 client_size{get_client_size(window)};
+
 	create_command_queue();
 	create_swap_chain();
 	create_rtv_descriptor_heap();
-	create_rtvs();
+	create_rtvs(client_size);
 	create_command_allocators();
 	create_command_list();
 	create_fences_and_fence_event();
@@ -80,9 +85,7 @@ void Renderer::create_swap_chain() {
 		.Flags = NULL
 	};
 
-	DXGI_MODE_DESC mode_desc{};
-	adapter_output.find_closest_display_mode_to_current(&mode_desc);
-
+	DXGI_MODE_DESC mode_desc{adapter_output.get_mode_desc()};
 	const DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullscreen_desc{
 		.RefreshRate = mode_desc.RefreshRate,
 		.ScanlineOrdering = mode_desc.ScanlineOrdering,
@@ -116,7 +119,7 @@ void Renderer::create_rtv_descriptor_heap() {
 	rtv_descriptor_size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 }
 	
-void Renderer::create_rtvs() {
+void Renderer::create_rtvs(const UVector2& size) {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 	
 	// Create a RTV for each buffer
@@ -128,8 +131,6 @@ void Renderer::create_rtvs() {
 
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
-
-	auto size = get_client_size(window);
 
 	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS ms_levels{
 		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
@@ -177,6 +178,10 @@ void Renderer::create_rtvs() {
 		
 		rtv_handle.Offset(1, rtv_descriptor_size);
 	}
+}
+
+void Renderer::create_rtvs() {
+	create_rtvs(get_client_size(window));
 }
 
 void Renderer::create_command_allocators() {
@@ -249,6 +254,10 @@ void Renderer::create_depth_stencil(const UVector2 &size) {
 	device->CreateDepthStencilView(depth_stencil_buffer.Get(), &depth_stencil_desc, depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 }
 
+void Renderer::create_depth_stencil() {
+	create_depth_stencil(get_client_size(window));
+}
+
 void Renderer::create_descriptor_heap() {
 	descriptor_heap.compile(device);
 }
@@ -271,6 +280,10 @@ void Renderer::set_viewport_and_scissor_rect(const UVector2 &size) {
 	scissor_rect.top = 0;
 	scissor_rect.right = size.x;
 	scissor_rect.bottom = size.y;
+}
+
+void Renderer::set_viewport_and_scissor_rect() {
+	set_viewport_and_scissor_rect(get_client_size(window));
 }
 
 void Renderer::refill_descriptor_heap() {
@@ -335,6 +348,7 @@ void Renderer::setup_imgui_section() {
 
 		{ // Adapter output
 			auto desc = adapter_output.get_desc();
+			auto mode_desc = adapter_output.get_mode_desc();
 			std::string name{wstring_to_string(adapter_output.get_desc().DeviceName)};
 			if (ImGui::InputText("Adapter output", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
 				end_imgui();
@@ -360,8 +374,8 @@ void Renderer::setup_imgui_section() {
 				return;
 			}
 			ImGui::Text("Adapter output description");
-			ImGui::Text(("Name: " + wstring_to_string(adapter_output.get_desc().DeviceName)).c_str());
-			ImGui::Text(("Attached to desktop: " + std::to_string(desc.AttachedToDesktop)).c_str());
+			ImGui::Text(("Name: " + wstring_to_string(desc.DeviceName)).c_str());
+			ImGui::Text(("Resolution: " + std::to_string(mode_desc.Width) + ", " + std::to_string(mode_desc.Height)).c_str());
 			ImGui::Text(("Rotation: " + std::to_string(desc.Rotation)).c_str());
 
 			ImGui::Checkbox("Restrict present to adapter output", &restrict_present_to_adapter_output);
@@ -631,7 +645,7 @@ void Renderer::resize(const UVector2 &size) {
 
 	HPEW(swap_chain->ResizeBuffers(NUMBER_OF_BUFFERS, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, NULL));
 	
-	create_rtvs();
+	create_rtvs(size);
 	set_viewport_and_scissor_rect(size);
 	create_depth_stencil(size);
 }
@@ -645,8 +659,8 @@ void Renderer::set_msaa_sample_count(UINT count) {
 
 	msaa_sample_desc.Count = count;
 
-	create_rtvs();
 	auto size = get_client_size(window);
+	create_rtvs(size);
 	create_depth_stencil(size);
 	scene.refresh_pipelines(device, msaa_sample_desc, blend_desc);
 	EditorGUI::init_with_renderer(window, device.Get(), NUMBER_OF_BUFFERS, msaa_sample_desc, descriptor_heap.get().Get());
