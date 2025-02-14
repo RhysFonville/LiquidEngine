@@ -27,8 +27,13 @@ public:
 	/** Calls render and present. */
 	void tick(float dt);
 
-	/** Releases DirectX all interfaces. */
-	void clean_up();
+	/**
+	 * Releases DirectX all interfaces..
+	 * 
+	 * \param clean_scene Whether or not to clean the GraphicsScene.
+	 * \see GraphicsScene
+	 */
+	void clean_up(bool clean_scene = true);
 
 	/**
 	* Fills command list and calls pipelines.

@@ -90,7 +90,7 @@ void Renderer::create_swap_chain() {
 		.RefreshRate = mode_desc.RefreshRate,
 		.ScanlineOrdering = mode_desc.ScanlineOrdering,
 		.Scaling = mode_desc.Scaling,
-		.Windowed = true
+		.Windowed = !fullscreen
 	};
 
 	IDXGISwapChain1* swap_chain1;
@@ -310,6 +310,8 @@ void Renderer::setup_imgui_section() {
 		UINT count{msaa_sample_desc.Count};
 		if (ImGui::InputInt("Sample count", (int*)&count, 2, 4, ImGuiInputTextFlags_EnterReturnsTrue)) {
 			set_msaa_sample_count(count);
+
+			end_imgui();
 			skip_frame = true;
 			return;
 		}
@@ -328,20 +330,30 @@ void Renderer::setup_imgui_section() {
 
 		{ // Adapter
 			auto desc = adapter.get_desc();
-			int index{(int)desc.AdapterLuid.HighPart}; // Idk how to get the index
-			if (ImGui::InputInt("Adapter", &index, 1, 2, ImGuiInputTextFlags_EnterReturnsTrue)) {
-				end_imgui();
-				clean_up();
-				create_factory();
-				adapter = GraphicsAdapter{factory, (UINT)index};
-				init_renderer(window);
+			std::string name{wstring_to_string(desc.Description)};
+			if (ImGui::InputText("Adapter", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
+				//end_imgui();
+				device.Reset();
+				adapter_output.clean_up();
+				adapter.clean_up();
+				factory.Reset();
 
+				create_factory();
+				adapter = GraphicsAdapter{factory, name};
+				create_device();
+				adapter_output = GraphicsAdapterOutput{device, adapter.adapter};
+
+				end_imgui();
 				skip_frame = true;
 				return;
 			}
-			ImGui::Text("Adapter description");
-			ImGui::Text(wstring_to_string(L"Name: " + std::wstring{desc.Description}).c_str());
-			ImGui::Text(("Video memory: " + std::to_string(desc.DedicatedVideoMemory)).c_str());
+			ImGui::Text("Adapter information");
+			auto mem_info{adapter.get_memory_info()};
+			ImGui::Text(("Current video memory usage vs. budget: " +
+				std::to_string(mem_info.CurrentUsage/1000000) + " MB / " +
+				std::to_string(mem_info.Budget/1000000) + " MB " +
+				std::format("({:.2f}%%)", (float)mem_info.CurrentUsage / (float)mem_info.Budget * 100.0f)
+			).c_str());
 		}
 
 		ImGui::Spacing();
@@ -349,9 +361,8 @@ void Renderer::setup_imgui_section() {
 		{ // Adapter output
 			auto desc = adapter_output.get_desc();
 			auto mode_desc = adapter_output.get_mode_desc();
-			std::string name{wstring_to_string(adapter_output.get_desc().DeviceName)};
+			std::string name{wstring_to_string(desc.DeviceName)};
 			if (ImGui::InputText("Adapter output", &name, ImGuiInputTextFlags_EnterReturnsTrue)) {
-				end_imgui();
 				flush_gpu();
 
 				bool fs = is_fullscreen();
@@ -370,35 +381,13 @@ void Renderer::setup_imgui_section() {
 				if (fs)
 					set_fullscreen(true);
 
+				end_imgui();
 				skip_frame = true;
 				return;
 			}
 			ImGui::Text("Adapter output description");
-			ImGui::Text(("Name: " + wstring_to_string(desc.DeviceName)).c_str());
 			ImGui::Text(("Resolution: " + std::to_string(mode_desc.Width) + ", " + std::to_string(mode_desc.Height)).c_str());
-			ImGui::Text(("Rotation: " + std::to_string(desc.Rotation)).c_str());
-
 			ImGui::Checkbox("Restrict present to adapter output", &restrict_present_to_adapter_output);
-
-			/*float xs[1025], ys[1025];
-			for (int i = 0; i < 1025; i++) {
-				xs[i] = i * 0.001f;
-				ys[i] = (gamma.GammaCurve->Red + gamma.GammaCurve->Green + gamma.GammaCurve->Blue) / 3.0f;
-			}
-			if (ImPlot::BeginPlot("Gamma")) {
-				ImPlot::SetupAxes("x","y");
-				ImPlot::PlotLine("f(x)", xs, ys, 1025);
-				ImPlot::EndPlot();
-			}
-			
-			for (int i = 0; i < (int)gamma_capability.NumGammaControlPoints; i++) {
-				ys[i] = gamma_capability.ControlPointPositions[i];
-			}
-			if (ImPlot::BeginPlot("Gamma")) {
-				ImPlot::SetupAxes("x","y");
-				ImPlot::PlotLine("f(x)", xs, ys, gamma_capability.NumGammaControlPoints);
-				ImPlot::EndPlot();
-			}*/
 		}
 
 		{ // Viewport & scissor rect
@@ -469,10 +458,10 @@ void Renderer::render(float dt) {
 	command_list->RSSetViewports(1u, &viewport);
 	command_list->RSSetScissorRects(1u, &scissor_rect);
 
-	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), (msaa ? frame_index+3 : frame_index), rtv_descriptor_size);
+	CD3DX12_CPU_DESCRIPTOR_HANDLE rtv_handle(rtv_descriptor_heap->GetCPUDescriptorHandleForHeapStart(), (msaa ? frame_index+NUMBER_OF_BUFFERS : frame_index), rtv_descriptor_size);
 	CD3DX12_CPU_DESCRIPTOR_HANDLE dsv_handle(depth_stencil_descriptor_heap->GetCPUDescriptorHandleForHeapStart());
 
-	command_list->OMSetRenderTargets(1, &rtv_handle, false, &dsv_handle);
+	command_list->OMSetRenderTargets(1u, &rtv_handle, false, &dsv_handle);
 
 	if (clear_render_target) {
 		float color[4]{background_color.r, background_color.g, background_color.b, background_color.a};
@@ -542,8 +531,10 @@ void Renderer::tick(float dt) {
 	present();
 }
 
-void Renderer::clean_up() {
+void Renderer::clean_up(bool clean_scene) {
 	flush_gpu();
+
+	if (clean_scene) scene.clean_up();
 
 	CloseHandle(fence_event);
 

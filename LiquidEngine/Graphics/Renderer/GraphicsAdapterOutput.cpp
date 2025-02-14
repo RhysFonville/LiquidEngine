@@ -79,4 +79,7 @@ void GraphicsAdapterOutput::set_info() {
 	mode_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	mode_desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	mode_desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+
+	display_device.cb = sizeof(DISPLAY_DEVICEA);
+	EnumDisplayDevicesA(monitor_info.szDevice, 0, &display_device, 0);
 }

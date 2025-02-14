@@ -19,7 +19,6 @@ public:
 		SkyComponent,
 		SphereComponent,
 		BoundingBoxComponent,
-		InstanceComponent,
 		None
 	};
 

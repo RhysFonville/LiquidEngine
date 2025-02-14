@@ -14,7 +14,7 @@ public:
 	GraphicsAdapter(const ComPtr<IDXGIFactory2> &factory);
 	GraphicsAdapter(const ComPtr<IDXGIFactory2> &factory, UINT adapter);
 	GraphicsAdapter(const ComPtr<IDXGIFactory2> &factory, const std::string &adapter);
-	GraphicsAdapter(const ComPtr<IDXGIAdapter> &adapter);
+	GraphicsAdapter(const ComPtr<IDXGIAdapter3> &adapter);
 
 	void operator=(const GraphicsAdapter &adapter);
 
@@ -22,7 +22,9 @@ public:
 
 	GET DXGI_ADAPTER_DESC get_desc() { return desc; }
 
-	ComPtr<IDXGIAdapter> adapter = nullptr;
+	GET DXGI_QUERY_VIDEO_MEMORY_INFO get_memory_info();
+
+	ComPtr<IDXGIAdapter3> adapter = nullptr;
 
 private:
 	DXGI_ADAPTER_DESC desc{};

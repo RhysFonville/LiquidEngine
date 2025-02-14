@@ -6,6 +6,5 @@ void GraphicsScene::clean_up() {
 	}
 
 	camera.clean_up();
-
 	sky.clean_up();
 }

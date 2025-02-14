@@ -23,9 +23,10 @@ public:
 	GET DXGI_OUTPUT_DESC get_desc() { return desc; }
 	GET DXGI_MODE_DESC get_mode_desc() { return mode_desc; }
 	GET MONITORINFOEXA get_monitor_info() { return monitor_info; }
+	GET DISPLAY_DEVICEA get_display_device() { return display_device; }
 	GET DXGI_GAMMA_CONTROL get_gamma_control() { return gamma_control; }
 	GET DXGI_GAMMA_CONTROL_CAPABILITIES get_gamma_control_capabilities() { return gamma_control_capabilities; }
-
+	
 	void set_gamma_control(const DXGI_GAMMA_CONTROL &gamma_control) {
 		adapter_output->SetGammaControl(&gamma_control);
 		this->gamma_control = gamma_control;
@@ -41,6 +42,7 @@ private:
 	DXGI_GAMMA_CONTROL_CAPABILITIES gamma_control_capabilities{};
 	DXGI_MODE_DESC mode_desc{};
 	MONITORINFOEXA monitor_info{};
+	DISPLAY_DEVICEA display_device{};
 
 	void set_info(const DXGI_OUTPUT_DESC &desc);
 	void set_info();
