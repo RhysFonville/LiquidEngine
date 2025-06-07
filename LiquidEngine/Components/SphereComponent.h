@@ -7,11 +7,9 @@
 */
 class SphereComponent : public PhysicalComponent {
 public:
-	SphereComponent() : PhysicalComponent{Type::SphereComponent} { }
+	SphereComponent() : PhysicalComponent{} { }
 
 	Sphere sphere{};
-
-	static const Type component_type = Type::SphereComponent;
 
 private:
 	void render_physical_component_editor_gui_section() override;

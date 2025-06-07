@@ -21,12 +21,10 @@ public:
 
 	void compile();
 
-	GET std::vector<std::shared_ptr<Object>> & get_objects() noexcept;
+	GET std::unordered_set<std::shared_ptr<Object>> & get_objects() noexcept;
 	void add_object(const std::shared_ptr<Object> &object) noexcept;
 
 	void add_character(const std::shared_ptr<Character> &character) noexcept;
-
-	void remove_object(int index) noexcept;
 
 	void render_editor_gui_section();
 
@@ -34,7 +32,8 @@ public:
 	GraphicsScene* graphics_scene{nullptr};
 
 	Input::InputListener input_listener;
+
 private:
-	std::vector<std::shared_ptr<Object>> objects = { };
+	std::unordered_set<std::shared_ptr<Object>> objects{};
 };
 

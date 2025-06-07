@@ -5,11 +5,9 @@
 
 class BoundingBoxComponent : public PhysicalComponent {
 public:
-	BoundingBoxComponent() : PhysicalComponent{Type::BoundingBoxComponent} { }
+	BoundingBoxComponent() : PhysicalComponent{} { }
 
 	SimpleBoundingBox box{};
-
-	static const Type component_type = Type::BoundingBoxComponent;
 
 private:
 	void render_physical_component_editor_gui_section() override;

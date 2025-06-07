@@ -47,8 +47,6 @@ public:
 	bool operator==(const CameraComponent& component) const noexcept;
 	void operator=(const CameraComponent& component) noexcept;
 
-	static const Type component_type = Type::CameraComponent;
-
 protected:
 	void render_editor_gui_section() override;
 

@@ -1,7 +1,7 @@
 #include "CameraComponent.h"
 
 CameraComponent::CameraComponent()
-	: GraphicsComponent(Type::CameraComponent) { }
+	: GraphicsComponent{} { }
 
 void CameraComponent::set_position(FVector3 position) noexcept {
 	FVector3 difference = position - transform.position;

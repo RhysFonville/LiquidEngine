@@ -1,6 +1,6 @@
 #include "SkyComponent.h"
 
-SkyComponent::SkyComponent() : GraphicsComponent{Type::SkyComponent} { }
+SkyComponent::SkyComponent() : GraphicsComponent{} { }
 
 void SkyComponent::compile() {
 	pipeline.depth_stencil_desc = D3D12_DEPTH_STENCIL_DESC{};

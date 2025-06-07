@@ -1,8 +1,8 @@
 #include "StaticMeshComponent.h"
 
 StaticMeshComponent::StaticMeshComponent(const std::map<float, Mesh>& meshes, const Material& mat, const std::vector<Transform>& instances)
-	: GraphicsComponent{Type::StaticMeshComponent},
-	meshes{meshes}, material{mat}, instances{instances}, current_mesh{this->meshes.begin()} {
+	: GraphicsComponent{}, meshes{meshes}, material{mat},
+	instances{instances}, current_mesh{this->meshes.begin()} {
 	if (meshes.begin()->first != 0.0f) {
 		this->meshes.insert(std::make_pair(0.0f, Mesh{}));
 	}

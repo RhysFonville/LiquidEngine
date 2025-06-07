@@ -582,7 +582,7 @@ public:
 	 */
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
 	void add_component(const T *component) {
-		if (component->get_type() == Component::Type::CameraComponent) {
+		/*if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
 			camera.component->needs_compile(true);
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
@@ -600,7 +600,7 @@ public:
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
 			sky.component->needs_compile(true);
-		}
+		}*/
 	}
 
 	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>

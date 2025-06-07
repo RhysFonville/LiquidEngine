@@ -35,8 +35,6 @@ public:
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
 
-	static const Type component_type = Type::StaticMeshComponent;
-
 private:
 	void render_editor_gui_section() override;
 

@@ -1,6 +1,16 @@
 #include "Component.h"
 
-Component::Component(const Type &type) : type(type) { }
+void Component::base_clean_up() {
+	clean_components();
+	clean_up();
+}
+
+void Component::clean_components() {
+	for (const std::shared_ptr<Component>& component : components) {
+		component->base_clean_up();
+	}
+	components.clear();
+}
 
 void Component::set_position(FVector3 position) noexcept {
 	transform.position = position;
@@ -48,17 +58,23 @@ Transform Component::get_transform() const noexcept {
 	return transform;
 }
 
-Component::Type Component::get_type() const noexcept {
-	return type;
+Component* Component::get_parent() const noexcept {
+	return parent;
+}
+
+void Component::set_parent(Component* parent) noexcept {
+	parent->components.insert(std::make_shared<Component>(this));
+	remove_this_from_parents_children();
+	this->parent = parent;
 }
 
 bool Component::operator==(const Component &component) const noexcept {
-	return (component.type == type && component.transform == transform);
+	return (component.transform == transform && component.components == components);
 }
 
 void Component::operator=(const Component &component) noexcept {
 	transform = component.transform;
-	type = component.type;
+	components = component.components;
 }
 
 void Component::base_render_editor_gui_section() {
