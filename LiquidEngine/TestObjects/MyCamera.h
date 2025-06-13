@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Character.h"
+#include "../SceneComponents/Character.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/PointLightComponent.h"
 

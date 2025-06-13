@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.h"
-#include "Input/KeybindSet.h"
+#include "../Input/KeybindSet.h"
 
 /**
  * An object that accepts user input.

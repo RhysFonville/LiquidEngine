@@ -45,6 +45,8 @@ protected:
 	std::unordered_set<std::shared_ptr<Component>> components{}; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 };
 
+class GraphicsComponent;
+
 /**
 * Base component class for all components.
 */
@@ -74,21 +76,6 @@ public:
 	GET Component* get_parent() const noexcept;
 	void set_parent(Component* parent) noexcept;
 
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(const std::shared_ptr<T>& component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
-		component->parent = this;
-		components.insert(component);
-
-		//if (GraphicsComponent::is_graphics_component(*components.back())) {
-		/*if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
-			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
-		}
-
-		if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
-			physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
-		}*/
-	}
-
 	virtual bool operator==(const Component &component) const noexcept;
 	virtual void operator=(const Component &component) noexcept;
 
@@ -96,12 +83,13 @@ public:
 
 protected:
 	Transform transform;
-	Component* parent{};
+	Component* parent{nullptr};
 
 	void remove_this_from_parents_children() {
+		if (parent == nullptr) return;
 		if (auto it{std::ranges::find_if(parent->components, [&](const std::shared_ptr<Component>& c) {
 			return c.get() == this;
-			})}; it != components.end()) {
+		})}; it != components.end()) {
 			parent->components.erase(it);
 		}
 	}

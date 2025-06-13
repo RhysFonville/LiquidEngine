@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Object.h"
+#include "../SceneComponents/Object.h"
 #include "../Components/StaticMeshComponent.h"
 
 namespace DefaultShapes {

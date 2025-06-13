@@ -174,11 +174,11 @@
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArgumentContainers.h" />
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h" />
     <ClInclude Include="Graphics\Pipeline\ShaderCompiler.h" />
-    <ClInclude Include="Objects\MyShaderCube.h" />
+    <ClInclude Include="TestObjects\MyShaderCube.h" />
     <ClInclude Include="Physics\InteractionHandler.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
     <ClInclude Include="Components\BoxComponent.h" />
-    <ClInclude Include="Character.h" />
+    <ClInclude Include="SceneComponents\Character.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\DirectionalLightComponent.h" />
@@ -207,7 +207,7 @@
     <ClInclude Include="Input\InputListener.h" />
     <ClInclude Include="Input\KeybindSet.h" />
     <ClInclude Include="Input\KeyCodes.h" />
-    <ClInclude Include="Objects\MyStatue.h" />
+    <ClInclude Include="TestObjects\MyStatue.h" />
     <ClInclude Include="Physics\OverlapHandler.h" />
     <ClInclude Include="Physics\PhysicsBody.h" />
     <ClInclude Include="Components\PointLightComponent.h" />
@@ -228,10 +228,10 @@
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Objects\MyCamera.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="TestObjects\MyCamera.h" />
+    <ClInclude Include="SceneComponents\Object.h" />
     <ClInclude Include="Physics\PhysicsScene.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneComponents\Scene.h" />
     <ClInclude Include="Components\SkyComponent.h" />
     <ClInclude Include="StaticEngineProcessToggles.h" />
     <ClInclude Include="Debug\Throw.h" />
@@ -240,7 +240,7 @@
     <ClInclude Include="Utility\Vectors.h" />
     <ClInclude Include="Utility\windowsconversion.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="SceneComponents\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\BoundingBoxComponent.cpp" />
@@ -248,11 +248,11 @@
     <ClCompile Include="Graphics\Pipeline\ShaderCompiler.cpp" />
     <ClCompile Include="Graphics\Pipeline\Stages\InputAssembler.cpp" />
     <ClCompile Include="Graphics\Pipeline\Stages\RootSignature.cpp" />
-    <ClCompile Include="Objects\MyShaderCube.cpp" />
+    <ClCompile Include="TestObjects\MyShaderCube.cpp" />
     <ClCompile Include="Physics\InteractionHandler.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
     <ClCompile Include="Components\BoxComponent.cpp" />
-    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="SceneComponents\Character.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\DirectionalLightComponent.cpp" />
@@ -280,7 +280,7 @@
     <ClCompile Include="implot\implot_items.cpp" />
     <ClCompile Include="Input\InputListener.cpp" />
     <ClCompile Include="Input\KeybindSet.cpp" />
-    <ClCompile Include="Objects\MyStatue.cpp" />
+    <ClCompile Include="TestObjects\MyStatue.cpp" />
     <ClCompile Include="Physics\OverlapHandler.cpp" />
     <ClCompile Include="Physics\PhysicsBody.cpp" />
     <ClCompile Include="Components\PointLightComponent.cpp" />
@@ -295,14 +295,14 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Objects\MyCamera.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="TestObjects\MyCamera.cpp" />
+    <ClCompile Include="SceneComponents\Object.cpp" />
     <ClCompile Include="Physics\PhysicsScene.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneComponents\Scene.cpp" />
     <ClCompile Include="Components\SkyComponent.cpp" />
     <ClCompile Include="Components\SphereComponent.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="SceneComponents\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Graphics\Shaders\mipmapcs.hlsl">

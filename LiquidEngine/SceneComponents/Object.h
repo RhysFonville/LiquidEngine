@@ -1,14 +1,15 @@
 #pragma once
 
 #include <DirectXMath.h>
-#include "Utility/globalstructs.h"
-#include "Mesh.h"
-#include "Components/Component.h"
-#include "Graphics/GraphicsScene.h"
-#include "Physics/PhysicsScene.h"
-#include "Controllable.h"
+#include <concepts>
+#include "../Utility/globalstructs.h"
+#include "../Mesh.h"
+#include "../Components/Component.h"
+#include "../Controllable.h"
 
 using namespace DirectX;
+
+class Scene;
 
 /**
  * Base class for all objects.
@@ -41,20 +42,7 @@ public:
 	GET Object* get_parent() noexcept;
 	void set_parent(Object* parent) noexcept;
 
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
-	void add_component(const std::shared_ptr<T>& component) { //? AHHHHHHHHHHHHHHHHHHHHHHHH
-		component->set_parent(nullptr);
-		components.insert(component);
-
-		//if (GraphicsComponent::is_graphics_component(*components.back())) {
-		/*if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
-			graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(components.back()).get());
-		}
-
-		if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
-			physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
-		}*/
-	}
+	void add_component(const std::shared_ptr<Component>& component, Component* parent = nullptr); //? AHHHHHHHHHHHHHHHHHHHHHHHH
 
 	GET std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> get_children() noexcept;
 
@@ -71,14 +59,15 @@ public:
 	Component* mimic_rotation_component{nullptr};
 	Component* mimic_size_component{nullptr};
 
-	GraphicsScene* graphics_scene{nullptr};
-	PhysicsScene* physics_scene{nullptr};
-
 private:
+	friend class Scene;
+
 	Transform transform{};
 
-	Object* parent{};
+	Object* parent{nullptr};
 	std::unordered_set<std::shared_ptr<Object>> children{};
+
+	Scene* scene{nullptr};
 
 	void remove_this_from_parents_children() {
 		if (auto it{std::ranges::find_if(parent->children, [&](const std::shared_ptr<Object>& c){

@@ -37,6 +37,24 @@ public:
 
 	bool operator==(T component) { return (component == *(this->component)); }
 
+	bool needs_compile() const noexcept {
+		if (component != nullptr) return component->needs_compile();
+		else return false;
+	}
+
+	void needs_compile(bool b) noexcept {
+		if (component != nullptr) component->needs_compile(b);
+	}
+
+	bool has_changed() const noexcept {
+		if (component != nullptr) return component->has_changed();
+		else return false;
+	}
+
+	void has_changed(bool b) noexcept {
+		if (component != nullptr) component->has_changed(b);
+	}
+
 	T* component{nullptr};
 };
 
@@ -64,7 +82,7 @@ public:
 	RenderingDirectionalLight(DirectionalLightComponent* light) : RenderingComponent{light}, data{*light} { }
 	
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			
@@ -75,15 +93,15 @@ public:
 
 			data.null = component->is_null();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	bool operator==(DirectionalLightComponent component) { return (component == *(this->component)); }
@@ -117,7 +135,7 @@ public:
 	RenderingPointLight(PointLightComponent* light) : RenderingComponent{light}, data{*light} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			data.range = component->get_range();
@@ -125,15 +143,15 @@ public:
 			data.null = component->is_null();
 			data.position = component->get_position();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	bool operator==(PointLightComponent component) { return (component == *(this->component)); }
@@ -165,20 +183,20 @@ public:
 	RenderingSpotlight(SpotlightComponent* light) : RenderingComponent{light}, data{*light} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_rotation();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	bool operator==(SpotlightComponent component) { return (component == *(this->component)); }
@@ -263,7 +281,7 @@ public:
 		pos_data{std::make_shared<PSCameraConstants>()} { }
 
 	bool update(UVector2 resolution) {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			component->update(UVector2_to_FVector2(resolution));
 			wvp_data->WVP = XMMatrixTranspose(component->get_wvp());
 			pos_data->camera_position = component->get_position();
@@ -274,8 +292,8 @@ public:
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void clean_up() { }
@@ -295,10 +313,10 @@ public:
 	RenderingTexture(Texture* texture) : RenderingComponent{texture} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			update_descs_and_compile_srv();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
@@ -307,7 +325,7 @@ public:
 	void compile(const std::string& name) {
 		camera.wvp_data.rc = component->pipeline.root_signature.get_resource(name);
 
-		component->needs_compile(false);
+		needs_compile(false);
 	}
 
 	void update_descs_and_compile_srv() {
@@ -341,9 +359,9 @@ public:
 		}
 
 		bool change{false};
-		if (camera.component->has_changed()) change = true;
+		if (camera.has_changed()) change = true;
 
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.set_obj_ptr(PSSkyCB{*component});
 			data.update();
 
@@ -357,7 +375,7 @@ public:
 				component->get_size()
 			};
 
-			component->has_changed(false);
+			has_changed(false);
 		}
 
 		return true;
@@ -368,8 +386,8 @@ public:
 		transform_data = VSTransformConstants{};
 		data = PSSkyCB{};
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources(RenderingCamera& camera) {
@@ -426,11 +444,11 @@ public:
 			ret = true;
 		}
 
-		if (component->has_changed() || ret) {
+		if (has_changed() || ret) {
 			material_data.get_obj()->material = RenderingMaterialData{*component};
 			material_data.update();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return ret;
@@ -442,8 +460,8 @@ public:
 		specular_map.set_texture(&component->get_specular_map());
 		material_data = PSMaterialCB{};
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources() {
@@ -480,7 +498,7 @@ public:
 		bool ret{false};
 		if (material.update()) ret = true;
 		
-		if (camera.component->has_changed() && component->get_lod_meshes().size() > 1) {
+		if (camera.has_changed() && component->get_lod_meshes().size() > 1) {
 			auto it{component->get_mesh_for_point(camera.component->get_position())};
 			component->get_current_mesh() = it;
 			
@@ -492,9 +510,9 @@ public:
 			);
 		}
 
-		if (component->has_changed()) {
+		if (has_changed()) {
 			transform_data.get_obj()->transform = component->get_transform();
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return ret;
@@ -530,8 +548,8 @@ public:
 		
 		material.compile();
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources(RenderingCamera& camera) {
@@ -584,22 +602,22 @@ public:
 	void add_component(const T *component) {
 		/*if (component->get_type() == Component::Type::CameraComponent) {
 			camera = RenderingCamera{(CameraComponent*)component};
-			camera.component->needs_compile(true);
+			camera.needs_compile(true);
 		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
 			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
-			directional_lights.back().component->needs_compile(true);
+			directional_lights.back().needs_compile(true);
 		} else if (component->get_type() == Component::Type::PointLightComponent) {
 			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
-			point_lights.back().component->needs_compile(true);
+			point_lights.back().needs_compile(true);
 		} else if (component->get_type() == Component::Type::SpotlightComponent) {
 			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
-			spotlights.back().component->needs_compile(true);
+			spotlights.back().needs_compile(true);
 		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
 			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
-			static_meshes.back()->component->needs_compile(true);
+			static_meshes.back()->needs_compile(true);
 		} else if (component->get_type() == Component::Type::SkyComponent) {
 			sky = RenderingSky{(SkyComponent*)component};
-			sky.component->needs_compile(true);
+			sky.needs_compile(true);
 		}*/
 	}
 
@@ -627,28 +645,28 @@ public:
 	}
 
 	void compile() {
-		if (camera.component->needs_compile())
+		if (camera.needs_compile())
 			camera.compile();
 
-		if (sky.component != nullptr && sky.component->needs_compile()) {
+		if (sky.component != nullptr && sky.needs_compile()) {
 			sky.compile(camera);
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			if (dl.component->needs_compile())
+			if (dl.needs_compile())
 				dl.compile();
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			if (pl.component->needs_compile())
+			if (pl.needs_compile())
 				pl.compile();
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			if (sl.component->needs_compile())
+			if (sl.needs_compile())
 				sl.compile();
 		}
 
 		for (auto &mesh : static_meshes) {
-			if (camera.component != nullptr && mesh->component->needs_compile()) {
+			if (camera.component != nullptr && mesh->needs_compile()) {
 				mesh->compile(camera);
 				mesh->update_lights(directional_lights, point_lights, spotlights);
 			}
@@ -704,7 +722,7 @@ public:
 			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
 		}
 
-		camera.component->has_changed(false);
+		camera.has_changed(false);
 
 		/*if (cam_update || mesh_update) {
 			// Sort list for opaque, distant non-opaque, closeer non-opaque

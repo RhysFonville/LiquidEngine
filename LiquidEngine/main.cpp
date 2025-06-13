@@ -1,8 +1,8 @@
 #include "Engine.h"
-#include "Objects/MyCamera.h"
+#include "TestObjects/MyCamera.h"
 #include "Shapes/Cube.h"
-#include "Objects/MyStatue.h"
-#include "Objects/MyShaderCube.h"
+#include "TestObjects/MyStatue.h"
+#include "TestObjects/MyShaderCube.h"
 
 int main() {
 	try {

@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "Scene.h"
 
 void Object::clean_components() {
 	for (const std::shared_ptr<Component>& component : components) {
@@ -136,9 +137,24 @@ Object* Object::get_parent() noexcept {
 }
 
 void Object::set_parent(Object* parent) noexcept {
-	parent->children.insert(std::make_shared<Object>(this));
+	if (parent == nullptr) return;
+	parent->children.insert(std::make_shared<Object>(*this));
 	remove_this_from_parents_children();
 	this->parent = parent;
+}
+
+void Object::add_component(const std::shared_ptr<Component>& component, Component* parent) {
+	component->set_parent(parent);
+	components.insert(component);
+
+	//if (GraphicsComponent::is_graphics_component(*components.back())) {
+	if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
+		scene->graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(component).get());
+	}
+
+	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
+		//physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
+	}*/
 }
 
 std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> Object::get_children() noexcept {

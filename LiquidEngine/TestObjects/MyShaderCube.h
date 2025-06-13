@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../Object.h"
+#include "../SceneComponents/Object.h"
+#include "../Components/StaticMeshComponent.h"
+#include "../Components/BoundingBoxComponent.h"
+#include "../Graphics/Pipeline/GraphicsPipelineRootArgumentContainers.h"
 
 class MyShaderCube : public Object {
 public:

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
+#include "../Window.h"
+#include "../Input/InputListener.h"
 #include "Object.h"
-#include "Window.h"
 #include "Character.h"
-#include "Input/InputListener.h"
 
 /**
  * Scene to store objects in.
@@ -28,7 +28,7 @@ public:
 
 	void render_editor_gui_section();
 
-	PhysicsScene physics_scene{};
+	//PhysicsScene physics_scene{};
 	GraphicsScene* graphics_scene{nullptr};
 
 	Input::InputListener input_listener;
@@ -36,4 +36,3 @@ public:
 private:
 	std::unordered_set<std::shared_ptr<Object>> objects{};
 };
-
