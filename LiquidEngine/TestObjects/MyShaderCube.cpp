@@ -3,11 +3,11 @@
 MyShaderCube::MyShaderCube()
 	: mesh{std::make_shared<StaticMeshComponent>(
 		std::map<float, Mesh>{
-			//std::make_pair<float, Mesh>(0.0f, Mesh{"lodstatue1.obj"}),
+			std::make_pair<float, Mesh>(0.0f, Mesh{"lodstatue4.obj"}),
 			//std::make_pair<float, Mesh>(30.0f, Mesh{"lodstatue2.obj"}),
-			std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
-			std::make_pair<float, Mesh>(70.0f, Mesh{"lodstatue4.obj"}),
-			std::make_pair<float, Mesh>(80.0f, Mesh{})
+			//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
+			//std::make_pair<float, Mesh>(90.0f, Mesh{"lodstatue4.obj"}),
+			std::make_pair<float, Mesh>(130.0f, Mesh{})
 		},
 		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})
 	},
@@ -37,7 +37,7 @@ void MyShaderCube::pre_scene_compile() {
 }
 
 void MyShaderCube::post_scene_compile() {
-	rc.set_rc(mesh->get_material().pipeline.root_signature.get_root_constants("WAVE_CONSTANTS"));
+	rc.set_rc(mesh->get_material().lock()->pipeline.root_signature.get_root_constants("WAVE_CONSTANTS"));
 }
 
 void MyShaderCube::tick(float dt) {

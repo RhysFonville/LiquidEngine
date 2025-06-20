@@ -149,7 +149,7 @@ void Object::add_component(const std::shared_ptr<Component>& component, Componen
 
 	//if (GraphicsComponent::is_graphics_component(*components.back())) {
 	if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
-		scene->graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(component).get());
+		scene->graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(component));
 	}
 
 	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
@@ -164,6 +164,8 @@ std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> Object::
 }
 
 void Object::base_render_editor_gui_section() {
+	ImGui::InputText("Name", &name);
+
 	ImGui::Text("Transform");
 	float vec[3]{transform.position.x, transform.position.y, transform.position.z};
 	if (ImGui::InputFloat3("Position", vec))
@@ -187,6 +189,21 @@ void Object::base_render_editor_gui_section() {
 			ImGui::TreePop();
 		}
 		i++;
+	}
+
+	ImGui::Text("Children");
+	i = 0;
+	for (auto& child : children) {
+		std::string name{child->name};
+		if (child->name.empty()) {
+			i++;
+			name = "Unnamed object ";
+			name += std::to_string(i);
+		}
+		if (ImGui::TreeNode(name.c_str())) {
+			child->base_render_editor_gui_section();
+			ImGui::TreePop();
+		}
 	}
 
 	render_editor_gui_section();

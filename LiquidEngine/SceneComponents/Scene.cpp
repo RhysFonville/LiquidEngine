@@ -45,10 +45,15 @@ void Scene::render_editor_gui_section() {
 	ImGui::Text("Objects");
 	int i = 0;
 	for (auto &object : objects) {
-		if (ImGui::TreeNode(object->name.empty() ? "Unnamed object" : object->name.c_str())) {
+		std::string name{object->name};
+		if (object->name.empty()) {
+			i++;
+			name = "Unnamed object ";
+			name += std::to_string(i);
+		}
+		if (ImGui::TreeNode(name.c_str())) {
 			object->base_render_editor_gui_section();
 			ImGui::TreePop();
 		}
-		i++;
 	}
 }
