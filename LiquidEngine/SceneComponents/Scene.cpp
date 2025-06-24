@@ -42,18 +42,25 @@ void Scene::add_character(const std::shared_ptr<Character> &character) noexcept 
 }
 
 void Scene::render_editor_gui_section() {
-	ImGui::Text("Objects");
-	int i = 0;
-	for (auto &object : objects) {
-		std::string name{object->name};
-		if (object->name.empty()) {
-			i++;
-			name = "Unnamed object ";
-			name += std::to_string(i);
+	if (ImGui::BeginTable("1way", 1)) {
+		ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_NoHide);
+		ImGui::TableHeadersRow();
+
+		std::vector<ObjectsTreeNode> nodes{};
+		for (auto& object : objects) {
+			object->base_render_editor_gui_section(nodes);
 		}
-		if (ImGui::TreeNode(name.c_str())) {
-			object->base_render_editor_gui_section();
-			ImGui::TreePop();
+
+		if (!nodes.empty()) {
+			int depth{0};
+			for (int i{0}; i < nodes.size(); i++) {
+				if (depth == 0)
+					ObjectsTreeNode::display_node(&nodes[i], nodes);
+				if (nodes[i].child_count > 0) depth++;
+			}
+			object_name_index = 0;
 		}
+
+		ImGui::EndTable();
 	}
 }

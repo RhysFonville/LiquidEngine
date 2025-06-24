@@ -9,6 +9,7 @@
 
 using namespace DirectX;
 
+struct ObjectsTreeNode;
 class Scene;
 
 /**
@@ -51,6 +52,7 @@ public:
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
 
+	void base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes);
 	void base_render_editor_gui_section() override;
 
 	std::string name{""};
@@ -74,6 +76,78 @@ private:
 			return c.get() == this;
 		})}; it != children.end()) {
 			parent->children.erase(it);
+		}
+	}
+};
+
+static int object_name_index = 0;
+
+// For ImGUI
+struct ObjectsTreeNode {
+	Object* object;
+	int child_index;
+	int child_count;
+	bool selected{false};
+	bool deselect{false};
+
+	static void display_node(ObjectsTreeNode* node, std::vector<ObjectsTreeNode>& all_nodes) {
+		bool clicked{false};
+		
+		if (node->deselect)
+			node->selected = false;
+
+		std::string name{node->object->name};
+		if (node->object->name.empty()) {
+			name = "Unnamed object ";
+			name += std::to_string(object_name_index);
+		}
+
+		const bool is_folder = (node->child_count > 0);
+		if (is_folder) {
+			if (!node->selected && node->deselect) {
+				ImGui::SetNextItemOpen(false);
+			}
+
+			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns | ImGuiTreeNodeFlags_OpenOnArrow)) {
+				for (int child_n = 0; child_n < node->child_count; child_n++) {
+					object_name_index++;
+					display_node(&all_nodes[node->child_index + child_n], all_nodes);
+				}
+				ImGui::TreePop();
+
+				if (!node->selected) clicked = true;
+				node->selected = true;
+			} else {
+				//if (node->selected) clicked = true;
+				node->selected = false;
+			}
+		} else {
+			object_name_index++;
+
+			if (!node->selected && node->deselect) {
+				ImGui::SetNextItemOpen(false);
+			}
+
+			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns/* | ImGuiTreeNodeFlags_Leaf*/ | ImGuiTreeNodeFlags_Bullet | ImGuiTreeNodeFlags_NoTreePushOnOpen)) {
+				if (!node->selected) clicked = true;
+				node->selected = true;
+			} else {
+				//if (node->selected) clicked = true;
+				node->selected = false;
+			}
+		}
+
+		node->deselect = false;
+
+		if (clicked) {
+			for (ObjectsTreeNode& n : all_nodes) {
+				n.deselect = true;
+			}
+			node->deselect = false;
+			node->object->base_render_editor_gui_section();
+		} else if (node->selected) {
+			std::cout << name << '\n';
+			node->object->base_render_editor_gui_section();
 		}
 	}
 };

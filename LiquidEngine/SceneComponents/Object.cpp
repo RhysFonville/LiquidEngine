@@ -163,7 +163,22 @@ std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> Object::
 	}) | std::ranges::to<std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>>>();
 }
 
+void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes) {
+	nodes.reserve(nodes.capacity() + children.size());
+
+	ObjectsTreeNode last_node{};
+	if (!nodes.empty())	last_node = nodes.back();
+	else				last_node = ObjectsTreeNode{nullptr, 0, 0};
+	
+	if (children.empty())
+		nodes.push_back(ObjectsTreeNode{this, -1, -1});
+	else
+		nodes.push_back(ObjectsTreeNode{this, last_node.child_count+last_node.child_index, (int)children.size()});
+}
+
 void Object::base_render_editor_gui_section() {
+	ImGui::Begin("Inspector");
+
 	ImGui::InputText("Name", &name);
 
 	ImGui::Text("Transform");
@@ -191,7 +206,7 @@ void Object::base_render_editor_gui_section() {
 		i++;
 	}
 
-	ImGui::Text("Children");
+	/*ImGui::Text("Children");
 	i = 0;
 	for (auto& child : children) {
 		std::string name{child->name};
@@ -204,7 +219,9 @@ void Object::base_render_editor_gui_section() {
 			child->base_render_editor_gui_section();
 			ImGui::TreePop();
 		}
-	}
+	}*/
 
 	render_editor_gui_section();
+
+	ImGui::End();
 }

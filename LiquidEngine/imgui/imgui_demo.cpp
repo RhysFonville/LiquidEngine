@@ -5201,6 +5201,14 @@ static void ShowDemoWindowTables()
                 { "Copy of Image001 (Final2).png","Image file",   203512,  -1,-1    }, // 8
             };
 
+            // My test code to draw all root nodes
+            /*int depth{0};
+            for (int i{0}; i < sizeof(nodes) / sizeof(MyTreeNode); i++) {
+                if (depth == 0)
+                    MyTreeNode::DisplayNode(&nodes[i], nodes);
+                if (nodes[i].ChildCount > 0) depth++;
+            }*/
+
             MyTreeNode::DisplayNode(&nodes[0], nodes);
 
             ImGui::EndTable();
