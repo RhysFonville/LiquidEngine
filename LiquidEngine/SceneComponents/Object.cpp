@@ -179,7 +179,7 @@ void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes)
 void Object::base_render_editor_gui_section() {
 	ImGui::Begin("Inspector");
 
-	ImGui::InputText("Name", &name);
+	ImGui::InputText("Name", &name, ImGuiInputTextFlags_EnterReturnsTrue);
 
 	ImGui::Text("Transform");
 	float vec[3]{transform.position.x, transform.position.y, transform.position.z};

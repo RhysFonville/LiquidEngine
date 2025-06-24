@@ -87,14 +87,10 @@ struct ObjectsTreeNode {
 	Object* object;
 	int child_index;
 	int child_count;
-	bool selected{false};
-	bool deselect{false};
 
 	static void display_node(ObjectsTreeNode* node, std::vector<ObjectsTreeNode>& all_nodes) {
-		bool clicked{false};
-		
-		if (node->deselect)
-			node->selected = false;
+		static std::string clicked_name{};
+		static std::string selected_name{};
 
 		std::string name{node->object->name};
 		if (node->object->name.empty()) {
@@ -104,49 +100,33 @@ struct ObjectsTreeNode {
 
 		const bool is_folder = (node->child_count > 0);
 		if (is_folder) {
-			if (!node->selected && node->deselect) {
+			if (clicked_name == name) {
 				ImGui::SetNextItemOpen(false);
+				clicked_name = "";
 			}
-
 			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns | ImGuiTreeNodeFlags_OpenOnArrow)) {
 				for (int child_n = 0; child_n < node->child_count; child_n++) {
 					object_name_index++;
 					display_node(&all_nodes[node->child_index + child_n], all_nodes);
 				}
 				ImGui::TreePop();
-
-				if (!node->selected) clicked = true;
-				node->selected = true;
-			} else {
-				//if (node->selected) clicked = true;
-				node->selected = false;
+				clicked_name = name;
+				selected_name = name;
 			}
 		} else {
 			object_name_index++;
 
-			if (!node->selected && node->deselect) {
+			if (clicked_name == name) {
 				ImGui::SetNextItemOpen(false);
+				clicked_name = "";
 			}
-
 			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns/* | ImGuiTreeNodeFlags_Leaf*/ | ImGuiTreeNodeFlags_Bullet | ImGuiTreeNodeFlags_NoTreePushOnOpen)) {
-				if (!node->selected) clicked = true;
-				node->selected = true;
-			} else {
-				//if (node->selected) clicked = true;
-				node->selected = false;
+				clicked_name = name;
+				selected_name = name;
 			}
 		}
 
-		node->deselect = false;
-
-		if (clicked) {
-			for (ObjectsTreeNode& n : all_nodes) {
-				n.deselect = true;
-			}
-			node->deselect = false;
-			node->object->base_render_editor_gui_section();
-		} else if (node->selected) {
-			std::cout << name << '\n';
+		if (selected_name == name) {
 			node->object->base_render_editor_gui_section();
 		}
 	}
