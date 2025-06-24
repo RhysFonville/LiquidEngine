@@ -3,6 +3,7 @@
 #include <unordered_set>
 #include <set>
 #include <ranges>
+#include <concepts>
 #include "../Utility/ObjectStructs.h"
 #include "../Controllable.h"
 #include "../imgui/imgui.h"
@@ -13,8 +14,9 @@ class Component;
  * Class shared between object and component classes. Gives them a list of components and functions for them.
  */
 class ComponentHolder {
-public:
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
+public: 
+	template <typename T>
+	requires std::derived_from<T, Component>
 	GET std::weak_ptr<T> get_component() noexcept {
 		for (const std::shared_ptr<Component>& component : components) {
 			if (auto ret{std::dynamic_pointer_cast<T>(component)}) {
@@ -24,7 +26,8 @@ public:
 		return std::weak_ptr<T>{};
 	}
 
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, Component)>
+	template <typename T>
+	requires std::derived_from<T, Component>
 	GET std::set<std::weak_ptr<T>, std::owner_less<std::weak_ptr<T>>> get_components() noexcept {
 		std::set<std::weak_ptr<T>, std::owner_less<std::weak_ptr<T>>> ret_comps{};
 		for (const std::shared_ptr<Component>& component : components) {

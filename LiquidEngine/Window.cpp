@@ -93,9 +93,6 @@ void Window::clean_up() {
 	HPEW(ReleaseDC(window, dc));
 	HPEW(DestroyWindow(this_window_wndproc->get_window()));
 	UnregisterClassA(window_class.lpszClassName, window_class.hInstance);
-#ifndef NDEBUG
-	debug_console->destroy_window();
-#endif // !NDEBUG
 
 	this_window_wndproc = NULL;
 	graphics_scene = nullptr;

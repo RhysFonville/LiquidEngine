@@ -27,7 +27,7 @@ public:
 
 	std::map<float, Mesh>::const_iterator get_mesh_for_point(const FVector3& pos) noexcept;
 
-	GET const std::weak_ptr<Material>& get_material() noexcept;
+	GET std::weak_ptr<Material> get_material() noexcept;
 	//void set_material(const Material &material) noexcept;
 
 	//void set_instances(const std::vector<Transform>& mesh) noexcept;

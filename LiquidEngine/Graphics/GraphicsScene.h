@@ -29,7 +29,7 @@ static constexpr UCHAR MAX_LIGHTS_PER_TYPE = 255u;
 * Each graphics component has thir graphics-side counterpart. Graphics-side component base class.
 * \see GraphicsComponent
 */
-template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsTracker)>
+template <typename T> requires std::derived_from<T, GraphicsTracker>
 class RenderingComponent {
 public:
 	RenderingComponent() { }
@@ -638,7 +638,7 @@ public:
 	 * \param component GraphicsComponent to add.
 	 * \see GraphicsComponent
 	 */
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+	template <typename T> requires std::derived_from<T, GraphicsComponent>
 	void add_component(const std::weak_ptr<T>& component) {
 		if (auto sp{component.lock()}) {
 			if (std::dynamic_pointer_cast<CameraComponent>(sp) != nullptr) {
@@ -663,7 +663,7 @@ public:
 		}
 	}
 
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+	template <typename T> requires std::derived_from<T, GraphicsComponent>
 	void remove_component(const T *component) {
 		if (component->get_type() == Component::Type::StaticMeshComponent) {
 			//static_meshes.erase(std::find(static_meshes.begin(), static_meshes.end(), *(StaticMeshComponent*)component));

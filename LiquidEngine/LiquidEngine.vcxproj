@@ -185,7 +185,6 @@
     <ClInclude Include="Components\PhysicalComponent.h" />
     <ClInclude Include="Components\GraphicsComponent.h" />
     <ClInclude Include="Controllable.h" />
-    <ClInclude Include="Debug\DebugConsole.h" />
     <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapterOutput.h" />
     <ClInclude Include="Graphics\Renderer\GraphicsAdapter.h" />
@@ -259,7 +258,6 @@
     <ClCompile Include="Components\PhysicalComponent.cpp" />
     <ClCompile Include="Components\GraphicsComponent.cpp" />
     <ClCompile Include="Controllable.cpp" />
-    <ClCompile Include="Debug\DebugConsole.cpp" />
     <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapterOutput.cpp" />
     <ClCompile Include="Graphics\Renderer\GraphicsAdapter.cpp" />

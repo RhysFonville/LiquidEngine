@@ -61,7 +61,7 @@ std::map<float, Mesh>::const_iterator StaticMeshComponent::get_mesh_for_point(co
 	return it;
 }
 
-const std::weak_ptr<Material>& StaticMeshComponent::get_material() noexcept {
+std::weak_ptr<Material> StaticMeshComponent::get_material() noexcept {
 	return std::weak_ptr<Material>{material};
 }
 
