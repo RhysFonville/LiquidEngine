@@ -1,4 +1,3 @@
-#include "Object.h"
 #include "Scene.h"
 
 void Object::clean_components() {
@@ -154,11 +153,24 @@ void Object::remove_this_from_parents_children() {
 
 void Object::set_parent(Object* parent) noexcept {
 	if (parent == this->parent) return;
+	if (std::ranges::find_if(children, [&](const auto& obj){
+		return obj.get() == parent;
+	}) != children.end()) return;
+
+	std::set<std::unique_ptr<Object>>* container{&scene->objects};
+	if (this->parent != nullptr) container = &this->parent->children;
+
+	auto it{container->extract(
+		std::ranges::find_if(*container, [&](const auto& obj){
+			return obj.get() == this;
+		})
+	)};
 	if (parent != nullptr) {
-		parent->children.insert(std::make_shared<Object>(this));
-		scene = parent->scene;
+		parent->children.insert(std::move(it));
+	} else {
+		scene->objects.insert(std::move(it));
 	}
-	remove_this_from_parents_children();
+
 	this->parent = parent;
 }
 
@@ -176,10 +188,22 @@ void Object::add_component(const std::shared_ptr<Component>& component, Componen
 	}*/
 }
 
-std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> Object::get_children() noexcept {
-	return children | std::views::transform([&](const std::shared_ptr<Object>& sp) {
-		return std::weak_ptr<Object>{sp};
-	}) | std::ranges::to<std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>>>();
+Object* add_object(std::unique_ptr<Object>&& obj) {
+	obj->parent = this;
+	if (scene != nullptr)
+		obj->set_scene(scene);
+	return children.insert(std::move(obj).first->get();
+}
+
+std::set<Object*> Object::get_children() noexcept {
+	return children | std::views::transform([&](const auto& obj){ return obj.get(); }) | std::ranges::to<std::set>();
+}
+
+void Object::set_scene(Scene* scene) {
+	for (auto& obj : objects) {
+		obj->set_scene(scene);
+	}
+	this->scene = scene;
 }
 
 void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes) {

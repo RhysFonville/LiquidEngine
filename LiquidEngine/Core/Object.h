@@ -44,11 +44,13 @@ public:
 	void set_parent(Object* parent) noexcept;
 
 	void add_component(const std::shared_ptr<Component>& component, Component* parent = nullptr); //? AHHHHHHHHHHHHHHHHHHHHHHHH
-
-	GET std::set<std::weak_ptr<Object>, std::owner_less<std::weak_ptr<Object>>> get_children() noexcept;
-
-	//ReadObjFileDataOutput read_obj_file(const std::vector<std::string> &content, const ReadObjFileDataOutput &mesh_out) noexcept;
 	
+	Object* add_object(std::unique_ptr<Object>&& obj);
+
+	GET std::set<Object*> get_children() noexcept;
+
+	void set_scene(Scene* scene) const noexcept;
+
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
 
@@ -62,14 +64,13 @@ public:
 	Component* mimic_size_component{nullptr};
 
 protected:
-	friend class Scene;
 	Scene* scene{nullptr};
 
 private:
 	Transform transform{};
 
 	Object* parent{nullptr};
-	std::unordered_set<std::shared_ptr<Object>> children{};
+	std::set<std::unique_ptr<Object>> children{};
 
 	void remove_this_from_parents_children();
 };

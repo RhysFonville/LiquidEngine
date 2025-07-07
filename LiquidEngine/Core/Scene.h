@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include "../Window.h"
 #include "../Input/InputListener.h"
 #include "Object.h"
@@ -21,10 +20,10 @@ public:
 
 	void compile();
 
-	GET std::unordered_set<std::shared_ptr<Object>> & get_objects() noexcept;
-	void add_object(const std::shared_ptr<Object> &object) noexcept;
+	GET std::set<Object*> get_objects() const noexcept;
 
-	void add_character(const std::shared_ptr<Character> &character) noexcept;
+	void add_object(std::unique_ptr<Object>&& object) noexcept;
+	void add_character(std::unique_ptr<Character>&& character) noexcept;
 
 	void render_editor_gui_section();
 
@@ -34,5 +33,6 @@ public:
 	Input::InputListener input_listener;
 
 private:
-	std::unordered_set<std::shared_ptr<Object>> objects{};
+	friend class Object;
+	std::set<std::unique_ptr<Object>> objects{};
 };

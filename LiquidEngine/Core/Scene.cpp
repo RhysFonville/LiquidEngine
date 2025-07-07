@@ -24,19 +24,19 @@ void Scene::compile() {
 	}
 }
 
-std::unordered_set<std::shared_ptr<Object>> & Scene::get_objects() noexcept {
-	return objects;
+std::set<Object*> Scene::get_objects() const noexcept {
+	return objects | std::views::transform([](const auto& obj){ return obj.get(); }) | std::ranges::to<std::set>();
 }
 
-void Scene::add_object(const std::shared_ptr<Object>& object) noexcept {
-	objects.insert(object);
-	object->scene = this;
+Object* Scene::add_object(std::unique_ptr<Object>&& obj) {
+	obj->set_scene(this);
+	return objects.insert(std::move(obj)).first->get();
 }
 
-void Scene::add_character(const std::shared_ptr<Character> &character) noexcept {
+void Scene::add_character(std::unique_ptr<Character>&& character) noexcept {
 	input_listener.keybind_sets.push_back(&character->keybind_set);
-	objects.insert(std::static_pointer_cast<Object>(character));
-	character->scene = this;
+	character->set_scene(this);
+	return objects.insert(std::move(obj)).first->get();
 }
 
 void Scene::render_editor_gui_section() {
