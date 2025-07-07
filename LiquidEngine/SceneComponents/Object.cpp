@@ -17,7 +17,7 @@ void Object::base_clean_up() {
 
 void Object::base_compile() {
 	for (const std::shared_ptr<Object>& child : children) {
-		child->compile();
+		child->base_compile();
 	}
 
 	for (const std::shared_ptr<Component>& comp : components) {
@@ -136,9 +136,28 @@ Object* Object::get_parent() noexcept {
 	return parent;
 }
 
+void Object::remove_this_from_parents_children() {
+	auto rm = [&](auto& container) {
+		if (auto it{std::ranges::find_if(container, [&](const std::shared_ptr<Object>& c) {
+			return c.get() == this;
+		})}; it != container.end()) {
+			container.erase(it);
+		}
+	};
+
+	if (parent == nullptr) {
+		rm(scene->get_objects());
+	} else {
+		rm(parent->children);
+	}
+}
+
 void Object::set_parent(Object* parent) noexcept {
-	if (parent == nullptr) return;
-	parent->children.insert(std::make_shared<Object>(*this));
+	if (parent == this->parent) return;
+	if (parent != nullptr) {
+		parent->children.insert(std::make_shared<Object>(this));
+		scene = parent->scene;
+	}
 	remove_this_from_parents_children();
 	this->parent = parent;
 }
@@ -168,18 +187,22 @@ void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes)
 
 	ObjectsTreeNode last_node{};
 	if (!nodes.empty())	last_node = nodes.back();
-	else				last_node = ObjectsTreeNode{nullptr, 0, 0};
+	else				last_node = ObjectsTreeNode{nullptr, 1u+nodes.size(), 0u};
 	
 	if (children.empty())
-		nodes.push_back(ObjectsTreeNode{this, -1, -1});
+		nodes.push_back(ObjectsTreeNode{this, 1u+nodes.size(), 0});
 	else
-		nodes.push_back(ObjectsTreeNode{this, last_node.child_count+last_node.child_index, (int)children.size()});
+		nodes.push_back(ObjectsTreeNode{this, children.size()+last_node.child_index, children.size()});
 }
 
 void Object::base_render_editor_gui_section() {
 	ImGui::Begin("Inspector");
 
-	ImGui::InputText("Name", &name, ImGuiInputTextFlags_EnterReturnsTrue);
+	// TODO: Displayed name will be incorrect when name is programmatically changed
+	static std::string in_name = name;
+	if (ImGui::InputText("Name", &in_name, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		name = in_name;
+	}
 
 	ImGui::Text("Transform");
 	float vec[3]{transform.position.x, transform.position.y, transform.position.z};

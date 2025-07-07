@@ -19,6 +19,8 @@ private:
 	std::shared_ptr<StaticMeshComponent> mesh{nullptr};
 	std::shared_ptr<BoundingBoxComponent> box{nullptr};
 
+	Object child{};
+
 	struct s {
 		float amplitude;
 		float frequency;

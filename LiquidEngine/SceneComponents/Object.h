@@ -61,23 +61,17 @@ public:
 	Component* mimic_rotation_component{nullptr};
 	Component* mimic_size_component{nullptr};
 
-private:
+protected:
 	friend class Scene;
+	Scene* scene{nullptr};
 
+private:
 	Transform transform{};
 
 	Object* parent{nullptr};
 	std::unordered_set<std::shared_ptr<Object>> children{};
 
-	Scene* scene{nullptr};
-
-	void remove_this_from_parents_children() {
-		if (auto it{std::ranges::find_if(parent->children, [&](const std::shared_ptr<Object>& c){
-			return c.get() == this;
-		})}; it != children.end()) {
-			parent->children.erase(it);
-		}
-	}
+	void remove_this_from_parents_children();
 };
 
 static int object_name_index = 0;
@@ -85,8 +79,8 @@ static int object_name_index = 0;
 // For ImGUI
 struct ObjectsTreeNode {
 	Object* object;
-	int child_index;
-	int child_count;
+	size_t child_index{};
+	size_t child_count{};
 
 	static void display_node(ObjectsTreeNode* node, std::vector<ObjectsTreeNode>& all_nodes) {
 		static std::string clicked_name{};

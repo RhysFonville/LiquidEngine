@@ -1,4 +1,5 @@
 #include "MyShaderCube.h"
+#include "../SceneComponents/Scene.h"
 
 MyShaderCube::MyShaderCube()
 	: mesh{std::make_shared<StaticMeshComponent>(
@@ -29,9 +30,15 @@ MyShaderCube::MyShaderCube()
 
 	mimic_position_component = box.get();
 	mimic_rotation_component = box.get();
+	
+	child.translate(FVector3{0.f, 0.f, 3.f});
 }
 
 void MyShaderCube::pre_scene_compile() {
+	scene->add_object(std::make_shared<Object>(child));
+	child.set_parent(this);
+	child.add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}));
+
 	add_component(mesh);
 	add_component(box);
 }

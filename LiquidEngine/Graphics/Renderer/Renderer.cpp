@@ -410,7 +410,8 @@ void Renderer::compile() {
 
 	for (auto &mesh : scene.static_meshes) {
 		//mesh->component->compile();
-		mesh->material.component.lock()->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
+		if (auto sp{mesh->material.component.lock()})
+			sp->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
 
 	if (auto sp{scene.sky.component.lock()}) {

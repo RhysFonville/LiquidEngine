@@ -28,17 +28,15 @@ std::unordered_set<std::shared_ptr<Object>> & Scene::get_objects() noexcept {
 	return objects;
 }
 
-void Scene::add_object(const std::shared_ptr<Object> &object) noexcept {
+void Scene::add_object(const std::shared_ptr<Object>& object) noexcept {
 	objects.insert(object);
 	object->scene = this;
-	object->set_parent(nullptr);
 }
 
 void Scene::add_character(const std::shared_ptr<Character> &character) noexcept {
 	input_listener.keybind_sets.push_back(&character->keybind_set);
 	objects.insert(std::static_pointer_cast<Object>(character));
 	character->scene = this;
-	character->set_parent(nullptr);
 }
 
 void Scene::render_editor_gui_section() {

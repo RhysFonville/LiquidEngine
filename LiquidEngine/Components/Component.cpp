@@ -63,7 +63,9 @@ Component* Component::get_parent() const noexcept {
 }
 
 void Component::set_parent(Component* parent) noexcept {
-	if (parent != nullptr) parent->components.insert(std::make_shared<Component>(*this));
+	if (parent == this->parent) return;
+	if (parent != nullptr)
+		parent->components.insert(std::make_shared<Component>(*this));
 	remove_this_from_parents_children();
 	this->parent = parent;
 }
