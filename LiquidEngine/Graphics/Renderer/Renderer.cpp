@@ -287,8 +287,8 @@ void Renderer::set_viewport_and_scissor_rect() {
 }
 
 void Renderer::refill_descriptor_heap() {
-	for (auto &mesh : scene.static_meshes) {
-		mesh->material.component.lock()->pipeline.root_signature.create_views(device, descriptor_heap);
+	for (auto& mesh : scene.static_meshes) {
+		mesh.material.component->pipeline.root_signature.create_views(device, descriptor_heap);
 	}
 }
 
@@ -410,14 +410,9 @@ void Renderer::compile() {
 
 	for (auto &mesh : scene.static_meshes) {
 		//mesh->component->compile();
-		if (auto sp{mesh->material.component.lock()})
-			sp->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
+		mesh.material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
-
-	if (auto sp{scene.sky.component.lock()}) {
-		//scene.sky.component->compile();
-		sp->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
-	}
+	scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	
 	scene.set_resources();
 	scene.update(resolution);
@@ -476,12 +471,9 @@ void Renderer::render(float dt) {
 	// OpenGL shadow mapping video
 	// https://www.youtube.com/watch?v=kCCsko29pv0
 
-	if (auto sp{scene.sky.component.lock()})
-		sp->pipeline.run(device, command_list, descriptor_heap);
-	
+	scene.sky.component->pipeline.run(device, command_list, descriptor_heap);
 	for (auto &mesh : scene.static_meshes) {
-		if (auto sp{mesh->material.component.lock()})
-			sp->pipeline.run(device, command_list, descriptor_heap);
+		mesh.material.component->pipeline.run(device, command_list, descriptor_heap);
 	}
 
 	// Render Dear ImGui graphics

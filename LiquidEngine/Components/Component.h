@@ -1,6 +1,5 @@
 #pragma once
 
-#include <unordered_set>
 #include <set>
 #include <ranges>
 #include <concepts>
@@ -17,38 +16,41 @@ class ComponentHolder {
 public: 
 	template <typename T>
 	requires std::derived_from<T, Component>
-	GET std::weak_ptr<T> get_component() noexcept {
-		for (const std::shared_ptr<Component>& component : components) {
-			if (auto ret{std::dynamic_pointer_cast<T>(component)}) {
-				return std::weak_ptr<T>{ret};
+	GET T* get_component() noexcept {
+		for (const std::unique_ptr<Component>& component : components) {
+			if (T* ret{dynamic_cast<T*>(component.get())}) {
+				return ret;
 			}
 		}
-		return std::weak_ptr<T>{};
+		return nullptr;
 	}
 
 	template <typename T>
 	requires std::derived_from<T, Component>
-	GET std::set<std::weak_ptr<T>, std::owner_less<std::weak_ptr<T>>> get_components() noexcept {
-		std::set<std::weak_ptr<T>, std::owner_less<std::weak_ptr<T>>> ret_comps{};
-		for (const std::shared_ptr<Component>& component : components) {
-			if (auto ret{std::dynamic_pointer_cast<T>(component)}) {
+	GET std::set<T*> get_components() noexcept {
+		std::set<T*> ret_comps{};
+		for (const std::unique_ptr<Component>& component : components) {
+			if (T* ret{dynamic_cast<T*>(component.get())}) {
 				ret_comps.insert(ret);
 			}
 		}
 		return ret_comps;
 	}
 
-	GET std::set<std::weak_ptr<Component>, std::owner_less<std::weak_ptr<Component>>> get_all_components() noexcept {
-		return components | std::views::transform([&](const std::shared_ptr<Component>& sp) {
-			return std::weak_ptr<Component>{sp};
-		}) | std::ranges::to<std::set<std::weak_ptr<Component>, std::owner_less<std::weak_ptr<Component>>>>();
+	GET std::set<Component*> get_all_components() noexcept {
+		return components | std::views::transform([&](const std::unique_ptr<Component>& sp) {
+			return sp.get();
+		}) | std::ranges::to<std::set>();
 	}
 
 protected:
-	std::unordered_set<std::shared_ptr<Component>> components{}; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
+	std::set<std::unique_ptr<Component>> components{}; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 };
 
 class GraphicsComponent;
+
+class Object;
+class Scene;
 
 /**
 * Base component class for all components.
@@ -79,6 +81,10 @@ public:
 	GET Component* get_parent() const noexcept;
 	void set_parent(Component* parent) noexcept;
 
+	Component* add_component(std::unique_ptr<Component>&& component);
+
+	void set_scene(Scene* scene) noexcept;
+
 	virtual bool operator==(const Component &component) const noexcept;
 	virtual void operator=(const Component &component) noexcept;
 
@@ -87,13 +93,6 @@ public:
 protected:
 	Transform transform;
 	Component* parent{nullptr};
-
-	void remove_this_from_parents_children() {
-		if (parent == nullptr) return;
-		if (auto it{std::ranges::find_if(parent->components, [&](const std::shared_ptr<Component>& c) {
-			return c.get() == this;
-		})}; it != components.end()) {
-			parent->components.erase(it);
-		}
-	}
+	Object* object{nullptr};
+	Scene* scene{nullptr};
 };

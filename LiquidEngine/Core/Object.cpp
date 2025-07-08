@@ -1,25 +1,25 @@
 #include "Scene.h"
+#include "../Components/GraphicsComponent.h"
 
 void Object::clean_components() {
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		component->base_clean_up();
 	}
 	components.clear();
 }
 
 void Object::base_clean_up() {
-	remove_this_from_parents_children();
 	children.clear();
 	clean_components();
 	clean_up();
 }
 
 void Object::base_compile() {
-	for (const std::shared_ptr<Object>& child : children) {
+	for (const std::unique_ptr<Object>& child : children) {
 		child->base_compile();
 	}
 
-	for (const std::shared_ptr<Component>& comp : components) {
+	for (const std::unique_ptr<Component>& comp : components) {
 		comp->base_compile();
 	}
 
@@ -27,11 +27,11 @@ void Object::base_compile() {
 }
 
 void Object::base_tick(float dt) {
-	for (const std::shared_ptr<Object>& child : children) {
+	for (const std::unique_ptr<Object>& child : children) {
 		child->base_tick(dt);
 	}
 
-	for (const std::shared_ptr<Component>& comp : components) {
+	for (const std::unique_ptr<Component>& comp : components) {
 		comp->base_tick(dt);
 	}
 
@@ -51,11 +51,11 @@ void Object::base_tick(float dt) {
 void Object::set_position(const FVector3 &position) noexcept {
 	transform.position = position;
 
-	for (const std::shared_ptr<Object>& child : children) {
+	for (const std::unique_ptr<Object>& child : children) {
 		child->set_position(position);
 	}
 
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		component->set_position(position);
 	}
 }
@@ -63,11 +63,11 @@ void Object::set_position(const FVector3 &position) noexcept {
 void Object::set_rotation(const FVector3 &rotation) noexcept {
 	transform.rotation = rotation;
 
-	for (const std::shared_ptr<Object>& child : children) {
+	for (const std::unique_ptr<Object>& child : children) {
 		child->set_position(rotation);
 	}
 
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		component->set_rotation(rotation);
 	}
 }
@@ -75,11 +75,11 @@ void Object::set_rotation(const FVector3 &rotation) noexcept {
 void Object::set_size(const FVector3 &size) noexcept {
 	transform.size = size;
 
-	for (const std::shared_ptr<Object>& child : children) {
+	for (const std::unique_ptr<Object>& child : children) {
 		child->set_position(size);
 	}
 
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		component->set_size(size);
 	}
 }
@@ -135,27 +135,11 @@ Object* Object::get_parent() noexcept {
 	return parent;
 }
 
-void Object::remove_this_from_parents_children() {
-	auto rm = [&](auto& container) {
-		if (auto it{std::ranges::find_if(container, [&](const std::shared_ptr<Object>& c) {
-			return c.get() == this;
-		})}; it != container.end()) {
-			container.erase(it);
-		}
-	};
-
-	if (parent == nullptr) {
-		rm(scene->get_objects());
-	} else {
-		rm(parent->children);
-	}
-}
-
 void Object::set_parent(Object* parent) noexcept {
 	if (parent == this->parent) return;
 	if (std::ranges::find_if(children, [&](const auto& obj){
 		return obj.get() == parent;
-	}) != children.end()) return;
+	}) != children.end()) return; // TODO: Check whole tree
 
 	std::set<std::unique_ptr<Object>>* container{&scene->objects};
 	if (this->parent != nullptr) container = &this->parent->children;
@@ -174,33 +158,33 @@ void Object::set_parent(Object* parent) noexcept {
 	this->parent = parent;
 }
 
-void Object::add_component(const std::shared_ptr<Component>& component, Component* parent) {
-	component->set_parent(parent);
-	components.insert(component);
-
-	//if (GraphicsComponent::is_graphics_component(*components.back())) {
-	if (std::dynamic_pointer_cast<GraphicsComponent>(component)) {
-		scene->graphics_scene->add_component<GraphicsComponent>(std::static_pointer_cast<GraphicsComponent>(component));
-	}
-
-	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
-		//physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
-	}*/
-}
-
-Object* add_object(std::unique_ptr<Object>&& obj) {
+Object* Object::add_object(std::unique_ptr<Object>&& obj) {
 	obj->parent = this;
 	if (scene != nullptr)
 		obj->set_scene(scene);
-	return children.insert(std::move(obj).first->get();
+	return children.insert(std::move(obj)).first->get();
+}
+
+Component* Object::add_component(std::unique_ptr<Component>&& component) {
+	if (dynamic_cast<GraphicsComponent*>(component.get())) {
+		scene->graphics_scene->add_component<GraphicsComponent>(static_cast<GraphicsComponent*>(component.get()));
+	}
+	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
+		//physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
+	}*/
+
+	if (scene != nullptr)
+		component->set_scene(scene);
+
+	return components.insert(std::move(component)).first->get();
 }
 
 std::set<Object*> Object::get_children() noexcept {
 	return children | std::views::transform([&](const auto& obj){ return obj.get(); }) | std::ranges::to<std::set>();
 }
 
-void Object::set_scene(Scene* scene) {
-	for (auto& obj : objects) {
+void Object::set_scene(Scene* scene) noexcept {
+	for (auto& obj : children) {
 		obj->set_scene(scene);
 	}
 	this->scene = scene;
@@ -245,7 +229,7 @@ void Object::base_render_editor_gui_section() {
 
 	ImGui::Text("Components");
 	int i = 0;
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		if (ImGui::TreeNode(("Component " + std::to_string(i)).c_str())) {
 			component->base_render_editor_gui_section();
 			ImGui::TreePop();

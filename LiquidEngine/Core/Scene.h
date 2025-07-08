@@ -22,8 +22,8 @@ public:
 
 	GET std::set<Object*> get_objects() const noexcept;
 
-	void add_object(std::unique_ptr<Object>&& object) noexcept;
-	void add_character(std::unique_ptr<Character>&& character) noexcept;
+	Object* add_object(std::unique_ptr<Object>&& object);
+	Character* add_character(std::unique_ptr<Character>&& character);
 
 	void render_editor_gui_section();
 

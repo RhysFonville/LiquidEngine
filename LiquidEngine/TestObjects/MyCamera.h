@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../SceneComponents/Character.h"
+#include "../Core/Character.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/PointLightComponent.h"
 
@@ -8,7 +8,6 @@ class MyCamera : public Character {
 public:
 	MyCamera();
 
-	void pre_scene_compile() override;
 	void tick(float dt) override;
 
 	void on_turn(float dt);
@@ -36,7 +35,7 @@ private:
 	float slow_speed = regular_speed / 2.0f;
 	float current_speed = regular_speed;
 
-	std::shared_ptr<CameraComponent> camera;
-	std::shared_ptr<PointLightComponent> light;
+	CameraComponent* camera;
+	PointLightComponent* light;
 };
 

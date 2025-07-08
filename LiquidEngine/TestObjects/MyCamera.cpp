@@ -1,8 +1,8 @@
 #include "MyCamera.h"
 
-MyCamera::MyCamera()
-	: camera(std::make_shared<CameraComponent>()),
-	light(std::make_shared<PointLightComponent>()) {
+MyCamera::MyCamera() {
+	camera = static_cast<CameraComponent*>(add_component(std::make_unique<CameraComponent>()));
+	light = static_cast<PointLightComponent*>(add_component(std::make_unique<PointLightComponent>()));
 
 	keybind_set.categories.push_back({ "Category" });
 	keybind_set.categories[0].actions.push_back({ "Move" });
@@ -62,11 +62,6 @@ MyCamera::MyCamera()
 		std::function<void(float)>([&](float dt) { on_decrease_fov(dt); }),
 		Input::CallbackEvent::IsPressed }
 	);
-}
-
-void MyCamera::pre_scene_compile() {
-	add_component(camera);
-	add_component(light);
 }
 
 void MyCamera::tick(float dt) {

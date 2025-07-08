@@ -43,13 +43,12 @@ public:
 	GET Object* get_parent() noexcept;
 	void set_parent(Object* parent) noexcept;
 
-	void add_component(const std::shared_ptr<Component>& component, Component* parent = nullptr); //? AHHHHHHHHHHHHHHHHHHHHHHHH
-	
 	Object* add_object(std::unique_ptr<Object>&& obj);
+	Component* add_component(std::unique_ptr<Component>&& component); //? AHHHHHHHHHHHHHHHHHHHHHHHH
 
 	GET std::set<Object*> get_children() noexcept;
 
-	void set_scene(Scene* scene) const noexcept;
+	void set_scene(Scene* scene) noexcept;
 
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
@@ -64,6 +63,7 @@ public:
 	Component* mimic_size_component{nullptr};
 
 protected:
+	friend class Component;
 	Scene* scene{nullptr};
 
 private:
@@ -71,8 +71,6 @@ private:
 
 	Object* parent{nullptr};
 	std::set<std::unique_ptr<Object>> children{};
-
-	void remove_this_from_parents_children();
 };
 
 static int object_name_index = 0;

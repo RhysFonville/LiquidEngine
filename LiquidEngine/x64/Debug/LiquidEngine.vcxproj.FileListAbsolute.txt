@@ -1,3 +1,0 @@
-C:\Users\Family\source\repos\LiquidEngine\x64\Debug\dxcompiler.dll
-C:\Users\Family\source\repos\LiquidEngine\x64\Debug\dxcompiler.pdb
-C:\Users\Family\source\repos\LiquidEngine\x64\Debug\dxil.dll

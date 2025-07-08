@@ -1,11 +1,8 @@
 #include "MyStatue.h"
 
-MyStatue::MyStatue() : mesh{std::make_shared<StaticMeshComponent>(Mesh{"statue.obj"})} {
+MyStatue::MyStatue() {
+	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(Mesh{"statue.obj"})));
 	mesh->set_size(FVector3(0.3f, 0.3f, 0.3f));
-}
-
-void MyStatue::pre_scene_compile() {
-	add_component(mesh);
 }
 
 void MyStatue::tick(float dt) {

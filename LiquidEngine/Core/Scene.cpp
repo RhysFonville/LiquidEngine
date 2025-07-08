@@ -9,7 +9,7 @@ void Scene::tick(float dt) {
 
 	//physics_scene.tick(dt);
 
-	for (const std::shared_ptr<Object>& object : objects) {
+	for (const std::unique_ptr<Object>& object : objects) {
 		object->base_tick(dt);
 	}
 }
@@ -19,7 +19,7 @@ void Scene::clean_up() {
 }
 
 void Scene::compile() {
-	for (const std::shared_ptr<Object>& object : objects) {
+	for (const std::unique_ptr<Object>& object : objects) {
 		object->base_compile();
 	}
 }
@@ -33,10 +33,10 @@ Object* Scene::add_object(std::unique_ptr<Object>&& obj) {
 	return objects.insert(std::move(obj)).first->get();
 }
 
-void Scene::add_character(std::unique_ptr<Character>&& character) noexcept {
+Character* Scene::add_character(std::unique_ptr<Character>&& character) {
 	input_listener.keybind_sets.push_back(&character->keybind_set);
 	character->set_scene(this);
-	return objects.insert(std::move(obj)).first->get();
+	return static_cast<Character*>(objects.insert(std::move(character)).first->get());
 }
 
 void Scene::render_editor_gui_section() {

@@ -1,19 +1,7 @@
 #include "MyShaderCube.h"
-#include "../SceneComponents/Scene.h"
+#include "../Core/Scene.h"
 
-MyShaderCube::MyShaderCube()
-	: mesh{std::make_shared<StaticMeshComponent>(
-		std::map<float, Mesh>{
-			std::make_pair<float, Mesh>(0.0f, Mesh{"lodstatue4.obj"}),
-			//std::make_pair<float, Mesh>(30.0f, Mesh{"lodstatue2.obj"}),
-			//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
-			//std::make_pair<float, Mesh>(90.0f, Mesh{"lodstatue4.obj"}),
-			std::make_pair<float, Mesh>(130.0f, Mesh{})
-		},
-		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"})
-	},
-	box{std::make_shared<BoundingBoxComponent>()} {
-	
+MyShaderCube::MyShaderCube() {
 	/*std::vector<Transform> instances{};
 	for (int x = -20; x <= 20; x++) {
 		for (int y = -20; y <= 20; y++) {
@@ -28,19 +16,24 @@ MyShaderCube::MyShaderCube()
 	//mesh->get_material().get_albedo_texture().set_texture("cratealbedo.png");
 	//mesh->get_material().get_specular_map().set_texture("cratespecular.png");
 
-	mimic_position_component = box.get();
-	mimic_rotation_component = box.get();
-	
-	child.translate(FVector3{0.f, 0.f, 3.f});
-}
+	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(
+		std::map<float, Mesh>{
+			{0.0f, Mesh{"lodstatue4.obj"}},
+			//std::make_pair<float, Mesh>(30.0f, Mesh{"lodstatue2.obj"}),
+			//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
+			//std::make_pair<float, Mesh>(90.0f, Mesh{"lodstatue4.obj"}),
+			{std::make_pair<float, Mesh>(130.0f, Mesh{})}
+		},
+		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}
+	)));
+	box = static_cast<BoundingBoxComponent*>(add_component(std::make_unique<BoundingBoxComponent>()));
 
-void MyShaderCube::pre_scene_compile() {
-	scene->add_object(std::make_shared<Object>(child));
-	child.set_parent(this);
-	child.add_component(std::make_shared<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}));
+	mimic_position_component = box;
+	mimic_rotation_component = box;
 
-	add_component(mesh);
-	add_component(box);
+	child = add_object(std::make_unique<Object>());
+	child->translate(FVector3{0.f, 0.f, 3.f});
+	child->add_component(std::make_unique<StaticMeshComponent>(Mesh{"Shapes/cube.obj"}, Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}));
 }
 
 void MyShaderCube::post_scene_compile() {

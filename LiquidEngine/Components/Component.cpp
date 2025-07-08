@@ -1,4 +1,7 @@
 #include "Component.h"
+#include "../Core/Object.h"
+#include "GraphicsComponent.h"
+#include "../Core/Scene.h"
 
 void Component::base_clean_up() {
 	clean_components();
@@ -6,7 +9,7 @@ void Component::base_clean_up() {
 }
 
 void Component::clean_components() {
-	for (const std::shared_ptr<Component>& component : components) {
+	for (const std::unique_ptr<Component>& component : components) {
 		component->base_clean_up();
 	}
 	components.clear();
@@ -64,10 +67,48 @@ Component* Component::get_parent() const noexcept {
 
 void Component::set_parent(Component* parent) noexcept {
 	if (parent == this->parent) return;
-	if (parent != nullptr)
-		parent->components.insert(std::make_shared<Component>(*this));
-	remove_this_from_parents_children();
+	if (std::ranges::find_if(components, [&](const auto& obj) {
+		return obj.get() == parent;
+		}) != components.end()) return;
+
+	std::set<std::unique_ptr<Component>>* container{&object->components};
+	if (this->parent != nullptr) container = &this->parent->components;
+
+	auto it{container->extract(
+		std::ranges::find_if(*container, [&](const auto& obj) {
+			return obj.get() == this;
+			})
+	)};
+	if (parent != nullptr) {
+		parent->components.insert(std::move(it));
+	} else {
+		object->components.insert(std::move(it));
+	}
+
 	this->parent = parent;
+}
+
+Component* Component::add_component(std::unique_ptr<Component>&& component) {
+	if (dynamic_cast<GraphicsComponent*>(component.get())) {
+		scene->graphics_scene->add_component<GraphicsComponent>(static_cast<GraphicsComponent*>(component.get()));
+	}
+	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
+		//physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
+	}*/
+
+	if (scene != nullptr)
+		component->set_scene(scene);
+
+	component->parent = this;
+
+	return components.insert(std::move(component)).first->get();
+}
+
+void Component::set_scene(Scene* scene) noexcept {
+	for (auto& obj : components) {
+		obj->set_scene(scene);
+	}
+	this->scene = scene;
 }
 
 bool Component::operator==(const Component &component) const noexcept {
@@ -76,7 +117,8 @@ bool Component::operator==(const Component &component) const noexcept {
 
 void Component::operator=(const Component &component) noexcept {
 	transform = component.transform;
-	components = component.components;
+	// TODO
+	//components = component.components;
 }
 
 void Component::base_render_editor_gui_section() {
