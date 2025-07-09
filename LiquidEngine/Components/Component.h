@@ -44,7 +44,7 @@ public:
 	}
 
 protected:
-	std::set<std::unique_ptr<Component>> components{}; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
+	std::set<std::unique_ptr<Component>> components; //! HAS TO BE POINTER SO WE CAN CAST TO SUBCLASSES
 };
 
 class GraphicsComponent;
@@ -58,6 +58,8 @@ class Scene;
 class Component : public Controllable, public ComponentHolder {
 public:
 	Component() : ComponentHolder{} { }
+
+	~Component() { base_clean_up(); }
 
 	void base_clean_up() override;
 

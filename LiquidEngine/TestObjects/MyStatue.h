@@ -7,6 +7,7 @@ class MyStatue : public Object {
 public:
 	MyStatue();
 
+	void pre_scene_compile() override;
 	void tick(float dt) override;
 
 private:

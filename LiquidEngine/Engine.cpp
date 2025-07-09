@@ -16,7 +16,7 @@ Engine::Engine()
 	window.set_up_window();
 	renderer.init_renderer(window.get_window());
 
-	world.scenes.push_back(Scene(&renderer.scene));
+	world.scenes.emplace_back(&renderer.scene);
 	world.active_scene = world.scenes.begin();
 }
 

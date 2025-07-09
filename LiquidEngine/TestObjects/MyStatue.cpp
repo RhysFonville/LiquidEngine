@@ -1,6 +1,8 @@
 #include "MyStatue.h"
 
-MyStatue::MyStatue() {
+MyStatue::MyStatue() : Object{} { }
+
+void MyStatue::pre_scene_compile() {
 	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(Mesh{"statue.obj"})));
 	mesh->set_size(FVector3(0.3f, 0.3f, 0.3f));
 }

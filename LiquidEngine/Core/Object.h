@@ -18,7 +18,8 @@ class Scene;
 class Object : public Controllable, public ComponentHolder {
 public:
 	Object() : ComponentHolder{} { }
-	
+	Object(const Object&) = delete;
+
 	void clean_components();
 
 	void base_clean_up() override;

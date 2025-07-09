@@ -326,9 +326,6 @@
     <ClCompile Include="Components\SkyComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controllable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Input\KeybindSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

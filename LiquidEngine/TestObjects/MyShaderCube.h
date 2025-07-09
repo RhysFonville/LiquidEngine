@@ -9,6 +9,7 @@ class MyShaderCube : public Object {
 public:
 	MyShaderCube();
 
+	void pre_scene_compile() override;
 	void post_scene_compile() override;
 	void tick(float dt) override;
 

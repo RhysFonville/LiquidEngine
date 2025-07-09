@@ -1,7 +1,20 @@
 #include "MyShaderCube.h"
 #include "../Core/Scene.h"
 
-MyShaderCube::MyShaderCube() {
+MyShaderCube::MyShaderCube() : Object{} { }
+
+void MyShaderCube::pre_scene_compile() {
+	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(
+		std::map<float, Mesh>{
+			{0.0f, Mesh{"lodstatue4.obj"}},
+				//std::make_pair<float, Mesh>(30.0f, Mesh{"lodstatue2.obj"}),
+				//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
+				//std::make_pair<float, Mesh>(90.0f, Mesh{"lodstatue4.obj"}),
+			{std::make_pair<float, Mesh>(130.0f, Mesh{})}
+	},
+		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}
+	)));
+
 	/*std::vector<Transform> instances{};
 	for (int x = -20; x <= 20; x++) {
 		for (int y = -20; y <= 20; y++) {
@@ -16,16 +29,6 @@ MyShaderCube::MyShaderCube() {
 	//mesh->get_material().get_albedo_texture().set_texture("cratealbedo.png");
 	//mesh->get_material().get_specular_map().set_texture("cratespecular.png");
 
-	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(
-		std::map<float, Mesh>{
-			{0.0f, Mesh{"lodstatue4.obj"}},
-			//std::make_pair<float, Mesh>(30.0f, Mesh{"lodstatue2.obj"}),
-			//std::make_pair<float, Mesh>(50.0f, Mesh{"lodstatue3.obj"}),
-			//std::make_pair<float, Mesh>(90.0f, Mesh{"lodstatue4.obj"}),
-			{std::make_pair<float, Mesh>(130.0f, Mesh{})}
-		},
-		Material{"Graphics/Shaders/DefaultVertex.hlsl", "Graphics/Shaders/MyPixelShader.hlsl"}
-	)));
 	box = static_cast<BoundingBoxComponent*>(add_component(std::make_unique<BoundingBoxComponent>()));
 
 	mimic_position_component = box;

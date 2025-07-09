@@ -167,11 +167,9 @@ Object* Object::add_object(std::unique_ptr<Object>&& obj) {
 
 Component* Object::add_component(std::unique_ptr<Component>&& component) {
 	if (dynamic_cast<GraphicsComponent*>(component.get())) {
-		scene->graphics_scene->add_component<GraphicsComponent>(static_cast<GraphicsComponent*>(component.get()));
+		if (scene != nullptr)
+			scene->graphics_scene->add_component<GraphicsComponent>(static_cast<GraphicsComponent*>(component.get()));
 	}
-	/*if (std::dynamic_pointer_cast<PhysicalComponent>(component)) {
-		//physics_scene->objects.push_back(std::static_pointer_cast<PhysicalComponent>(components.back()).get());
-	}*/
 
 	if (scene != nullptr)
 		component->set_scene(scene);

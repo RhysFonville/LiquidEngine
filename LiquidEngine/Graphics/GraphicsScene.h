@@ -51,6 +51,8 @@ public:
 		component->has_changed(b);
 	}
 
+	bool valid() const noexcept { return component != nullptr; }
+
 	T* component{};
 };
 
@@ -638,10 +640,10 @@ public:
 	}
 
 	void compile() {
-		if (camera.needs_compile())
+		if (camera.valid() && camera.needs_compile())
 			camera.compile();
 
-		if (!sky.needs_compile()) {
+		if (camera.valid() && !sky.needs_compile()) {
 			sky.compile(camera);
 		}
 
@@ -667,7 +669,7 @@ public:
 	}
 
 	void set_resources() {
-		sky.set_resources(camera);
+		if (sky.valid()) sky.set_resources(camera);
 
 		for (auto& mesh : static_meshes) {
 			mesh.set_resources(camera);
@@ -675,7 +677,8 @@ public:
 	}
 
 	void refresh_pipelines(const ComPtr<ID3D12Device>& device, const DXGI_SAMPLE_DESC& msaa_sample_desc, const D3D12_BLEND_DESC& blend_desc) {
-		sky.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
+		if (sky.valid())
+			sky.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
 
 		for (auto& mesh : static_meshes) {
 			mesh.material.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
@@ -688,9 +691,10 @@ public:
 	 * \param resolution Render resolution. Needed for updating camera.
 	 */
 	void update(UVector2 resolution) {
-		bool cam_update{camera.update(resolution)};
+		bool cam_update{false};
+		if (camera.valid()) cam_update = camera.update(resolution);
 
-		sky.update(camera);
+		if (sky.valid()) sky.update(camera);
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
@@ -712,7 +716,7 @@ public:
 			if (light_update || mesh.update_lights_signal) mesh.update_lights(directional_lights, point_lights, spotlights);
 		}
 
-		camera.has_changed(false);
+		if (camera.valid()) camera.has_changed(false);
 
 		/*if (cam_update || mesh_update) {
 			// Sort list for opaque, distant non-opaque, closeer non-opaque
@@ -731,7 +735,14 @@ public:
 		}*/
 	}
 
-	void clean_up();
+	void clean_up() {
+		for (auto& mesh : static_meshes) {
+			mesh.clean_up();
+		}
+
+		if (camera.valid()) camera.clean_up();
+		if (sky.valid()) sky.clean_up();
+	}
 
 private:
 	friend class Renderer;
