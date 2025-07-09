@@ -1,5 +1,5 @@
-\hypertarget{class_rendering_component}{}\doxysection{Rendering\+Component\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>} Class Template Reference}
-\label{class_rendering_component}\index{RenderingComponent$<$$>$@{RenderingComponent$<$$>$}}
+\hypertarget{class_rendering_component}{}\doxysection{Rendering\+Component\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{class_rendering_component}\index{RenderingComponent$<$ T $>$@{RenderingComponent$<$ T $>$}}
 
 
 Each graphics component has thir graphics-\/side counterpart.  
@@ -12,23 +12,36 @@ Each graphics component has thir graphics-\/side counterpart.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
 {\bfseries Rendering\+Component} (T $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component} \{nullptr\}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+T $\ast$ {\bfseries component} \{\}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}})$>$\newline
-class Rendering\+Component$<$$>$}
+\subsubsection*{template$<$typename T$>$\newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}$>$\newline
+class Rendering\+Component$<$ T $>$}
 Each graphics component has thir graphics-\/side counterpart. 
 
 Graphics-\/side component base class. \begin{DoxySeeAlso}{See also}

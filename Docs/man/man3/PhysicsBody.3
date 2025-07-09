@@ -1,4 +1,4 @@
-.TH "PhysicsBody" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "PhysicsBody" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,6 +10,9 @@ PhysicsBody
 
 .in +1c
 .ti -1c
+.RI "void \fBtick\fP (float dt) noexcept"
+.br
+.ti -1c
 .RI "GET \fBFVector3\fP \fBget_net_force\fP () const noexcept"
 .br
 .ti -1c
@@ -19,26 +22,71 @@ PhysicsBody
 .RI "void \fBset_mass\fP (float mass)"
 .br
 .ti -1c
-.RI "void \fBtick\fP ()"
+.RI "GET \fBFVector3\fP \fBget_velocity\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_velocity\fP (const \fBFVector3\fP &velocity)"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_acceleration\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_acceleration\fP (const \fBFVector3\fP &acceleration)"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_momentum\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_momentum\fP (const \fBFVector3\fP &momentum)"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_net_torque\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET float \fBget_moment_of_inertia\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_moment_of_inertia\fP (float moment_of_inertia)"
+.br
+.ti -1c
+.RI "GET XMMATRIX \fBget_moment_of_inertia_tensor\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET XMMATRIX \fBget_moment_of_inertia_tensor_inverse\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_angular_velocity\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_angular_velocity\fP (const \fBFVector3\fP &velocity)"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_angular_acceleration\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_angular_acceleration\fP (const \fBFVector3\fP &acceleration)"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_angular_momentum\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_angular_momentum\fP (const \fBFVector3\fP &momentum)"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "\fBFVector3\fP \fBprevious_position\fP = \fBFVector3\fP()"
+.RI "\fBFVector3\fP \fBprevious_position\fP {}"
 .br
 .ti -1c
-.RI "\fBFVector3\fP \fBvelocity\fP = \fBFVector3\fP()"
+.RI "std::vector< \fBForce\fP > \fBforces\fP {}"
 .br
 .ti -1c
-.RI "\fBFVector3\fP \fBacceleration\fP = \fBFVector3\fP()"
+.RI "std::vector< \fBForce\fP > \fBtorques\fP {}"
 .br
 .ti -1c
-.RI "\fBFVector3\fP \fBmomentum\fP = \fBFVector3\fP()"
-.br
-.ti -1c
-.RI "std::vector< \fBMechanics::Force\fP > \fBforces\fP"
+.RI "bool \fBfrozen\fP {false}"
 .br
 .in -1c
 

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['bind_5fconstant_5fbuffer_0',['bind_constant_buffer',['../class_graphics_pipeline_1_1_root_signature.html#add399b9310fa4c14ab03f678b0e0b0f0',1,'GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBuffer &amp;cb, D3D12_SHADER_VISIBILITY shader)'],['../class_graphics_pipeline_1_1_root_signature.html#a8250f245bb5d7afca2da57bf359ea4a5',1,'GraphicsPipeline::RootSignature::bind_constant_buffer(ConstantBufferContainer&lt; T &gt; &amp;cb, D3D12_SHADER_VISIBILITY shader)']]],
-  ['bind_5froot_5fconstants_1',['bind_root_constants',['../class_graphics_pipeline_1_1_root_signature.html#a4a15f7dd3476e127adeab60769d4ff70',1,'GraphicsPipeline::RootSignature::bind_root_constants(RootConstants &amp;rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=-1)'],['../class_graphics_pipeline_1_1_root_signature.html#a4d0f3ce814bac12c4aeef6f1d1ace348',1,'GraphicsPipeline::RootSignature::bind_root_constants(RootConstantsContainer&lt; T &gt; &amp;obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=-1)']]],
-  ['bind_5fshader_5fresource_5fview_2',['bind_shader_resource_view',['../class_graphics_pipeline_1_1_root_signature.html#a00897bd2afb5e49ed5241809ab00dce0',1,'GraphicsPipeline::RootSignature']]]
+  ['clean_5fup_0',['clean_up',['../class_renderer.html#a1c7c7f1eeaefb5fd5c1cd3da15eefc6c',1,'Renderer']]],
+  ['compile_1',['compile',['../class_renderer.html#aa32be67b33c55f1771c7f20b275aab9f',1,'Renderer::compile()'],['../class_mesh.html#acf24e9bf72cdc514242c6949ed50de2e',1,'Mesh::compile()']]]
 ];

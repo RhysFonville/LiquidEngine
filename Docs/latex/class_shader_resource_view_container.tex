@@ -1,0 +1,51 @@
+\hypertarget{class_shader_resource_view_container}{}\doxysection{Shader\+Resource\+View\+Container Class Reference}
+\label{class_shader_resource_view_container}\index{ShaderResourceViewContainer@{ShaderResourceViewContainer}}
+
+
+Stores a texture and the shader resource view.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline\+Root\+Argument\+Containers.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_afb2755c2c919b9705d8165cf0598b024}\label{class_shader_resource_view_container_afb2755c2c919b9705d8165cf0598b024}} 
+{\bfseries Shader\+Resource\+View\+Container} (\mbox{\hyperlink{class_texture}{Texture}} $\ast$texture)
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_a95d9957691cee1ef87282af81bb5d779}\label{class_shader_resource_view_container_a95d9957691cee1ef87282af81bb5d779}} 
+void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_a5aa7f525ded6399da86fced3c8ace0a3}\label{class_shader_resource_view_container_a5aa7f525ded6399da86fced3c8ace0a3}} 
+void {\bfseries update} ()
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_ad7164021e632e32725c6f3107ae87b20}\label{class_shader_resource_view_container_ad7164021e632e32725c6f3107ae87b20}} 
+void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_a8348ab3294561cbee4cc4299133c746d}\label{class_shader_resource_view_container_a8348ab3294561cbee4cc4299133c746d}} 
+const \mbox{\hyperlink{class_texture}{Texture}} $\ast$ {\bfseries get\+\_\+texture} () const noexcept
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_ab01453de5d52071d04b6ec90df0736da}\label{class_shader_resource_view_container_ab01453de5d52071d04b6ec90df0736da}} 
+void {\bfseries set\+\_\+texture} (\mbox{\hyperlink{class_texture}{Texture}} $\ast$texture)
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_a953239cd70ecbecfac6fdc341e232b5f}\label{class_shader_resource_view_container_a953239cd70ecbecfac6fdc341e232b5f}} 
+void {\bfseries set\+\_\+srv} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_shader_resource_view}{Shader\+Resource\+View}} $>$ \&srv)
+\item 
+\mbox{\Hypertarget{class_shader_resource_view_container_af4fadaea3f206ddeab69ad54932cce6c}\label{class_shader_resource_view_container_af4fadaea3f206ddeab69ad54932cce6c}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_shader_resource_view_container}{Shader\+Resource\+View\+Container}} \&cb) const noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores a texture and the shader resource view. 
+
+The texture is the data to be written to the shader resource view. Not required, but useful. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_constant_buffer}{Constant\+Buffer}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Argument\+Containers.\+h\end{DoxyCompactItemize}

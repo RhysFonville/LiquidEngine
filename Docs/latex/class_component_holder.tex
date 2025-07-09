@@ -1,0 +1,47 @@
+\hypertarget{class_component_holder}{}\doxysection{Component\+Holder Class Reference}
+\label{class_component_holder}\index{ComponentHolder@{ComponentHolder}}
+
+
+Class shared between object and component classes.  
+
+
+
+
+{\ttfamily \#include $<$Component.\+h$>$}
+
+Inheritance diagram for Component\+Holder\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.121019cm]{class_component_holder}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}\label{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET T $\ast$ {\bfseries get\+\_\+component} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}\label{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET std\+::set$<$ T $\ast$ $>$ {\bfseries get\+\_\+components} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}\label{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}} 
+GET std\+::set$<$ \mbox{\hyperlink{class_component}{Component}} $\ast$ $>$ {\bfseries get\+\_\+all\+\_\+components} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}\label{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}} 
+std\+::set$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ $>$ {\bfseries components}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class shared between object and component classes. 
+
+Gives them a list of components and functions for them. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Components/Component.\+h\end{DoxyCompactItemize}

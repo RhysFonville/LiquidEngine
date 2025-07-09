@@ -24,6 +24,9 @@ Inheritance diagram for Material\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_material_adacbb110087d63ea4785e841d351e6ff}\label{class_material_adacbb110087d63ea4785e841d351e6ff}} 
 {\bfseries Material} (const std\+::string \&file)
 \item 
+\mbox{\Hypertarget{class_material_aee3f8b93eb544897865136e5fce529af}\label{class_material_aee3f8b93eb544897865136e5fce529af}} 
+{\bfseries Material} (const std\+::string \&vs, const std\+::string \&ps, const std\+::string \&data\+\_\+file=\char`\"{}\char`\"{})
+\item 
 \mbox{\Hypertarget{class_material_a2d992406113dd9a4ad5228aa91eaf43e}\label{class_material_a2d992406113dd9a4ad5228aa91eaf43e}} 
 void {\bfseries compile} ()
 \item 
@@ -37,52 +40,52 @@ void {\bfseries set\+\_\+data} (const std\+::string \&file)
 void {\bfseries set\+\_\+data} (const \mbox{\hyperlink{class_material}{Material}} \&material)
 \item 
 \mbox{\Hypertarget{class_material_aab8e50cdfd73ef5ed8776dc40ef40bf0}\label{class_material_aab8e50cdfd73ef5ed8776dc40ef40bf0}} 
-bool {\bfseries has\+\_\+texture} () const noexcept
+GET bool {\bfseries has\+\_\+texture} () const noexcept
 \item 
 \mbox{\Hypertarget{class_material_a897d893a5848e93c85cc36f1e7bcc272}\label{class_material_a897d893a5848e93c85cc36f1e7bcc272}} 
-bool {\bfseries has\+\_\+normal\+\_\+map} () const noexcept
+GET bool {\bfseries has\+\_\+normal\+\_\+map} () const noexcept
 \item 
-\mbox{\Hypertarget{class_material_a9de54ac93ce515155a237a7f8fb9dfbe}\label{class_material_a9de54ac93ce515155a237a7f8fb9dfbe}} 
-bool {\bfseries has\+\_\+environment\+\_\+texture} () const noexcept
-\item 
-\mbox{\Hypertarget{class_material_a84c053cf4e9e6eafb43827da22822148}\label{class_material_a84c053cf4e9e6eafb43827da22822148}} 
-void {\bfseries operator=} (const \mbox{\hyperlink{class_material}{Material}} \&material) noexcept
+\mbox{\Hypertarget{class_material_a1234064af6bbafa48ce7dc1fa2e75fa3}\label{class_material_a1234064af6bbafa48ce7dc1fa2e75fa3}} 
+GET bool {\bfseries has\+\_\+specular\+\_\+map} () const noexcept
 \item 
 \mbox{\Hypertarget{class_material_aa1d466f7960ed779cabd713fe3ea2336}\label{class_material_aa1d466f7960ed779cabd713fe3ea2336}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_material}{Material}} \&material) const noexcept
 \item 
-\mbox{\Hypertarget{class_material_a86eda360a6e0e0e54ba663fb31f17801}\label{class_material_a86eda360a6e0e0e54ba663fb31f17801}} 
-\mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} ()
+\mbox{\Hypertarget{class_material_adfa887e0ce753865597964262e38df6c}\label{class_material_adfa887e0ce753865597964262e38df6c}} 
+GET \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} () noexcept
 \item 
-\mbox{\Hypertarget{class_material_a7bd7166bff344da17f13b4073cdb9f3e}\label{class_material_a7bd7166bff344da17f13b4073cdb9f3e}} 
-\mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+normal\+\_\+map} ()
+\mbox{\Hypertarget{class_material_afe1fdcb6d0cfcb1f7f36e7cc25a71233}\label{class_material_afe1fdcb6d0cfcb1f7f36e7cc25a71233}} 
+GET \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+normal\+\_\+map} () noexcept
 \item 
-\mbox{\Hypertarget{class_material_a144573b5e425b1b3e38bcf2049e7d5cd}\label{class_material_a144573b5e425b1b3e38bcf2049e7d5cd}} 
-\mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+environment\+\_\+texture} ()
+\mbox{\Hypertarget{class_material_abcdbef3693dbdff616f79729553f2dcf}\label{class_material_abcdbef3693dbdff616f79729553f2dcf}} 
+GET \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+specular\+\_\+map} () noexcept
 \item 
-\mbox{\Hypertarget{class_material_a68e65b49692704d9163b72d928613e7c}\label{class_material_a68e65b49692704d9163b72d928613e7c}} 
-\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const
+\mbox{\Hypertarget{class_material_a5eae19486d0b75b818d57029270fa3f8}\label{class_material_a5eae19486d0b75b818d57029270fa3f8}} 
+GET \mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const noexcept
 \item 
-\mbox{\Hypertarget{class_material_a7c5d6a265936fe1d4747c927a2a80179}\label{class_material_a7c5d6a265936fe1d4747c927a2a80179}} 
-void {\bfseries set\+\_\+albedo} (const \mbox{\hyperlink{struct_t_color}{Color}} \&albedo)
+\mbox{\Hypertarget{class_material_ab5ad2dea21ef79ffd249fe1c4b730f9f}\label{class_material_ab5ad2dea21ef79ffd249fe1c4b730f9f}} 
+void {\bfseries set\+\_\+albedo} (const \mbox{\hyperlink{struct_t_color}{Color}} \&albedo) noexcept
 \item 
-\mbox{\Hypertarget{class_material_a45c6eb55c438d7a28cda49f3556bd2ac}\label{class_material_a45c6eb55c438d7a28cda49f3556bd2ac}} 
-\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+specular} () const
+\mbox{\Hypertarget{class_material_aa630071d18b3c5faaa0b51e94cf2316d}\label{class_material_aa630071d18b3c5faaa0b51e94cf2316d}} 
+GET \mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+specular} () const noexcept
 \item 
-\mbox{\Hypertarget{class_material_ad115e45e773666e39252ce73f179d3a3}\label{class_material_ad115e45e773666e39252ce73f179d3a3}} 
-void {\bfseries set\+\_\+specular} (const \mbox{\hyperlink{struct_t_color}{Color}} \&specular)
+\mbox{\Hypertarget{class_material_a137a660096d0cd7f88fe3f19d7cdb158}\label{class_material_a137a660096d0cd7f88fe3f19d7cdb158}} 
+void {\bfseries set\+\_\+specular} (const \mbox{\hyperlink{struct_t_color}{Color}} \&specular) noexcept
 \item 
-\mbox{\Hypertarget{class_material_a2d44967cbb45072335781bbbc8215ea5}\label{class_material_a2d44967cbb45072335781bbbc8215ea5}} 
-\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+ambient} () const
+\mbox{\Hypertarget{class_material_a404d90c7cfc062c7b070f9b3b92e3541}\label{class_material_a404d90c7cfc062c7b070f9b3b92e3541}} 
+GET \mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+ambient} () const noexcept
 \item 
-\mbox{\Hypertarget{class_material_ae251aefc25a63e2d8c23d50d19509039}\label{class_material_ae251aefc25a63e2d8c23d50d19509039}} 
-void {\bfseries set\+\_\+ambient} (const \mbox{\hyperlink{struct_t_color}{Color}} \&ambient)
+\mbox{\Hypertarget{class_material_afffa059afdcc88fdab3ce4fecd29ba4a}\label{class_material_afffa059afdcc88fdab3ce4fecd29ba4a}} 
+void {\bfseries set\+\_\+ambient} (const \mbox{\hyperlink{struct_t_color}{Color}} \&ambient) noexcept
 \item 
-\mbox{\Hypertarget{class_material_a9600689abca05c8aee99ae712032a586}\label{class_material_a9600689abca05c8aee99ae712032a586}} 
-float {\bfseries get\+\_\+shininess} () const
+\mbox{\Hypertarget{class_material_a2d28f1e3102c3a0a69d8260ef815d2cf}\label{class_material_a2d28f1e3102c3a0a69d8260ef815d2cf}} 
+GET float {\bfseries get\+\_\+shininess} () const noexcept
 \item 
-\mbox{\Hypertarget{class_material_a35a4e2df48624bd5531421a495131b36}\label{class_material_a35a4e2df48624bd5531421a495131b36}} 
-void {\bfseries set\+\_\+shininess} (float shininess)
+\mbox{\Hypertarget{class_material_a8c6bb19f0780ccdd2706cacffec0eb92}\label{class_material_a8c6bb19f0780ccdd2706cacffec0eb92}} 
+void {\bfseries set\+\_\+shininess} (float shininess) noexcept
+\item 
+\mbox{\Hypertarget{class_material_ac9e3db86c6a56e10c5dca5ae42309b64}\label{class_material_ac9e3db86c6a56e10c5dca5ae42309b64}} 
+GET bool {\bfseries is\+\_\+opaque} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
 \begin{DoxyCompactItemize}
@@ -92,6 +95,12 @@ bool {\bfseries has\+\_\+changed} () const noexcept
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}\label{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}} 
 void {\bfseries has\+\_\+changed} (bool changed) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}\label{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}\label{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}} 
+void {\bfseries needs\+\_\+compile} (bool compile) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -105,6 +114,9 @@ void {\bfseries has\+\_\+changed} (bool changed) noexcept
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}\label{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}} 
 bool {\bfseries changed} \{false\}
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}\label{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}} 
+bool {\bfseries compile} \{false\}
 \end{DoxyCompactItemize}
 
 

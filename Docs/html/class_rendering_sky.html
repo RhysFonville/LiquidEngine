@@ -78,7 +78,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Graphics-side sky.  
+<p>Graphics-side texture.  
  <a href="class_rendering_sky.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_graphics_scene_8h_source.html">GraphicsScene.h</a>&gt;</code></p>
@@ -100,45 +100,57 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab8cafed61e6f32cb13f1c070b65cf82c"><td class="memItemLeft" align="right" valign="top"><a id="ab8cafed61e6f32cb13f1c070b65cf82c" name="ab8cafed61e6f32cb13f1c070b65cf82c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const <a class="el" href="class_rendering_camera.html">RenderingCamera</a> &amp;camera)</td></tr>
 <tr class="separator:ab8cafed61e6f32cb13f1c070b65cf82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22906f77b9f8c7b622ac7ba172b8d227"><td class="memItemLeft" align="right" valign="top"><a id="a22906f77b9f8c7b622ac7ba172b8d227" name="a22906f77b9f8c7b622ac7ba172b8d227"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
-<tr class="separator:a22906f77b9f8c7b622ac7ba172b8d227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe260c4d6641eb7d3f1e00be47f6b56"><td class="memItemLeft" align="right" valign="top"><a id="a4fe260c4d6641eb7d3f1e00be47f6b56" name="a4fe260c4d6641eb7d3f1e00be47f6b56"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (<a class="el" href="class_rendering_camera.html">RenderingCamera</a> &amp;camera)</td></tr>
+<tr class="separator:a4fe260c4d6641eb7d3f1e00be47f6b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83b3f06f11b77100b69822de2023b19"><td class="memItemLeft" align="right" valign="top"><a id="aa83b3f06f11b77100b69822de2023b19" name="aa83b3f06f11b77100b69822de2023b19"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_resources</b> (<a class="el" href="class_rendering_camera.html">RenderingCamera</a> &amp;camera)</td></tr>
+<tr class="separator:aa83b3f06f11b77100b69822de2023b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dff8878509f9455a7ef14f7d5956557"><td class="memItemLeft" align="right" valign="top"><a id="a3dff8878509f9455a7ef14f7d5956557" name="a3dff8878509f9455a7ef14f7d5956557"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:a3dff8878509f9455a7ef14f7d5956557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a855a47e67125a5e1fb9f39578d152a21"><td class="memItemLeft" align="right" valign="top"><a id="a855a47e67125a5e1fb9f39578d152a21" name="a855a47e67125a5e1fb9f39578d152a21"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (<a class="el" href="class_sky_component.html">SkyComponent</a> component)</td></tr>
-<tr class="separator:a855a47e67125a5e1fb9f39578d152a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_rendering_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_rendering_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_rendering_component.html">RenderingComponent&lt; SkyComponent &gt;</a></td></tr>
-<tr class="memitem:aae7514451de712ee498c59c7673795ec inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="aae7514451de712ee498c59c7673795ec" name="aae7514451de712ee498c59c7673795ec"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RenderingComponent</b> (T *component)</td></tr>
-<tr class="separator:aae7514451de712ee498c59c7673795ec inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3a318359774968ef5d07d963eeeb33 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="ade3a318359774968ef5d07d963eeeb33" name="ade3a318359774968ef5d07d963eeeb33"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (T component)</td></tr>
-<tr class="separator:ade3a318359774968ef5d07d963eeeb33 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a208d9bf95dd5d354c9a25dc362c879d9 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="a208d9bf95dd5d354c9a25dc362c879d9" name="a208d9bf95dd5d354c9a25dc362c879d9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RenderingComponent</b> (<a class="el" href="class_sky_component.html">SkyComponent</a> *component)</td></tr>
+<tr class="separator:a208d9bf95dd5d354c9a25dc362c879d9 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4369bc9d4b673bfd07291df8b92081e6 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="a4369bc9d4b673bfd07291df8b92081e6" name="a4369bc9d4b673bfd07291df8b92081e6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> () const noexcept</td></tr>
+<tr class="separator:a4369bc9d4b673bfd07291df8b92081e6 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb91e32d2244569eff2eaa59e72747c2 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="adb91e32d2244569eff2eaa59e72747c2" name="adb91e32d2244569eff2eaa59e72747c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> (bool b) noexcept</td></tr>
+<tr class="separator:adb91e32d2244569eff2eaa59e72747c2 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f49f7d275e9062eca28147a8594d10d inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="a9f49f7d275e9062eca28147a8594d10d" name="a9f49f7d275e9062eca28147a8594d10d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () const noexcept</td></tr>
+<tr class="separator:a9f49f7d275e9062eca28147a8594d10d inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd8a7c19327f687d008e34e2fe17825 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="abdd8a7c19327f687d008e34e2fe17825" name="abdd8a7c19327f687d008e34e2fe17825"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> (bool b) noexcept</td></tr>
+<tr class="separator:abdd8a7c19327f687d008e34e2fe17825 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa7b675c2488dab302d13725e7feeb8 inherit pub_methods_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="afaa7b675c2488dab302d13725e7feeb8" name="afaa7b675c2488dab302d13725e7feeb8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>valid</b> () const noexcept</td></tr>
+<tr class="separator:afaa7b675c2488dab302d13725e7feeb8 inherit pub_methods_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a413b669dd064d5c7da6afc325cc8a712"><td class="memItemLeft" align="right" valign="top"><a id="a413b669dd064d5c7da6afc325cc8a712" name="a413b669dd064d5c7da6afc325cc8a712"></a>
-<a class="el" href="class_rendering_texture.html">RenderingTexture</a>&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> {}</td></tr>
-<tr class="separator:a413b669dd064d5c7da6afc325cc8a712"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac89a273e4e71cde424c7ad45eb2e97"><td class="memItemLeft" align="right" valign="top"><a id="a9ac89a273e4e71cde424c7ad45eb2e97" name="a9ac89a273e4e71cde424c7ad45eb2e97"></a>
-<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">GraphicsPipeline::RootSignature::RootConstantsContainer</a>&lt; VSWVPConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>wvp_data</b> = VSWVPConstants{}</td></tr>
-<tr class="separator:a9ac89a273e4e71cde424c7ad45eb2e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57ce916eb3698f7a8376d07423363f94"><td class="memItemLeft" align="right" valign="top"><a id="a57ce916eb3698f7a8376d07423363f94" name="a57ce916eb3698f7a8376d07423363f94"></a>
-<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">GraphicsPipeline::RootSignature::RootConstantsContainer</a>&lt; VSTransformConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>transform_data</b> = VSTransformConstants{}</td></tr>
-<tr class="separator:a57ce916eb3698f7a8376d07423363f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memItemLeft" align="right" valign="top"><a id="a1221e5bbd4e798bd482c8c9152c592e8" name="a1221e5bbd4e798bd482c8c9152c592e8"></a>
-<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">GraphicsPipeline::RootSignature::ConstantBufferContainer</a>&lt; PSSkyCB &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> = PSSkyCB{}</td></tr>
-<tr class="separator:a1221e5bbd4e798bd482c8c9152c592e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8495e257d2e238e0388bf3d147a2c9"><td class="memItemLeft" align="right" valign="top"><a id="abd8495e257d2e238e0388bf3d147a2c9" name="abd8495e257d2e238e0388bf3d147a2c9"></a>
+<a class="el" href="class_shader_resource_view_container.html">ShaderResourceViewContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b> {}</td></tr>
+<tr class="separator:abd8495e257d2e238e0388bf3d147a2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ed4baddeb2ac909d23a6d23f0293658"><td class="memItemLeft" align="right" valign="top"><a id="a6ed4baddeb2ac909d23a6d23f0293658" name="a6ed4baddeb2ac909d23a6d23f0293658"></a>
+<a class="el" href="class_root_constants_container.html">RootConstantsContainer</a>&lt; VSTransformConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>transform_data</b> {}</td></tr>
+<tr class="separator:a6ed4baddeb2ac909d23a6d23f0293658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a446a49695fcee92917873e228c0cdc58"><td class="memItemLeft" align="right" valign="top"><a id="a446a49695fcee92917873e228c0cdc58" name="a446a49695fcee92917873e228c0cdc58"></a>
+<a class="el" href="class_constant_buffer_container.html">ConstantBufferContainer</a>&lt; PSSkyCB &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> {}</td></tr>
+<tr class="separator:a446a49695fcee92917873e228c0cdc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac29a0f3dbcea27be031866bef43d0365"><td class="memItemLeft" align="right" valign="top"><a id="ac29a0f3dbcea27be031866bef43d0365" name="ac29a0f3dbcea27be031866bef43d0365"></a>
+<a class="el" href="class_root_constants_container.html">RootConstantsContainer</a>&lt; VSWVPConstants &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>wvp_data</b> {}</td></tr>
+<tr class="separator:ac29a0f3dbcea27be031866bef43d0365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_rendering_component"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_rendering_component')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_rendering_component.html">RenderingComponent&lt; SkyComponent &gt;</a></td></tr>
-<tr class="memitem:a4908d6da0d7736a9be78f92386a0bf4f inherit pub_attribs_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="a4908d6da0d7736a9be78f92386a0bf4f" name="a4908d6da0d7736a9be78f92386a0bf4f"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>component</b></td></tr>
-<tr class="separator:a4908d6da0d7736a9be78f92386a0bf4f inherit pub_attribs_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9688d8a7e60a4af0344b3ab1685f903 inherit pub_attribs_class_rendering_component"><td class="memItemLeft" align="right" valign="top"><a id="ac9688d8a7e60a4af0344b3ab1685f903" name="ac9688d8a7e60a4af0344b3ab1685f903"></a>
+<a class="el" href="class_sky_component.html">SkyComponent</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>component</b></td></tr>
+<tr class="separator:ac9688d8a7e60a4af0344b3ab1685f903 inherit pub_attribs_class_rendering_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Graphics-side sky. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_sky_component.html" title="Component for a sky.">SkyComponent</a> </dd></dl>
+<div class="textblock"><p>Graphics-side texture. </p>
+<p>Graphics-side sky. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_sky_component.html" title="Component for a sky.">SkyComponent</a> </dd></dl>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_scene_8h_source.html">GraphicsScene.h</a></li>
 </ul>

@@ -1,42 +1,40 @@
 \hypertarget{_scene_8h_source}{}\doxysection{Scene.\+h}
-\label{_scene_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Scene.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Scene.h}}
+\label{_scene_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/Scene.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/Scene.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Graphics/GraphicsScene.h"{}}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}PhysicsScene.h"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Object.h"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Window.h"{}}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Character.h"{}}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Input/InputListener.h"{}}}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene}{Scene}}\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_scene}{Scene}}()\ \{\ \}}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_scene}{Scene}}(\mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene);}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt);}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ GET\ std::vector<std::shared\_ptr<Object>>\ \&\ get\_objects()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_object(\textcolor{keyword}{const}\ std::shared\_ptr<Object>\ \&\textcolor{keywordtype}{object})\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_character(\textcolor{keyword}{const}\ std::shared\_ptr<Character>\ \&character)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_object(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Window.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Input/InputListener.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Object.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Character.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene}{Scene}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_scene}{Scene}}()\ \{\ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_scene}{Scene}}(\mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ GET\ std::set<Object*>\ get\_objects()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ add\_object(std::unique\_ptr<Object>\&\&\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_character}{Character}}*\ add\_character(std::unique\_ptr<Character>\&\&\ character);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_editor\_gui\_section();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//PhysicsScene\ physics\_scene\{\};}}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene\{\textcolor{keyword}{nullptr}\};}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//PhysicsScene\ physics\_scene;}}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_input_1_1_input_listener}{Input::InputListener}}\ input\_listener;}
-\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00038\ \ \ \ \ std::vector<std::shared\_ptr<Object>>\ objects\ =\ \{\ \};}
-\DoxyCodeLine{00039\ \};}
-\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_input_1_1_input_listener}{Input::InputListener}}\ input\_listener;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{00037\ \ \ \ \ std::set<std::unique\_ptr<Object>>\ objects\{\};}
+\DoxyCodeLine{00038\ \};}
 
 \end{DoxyCode}

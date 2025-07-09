@@ -1,0 +1,41 @@
+.TH "ResourceManager" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ResourceManager \- Stores resources to delete and deletes said resources\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ResourceManager\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBResourceManager\fP (\fBResourceManager\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBResourceManager\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBadd_resource_to_release\fP (ComPtr< ID3D12Resource > resource)"
+.br
+.ti -1c
+.RI "void \fBrelease_all_resources\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBResourceManager\fP * \fBget_instance\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Stores resources to delete and deletes said resources\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

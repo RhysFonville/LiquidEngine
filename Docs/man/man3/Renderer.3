@@ -1,4 +1,4 @@
-.TH "Renderer" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Renderer" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,12 +18,13 @@ Renderer \- Main class for rendering\&.
 .ti -1c
 .RI "void \fBinit_renderer\fP (HWND window)"
 .br
+.RI "Initializes renderer\&. "
 .ti -1c
 .RI "void \fBtick\fP (float dt)"
 .br
 .RI "Calls render and present\&. "
 .ti -1c
-.RI "void \fBclean_up\fP ()"
+.RI "void \fBclean_up\fP (bool clean_scene=true)"
 .br
 .RI "Releases DirectX all interfaces\&. "
 .ti -1c
@@ -35,10 +36,7 @@ Renderer \- Main class for rendering\&.
 .br
 .RI "Executes swap chain\&. "
 .ti -1c
-.RI "void \fBincrement_fence\fP ()"
-.br
-.ti -1c
-.RI "void \fBwait_for_fence_cpu\fP ()"
+.RI "void \fBwait_for_previous_frame\fP ()"
 .br
 .ti -1c
 .RI "void \fBwait_for_fence_gpu\fP ()"
@@ -47,19 +45,25 @@ Renderer \- Main class for rendering\&.
 .RI "void \fBflush_gpu\fP ()"
 .br
 .ti -1c
-.RI "void \fBwait_for_previous_frame\fP ()"
-.br
-.ti -1c
 .RI "void \fBexecute_command_list\fP ()"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (bool compile_components=false)"
+.RI "void \fBsignal\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_frame_index\fP ()"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
 .br
 .RI "Compiles scene and pipelines\&. "
 .ti -1c
 .RI "void \fBresize\fP (const \fBUVector2\fP &size)"
 .br
 .RI "Resizes swap chain, viewport/scissor rect, and depth stencil\&. "
+.ti -1c
+.RI "void \fBset_msaa_sample_count\fP (UINT count)"
+.br
 .ti -1c
 .RI "void \fBset_fullscreen\fP (bool fullscreen)"
 .br
@@ -80,7 +84,7 @@ Renderer \- Main class for rendering\&.
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsScene\fP \fBscene\fP"
+.RI "\fBGraphicsScene\fP \fBscene\fP {}"
 .br
 .ti -1c
 .RI "bool \fBvsync\fP {false}"
@@ -88,6 +92,10 @@ Renderer \- Main class for rendering\&.
 .ti -1c
 .RI "bool \fBrestrict_present_to_adapter_output\fP {false}"
 .br
+.ti -1c
+.RI "bool \fBclear_render_target\fP {true}"
+.br
+.RI "Clear the render target at the beginning each frame\&. "
 .in -1c
 .SS "Friends"
 
@@ -110,18 +118,43 @@ Holds DirectX interfaces and executes graphics pipelines
 
 .SH "Member Function Documentation"
 .PP 
-.SS "void Renderer::clean_up ()"
+.SS "void Renderer::clean_up (bool clean_scene = \fCtrue\fP)"
 
 .PP
-Releases DirectX all interfaces\&. Cleans graphics scene\&. 
-.SS "void Renderer::compile (bool compile_components = \fCfalse\fP)"
+Releases DirectX all interfaces\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIclean_scene\fP Whether or not to clean the \fBGraphicsScene\fP\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBGraphicsScene\fP 
+.RE
+.PP
+
+.SS "void Renderer::compile ()"
 
 .PP
 Compiles scene and pipelines\&. 
 .PP
 \fBParameters\fP
 .RS 4
-\fIcompile_components\fP If mesh components are already compiled, keep false\&. Setting to true if mesh components are already compiled, it is unneccesary\&. You may set to true if the renderer was just cleaned\&. 
+\fIcompile_components\fP If components are already compiled, keep false\&. You may set to true if the renderer was just cleaned\&. 
+.br
+\fIcompile_scene\fP If graphics scene components are already compiled, keep false\&. You may set to true if the renderer was just cleaned\&. 
+.RE
+.PP
+
+.SS "void Renderer::init_renderer (HWND window)"
+
+.PP
+Initializes renderer\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIwindow\fP \fBWindow\fP to pair the render to\&. 
 .RE
 .PP
 
@@ -151,6 +184,12 @@ Resizes swap chain, viewport/scissor rect, and depth stencil\&. Automatically ca
 .RE
 .PP
 
+.SH "Member Data Documentation"
+.PP 
+.SS "bool Renderer::clear_render_target {true}"
+
+.PP
+Clear the render target at the beginning each frame\&. If false, the frame will be cleared with the background color\&. 
 
 .SH "Author"
 .PP 

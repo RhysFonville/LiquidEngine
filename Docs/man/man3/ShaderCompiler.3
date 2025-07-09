@@ -1,0 +1,38 @@
+.TH "ShaderCompiler" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ShaderCompiler
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShaderCompiler\fP (\fBShaderCompiler\fP &other)=delete"
+.br
+.ti -1c
+.RI "void \fBoperator=\fP (const \fBShaderCompiler\fP &)=delete"
+.br
+.ti -1c
+.RI "ComPtr< IDxcResult > \fBcompile\fP (const std::wstring &file, const std::wstring &entrypoint, const std::wstring &target, const std::vector< DxcDefine > &defines={}, const std::vector< LPCWSTR > &additional_params={})"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12ShaderReflection > \fBget_shader_reflection\fP (const ComPtr< IDxcResult > &result)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (\fBShader\fP &shader)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static GET \fBShaderCompiler\fP * \fBget_instance\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

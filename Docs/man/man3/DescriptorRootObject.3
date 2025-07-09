@@ -1,0 +1,76 @@
+.TH "DescriptorRootObject" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DescriptorRootObject \- Root objects with descriptor tables\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArguments\&.h>\fP
+.PP
+Inherited by \fBConstantBuffer\fP, and \fBShaderResourceView\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDescriptorRootObject\fP (const \fBDescriptorTable\fP &dt)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBDescriptorRootObject\fP &dro) const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)=0"
+.br
+.ti -1c
+.RI "void \fBcompile\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBwill_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual bool \fBis_null\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBcreate_view\fP (const ComPtr< ID3D12Device > &device, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)=0"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBDescriptorTable\fP \fBdescriptor_table\fP {}"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "bool \fBcompile_signal\fP {true}"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12Resource > \fBdefault_heap\fP {nullptr}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Root objects with descriptor tables\&. 
+
+For constant buffers and shader resource views\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBConstantBuffer\fP 
+.PP
+\fBShaderResourceView\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

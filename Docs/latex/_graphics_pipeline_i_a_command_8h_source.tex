@@ -1,0 +1,79 @@
+\hypertarget{_graphics_pipeline_i_a_command_8h_source}{}\doxysection{Graphics\+Pipeline\+IACommand.\+h}
+\label{_graphics_pipeline_i_a_command_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineIACommand.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineIACommand.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Mesh.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utility/ObjectStructs.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipeline.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ https://refactoring.guru/design-\/patterns/command}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ AddMesh,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ RemoveMesh,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ RemoveAll,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ SetInstances}
+\DoxyCodeLine{00021\ \ \ \ \ \};}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}(Type\ type)\ :\ type\{type\}\ \{\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ Type\ get\_type()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ type;\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ Type\ type\{\};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_i_a_add_mesh_command}{GraphicsPipelineIAAddMeshCommand}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_add_mesh_command}{GraphicsPipelineIAAddMeshCommand}}(\textcolor{keyword}{const}\ std::shared\_ptr<const\ Mesh>\&\ mesh)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\{Type::AddMesh\},\ mesh\{mesh\}\ \{\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_add_mesh_command}{GraphicsPipelineIAAddMeshCommand}}(\textcolor{keyword}{const}\ std::shared\_ptr<const\ Mesh>\&\ mesh,\ \textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\{Type::AddMesh\},\ mesh\{mesh\},\ index\{index\}\ \{\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<const\ Mesh>\&\ get\_mesh()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mesh;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ std::optional<size\_t>\&\ get\_index()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<const\ Mesh>\ mesh;}
+\DoxyCodeLine{00051\ \ \ \ \ std::optional<size\_t>\ index\{std::nullopt\};}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_i_a_remove_mesh_command}{GraphicsPipelineIARemoveMeshCommand}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_remove_mesh_command}{GraphicsPipelineIARemoveMeshCommand}}(\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\{Type::RemoveMesh\},\ index\{index\}\ \{\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_index()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ index;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ index\{\};}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_i_a_remove_all_meshes_command}{GraphicsPipelineIARemoveAllMeshesCommand}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_remove_all_meshes_command}{GraphicsPipelineIARemoveAllMeshesCommand}}()}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\{Type::RemoveAll\}\ \{\ \}}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_i_a_set_instances_command}{GraphicsPipelineIASetInstancesCommand}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{struct_graphics_pipeline_i_a_set_instances_command}{GraphicsPipelineIASetInstancesCommand}}(\textcolor{keyword}{const}\ std::vector<Transform>\&\ instances)}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{GraphicsPipelineIACommand}}\{Type::SetInstances\},\ instances\{instances\}\ \{\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Transform>\ \&\ get\_instances()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ instances;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ \ \ std::vector<Transform>\ instances\{\};}
+\DoxyCodeLine{00092\ \};}
+
+\end{DoxyCode}

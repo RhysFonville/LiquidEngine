@@ -1,0 +1,143 @@
+\hypertarget{physicsutil_8h_source}{}\doxysection{physicsutil.\+h}
+\label{physicsutil_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/physicsutil.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/physicsutil.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Utility/ObjectStructs.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utility/SimpleShapes.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{enum\ class}\ Unit\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ Meters,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Distance}}
+\DoxyCodeLine{00010\ \ \ \ \ Kilograms,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mass}}
+\DoxyCodeLine{00011\ \ \ \ \ Newtons,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Force}}
+\DoxyCodeLine{00012\ \ \ \ \ MetersPerSecond,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Velocity}}
+\DoxyCodeLine{00013\ \ \ \ \ MetersPerSecondSquared,\ \ \ \ \ \textcolor{comment}{//\ Acceleration}}
+\DoxyCodeLine{00014\ \ \ \ \ Joules\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Kinetic\ Energy}}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_force}{Force}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Impulse,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ Constant}
+\DoxyCodeLine{00022\ \ \ \ \ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ Type\ type;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_force}{Force}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ vector,\ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ Type\ type\ =\ Type::Impulse)\ :\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(vector),\ name(name),\ type(type)\ \{\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_force}{Force}}\ \&force)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (name\ ==\ force.name\ \&\&\ type\ ==\ force.type\ \&\&}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ x\ ==\ force.x\ \&\&\ y\ ==\ force.y\ \&\&\ z\ ==\ force.z);}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ transform\_vector(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ vector,\ \mbox{\hyperlink{struct_transform}{Transform}}\ transform)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ XMVECTOR\ vec\ =\ XMVector3Transform(vector.to\_xmvec(),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ XMMatrixTranspose(transform));}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ ret;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ ret.x\ =\ XMVectorGetX(vec);}
+\DoxyCodeLine{00043\ \ \ \ \ ret.y\ =\ XMVectorGetY(vec);}
+\DoxyCodeLine{00044\ \ \ \ \ ret.z\ =\ XMVectorGetZ(vec);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//static\ std::vector<SimpleVertex>\ tris\_to\_simple\_verts(const\ std::vector<Triangle>\ \&tris)\ noexcept\ \{}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ std::vector<SimpleVertex>\ ret;}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ for\ (const\ Triangle\ \&tri\ :\ tris)\ \{}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ \ ret.push\_back((SimpleVertex)tri.first);}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ \ \ \ \ ret.push\_back((SimpleVertex)tri.second);}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ \ ret.push\_back((SimpleVertex)tri.third);}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ return\ ret;}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{static}\ std::vector<SimpleVertex>\ simple\_tris\_to\_simple\_verts(\textcolor{keyword}{const}\ std::vector<SimpleTriangle>\ \&tris)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ std::vector<SimpleVertex>\ ret;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \&tri\ :\ tris)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ ret.push\_back(tri.first.position);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ ret.push\_back(tri.second.position);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ ret.push\_back(tri.third.position);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//static\ std::vector<SimpleTriangle>\ tris\_to\_simple\_tris(const\ std::vector<Triangle>\ \&tris)\ \{}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \ std::vector<SimpleTriangle>\ ret;}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ for\ (const\ Triangle\ \&tri\ :\ tris)\ \{}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ \ \ \ \ ret.push\_back(tri);}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ return\ ret;}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//static\ std::vector<SimpleVertex>\ verts\_to\_simple\_verts(const\ std::vector<Vertex>\ \&verts)\ \{}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ std::vector<SimpleVertex>\ ret;}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ for\ (const\ Vertex\ \&vert\ :\ verts)\ \{}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ \ \ \ \ ret.push\_back(vert);}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ return\ ret;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{static}\ std::vector<Vertex>\ transform\_vertices(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&verts,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ std::vector<Vertex>\ ret\ =\ verts;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_vertex}{Vertex}}\ \&vertex\ :\ ret)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ vertex.position\ =\ transform\_vector(vertex.position,\ transform);}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ std::vector<SimpleVertex>\ transform\_simple\_vertices(\textcolor{keyword}{const}\ std::vector<SimpleVertex>\ \&verts,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ std::vector<SimpleVertex>\ ret\ =\ verts;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&vertex\ :\ ret)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ vertex.position\ =\ transform\_vector(vertex.position,\ transform);}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00107\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{static}\ std::vector<Triangle>\ transform\_tris(\textcolor{keyword}{const}\ std::vector<Triangle>\ \&tris,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ std::vector<Triangle>\ ret\ =\ tris;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_triangle}{Triangle}}\ \&tri\ :\ ret)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ tri.first.position\ =\ transform\_vector(tri.first.position,\ transform);}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ tri.second.position\ =\ transform\_vector(tri.second.position,\ transform);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ tri.third.position\ =\ transform\_vector(tri.third.position,\ transform);}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00119\ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{static}\ std::vector<SimpleTriangle>\ transform\_simple\_tris(\textcolor{keyword}{const}\ std::vector<SimpleTriangle>\ \&tris,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ std::vector<SimpleTriangle>\ ret\ =\ tris;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \&tri\ :\ ret)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ tri.first.position\ =\ transform\_vector(tri.first.position,\ transform);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ tri.second.position\ =\ transform\_vector(tri.second.position,\ transform);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ tri.third.position\ =\ transform\_vector(tri.third.position,\ transform);}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_simple_box}{SimpleBox}}\ transform\_simple\_box(\mbox{\hyperlink{struct_simple_box}{SimpleBox}}\ box,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ transform\_simple\_vertices(std::vector<SimpleVertex>\{box.vertices.begin(),\ box.vertices.end()\},\ transform);}
+\DoxyCodeLine{00135\ \ \ \ \ std::copy\_n(std::make\_move\_iterator(v.begin()),\ box.vertices.size(),\ box.vertices.begin());}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{return}\ box;}
+\DoxyCodeLine{00137\ \}}
+
+\end{DoxyCode}

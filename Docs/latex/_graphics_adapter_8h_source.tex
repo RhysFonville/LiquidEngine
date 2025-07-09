@@ -18,19 +18,21 @@
 \DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory);}
 \DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory,\ UINT\ adapter);}
 \DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIFactory2>\ \&factory,\ \textcolor{keyword}{const}\ std::string\ \&adapter);}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIAdapter>\ \&adapter);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}(\textcolor{keyword}{const}\ ComPtr<IDXGIAdapter3>\ \&adapter);}
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}\ \&adapter);}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{\ adapter.Reset();\ \}}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ DXGI\_ADAPTER\_DESC\ get\_desc()\ \{\ \textcolor{keywordflow}{return}\ desc;\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ GET\ DXGI\_ADAPTER\_DESC\ get\_desc()\ \{\ \textcolor{keywordflow}{return}\ desc;\ \}}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ ComPtr<IDXGIAdapter>\ adapter\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00025\ \ \ \ \ GET\ DXGI\_QUERY\_VIDEO\_MEMORY\_INFO\ get\_memory\_info();}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00028\ \ \ \ \ DXGI\_ADAPTER\_DESC\ desc\{\};}
-\DoxyCodeLine{00029\ \};}
-\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00027\ \ \ \ \ ComPtr<IDXGIAdapter3>\ adapter\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ DXGI\_ADAPTER\_DESC\ desc\{\};}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
 
 \end{DoxyCode}

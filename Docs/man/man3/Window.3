@@ -1,4 +1,4 @@
-.TH "Window" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Window" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,7 +22,7 @@ Window \- The main window for rendering\&.
 .RI "\fBWindow\fP (\fBRenderer\fP *renderer)"
 .br
 .ti -1c
-.RI "void \fBset_up_window\fP (const \fBVector2\fP &position=\fBVector2\fP(CW_USEDEFAULT, CW_USEDEFAULT), const \fBVector2\fP &size=\fBVector2\fP(1200, 800), const std::string &name='Epic \fBWindow\fP :coolglasses:', DWORD style=WS_OVERLAPPEDWINDOW|WS_VISIBLE, const HWND &parent=NULL, DWORD extended_style=NULL, HMENU menu=NULL, void *lpParam=NULL)"
+.RI "void \fBset_up_window\fP (const \fBVector2\fP &position=\fBVector2\fP(CW_USEDEFAULT, CW_USEDEFAULT), const \fBVector2\fP &size=\fBVector2\fP(1200, 800), std::string name='Epic \fBWindow\fP :coolglasses:', DWORD style=WS_OVERLAPPEDWINDOW|WS_VISIBLE, const HWND &parent=NULL, DWORD extended_style=NULL, HMENU menu=NULL, void *lpParam=NULL)"
 .br
 .RI "Creates and sets up the window\&. "
 .ti -1c
@@ -38,7 +38,7 @@ Window \- The main window for rendering\&.
 .RI "GET HDC & \fBget_dc\fP () noexcept"
 .br
 .ti -1c
-.RI "GET WNDCLASSEXW & \fBget_class\fP () noexcept"
+.RI "GET WNDCLASSEXA & \fBget_class\fP () noexcept"
 .br
 .ti -1c
 .RI "GET \fBUVector2\fP \fBget_size\fP () const noexcept"
@@ -77,7 +77,7 @@ The main window for rendering\&.
 
 .SH "Member Function Documentation"
 .PP 
-.SS "void Window::set_up_window (const \fBVector2\fP & position = \fC\fBVector2\fP(CW_USEDEFAULT, CW_USEDEFAULT)\fP, const \fBVector2\fP & size = \fC\fBVector2\fP(1200, 800)\fP, const std::string & name = \fC'Epic \fBWindow\fP :coolglasses:'\fP, DWORD style = \fCWS_OVERLAPPEDWINDOW | WS_VISIBLE\fP, const HWND & parent = \fCNULL\fP, DWORD extended_style = \fCNULL\fP, HMENU menu = \fCNULL\fP, void * lpParam = \fCNULL\fP)"
+.SS "void Window::set_up_window (const \fBVector2\fP & position = \fC\fBVector2\fP(CW_USEDEFAULT, CW_USEDEFAULT)\fP, const \fBVector2\fP & size = \fC\fBVector2\fP(1200, 800)\fP, std::string name = \fC'Epic \fBWindow\fP :coolglasses:'\fP, DWORD style = \fCWS_OVERLAPPEDWINDOW | WS_VISIBLE\fP, const HWND & parent = \fCNULL\fP, DWORD extended_style = \fCNULL\fP, HMENU menu = \fCNULL\fP, void * lpParam = \fCNULL\fP)"
 
 .PP
 Creates and sets up the window\&. 

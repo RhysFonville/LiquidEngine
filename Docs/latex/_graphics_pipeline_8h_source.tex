@@ -1,387 +1,212 @@
 \hypertarget{_graphics_pipeline_8h_source}{}\doxysection{Graphics\+Pipeline.\+h}
-\label{_graphics_pipeline_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipeline.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipeline.h}}
+\label{_graphics_pipeline_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipeline.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipeline.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 26495)}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}d3dx12.h"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <DirectXTex.h>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipelineMeshChange.h"{}}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ResourceManager.h"{}}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}ShaderStorage.h"{}}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}Renderer/GraphicsDescriptorHeaps.h"{}}}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ ZeroStruct(STRUCT)\ ZeroMemory(STRUCT,\ sizeof(STRUCT))}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}()\ \{\ \}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ frame\_index,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00026\ \ \ \ \ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ frame\_index,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00030\ \ \ \ \ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ draw(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D12\_DEPTH\_STENCIL\_DESC\ \&depth\_stencil\_desc,}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D12\_BLEND\_DESC\ \&blend,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <ranges>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipelineIACommand.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Storage.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipelineRootArguments.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ ZeroStruct(STRUCT)\ ZeroMemory(STRUCT,\ sizeof(STRUCT))}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ HPEW\_ERR\_BLOB\_PARAM(buf)\ ((buf\ ==\ nullptr\ ?\ "{}"{}}\ :\ (char*)buf-\/>GetBufferPointer()))}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}()\ \{\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00031\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ draw(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ \&sample\_desc,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D12\_BLEND\_DESC\ \&blend\_desc,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ \&pipeline)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ \&pipeline)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ refresh\_pipeline(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\&\ device,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\&\ sample\_desc,\ \textcolor{keyword}{const}\ D3D12\_BLEND\_DESC\&\ blend\_desc);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_pipeline(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\&\ device,\ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\&\ sample\_desc,\ \textcolor{keyword}{const}\ D3D12\_BLEND\_DESC\&\ blend\_desc);}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ ComPtr<ID3D12PipelineState>\ pipeline\_state\_object\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ pso\ containing\ a\ pipeline\ state}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ \&pipeline)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ std::vector<D3D12\_INPUT\_ELEMENT\_DESC>\ input\_layout\ =\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}POSITION"{}},\ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}TEXCOORD"{}},\ \ \ 0,\ \ DXGI\_FORMAT\_R32G32\_FLOAT,\ \ \ \ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}NORMAL"{}},\ \ \ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}TANGENT"{}},\ \ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \}}
-\DoxyCodeLine{00052\ \ \ \ \ \};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}()\ \{\ \}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_mesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh,\ \textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keywordtype}{size\_t}\ index\ =\ -\/1);}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_mesh(\textcolor{keywordtype}{size\_t}\ index);}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_all\_meshes();}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
+\DoxyCodeLine{00047\ \ \ \ \ ComPtr<ID3D12PipelineState>\ pipeline\_state\_object\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ pso\ containing\ a\ pipeline\ state}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ D3D12\_DEPTH\_STENCIL\_DESC\ depth\_stencil\_desc\ =\ CD3DX12\_DEPTH\_STENCIL\_DESC(D3D12\_DEFAULT);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}()\ \{\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}\&\ input\_assembler)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ std::weak\_ptr<Shader>\&\ vs);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//void\ set\_instances(const\ std::vector<Transform>\&\ instances,\ const\ ComPtr<ID3D12Device>\&\ device,\ const\ ComPtr<ID3D12GraphicsCommandList>\&\ command\_list);}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_mesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\ \&mesh,\ \textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keywordtype}{size\_t}\ index\ =\ -\/1);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_mesh(\textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_all\_meshes();}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_proxy(\textcolor{keyword}{const}\ std::shared\_ptr<GraphicsPipelineMeshChange::Manager>\ \&change\_manager)\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>change\_manager\ =\ change\_manager;}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<D3D12\_VERTEX\_BUFFER\_VIEW>\ \&\ get\_vertex\_buffer\_views()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{InputAssembler}}\ \&input\_assembler)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex\_buffers\ ==\ input\_assembler.vertex\_buffers\ \&\&}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex\_buffer\_views\ ==\ input\_assembler.vertex\_buffer\_views\ \&\&}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ primitive\_topology\_type\ ==\ input\_assembler.primitive\_topology\_type\ \&\&}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ primitive\_topology\ ==\ input\_assembler.primitive\_topology}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ std::shared\_ptr<GraphicsPipelineMeshChange::Manager>\ change\_manager\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\ primitive\_topology\_type\ =\ D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE::D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\_TRIANGLE;}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ D3D12\_PRIMITIVE\_TOPOLOGY\ primitive\_topology\ =\ D3D12\_PRIMITIVE\_TOPOLOGY::D3D\_PRIMITIVE\_TOPOLOGY\_TRIANGLELIST;}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::vector<ComPtr<ID3D12Resource>>\ vertex\_buffers;\ \textcolor{comment}{//\ a\ default\ buffer\ in\ GPU\ memory\ that\ we\ will\ load\ vertex\ data\ for\ our\ triangle\ into}}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ std::vector<D3D12\_VERTEX\_BUFFER\_VIEW>\ vertex\_buffer\_views;\ \textcolor{comment}{//\ a\ structure\ containing\ a\ pointer\ to\ the\ vertex\ data\ in\ gpu\ memory}}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ total\ size\ of\ the\ buffer,\ and\ the\ size\ of\ each\ element\ (vertex)}}
-\DoxyCodeLine{00098\ \ \ \ \ \}\ input\_assembler;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ draw\_meshes(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::vector<D3D12\_VERTEX\_BUFFER\_VIEW>\ \&\ get\_vertex\_buffer\_views()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//GET\ D3D12\_VERTEX\_BUFFER\_VIEW\ get\_instance\_buffer\_view()\ const\ noexcept;}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_vertex\_buffer\_view\_to\_draw(\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear\_commands()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_command(\textcolor{keyword}{const}\ std::shared\_ptr<GraphicsPipelineIACommand>\&\&\ command)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<D3D12\_INPUT\_ELEMENT\_DESC>\&\ get\_input\_layout()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_input\_layout(\textcolor{keyword}{const}\ std::vector<D3D12\_INPUT\_ELEMENT\_DESC>\&\ layout)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ D3D12\_INPUT\_LAYOUT\_DESC\ get\_input\_layout\_desc()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\ primitive\_topology\_type\ =\ D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE::D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\_TRIANGLE;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ D3D12\_PRIMITIVE\_TOPOLOGY\ primitive\_topology\ =\ D3D12\_PRIMITIVE\_TOPOLOGY::D3D\_PRIMITIVE\_TOPOLOGY\_TRIANGLELIST;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ std::vector<ComPtr<ID3D12Resource>>\ vertex\_buffers\{\};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ std::vector<D3D12\_VERTEX\_BUFFER\_VIEW>\ vertex\_buffer\_views\{\};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buffer\_view\_to\_draw\{0\};}
 \DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ std::string\ vs\{\textcolor{stringliteral}{"{}Graphics/DefaultVertex.hlsl"{}}\};}
-\DoxyCodeLine{00101\ \ \ \ \ std::string\ hs\{\};}
-\DoxyCodeLine{00102\ \ \ \ \ std::string\ ds\{\};}
-\DoxyCodeLine{00103\ \ \ \ \ std::string\ gs\{\};}
-\DoxyCodeLine{00104\ \ \ \ \ std::string\ ps\{\textcolor{stringliteral}{"{}Graphics/LitPixel.hlsl"{}}\};}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}\ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}()\ \{\ \}}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}\ \&rasterizer)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (desc\ ==\ rasterizer.desc);}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_desc(\textcolor{keyword}{const}\ D3D12\_RASTERIZER\_DESC\ \&desc)\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>desc\ =\ desc;}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ D3D12\_RASTERIZER\_DESC\ get\_desc()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ desc;}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ ComPtr<ID3D12Resource>\ instance\_buffer\{\};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ D3D12\_VERTEX\_BUFFER\_VIEW\ instance\_buffer\_view\{\};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::queue<std::shared\_ptr<GraphicsPipelineIACommand>>\ commands;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ std::vector<D3D12\_INPUT\_ELEMENT\_DESC>\ input\_layout\ =\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}POSITION"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 0u,\ 0u,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0u\},}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}TEXCOORD"{},\ 0u,\ DXGI\_FORMAT\_R32G32\_FLOAT,\ 0u,\ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0u\},}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}NORMAL"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 0u,\ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0u\},}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}TANGENT"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 0u,\ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0u\},}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}INSTANCE\_POSITION"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 1u,\ 0u,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_INSTANCE\_DATA,\ 1u\},}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}INSTANCE\_ROTATION"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 1u,\ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_INSTANCE\_DATA,\ 1u\},}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{"{}INSTANCE\_SIZE"{},\ 0u,\ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ 1u,\ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ D3D12\_INPUT\_CLASSIFICATION\_PER\_INSTANCE\_DATA,\ 1u\},}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \}\ input\_assembler;}
+\DoxyCodeLine{00116\ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_graphics_pipeline_1_1_shaders}{Shaders}}\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ std::weak\_ptr<Shader>\ vs\{\};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ std::weak\_ptr<Shader>\ hs\{\};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ std::weak\_ptr<Shader>\ ds\{\};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::weak\_ptr<Shader>\ gs\{\};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ std::weak\_ptr<Shader>\ ps\{\};}
+\DoxyCodeLine{00123\ \ \ \ \ \}\ shaders;}
 \DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ D3D12\_RASTERIZER\_DESC\ desc\ =\ CD3DX12\_RASTERIZER\_DESC(D3D12\_DEFAULT);}
-\DoxyCodeLine{00129\ \ \ \ \ \}\ rasterizer;}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}\ \{}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}()\ :\ desc(\{\})\ \{\ \}}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}(\textcolor{keyword}{const}\ D3D12\_STREAM\_OUTPUT\_DESC\ \&desc)}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ :\ desc(desc)\ \{\ \}}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}\ \&stream\_output)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (desc\ ==\ stream\_output.desc);}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ D3D12\_STREAM\_OUTPUT\_DESC\ get\_desc()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ desc;}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}()\ \{\ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}(\textcolor{keyword}{const}\ D3D12\_RASTERIZER\_DESC\&\ desc)\ :\ desc\{desc\}\ \{\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}\ \&rasterizer)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (desc\ ==\ rasterizer.desc);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_desc(\textcolor{keyword}{const}\ D3D12\_RASTERIZER\_DESC\ \&desc)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>desc\ =\ desc;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ GET\ D3D12\_RASTERIZER\_DESC\ get\_desc()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ desc;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
 \DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ D3D12\_RASTERIZER\_DESC\ desc\{CD3DX12\_RASTERIZER\_DESC\{D3D12\_DEFAULT\}\};}
+\DoxyCodeLine{00149\ \ \ \ \ \}\ rasterizer;}
 \DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ D3D12\_STREAM\_OUTPUT\_DESC\ desc\ =\ \{\};}
-\DoxyCodeLine{00152\ \ \ \ \ \}\ stream\_output;}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}\ \{\ \textcolor{comment}{//\ https://learn.microsoft.com/en-\/us/windows/win32/direct3d12/pipelines-\/and-\/shaders-\/with-\/directx-\/12}}
-\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{RootArgument}}\ \{}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{RootArgument}}()\ \{\ \}}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{RootArgument}}(UINT\ parameter\_index);}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}()\ \{\ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}(\textcolor{keyword}{const}\ D3D12\_STREAM\_OUTPUT\_DESC\ \&desc)\ :\ desc\{desc\}\ \{\ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{StreamOutput}}\ \&stream\_output)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (desc\ ==\ stream\_output.desc);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ GET\ D3D12\_STREAM\_OUTPUT\_DESC\ get\_desc()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ desc;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ get\_parameter\_index()\ \{\ \textcolor{keywordflow}{return}\ parameter\_index;\ \}}
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}};}
-\DoxyCodeLine{00171\ }
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<D3D12\_ROOT\_PARAMETER>\ root\_parameters\ =\ \{\ \};}
-\DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ parameter\_index\{(UINT)-\/1\};}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{DescriptorTable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{RootArgument}}\ \{}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{DescriptorTable}}(D3D12\_DESCRIPTOR\_RANGE\_TYPE\ type,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ index,\ UINT\ parameter\_index);}
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*DescriptorTable(const\ DescriptorTable\ \&t)\ \{}}
-\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ table\ =\ t.table;}}
-\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ (auto\ i\ =\ 0;\ i\ <\ RANGES\_SIZE;\ i++)\ \{}}
-\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ranges[i]\ =\ t.ranges[i];}}
-\DoxyCodeLine{00187\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{00188\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ (auto\ i\ =\ 0;\ i\ <\ PARAMS\_SIZE;\ i++)\ \{}}
-\DoxyCodeLine{00189\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ root\_parameters[i]\ =\ t.root\_parameters[i];}}
-\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{00191\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}*/}}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(D3D12\_DESCRIPTOR\_RANGE\_TYPE\ type,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ index);}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table}{DescriptorTable}}\ \&descriptor\_table)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D12\_ROOT\_DESCRIPTOR\_TABLE\ \&\ get\_table()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ table;\ \}}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CD3DX12\_DESCRIPTOR\_RANGE>\ \&\ get\_ranges()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ ranges;\ \}}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}};}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_ROOT\_DESCRIPTOR\_TABLE\ table;}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ D3D12\_STREAM\_OUTPUT\_DESC\ desc\{\};}
+\DoxyCodeLine{00171\ \ \ \ \ \}\ stream\_output;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}()\ \{\ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}\&\ root\_signature)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_graphics_pipeline_1_1_shaders}{Shaders}}\&\ shaders);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile\_resources(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\&\ device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\&\ command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\&\ descriptor\_heaps);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ bind\_shader\_resource\_parameters(\textcolor{keyword}{const}\ std::weak\_ptr<Shader>\&\ s);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_views(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::map<std::string,\ std::shared\_ptr<ConstantBuffer>>\&\ get\_constant\_buffers()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ constant\_buffers;\ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::map<std::string,\ std::shared\_ptr<RootConstants>>\&\ get\_root\_constants()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ root\_constants;\ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ GET\ \textcolor{keyword}{const}\ std::map<std::string,\ std::shared\_ptr<ShaderResourceView>>\&\ get\_shader\_resource\_views()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ shader\_resource\_views;\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ GET\ std::weak\_ptr<DescriptorRootObject>\ get\_resource(\textcolor{keyword}{const}\ std::string\&\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ GET\ std::weak\_ptr<ConstantBuffer>\ get\_constant\_buffer(\textcolor{keyword}{const}\ std::string\&\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ GET\ std::weak\_ptr<RootConstants>\ get\_root\_constants(\textcolor{keyword}{const}\ std::string\&\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ GET\ std::weak\_ptr<ShaderResourceView>\ get\_shader\_resource\_view(\textcolor{keyword}{const}\ std::string\&\ name)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{00203\ }
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ heap\_index\{(UINT)-\/1\};}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<CD3DX12\_DESCRIPTOR\_RANGE>\ ranges\ =\ \{\ \};\ \textcolor{comment}{//\ In\ practice\ you\ often\ only\ have\ one\ descriptor\ range\ per-\/table.}}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00208\ }
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{RootConstants}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_argument}{RootArgument}}\ \{}
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{RootConstants}}()\ \{\ \}}
-\DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{RootConstants}}(T\ \&obj,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ index,\ UINT\ parameter\_index,\ UINT\ number\_of\_values\ =\ -\/1)\ \{}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compile<T>(obj,\ shader,\ index,\ number\_of\_values);}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//GET\ std::vector<DescriptorTable>\ get\_descriptor\_tables()\ const\ noexcept;}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ GET\ std::vector<D3D12\_ROOT\_PARAMETER1>\ get\_root\_params()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ GET\ \textcolor{keywordtype}{size\_t}\ get\_number\_of\_params()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ constant\_buffers.size()\ +\ root\_constants.size()\ +\ shader\_resource\_views.size();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::vector<const\ DescriptorTable*>\ descriptor\_tables\{\};}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ std::vector<const\ RootArgument*>\ root\_params\{\};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ std::map<std::string,\ std::shared\_ptr<ConstantBuffer>>\ constant\_buffers\{\};}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ std::map<std::string,\ std::shared\_ptr<RootConstants>>\ root\_constants\{\};}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ std::map<std::string,\ std::shared\_ptr<ShaderResourceView>>\ shader\_resource\_views\{\};}
 \DoxyCodeLine{00220\ }
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj(T\ *obj)\ \{}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>obj\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(obj);}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj\_size\ =\ \textcolor{keyword}{sizeof}(obj);}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00226\ }
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ parameter\_index,\ UINT\ index,\ UINT\ number\_of\_values\ =\ -\/1)\ \{}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parameter\_index\ =\ parameter\_index;}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>root\_parameters.resize(1u);}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ constants.Num32BitValues\ =\ (number\_of\_values\ ==\ (UINT)-\/1\ ?\ (UINT)std::ceilf((\textcolor{keywordtype}{float})obj\_size*8.0f\ /\ 32.0f)\ :\ number\_of\_values);}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ constants.RegisterSpace\ =\ 0u;}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ constants.ShaderRegister\ =\ index;}
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ root\_parameters[0].ParameterType\ =\ D3D12\_ROOT\_PARAMETER\_TYPE\_32BIT\_CONSTANTS;}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ root\_parameters[0].Constants\ =\ constants;}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ root\_parameters[0].ShaderVisibility\ =\ shader;}
-\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00239\ }
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(T\ \&obj,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ index,\ UINT\ number\_of\_values\ =\ -\/1)\ \{}
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set\_obj<T>(obj);}
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compile(shader,\ index,\ number\_of\_values);}
-\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00245\ }
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D12\_ROOT\_CONSTANTS\ \&\ get\_constants()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ constants;\ \}}
-\DoxyCodeLine{00247\ }
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}};}
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ obj\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ obj\_size\{0u\};}
-\DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_ROOT\_CONSTANTS\ constants\ =\ \{\ \};}
-\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00256\ }
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{ConstantBuffer}}\ \{}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{ConstantBuffer}}()\ \{\ \}}
-\DoxyCodeLine{00263\ }
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{ConstantBuffer}}(T\ \&cb,\ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}})}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ obj(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\&cb)),\ obj\_size(\textcolor{keyword}{sizeof}(T)),}
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name(name.empty()\ ?\ \textcolor{keyword}{typeid}(T).name()\ :\ name)\ \{\ \}}
-\DoxyCodeLine{00268\ }
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00270\ }
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list);}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{ConstantBuffer}}\ \&cb)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ obj\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ obj\_size\ =\ 0u;}
-\DoxyCodeLine{00277\ }
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ heap\_index\{(UINT)-\/1\};}
-\DoxyCodeLine{00279\ }
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00281\ }
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ update\_signal\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00283\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ ComPtr<ID3D12Resource>\ default\_heap\{\textcolor{keyword}{nullptr}\};}
-\DoxyCodeLine{00285\ }
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<DescriptorTable>\ descriptor\_table\{\textcolor{keyword}{nullptr}\};}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00288\ }
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{ShaderResourceView}}\ \{}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{ShaderResourceView}}()\ \{\ \}}
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{ShaderResourceView}}(\textcolor{keyword}{const}\ DirectX::ScratchImage\ \&mip\_chain,\ \textcolor{keywordtype}{bool}\ is\_texture\_cube\ =\ \textcolor{keyword}{false});}
-\DoxyCodeLine{00296\ }
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update\_descs(\textcolor{keyword}{const}\ DirectX::ScratchImage\ \&mip\_chain,\ \textcolor{keywordtype}{bool}\ is\_texture\_cube\ =\ \textcolor{keyword}{false});}
-\DoxyCodeLine{00298\ }
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \{\ compile\_signal\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00301\ }
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ ComPtr<ID3D12Resource>\ default\_heap\{\textcolor{keyword}{nullptr}\};}
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_RESOURCE\_DESC\ heap\_desc\{\};}
-\DoxyCodeLine{00304\ }
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\ subresources\{\};}
-\DoxyCodeLine{00306\ }
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_SHADER\_RESOURCE\_VIEW\_DESC\ srv\_desc\{\};}
-\DoxyCodeLine{00308\ }
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ heap\_index\{(UINT)-\/1\};}
-\DoxyCodeLine{00310\ }
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ compile\_signal\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{00312\ }
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<DescriptorTable>\ descriptor\_table\{\textcolor{keyword}{nullptr}\};}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00315\ }
-\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{ConstantBufferContainer}}\ \{}
-\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{ConstantBufferContainer}}()\ \{\ \}}
-\DoxyCodeLine{00324\ }
-\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{ConstantBufferContainer}}(\textcolor{keyword}{const}\ T\ \&obj)}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ obj(std::make\_shared<T>(obj))\ \{}
-\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cb\ =\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{GraphicsPipeline::RootSignature::ConstantBuffer}}(*this-\/>obj);}
-\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00329\ }
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj.reset();}
-\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00333\ }
-\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \{\ cb.update\_signal\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00335\ }
-\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{ConstantBufferContainer}}\ \&c)\ \{}
-\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (obj\ ==\ c.obj);}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00339\ }
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<T>\ obj\ =\ \{\ \};}
-\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer}{GraphicsPipeline::RootSignature::ConstantBuffer}}\ cb;}
-\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00343\ }
-\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{RootConstantsContainer}}\ \{}
-\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{RootConstantsContainer}}()\ \{\ \}}
-\DoxyCodeLine{00351\ }
-\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{RootConstantsContainer}}(\textcolor{keyword}{const}\ T\ \&obj)}
-\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ obj(std::make\_shared<T>(obj))\ \{}
-\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rc\ =\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{GraphicsPipeline::RootSignature::RootConstants}}();}
-\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rc.set\_obj<T>(this-\/>obj.get());}
-\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00357\ }
-\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{}
-\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj.reset();}
-\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00361\ }
-\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<T>\ obj\ =\ \{\ \};}
-\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{GraphicsPipeline::RootSignature::RootConstants}}\ rc;}
-\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00365\ }
-\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}()\ \{\ \}}
-\DoxyCodeLine{00367\ }
-\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00371\ }
-\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ check\_for\_update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keywordtype}{int}\ frame\_index,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ run(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \textcolor{keywordtype}{int}\ frame\_index,\ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ \&descriptor\_heaps);}
-\DoxyCodeLine{00375\ }
-\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{RootSignature}}\ \&root\_signature)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a00897bd2afb5e49ed5241809ab00dce0}{bind\_shader\_resource\_view}}(ShaderResourceView\ \&srv,\ D3D12\_SHADER\_VISIBILITY\ shader);}
-\DoxyCodeLine{00385\ }
-\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}{bind\_root\_constants}}(\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants}{RootConstants}}\ \&rc,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ number\_of\_values\ =\ -\/1)\ \{}
-\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ UINT\ index\ =\ (UINT)constant\_buffers.size()\ +\ (UINT)root\_constants.size();}
-\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ rc.compile(shader,\ index\ +\ (UINT)shader\_resource\_views.size(),\ index,\ number\_of\_values);}
-\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ root\_constants.push\_back(\&rc);}
-\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00397\ }
-\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4d0f3ce814bac12c4aeef6f1d1ace348}{bind\_root\_constants}}(\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{RootConstantsContainer<T>}}\ \&obj,\ D3D12\_SHADER\_VISIBILITY\ shader,\ UINT\ number\_of\_values\ =\ -\/1)\ \{}
-\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a4a15f7dd3476e127adeab60769d4ff70}{bind\_root\_constants}}(obj.rc,\ shader,\ number\_of\_values);}
-\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00408\ }
-\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}{bind\_constant\_buffer}}(ConstantBuffer\ \&cb,\ D3D12\_SHADER\_VISIBILITY\ shader);}
-\DoxyCodeLine{00415\ }
-\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_a8250f245bb5d7afca2da57bf359ea4a5}{bind\_constant\_buffer}}(\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{ConstantBufferContainer<T>}}\ \&cb,\ D3D12\_SHADER\_VISIBILITY\ shader)\ \{}
-\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_add399b9310fa4c14ab03f678b0e0b0f0}{bind\_constant\_buffer}}(cb.cb,\ shader);}
-\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00425\ }
-\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<ConstantBuffer*>\ \&\ get\_constant\_buffers()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ constant\_buffers;\ \}}
-\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<RootConstants*>\ \&\ get\_root\_constants()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ root\_constants;\ \}}
-\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<ShaderResourceView*>\ \&\ get\_shader\_resource\_views()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ shader\_resource\_views;\ \}}
-\DoxyCodeLine{00429\ }
-\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::shared\_ptr<DescriptorTable>>\ \&\ get\_descriptor\_tables()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ descriptor\_tables;\ \}}
-\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<D3D12\_ROOT\_PARAMETER>\ \&\ get\_root\_params()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ compilation\_params;\ \}}
-\DoxyCodeLine{00432\ }
-\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}};}
-\DoxyCodeLine{00435\ }
-\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ std::vector<std::shared\_ptr<DescriptorTable>>\ descriptor\_tables\ =\ \{\ \};}
-\DoxyCodeLine{00437\ }
-\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ std::vector<ConstantBuffer*>\ constant\_buffers\ =\ \{\ \};}
-\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ std::vector<RootConstants*>\ root\_constants\ =\ \{\ \};}
-\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ std::vector<ShaderResourceView*>\ shader\_resource\_views\ =\ \{\ \};}
-\DoxyCodeLine{00441\ }
-\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ CD3DX12\_ROOT\_SIGNATURE\_DESC\ signature\_desc\ =\ \{\ \};}
-\DoxyCodeLine{00443\ }
-\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ std::vector<D3D12\_ROOT\_PARAMETER>\ compilation\_params\ =\ \{\ \};}
-\DoxyCodeLine{00445\ }
-\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ ComPtr<ID3D12RootSignature>\ signature\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ Root\ signature\ defines\ data\ shaders\ will\ access}}
-\DoxyCodeLine{00447\ \ \ \ \ \}\ root\_signature;}
-\DoxyCodeLine{00448\ \};}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC\ signature\_desc\{\};}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ ComPtr<ID3D12RootSignature>\ signature\{\textcolor{keyword}{nullptr}\};\ \textcolor{comment}{//\ Root\ signature\ defines\ data\ shaders\ will\ access}}
+\DoxyCodeLine{00224\ \ \ \ \ \}\ root\_signature;}
+\DoxyCodeLine{00225\ \};}
 
 \end{DoxyCode}

@@ -1,0 +1,166 @@
+\hypertarget{_graphics_pipeline_root_arguments_8h_source}{}\doxysection{Graphics\+Pipeline\+Root\+Arguments.\+h}
+\label{_graphics_pipeline_root_arguments_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineRootArguments.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineRootArguments.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <initguid.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 26495)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../d3dx12.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <DirectXTex.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <ranges>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <d3d12shader.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}../GraphicsResourceDescriptorHeap.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../ResourceManager.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}../graphicsoperatoroverloading.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_root_argument}{RootArgument}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_root_argument}{RootArgument}}(UINT\ index);}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_root_argument}{RootArgument}}()\ \{\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ clean\_up()\ =\ 0;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ GET\ \textcolor{keyword}{virtual}\ D3D12\_ROOT\_PARAMETER1\ get\_root\_param()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ =\ 0;}
+\DoxyCodeLine{00031\ \ \ \ \ GET\ UINT\ get\_index()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00034\ \ \ \ \ UINT\ index\{\};}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_root_argument}{RootArgument}}\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}()\ \{\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}(\textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE1\&\ range,\ UINT\ param\_index);}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}(D3D12\_SHADER\_INPUT\_BIND\_DESC\ bind\_desc,\ D3D12\_DESCRIPTOR\_RANGE\_TYPE\ type,\ UINT\ param\_index);}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\&\ dt);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ clean\_up()\ \{\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ D3D12\_ROOT\_PARAMETER1\ get\_root\_param()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_descriptor\_table(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\&\ device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\&\ command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\&\ descriptor\_heap)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\ \&descriptor\_table)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ GET\ D3D12\_ROOT\_DESCRIPTOR\_TABLE1\ get\_table()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ GET\ \textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE1\&\ get\_range()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ UINT\ heap\_index\{(UINT)-\/1\};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ D3D12\_DESCRIPTOR\_RANGE1\ range\{\};}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_root_constants}{RootConstants}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_root_argument}{RootArgument}}\ \{}
+\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_root_constants}{RootConstants}}(D3D12\_SHADER\_INPUT\_BIND\_DESC\ bind\_desc,\ D3D12\_SHADER\_BUFFER\_DESC\ buffer\_desc,\ UINT\ param\_index);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj(T*\ obj)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ obj\_size\ =\ \textcolor{keyword}{sizeof}(obj);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ D3D12\_ROOT\_PARAMETER1\ get\_root\_param()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_root_constants}{RootConstants}}\&\ rc)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ GET\ \textcolor{keyword}{const}\ D3D12\_ROOT\_CONSTANTS\ \&\ get\_constants()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_constants(\textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\&\ command\_list);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}*\ obj\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ obj\_size\{0u\};}
+\DoxyCodeLine{00089\ \ \ \ \ D3D12\_ROOT\_CONSTANTS\ constants\{\};}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\ \{}
+\DoxyCodeLine{00101\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}()\ \{\ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\&\ dt)\ :\ descriptor\_table\{dt\}\ \{\ \}}
+\DoxyCodeLine{00104\ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\&\ dro)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ =\ 0;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{bool}\ will\_compile()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ is\_null()\ =\ 0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ create\_view(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ =\ 0;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\ descriptor\_table\{\};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{bool}\ compile\_signal\{\textcolor{keyword}{true}\};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ ComPtr<ID3D12Resource>\ default\_heap\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00123\ \};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_constant_buffer}{ConstantBuffer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\ \{}
+\DoxyCodeLine{00129\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{class_constant_buffer}{ConstantBuffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\&\ dt)\ :\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\{dt\}\ \{\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj(T*\ cb)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ obj\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(cb);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ obj\_size\ =\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\&\ device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\&\ command\_list);}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \textcolor{keyword}{noexcept}\ \{\ update\_signal\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ will\_update()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \ \textcolor{keywordflow}{return}\ update\_signal;\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00145\ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_null()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ obj\_size\ ==\ 0;\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_view(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_constant_buffer}{ConstantBuffer}}\ \&cb)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}*\ obj\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ obj\_size\{0u\};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{bool}\ update\_signal\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_resource_view}{ShaderResourceView}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\ \{}
+\DoxyCodeLine{00163\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00164\ \ \ \ \ \mbox{\hyperlink{class_shader_resource_view}{ShaderResourceView}}()\ :\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\{\}\ \{\ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{class_shader_resource_view}{ShaderResourceView}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_descriptor_table}{DescriptorTable}}\&\ dt)\ :\ \mbox{\hyperlink{class_descriptor_root_object}{DescriptorRootObject}}\{dt\}\ \{\ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ update\_descs(\textcolor{keyword}{const}\ DirectX::ScratchImage\ \&mip\_chain,\ \textcolor{keywordtype}{bool}\ is\_texture\_cube\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \textcolor{keyword}{const}\ ComPtr<ID3D12GraphicsCommandList>\ \&command\_list,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \{\ compile\_signal\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00171\ \ \ \ \ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_view(\textcolor{keyword}{const}\ ComPtr<ID3D12Device>\ \&device,\ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ \&descriptor\_heaps)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_null()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ heap\_desc.Width\ ==\ 0\ ||\ heap\_desc.Height\ ==\ 0\ ||\ heap\_desc.DepthOrArraySize\ ==\ 0;\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_resource_view}{ShaderResourceView}}\&\ srv)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ std::vector<D3D12\_SUBRESOURCE\_DATA>\ subresources\{\};}
+\DoxyCodeLine{00181\ \ \ \ \ D3D12\_SHADER\_RESOURCE\_VIEW\_DESC\ srv\_desc\{\};}
+\DoxyCodeLine{00182\ \ \ \ \ D3D12\_RESOURCE\_DESC\ heap\_desc\{\};}
+\DoxyCodeLine{00183\ \};}
+
+\end{DoxyCode}

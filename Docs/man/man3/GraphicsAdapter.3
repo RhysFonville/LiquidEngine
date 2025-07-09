@@ -1,4 +1,4 @@
-.TH "GraphicsAdapter" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsAdapter" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -19,7 +19,7 @@ GraphicsAdapter
 .RI "\fBGraphicsAdapter\fP (const ComPtr< IDXGIFactory2 > &factory, const std::string &adapter)"
 .br
 .ti -1c
-.RI "\fBGraphicsAdapter\fP (const ComPtr< IDXGIAdapter > &adapter)"
+.RI "\fBGraphicsAdapter\fP (const ComPtr< IDXGIAdapter3 > &adapter)"
 .br
 .ti -1c
 .RI "void \fBoperator=\fP (const \fBGraphicsAdapter\fP &adapter)"
@@ -28,14 +28,17 @@ GraphicsAdapter
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "DXGI_ADAPTER_DESC \fBget_desc\fP ()"
+.RI "GET DXGI_ADAPTER_DESC \fBget_desc\fP ()"
+.br
+.ti -1c
+.RI "GET DXGI_QUERY_VIDEO_MEMORY_INFO \fBget_memory_info\fP ()"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "ComPtr< IDXGIAdapter > \fBadapter\fP = nullptr"
+.RI "ComPtr< IDXGIAdapter3 > \fBadapter\fP = nullptr"
 .br
 .in -1c
 

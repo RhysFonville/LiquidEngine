@@ -80,17 +80,23 @@ $(function() {
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../PhysicsBody.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../Physics/PhysicsBody.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_physical_component.html">    9</a></span><span class="keyword">class </span><a class="code hl_class" href="class_physical_component.html">PhysicalComponent</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_component.html">Component</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_class" href="class_physical_component.html">PhysicalComponent</a>(Type type) : <a class="code hl_class" href="class_component.html">Component</a>(type) { }</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_class" href="class_physical_component.html">PhysicalComponent</a>() : <a class="code hl_class" href="class_component.html">Component</a>{} { }</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_class" href="class_physics_body.html">PhysicsBody</a> physics_body;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>};</div>
-<div class="ttc" id="aclass_component_html"><div class="ttname"><a href="class_component.html">Component</a></div><div class="ttdoc">Base component class for all components.</div><div class="ttdef"><b>Definition:</b> Component.h:10</div></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">void</span> tick(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_class" href="class_physics_body.html">PhysicsBody</a> physics_body;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">void</span> render_editor_gui_section() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> render_physical_component_editor_gui_section() { }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="ttc" id="aclass_component_html"><div class="ttname"><a href="class_component.html">Component</a></div><div class="ttdoc">Base component class for all components.</div><div class="ttdef"><b>Definition:</b> Component.h:58</div></div>
 <div class="ttc" id="aclass_physical_component_html"><div class="ttname"><a href="class_physical_component.html">PhysicalComponent</a></div><div class="ttdoc">Base component for any component that has physics capabilities.</div><div class="ttdef"><b>Definition:</b> PhysicalComponent.h:9</div></div>
-<div class="ttc" id="aclass_physics_body_html"><div class="ttname"><a href="class_physics_body.html">PhysicsBody</a></div><div class="ttdef"><b>Definition:</b> PhysicsBody.h:5</div></div>
+<div class="ttc" id="aclass_physics_body_html"><div class="ttname"><a href="class_physics_body.html">PhysicsBody</a></div><div class="ttdef"><b>Definition:</b> PhysicsBody.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

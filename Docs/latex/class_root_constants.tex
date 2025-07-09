@@ -1,0 +1,93 @@
+\hypertarget{class_root_constants}{}\doxysection{Root\+Constants Class Reference}
+\label{class_root_constants}\index{RootConstants@{RootConstants}}
+
+
+Root constants.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline\+Root\+Arguments.\+h$>$}
+
+Inheritance diagram for Root\+Constants\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_root_constants}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_root_constants_a76ae8ee3e7f5cca11c41616510696b16}\label{class_root_constants_a76ae8ee3e7f5cca11c41616510696b16}} 
+{\bfseries Root\+Constants} (D3\+D12\+\_\+\+SHADER\+\_\+\+INPUT\+\_\+\+BIND\+\_\+\+DESC bind\+\_\+desc, D3\+D12\+\_\+\+SHADER\+\_\+\+BUFFER\+\_\+\+DESC buffer\+\_\+desc, UINT param\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_root_constants_a3db33c2279d5ba89127b41f620f9cbea}\label{class_root_constants_a3db33c2279d5ba89127b41f620f9cbea}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries set\+\_\+obj} (T $\ast$obj)
+\item 
+void \mbox{\hyperlink{class_root_constants_afcb10fd930029aa4707cffd02d921050}{clean\+\_\+up}} ()
+\item 
+D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 \mbox{\hyperlink{class_root_constants_abfe327bee6ce3cfbd8b60a40f4c06e19}{get\+\_\+root\+\_\+param}} () const noexcept
+\item 
+\mbox{\Hypertarget{class_root_constants_a47a1cc52557715c818055286ec28eae9}\label{class_root_constants_a47a1cc52557715c818055286ec28eae9}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_root_constants}{Root\+Constants}} \&rc) const noexcept
+\item 
+\mbox{\Hypertarget{class_root_constants_aebcbb9c49cfd49f37c732034ca7cd24e}\label{class_root_constants_aebcbb9c49cfd49f37c732034ca7cd24e}} 
+GET const D3\+D12\+\_\+\+ROOT\+\_\+\+CONSTANTS \& {\bfseries get\+\_\+constants} () const noexcept
+\item 
+\mbox{\Hypertarget{class_root_constants_ad3da5a12ceab44f76fd04f9ea7d85505}\label{class_root_constants_ad3da5a12ceab44f76fd04f9ea7d85505}} 
+void {\bfseries set\+\_\+constants} (const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_root_argument}{Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_root_argument_a47475794702671e106a9e1dc49270e30}\label{class_root_argument_a47475794702671e106a9e1dc49270e30}} 
+{\bfseries Root\+Argument} (UINT index)
+\item 
+\mbox{\Hypertarget{class_root_argument_a205aa6b2be670c162841368b6ed1f47e}\label{class_root_argument_a205aa6b2be670c162841368b6ed1f47e}} 
+virtual void {\bfseries clean\+\_\+up} ()=0
+\item 
+\mbox{\Hypertarget{class_root_argument_afd05c35579b75d9d3510223a3e145b46}\label{class_root_argument_afd05c35579b75d9d3510223a3e145b46}} 
+virtual GET D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 {\bfseries get\+\_\+root\+\_\+param} () const noexcept=0
+\item 
+\mbox{\Hypertarget{class_root_argument_a80f2e87652107a9b6602d032cde2ae08}\label{class_root_argument_a80f2e87652107a9b6602d032cde2ae08}} 
+GET UINT {\bfseries get\+\_\+index} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_root_argument}{Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_root_argument_a0221cdc6d59fe6f866174d28d25eeed2}\label{class_root_argument_a0221cdc6d59fe6f866174d28d25eeed2}} 
+UINT {\bfseries index} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Root constants. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_root_constants_afcb10fd930029aa4707cffd02d921050}\label{class_root_constants_afcb10fd930029aa4707cffd02d921050}} 
+\index{RootConstants@{RootConstants}!clean\_up@{clean\_up}}
+\index{clean\_up@{clean\_up}!RootConstants@{RootConstants}}
+\doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
+{\footnotesize\ttfamily void Root\+Constants\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_root_argument}{Root\+Argument}}.
+
+\mbox{\Hypertarget{class_root_constants_abfe327bee6ce3cfbd8b60a40f4c06e19}\label{class_root_constants_abfe327bee6ce3cfbd8b60a40f4c06e19}} 
+\index{RootConstants@{RootConstants}!get\_root\_param@{get\_root\_param}}
+\index{get\_root\_param@{get\_root\_param}!RootConstants@{RootConstants}}
+\doxysubsubsection{\texorpdfstring{get\_root\_param()}{get\_root\_param()}}
+{\footnotesize\ttfamily D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 Root\+Constants\+::get\+\_\+root\+\_\+param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_root_argument}{Root\+Argument}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+cpp\end{DoxyCompactItemize}

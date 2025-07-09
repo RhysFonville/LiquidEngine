@@ -1,0 +1,56 @@
+.TH "GraphicsPipelineIASetInstancesCommand" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipelineIASetInstancesCommand \- Set instances vector\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineIACommand\&.h>\fP
+.PP
+Inherits \fBGraphicsPipelineIACommand\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsPipelineIASetInstancesCommand\fP (const std::vector< \fBTransform\fP > &instances)"
+.br
+.ti -1c
+.RI "const std::vector< \fBTransform\fP > & \fBget_instances\fP () const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBGraphicsPipelineIACommand\fP
+.in +1c
+.ti -1c
+.RI "\fBGraphicsPipelineIACommand\fP (Type type)"
+.br
+.ti -1c
+.RI "Type \fBget_type\fP () const noexcept"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Types inherited from \fBGraphicsPipelineIACommand\fP
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBAddMesh\fP, \fBRemoveMesh\fP, \fBRemoveAll\fP, \fBSetInstances\fP }"
+.br
+.in -1c
+
+Public Attributes inherited from \fBGraphicsPipelineIACommand\fP
+.in +1c
+.ti -1c
+.RI "Type \fBtype\fP {}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Set instances vector\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

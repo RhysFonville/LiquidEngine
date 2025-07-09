@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,7 +15,7 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .ti -1c
 .RI "class \fBInputAssembler\fP"
 .br
-.RI "Uploads mesh data\&. "
+.RI "Input assembler stage\&. "
 .ti -1c
 .RI "class \fBRasterizer\fP"
 .br
@@ -23,35 +23,41 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .ti -1c
 .RI "class \fBRootSignature\fP"
 .br
-.RI "Uploads data and structures to shaders\&. "
+.RI "Root signature of the pipeline\&. "
+.ti -1c
+.RI "struct \fBShaders\fP"
+.br
 .ti -1c
 .RI "class \fBStreamOutput\fP"
 .br
-.RI "Stream output stage\&. "
+.RI "Stream output of the pipeline\&. "
 .in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
 .RI "void \fBdraw\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_DEPTH_STENCIL_DESC &depth_stencil_desc, const D3D12_BLEND_DESC &blend, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (const \fBGraphicsPipeline\fP &pipeline) const noexcept"
+.RI "void \fBrefresh_pipeline\fP (const ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc)"
 .br
 .ti -1c
-.RI "void \fBoperator=\fP (const \fBGraphicsPipeline\fP &pipeline) noexcept"
+.RI "void \fBcreate_pipeline\fP (const ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &sample_desc, const D3D12_BLEND_DESC &blend_desc)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBGraphicsPipeline\fP &pipeline) const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -61,25 +67,13 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .RI "ComPtr< ID3D12PipelineState > \fBpipeline_state_object\fP = nullptr"
 .br
 .ti -1c
-.RI "std::vector< D3D12_INPUT_ELEMENT_DESC > \fBinput_layout\fP"
+.RI "D3D12_DEPTH_STENCIL_DESC \fBdepth_stencil_desc\fP = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT)"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::InputAssembler\fP \fBinput_assembler\fP"
 .br
 .ti -1c
-.RI "std::string \fBvs\fP {'Graphics/DefaultVertex\&.hlsl'}"
-.br
-.ti -1c
-.RI "std::string \fBhs\fP {}"
-.br
-.ti -1c
-.RI "std::string \fBds\fP {}"
-.br
-.ti -1c
-.RI "std::string \fBgs\fP {}"
-.br
-.ti -1c
-.RI "std::string \fBps\fP {'Graphics/LitPixel\&.hlsl'}"
+.RI "struct \fBGraphicsPipeline::Shaders\fP \fBshaders\fP"
 .br
 .ti -1c
 .RI "class \fBGraphicsPipeline::Rasterizer\fP \fBrasterizer\fP"
@@ -94,19 +88,8 @@ GraphicsPipeline \- D3D12 graphics pipeline wrapper\&.
 .SH "Detailed Description"
 .PP 
 D3D12 graphics pipeline wrapper\&. 
-.SH "Member Data Documentation"
-.PP 
-.SS "std::vector<D3D12_INPUT_ELEMENT_DESC> GraphicsPipeline::input_layout"
-\fBInitial value:\fP.PP
-.nf
-= {
-        { "POSITION",   0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  0,                              D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-        { "TEXCOORD",   0,  DXGI_FORMAT_R32G32_FLOAT,       0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-        { "NORMAL",     0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-        { "TANGENT",    0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
-    }
-.fi
 
+\fCPipeline\fP 
 
 .SH "Author"
 .PP 

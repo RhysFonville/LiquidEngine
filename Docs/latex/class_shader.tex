@@ -7,50 +7,40 @@
 
 
 
-{\ttfamily \#include $<$Shader\+Storage.\+h$>$}
+{\ttfamily \#include $<$Shader\+Compiler.\+h$>$}
 
-\doxysubsection*{Public Types}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_shader_abdbec99e399193b12d229d51566323fd}\label{class_shader_abdbec99e399193b12d229d51566323fd}} 
-enum class {\bfseries Type} \{ \newline
-{\bfseries Vertex}
-, {\bfseries Hull}
-, {\bfseries Domain}
-, {\bfseries Geometry}
-, \newline
-{\bfseries Pixel}
- \}
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_shader_a66256e18d80815f859299fd9fd51dfb8}\label{class_shader_a66256e18d80815f859299fd9fd51dfb8}} 
-{\bfseries Shader} (Type type)
-\item 
-\mbox{\Hypertarget{class_shader_a28871c4474a4ad5062eaf0a43562ed5b}\label{class_shader_a28871c4474a4ad5062eaf0a43562ed5b}} 
-{\bfseries Shader} (Type type, const std\+::string \&file\+\_\+name)
-\item 
-\mbox{\Hypertarget{class_shader_a354ba83fc6b19e53d161290921551498}\label{class_shader_a354ba83fc6b19e53d161290921551498}} 
-void {\bfseries operator=} (const \mbox{\hyperlink{class_shader}{Shader}} \&shader)
+\mbox{\Hypertarget{class_shader_ab9b0cf037abc3999c0896f32c7020f8f}\label{class_shader_ab9b0cf037abc3999c0896f32c7020f8f}} 
+{\bfseries Shader} (const std\+::string \&target, const std\+::string \&file\+\_\+name, std\+::vector$<$ Dxc\+Define $>$ defines=\{\})
 \item 
 \mbox{\Hypertarget{class_shader_a310a3ef2f8fc3c98a9b3d129861dffc9}\label{class_shader_a310a3ef2f8fc3c98a9b3d129861dffc9}} 
 bool {\bfseries operator==} (const std\+::string \&file)
 \item 
-\mbox{\Hypertarget{class_shader_a5be69e48ac2436651ead777bf5fb5c9f}\label{class_shader_a5be69e48ac2436651ead777bf5fb5c9f}} 
-void {\bfseries compile} ()
+\mbox{\Hypertarget{class_shader_a1effd1c4f6feefdd80f526b36f3256de}\label{class_shader_a1effd1c4f6feefdd80f526b36f3256de}} 
+GET std\+::string {\bfseries get\+\_\+target} () const noexcept
 \item 
-\mbox{\Hypertarget{class_shader_a80844b0ef94a029b2f759c74387630e4}\label{class_shader_a80844b0ef94a029b2f759c74387630e4}} 
-GET Type {\bfseries get\+\_\+type} () const noexcept
+\mbox{\Hypertarget{class_shader_af005b4ccd5ca1dc178ba7943b7326abf}\label{class_shader_af005b4ccd5ca1dc178ba7943b7326abf}} 
+GET std\+::string {\bfseries get\+\_\+entrypoint} () const noexcept
 \item 
 \mbox{\Hypertarget{class_shader_aedb7c1b326a0aa09e2e9c77b92d13ba9}\label{class_shader_aedb7c1b326a0aa09e2e9c77b92d13ba9}} 
 GET std\+::string {\bfseries get\+\_\+file} () const noexcept
 \item 
-\mbox{\Hypertarget{class_shader_a99ba67d522cc8f85f0c40a2de5fbe0c0}\label{class_shader_a99ba67d522cc8f85f0c40a2de5fbe0c0}} 
-GET D3\+D12\+\_\+\+SHADER\+\_\+\+BYTECODE {\bfseries get\+\_\+bytecode} () const noexcept
+\mbox{\Hypertarget{class_shader_aefa0e8bb5e99c72686ae4ce6fe358bf5}\label{class_shader_aefa0e8bb5e99c72686ae4ce6fe358bf5}} 
+GET std\+::vector$<$ Dxc\+Define $>$ {\bfseries get\+\_\+defines} () const noexcept
 \item 
-\mbox{\Hypertarget{class_shader_ad39a358d07e82d746160aa5bde2efa05}\label{class_shader_ad39a358d07e82d746160aa5bde2efa05}} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{class_shader}{Shader}} \&shader) const noexcept
+\mbox{\Hypertarget{class_shader_ab671cfafd559b9cee3b5736ffe45b6fa}\label{class_shader_ab671cfafd559b9cee3b5736ffe45b6fa}} 
+GET Com\+Ptr$<$ IDxc\+Result $>$ \& {\bfseries get\+\_\+compile\+\_\+result} () noexcept
+\item 
+\mbox{\Hypertarget{class_shader_af9c19fa6ca31b2688073e57607a8040d}\label{class_shader_af9c19fa6ca31b2688073e57607a8040d}} 
+GET Com\+Ptr$<$ ID3\+D12\+Shader\+Reflection $>$ \& {\bfseries get\+\_\+reflection} () noexcept
+\item 
+\mbox{\Hypertarget{class_shader_ac48dfd754df0a504a1efac35fa9e84be}\label{class_shader_ac48dfd754df0a504a1efac35fa9e84be}} 
+GET Com\+Ptr$<$ IDxc\+Blob $>$ {\bfseries get\+\_\+bytecode\+\_\+blob} () const
+\item 
+\mbox{\Hypertarget{class_shader_a6f0cd16dad1758ef4be14e81e3b06729}\label{class_shader_a6f0cd16dad1758ef4be14e81e3b06729}} 
+GET bool {\bfseries operator==} (const \mbox{\hyperlink{class_shader}{Shader}} \&shader) const noexcept
 \end{DoxyCompactItemize}
 
 
@@ -59,4 +49,4 @@ bool {\bfseries operator==} (const \mbox{\hyperlink{class_shader}{Shader}} \&sha
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Shader\+Storage.\+h\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Shader\+Compiler.\+h\end{DoxyCompactItemize}

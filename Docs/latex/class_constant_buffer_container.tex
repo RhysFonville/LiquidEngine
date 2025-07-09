@@ -1,0 +1,53 @@
+\hypertarget{class_constant_buffer_container}{}\doxysection{Constant\+Buffer\+Container\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{class_constant_buffer_container}\index{ConstantBufferContainer$<$ T $>$@{ConstantBufferContainer$<$ T $>$}}
+
+
+Stores a structure and the constant buffer.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline\+Root\+Argument\+Containers.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_ae03bb6f33b2645cb83f7ff0c50f94835}\label{class_constant_buffer_container_ae03bb6f33b2645cb83f7ff0c50f94835}} 
+{\bfseries Constant\+Buffer\+Container} (const T \&obj)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_a509a051c27a4f37f946bfe78005978d7}\label{class_constant_buffer_container_a509a051c27a4f37f946bfe78005978d7}} 
+void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_aed75933a6f1b63e80f1212ffb971edef}\label{class_constant_buffer_container_aed75933a6f1b63e80f1212ffb971edef}} 
+void {\bfseries update} ()
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_ac750fd920ef38412c688bbbfad961663}\label{class_constant_buffer_container_ac750fd920ef38412c688bbbfad961663}} 
+const std\+::shared\+\_\+ptr$<$ T $>$ \& {\bfseries get\+\_\+obj} () const noexcept
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_a89103414a89504043d8227022aa31bbf}\label{class_constant_buffer_container_a89103414a89504043d8227022aa31bbf}} 
+void {\bfseries set\+\_\+obj\+\_\+ptr} (const T \&\&obj)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_abc68972a330adcf7d849d577717dc794}\label{class_constant_buffer_container_abc68972a330adcf7d849d577717dc794}} 
+void {\bfseries set\+\_\+obj\+\_\+ptr} (T \&obj)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_a499e6dc3d5e7f9c029f4aeb44e314c6a}\label{class_constant_buffer_container_a499e6dc3d5e7f9c029f4aeb44e314c6a}} 
+void {\bfseries set\+\_\+cb} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_constant_buffer}{Constant\+Buffer}} $>$ \&cb)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_container_af637e9d89988fb30a0ce744e88a74fe2}\label{class_constant_buffer_container_af637e9d89988fb30a0ce744e88a74fe2}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_constant_buffer_container}{Constant\+Buffer\+Container}} \&cb) const noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Constant\+Buffer\+Container$<$ T $>$}
+Stores a structure and the constant buffer. 
+
+The structure is the data to be written to the constant buffer. Not required, but useful. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_constant_buffer}{Constant\+Buffer}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Argument\+Containers.\+h\end{DoxyCompactItemize}

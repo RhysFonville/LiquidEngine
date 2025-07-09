@@ -1,0 +1,51 @@
+.TH "RootConstantsContainer< T >" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RootConstantsContainer< T > \- Stores a structure and the root constants\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArgumentContainers\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRootConstantsContainer\fP (const T &obj)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "const std::shared_ptr< T > & \fBget_obj\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_obj_ptr\fP (const T &&obj)"
+.br
+.ti -1c
+.RI "void \fBset_obj_ptr\fP (T &obj)"
+.br
+.ti -1c
+.RI "void \fBset_obj_ptr\fP (const std::shared_ptr< T > &obj)"
+.br
+.ti -1c
+.RI "void \fBset_rc\fP (const std::weak_ptr< \fBRootConstants\fP > &rc)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRootConstantsContainer\fP &rc) const noexcept"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<typename T>
+.br
+class RootConstantsContainer< T >"Stores a structure and the root constants\&. 
+
+The structure is the data to be written to the root constants\&. Not required, but useful\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

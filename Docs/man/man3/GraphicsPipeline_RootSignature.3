@@ -1,176 +1,74 @@
-.TH "GraphicsPipeline::RootSignature" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::RootSignature" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-GraphicsPipeline::RootSignature \- Uploads data and structures to shaders\&.  
+GraphicsPipeline::RootSignature \- Root signature of the pipeline\&.  
 
 .SH SYNOPSIS
 .br
 .PP
 .PP
 \fC#include <GraphicsPipeline\&.h>\fP
-.SS "Classes"
-
-.in +1c
-.ti -1c
-.RI "class \fBConstantBuffer\fP"
-.br
-.RI "Constant buffer\&. "
-.ti -1c
-.RI "class \fBConstantBufferContainer\fP"
-.br
-.RI "Stores a structure and the constant buffer\&. "
-.ti -1c
-.RI "class \fBDescriptorTable\fP"
-.br
-.RI "Descriptor table to describe data to be uploaded\&. "
-.ti -1c
-.RI "class \fBRootArgument\fP"
-.br
-.RI "Root argument to be bound to pipeline\&. "
-.ti -1c
-.RI "class \fBRootConstants\fP"
-.br
-.RI "Root constants\&. "
-.ti -1c
-.RI "class \fBRootConstantsContainer\fP"
-.br
-.RI "Stores a structure and the root constants\&. "
-.ti -1c
-.RI "class \fBShaderResourceView\fP"
-.br
-.RI "\fBShader\fP resource view\&. "
-.in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps, const \fBShaders\fP &shaders)"
+.br
+.ti -1c
+.RI "void \fBcompile_resources\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
+.br
+.ti -1c
+.RI "void \fBbind_shader_resource_parameters\fP (const std::weak_ptr< \fBShader\fP > &s)"
 .br
 .ti -1c
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "void \fBcheck_for_update\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, int frame_index, \fBGraphicsDescriptorHeaps\fP &descriptor_heaps)"
+.RI "void \fBrun\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (const \fBRootSignature\fP &root_signature) const noexcept"
+.RI "void \fBcreate_views\fP (const ComPtr< ID3D12Device > &device, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)"
 .br
 .ti -1c
-.RI "void \fBbind_shader_resource_view\fP (\fBShaderResourceView\fP &srv, D3D12_SHADER_VISIBILITY shader)"
-.br
-.RI "Binds root constants to root signature\&. "
-.ti -1c
-.RI "void \fBbind_root_constants\fP (\fBRootConstants\fP &rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
-.br
-.RI "Binds root constants to root signature\&. "
-.ti -1c
-.RI "template<typename T > void \fBbind_root_constants\fP (\fBRootConstantsContainer\fP< T > &obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=\-1)"
-.br
-.RI "Binds root constants to root signature\&. "
-.ti -1c
-.RI "void \fBbind_constant_buffer\fP (\fBConstantBuffer\fP &cb, D3D12_SHADER_VISIBILITY shader)"
-.br
-.RI "Binds a constant buffer to root signature\&. "
-.ti -1c
-.RI "template<typename T > void \fBbind_constant_buffer\fP (\fBConstantBufferContainer\fP< T > &cb, D3D12_SHADER_VISIBILITY shader)"
-.br
-.RI "Binds a constant buffer to root signature\&. "
-.ti -1c
-.RI "const std::vector< \fBConstantBuffer\fP * > & \fBget_constant_buffers\fP () const noexcept"
+.RI "GET const std::map< std::string, std::shared_ptr< \fBConstantBuffer\fP > > & \fBget_constant_buffers\fP () const noexcept"
 .br
 .ti -1c
-.RI "const std::vector< \fBRootConstants\fP * > & \fBget_root_constants\fP () const noexcept"
+.RI "GET const std::map< std::string, std::shared_ptr< \fBRootConstants\fP > > & \fBget_root_constants\fP () const noexcept"
 .br
 .ti -1c
-.RI "const std::vector< \fBShaderResourceView\fP * > & \fBget_shader_resource_views\fP () const noexcept"
+.RI "GET const std::map< std::string, std::shared_ptr< \fBShaderResourceView\fP > > & \fBget_shader_resource_views\fP () const noexcept"
 .br
 .ti -1c
-.RI "const std::vector< std::shared_ptr< \fBDescriptorTable\fP > > & \fBget_descriptor_tables\fP () const noexcept"
+.RI "GET std::weak_ptr< \fBDescriptorRootObject\fP > \fBget_resource\fP (const std::string &name) const"
 .br
 .ti -1c
-.RI "const std::vector< D3D12_ROOT_PARAMETER > & \fBget_root_params\fP () const noexcept"
+.RI "GET std::weak_ptr< \fBConstantBuffer\fP > \fBget_constant_buffer\fP (const std::string &name) const"
+.br
+.ti -1c
+.RI "GET std::weak_ptr< \fBRootConstants\fP > \fBget_root_constants\fP (const std::string &name) const"
+.br
+.ti -1c
+.RI "GET std::weak_ptr< \fBShaderResourceView\fP > \fBget_shader_resource_view\fP (const std::string &name) const"
+.br
+.ti -1c
+.RI "GET std::vector< D3D12_ROOT_PARAMETER1 > \fBget_root_params\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET size_t \fBget_number_of_params\fP () const noexcept"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
+Root signature of the pipeline\&. 
+
 Uploads data and structures to shaders\&. 
-.SH "Member Function Documentation"
-.PP 
-.SS "void GraphicsPipeline::RootSignature::bind_constant_buffer (\fBConstantBuffer\fP & cb, D3D12_SHADER_VISIBILITY shader)"
-
-.PP
-Binds a constant buffer to root signature\&. 
-.PP
-\fBParameters\fP
-.RS 4
-\fIrc\fP Constant buffer to be bound\&. 
-.br
-\fIshader\fP \fBShader\fP the constant buffer will be used in\&. 
-.RE
-.PP
-
-.SS "template<typename T > void GraphicsPipeline::RootSignature::bind_constant_buffer (\fBConstantBufferContainer\fP< T > & cb, D3D12_SHADER_VISIBILITY shader)\fC [inline]\fP"
-
-.PP
-Binds a constant buffer to root signature\&. Uses the \fBConstantBuffer\fP class from the container to bind\&. 
-.PP
-\fBParameters\fP
-.RS 4
-\fIobj\fP Constant buffer container to bind\&. 
-.br
-\fIshader\fP \fBShader\fP the root constants will be used in\&. 
-.RE
-.PP
-
-.SS "void GraphicsPipeline::RootSignature::bind_root_constants (\fBRootConstants\fP & rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = \fC\-1\fP)\fC [inline]\fP"
-
-.PP
-Binds root constants to root signature\&. 
-.PP
-\fBParameters\fP
-.RS 4
-\fIrc\fP Root constants to be bound\&. 
-.br
-\fIshader\fP \fBShader\fP the root constants will be used in\&. 
-.br
-\fInumber\fP of root constants to bind\&. 
-.RE
-.PP
-
-.SS "template<typename T > void GraphicsPipeline::RootSignature::bind_root_constants (\fBRootConstantsContainer\fP< T > & obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values = \fC\-1\fP)\fC [inline]\fP"
-
-.PP
-Binds root constants to root signature\&. Uses the \fBRootConstants\fP class from the container to bind\&. 
-.PP
-\fBParameters\fP
-.RS 4
-\fIobj\fP Root constants container to bind\&. 
-.br
-\fIshader\fP \fBShader\fP the root constants will be used in\&. 
-.br
-\fInumber\fP of root constants to bind\&. 
-.RE
-.PP
-
-.SS "void GraphicsPipeline::RootSignature::bind_shader_resource_view (\fBShaderResourceView\fP & srv, D3D12_SHADER_VISIBILITY shader)"
-
-.PP
-Binds root constants to root signature\&. Uses the \fBRootConstants\fP class from the container to bind\&. 
-.PP
-\fBParameters\fP
-.RS 4
-\fIobj\fP Root constants container to bind\&. 
-.br
-\fIshader\fP \fBShader\fP the root constants will be used in\&. 
-.br
-\fInumber\fP of root constants to bind\&. 
-.RE
-.PP
-
 
 .SH "Author"
 .PP 

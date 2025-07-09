@@ -1,4 +1,4 @@
-.TH "Material" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Material" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,6 +21,9 @@ Inherits \fBGraphicsTracker\fP\&.
 .RI "\fBMaterial\fP (const std::string &file)"
 .br
 .ti -1c
+.RI "\fBMaterial\fP (const std::string &vs, const std::string &ps, const std::string &data_file='')"
+.br
+.ti -1c
 .RI "void \fBcompile\fP ()"
 .br
 .ti -1c
@@ -33,52 +36,52 @@ Inherits \fBGraphicsTracker\fP\&.
 .RI "void \fBset_data\fP (const \fBMaterial\fP &material)"
 .br
 .ti -1c
-.RI "bool \fBhas_texture\fP () const noexcept"
+.RI "GET bool \fBhas_texture\fP () const noexcept"
 .br
 .ti -1c
-.RI "bool \fBhas_normal_map\fP () const noexcept"
+.RI "GET bool \fBhas_normal_map\fP () const noexcept"
 .br
 .ti -1c
-.RI "bool \fBhas_environment_texture\fP () const noexcept"
-.br
-.ti -1c
-.RI "void \fBoperator=\fP (const \fBMaterial\fP &material) noexcept"
+.RI "GET bool \fBhas_specular_map\fP () const noexcept"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBMaterial\fP &material) const noexcept"
 .br
 .ti -1c
-.RI "\fBTexture\fP & \fBget_albedo_texture\fP ()"
+.RI "GET \fBTexture\fP & \fBget_albedo_texture\fP () noexcept"
 .br
 .ti -1c
-.RI "\fBTexture\fP & \fBget_normal_map\fP ()"
+.RI "GET \fBTexture\fP & \fBget_normal_map\fP () noexcept"
 .br
 .ti -1c
-.RI "\fBTexture\fP & \fBget_environment_texture\fP ()"
+.RI "GET \fBTexture\fP & \fBget_specular_map\fP () noexcept"
 .br
 .ti -1c
-.RI "\fBColor\fP \fBget_albedo\fP () const"
+.RI "GET \fBColor\fP \fBget_albedo\fP () const noexcept"
 .br
 .ti -1c
-.RI "void \fBset_albedo\fP (const \fBColor\fP &albedo)"
+.RI "void \fBset_albedo\fP (const \fBColor\fP &albedo) noexcept"
 .br
 .ti -1c
-.RI "\fBColor\fP \fBget_specular\fP () const"
+.RI "GET \fBColor\fP \fBget_specular\fP () const noexcept"
 .br
 .ti -1c
-.RI "void \fBset_specular\fP (const \fBColor\fP &specular)"
+.RI "void \fBset_specular\fP (const \fBColor\fP &specular) noexcept"
 .br
 .ti -1c
-.RI "\fBColor\fP \fBget_ambient\fP () const"
+.RI "GET \fBColor\fP \fBget_ambient\fP () const noexcept"
 .br
 .ti -1c
-.RI "void \fBset_ambient\fP (const \fBColor\fP &ambient)"
+.RI "void \fBset_ambient\fP (const \fBColor\fP &ambient) noexcept"
 .br
 .ti -1c
-.RI "float \fBget_shininess\fP () const"
+.RI "GET float \fBget_shininess\fP () const noexcept"
 .br
 .ti -1c
-.RI "void \fBset_shininess\fP (float shininess)"
+.RI "void \fBset_shininess\fP (float shininess) noexcept"
+.br
+.ti -1c
+.RI "GET bool \fBis_opaque\fP () const noexcept"
 .br
 .in -1c
 
@@ -89,6 +92,12 @@ Public Member Functions inherited from \fBGraphicsTracker\fP
 .br
 .ti -1c
 .RI "void \fBhas_changed\fP (bool changed) noexcept"
+.br
+.ti -1c
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool compile) noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -105,6 +114,9 @@ Protected Attributes inherited from \fBGraphicsTracker\fP
 .in +1c
 .ti -1c
 .RI "bool \fBchanged\fP {false}"
+.br
+.ti -1c
+.RI "bool \fBcompile\fP {false}"
 .br
 .in -1c
 .SH "Detailed Description"

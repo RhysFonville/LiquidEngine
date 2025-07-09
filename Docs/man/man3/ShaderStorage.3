@@ -1,4 +1,4 @@
-.TH "ShaderStorage" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "ShaderStorage" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -8,7 +8,7 @@ ShaderStorage \- Stores all compiled shaders from graphics pipeline compilation\
 .br
 .PP
 .PP
-\fC#include <ShaderStorage\&.h>\fP
+\fC#include <Storage\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
@@ -19,17 +19,17 @@ ShaderStorage \- Stores all compiled shaders from graphics pipeline compilation\
 .RI "void \fBoperator=\fP (const \fBShaderStorage\fP &)=delete"
 .br
 .ti -1c
-.RI "std::optional< std::reference_wrapper< \fBShader\fP > > \fBget_shader\fP (const std::string &file) noexcept"
+.RI "GET std::optional< std::weak_ptr< \fBShader\fP > > \fBget_shader\fP (const std::string &file) noexcept"
 .br
 .ti -1c
-.RI "void \fBadd_and_compile_shader\fP (Shader::Type type, const std::string &file)"
+.RI "std::weak_ptr< \fBShader\fP > \fBadd_and_compile_shader\fP (const std::string &target, const std::string &file)"
 .br
 .in -1c
 .SS "Static Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "static \fBShaderStorage\fP * \fBget_instance\fP ()"
+.RI "static GET \fBShaderStorage\fP * \fBget_instance\fP ()"
 .br
 .in -1c
 .SH "Detailed Description"

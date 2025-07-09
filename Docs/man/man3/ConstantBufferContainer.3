@@ -1,0 +1,58 @@
+.TH "ConstantBufferContainer< T >" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ConstantBufferContainer< T > \- Stores a structure and the constant buffer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArgumentContainers\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBConstantBufferContainer\fP (const T &obj)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBupdate\fP ()"
+.br
+.ti -1c
+.RI "const std::shared_ptr< T > & \fBget_obj\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_obj_ptr\fP (const T &&obj)"
+.br
+.ti -1c
+.RI "void \fBset_obj_ptr\fP (T &obj)"
+.br
+.ti -1c
+.RI "void \fBset_cb\fP (const std::weak_ptr< \fBConstantBuffer\fP > &cb)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBConstantBufferContainer\fP &cb) const noexcept"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<typename T>
+.br
+class ConstantBufferContainer< T >"Stores a structure and the constant buffer\&. 
+
+The structure is the data to be written to the constant buffer\&. Not required, but useful\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBConstantBuffer\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

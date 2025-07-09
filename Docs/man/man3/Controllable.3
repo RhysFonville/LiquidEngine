@@ -1,4 +1,4 @@
-.TH "Controllable" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Controllable" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,9 @@ Inherited by \fBComponent\fP, and \fBObject\fP\&.
 .RI "virtual void \fBbase_tick\fP (float dt)"
 .br
 .ti -1c
+.RI "virtual void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
 .RI "virtual void \fBpre_scene_compile\fP ()"
 .br
 .ti -1c
@@ -37,6 +40,9 @@ Inherited by \fBComponent\fP, and \fBObject\fP\&.
 .br
 .ti -1c
 .RI "virtual void \fBtick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
 .br
 .in -1c
 .SH "Detailed Description"

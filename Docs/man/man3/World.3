@@ -1,4 +1,4 @@
-.TH "World" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "World" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,9 +13,6 @@ World \- The entire world\&.
 
 .in +1c
 .ti -1c
-.RI "\fBWorld\fP (const std::vector< \fBScene\fP > &scenes)"
-.br
-.ti -1c
 .RI "void \fBcompile\fP ()"
 .br
 .ti -1c
@@ -29,10 +26,10 @@ World \- The entire world\&.
 
 .in +1c
 .ti -1c
-.RI "std::vector< \fBScene\fP >::iterator \fBactive_scene\fP"
+.RI "std::list< \fBScene\fP >::iterator \fBactive_scene\fP"
 .br
 .ti -1c
-.RI "std::vector< \fBScene\fP > \fBscenes\fP"
+.RI "std::list< \fBScene\fP > \fBscenes\fP"
 .br
 .in -1c
 .SH "Detailed Description"

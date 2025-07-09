@@ -1,4 +1,4 @@
-.TH "RenderingCamera" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingCamera" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,7 +18,7 @@ Inherits \fBRenderingComponent< CameraComponent >\fP\&.
 .RI "\fBRenderingCamera\fP (\fBCameraComponent\fP *camera)"
 .br
 .ti -1c
-.RI "bool \fBupdate\fP (\fBUVector2\fP resolution)"
+.RI "bool \fBupdate\fP (const \fBUVector2\fP &resolution)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP ()"
@@ -26,35 +26,44 @@ Inherits \fBRenderingComponent< CameraComponent >\fP\&.
 .ti -1c
 .RI "void \fBclean_up\fP ()"
 .br
-.ti -1c
-.RI "bool \fBoperator==\fP (\fBCameraComponent\fP component)"
-.br
 .in -1c
 
 Public Member Functions inherited from \fBRenderingComponent< CameraComponent >\fP
 .in +1c
 .ti -1c
-.RI "\fBRenderingComponent\fP (T *component)"
+.RI "\fBRenderingComponent\fP (\fBCameraComponent\fP *component)"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (T component)"
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBvalid\fP () const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< VSWVPConstants > \fBwvp_data\fP = VSWVPConstants{}"
+.RI "std::shared_ptr< VSWVPConstants > \fBwvp_data\fP {}"
 .br
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< PSCameraConstants > \fBpos_data\fP = PSCameraConstants{}"
+.RI "std::shared_ptr< PSCameraConstants > \fBpos_data\fP {}"
 .br
 .in -1c
 
 Public Attributes inherited from \fBRenderingComponent< CameraComponent >\fP
 .in +1c
 .ti -1c
-.RI "T * \fBcomponent\fP"
+.RI "\fBCameraComponent\fP * \fBcomponent\fP"
 .br
 .in -1c
 .SH "Detailed Description"

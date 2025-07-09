@@ -87,67 +87,61 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_input_assembler.html">InputAssembler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uploads mesh data.  <a href="class_graphics_pipeline_1_1_input_assembler.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input assembler stage.  <a href="class_graphics_pipeline_1_1_input_assembler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_rasterizer.html">Rasterizer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_graphics_pipeline_1_1_rasterizer.html" title="Rasterizer stage.">Rasterizer</a> stage.  <a href="class_graphics_pipeline_1_1_rasterizer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html">RootSignature</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uploads data and structures to shaders.  <a href="class_graphics_pipeline_1_1_root_signature.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root signature of the pipeline.  <a href="class_graphics_pipeline_1_1_root_signature.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_graphics_pipeline_1_1_shaders.html">Shaders</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_stream_output.html">StreamOutput</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output stage.  <a href="class_graphics_pipeline_1_1_stream_output.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output of the pipeline.  <a href="class_graphics_pipeline_1_1_stream_output.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a23ce7140b76fd6260050a28cf8e6fc92"><td class="memItemLeft" align="right" valign="top"><a id="a23ce7140b76fd6260050a28cf8e6fc92" name="a23ce7140b76fd6260050a28cf8e6fc92"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:a23ce7140b76fd6260050a28cf8e6fc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afad31f1e9d9637fda85ad6f96100966b"><td class="memItemLeft" align="right" valign="top"><a id="afad31f1e9d9637fda85ad6f96100966b" name="afad31f1e9d9637fda85ad6f96100966b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:afad31f1e9d9637fda85ad6f96100966b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a449d267334fdd5f14470094209378308"><td class="memItemLeft" align="right" valign="top"><a id="a449d267334fdd5f14470094209378308" name="a449d267334fdd5f14470094209378308"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a449d267334fdd5f14470094209378308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94f6e231951d690f24d4238f1e4a93d3"><td class="memItemLeft" align="right" valign="top"><a id="a94f6e231951d690f24d4238f1e4a93d3" name="a94f6e231951d690f24d4238f1e4a93d3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a94f6e231951d690f24d4238f1e4a93d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d6301233c876bb4f7315761011b658"><td class="memItemLeft" align="right" valign="top"><a id="a40d6301233c876bb4f7315761011b658" name="a40d6301233c876bb4f7315761011b658"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list)</td></tr>
 <tr class="separator:a40d6301233c876bb4f7315761011b658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bebc16da2e5ee36611df7efcd521793"><td class="memItemLeft" align="right" valign="top"><a id="a4bebc16da2e5ee36611df7efcd521793" name="a4bebc16da2e5ee36611df7efcd521793"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, const DXGI_SAMPLE_DESC &amp;sample_desc, const D3D12_DEPTH_STENCIL_DESC &amp;depth_stencil_desc, const D3D12_BLEND_DESC &amp;blend, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:a4bebc16da2e5ee36611df7efcd521793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acce0fcbae6215823a3f76234914d2974"><td class="memItemLeft" align="right" valign="top"><a id="acce0fcbae6215823a3f76234914d2974" name="acce0fcbae6215823a3f76234914d2974"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, const DXGI_SAMPLE_DESC &amp;sample_desc, const D3D12_BLEND_DESC &amp;blend_desc, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:acce0fcbae6215823a3f76234914d2974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c33a373bb0a25b1992a10d7f565f090"><td class="memItemLeft" align="right" valign="top"><a id="a1c33a373bb0a25b1992a10d7f565f090" name="a1c33a373bb0a25b1992a10d7f565f090"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:a1c33a373bb0a25b1992a10d7f565f090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2493554297b83b9f14a5c3ec49e50cd"><td class="memItemLeft" align="right" valign="top"><a id="aa2493554297b83b9f14a5c3ec49e50cd" name="aa2493554297b83b9f14a5c3ec49e50cd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>refresh_pipeline</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const DXGI_SAMPLE_DESC &amp;sample_desc, const D3D12_BLEND_DESC &amp;blend_desc)</td></tr>
+<tr class="separator:aa2493554297b83b9f14a5c3ec49e50cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c5102abb19d0ee7ba3348d403794d55"><td class="memItemLeft" align="right" valign="top"><a id="a6c5102abb19d0ee7ba3348d403794d55" name="a6c5102abb19d0ee7ba3348d403794d55"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>create_pipeline</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const DXGI_SAMPLE_DESC &amp;sample_desc, const D3D12_BLEND_DESC &amp;blend_desc)</td></tr>
+<tr class="separator:a6c5102abb19d0ee7ba3348d403794d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a640daf217cb9ab471381400e96d442f8"><td class="memItemLeft" align="right" valign="top"><a id="a640daf217cb9ab471381400e96d442f8" name="a640daf217cb9ab471381400e96d442f8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline.html">GraphicsPipeline</a> &amp;pipeline) const noexcept</td></tr>
 <tr class="separator:a640daf217cb9ab471381400e96d442f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdedc322d3c5a5b27db400275b127040"><td class="memItemLeft" align="right" valign="top"><a id="abdedc322d3c5a5b27db400275b127040" name="abdedc322d3c5a5b27db400275b127040"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_graphics_pipeline.html">GraphicsPipeline</a> &amp;pipeline) noexcept</td></tr>
-<tr class="separator:abdedc322d3c5a5b27db400275b127040"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:acd00f303f9b9b63addca1ad323fec5a5"><td class="memItemLeft" align="right" valign="top"><a id="acd00f303f9b9b63addca1ad323fec5a5" name="acd00f303f9b9b63addca1ad323fec5a5"></a>
 ComPtr&lt; ID3D12PipelineState &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pipeline_state_object</b> = nullptr</td></tr>
 <tr class="separator:acd00f303f9b9b63addca1ad323fec5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12ebafb32ae067ea5d247a6db48194b7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; D3D12_INPUT_ELEMENT_DESC &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline.html#a12ebafb32ae067ea5d247a6db48194b7">input_layout</a></td></tr>
-<tr class="separator:a12ebafb32ae067ea5d247a6db48194b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ea1c78dc6b9a17b94728bd450658f7"><td class="memItemLeft" align="right" valign="top"><a id="a10ea1c78dc6b9a17b94728bd450658f7" name="a10ea1c78dc6b9a17b94728bd450658f7"></a>
+D3D12_DEPTH_STENCIL_DESC&#160;</td><td class="memItemRight" valign="bottom"><b>depth_stencil_desc</b> = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT)</td></tr>
+<tr class="separator:a10ea1c78dc6b9a17b94728bd450658f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8273c355b50af09b2e22a37c1e497a34"><td class="memItemLeft" align="right" valign="top"><a id="a8273c355b50af09b2e22a37c1e497a34" name="a8273c355b50af09b2e22a37c1e497a34"></a>
 class <a class="el" href="class_graphics_pipeline_1_1_input_assembler.html">GraphicsPipeline::InputAssembler</a>&#160;</td><td class="memItemRight" valign="bottom"><b>input_assembler</b></td></tr>
 <tr class="separator:a8273c355b50af09b2e22a37c1e497a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d06388604b49287ba1059157475d520"><td class="memItemLeft" align="right" valign="top"><a id="a9d06388604b49287ba1059157475d520" name="a9d06388604b49287ba1059157475d520"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>vs</b> {&quot;Graphics/DefaultVertex.hlsl&quot;}</td></tr>
-<tr class="separator:a9d06388604b49287ba1059157475d520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e6a76104f83fbcc3be6322b83deb6c0"><td class="memItemLeft" align="right" valign="top"><a id="a2e6a76104f83fbcc3be6322b83deb6c0" name="a2e6a76104f83fbcc3be6322b83deb6c0"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>hs</b> {}</td></tr>
-<tr class="separator:a2e6a76104f83fbcc3be6322b83deb6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aace5c0ff3fb8181bccef83072db4a5e5"><td class="memItemLeft" align="right" valign="top"><a id="aace5c0ff3fb8181bccef83072db4a5e5" name="aace5c0ff3fb8181bccef83072db4a5e5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ds</b> {}</td></tr>
-<tr class="separator:aace5c0ff3fb8181bccef83072db4a5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c19b9017a39e3ac37515017cc38dc93"><td class="memItemLeft" align="right" valign="top"><a id="a2c19b9017a39e3ac37515017cc38dc93" name="a2c19b9017a39e3ac37515017cc38dc93"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>gs</b> {}</td></tr>
-<tr class="separator:a2c19b9017a39e3ac37515017cc38dc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10348d951c0467d7ba94a3c3952fc490"><td class="memItemLeft" align="right" valign="top"><a id="a10348d951c0467d7ba94a3c3952fc490" name="a10348d951c0467d7ba94a3c3952fc490"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ps</b> {&quot;Graphics/LitPixel.hlsl&quot;}</td></tr>
-<tr class="separator:a10348d951c0467d7ba94a3c3952fc490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a131145257745e7c48039070e466e04f9"><td class="memItemLeft" align="right" valign="top"><a id="a131145257745e7c48039070e466e04f9" name="a131145257745e7c48039070e466e04f9"></a>
+struct <a class="el" href="struct_graphics_pipeline_1_1_shaders.html">GraphicsPipeline::Shaders</a>&#160;</td><td class="memItemRight" valign="bottom"><b>shaders</b></td></tr>
+<tr class="separator:a131145257745e7c48039070e466e04f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4936f8342baf28d4d37f683d61588379"><td class="memItemLeft" align="right" valign="top"><a id="a4936f8342baf28d4d37f683d61588379" name="a4936f8342baf28d4d37f683d61588379"></a>
 class <a class="el" href="class_graphics_pipeline_1_1_rasterizer.html">GraphicsPipeline::Rasterizer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rasterizer</b></td></tr>
 <tr class="separator:a4936f8342baf28d4d37f683d61588379"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,30 +154,10 @@ class <a class="el" href="class_graphics_pipeline_1_1_root_signature.html">Graph
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>D3D12 graphics pipeline wrapper. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a12ebafb32ae067ea5d247a6db48194b7" name="a12ebafb32ae067ea5d247a6db48194b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12ebafb32ae067ea5d247a6db48194b7">&#9670;&#160;</a></span>input_layout</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;D3D12_INPUT_ELEMENT_DESC&gt; GraphicsPipeline::input_layout</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">        { <span class="stringliteral">&quot;POSITION&quot;</span>,   0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  0,                              D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },</div>
-<div class="line">        { <span class="stringliteral">&quot;TEXCOORD&quot;</span>,   0,  DXGI_FORMAT_R32G32_FLOAT,       0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },</div>
-<div class="line">        { <span class="stringliteral">&quot;NORMAL&quot;</span>,     0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },</div>
-<div class="line">        { <span class="stringliteral">&quot;TANGENT&quot;</span>,    0,  DXGI_FORMAT_R32G32B32_FLOAT,    0,  D3D12_APPEND_ALIGNED_ELEMENT,   D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }</div>
-<div class="line">    }</div>
-</div><!-- fragment -->
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipeline.cpp</li>
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12">Pipeline</a> </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipeline.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

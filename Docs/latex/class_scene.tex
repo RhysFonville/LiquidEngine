@@ -24,26 +24,32 @@ void {\bfseries clean\+\_\+up} ()
 \mbox{\Hypertarget{class_scene_a614c3b2be3acf93f0014ffd68dd38aec}\label{class_scene_a614c3b2be3acf93f0014ffd68dd38aec}} 
 void {\bfseries compile} ()
 \item 
-\mbox{\Hypertarget{class_scene_a609eabf0d601cf78ac8c34756da4f6d1}\label{class_scene_a609eabf0d601cf78ac8c34756da4f6d1}} 
-GET std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_object}{Object}} $>$ $>$ \& {\bfseries get\+\_\+objects} () noexcept
+\mbox{\Hypertarget{class_scene_affb8e923ea0393dd40c5ab0f7af29955}\label{class_scene_affb8e923ea0393dd40c5ab0f7af29955}} 
+GET std\+::set$<$ \mbox{\hyperlink{class_object}{Object}} $\ast$ $>$ {\bfseries get\+\_\+objects} () const noexcept
 \item 
-\mbox{\Hypertarget{class_scene_a59d40d7c51fb31ab0929abba323f2a37}\label{class_scene_a59d40d7c51fb31ab0929abba323f2a37}} 
-void {\bfseries add\+\_\+object} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_object}{Object}} $>$ \&object) noexcept
+\mbox{\Hypertarget{class_scene_adc331f69b7a4c21df4302bc4f741343c}\label{class_scene_adc331f69b7a4c21df4302bc4f741343c}} 
+\mbox{\hyperlink{class_object}{Object}} $\ast$ {\bfseries add\+\_\+object} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_object}{Object}} $>$ \&\&object)
 \item 
-\mbox{\Hypertarget{class_scene_a5d2a7baeeb5216e288360d40c07dd31b}\label{class_scene_a5d2a7baeeb5216e288360d40c07dd31b}} 
-void {\bfseries add\+\_\+character} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_character}{Character}} $>$ \&character) noexcept
+\mbox{\Hypertarget{class_scene_ab084dbb2c335e15980edacc56cef1363}\label{class_scene_ab084dbb2c335e15980edacc56cef1363}} 
+\mbox{\hyperlink{class_character}{Character}} $\ast$ {\bfseries add\+\_\+character} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_character}{Character}} $>$ \&\&character)
 \item 
-\mbox{\Hypertarget{class_scene_a76b8ecc1e732a08a8502cf5e2a9ed462}\label{class_scene_a76b8ecc1e732a08a8502cf5e2a9ed462}} 
-void {\bfseries remove\+\_\+object} (int index) noexcept
+\mbox{\Hypertarget{class_scene_a8d46c321994cd6db12df3677512453f2}\label{class_scene_a8d46c321994cd6db12df3677512453f2}} 
+void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_scene_a3ec8f91b0bbc7d8da9514792a80460c6}\label{class_scene_a3ec8f91b0bbc7d8da9514792a80460c6}} 
-\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} $\ast$ {\bfseries graphics\+\_\+scene} = nullptr
+\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} $\ast$ {\bfseries graphics\+\_\+scene} \{nullptr\}
 \item 
 \mbox{\Hypertarget{class_scene_a854fe943fb2777d1cd39772b91b76278}\label{class_scene_a854fe943fb2777d1cd39772b91b76278}} 
 \mbox{\hyperlink{class_input_1_1_input_listener}{Input\+::\+Input\+Listener}} {\bfseries input\+\_\+listener}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_scene_a0720b5f434e636e22a3ed34f847eec57}\label{class_scene_a0720b5f434e636e22a3ed34f847eec57}} 
+class {\bfseries Object}
 \end{DoxyCompactItemize}
 
 
@@ -57,5 +63,5 @@ void {\bfseries remove\+\_\+object} (int index) noexcept
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Scene.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Scene.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Core/Scene.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Core/Scene.\+cpp\end{DoxyCompactItemize}

@@ -1,8 +1,8 @@
-.TH "RenderingSky" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingSky" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-RenderingSky \- Graphics-side sky\&.  
+RenderingSky \- Graphics-side texture\&.  
 
 .SH SYNOPSIS
 .br
@@ -21,53 +21,65 @@ Inherits \fBRenderingComponent< SkyComponent >\fP\&.
 .RI "bool \fBupdate\fP (const \fBRenderingCamera\fP &camera)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP ()"
+.RI "void \fBcompile\fP (\fBRenderingCamera\fP &camera)"
+.br
+.ti -1c
+.RI "void \fBset_resources\fP (\fBRenderingCamera\fP &camera)"
 .br
 .ti -1c
 .RI "void \fBclean_up\fP ()"
-.br
-.ti -1c
-.RI "bool \fBoperator==\fP (\fBSkyComponent\fP component)"
 .br
 .in -1c
 
 Public Member Functions inherited from \fBRenderingComponent< SkyComponent >\fP
 .in +1c
 .ti -1c
-.RI "\fBRenderingComponent\fP (T *component)"
+.RI "\fBRenderingComponent\fP (\fBSkyComponent\fP *component)"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (T component)"
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBvalid\fP () const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "\fBRenderingTexture\fP \fBtexture\fP {}"
+.RI "\fBShaderResourceViewContainer\fP \fBtexture\fP {}"
 .br
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< VSWVPConstants > \fBwvp_data\fP = VSWVPConstants{}"
+.RI "\fBRootConstantsContainer\fP< VSTransformConstants > \fBtransform_data\fP {}"
 .br
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::RootConstantsContainer\fP< VSTransformConstants > \fBtransform_data\fP = VSTransformConstants{}"
+.RI "\fBConstantBufferContainer\fP< PSSkyCB > \fBdata\fP {}"
 .br
 .ti -1c
-.RI "\fBGraphicsPipeline::RootSignature::ConstantBufferContainer\fP< PSSkyCB > \fBdata\fP = PSSkyCB{}"
+.RI "\fBRootConstantsContainer\fP< VSWVPConstants > \fBwvp_data\fP {}"
 .br
 .in -1c
 
 Public Attributes inherited from \fBRenderingComponent< SkyComponent >\fP
 .in +1c
 .ti -1c
-.RI "T * \fBcomponent\fP"
+.RI "\fBSkyComponent\fP * \fBcomponent\fP"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
+Graphics-side texture\&. 
+
 Graphics-side sky\&. 
-
-
 .PP
 \fBSee also\fP
 .RS 4

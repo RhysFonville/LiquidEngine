@@ -2,7 +2,7 @@
 \label{class_graphics_pipeline_1_1_input_assembler}\index{GraphicsPipeline::InputAssembler@{GraphicsPipeline::InputAssembler}}
 
 
-Uploads mesh data.  
+Input assembler stage.  
 
 
 
@@ -11,6 +11,12 @@ Uploads mesh data.
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a491e55754b1ea22f98f8f626a0fd9f57}\label{class_graphics_pipeline_1_1_input_assembler_a491e55754b1ea22f98f8f626a0fd9f57}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Input\+Assembler}} \&input\+\_\+assembler) const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a85cb123f12b4c530dc76803db2e44aa8}\label{class_graphics_pipeline_1_1_input_assembler_a85cb123f12b4c530dc76803db2e44aa8}} 
+void {\bfseries compile} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ \&vs)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a20c8a71407465813a76e87bc6d4fe807}\label{class_graphics_pipeline_1_1_input_assembler_a20c8a71407465813a76e87bc6d4fe807}} 
 void {\bfseries add\+\_\+mesh} (const \mbox{\hyperlink{class_mesh}{Mesh}} \&mesh, const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, size\+\_\+t index=-\/1)
@@ -27,31 +33,46 @@ void {\bfseries check\+\_\+for\+\_\+update} (const Com\+Ptr$<$ ID3\+D12\+Device 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a772cd6dbc514001b7d8e2fc7b200bfa0}\label{class_graphics_pipeline_1_1_input_assembler_a772cd6dbc514001b7d8e2fc7b200bfa0}} 
 void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
 \item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a940d23b1fd889946b35be65c9bad6808}\label{class_graphics_pipeline_1_1_input_assembler_a940d23b1fd889946b35be65c9bad6808}} 
+void {\bfseries draw\+\_\+meshes} (const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
+\item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a70d0f9a797593a3516023bb8a734f554}\label{class_graphics_pipeline_1_1_input_assembler_a70d0f9a797593a3516023bb8a734f554}} 
 void {\bfseries clean\+\_\+up} ()
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a207a5aac73bba3d44f09ebd2f90ecfc6}\label{class_graphics_pipeline_1_1_input_assembler_a207a5aac73bba3d44f09ebd2f90ecfc6}} 
-void {\bfseries set\+\_\+proxy} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_graphics_pipeline_mesh_change_1_1_manager}{Graphics\+Pipeline\+Mesh\+Change\+::\+Manager}} $>$ \&change\+\_\+manager)
-\item 
 \mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a513836038777a4d658a179b6a157d123}\label{class_graphics_pipeline_1_1_input_assembler_a513836038777a4d658a179b6a157d123}} 
-const std\+::vector$<$ D3\+D12\+\_\+\+VERTEX\+\_\+\+BUFFER\+\_\+\+VIEW $>$ \& {\bfseries get\+\_\+vertex\+\_\+buffer\+\_\+views} () const noexcept
+GET const std\+::vector$<$ D3\+D12\+\_\+\+VERTEX\+\_\+\+BUFFER\+\_\+\+VIEW $>$ \& {\bfseries get\+\_\+vertex\+\_\+buffer\+\_\+views} () const noexcept
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a491e55754b1ea22f98f8f626a0fd9f57}\label{class_graphics_pipeline_1_1_input_assembler_a491e55754b1ea22f98f8f626a0fd9f57}} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Input\+Assembler}} \&input\+\_\+assembler) const noexcept
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_af0f167c11c7ecce416e40de3159b384b}\label{class_graphics_pipeline_1_1_input_assembler_af0f167c11c7ecce416e40de3159b384b}} 
+void {\bfseries set\+\_\+vertex\+\_\+buffer\+\_\+view\+\_\+to\+\_\+draw} (size\+\_\+t index) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_af37c14fdae68552fcb75e78e0dc0813b}\label{class_graphics_pipeline_1_1_input_assembler_af37c14fdae68552fcb75e78e0dc0813b}} 
+void {\bfseries clear\+\_\+commands} () noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_ac8e659e55261b82b58783649061c5493}\label{class_graphics_pipeline_1_1_input_assembler_ac8e659e55261b82b58783649061c5493}} 
+void {\bfseries add\+\_\+command} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{Graphics\+Pipeline\+IACommand}} $>$ \&\&command) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_ae2813fac77a0cd2ad9e27119b51610e2}\label{class_graphics_pipeline_1_1_input_assembler_ae2813fac77a0cd2ad9e27119b51610e2}} 
+const std\+::vector$<$ D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \& {\bfseries get\+\_\+input\+\_\+layout} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_ab470ba0fa6424e409303f201f138e428}\label{class_graphics_pipeline_1_1_input_assembler_ab470ba0fa6424e409303f201f138e428}} 
+void {\bfseries set\+\_\+input\+\_\+layout} (const std\+::vector$<$ D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \&layout) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_1_1_input_assembler_a3ccbf474076a5b7e61566ae86e36e9e4}\label{class_graphics_pipeline_1_1_input_assembler_a3ccbf474076a5b7e61566ae86e36e9e4}} 
+D3\+D12\+\_\+\+INPUT\+\_\+\+LAYOUT\+\_\+\+DESC {\bfseries get\+\_\+input\+\_\+layout\+\_\+desc} () const noexcept
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Uploads mesh data. 
+Input assembler stage. 
 
 \begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{class_mesh}{Mesh}} 
 
-\mbox{\hyperlink{class_graphics_pipeline_mesh_change_1_1_manager}{Graphics\+Pipeline\+Mesh\+Change\+::\+Manager}} 
+\mbox{\hyperlink{struct_graphics_pipeline_i_a_command}{Graphics\+Pipeline\+IACommand}} 
 \end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/\+Stages/Input\+Assembler.\+cpp\end{DoxyCompactItemize}

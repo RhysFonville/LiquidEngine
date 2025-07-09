@@ -1,0 +1,30 @@
+\hypertarget{_collision_handler_8h_source}{}\doxysection{Collision\+Handler.\+h}
+\label{_collision_handler_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/CollisionHandler.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/CollisionHandler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Components/PhysicalComponent.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_overlap_event_info}{OverlapEventInfo}}\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{bool}\ overlapped\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00007\ \ \ \ \ }
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_overlap_event_info_1_1_overlap_info}{OverlapInfo}}\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ point\_of\_overlap\{\};}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ axis\_overlap\{\};}
+\DoxyCodeLine{00011\ \ \ \ \ \}\ overlap\_info;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_overlap_event_info_1_1_overlap_event_object}{OverlapEventObject}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_physical_component}{PhysicalComponent}}*\ component\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00015\ \ \ \ \ \};}
+\DoxyCodeLine{00016\ \ \ \ \ std::pair<OverlapEventObject,\ OverlapEventObject>\ objects\{std::make\_pair(\mbox{\hyperlink{struct_overlap_event_info_1_1_overlap_event_object}{OverlapEventObject}}\{\},\ OverlapEventObject\{\})\};}
+\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_collision_handler}{CollisionHandler}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_collision_handler}{CollisionHandler}}()\ \{\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ handle\_collision(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_overlap_event_info}{OverlapEventInfo}}\ \&info)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00024\ \};}
+
+\end{DoxyCode}

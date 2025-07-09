@@ -1,0 +1,40 @@
+.TH "GraphicsResourceDescriptorHeap" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsResourceDescriptorHeap
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12DescriptorHeap > & \fBget\fP ()"
+.br
+.ti -1c
+.RI "GET UINT \fBget_open_heap_index\fP ()"
+.br
+.ti -1c
+.RI "void \fBcreate_cbv\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12Resource > &upload_buffer, size_t obj_size, UINT heap_index)"
+.br
+.ti -1c
+.RI "void \fBcreate_srv\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12Resource > &default_buffer, D3D12_SHADER_RESOURCE_VIEW_DESC srv_desc, UINT heap_index)"
+.br
+.ti -1c
+.RI "void \fBremove_descriptor\fP (UINT heap_index)"
+.br
+.ti -1c
+.RI "void \fBreserve_descriptor_index\fP (UINT heap_index)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

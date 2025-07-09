@@ -1,0 +1,32 @@
+\hypertarget{class_shader_compiler}{}\doxysection{Shader\+Compiler Class Reference}
+\label{class_shader_compiler}\index{ShaderCompiler@{ShaderCompiler}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_compiler_a95acb350096ce46948085e24c69c9265}\label{class_shader_compiler_a95acb350096ce46948085e24c69c9265}} 
+{\bfseries Shader\+Compiler} (\mbox{\hyperlink{class_shader_compiler}{Shader\+Compiler}} \&other)=delete
+\item 
+\mbox{\Hypertarget{class_shader_compiler_a03f5c4531ca9858c9d35c37c147643c3}\label{class_shader_compiler_a03f5c4531ca9858c9d35c37c147643c3}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_shader_compiler}{Shader\+Compiler}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_shader_compiler_aece1bba87212b71f9b947a121bcf7dcc}\label{class_shader_compiler_aece1bba87212b71f9b947a121bcf7dcc}} 
+Com\+Ptr$<$ IDxc\+Result $>$ {\bfseries compile} (const std\+::wstring \&file, const std\+::wstring \&entrypoint, const std\+::wstring \&target, const std\+::vector$<$ Dxc\+Define $>$ \&defines=\{\}, const std\+::vector$<$ LPCWSTR $>$ \&additional\+\_\+params=\{\})
+\item 
+\mbox{\Hypertarget{class_shader_compiler_a2e83687be083c008f55b8b6145999393}\label{class_shader_compiler_a2e83687be083c008f55b8b6145999393}} 
+Com\+Ptr$<$ ID3\+D12\+Shader\+Reflection $>$ {\bfseries get\+\_\+shader\+\_\+reflection} (const Com\+Ptr$<$ IDxc\+Result $>$ \&result)
+\item 
+\mbox{\Hypertarget{class_shader_compiler_a44de16d00e3c90a151a9a98919b2a10c}\label{class_shader_compiler_a44de16d00e3c90a151a9a98919b2a10c}} 
+void {\bfseries compile} (\mbox{\hyperlink{class_shader}{Shader}} \&shader)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_compiler_a729c86335cc88f9a69fbdb186f62c62a}\label{class_shader_compiler_a729c86335cc88f9a69fbdb186f62c62a}} 
+static GET \mbox{\hyperlink{class_shader_compiler}{Shader\+Compiler}} $\ast$ {\bfseries get\+\_\+instance} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Shader\+Compiler.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Shader\+Compiler.\+cpp\end{DoxyCompactItemize}

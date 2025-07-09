@@ -1,0 +1,80 @@
+.TH "RootConstants" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RootConstants \- Root constants\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArguments\&.h>\fP
+.PP
+Inherits \fBRootArgument\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRootConstants\fP (D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_SHADER_BUFFER_DESC buffer_desc, UINT param_index)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBset_obj\fP (T *obj)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "D3D12_ROOT_PARAMETER1 \fBget_root_param\fP () const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBRootConstants\fP &rc) const noexcept"
+.br
+.ti -1c
+.RI "GET const D3D12_ROOT_CONSTANTS & \fBget_constants\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_constants\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBRootArgument\fP
+.in +1c
+.ti -1c
+.RI "\fBRootArgument\fP (UINT index)"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()=0"
+.br
+.ti -1c
+.RI "virtual GET D3D12_ROOT_PARAMETER1 \fBget_root_param\fP () const noexcept=0"
+.br
+.ti -1c
+.RI "GET UINT \fBget_index\fP () const noexcept"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Attributes inherited from \fBRootArgument\fP
+.in +1c
+.ti -1c
+.RI "UINT \fBindex\fP {}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Root constants\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void RootConstants::clean_up ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBRootArgument\fP\&.
+.SS "D3D12_ROOT_PARAMETER1 RootConstants::get_root_param () const\fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Implements \fBRootArgument\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

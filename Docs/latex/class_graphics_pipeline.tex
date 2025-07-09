@@ -13,36 +13,41 @@ D3\+D12 graphics pipeline wrapper.
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Input\+Assembler}}
-\begin{DoxyCompactList}\small\item\em Uploads mesh data. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Input assembler stage. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}}
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Rasterizer}} stage. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Root\+Signature}}
-\begin{DoxyCompactList}\small\item\em Uploads data and structures to shaders. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Root signature of the pipeline. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_graphics_pipeline_1_1_shaders}{Shaders}}
+\item 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_stream_output}{Stream\+Output}}
-\begin{DoxyCompactList}\small\item\em Stream output stage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stream output of the pipeline. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a23ce7140b76fd6260050a28cf8e6fc92}\label{class_graphics_pipeline_a23ce7140b76fd6260050a28cf8e6fc92}} 
-void {\bfseries check\+\_\+for\+\_\+update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
+\mbox{\Hypertarget{class_graphics_pipeline_a449d267334fdd5f14470094209378308}\label{class_graphics_pipeline_a449d267334fdd5f14470094209378308}} 
+void {\bfseries check\+\_\+for\+\_\+update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_afad31f1e9d9637fda85ad6f96100966b}\label{class_graphics_pipeline_afad31f1e9d9637fda85ad6f96100966b}} 
-void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, int frame\+\_\+index, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
+\mbox{\Hypertarget{class_graphics_pipeline_a94f6e231951d690f24d4238f1e4a93d3}\label{class_graphics_pipeline_a94f6e231951d690f24d4238f1e4a93d3}} 
+void {\bfseries run} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a40d6301233c876bb4f7315761011b658}\label{class_graphics_pipeline_a40d6301233c876bb4f7315761011b658}} 
 void {\bfseries draw} (const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a4bebc16da2e5ee36611df7efcd521793}\label{class_graphics_pipeline_a4bebc16da2e5ee36611df7efcd521793}} 
-void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC \&depth\+\_\+stencil\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend, \mbox{\hyperlink{class_graphics_descriptor_heaps}{Graphics\+Descriptor\+Heaps}} \&descriptor\+\_\+heaps)
+\mbox{\Hypertarget{class_graphics_pipeline_acce0fcbae6215823a3f76234914d2974}\label{class_graphics_pipeline_acce0fcbae6215823a3f76234914d2974}} 
+void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend\+\_\+desc, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}\label{class_graphics_pipeline_a1c33a373bb0a25b1992a10d7f565f090}} 
 void {\bfseries clean\+\_\+up} ()
 \item 
+\mbox{\Hypertarget{class_graphics_pipeline_aa2493554297b83b9f14a5c3ec49e50cd}\label{class_graphics_pipeline_aa2493554297b83b9f14a5c3ec49e50cd}} 
+void {\bfseries refresh\+\_\+pipeline} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend\+\_\+desc)
+\item 
+\mbox{\Hypertarget{class_graphics_pipeline_a6c5102abb19d0ee7ba3348d403794d55}\label{class_graphics_pipeline_a6c5102abb19d0ee7ba3348d403794d55}} 
+void {\bfseries create\+\_\+pipeline} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&sample\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend\+\_\+desc)
+\item 
 \mbox{\Hypertarget{class_graphics_pipeline_a640daf217cb9ab471381400e96d442f8}\label{class_graphics_pipeline_a640daf217cb9ab471381400e96d442f8}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_graphics_pipeline}{Graphics\+Pipeline}} \&pipeline) const noexcept
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_abdedc322d3c5a5b27db400275b127040}\label{class_graphics_pipeline_abdedc322d3c5a5b27db400275b127040}} 
-void {\bfseries operator=} (const \mbox{\hyperlink{class_graphics_pipeline}{Graphics\+Pipeline}} \&pipeline) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -50,25 +55,14 @@ void {\bfseries operator=} (const \mbox{\hyperlink{class_graphics_pipeline}{Grap
 \mbox{\Hypertarget{class_graphics_pipeline_acd00f303f9b9b63addca1ad323fec5a5}\label{class_graphics_pipeline_acd00f303f9b9b63addca1ad323fec5a5}} 
 Com\+Ptr$<$ ID3\+D12\+Pipeline\+State $>$ {\bfseries pipeline\+\_\+state\+\_\+object} = nullptr
 \item 
-std\+::vector$<$ D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \mbox{\hyperlink{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}{input\+\_\+layout}}
+\mbox{\Hypertarget{class_graphics_pipeline_a10ea1c78dc6b9a17b94728bd450658f7}\label{class_graphics_pipeline_a10ea1c78dc6b9a17b94728bd450658f7}} 
+D3\+D12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC {\bfseries depth\+\_\+stencil\+\_\+desc} = CD3\+DX12\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+DESC(D3\+D12\+\_\+\+DEFAULT)
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}\label{class_graphics_pipeline_a8273c355b50af09b2e22a37c1e497a34}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_input_assembler}{Graphics\+Pipeline\+::\+Input\+Assembler}} {\bfseries input\+\_\+assembler}
 \item 
-\mbox{\Hypertarget{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}\label{class_graphics_pipeline_a9d06388604b49287ba1059157475d520}} 
-std\+::string {\bfseries vs} \{\char`\"{}Graphics/Default\+Vertex.\+hlsl\char`\"{}\}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}\label{class_graphics_pipeline_a2e6a76104f83fbcc3be6322b83deb6c0}} 
-std\+::string {\bfseries hs} \{\}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_aace5c0ff3fb8181bccef83072db4a5e5}\label{class_graphics_pipeline_aace5c0ff3fb8181bccef83072db4a5e5}} 
-std\+::string {\bfseries ds} \{\}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_a2c19b9017a39e3ac37515017cc38dc93}\label{class_graphics_pipeline_a2c19b9017a39e3ac37515017cc38dc93}} 
-std\+::string {\bfseries gs} \{\}
-\item 
-\mbox{\Hypertarget{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}\label{class_graphics_pipeline_a10348d951c0467d7ba94a3c3952fc490}} 
-std\+::string {\bfseries ps} \{\char`\"{}Graphics/Lit\+Pixel.\+hlsl\char`\"{}\}
+\mbox{\Hypertarget{class_graphics_pipeline_a131145257745e7c48039070e466e04f9}\label{class_graphics_pipeline_a131145257745e7c48039070e466e04f9}} 
+struct \mbox{\hyperlink{struct_graphics_pipeline_1_1_shaders}{Graphics\+Pipeline\+::\+Shaders}} {\bfseries shaders}
 \item 
 \mbox{\Hypertarget{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}\label{class_graphics_pipeline_a4936f8342baf28d4d37f683d61588379}} 
 class \mbox{\hyperlink{class_graphics_pipeline_1_1_rasterizer}{Graphics\+Pipeline\+::\+Rasterizer}} {\bfseries rasterizer}
@@ -84,26 +78,9 @@ class \mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature}{Graphics\+Pip
 \doxysubsection{Detailed Description}
 D3\+D12 graphics pipeline wrapper. 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}\label{class_graphics_pipeline_a12ebafb32ae067ea5d247a6db48194b7}} 
-\index{GraphicsPipeline@{GraphicsPipeline}!input\_layout@{input\_layout}}
-\index{input\_layout@{input\_layout}!GraphicsPipeline@{GraphicsPipeline}}
-\doxysubsubsection{\texorpdfstring{input\_layout}{input\_layout}}
-{\footnotesize\ttfamily std\+::vector$<$D3\+D12\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC$>$ Graphics\+Pipeline\+::input\+\_\+layout}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{=\ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}POSITION"{}},\ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}TEXCOORD"{}},\ \ \ 0,\ \ DXGI\_FORMAT\_R32G32\_FLOAT,\ \ \ \ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}NORMAL"{}},\ \ \ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}TANGENT"{}},\ \ \ \ 0,\ \ DXGI\_FORMAT\_R32G32B32\_FLOAT,\ \ \ \ 0,\ \ D3D12\_APPEND\_ALIGNED\_ELEMENT,\ \ \ D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,\ 0\ \}}
-\DoxyCodeLine{\ \ \ \ \}}
-
-\end{DoxyCode}
-
+\href{https://learn.microsoft.com/en-us/windows/win32/direct3d12/pipelines-and-shaders-with-directx-12}{\texttt{ Pipeline}} 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline.\+cpp\end{DoxyCompactItemize}

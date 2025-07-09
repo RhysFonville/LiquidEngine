@@ -1,0 +1,216 @@
+.TH "MyShaderCube" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MyShaderCube
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBObject\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBpre_scene_compile\fP () override"
+.br
+.ti -1c
+.RI "void \fBpost_scene_compile\fP () override"
+.br
+.ti -1c
+.RI "void \fBtick\fP (float dt) override"
+.br
+.ti -1c
+.RI "void \fBrender_editor_gui_section\fP () override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBObject\fP
+.in +1c
+.ti -1c
+.RI "\fBObject\fP (const \fBObject\fP &)=delete"
+.br
+.ti -1c
+.RI "void \fBclean_components\fP ()"
+.br
+.ti -1c
+.RI "void \fBbase_clean_up\fP () override"
+.br
+.ti -1c
+.RI "void \fBbase_compile\fP () override"
+.br
+.ti -1c
+.RI "void \fBbase_tick\fP (float dt) override"
+.br
+.ti -1c
+.RI "void \fBset_position\fP (const \fBFVector3\fP &position) noexcept"
+.br
+.ti -1c
+.RI "void \fBset_rotation\fP (const \fBFVector3\fP &rotation) noexcept"
+.br
+.ti -1c
+.RI "void \fBset_size\fP (const \fBFVector3\fP &size) noexcept"
+.br
+.ti -1c
+.RI "void \fBtranslate\fP (const \fBFVector3\fP &position) noexcept"
+.br
+.ti -1c
+.RI "void \fBrotate\fP (const \fBFVector3\fP &rotation) noexcept"
+.br
+.ti -1c
+.RI "void \fBsize\fP (const \fBFVector3\fP &size) noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_position\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_rotation\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBFVector3\fP \fBget_size\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_transform\fP (const \fBTransform\fP &transform) noexcept"
+.br
+.ti -1c
+.RI "GET \fBTransform\fP \fBget_transform\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBObject\fP * \fBget_parent\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBset_parent\fP (\fBObject\fP *parent) noexcept"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBadd_object\fP (std::unique_ptr< \fBObject\fP > &&obj)"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBadd_component\fP (std::unique_ptr< \fBComponent\fP > &&component)"
+.br
+.ti -1c
+.RI "GET std::set< \fBObject\fP * > \fBget_children\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET size_t \fBget_children_count\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_scene\fP (\fBScene\fP *scene) noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBObject\fP &object) const noexcept"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBObject\fP &object) const noexcept"
+.br
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section_tree\fP (\fBObject\fP **selected_object)"
+.br
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section\fP () override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBControllable\fP
+.in +1c
+.ti -1c
+.RI "virtual void \fBbase_clean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_tick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBtick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET T * \fBget_component\fP () noexcept"
+.br
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET std::set< T * > \fBget_components\fP () noexcept"
+.br
+.ti -1c
+.RI "GET std::set< \fBComponent\fP * > \fBget_all_components\fP () noexcept"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Attributes inherited from \fBObject\fP
+.in +1c
+.ti -1c
+.RI "std::string \fBname\fP {''}"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBmimic_position_component\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBmimic_rotation_component\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBmimic_size_component\fP {nullptr}"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBObject\fP
+.in +1c
+.ti -1c
+.RI "\fBScene\fP * \fBscene\fP {nullptr}"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "std::set< std::unique_ptr< \fBComponent\fP > > \fBcomponents\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void MyShaderCube::post_scene_compile ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBControllable\fP\&.
+.SS "void MyShaderCube::pre_scene_compile ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBControllable\fP\&.
+.SS "void MyShaderCube::render_editor_gui_section ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBControllable\fP\&.
+.SS "void MyShaderCube::tick (float dt)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBControllable\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

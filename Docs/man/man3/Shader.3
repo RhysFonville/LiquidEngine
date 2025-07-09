@@ -1,4 +1,4 @@
-.TH "Shader" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "Shader" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -8,43 +8,39 @@ Shader \- \fBShader\fP data for rendering\&.
 .br
 .PP
 .PP
-\fC#include <ShaderStorage\&.h>\fP
-.SS "Public Types"
-
-.in +1c
-.ti -1c
-.RI "enum class \fBType\fP { \fBVertex\fP, \fBHull\fP, \fBDomain\fP, \fBGeometry\fP, \fBPixel\fP }"
-.br
-.in -1c
+\fC#include <ShaderCompiler\&.h>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBShader\fP (Type type)"
-.br
-.ti -1c
-.RI "\fBShader\fP (Type type, const std::string &file_name)"
-.br
-.ti -1c
-.RI "void \fBoperator=\fP (const \fBShader\fP &shader)"
+.RI "\fBShader\fP (const std::string &target, const std::string &file_name, std::vector< DxcDefine > defines={})"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const std::string &file)"
 .br
 .ti -1c
-.RI "void \fBcompile\fP ()"
+.RI "GET std::string \fBget_target\fP () const noexcept"
 .br
 .ti -1c
-.RI "GET Type \fBget_type\fP () const noexcept"
+.RI "GET std::string \fBget_entrypoint\fP () const noexcept"
 .br
 .ti -1c
 .RI "GET std::string \fBget_file\fP () const noexcept"
 .br
 .ti -1c
-.RI "GET D3D12_SHADER_BYTECODE \fBget_bytecode\fP () const noexcept"
+.RI "GET std::vector< DxcDefine > \fBget_defines\fP () const noexcept"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (const \fBShader\fP &shader) const noexcept"
+.RI "GET ComPtr< IDxcResult > & \fBget_compile_result\fP () noexcept"
+.br
+.ti -1c
+.RI "GET ComPtr< ID3D12ShaderReflection > & \fBget_reflection\fP () noexcept"
+.br
+.ti -1c
+.RI "GET ComPtr< IDxcBlob > \fBget_bytecode_blob\fP () const"
+.br
+.ti -1c
+.RI "GET bool \fBoperator==\fP (const \fBShader\fP &shader) const noexcept"
 .br
 .in -1c
 .SH "Detailed Description"

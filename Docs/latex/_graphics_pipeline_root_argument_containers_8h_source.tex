@@ -1,0 +1,162 @@
+\hypertarget{_graphics_pipeline_root_argument_containers_8h_source}{}\doxysection{Graphics\+Pipeline\+Root\+Argument\+Containers.\+h}
+\label{_graphics_pipeline_root_argument_containers_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineRootArgumentContainers.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/GraphicsPipelineRootArgumentContainers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}GraphicsPipelineRootArguments.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Texture.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_constant_buffer_container}{ConstantBufferContainer}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_constant_buffer_container}{ConstantBufferContainer}}()\ \{\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_constant_buffer_container}{ConstantBufferContainer}}(\textcolor{keyword}{const}\ T\ \&obj)}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ :\ obj\{std::make\_shared<T>(obj)\}\ \{\ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ obj\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ cb.reset();}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ cb\_sp\{cb.lock()\};\ cb\_sp)}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ cb\_sp-\/>update();}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<T>\&\ get\_obj()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj\_ptr(\textcolor{keyword}{const}\ T\&\&\ obj)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ std::make\_shared<T>(obj);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{cb.lock()\})\ sp-\/>set\_obj(this-\/>obj.get());}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj\_ptr(T\&\ obj)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ std::make\_shared<T>(obj);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{cb.lock()\})\ sp-\/>set\_obj(this-\/>obj.get());}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{/*const\ std::weak\_ptr<ConstantBuffer>\&\ get\_cb()\ \{}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ cb;}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_cb(\textcolor{keyword}{const}\ std::weak\_ptr<ConstantBuffer>\&\ cb)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ this-\/>cb\ =\ cb;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{cb.lock()\})\ sp-\/>set\_obj(obj.get());}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_constant_buffer_container}{ConstantBufferContainer}}\ \&cb)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (obj\ ==\ cb.obj);}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ std::shared\_ptr<T>\ obj\{\};}
+\DoxyCodeLine{00058\ \ \ \ \ std::weak\_ptr<ConstantBuffer>\ cb\{\};}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_root_constants_container}{RootConstantsContainer}}\ \{}
+\DoxyCodeLine{00066\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_root_constants_container}{RootConstantsContainer}}()\ \{\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_root_constants_container}{RootConstantsContainer}}(\textcolor{keyword}{const}\ T\&\ obj)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ :\ obj\{std::make\_shared<T>(obj)\}\ \{\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ obj\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ rc.reset();}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<T>\&\ get\_obj()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj\_ptr(\textcolor{keyword}{const}\ T\&\&\ obj)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ std::make\_shared<T>(obj);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{rc.lock()\})\ sp-\/>set\_obj(this-\/>obj.get());}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj\_ptr(T\&\ obj)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ std::make\_shared<T>(obj);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{rc.lock()\})\ sp-\/>set\_obj(this-\/>obj.get());}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_obj\_ptr(\textcolor{keyword}{const}\ std::shared\_ptr<T>\&\ obj)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ this-\/>obj\ =\ obj;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{rc.lock()\})\ sp-\/>set\_obj(this-\/>obj.get());}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{/*const\ std::weak\_ptr<RootConstants>\&\ get\_rc()\ \{}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ rc;}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_rc(\textcolor{keyword}{const}\ std::weak\_ptr<RootConstants>\&\ rc)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ this-\/>rc\ =\ rc;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{rc.lock()\})\ sp-\/>set\_obj(obj.get());}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_root_constants_container}{RootConstantsContainer}}\&\ rc)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (obj\ ==\ rc.obj);}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00110\ \ \ \ \ std::shared\_ptr<T>\ obj\{\};}
+\DoxyCodeLine{00111\ \ \ \ \ std::weak\_ptr<RootConstants>\ rc\{\};}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_resource_view_container}{ShaderResourceViewContainer}}\ \{}
+\DoxyCodeLine{00119\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{class_shader_resource_view_container}{ShaderResourceViewContainer}}()\ \{\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{class_shader_resource_view_container}{ShaderResourceViewContainer}}(\mbox{\hyperlink{class_texture}{Texture}}*\ texture)}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ :\ texture\{texture\}\ \{\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up()\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ texture\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ srv.reset();}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ srv\_sp\{srv.lock()\};\ srv\_sp)\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ srv\_sp-\/>update\_descs(texture-\/>get\_mip\_chain());}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ compile()\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ srv\_sp\{srv.lock()\};\ srv\_sp)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ srv\_sp-\/>compile();}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}*\ get\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ texture;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_texture(\mbox{\hyperlink{class_texture}{Texture}}*\ texture)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ this-\/>texture\ =\ texture;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{srv.lock()\})\ sp-\/>update\_descs(texture-\/>get\_mip\_chain());}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{/*const\ std::weak\_ptr<ShaderResourceView>\&\ get\_srv()\ \{}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ srv;}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_srv(\textcolor{keyword}{const}\ std::weak\_ptr<ShaderResourceView>\&\ srv)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ this-\/>srv\ =\ srv;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ sp\{srv.lock()\})\ sp-\/>update\_descs(texture-\/>get\_mip\_chain());}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_resource_view_container}{ShaderResourceViewContainer}}\&\ cb)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (texture\ ==\ cb.texture);}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}*\ texture\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00166\ \ \ \ \ std::weak\_ptr<ShaderResourceView>\ srv\{\};}
+\DoxyCodeLine{00167\ \};}
+
+\end{DoxyCode}

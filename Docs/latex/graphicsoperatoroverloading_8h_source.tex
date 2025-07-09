@@ -1,0 +1,116 @@
+\hypertarget{graphicsoperatoroverloading_8h_source}{}\doxysection{graphicsoperatoroverloading.\+h}
+\label{graphicsoperatoroverloading_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/graphicsoperatoroverloading.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/graphicsoperatoroverloading.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//static\ bool\ operator==(const\ D3D12\_RECT\ \&lhs,\ const\ D3D12\_RECT\ \&rhs)\ noexcept\ \{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ return\ (lhs.left\ ==\ rhs.left\ \&\&}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ \ lhs.right\ ==\ rhs.right\ \&\&}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ lhs.top\ ==\ rhs.top\ \&\&}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ \ \ \ \ lhs.bottom\ ==\ rhs.bottom);}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_VERTEX\_BUFFER\_VIEW\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_VERTEX\_BUFFER\_VIEW\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ lhs.BufferLocation\ ==\ rhs.BufferLocation\ \&\&}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ lhs.SizeInBytes\ ==\ rhs.SizeInBytes\ \&\&}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ lhs.StrideInBytes\ \&\&\ rhs.StrideInBytes}
+\DoxyCodeLine{00017\ \ \ \ \ );}
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_STREAM\_OUTPUT\_DESC\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_STREAM\_OUTPUT\_DESC\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ lhs.NumEntries\ ==\ rhs.NumEntries\ \&\&}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ lhs.NumStrides\ ==\ rhs.NumStrides\ \&\&}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ lhs.pBufferStrides\ ==\ rhs.pBufferStrides\ \&\&}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ lhs.pSODeclaration\ ==\ rhs.pSODeclaration\ \&\&}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ lhs.RasterizedStream\ ==\ rhs.RasterizedStream}
+\DoxyCodeLine{00027\ \ \ \ \ );}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_RASTERIZER\_DESC\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_RASTERIZER\_DESC\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ lhs.AntialiasedLineEnable\ ==\ rhs.AntialiasedLineEnable\ \&\&}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ lhs.ConservativeRaster\ ==\ rhs.ConservativeRaster\ \&\&}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ lhs.CullMode\ ==\ rhs.CullMode\ \&\&}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ lhs.DepthBias\ ==\ rhs.DepthBias\ \&\&}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ lhs.DepthBiasClamp\ ==\ rhs.DepthBiasClamp\ \&\&}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ lhs.DepthClipEnable\ ==\ rhs.DepthClipEnable\ \&\&}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ lhs.FillMode\ ==\ rhs.FillMode\ \&\&}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ lhs.ForcedSampleCount\ ==\ rhs.ForcedSampleCount\ \&\&}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ lhs.FrontCounterClockwise\ ==\ rhs.FrontCounterClockwise\ \&\&}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ lhs.MultisampleEnable\ ==\ rhs.MultisampleEnable\ \&\&}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ lhs.SlopeScaledDepthBias\ ==\ rhs.SlopeScaledDepthBias}
+\DoxyCodeLine{00043\ \ \ \ \ );}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_ROOT\_SIGNATURE\_DESC\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_ROOT\_SIGNATURE\_DESC\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ lhs.Flags\ ==\ rhs.Flags\ \&\&}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ lhs.NumParameters\ ==\ rhs.NumParameters\ \&\&}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ lhs.NumStaticSamplers\ ==\ rhs.NumStaticSamplers\ \&\&}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ lhs.pParameters\ ==\ rhs.pParameters\ \&\&}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ lhs.pStaticSamplers\ ==\ rhs.pStaticSamplers}
+\DoxyCodeLine{00053\ \ \ \ \ );}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.Version\ ==\ rhs.Version)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.Version\ ==\ D3D\_ROOT\_SIGNATURE\_VERSION\_1\_0)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_0.Flags\ ==\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rhs.Desc\_1\_0.Flags\ \&\&}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_0.NumParameters\ ==\ \ \ \ \ \ \ rhs.Desc\_1\_0.NumParameters\ \&\&}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_0.NumStaticSamplers\ ==\ \ \ rhs.Desc\_1\_0.NumStaticSamplers\ \&\&}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_0.pParameters\ ==\ \ \ \ \ \ \ \ \ rhs.Desc\_1\_0.pParameters\ \&\&}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_0.pStaticSamplers\ ==\ \ \ \ \ rhs.Desc\_1\_0.pStaticSamplers}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_1.Flags\ ==\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rhs.Desc\_1\_1.Flags\ \&\&}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_1.NumParameters\ ==\ \ \ \ \ \ \ rhs.Desc\_1\_1.NumParameters\ \&\&}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_1.NumStaticSamplers\ ==\ \ \ rhs.Desc\_1\_1.NumStaticSamplers\ \&\&}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_1.pParameters\ ==\ \ \ \ \ \ \ \ \ rhs.Desc\_1\_1.pParameters\ \&\&}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.Desc\_1\_1.pStaticSamplers\ ==\ \ \ \ \ rhs.Desc\_1\_1.pStaticSamplers}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ lhs.BaseShaderRegister\ ==\ rhs.BaseShaderRegister\ \&\&}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ lhs.NumDescriptors\ ==\ rhs.NumDescriptors\ \&\&}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ lhs.OffsetInDescriptorsFromTableStart\ ==\ rhs.OffsetInDescriptorsFromTableStart\ \&\&}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ lhs.RangeType\ ==\ rhs.RangeType\ \&\&}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ lhs.RegisterSpace\ ==\ rhs.RegisterSpace}
+\DoxyCodeLine{00087\ \ \ \ \ );}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE1\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_DESCRIPTOR\_RANGE1\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ lhs.BaseShaderRegister\ ==\ rhs.BaseShaderRegister\ \&\&}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ lhs.NumDescriptors\ ==\ rhs.NumDescriptors\ \&\&}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ lhs.OffsetInDescriptorsFromTableStart\ ==\ rhs.OffsetInDescriptorsFromTableStart\ \&\&}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ lhs.RangeType\ ==\ rhs.RangeType\ \&\&}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ lhs.RegisterSpace\ ==\ rhs.RegisterSpace\ \&\&}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ lhs.Flags\ ==\ rhs.Flags}
+\DoxyCodeLine{00098\ \ \ \ \ );}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_ROOT\_DESCRIPTOR\_TABLE\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_ROOT\_DESCRIPTOR\_TABLE\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ (lhs.NumDescriptorRanges\ ==\ rhs.NumDescriptorRanges\ \&\&}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ lhs.pDescriptorRanges\ ==\ rhs.pDescriptorRanges);}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ D3D12\_ROOT\_DESCRIPTOR\_TABLE1\&\ lhs,\ \textcolor{keyword}{const}\ D3D12\_ROOT\_DESCRIPTOR\_TABLE1\&\ rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ (lhs.NumDescriptorRanges\ ==\ rhs.NumDescriptorRanges\ \&\&}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ lhs.pDescriptorRanges\ ==\ rhs.pDescriptorRanges);}
+\DoxyCodeLine{00110\ \}}
+
+\end{DoxyCode}

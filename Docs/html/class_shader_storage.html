@@ -81,7 +81,7 @@ $(function() {
 <p>Stores all compiled shaders from graphics pipeline compilation.  
  <a href="class_shader_storage.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_shader_storage_8h_source.html">ShaderStorage.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_storage_8h_source.html">Storage.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -91,25 +91,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac787128a7981577027bff2225e061fd2"><td class="memItemLeft" align="right" valign="top"><a id="ac787128a7981577027bff2225e061fd2" name="ac787128a7981577027bff2225e061fd2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_shader_storage.html">ShaderStorage</a> &amp;)=delete</td></tr>
 <tr class="separator:ac787128a7981577027bff2225e061fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46fbad841ca4e5d02894ffbe2068a726"><td class="memItemLeft" align="right" valign="top"><a id="a46fbad841ca4e5d02894ffbe2068a726" name="a46fbad841ca4e5d02894ffbe2068a726"></a>
-std::optional&lt; std::reference_wrapper&lt; <a class="el" href="class_shader.html">Shader</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader</b> (const std::string &amp;file) noexcept</td></tr>
-<tr class="separator:a46fbad841ca4e5d02894ffbe2068a726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9dcd9f626334c0c4205135acec22c7"><td class="memItemLeft" align="right" valign="top"><a id="a1e9dcd9f626334c0c4205135acec22c7" name="a1e9dcd9f626334c0c4205135acec22c7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_and_compile_shader</b> (Shader::Type type, const std::string &amp;file)</td></tr>
-<tr class="separator:a1e9dcd9f626334c0c4205135acec22c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51fb150ca021a3cce9f251c204a3268c"><td class="memItemLeft" align="right" valign="top"><a id="a51fb150ca021a3cce9f251c204a3268c" name="a51fb150ca021a3cce9f251c204a3268c"></a>
+GET std::optional&lt; std::weak_ptr&lt; <a class="el" href="class_shader.html">Shader</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader</b> (const std::string &amp;file) noexcept</td></tr>
+<tr class="separator:a51fb150ca021a3cce9f251c204a3268c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6620093a04427f917c929c0d8c23e148"><td class="memItemLeft" align="right" valign="top"><a id="a6620093a04427f917c929c0d8c23e148" name="a6620093a04427f917c929c0d8c23e148"></a>
+std::weak_ptr&lt; <a class="el" href="class_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>add_and_compile_shader</b> (const std::string &amp;target, const std::string &amp;file)</td></tr>
+<tr class="separator:a6620093a04427f917c929c0d8c23e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a47b6dbe18952c5614c1efe58a4550d75"><td class="memItemLeft" align="right" valign="top"><a id="a47b6dbe18952c5614c1efe58a4550d75" name="a47b6dbe18952c5614c1efe58a4550d75"></a>
-static <a class="el" href="class_shader_storage.html">ShaderStorage</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get_instance</b> ()</td></tr>
+static GET <a class="el" href="class_shader_storage.html">ShaderStorage</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get_instance</b> ()</td></tr>
 <tr class="separator:a47b6dbe18952c5614c1efe58a4550d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Stores all compiled shaders from graphics pipeline compilation. </p>
 <p>Prevents shaders from being compiled multiple times for every object that needs it. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> </dd></dl>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_shader_storage_8h_source.html">ShaderStorage.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/ShaderStorage.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/<a class="el" href="_storage_8h_source.html">Storage.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/Storage.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

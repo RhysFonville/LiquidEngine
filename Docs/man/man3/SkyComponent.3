@@ -1,4 +1,4 @@
-.TH "SkyComponent" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "SkyComponent" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,13 +18,16 @@ Inherits \fBGraphicsComponent\fP\&.
 .RI "void \fBcompile\fP () override"
 .br
 .ti -1c
+.RI "void \fBclean_up\fP () override"
+.br
+.ti -1c
 .RI "bool \fBhas_texture\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBTexture\fP & \fBget_albedo_texture\fP ()"
+.RI "GET \fBTexture\fP & \fBget_albedo_texture\fP ()"
 .br
 .ti -1c
-.RI "\fBColor\fP \fBget_albedo\fP () const"
+.RI "GET \fBColor\fP \fBget_albedo\fP () const"
 .br
 .ti -1c
 .RI "void \fBset_albedo\fP (const \fBColor\fP &new_albedo)"
@@ -33,9 +36,6 @@ Inherits \fBGraphicsComponent\fP\&.
 
 Public Member Functions inherited from \fBGraphicsComponent\fP
 .in +1c
-.ti -1c
-.RI "\fBGraphicsComponent\fP (Type type)"
-.br
 .ti -1c
 .RI "virtual void \fBset_position\fP (\fBFVector3\fP position) noexcept override"
 .br
@@ -50,7 +50,10 @@ Public Member Functions inherited from \fBGraphicsComponent\fP
 Public Member Functions inherited from \fBComponent\fP
 .in +1c
 .ti -1c
-.RI "\fBComponent\fP (const Type &type)"
+.RI "void \fBbase_clean_up\fP () override"
+.br
+.ti -1c
+.RI "void \fBclean_components\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBset_position\fP (\fBFVector3\fP position) noexcept"
@@ -86,13 +89,25 @@ Public Member Functions inherited from \fBComponent\fP
 .RI "virtual GET \fBTransform\fP \fBget_transform\fP () const noexcept"
 .br
 .ti -1c
-.RI "GET Type \fBget_type\fP () const noexcept"
+.RI "GET \fBComponent\fP * \fBget_parent\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_parent\fP (\fBComponent\fP *parent) noexcept"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBadd_component\fP (std::unique_ptr< \fBComponent\fP > &&component)"
+.br
+.ti -1c
+.RI "void \fBset_scene\fP (\fBScene\fP *scene) noexcept"
 .br
 .ti -1c
 .RI "virtual bool \fBoperator==\fP (const \fBComponent\fP &component) const noexcept"
 .br
 .ti -1c
 .RI "virtual void \fBoperator=\fP (const \fBComponent\fP &component) noexcept"
+.br
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section\fP () override"
 .br
 .in -1c
 
@@ -106,6 +121,9 @@ Public Member Functions inherited from \fBControllable\fP
 .br
 .ti -1c
 .RI "virtual void \fBbase_tick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBbase_render_editor_gui_section\fP ()"
 .br
 .ti -1c
 .RI "virtual void \fBpre_scene_compile\fP ()"
@@ -122,6 +140,26 @@ Public Member Functions inherited from \fBControllable\fP
 .ti -1c
 .RI "virtual void \fBtick\fP (float dt)"
 .br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET T * \fBget_component\fP () noexcept"
+.br
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET std::set< T * > \fBget_components\fP () noexcept"
+.br
+.ti -1c
+.RI "GET std::set< \fBComponent\fP * > \fBget_all_components\fP () noexcept"
+.br
 .in -1c
 
 Public Member Functions inherited from \fBGraphicsTracker\fP
@@ -132,19 +170,18 @@ Public Member Functions inherited from \fBGraphicsTracker\fP
 .ti -1c
 .RI "void \fBhas_changed\fP (bool changed) noexcept"
 .br
+.ti -1c
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool compile) noexcept"
+.br
 .in -1c
 .SS "Static Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "static \fBMesh\fP \fBcreate_sphere\fP (UINT lat_lines, UINT long_lines)"
-.br
-.in -1c
-
-Static Public Member Functions inherited from \fBGraphicsComponent\fP
-.in +1c
-.ti -1c
-.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBComponent\fP) > static bool \fBis_graphics_component\fP (const T &component)"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -154,39 +191,8 @@ Static Public Member Functions inherited from \fBGraphicsComponent\fP
 .RI "\fBGraphicsPipeline\fP \fBpipeline\fP"
 .br
 .in -1c
-
-Public Attributes inherited from \fBComponent\fP
-.in +1c
-.ti -1c
-.RI "\fBComponent\fP * \fBparent\fP = nullptr"
-.br
-.in -1c
-.SS "Static Public Attributes"
-
-.in +1c
-.ti -1c
-.RI "static const Type \fBcomponent_type\fP = Type::SkyComponent"
-.br
-.in -1c
 .SS "Additional Inherited Members"
 
-
-Public Types inherited from \fBComponent\fP
-.in +1c
-.ti -1c
-.RI "enum class \fBType\fP { \fBNone\fP, \fBStaticMeshComponent\fP, \fBCameraComponent\fP, \fBDirectionalLightComponent\fP, \fBPointLightComponent\fP, \fBSpotlightComponent\fP, \fBBoxComponent\fP, \fBSkyComponent\fP, \fBMaterialComponent\fP }"
-.br
-.in -1c
-
-Protected Member Functions inherited from \fBComponent\fP
-.in +1c
-.ti -1c
-.RI "void \fBbase_render_editor_gui_section\fP ()"
-.br
-.ti -1c
-.RI "virtual void \fBrender_editor_gui_section\fP ()"
-.br
-.in -1c
 
 Protected Attributes inherited from \fBComponent\fP
 .in +1c
@@ -194,7 +200,20 @@ Protected Attributes inherited from \fBComponent\fP
 .RI "\fBTransform\fP \fBtransform\fP"
 .br
 .ti -1c
-.RI "Type \fBtype\fP = Type::None"
+.RI "\fBComponent\fP * \fBparent\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBobject\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBScene\fP * \fBscene\fP {nullptr}"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "std::set< std::unique_ptr< \fBComponent\fP > > \fBcomponents\fP"
 .br
 .in -1c
 
@@ -203,12 +222,19 @@ Protected Attributes inherited from \fBGraphicsTracker\fP
 .ti -1c
 .RI "bool \fBchanged\fP {false}"
 .br
+.ti -1c
+.RI "bool \fBcompile\fP {false}"
+.br
 .in -1c
 .SH "Detailed Description"
 .PP 
 \fBComponent\fP for a sky\&. 
 .SH "Member Function Documentation"
 .PP 
+.SS "void SkyComponent::clean_up ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBControllable\fP\&.
 .SS "void SkyComponent::compile ()\fC [override]\fP, \fC [virtual]\fP"
 
 .PP

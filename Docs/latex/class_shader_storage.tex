@@ -7,7 +7,7 @@ Stores all compiled shaders from graphics pipeline compilation.
 
 
 
-{\ttfamily \#include $<$Shader\+Storage.\+h$>$}
+{\ttfamily \#include $<$Storage.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -18,17 +18,17 @@ Stores all compiled shaders from graphics pipeline compilation.
 \mbox{\Hypertarget{class_shader_storage_ac787128a7981577027bff2225e061fd2}\label{class_shader_storage_ac787128a7981577027bff2225e061fd2}} 
 void {\bfseries operator=} (const \mbox{\hyperlink{class_shader_storage}{Shader\+Storage}} \&)=delete
 \item 
-\mbox{\Hypertarget{class_shader_storage_a46fbad841ca4e5d02894ffbe2068a726}\label{class_shader_storage_a46fbad841ca4e5d02894ffbe2068a726}} 
-std\+::optional$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ $>$ {\bfseries get\+\_\+shader} (const std\+::string \&file) noexcept
+\mbox{\Hypertarget{class_shader_storage_a51fb150ca021a3cce9f251c204a3268c}\label{class_shader_storage_a51fb150ca021a3cce9f251c204a3268c}} 
+GET std\+::optional$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ $>$ {\bfseries get\+\_\+shader} (const std\+::string \&file) noexcept
 \item 
-\mbox{\Hypertarget{class_shader_storage_a1e9dcd9f626334c0c4205135acec22c7}\label{class_shader_storage_a1e9dcd9f626334c0c4205135acec22c7}} 
-void {\bfseries add\+\_\+and\+\_\+compile\+\_\+shader} (Shader\+::\+Type type, const std\+::string \&file)
+\mbox{\Hypertarget{class_shader_storage_a6620093a04427f917c929c0d8c23e148}\label{class_shader_storage_a6620093a04427f917c929c0d8c23e148}} 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ {\bfseries add\+\_\+and\+\_\+compile\+\_\+shader} (const std\+::string \&target, const std\+::string \&file)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_shader_storage_a47b6dbe18952c5614c1efe58a4550d75}\label{class_shader_storage_a47b6dbe18952c5614c1efe58a4550d75}} 
-static \mbox{\hyperlink{class_shader_storage}{Shader\+Storage}} $\ast$ {\bfseries get\+\_\+instance} ()
+static GET \mbox{\hyperlink{class_shader_storage}{Shader\+Storage}} $\ast$ {\bfseries get\+\_\+instance} ()
 \end{DoxyCompactItemize}
 
 
@@ -42,5 +42,5 @@ Prevents shaders from being compiled multiple times for every object that needs 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Shader\+Storage.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Shader\+Storage.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Storage.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Storage.\+cpp\end{DoxyCompactItemize}

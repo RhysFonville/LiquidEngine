@@ -1,0 +1,55 @@
+.TH "ShaderResourceViewContainer" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ShaderResourceViewContainer \- Stores a texture and the shader resource view\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArgumentContainers\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShaderResourceViewContainer\fP (\fBTexture\fP *texture)"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "void \fBupdate\fP ()"
+.br
+.ti -1c
+.RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "const \fBTexture\fP * \fBget_texture\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_texture\fP (\fBTexture\fP *texture)"
+.br
+.ti -1c
+.RI "void \fBset_srv\fP (const std::weak_ptr< \fBShaderResourceView\fP > &srv)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBShaderResourceViewContainer\fP &cb) const noexcept"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Stores a texture and the shader resource view\&. 
+
+The texture is the data to be written to the shader resource view\&. Not required, but useful\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBConstantBuffer\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -226,5 +226,6 @@ var searchData=
   ['indexerlin_223',['IndexerLin',['../struct_im_plot_1_1_indexer_lin.html',1,'ImPlot']]],
   ['inputassembler_224',['InputAssembler',['../class_graphics_pipeline_1_1_input_assembler.html',1,'GraphicsPipeline']]],
   ['inputlistener_225',['InputListener',['../class_input_1_1_input_listener.html',1,'Input']]],
-  ['inputtextcallback_5fuserdata_226',['InputTextCallback_UserData',['../struct_input_text_callback___user_data.html',1,'']]]
+  ['inputtextcallback_5fuserdata_226',['InputTextCallback_UserData',['../struct_input_text_callback___user_data.html',1,'']]],
+  ['interactionhandler_227',['InteractionHandler',['../class_interaction_handler.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
-.TH "GraphicsPipeline::Rasterizer" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::Rasterizer" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,13 +13,16 @@ GraphicsPipeline::Rasterizer \- \fBRasterizer\fP stage\&.
 
 .in +1c
 .ti -1c
+.RI "\fBRasterizer\fP (const D3D12_RASTERIZER_DESC &desc)"
+.br
+.ti -1c
 .RI "bool \fBoperator==\fP (const \fBRasterizer\fP &rasterizer) const noexcept"
 .br
 .ti -1c
 .RI "void \fBset_desc\fP (const D3D12_RASTERIZER_DESC &desc) noexcept"
 .br
 .ti -1c
-.RI "D3D12_RASTERIZER_DESC \fBget_desc\fP () const noexcept"
+.RI "GET D3D12_RASTERIZER_DESC \fBget_desc\fP () const noexcept"
 .br
 .in -1c
 .SH "Detailed Description"

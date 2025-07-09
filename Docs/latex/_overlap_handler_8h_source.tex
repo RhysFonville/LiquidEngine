@@ -1,0 +1,270 @@
+\hypertarget{_overlap_handler_8h_source}{}\doxysection{Overlap\+Handler.\+h}
+\label{_overlap_handler_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/OverlapHandler.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/OverlapHandler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}CollisionHandler.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Components/PhysicalComponent.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Components/BoxComponent.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Components/SphereComponent.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Components/BoundingBoxComponent.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_overlap_handler}{OverlapHandler}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_overlap_handler}{OverlapHandler}}()\ \{\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ handle\_overlap(\mbox{\hyperlink{class_physical_component}{PhysicalComponent}}*\ obj1,\ \mbox{\hyperlink{class_physical_component}{PhysicalComponent}}*\ obj2,\ \textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ closest\_point\_on\_AABB(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&point,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&box\_pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_bounding_box}{SimpleBoundingBox}}\ \&aabb)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_overlap_event_info}{OverlapEventInfo}}\ bounding\_box\_box\_overlap(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&box1\_pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_bounding_box}{SimpleBoundingBox}}\ \&box1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&box2\_pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_bounding_box}{SimpleBoundingBox}}\ \&box2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_overlap_event_info}{OverlapEventInfo}}\ sphere\_sphere\_overlap(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&sphere1\_pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_sphere}{Sphere}}\ \&sphere1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&sphere2\_pos,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_sphere}{Sphere}}\ \&sphere2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ tri\_tri\_overlap(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \&tri1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \&tri2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ coplanar\_tri\_tri3d(\textcolor{keywordtype}{float}\ p1[3],\ \textcolor{keywordtype}{float}\ q1[3],\ \textcolor{keywordtype}{float}\ r1[3],}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ p2[3],\ \textcolor{keywordtype}{float}\ q2[3],\ \textcolor{keywordtype}{float}\ r2[3],}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ normal\_1[3])\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ tri\_tri\_overlap\_test\_2d(\textcolor{keywordtype}{float}\ p1[2],\ \textcolor{keywordtype}{float}\ q1[2],\ \textcolor{keywordtype}{float}\ r1[2],\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ p2[2],\ \textcolor{keywordtype}{float}\ q2[2],\ \textcolor{keywordtype}{float}\ r2[2])\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ ccw\_tri\_tri\_intersection\_2d(\textcolor{keywordtype}{float}\ p1[2],\ \textcolor{keywordtype}{float}\ q1[2],\ \textcolor{keywordtype}{float}\ r1[2],\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ p2[2],\ \textcolor{keywordtype}{float}\ q2[2],\ \textcolor{keywordtype}{float}\ r2[2])\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ signed\_tetrahedron\_volume(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ a,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ b,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ c,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ d)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ triangle\_line\_collision(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \&triangle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_line}{Line}}\ \&line)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_collision_handler}{CollisionHandler}}\ collision\_handler\{\};}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CROSS(dest,v1,v2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[0]=v1[1]*v2[2]-\/v1[2]*v2[1];\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]=v1[2]*v2[0]-\/v1[0]*v2[2];\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]=v1[0]*v2[1]-\/v1[1]*v2[0];}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DOT(v1,v2)\ (v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2])}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ SUB(dest,v1,v2)\ dest[0]=v1[0]-\/v2[0];\ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]=v1[1]-\/v2[1];\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]=v1[2]-\/v2[2];\ }}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ SCALAR(dest,alpha,v)\ dest[0]\ =\ alpha\ *\ v[0];\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[1]\ =\ alpha\ *\ v[1];\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dest[2]\ =\ alpha\ *\ v[2];}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\ \{\(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ SUB(v1,p2,q1)\(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ SUB(v2,p1,q1)\(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ CROSS(N1,v1,v2)\(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ SUB(v1,q2,q1)\(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ if\ (DOT(v1,N1)\ >\ 0.0f)\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ SUB(v1,p2,p1)\(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ SUB(v2,r1,p1)\(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ CROSS(N1,v1,v2)\(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ SUB(v1,r2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ if\ (DOT(v1,N1)\ >\ 0.0f)\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ else\ return\ 1;\ \}}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ Permutation\ in\ a\ canonical\ form\ of\ T2's\ vertices}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ TRI\_TRI\_3D(p1,q1,r1,p2,q2,r2,dp2,dq2,dr2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ if\ (dp2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \ if\ (dq2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,r2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ else\ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ else\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\ \}\(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ else\ if\ (dp2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ else\ CHECK\_MIN\_MAX(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >=\ 0.0f)\ \ CHECK\_MIN\_MAX(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ CHECK\_MIN\_MAX(p1,q1,r1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ else\ if\ (dq2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ \ CHECK\_MIN\_MAX(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ else\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CHECK\_MIN\_MAX(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CHECK\_MIN\_MAX(p1,r1,q1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ return\ coplanar\_tri\_tri3d(p1,q1,r1,p2,q2,r2,N1);\(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ \ \}\}\}}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ SUB(v1,q1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ SUB(v2,r2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ SUB(v,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ if\ (DOT(v,N)\ >\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ SUB(v1,r1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ if\ (DOT(v,N)\ <=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \ \ SUB(v2,q2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (DOT(v,N)\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ SUB(v2,p1,r1)\ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ SUB(source,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ SUB(v2,p2,r2)\ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ SUB(target,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ SUB(v2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ SUB(source,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ SUB(v2,p2,r2)\ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ SUB(target,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ SUB(v2,q2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ \ \ if\ (DOT(v,N)\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \ \ \ \ SUB(v1,r1,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ \ \ \ \ CROSS(N,v1,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (DOT(v,N)\ >=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ SUB(v2,p1,r1)\ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ SUB(source,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ SUB(v2,p1,q1)\ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ SUB(target,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ SUB(v1,p2,p1)\ \(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ SUB(v2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N1)\ /\ DOT(v2,N1);\ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ SUB(source,p2,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ SUB(v1,p1,p2)\ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ SUB(v2,p1,q1)\ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ alpha\ =\ DOT(v1,N2)\ /\ DOT(v2,N2);\ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ SCALAR(v1,alpha,v2)\ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ SUB(target,p1,v1)\ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\}\}\}\ }}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ TRI\_TRI\_INTER\_3D(p1,q1,r1,p2,q2,r2,dp2,dq2,dr2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ if\ (dp2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ \ \ \ if\ (dq2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,r2,p2,q2)\ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ \ else\ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\ \}\(\backslash\)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ else\ if\ (dp2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ \ \ if\ (dq2\ <\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >=\ 0.0f)\ \ CONSTRUCT\_INTERSECTION(p1,r1,q1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ CONSTRUCT\_INTERSECTION(p1,q1,r1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ else\ if\ (dq2\ >\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,p2,q2,r2)\(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ \ CONSTRUCT\_INTERSECTION(p1,q1,r1,q2,r2,p2)\(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ else\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (dr2\ >\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,q1,r1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ if\ (dr2\ <\ 0.0f)\ CONSTRUCT\_INTERSECTION(p1,r1,q1,r2,p2,q2)\(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ *coplanar\ =\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ return\ coplanar\_tri\_tri3d(p1,q1,r1,p2,q2,r2,N1);\(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \}\}\ \}}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ ORIENT\_2D(a,\ b,\ c)\ \ ((a[0]-\/c[0])*(b[1]-\/c[1])-\/(a[1]-\/c[1])*(b[0]-\/c[0]))}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ INTERSECTION\_TEST\_VERTEX(P1,\ Q1,\ R1,\ P2,\ Q2,\ R2)\ \{\(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(R2,P2,Q1)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(R2,Q2,Q1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,P2,Q1)\ >\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(P1,Q2,Q1)\ <=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,P2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ else\ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,Q2,Q1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(R2,Q2,R1)\ <=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,Q2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ else\(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(R2,P2,R1)\ >=\ 0.0f)\ \(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (ORIENT\_2D(Q1,R1,R2)\ >=\ 0.0f)\(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\ return\ 1;\(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ else\ return\ 0;\(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(Q1,R1,Q2)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(R2,R1,Q2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ else\ return\ 0;\ \}\(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ \ \ else\ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \};}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ INTERSECTION\_TEST\_EDGE(P1,\ Q1,\ R1,\ P2,\ Q2,\ R2)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(R2,P2,Q1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(P1,P2,Q1)\ >=\ 0.0f)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (ORIENT\_2D(P1,Q1,R2)\ >=\ 0.0f)\ return\ 1;\ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ \}\ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (ORIENT\_2D(Q1,R1,P2)\ >=\ 0.0f)\{\ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(R1,P1,P2)\ >=\ 0.0f)\ return\ 1;\ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \}\ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(R2,P2,R1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ (ORIENT\_2D(P1,P2,R1)\ >=\ 0.0f)\ \{\(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ if\ (ORIENT\_2D(P1,R1,R2)\ >=\ 0.0f)\ return\ 1;\ \ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ \ \ if\ (ORIENT\_2D(Q1,R1,R2)\ >=\ 0.0f)\ return\ 1;\ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ \ \ else\ \ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ \ \ else\ return\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\}}}
+
+\end{DoxyCode}

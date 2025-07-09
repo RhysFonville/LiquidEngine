@@ -177,6 +177,7 @@ boxfont setfont
 (Component) cw
 (GraphicsTracker) cw
 (Controllable) cw
+(ComponentHolder) cw
 (CameraComponent) cw
 (LightComponent) cw
 (SkyComponent) cw
@@ -198,7 +199,8 @@ boundx scalefactor div boundy scalefactor div scale
  (GraphicsComponent) 1.500000 2.000000 box
  (Component) 1.000000 3.000000 box
  (GraphicsTracker) 2.000000 3.000000 box
- (Controllable) 1.000000 4.000000 box
+ (Controllable) 0.500000 4.000000 box
+ (ComponentHolder) 1.500000 4.000000 box
  (CameraComponent) 0.000000 1.000000 box
  (LightComponent) 1.000000 1.000000 box
  (SkyComponent) 2.000000 1.000000 box
@@ -218,9 +220,13 @@ solid
 solid
 0 1.000000 3.000000 out
 solid
+0.500000 1.500000 4.000000 conn
+solid
 1 2.000000 3.000000 in
 solid
-1 1.000000 4.000000 in
+1 0.500000 4.000000 in
+solid
+1 1.500000 4.000000 in
 solid
 1 1.500000 1.250000 out
 solid

@@ -21,7 +21,7 @@ The main window for rendering.
 \mbox{\Hypertarget{class_window_a75b0a32a66c19ef02df5312f83bbfaa8}\label{class_window_a75b0a32a66c19ef02df5312f83bbfaa8}} 
 {\bfseries Window} (\mbox{\hyperlink{class_renderer}{Renderer}} $\ast$renderer)
 \item 
-void \mbox{\hyperlink{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}{set\+\_\+up\+\_\+window}} (const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&position=\mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+\+USEDEFAULT, CW\+\_\+\+USEDEFAULT), const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&size=\mbox{\hyperlink{class_t_vector2}{Vector2}}(1200, 800), const std\+::string \&name=\char`\"{}Epic \mbox{\hyperlink{class_window}{Window}} \+:coolglasses\+:\char`\"{}, DWORD style=WS\+\_\+\+OVERLAPPEDWINDOW$\vert$WS\+\_\+\+VISIBLE, const HWND \&parent=NULL, DWORD extended\+\_\+style=NULL, HMENU menu=NULL, void $\ast$lp\+Param=NULL)
+void \mbox{\hyperlink{class_window_a42f267587a4b7cac278654717b0fa8db}{set\+\_\+up\+\_\+window}} (const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&position=\mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+\+USEDEFAULT, CW\+\_\+\+USEDEFAULT), const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&size=\mbox{\hyperlink{class_t_vector2}{Vector2}}(1200, 800), std\+::string name=\char`\"{}Epic \mbox{\hyperlink{class_window}{Window}} \+:coolglasses\+:\char`\"{}, DWORD style=WS\+\_\+\+OVERLAPPEDWINDOW$\vert$WS\+\_\+\+VISIBLE, const HWND \&parent=NULL, DWORD extended\+\_\+style=NULL, HMENU menu=NULL, void $\ast$lp\+Param=NULL)
 \begin{DoxyCompactList}\small\item\em Creates and sets up the window. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_window_a2d5ea2f36a708db07539b4cff974f353}\label{class_window_a2d5ea2f36a708db07539b4cff974f353}} 
 void {\bfseries check\+\_\+input} ()
@@ -35,8 +35,8 @@ GET HWND \& {\bfseries get\+\_\+window} () noexcept
 \mbox{\Hypertarget{class_window_af45377463dafa4f89699ded01400dfbc}\label{class_window_af45377463dafa4f89699ded01400dfbc}} 
 GET HDC \& {\bfseries get\+\_\+dc} () noexcept
 \item 
-\mbox{\Hypertarget{class_window_a099d44d4268f42ea72df4350ba2bc5de}\label{class_window_a099d44d4268f42ea72df4350ba2bc5de}} 
-GET WNDCLASSEXW \& {\bfseries get\+\_\+class} () noexcept
+\mbox{\Hypertarget{class_window_aa8b99818f22be3a66f023759dbc6a65a}\label{class_window_aa8b99818f22be3a66f023759dbc6a65a}} 
+GET WNDCLASSEXA \& {\bfseries get\+\_\+class} () noexcept
 \item 
 \mbox{\Hypertarget{class_window_aedb74b5cb7a2723bd06dcadf2cb70ff0}\label{class_window_aedb74b5cb7a2723bd06dcadf2cb70ff0}} 
 GET \mbox{\hyperlink{class_t_vector2}{UVector2}} {\bfseries get\+\_\+size} () const noexcept
@@ -70,11 +70,11 @@ The main window for rendering.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}\label{class_window_ab1cedf86b9df61b0daf7fc62cb697f70}} 
+\mbox{\Hypertarget{class_window_a42f267587a4b7cac278654717b0fa8db}\label{class_window_a42f267587a4b7cac278654717b0fa8db}} 
 \index{Window@{Window}!set\_up\_window@{set\_up\_window}}
 \index{set\_up\_window@{set\_up\_window}!Window@{Window}}
 \doxysubsubsection{\texorpdfstring{set\_up\_window()}{set\_up\_window()}}
-{\footnotesize\ttfamily void Window\+::set\+\_\+up\+\_\+window (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{position = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+USEDEFAULT,~CW\+\_\+USEDEFAULT)},  }\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{size = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(1200,~800)},  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}Epic~\mbox{\hyperlink{class_window}{Window}}~\+:coolglasses\+:\char`\"{}},  }\item[{DWORD}]{style = {\ttfamily WS\+\_\+OVERLAPPEDWINDOW~$\vert$~WS\+\_\+VISIBLE},  }\item[{const HWND \&}]{parent = {\ttfamily NULL},  }\item[{DWORD}]{extended\+\_\+style = {\ttfamily NULL},  }\item[{HMENU}]{menu = {\ttfamily NULL},  }\item[{void $\ast$}]{lp\+Param = {\ttfamily NULL} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Window\+::set\+\_\+up\+\_\+window (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{position = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(CW\+\_\+USEDEFAULT,~CW\+\_\+USEDEFAULT)},  }\item[{const \mbox{\hyperlink{class_t_vector2}{Vector2}} \&}]{size = {\ttfamily \mbox{\hyperlink{class_t_vector2}{Vector2}}(1200,~800)},  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}Epic~\mbox{\hyperlink{class_window}{Window}}~\+:coolglasses\+:\char`\"{}},  }\item[{DWORD}]{style = {\ttfamily WS\+\_\+OVERLAPPEDWINDOW~$\vert$~WS\+\_\+VISIBLE},  }\item[{const HWND \&}]{parent = {\ttfamily NULL},  }\item[{DWORD}]{extended\+\_\+style = {\ttfamily NULL},  }\item[{HMENU}]{menu = {\ttfamily NULL},  }\item[{void $\ast$}]{lp\+Param = {\ttfamily NULL} }\end{DoxyParamCaption})}
 
 
 

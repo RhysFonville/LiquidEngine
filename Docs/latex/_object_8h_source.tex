@@ -1,135 +1,81 @@
 \hypertarget{_object_8h_source}{}\doxysection{Object.\+h}
-\label{_object_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Object.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Object.h}}
+\label{_object_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/Object.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/Object.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}globalstructs.h"{}}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Mesh.h"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Components/Component.h"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Graphics/GraphicsScene.h"{}}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Controllable.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Utility/globalstructs.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Mesh.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Components/Component.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Controllable.h"{}}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{keyword}{using\ namespace\ }DirectX;}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_controllable}{Controllable}}\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}()\ \{\ \}}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_object}{\string~Object}}();}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_position(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&position)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_rotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&rotation)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&size)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ translate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&position)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ rotate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&rotation)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&size)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_position()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00029\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_rotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00030\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_transform(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00033\ \ \ \ \ GET\ \mbox{\hyperlink{struct_transform}{Transform}}\ get\_transform()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ GET\ \mbox{\hyperlink{class_object}{Object}}*\ get\_parent()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_parent(\mbox{\hyperlink{class_object}{Object}}*\ parent)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_parent()\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ GET\ std::vector<Object*>\ \&\ get\_children()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }ObjectsTreeNode;}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene}{Scene}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_controllable}{Controllable}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component_holder}{ComponentHolder}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}()\ :\ \mbox{\hyperlink{class_component_holder}{ComponentHolder}}\{\}\ \{\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_object}{Object}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_components();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_clean\_up()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_compile()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_tick(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_position(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&position)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_rotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&rotation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ translate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&position)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ rotate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&rotation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ size(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&size)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_position()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_rotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00039\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_child(\mbox{\hyperlink{class_object}{Object}}*\ child)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_clean\_up();}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_compile();}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_tick(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_transform(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ GET\ \mbox{\hyperlink{struct_transform}{Transform}}\ get\_transform()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ GET\ \mbox{\hyperlink{class_object}{Object}}*\ get\_parent()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_parent(\mbox{\hyperlink{class_object}{Object}}*\ parent)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//ReadObjFileDataOutput\ read\_obj\_file(const\ std::vector<std::string>\ \&content,\ const\ ReadObjFileDataOutput\ \&mesh\_out)\ noexcept;}}
-\DoxyCodeLine{00048\ \ \ \ \ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_object}{Object}}\ \&\textcolor{keywordtype}{object})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_object}{Object}}\ \&\textcolor{keywordtype}{object})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ has\_component(Component::Type\ search)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00054\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ has\_component()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::shared\_ptr<Component>\ \&component\ :\ components)\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ T::component\_type)\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ add\_object(std::unique\_ptr<Object>\&\&\ obj);}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ add\_component(std::unique\_ptr<Component>\&\&\ component);\ \textcolor{comment}{//?\ AHHHHHHHHHHHHHHHHHHHHHHHH}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ GET\ std::set<Object*>\ get\_children()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00051\ \ \ \ \ GET\ \textcolor{keywordtype}{size\_t}\ get\_children\_count()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ children.size();\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_scene(\mbox{\hyperlink{class_scene}{Scene}}*\ scene)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_object}{Object}}\ \&\textcolor{keywordtype}{object})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_object}{Object}}\ \&\textcolor{keywordtype}{object})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_render\_editor\_gui\_section\_tree(\mbox{\hyperlink{class_object}{Object}}**\ selected\_object);}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ base\_render\_editor\_gui\_section()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ std::string\ name\{\textcolor{stringliteral}{"{}"{}}\};}
 \DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00064\ \ \ \ \ GET\ T*\ get\_component()\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::shared\_ptr<Component>\ \&component\ :\ components)\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ T::component\_type)\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (T*)component.get();}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00071\ \ \ \ \ \}}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00074\ \ \ \ \ GET\ std::vector<T*>\ get\_components()\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ std::vector<T*>\ ret;}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::shared\_ptr<Component>\ \&component\ :\ components)\ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (component-\/>get\_type()\ ==\ T::component\_type)\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret.push\_back((T*)component.get());}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00082\ \ \ \ \ \}}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ GET\ std::vector<std::shared\_ptr<Component>>\ \&\ get\_all\_components()\ \textcolor{keyword}{noexcept}\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ components;}
-\DoxyCodeLine{00086\ \ \ \ \ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{template}\ <ACCEPT\_BASE\_AND\_HEIRS\_ONLY(\textcolor{keyword}{typename}\ T,\ Component)>}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_component(\textcolor{keyword}{const}\ std::shared\_ptr<T>\ \&component)\ \{\ \textcolor{comment}{//?\ AHHHHHHHHHHHHHHHHHHHHHHHH}}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ components.push\_back(component);}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>\mbox{\hyperlink{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}{add\_component}}<\mbox{\hyperlink{class_graphics_component}{GraphicsComponent}}>(std::static\_pointer\_cast<GraphicsComponent>(components.back()).get());}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ components.back()-\/>parent\ =\ \&\mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_component(\textcolor{keywordtype}{size\_t}\ index)\ \{}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ components.erase(components.begin()+index);}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GraphicsComponent::is\_graphics\_component(*components.back()))\ \{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ graphics\_scene-\/>remove\_component(std::static\_pointer\_cast<GraphicsComponent>(*(components.begin()+index)).get());}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00105\ \ \ \ \ \}}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}\ \mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\_component}};}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}*\ graphics\_scene\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform;}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ parent\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00120\ \ \ \ \ std::vector<Object*>\ children\ =\ \{\ \};}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ std::vector<std::shared\_ptr<Component>>\ components\ =\ \{\ \};\ }
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ remove\_this\_from\_parents\_children()\ \{}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parent\ !=\ \textcolor{keyword}{nullptr})\ \{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.erase(}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::remove(}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.begin(),}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end(),}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{this}),}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>parent-\/>children.end()}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ );}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00134\ \ \ \ \ \}}
-\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ mimic\_position\_component\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ mimic\_rotation\_component\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_component}{Component}}*\ mimic\_size\_component\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}};}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_scene}{Scene}}*\ scene\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}\ transform\{\};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ parent\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00075\ \ \ \ \ std::set<std::unique\_ptr<Object>>\ children\{\};}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_object}{Object}}*\ selected\_object\{\textcolor{keyword}{nullptr}\};}
 
 \end{DoxyCode}

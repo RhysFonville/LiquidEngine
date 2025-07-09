@@ -12,13 +12,21 @@ Contains all needed scene object data for rendering.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ }\\void \mbox{\hyperlink{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}{add\+\_\+component}} (const T $\ast$component)
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}$>$}\\void \mbox{\hyperlink{class_graphics_scene_aca7c2fa3ed2569f3c5f0683169c08cb5}{add\+\_\+component}} (T $\ast$component)
 \begin{DoxyCompactList}\small\item\em Add \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}} to the graphics scene. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_graphics_scene_a74405b6eca86f8e01c11f4e95b80a2d6}\label{class_graphics_scene_a74405b6eca86f8e01c11f4e95b80a2d6}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ }\\void {\bfseries remove\+\_\+component} (const T $\ast$component)
+\mbox{\Hypertarget{class_graphics_scene_abc5f9e6c37b5a6a263eb41e2ee952afe}\label{class_graphics_scene_abc5f9e6c37b5a6a263eb41e2ee952afe}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}$>$}\\void {\bfseries remove\+\_\+component} (const T $\ast$component)
 \item 
 \mbox{\Hypertarget{class_graphics_scene_ad3975e2a8005140e807f8ef47dbc03b5}\label{class_graphics_scene_ad3975e2a8005140e807f8ef47dbc03b5}} 
 void {\bfseries compile} ()
+\item 
+\mbox{\Hypertarget{class_graphics_scene_a0c73982261d2d8b36a5435ce471233e3}\label{class_graphics_scene_a0c73982261d2d8b36a5435ce471233e3}} 
+void {\bfseries set\+\_\+resources} ()
+\item 
+\mbox{\Hypertarget{class_graphics_scene_a8bd06f509db16877f99eac1a3033e08f}\label{class_graphics_scene_a8bd06f509db16877f99eac1a3033e08f}} 
+void {\bfseries refresh\+\_\+pipelines} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const DXGI\+\_\+\+SAMPLE\+\_\+\+DESC \&msaa\+\_\+sample\+\_\+desc, const D3\+D12\+\_\+\+BLEND\+\_\+\+DESC \&blend\+\_\+desc)
 \item 
 void \mbox{\hyperlink{class_graphics_scene_aa8fd33d5be685108de3e900abd92486f}{update}} (\mbox{\hyperlink{class_t_vector2}{UVector2}} resolution)
 \begin{DoxyCompactList}\small\item\em Look for changes in component data and update graphics-\/side data accordingly. \end{DoxyCompactList}\item 
@@ -37,12 +45,13 @@ class {\bfseries Renderer}
 Contains all needed scene object data for rendering. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}\label{class_graphics_scene_a8172ba4b54ffe39f2ae1b70c2f4e1191}} 
+\mbox{\Hypertarget{class_graphics_scene_aca7c2fa3ed2569f3c5f0683169c08cb5}\label{class_graphics_scene_aca7c2fa3ed2569f3c5f0683169c08cb5}} 
 \index{GraphicsScene@{GraphicsScene}!add\_component@{add\_component}}
 \index{add\_component@{add\_component}!GraphicsScene@{GraphicsScene}}
 \doxysubsubsection{\texorpdfstring{add\_component()}{add\_component()}}
-{\footnotesize\ttfamily template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}) $>$ \\
-void Graphics\+Scene\+::add\+\_\+component (\begin{DoxyParamCaption}\item[{const T $\ast$}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}$>$\\
+void Graphics\+Scene\+::add\+\_\+component (\begin{DoxyParamCaption}\item[{T $\ast$}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -75,7 +84,6 @@ Look for changes in component data and update graphics-\/side data accordingly.
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Scene.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Scene.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/Graphics\+Scene.\+h\end{DoxyCompactItemize}

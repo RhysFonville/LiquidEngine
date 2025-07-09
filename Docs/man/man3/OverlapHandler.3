@@ -1,0 +1,50 @@
+.TH "OverlapHandler" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+OverlapHandler
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBhandle_overlap\fP (\fBPhysicalComponent\fP *obj1, \fBPhysicalComponent\fP *obj2, float dt) noexcept"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBFVector3\fP \fBclosest_point_on_AABB\fP (const \fBFVector3\fP &point, const \fBFVector3\fP &box_pos, const \fBSimpleBoundingBox\fP &aabb) noexcept"
+.br
+.ti -1c
+.RI "static \fBOverlapEventInfo\fP \fBbounding_box_box_overlap\fP (const \fBFVector3\fP &box1_pos, const \fBSimpleBoundingBox\fP &box1, const \fBFVector3\fP &box2_pos, const \fBSimpleBoundingBox\fP &box2) noexcept"
+.br
+.ti -1c
+.RI "static \fBOverlapEventInfo\fP \fBsphere_sphere_overlap\fP (const \fBFVector3\fP &sphere1_pos, const \fBSphere\fP &sphere1, const \fBFVector3\fP &sphere2_pos, const \fBSphere\fP &sphere2) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtri_tri_overlap\fP (const \fBSimpleTriangle\fP &tri1, const \fBSimpleTriangle\fP &tri2) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBcoplanar_tri_tri3d\fP (float p1[3], float q1[3], float r1[3], float p2[3], float q2[3], float r2[3], float normal_1[3]) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtri_tri_overlap_test_2d\fP (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBccw_tri_tri_intersection_2d\fP (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept"
+.br
+.ti -1c
+.RI "static float \fBsigned_tetrahedron_volume\fP (\fBFVector3\fP a, \fBFVector3\fP b, \fBFVector3\fP c, \fBFVector3\fP d) noexcept"
+.br
+.ti -1c
+.RI "static bool \fBtriangle_line_collision\fP (const \fBSimpleTriangle\fP &triangle, const \fBLine\fP &line) noexcept"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

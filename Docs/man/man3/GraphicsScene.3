@@ -1,4 +1,4 @@
-.TH "GraphicsScene" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsScene" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,14 +13,24 @@ GraphicsScene \- Contains all needed scene object data for rendering\&.
 
 .in +1c
 .ti -1c
-.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void \fBadd_component\fP (const T *component)"
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBGraphicsComponent\fP>void \fBadd_component\fP (T *component)"
 .br
 .RI "Add \fBGraphicsComponent\fP to the graphics scene\&. "
 .ti -1c
-.RI "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void \fBremove_component\fP (const T *component)"
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBGraphicsComponent\fP>void \fBremove_component\fP (const T *component)"
 .br
 .ti -1c
 .RI "void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_resources\fP ()"
+.br
+.ti -1c
+.RI "void \fBrefresh_pipelines\fP (const ComPtr< ID3D12Device > &device, const DXGI_SAMPLE_DESC &msaa_sample_desc, const D3D12_BLEND_DESC &blend_desc)"
 .br
 .ti -1c
 .RI "void \fBupdate\fP (\fBUVector2\fP resolution)"
@@ -42,7 +52,9 @@ GraphicsScene \- Contains all needed scene object data for rendering\&.
 Contains all needed scene object data for rendering\&. 
 .SH "Member Function Documentation"
 .PP 
-.SS "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsComponent\fP) > void GraphicsScene::add_component (const T * component)\fC [inline]\fP"
+.SS "template<typename T > 
+.br
+requires std::derived_from<T, \fBGraphicsComponent\fP>void GraphicsScene::add_component (T * component)\fC [inline]\fP"
 
 .PP
 Add \fBGraphicsComponent\fP to the graphics scene\&. Converts component data into graphics-side structure\&.

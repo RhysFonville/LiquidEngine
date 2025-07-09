@@ -94,6 +94,9 @@ Inheritance diagram for Texture:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a21822d3a487c6a803f706869fe46faa2"><td class="memItemLeft" align="right" valign="top"><a id="a21822d3a487c6a803f706869fe46faa2" name="a21822d3a487c6a803f706869fe46faa2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Texture</b> (const <a class="el" href="class_texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="separator:a21822d3a487c6a803f706869fe46faa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63f49a8bd410e28b35d7800d5cf15d7d"><td class="memItemLeft" align="right" valign="top"><a id="a63f49a8bd410e28b35d7800d5cf15d7d" name="a63f49a8bd410e28b35d7800d5cf15d7d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Texture</b> (const std::string &amp;file)</td></tr>
 <tr class="separator:a63f49a8bd410e28b35d7800d5cf15d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,15 +112,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_texture</b> (cons
 <tr class="memitem:aa6e1bc04ea9b92fdaa868ec63ae107f5"><td class="memItemLeft" align="right" valign="top"><a id="aa6e1bc04ea9b92fdaa868ec63ae107f5" name="aa6e1bc04ea9b92fdaa868ec63ae107f5"></a>
 GET std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_file</b> () const noexcept</td></tr>
 <tr class="separator:aa6e1bc04ea9b92fdaa868ec63ae107f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19c325fd37d929375b553a85c277cebd"><td class="memItemLeft" align="right" valign="top"><a id="a19c325fd37d929375b553a85c277cebd" name="a19c325fd37d929375b553a85c277cebd"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>exists</b> () const noexcept</td></tr>
-<tr class="separator:a19c325fd37d929375b553a85c277cebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc79a0a352e540eb1f4ac8194105c350"><td class="memItemLeft" align="right" valign="top"><a id="afc79a0a352e540eb1f4ac8194105c350" name="afc79a0a352e540eb1f4ac8194105c350"></a>
-const DirectX::ScratchImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_image</b> () const noexcept</td></tr>
-<tr class="separator:afc79a0a352e540eb1f4ac8194105c350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e89b9464e000b9056f18caf76226f78"><td class="memItemLeft" align="right" valign="top"><a id="a5e89b9464e000b9056f18caf76226f78" name="a5e89b9464e000b9056f18caf76226f78"></a>
-const DirectX::ScratchImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_mip_chain</b> () const noexcept</td></tr>
-<tr class="separator:a5e89b9464e000b9056f18caf76226f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab113e97fb3f51b2b0b148720cccb9c9f"><td class="memItemLeft" align="right" valign="top"><a id="ab113e97fb3f51b2b0b148720cccb9c9f" name="ab113e97fb3f51b2b0b148720cccb9c9f"></a>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>exists</b> () const noexcept</td></tr>
+<tr class="separator:ab113e97fb3f51b2b0b148720cccb9c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9f9757738304bb21d3e90c2c3ed6f2"><td class="memItemLeft" align="right" valign="top"><a id="abb9f9757738304bb21d3e90c2c3ed6f2" name="abb9f9757738304bb21d3e90c2c3ed6f2"></a>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_opaque</b> () const noexcept</td></tr>
+<tr class="separator:abb9f9757738304bb21d3e90c2c3ed6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acad81262d371d3ff405bdaab5e57c03a"><td class="memItemLeft" align="right" valign="top"><a id="acad81262d371d3ff405bdaab5e57c03a" name="acad81262d371d3ff405bdaab5e57c03a"></a>
+GET const DirectX::ScratchImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_image</b> () const noexcept</td></tr>
+<tr class="separator:acad81262d371d3ff405bdaab5e57c03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac57a87044aa869b6e96fee0ffcd0ce4b"><td class="memItemLeft" align="right" valign="top"><a id="ac57a87044aa869b6e96fee0ffcd0ce4b" name="ac57a87044aa869b6e96fee0ffcd0ce4b"></a>
+GET const DirectX::ScratchImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_mip_chain</b> () const noexcept</td></tr>
+<tr class="separator:ac57a87044aa869b6e96fee0ffcd0ce4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_graphics_tracker"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_graphics_tracker')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_graphics_tracker.html">GraphicsTracker</a></td></tr>
 <tr class="memitem:adf7967db53cd804b0d520e4a9da71ae5 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="adf7967db53cd804b0d520e4a9da71ae5" name="adf7967db53cd804b0d520e4a9da71ae5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () const noexcept</td></tr>
@@ -125,6 +131,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () co
 <tr class="memitem:a8d37bc3480fb12434987cf3cc010dd23 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a8d37bc3480fb12434987cf3cc010dd23" name="a8d37bc3480fb12434987cf3cc010dd23"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> (bool changed) noexcept</td></tr>
 <tr class="separator:a8d37bc3480fb12434987cf3cc010dd23 inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cd38c4490bdc019c1ce7c359e4eb975 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a1cd38c4490bdc019c1ce7c359e4eb975" name="a1cd38c4490bdc019c1ce7c359e4eb975"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> () const noexcept</td></tr>
+<tr class="separator:a1cd38c4490bdc019c1ce7c359e4eb975 inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b9bc82a4ee3f24f4cee72c9338f90e inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="ae7b9bc82a4ee3f24f4cee72c9338f90e" name="ae7b9bc82a4ee3f24f4cee72c9338f90e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> (bool compile) noexcept</td></tr>
+<tr class="separator:ae7b9bc82a4ee3f24f4cee72c9338f90e inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -138,10 +150,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:acd0210b0cf17ca0bad6c987540bc7ff4 inherit pro_attribs_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="acd0210b0cf17ca0bad6c987540bc7ff4" name="acd0210b0cf17ca0bad6c987540bc7ff4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> {false}</td></tr>
 <tr class="separator:acd0210b0cf17ca0bad6c987540bc7ff4 inherit pro_attribs_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5232a1f1d7f41b78d86395fd10e5a099 inherit pro_attribs_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a5232a1f1d7f41b78d86395fd10e5a099" name="a5232a1f1d7f41b78d86395fd10e5a099"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> {false}</td></tr>
+<tr class="separator:a5232a1f1d7f41b78d86395fd10e5a099 inherit pro_attribs_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_texture.html" title="Texture for rendering onto objects.">Texture</a> for rendering onto objects. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html" title="Shader resource view.">GraphicsPipeline::RootSignature::ShaderResourceView</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_shader_resource_view.html" title="Shader resource view.">ShaderResourceView</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a791e3ac555c03bcdc309de677f8d1f0c" name="a791e3ac555c03bcdc309de677f8d1f0c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a791e3ac555c03bcdc309de677f8d1f0c">&#9670;&#160;</a></span>load_texture()</h2>

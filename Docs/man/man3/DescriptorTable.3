@@ -1,0 +1,93 @@
+.TH "DescriptorTable" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DescriptorTable \- Descriptor table to describe data to be uploaded\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArguments\&.h>\fP
+.PP
+Inherits \fBRootArgument\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDescriptorTable\fP (const D3D12_DESCRIPTOR_RANGE1 &range, UINT param_index)"
+.br
+.ti -1c
+.RI "\fBDescriptorTable\fP (D3D12_SHADER_INPUT_BIND_DESC bind_desc, D3D12_DESCRIPTOR_RANGE_TYPE type, UINT param_index)"
+.br
+.ti -1c
+.RI "\fBDescriptorTable\fP (const \fBDescriptorTable\fP &dt)"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "D3D12_ROOT_PARAMETER1 \fBget_root_param\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_descriptor_table\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heap) const"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBDescriptorTable\fP &descriptor_table) const noexcept"
+.br
+.ti -1c
+.RI "GET D3D12_ROOT_DESCRIPTOR_TABLE1 \fBget_table\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET const D3D12_DESCRIPTOR_RANGE1 & \fBget_range\fP () const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBRootArgument\fP
+.in +1c
+.ti -1c
+.RI "\fBRootArgument\fP (UINT index)"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()=0"
+.br
+.ti -1c
+.RI "virtual GET D3D12_ROOT_PARAMETER1 \fBget_root_param\fP () const noexcept=0"
+.br
+.ti -1c
+.RI "GET UINT \fBget_index\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "UINT \fBheap_index\fP {(UINT)\-1}"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Attributes inherited from \fBRootArgument\fP
+.in +1c
+.ti -1c
+.RI "UINT \fBindex\fP {}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Descriptor table to describe data to be uploaded\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void DescriptorTable::clean_up ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBRootArgument\fP\&.
+.SS "D3D12_ROOT_PARAMETER1 DescriptorTable::get_root_param () const\fC [virtual]\fP, \fC [noexcept]\fP"
+
+.PP
+Implements \fBRootArgument\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

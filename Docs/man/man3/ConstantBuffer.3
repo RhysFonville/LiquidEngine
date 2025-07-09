@@ -1,0 +1,129 @@
+.TH "ConstantBuffer" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ConstantBuffer \- Constant buffer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineRootArguments\&.h>\fP
+.PP
+Inherits \fBDescriptorRootObject\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBConstantBuffer\fP (const \fBDescriptorTable\fP &dt)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBset_obj\fP (T *cb)"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps) override"
+.br
+.ti -1c
+.RI "void \fBupdate\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.ti -1c
+.RI "void \fBupdate\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBwill_update\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBclean_up\fP () override"
+.br
+.ti -1c
+.RI "bool \fBis_null\fP () override"
+.br
+.ti -1c
+.RI "void \fBcreate_view\fP (const ComPtr< ID3D12Device > &device, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps) override"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBConstantBuffer\fP &cb) const noexcept"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBDescriptorRootObject\fP
+.in +1c
+.ti -1c
+.RI "\fBDescriptorRootObject\fP (const \fBDescriptorTable\fP &dt)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBDescriptorRootObject\fP &dro) const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP (const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)=0"
+.br
+.ti -1c
+.RI "void \fBcompile\fP () noexcept"
+.br
+.ti -1c
+.RI "bool \fBwill_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual bool \fBis_null\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBcreate_view\fP (const ComPtr< ID3D12Device > &device, \fBGraphicsResourceDescriptorHeap\fP &descriptor_heaps)=0"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "void * \fBobj\fP {nullptr}"
+.br
+.ti -1c
+.RI "size_t \fBobj_size\fP {0u}"
+.br
+.in -1c
+
+Public Attributes inherited from \fBDescriptorRootObject\fP
+.in +1c
+.ti -1c
+.RI "\fBDescriptorTable\fP \fBdescriptor_table\fP {}"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Protected Attributes inherited from \fBDescriptorRootObject\fP
+.in +1c
+.ti -1c
+.RI "bool \fBcompile_signal\fP {true}"
+.br
+.ti -1c
+.RI "ComPtr< ID3D12Resource > \fBdefault_heap\fP {nullptr}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Constant buffer\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void ConstantBuffer::clean_up ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBDescriptorRootObject\fP\&.
+.SS "void ConstantBuffer::compile (const ComPtr< ID3D12Device > & device, const ComPtr< ID3D12GraphicsCommandList > & command_list, \fBGraphicsResourceDescriptorHeap\fP & descriptor_heaps)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDescriptorRootObject\fP\&.
+.SS "void ConstantBuffer::create_view (const ComPtr< ID3D12Device > & device, \fBGraphicsResourceDescriptorHeap\fP & descriptor_heaps)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDescriptorRootObject\fP\&.
+.SS "bool ConstantBuffer::is_null ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBDescriptorRootObject\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

@@ -1,4 +1,4 @@
-.TH "FVector3" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "FVector3" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@ FVector3
 .PP
 Inherits \fBTVector3< float >\fP\&.
 .PP
-Inherited by \fBMechanics::Force\fP\&.
+Inherited by \fBForce\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
@@ -23,22 +23,40 @@ Inherited by \fBMechanics::Force\fP\&.
 .RI "constexpr \fBFVector3\fP (float x, float y, float z)"
 .br
 .ti -1c
-.RI "\fBFVector3\fP (XMVECTOR vector)"
+.RI "\fBFVector3\fP (float *vector)"
 .br
 .ti -1c
-.RI "\fBFVector3\fP (float *vector)"
+.RI "\fBFVector3\fP (const XMVECTOR &vec)"
 .br
 .ti -1c
 .RI "\fBoperator TVector3< float >\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBoperator XMVECTOR\fP () const noexcept"
+.RI "\fBFVector3\fP \fBoperator+\fP (\fBFVector3\fP vector) const noexcept"
 .br
 .ti -1c
-.RI "\fBoperator XMFLOAT3\fP () const noexcept"
+.RI "\fBFVector3\fP \fBoperator\-\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBFVector3\fP \fBpow\fP (float p) noexcept"
+.RI "\fBFVector3\fP \fBoperator\-\fP (const \fBFVector3\fP &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBoperator*\fP (const \fBFVector3\fP &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBoperator*\fP (float n) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBoperator/\fP (const \fBFVector3\fP &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBoperator/\fP (float n) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBpow\fP (float p) const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBclamp\fP (const \fBFVector3\fP &_min, const \fBFVector3\fP &_max) const noexcept"
 .br
 .ti -1c
 .RI "float \fBmatrix_multiplication\fP (const \fBFVector3\fP &vector) const noexcept"
@@ -46,10 +64,25 @@ Inherited by \fBMechanics::Force\fP\&.
 .ti -1c
 .RI "void \fBoperator=\fP (const XMVECTOR &vector) noexcept"
 .br
+.ti -1c
+.RI "float \fBlength\fP () const noexcept"
+.br
+.ti -1c
+.RI "XMVECTOR \fBto_xmvec\fP () const noexcept"
+.br
+.ti -1c
+.RI "\fBFVector3\fP \fBnormalize\fP () const noexcept"
+.br
 .in -1c
 
 Public Member Functions inherited from \fBTVector3< float >\fP
 .in +1c
+.ti -1c
+.RI "\fBTVector3\fP (T v)"
+.br
+.ti -1c
+.RI "\fBTVector3\fP (T vec[3])"
+.br
 .ti -1c
 .RI "\fBTVector3\fP (const \fBTVector3\fP &vector)"
 .br
@@ -60,10 +93,13 @@ Public Member Functions inherited from \fBTVector3< float >\fP
 .RI "bool \fBis_zero\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBTVector3\fP< T > \fBoperator+\fP (\fBTVector3\fP< T > vector)"
+.RI "\fBTVector3\fP< T > \fBoperator+\fP (const \fBTVector3\fP< T > &vector) const noexcept"
 .br
 .ti -1c
-.RI "\fBTVector3\fP< T > \fBoperator\-\fP (const \fBTVector3\fP< T > &vector) noexcept"
+.RI "\fBTVector3\fP< T > \fBoperator\-\fP (const \fBTVector3\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector3\fP< T > \fBoperator\-\fP () const noexcept"
 .br
 .ti -1c
 .RI "\fBTVector3\fP< T > \fBoperator*\fP (const \fBTVector3\fP< T > &vector) const noexcept"
@@ -93,7 +129,17 @@ Public Member Functions inherited from \fBTVector3< float >\fP
 .RI "void \fBoperator=\fP (const \fBTVector3\fP< T > &vector) noexcept"
 .br
 .ti -1c
-.RI "T & \fBoperator[]\fP (UCHAR index)"
+.RI "T & \fBoperator[]\fP (UCHAR index) const"
+.br
+.ti -1c
+.RI "std::string \fBto_string\fP ()"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBFVector3\fP &vec)"
 .br
 .in -1c
 .SS "Additional Inherited Members"

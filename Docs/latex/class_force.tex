@@ -1,0 +1,174 @@
+\hypertarget{class_force}{}\doxysection{Force Class Reference}
+\label{class_force}\index{Force@{Force}}
+Inheritance diagram for Force\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_force}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_force_a658662e13b63307c55144bac5de99adb}\label{class_force_a658662e13b63307c55144bac5de99adb}} 
+enum class {\bfseries Type} \{ {\bfseries Impulse}
+, {\bfseries Constant}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_force_a0ea43be6dbe98205b83461791bcb3620}\label{class_force_a0ea43be6dbe98205b83461791bcb3620}} 
+{\bfseries Force} (\mbox{\hyperlink{class_f_vector3}{FVector3}} vector, std\+::string name=\char`\"{}\char`\"{}, Type type=Type\+::\+Impulse)
+\item 
+\mbox{\Hypertarget{class_force_a02975c3cfec03e27e8e4a185b9d55c53}\label{class_force_a02975c3cfec03e27e8e4a185b9d55c53}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_force}{Force}} \&force) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_f_vector3}{FVector3}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_f_vector3_a1fa86b95aee42287d795e6aed6cbc96d}\label{class_f_vector3_a1fa86b95aee42287d795e6aed6cbc96d}} 
+{\bfseries FVector3} (\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ float $>$ v)
+\item 
+\mbox{\Hypertarget{class_f_vector3_a3a640fb1f30b9479e9ca62ae7d24b53e}\label{class_f_vector3_a3a640fb1f30b9479e9ca62ae7d24b53e}} 
+{\bfseries FVector3} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&vector)
+\item 
+\mbox{\Hypertarget{class_f_vector3_aeeceb56ec9446590901c5c4e2f88d282}\label{class_f_vector3_aeeceb56ec9446590901c5c4e2f88d282}} 
+constexpr {\bfseries FVector3} (float x, float y, float z)
+\item 
+\mbox{\Hypertarget{class_f_vector3_ad7e185243f4f36a120a681dfe83af474}\label{class_f_vector3_ad7e185243f4f36a120a681dfe83af474}} 
+{\bfseries FVector3} (float $\ast$vector)
+\item 
+\mbox{\Hypertarget{class_f_vector3_a6a57f4909ef097d3a0394deba9e599e0}\label{class_f_vector3_a6a57f4909ef097d3a0394deba9e599e0}} 
+{\bfseries FVector3} (const XMVECTOR \&vec)
+\item 
+\mbox{\Hypertarget{class_f_vector3_a71bf7b59313d7713cafceb8a8d2c2baa}\label{class_f_vector3_a71bf7b59313d7713cafceb8a8d2c2baa}} 
+{\bfseries operator TVector3$<$ float $>$} () const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a1816bf83b4e77c9e5e10b3066d79f025}\label{class_f_vector3_a1816bf83b4e77c9e5e10b3066d79f025}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator+} (\mbox{\hyperlink{class_f_vector3}{FVector3}} vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a4a4bbbbf40c3048a055b61793fafafdd}\label{class_f_vector3_a4a4bbbbf40c3048a055b61793fafafdd}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator-\/} () const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a170c322f82bf15b3a1da99faa699bc97}\label{class_f_vector3_a170c322f82bf15b3a1da99faa699bc97}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator-\/} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_aa0a8db289e3651fadb92825565d97a77}\label{class_f_vector3_aa0a8db289e3651fadb92825565d97a77}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator$\ast$} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a17af4ad6b1cca1bf8fcc9bc2de16fb75}\label{class_f_vector3_a17af4ad6b1cca1bf8fcc9bc2de16fb75}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator$\ast$} (float n) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_ab2d79aa06b73a79c868404fbae6c0a6f}\label{class_f_vector3_ab2d79aa06b73a79c868404fbae6c0a6f}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator/} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a4cdf2217889b27880aab6742b6350f20}\label{class_f_vector3_a4cdf2217889b27880aab6742b6350f20}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries operator/} (float n) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_ae13b796f7b12f0e45638f917fcc8bbba}\label{class_f_vector3_ae13b796f7b12f0e45638f917fcc8bbba}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries pow} (float p) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a51da162fc9ea84eeb22470b045134aa9}\label{class_f_vector3_a51da162fc9ea84eeb22470b045134aa9}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries clamp} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&\+\_\+min, const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&\+\_\+max) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a5390387e872ba00ba2850c87ff11cf96}\label{class_f_vector3_a5390387e872ba00ba2850c87ff11cf96}} 
+float {\bfseries matrix\+\_\+multiplication} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_aac5a31e8e8937e383dc239dd8829f2b2}\label{class_f_vector3_aac5a31e8e8937e383dc239dd8829f2b2}} 
+void {\bfseries operator=} (const XMVECTOR \&vector) noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_adaed4cc68fc8521e96ad1ed78b028a25}\label{class_f_vector3_adaed4cc68fc8521e96ad1ed78b028a25}} 
+float {\bfseries length} () const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a3c0cbe4c45af978081071e55cd8cc3d7}\label{class_f_vector3_a3c0cbe4c45af978081071e55cd8cc3d7}} 
+XMVECTOR {\bfseries to\+\_\+xmvec} () const noexcept
+\item 
+\mbox{\Hypertarget{class_f_vector3_a7fa24424c2672d2e1e9763a6c2447606}\label{class_f_vector3_a7fa24424c2672d2e1e9763a6c2447606}} 
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries normalize} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_t_vector3}{TVector3$<$ float $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_vector3_ad2d7400eee765bc7710e54cc3fd4ffdf}\label{class_t_vector3_ad2d7400eee765bc7710e54cc3fd4ffdf}} 
+{\bfseries TVector3} (T v)
+\item 
+\mbox{\Hypertarget{class_t_vector3_a99d58f9fcc0e0b2c180805ad6686d704}\label{class_t_vector3_a99d58f9fcc0e0b2c180805ad6686d704}} 
+{\bfseries TVector3} (T vec\mbox{[}3\mbox{]})
+\item 
+\mbox{\Hypertarget{class_t_vector3_a62180b85a424ca59726aa45a01903312}\label{class_t_vector3_a62180b85a424ca59726aa45a01903312}} 
+{\bfseries TVector3} (const \mbox{\hyperlink{class_t_vector3}{TVector3}} \&vector)
+\item 
+\mbox{\Hypertarget{class_t_vector3_a72da83bd9877f308ba2f0bd424b80355}\label{class_t_vector3_a72da83bd9877f308ba2f0bd424b80355}} 
+constexpr {\bfseries TVector3} (T x, T y, T z)
+\item 
+\mbox{\Hypertarget{class_t_vector3_a55cb03498c5e89ea05e5596fb76beb74}\label{class_t_vector3_a55cb03498c5e89ea05e5596fb76beb74}} 
+bool {\bfseries is\+\_\+zero} () const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a46e7cedc27590f47ccaa17e22b28aa8c}\label{class_t_vector3_a46e7cedc27590f47ccaa17e22b28aa8c}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator+} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_aaa8b7ab6a21c43dfe7daeb0690515b3a}\label{class_t_vector3_aaa8b7ab6a21c43dfe7daeb0690515b3a}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator-\/} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_aeb867ddb11853ef011898b6a7c53c08a}\label{class_t_vector3_aeb867ddb11853ef011898b6a7c53c08a}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator-\/} () const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a5b0c52c6ac06e9a763e276e4310514dd}\label{class_t_vector3_a5b0c52c6ac06e9a763e276e4310514dd}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator$\ast$} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_ad85dd4b472008780b3fea5acc269747a}\label{class_t_vector3_ad85dd4b472008780b3fea5acc269747a}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator$\ast$} (T n) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a109bcb55e8d42b79b8956c8e83a96d22}\label{class_t_vector3_a109bcb55e8d42b79b8956c8e83a96d22}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator/} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a3823e44accaf9db84f108183299d93a4}\label{class_t_vector3_a3823e44accaf9db84f108183299d93a4}} 
+\mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ {\bfseries operator/} (T n) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_acc470fc5995ded0428cca79f4ae17685}\label{class_t_vector3_acc470fc5995ded0428cca79f4ae17685}} 
+void {\bfseries operator+=} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a3d76a79c8ff18008e94aa267a601a465}\label{class_t_vector3_a3d76a79c8ff18008e94aa267a601a465}} 
+void {\bfseries operator-\/=} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a517919c6d5237fab253717e922afb939}\label{class_t_vector3_a517919c6d5237fab253717e922afb939}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a57ba61e9d0433860d5cb83b60b0042b9}\label{class_t_vector3_a57ba61e9d0433860d5cb83b60b0042b9}} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) const noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_a200faf5076b2ef05df34d6a006024c6f}\label{class_t_vector3_a200faf5076b2ef05df34d6a006024c6f}} 
+void {\bfseries operator=} (const \mbox{\hyperlink{class_t_vector3}{TVector3}}$<$ T $>$ \&vector) noexcept
+\item 
+\mbox{\Hypertarget{class_t_vector3_ad823a89ffb1ff5c95b5ebf8ce140d47e}\label{class_t_vector3_ad823a89ffb1ff5c95b5ebf8ce140d47e}} 
+T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (UCHAR index) const
+\item 
+\mbox{\Hypertarget{class_t_vector3_a0f63ed9bbb7ba58d58c7bd7ed9b0154c}\label{class_t_vector3_a0f63ed9bbb7ba58d58c7bd7ed9b0154c}} 
+std\+::string {\bfseries to\+\_\+string} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_force_aed52bd1c41bec5f122f77415b6f91a30}\label{class_force_aed52bd1c41bec5f122f77415b6f91a30}} 
+std\+::string {\bfseries name} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{class_force_a4f3db7cf32239f4dfeda70eae38cea22}\label{class_force_a4f3db7cf32239f4dfeda70eae38cea22}} 
+Type {\bfseries type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_t_vector3}{TVector3$<$ float $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_vector3_a0556ecf9044c62dc316f1c9096c39440}\label{class_t_vector3_a0556ecf9044c62dc316f1c9096c39440}} 
+T {\bfseries x}
+\item 
+\mbox{\Hypertarget{class_t_vector3_adace2a0679ed321a453ebaf84fcae278}\label{class_t_vector3_adace2a0679ed321a453ebaf84fcae278}} 
+T {\bfseries y}
+\item 
+\mbox{\Hypertarget{class_t_vector3_af0b0320b8060a906d8c8e495350abcda}\label{class_t_vector3_af0b0320b8060a906d8c8e495350abcda}} 
+T {\bfseries z}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/physicsutil.\+h\end{DoxyCompactItemize}

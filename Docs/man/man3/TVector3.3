@@ -1,14 +1,20 @@
-.TH "TVector3<>" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "TVector3< T >" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-TVector3<>
+TVector3< T >
 .SH SYNOPSIS
 .br
 .PP
 .SS "Public Member Functions"
 
 .in +1c
+.ti -1c
+.RI "\fBTVector3\fP (T v)"
+.br
+.ti -1c
+.RI "\fBTVector3\fP (T vec[3])"
+.br
 .ti -1c
 .RI "\fBTVector3\fP (const \fBTVector3\fP &vector)"
 .br
@@ -19,10 +25,13 @@ TVector3<>
 .RI "bool \fBis_zero\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBTVector3\fP< T > \fBoperator+\fP (\fBTVector3\fP< T > vector)"
+.RI "\fBTVector3\fP< T > \fBoperator+\fP (const \fBTVector3\fP< T > &vector) const noexcept"
 .br
 .ti -1c
-.RI "\fBTVector3\fP< T > \fBoperator\-\fP (const \fBTVector3\fP< T > &vector) noexcept"
+.RI "\fBTVector3\fP< T > \fBoperator\-\fP (const \fBTVector3\fP< T > &vector) const noexcept"
+.br
+.ti -1c
+.RI "\fBTVector3\fP< T > \fBoperator\-\fP () const noexcept"
 .br
 .ti -1c
 .RI "\fBTVector3\fP< T > \fBoperator*\fP (const \fBTVector3\fP< T > &vector) const noexcept"
@@ -52,7 +61,10 @@ TVector3<>
 .RI "void \fBoperator=\fP (const \fBTVector3\fP< T > &vector) noexcept"
 .br
 .ti -1c
-.RI "T & \fBoperator[]\fP (UCHAR index)"
+.RI "T & \fBoperator[]\fP (UCHAR index) const"
+.br
+.ti -1c
+.RI "std::string \fBto_string\fP ()"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -66,6 +78,13 @@ TVector3<>
 .br
 .ti -1c
 .RI "T \fBz\fP = 0"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBTVector3\fP< T > &vec)"
 .br
 .in -1c
 

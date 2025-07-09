@@ -1,4 +1,4 @@
-.TH "GraphicsAdapterOutput" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsAdapterOutput" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -28,19 +28,28 @@ GraphicsAdapterOutput
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "DXGI_OUTPUT_DESC \fBget_desc\fP ()"
+.RI "GET DXGI_OUTPUT_DESC \fBget_desc\fP ()"
 .br
 .ti -1c
-.RI "DXGI_GAMMA_CONTROL \fBget_gamma_control\fP ()"
+.RI "GET DXGI_MODE_DESC \fBget_mode_desc\fP ()"
 .br
 .ti -1c
-.RI "DXGI_GAMMA_CONTROL_CAPABILITIES \fBget_gamma_control_capabilities\fP ()"
+.RI "GET MONITORINFOEXA \fBget_monitor_info\fP ()"
+.br
+.ti -1c
+.RI "GET DISPLAY_DEVICEA \fBget_display_device\fP ()"
+.br
+.ti -1c
+.RI "GET DXGI_GAMMA_CONTROL \fBget_gamma_control\fP ()"
+.br
+.ti -1c
+.RI "GET DXGI_GAMMA_CONTROL_CAPABILITIES \fBget_gamma_control_capabilities\fP ()"
 .br
 .ti -1c
 .RI "void \fBset_gamma_control\fP (const DXGI_GAMMA_CONTROL &gamma_control)"
 .br
 .ti -1c
-.RI "void \fBfind_closest_display_mode_to_current\fP (DXGI_MODE_DESC *out_current_display_mode)"
+.RI "DXGI_MODE_DESC \fBfind_closest_display_mode_to_current\fP ()"
 .br
 .in -1c
 .SS "Public Attributes"

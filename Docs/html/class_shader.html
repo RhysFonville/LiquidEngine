@@ -71,7 +71,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_shader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Shader Class Reference</div></div>
@@ -81,55 +80,45 @@ $(function() {
 <p><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> data for rendering.  
  <a href="class_shader.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_shader_storage_8h_source.html">ShaderStorage.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_shader_compiler_8h_source.html">ShaderCompiler.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:abdbec99e399193b12d229d51566323fd"><td class="memItemLeft" align="right" valign="top"><a id="abdbec99e399193b12d229d51566323fd" name="abdbec99e399193b12d229d51566323fd"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> { <br />
-&#160;&#160;<b>Vertex</b>
-, <b>Hull</b>
-, <b>Domain</b>
-, <b>Geometry</b>
-, <br />
-&#160;&#160;<b>Pixel</b>
-<br />
- }</td></tr>
-<tr class="separator:abdbec99e399193b12d229d51566323fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a66256e18d80815f859299fd9fd51dfb8"><td class="memItemLeft" align="right" valign="top"><a id="a66256e18d80815f859299fd9fd51dfb8" name="a66256e18d80815f859299fd9fd51dfb8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Shader</b> (Type type)</td></tr>
-<tr class="separator:a66256e18d80815f859299fd9fd51dfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28871c4474a4ad5062eaf0a43562ed5b"><td class="memItemLeft" align="right" valign="top"><a id="a28871c4474a4ad5062eaf0a43562ed5b" name="a28871c4474a4ad5062eaf0a43562ed5b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Shader</b> (Type type, const std::string &amp;file_name)</td></tr>
-<tr class="separator:a28871c4474a4ad5062eaf0a43562ed5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a354ba83fc6b19e53d161290921551498"><td class="memItemLeft" align="right" valign="top"><a id="a354ba83fc6b19e53d161290921551498" name="a354ba83fc6b19e53d161290921551498"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_shader.html">Shader</a> &amp;shader)</td></tr>
-<tr class="separator:a354ba83fc6b19e53d161290921551498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b0cf037abc3999c0896f32c7020f8f"><td class="memItemLeft" align="right" valign="top"><a id="ab9b0cf037abc3999c0896f32c7020f8f" name="ab9b0cf037abc3999c0896f32c7020f8f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Shader</b> (const std::string &amp;target, const std::string &amp;file_name, std::vector&lt; DxcDefine &gt; defines={})</td></tr>
+<tr class="separator:ab9b0cf037abc3999c0896f32c7020f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a310a3ef2f8fc3c98a9b3d129861dffc9"><td class="memItemLeft" align="right" valign="top"><a id="a310a3ef2f8fc3c98a9b3d129861dffc9" name="a310a3ef2f8fc3c98a9b3d129861dffc9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const std::string &amp;file)</td></tr>
 <tr class="separator:a310a3ef2f8fc3c98a9b3d129861dffc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be69e48ac2436651ead777bf5fb5c9f"><td class="memItemLeft" align="right" valign="top"><a id="a5be69e48ac2436651ead777bf5fb5c9f" name="a5be69e48ac2436651ead777bf5fb5c9f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
-<tr class="separator:a5be69e48ac2436651ead777bf5fb5c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80844b0ef94a029b2f759c74387630e4"><td class="memItemLeft" align="right" valign="top"><a id="a80844b0ef94a029b2f759c74387630e4" name="a80844b0ef94a029b2f759c74387630e4"></a>
-GET Type&#160;</td><td class="memItemRight" valign="bottom"><b>get_type</b> () const noexcept</td></tr>
-<tr class="separator:a80844b0ef94a029b2f759c74387630e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1effd1c4f6feefdd80f526b36f3256de"><td class="memItemLeft" align="right" valign="top"><a id="a1effd1c4f6feefdd80f526b36f3256de" name="a1effd1c4f6feefdd80f526b36f3256de"></a>
+GET std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_target</b> () const noexcept</td></tr>
+<tr class="separator:a1effd1c4f6feefdd80f526b36f3256de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af005b4ccd5ca1dc178ba7943b7326abf"><td class="memItemLeft" align="right" valign="top"><a id="af005b4ccd5ca1dc178ba7943b7326abf" name="af005b4ccd5ca1dc178ba7943b7326abf"></a>
+GET std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_entrypoint</b> () const noexcept</td></tr>
+<tr class="separator:af005b4ccd5ca1dc178ba7943b7326abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedb7c1b326a0aa09e2e9c77b92d13ba9"><td class="memItemLeft" align="right" valign="top"><a id="aedb7c1b326a0aa09e2e9c77b92d13ba9" name="aedb7c1b326a0aa09e2e9c77b92d13ba9"></a>
 GET std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_file</b> () const noexcept</td></tr>
 <tr class="separator:aedb7c1b326a0aa09e2e9c77b92d13ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99ba67d522cc8f85f0c40a2de5fbe0c0"><td class="memItemLeft" align="right" valign="top"><a id="a99ba67d522cc8f85f0c40a2de5fbe0c0" name="a99ba67d522cc8f85f0c40a2de5fbe0c0"></a>
-GET D3D12_SHADER_BYTECODE&#160;</td><td class="memItemRight" valign="bottom"><b>get_bytecode</b> () const noexcept</td></tr>
-<tr class="separator:a99ba67d522cc8f85f0c40a2de5fbe0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad39a358d07e82d746160aa5bde2efa05"><td class="memItemLeft" align="right" valign="top"><a id="ad39a358d07e82d746160aa5bde2efa05" name="ad39a358d07e82d746160aa5bde2efa05"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_shader.html">Shader</a> &amp;shader) const noexcept</td></tr>
-<tr class="separator:ad39a358d07e82d746160aa5bde2efa05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefa0e8bb5e99c72686ae4ce6fe358bf5"><td class="memItemLeft" align="right" valign="top"><a id="aefa0e8bb5e99c72686ae4ce6fe358bf5" name="aefa0e8bb5e99c72686ae4ce6fe358bf5"></a>
+GET std::vector&lt; DxcDefine &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_defines</b> () const noexcept</td></tr>
+<tr class="separator:aefa0e8bb5e99c72686ae4ce6fe358bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab671cfafd559b9cee3b5736ffe45b6fa"><td class="memItemLeft" align="right" valign="top"><a id="ab671cfafd559b9cee3b5736ffe45b6fa" name="ab671cfafd559b9cee3b5736ffe45b6fa"></a>
+GET ComPtr&lt; IDxcResult &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_compile_result</b> () noexcept</td></tr>
+<tr class="separator:ab671cfafd559b9cee3b5736ffe45b6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c19fa6ca31b2688073e57607a8040d"><td class="memItemLeft" align="right" valign="top"><a id="af9c19fa6ca31b2688073e57607a8040d" name="af9c19fa6ca31b2688073e57607a8040d"></a>
+GET ComPtr&lt; ID3D12ShaderReflection &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_reflection</b> () noexcept</td></tr>
+<tr class="separator:af9c19fa6ca31b2688073e57607a8040d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac48dfd754df0a504a1efac35fa9e84be"><td class="memItemLeft" align="right" valign="top"><a id="ac48dfd754df0a504a1efac35fa9e84be" name="ac48dfd754df0a504a1efac35fa9e84be"></a>
+GET ComPtr&lt; IDxcBlob &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_bytecode_blob</b> () const</td></tr>
+<tr class="separator:ac48dfd754df0a504a1efac35fa9e84be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0cd16dad1758ef4be14e81e3b06729"><td class="memItemLeft" align="right" valign="top"><a id="a6f0cd16dad1758ef4be14e81e3b06729" name="a6f0cd16dad1758ef4be14e81e3b06729"></a>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_shader.html">Shader</a> &amp;shader) const noexcept</td></tr>
+<tr class="separator:a6f0cd16dad1758ef4be14e81e3b06729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> data for rendering. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_shader_storage_8h_source.html">ShaderStorage.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/<a class="el" href="_shader_compiler_8h_source.html">ShaderCompiler.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

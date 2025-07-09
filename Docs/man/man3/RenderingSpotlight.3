@@ -1,4 +1,4 @@
-.TH "RenderingSpotlight" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingSpotlight" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,17 +21,29 @@ Inherits \fBRenderingComponent< SpotlightComponent >\fP\&.
 .RI "bool \fBupdate\fP ()"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (\fBSpotlightComponent\fP component)"
+.RI "void \fBcompile\fP ()"
 .br
 .in -1c
 
 Public Member Functions inherited from \fBRenderingComponent< SpotlightComponent >\fP
 .in +1c
 .ti -1c
-.RI "\fBRenderingComponent\fP (T *component)"
+.RI "\fBRenderingComponent\fP (\fBSpotlightComponent\fP *component)"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (T component)"
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBvalid\fP () const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -45,7 +57,7 @@ Public Member Functions inherited from \fBRenderingComponent< SpotlightComponent
 Public Attributes inherited from \fBRenderingComponent< SpotlightComponent >\fP
 .in +1c
 .ti -1c
-.RI "T * \fBcomponent\fP"
+.RI "\fBSpotlightComponent\fP * \fBcomponent\fP"
 .br
 .in -1c
 .SH "Detailed Description"

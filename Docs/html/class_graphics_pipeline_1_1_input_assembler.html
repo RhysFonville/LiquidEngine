@@ -81,13 +81,19 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Uploads mesh data.  
+<p>Input assembler stage.  
  <a href="class_graphics_pipeline_1_1_input_assembler.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a491e55754b1ea22f98f8f626a0fd9f57"><td class="memItemLeft" align="right" valign="top"><a id="a491e55754b1ea22f98f8f626a0fd9f57" name="a491e55754b1ea22f98f8f626a0fd9f57"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline_1_1_input_assembler.html">InputAssembler</a> &amp;input_assembler) const noexcept</td></tr>
+<tr class="separator:a491e55754b1ea22f98f8f626a0fd9f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85cb123f12b4c530dc76803db2e44aa8"><td class="memItemLeft" align="right" valign="top"><a id="a85cb123f12b4c530dc76803db2e44aa8" name="a85cb123f12b4c530dc76803db2e44aa8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const std::weak_ptr&lt; <a class="el" href="class_shader.html">Shader</a> &gt; &amp;vs)</td></tr>
+<tr class="separator:a85cb123f12b4c530dc76803db2e44aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20c8a71407465813a76e87bc6d4fe807"><td class="memItemLeft" align="right" valign="top"><a id="a20c8a71407465813a76e87bc6d4fe807" name="a20c8a71407465813a76e87bc6d4fe807"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>add_mesh</b> (const <a class="el" href="class_mesh.html">Mesh</a> &amp;mesh, const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, size_t index=-1)</td></tr>
 <tr class="separator:a20c8a71407465813a76e87bc6d4fe807"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,27 +109,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> 
 <tr class="memitem:a772cd6dbc514001b7d8e2fc7b200bfa0"><td class="memItemLeft" align="right" valign="top"><a id="a772cd6dbc514001b7d8e2fc7b200bfa0" name="a772cd6dbc514001b7d8e2fc7b200bfa0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list)</td></tr>
 <tr class="separator:a772cd6dbc514001b7d8e2fc7b200bfa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a940d23b1fd889946b35be65c9bad6808"><td class="memItemLeft" align="right" valign="top"><a id="a940d23b1fd889946b35be65c9bad6808" name="a940d23b1fd889946b35be65c9bad6808"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>draw_meshes</b> (const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list)</td></tr>
+<tr class="separator:a940d23b1fd889946b35be65c9bad6808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70d0f9a797593a3516023bb8a734f554"><td class="memItemLeft" align="right" valign="top"><a id="a70d0f9a797593a3516023bb8a734f554" name="a70d0f9a797593a3516023bb8a734f554"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:a70d0f9a797593a3516023bb8a734f554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a207a5aac73bba3d44f09ebd2f90ecfc6"><td class="memItemLeft" align="right" valign="top"><a id="a207a5aac73bba3d44f09ebd2f90ecfc6" name="a207a5aac73bba3d44f09ebd2f90ecfc6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_proxy</b> (const std::shared_ptr&lt; <a class="el" href="class_graphics_pipeline_mesh_change_1_1_manager.html">GraphicsPipelineMeshChange::Manager</a> &gt; &amp;change_manager)</td></tr>
-<tr class="separator:a207a5aac73bba3d44f09ebd2f90ecfc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a513836038777a4d658a179b6a157d123"><td class="memItemLeft" align="right" valign="top"><a id="a513836038777a4d658a179b6a157d123" name="a513836038777a4d658a179b6a157d123"></a>
-const std::vector&lt; D3D12_VERTEX_BUFFER_VIEW &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_vertex_buffer_views</b> () const noexcept</td></tr>
+GET const std::vector&lt; D3D12_VERTEX_BUFFER_VIEW &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_vertex_buffer_views</b> () const noexcept</td></tr>
 <tr class="separator:a513836038777a4d658a179b6a157d123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a491e55754b1ea22f98f8f626a0fd9f57"><td class="memItemLeft" align="right" valign="top"><a id="a491e55754b1ea22f98f8f626a0fd9f57" name="a491e55754b1ea22f98f8f626a0fd9f57"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline_1_1_input_assembler.html">InputAssembler</a> &amp;input_assembler) const noexcept</td></tr>
-<tr class="separator:a491e55754b1ea22f98f8f626a0fd9f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f167c11c7ecce416e40de3159b384b"><td class="memItemLeft" align="right" valign="top"><a id="af0f167c11c7ecce416e40de3159b384b" name="af0f167c11c7ecce416e40de3159b384b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_vertex_buffer_view_to_draw</b> (size_t index) noexcept</td></tr>
+<tr class="separator:af0f167c11c7ecce416e40de3159b384b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af37c14fdae68552fcb75e78e0dc0813b"><td class="memItemLeft" align="right" valign="top"><a id="af37c14fdae68552fcb75e78e0dc0813b" name="af37c14fdae68552fcb75e78e0dc0813b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clear_commands</b> () noexcept</td></tr>
+<tr class="separator:af37c14fdae68552fcb75e78e0dc0813b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e659e55261b82b58783649061c5493"><td class="memItemLeft" align="right" valign="top"><a id="ac8e659e55261b82b58783649061c5493" name="ac8e659e55261b82b58783649061c5493"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add_command</b> (const std::shared_ptr&lt; <a class="el" href="struct_graphics_pipeline_i_a_command.html">GraphicsPipelineIACommand</a> &gt; &amp;&amp;command) noexcept</td></tr>
+<tr class="separator:ac8e659e55261b82b58783649061c5493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2813fac77a0cd2ad9e27119b51610e2"><td class="memItemLeft" align="right" valign="top"><a id="ae2813fac77a0cd2ad9e27119b51610e2" name="ae2813fac77a0cd2ad9e27119b51610e2"></a>
+const std::vector&lt; D3D12_INPUT_ELEMENT_DESC &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_input_layout</b> () const noexcept</td></tr>
+<tr class="separator:ae2813fac77a0cd2ad9e27119b51610e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab470ba0fa6424e409303f201f138e428"><td class="memItemLeft" align="right" valign="top"><a id="ab470ba0fa6424e409303f201f138e428" name="ab470ba0fa6424e409303f201f138e428"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_input_layout</b> (const std::vector&lt; D3D12_INPUT_ELEMENT_DESC &gt; &amp;layout) noexcept</td></tr>
+<tr class="separator:ab470ba0fa6424e409303f201f138e428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ccbf474076a5b7e61566ae86e36e9e4"><td class="memItemLeft" align="right" valign="top"><a id="a3ccbf474076a5b7e61566ae86e36e9e4" name="a3ccbf474076a5b7e61566ae86e36e9e4"></a>
+D3D12_INPUT_LAYOUT_DESC&#160;</td><td class="memItemRight" valign="bottom"><b>get_input_layout_desc</b> () const noexcept</td></tr>
+<tr class="separator:a3ccbf474076a5b7e61566ae86e36e9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Uploads mesh data. </p>
+<div class="textblock"><p>Input assembler stage. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_mesh.html" title="A mesh for collision and rendering.">Mesh</a> </dd>
 <dd>
-<a class="el" href="class_graphics_pipeline_mesh_change_1_1_manager.html" title="Stores additions and removals of meshes in the pipeline.">GraphicsPipelineMeshChange::Manager</a> </dd></dl>
+<a class="el" href="struct_graphics_pipeline_i_a_command.html" title="Command for the input assembler.">GraphicsPipelineIACommand</a> </dd></dl>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipeline.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/Stages/InputAssembler.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

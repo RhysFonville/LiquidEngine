@@ -4,7 +4,7 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Object.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Core/Object.h"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Components/StaticMeshComponent.h"{}}}
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }DefaultShapes\ \{}
@@ -13,12 +13,10 @@
 \DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_default_shapes_1_1_cube}{Cube}}();}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ pre\_scene\_compile()\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00015\ \ \ \ \ std::shared\_ptr<StaticMeshComponent>\ mesh;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_static_mesh_component}{StaticMeshComponent}}*\ mesh\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \};}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \};}
 
 \end{DoxyCode}

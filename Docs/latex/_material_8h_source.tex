@@ -6,61 +6,64 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <d3dcompiler.h>}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Graphics/Texture.h"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Components/GraphicsComponent.h"{}}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\ \{}
-\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}()\ :\ \mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\{\}\ \{\ \}}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&mat);}
-\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\textcolor{keyword}{const}\ std::string\ \&file);}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
-\DoxyCodeLine{00018\ \ \ \ \ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ std::string\ \&file);}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material);}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_normal\_map()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_environment\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_albedo\_texture()\ \{\ \textcolor{keywordflow}{return}\ albedo\_texture;\ \}}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_normal\_map()\ \{\ \textcolor{keywordflow}{return}\ normal\_map;\ \}}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_environment\_texture()\ \{\ \textcolor{keywordflow}{return}\ environment\_texture;\ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&albedo)\ \{\ this-\/>albedo\ =\ albedo;\ changed\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00037\ \ \ \ \ }
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_specular()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ specular;\ \}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_specular(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&specular)\ \{\ this-\/>specular\ =\ specular;\ changed\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_ambient()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ ambient;\ \}}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_ambient(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&ambient)\ \{\ this-\/>ambient\ =\ ambient;\ changed\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{float}\ get\_shininess()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shininess;\ \}}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_shininess(\textcolor{keywordtype}{float}\ shininess)\ \{\ this-\/>shininess\ =\ shininess;\ changed\ =\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ pipeline\{\};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00050\ \ \ \ \ std::string\ vs\{\textcolor{stringliteral}{"{}Graphics/DefaultVertex.hlsl"{}}\};}
-\DoxyCodeLine{00051\ \ \ \ \ std::string\ hs\{\};}
-\DoxyCodeLine{00052\ \ \ \ \ std::string\ ds\{\};}
-\DoxyCodeLine{00053\ \ \ \ \ std::string\ gs\{\};}
-\DoxyCodeLine{00054\ \ \ \ \ std::string\ ps\{\textcolor{stringliteral}{"{}Graphics/LitPixel.hlsl"{}}\};}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ albedo\_texture\{\};}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ normal\_map\{\};}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ environment\_texture\{\};}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\{100,\ 100,\ 100,\ 255\};\ \textcolor{comment}{//\ kd}}
-\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\{5,\ 5,\ 5,\ 255\};\ \textcolor{comment}{//\ ks}}
-\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ ambient\{0,\ 0,\ 0,\ 255\};\ \textcolor{comment}{//\ ka}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{float}\ shininess\{0.5f\};\ \textcolor{comment}{//\ a}}
-\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Pipeline/GraphicsPipeline.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Texture.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Components/GraphicsComponent.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}()\ :\ \mbox{\hyperlink{class_graphics_tracker}{GraphicsTracker}}\{\}\ \{\ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\&\ mat);}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}(\textcolor{keyword}{const}\ std::string\&\ vs,\ \textcolor{keyword}{const}\ std::string\&\ ps,\ \textcolor{keyword}{const}\ std::string\&\ data\_file\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ compile();}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ std::string\ \&file);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_data(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ has\_texture()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00027\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ has\_normal\_map()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ has\_specular\_map()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_material}{Material}}\ \&material)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ GET\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_albedo\_texture()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ albedo\_texture;\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ GET\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_normal\_map()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ normal\_map;\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ GET\ \mbox{\hyperlink{class_texture}{Texture}}\ \&\ get\_specular\_map()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ specular\_map;\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ GET\ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_albedo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ albedo;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_albedo(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&albedo)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>albedo\ =\ albedo;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ GET\ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_specular()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ specular;\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_specular(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&specular)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>specular\ =\ specular;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ GET\ \mbox{\hyperlink{struct_t_color}{Color}}\ get\_ambient()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ ambient;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_ambient(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&ambient)\ \textcolor{keyword}{noexcept}\ \ \{\ this-\/>ambient\ =\ ambient;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ GET\ \textcolor{keywordtype}{float}\ get\_shininess()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ shininess;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_shininess(\textcolor{keywordtype}{float}\ shininess)\ \textcolor{keyword}{noexcept}\ \{\ this-\/>shininess\ =\ shininess;\ changed\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ is\_opaque()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_graphics_pipeline}{GraphicsPipeline}}\ pipeline\{\};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ std::string\ vs\{\textcolor{stringliteral}{"{}Graphics/Shaders/DefaultVertex.hlsl"{}}\};}
+\DoxyCodeLine{00054\ \ \ \ \ std::string\ hs\{\};}
+\DoxyCodeLine{00055\ \ \ \ \ std::string\ ds\{\};}
+\DoxyCodeLine{00056\ \ \ \ \ std::string\ gs\{\};}
+\DoxyCodeLine{00057\ \ \ \ \ std::string\ ps\{\textcolor{stringliteral}{"{}Graphics/Shaders/LitPixel.hlsl"{}}\};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ albedo\_texture\{\};}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ normal\_map\{\};}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ specular\_map\{\};}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ albedo\{255,\ 255,\ 255,\ 255\};\ \textcolor{comment}{//\ kd}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ specular\{5,\ 5,\ 5,\ 255\};\ \textcolor{comment}{//\ ks}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{Color}}\ ambient\{0,\ 0,\ 0,\ 255\};\ \textcolor{comment}{//\ ka}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{float}\ shininess\{10.0f\};\ \textcolor{comment}{//\ a}}
+\DoxyCodeLine{00066\ \};}
 
 \end{DoxyCode}

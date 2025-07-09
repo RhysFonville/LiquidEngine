@@ -1,0 +1,102 @@
+\hypertarget{_object_structs_8h_source}{}\doxysection{Object\+Structs.\+h}
+\label{_object_structs_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/ObjectStructs.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/ObjectStructs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Vectors.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_transform}{Transform}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ position\ =\ \{\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation\ =\ \{\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ size\ =\ \{\ 1,\ 1,\ 1\ \};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ :\ position(position),\ rotation(\{\ 0.0f,\ 0.0f,\ 0.0f\ \}),\ size(\{\ 1.0f,\ 1.0f,\ 1.0f\ \})\ \{\ \}}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}()}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ :\ position(\{\ 0.0f,\ 0.0f,\ 0.0f\ \}),\ rotation(\{\ 0.0f,\ 0.0f,\ 0.0f\ \}),\ size(\{\ 1.0f,\ 1.0f,\ 1.0f\ \})\ \{\ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation)}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ :\ position(position),\ rotation(rotation),\ size(\{\ 1.0f,\ 1.0f,\ 1.0f\ \})\ \{\ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{struct_transform}{Transform}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ rotation,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ size)}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ :\ position(position),\ rotation(rotation),\ size(size)\ \{\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{operator}\ XMMATRIX()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMMatrixTranspose(}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ DirectX::XMMatrixRotationRollPitchYaw(rotation.x,\ rotation.y,\ rotation.z)\ \ *}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ DirectX::XMMatrixTranslation(position.x,\ position.y,\ position.z)\ *}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ DirectX::XMMatrixScaling(size.x,\ size.y,\ size.z)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transform}{Transform}}\ \&transform)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (position\ ==\ transform.position\ \&\&}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ rotation\ ==\ transform.rotation\ \&\&}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ size\ ==\ transform.size);}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_vertex}{Vertex}}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ position\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{FVector2}}\ texcoord\ =\ \mbox{\hyperlink{class_t_vector2}{FVector2}}();}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ normal\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ tangent\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//FVector3\ bitangent\ =\ FVector3();}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}()\ \{\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\ :\ position(x,\ y,\ z)\ \{\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,\ \textcolor{keywordtype}{float}\ u,\ \textcolor{keywordtype}{float}\ v)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ :\ position(x,\ y,\ z),\ texcoord(u,\ v)\ \{\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ u,\ \textcolor{keywordtype}{float}\ v,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ nx,\ \textcolor{keywordtype}{float}\ ny,\ \textcolor{keywordtype}{float}\ nz)}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ :\ position(x,\ y,\ z),\ texcoord(u,\ v),\ normal(nx,\ ny,\ nz)\ \{\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position,\ \mbox{\hyperlink{class_t_vector2}{FVector2}}\ texcoord,\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ normal)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ :\ position(position),\ texcoord(texcoord),\ normal(normal)\ \{\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vertex}{Vertex}}\ \&vertex)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (position\ ==\ vertex.position\ \&\&}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ texcoord\ ==\ vertex.texcoord\ \&\&}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ normal\ ==\ vertex.normal\ \&\&}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ tangent\ ==\ vertex.tangent);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_triangle}{Triangle}}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}\ first;}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}\ second;}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}}\ third;}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{static}\ std::vector<Vertex>\ tris\_to\_verts(\textcolor{keyword}{const}\ std::vector<Triangle>\ \&tris)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ std::vector<Vertex>\ ret;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_triangle}{Triangle}}\ \&tri\ :\ tris)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ ret.push\_back(tri.first);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ ret.push\_back(tri.second);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ ret.push\_back(tri.third);}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{static}\ std::vector<Triangle>\ split\_into\_triangles(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&verts)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ std::vector<Triangle>\ ret;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ verts.size();\ i\ +=\ 3)\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ +\ 2\ <\ verts.size())\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ ret.push\_back(\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+0],}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+1],}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+2]}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00096\ \}}
+
+\end{DoxyCode}

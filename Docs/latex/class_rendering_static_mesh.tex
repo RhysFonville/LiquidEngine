@@ -21,29 +21,41 @@ Inheritance diagram for Rendering\+Static\+Mesh\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_rendering_static_mesh_a9834710d93cc74ec0711b4fe3a0bccdf}\label{class_rendering_static_mesh_a9834710d93cc74ec0711b4fe3a0bccdf}} 
 {\bfseries Rendering\+Static\+Mesh} (\mbox{\hyperlink{class_static_mesh_component}{Static\+Mesh\+Component}} $\ast$smc)
 \item 
-\mbox{\Hypertarget{class_rendering_static_mesh_ab78687e53037c5db9c1908b6a62577c5}\label{class_rendering_static_mesh_ab78687e53037c5db9c1908b6a62577c5}} 
-bool {\bfseries update} ()
+\mbox{\Hypertarget{class_rendering_static_mesh_a6755c9d54067712e3f2494a21150c144}\label{class_rendering_static_mesh_a6755c9d54067712e3f2494a21150c144}} 
+bool {\bfseries update} (\mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
 \item 
 \mbox{\Hypertarget{class_rendering_static_mesh_a5cbfad98253cf464b5fd86138ccb3cfb}\label{class_rendering_static_mesh_a5cbfad98253cf464b5fd86138ccb3cfb}} 
 void {\bfseries update\+\_\+lights} (const std\+::vector$<$ \mbox{\hyperlink{class_rendering_directional_light}{Rendering\+Directional\+Light}} $>$ \&dl, const std\+::vector$<$ \mbox{\hyperlink{class_rendering_point_light}{Rendering\+Point\+Light}} $>$ \&pl, const std\+::vector$<$ \mbox{\hyperlink{class_rendering_spotlight}{Rendering\+Spotlight}} $>$ \&sl)
 \item 
-\mbox{\Hypertarget{class_rendering_static_mesh_ae0a47726e9020750ddf88fe90b059e79}\label{class_rendering_static_mesh_ae0a47726e9020750ddf88fe90b059e79}} 
-void {\bfseries compile} ()
+\mbox{\Hypertarget{class_rendering_static_mesh_ad430837726958852d98cabdde3d42d55}\label{class_rendering_static_mesh_ad430837726958852d98cabdde3d42d55}} 
+void {\bfseries compile} (\mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
+\item 
+\mbox{\Hypertarget{class_rendering_static_mesh_a51fdac66ca1b6fb31c1e698a1467986e}\label{class_rendering_static_mesh_a51fdac66ca1b6fb31c1e698a1467986e}} 
+void {\bfseries set\+\_\+resources} (\mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
 \item 
 \mbox{\Hypertarget{class_rendering_static_mesh_aea953e312c268b4f2cf811006ebd6087}\label{class_rendering_static_mesh_aea953e312c268b4f2cf811006ebd6087}} 
 void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_rendering_static_mesh_a5b7ea3c298ad83674a5375a02b97e514}\label{class_rendering_static_mesh_a5b7ea3c298ad83674a5375a02b97e514}} 
-bool {\bfseries operator==} (\mbox{\hyperlink{class_static_mesh_component}{Static\+Mesh\+Component}} component)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Static\+Mesh\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
-{\bfseries Rendering\+Component} (T $\ast$component)
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
+{\bfseries Rendering\+Component} (\mbox{\hyperlink{class_static_mesh_component}{Static\+Mesh\+Component}} $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -51,17 +63,26 @@ bool {\bfseries operator==} (T component)
 \mbox{\Hypertarget{class_rendering_static_mesh_acb69f7725aafde28a8ae61242ae43af6}\label{class_rendering_static_mesh_acb69f7725aafde28a8ae61242ae43af6}} 
 \mbox{\hyperlink{class_rendering_material}{Rendering\+Material}} {\bfseries material} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_static_mesh_a6e54746085f7c1ef3b7ab70907d143e0}\label{class_rendering_static_mesh_a6e54746085f7c1ef3b7ab70907d143e0}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Constant\+Buffer\+Container}}$<$ PSLights\+CB $>$ {\bfseries lights\+\_\+data} = PSLights\+CB\{\}
+\mbox{\Hypertarget{class_rendering_static_mesh_acb0d379d3b2ee35afe0cfe649b848f90}\label{class_rendering_static_mesh_acb0d379d3b2ee35afe0cfe649b848f90}} 
+\mbox{\hyperlink{class_root_constants_container}{Root\+Constants\+Container}}$<$ VSWVPConstants $>$ {\bfseries wvp\+\_\+data} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_static_mesh_a2c0d0a50975f5565012746933f4c98dd}\label{class_rendering_static_mesh_a2c0d0a50975f5565012746933f4c98dd}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Constants\+Container}}$<$ VSTransform\+Constants $>$ {\bfseries transform\+\_\+data} = VSTransform\+Constants\{\}
+\mbox{\Hypertarget{class_rendering_static_mesh_ab88509a0ce241ef2429c05a1f0d1ce77}\label{class_rendering_static_mesh_ab88509a0ce241ef2429c05a1f0d1ce77}} 
+\mbox{\hyperlink{class_root_constants_container}{Root\+Constants\+Container}}$<$ PSCamera\+Constants $>$ {\bfseries pos\+\_\+data} \{\}
+\item 
+\mbox{\Hypertarget{class_rendering_static_mesh_a8818bb9dfe7d80b0dbbefbce319ad71e}\label{class_rendering_static_mesh_a8818bb9dfe7d80b0dbbefbce319ad71e}} 
+\mbox{\hyperlink{class_root_constants_container}{Root\+Constants\+Container}}$<$ VSTransform\+Constants $>$ {\bfseries transform\+\_\+data} \{\}
+\item 
+\mbox{\Hypertarget{class_rendering_static_mesh_a6d033707486beda987c93b234ecc46d8}\label{class_rendering_static_mesh_a6d033707486beda987c93b234ecc46d8}} 
+\mbox{\hyperlink{class_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ PSLights\+CB $>$ {\bfseries lights\+\_\+data} \{\}
+\item 
+\mbox{\Hypertarget{class_rendering_static_mesh_af91013efd190066f5a6a40f9e6512e0f}\label{class_rendering_static_mesh_af91013efd190066f5a6a40f9e6512e0f}} 
+bool {\bfseries update\+\_\+lights\+\_\+signal} = false
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Static\+Mesh\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+\mbox{\hyperlink{class_static_mesh_component}{Static\+Mesh\+Component}} $\ast$ {\bfseries component}
 \end{DoxyCompactItemize}
 
 

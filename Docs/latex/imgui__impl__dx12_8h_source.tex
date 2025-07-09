@@ -23,7 +23,7 @@
 \DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}imgui.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ IMGUI\_IMPL\_API}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ IMGUI\_DISABLE}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <dxgiformat.h>}\ \textcolor{comment}{//\ DXGI\_FORMAT}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <dxgi.h>}}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }ID3D12Device;}
 \DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }ID3D12DescriptorHeap;}
@@ -35,7 +35,7 @@
 \DoxyCodeLine{00031\ \textcolor{comment}{//\ Before\ calling\ the\ render\ function,\ caller\ must\ prepare\ cmd\_list\ by\ resetting\ it\ and\ setting\ the\ appropriate}}
 \DoxyCodeLine{00032\ \textcolor{comment}{//\ render\ target\ and\ descriptor\ heap\ that\ contains\ font\_srv\_cpu\_desc\_handle/font\_srv\_gpu\_desc\_handle.}}
 \DoxyCodeLine{00033\ \textcolor{comment}{//\ font\_srv\_cpu\_desc\_handle\ and\ font\_srv\_gpu\_desc\_handle\ are\ handles\ to\ a\ single\ SRV\ descriptor\ to\ use\ for\ the\ internal\ font\ texture.}}
-\DoxyCodeLine{00034\ IMGUI\_IMPL\_API\ \textcolor{keywordtype}{bool}\ \ \ \ \ ImGui\_ImplDX12\_Init(ID3D12Device*\ device,\ \textcolor{keywordtype}{int}\ num\_frames\_in\_flight,\ DXGI\_FORMAT\ rtv\_format,\ ID3D12DescriptorHeap*\ cbv\_srv\_heap,}
+\DoxyCodeLine{00034\ IMGUI\_IMPL\_API\ \textcolor{keywordtype}{bool}\ \ \ \ \ ImGui\_ImplDX12\_Init(ID3D12Device*\ device,\ \textcolor{keywordtype}{int}\ num\_frames\_in\_flight,\ DXGI\_FORMAT\ rtv\_format,\ DXGI\_SAMPLE\_DESC\ sample\_desc,\ ID3D12DescriptorHeap*\ cbv\_srv\_heap,}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D12\_CPU\_DESCRIPTOR\_HANDLE\ font\_srv\_cpu\_desc\_handle,\ D3D12\_GPU\_DESCRIPTOR\_HANDLE\ font\_srv\_gpu\_desc\_handle);}
 \DoxyCodeLine{00036\ IMGUI\_IMPL\_API\ \textcolor{keywordtype}{void}\ \ \ \ \ ImGui\_ImplDX12\_Shutdown();}
 \DoxyCodeLine{00037\ IMGUI\_IMPL\_API\ \textcolor{keywordtype}{void}\ \ \ \ \ ImGui\_ImplDX12\_NewFrame();}

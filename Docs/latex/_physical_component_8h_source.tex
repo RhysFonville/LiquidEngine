@@ -5,13 +5,19 @@
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Component.h"{}}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../PhysicsBody.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Physics/PhysicsBody.h"{}}}
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_physical_component}{PhysicalComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
 \DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_physical_component}{PhysicalComponent}}(Type\ type)\ :\ \mbox{\hyperlink{class_component}{Component}}(type)\ \{\ \}}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_physical_component}{PhysicalComponent}}()\ :\ \mbox{\hyperlink{class_component}{Component}}\{\}\ \{\ \}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_physics_body}{PhysicsBody}}\ physics\_body;}
-\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_physics_body}{PhysicsBody}}\ physics\_body;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_editor\_gui\_section()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ render\_physical\_component\_editor\_gui\_section()\ \{\ \}}
+\DoxyCodeLine{00020\ \};}
 
 \end{DoxyCode}

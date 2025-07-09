@@ -1,0 +1,33 @@
+\hypertarget{windowsconversion_8h_source}{}\doxysection{windowsconversion.\+h}
+\label{windowsconversion_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/windowsconversion.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/windowsconversion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <codecvt>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <locale>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ \_SILENCE\_ALL\_CXX17\_DEPRECATION\_WARNINGS}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{static}\ std::wstring\ string\_to\_wstring(\textcolor{keyword}{const}\ std::string\&\ \textcolor{keywordtype}{string})\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ std::wstring\ wsTmp(\textcolor{keywordtype}{string}.begin(),\ \textcolor{keywordtype}{string}.end());}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{return}\ wsTmp;}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{static}\ std::string\ wstring\_to\_string(\textcolor{keyword}{const}\ std::wstring\&\ wstring)\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00018\ \ \ \ \ str.resize(wstring.size());}
+\DoxyCodeLine{00019\ \ \ \ \ std::transform(wstring.begin(),\ wstring.end(),\ str.begin(),}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{auto}\ wc)\ \{return\ static\_cast<char>(wc);\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ );}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00023\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{static}\ std::wstring\ BSTR\_to\_wstring(BSTR\ bstr)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring(bstr,\ SysStringLen(bstr));}
+\DoxyCodeLine{00027\ \}}
+
+\end{DoxyCode}

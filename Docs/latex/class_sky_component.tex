@@ -20,23 +20,22 @@ Inheritance diagram for Sky\+Component\+:\begin{figure}[H]
 \item 
 void \mbox{\hyperlink{class_sky_component_a11e85814deddde1359c8f4970eae7124}{compile}} () override
 \item 
+void \mbox{\hyperlink{class_sky_component_a9c5f54c1b0bf6a01ce17f33a9464405e}{clean\+\_\+up}} () override
+\item 
 \mbox{\Hypertarget{class_sky_component_aadd144bdfd8946d91f4eebaff4803a42}\label{class_sky_component_aadd144bdfd8946d91f4eebaff4803a42}} 
 bool {\bfseries has\+\_\+texture} () const noexcept
 \item 
-\mbox{\Hypertarget{class_sky_component_a5bc5f3e9604696e9b9be69cbd00ff59f}\label{class_sky_component_a5bc5f3e9604696e9b9be69cbd00ff59f}} 
-\mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} ()
+\mbox{\Hypertarget{class_sky_component_ae66ef051989717d2c12b1ef3285eb016}\label{class_sky_component_ae66ef051989717d2c12b1ef3285eb016}} 
+GET \mbox{\hyperlink{class_texture}{Texture}} \& {\bfseries get\+\_\+albedo\+\_\+texture} ()
 \item 
-\mbox{\Hypertarget{class_sky_component_ab160e1d8b477de63940f6efe467b1e7c}\label{class_sky_component_ab160e1d8b477de63940f6efe467b1e7c}} 
-\mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const
+\mbox{\Hypertarget{class_sky_component_afdd23bc42f5dab0782fa8d893539c286}\label{class_sky_component_afdd23bc42f5dab0782fa8d893539c286}} 
+GET \mbox{\hyperlink{struct_t_color}{Color}} {\bfseries get\+\_\+albedo} () const
 \item 
 \mbox{\Hypertarget{class_sky_component_ac7fab38c6956891324a285ae24ec8ca4}\label{class_sky_component_ac7fab38c6956891324a285ae24ec8ca4}} 
 void {\bfseries set\+\_\+albedo} (const \mbox{\hyperlink{struct_t_color}{Color}} \&new\+\_\+albedo)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}}
 \begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_graphics_component_ae8ddf8bf56053a058a46dc55d22c7e24}\label{class_graphics_component_ae8ddf8bf56053a058a46dc55d22c7e24}} 
-{\bfseries Graphics\+Component} (Type type)
 \item 
 virtual void \mbox{\hyperlink{class_graphics_component_a585ccb1ab984a71b17bb2abc301ff18c}{set\+\_\+position}} (\mbox{\hyperlink{class_f_vector3}{FVector3}} position) noexcept override
 \item 
@@ -47,8 +46,10 @@ virtual void \mbox{\hyperlink{class_graphics_component_a2b3303a0ec40ced315c864a7
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_component_abf70e104f5e9ae897b60eb12ed02b718}\label{class_component_abf70e104f5e9ae897b60eb12ed02b718}} 
-{\bfseries Component} (const Type \&type)
+void \mbox{\hyperlink{class_component_abfe3335bbc8e13a5b29d6f6aa8e5c6ac}{base\+\_\+clean\+\_\+up}} () override
+\item 
+\mbox{\Hypertarget{class_component_ae0c1b11875e36d8b049687a5982fd04e}\label{class_component_ae0c1b11875e36d8b049687a5982fd04e}} 
+void {\bfseries clean\+\_\+components} ()
 \item 
 \mbox{\Hypertarget{class_component_ad62eef8ff436dc1dc1ba4fe55a717c7e}\label{class_component_ad62eef8ff436dc1dc1ba4fe55a717c7e}} 
 virtual void {\bfseries set\+\_\+position} (\mbox{\hyperlink{class_f_vector3}{FVector3}} position) noexcept
@@ -83,14 +84,25 @@ virtual void {\bfseries set\+\_\+transform} (\mbox{\hyperlink{struct_transform}{
 \mbox{\Hypertarget{class_component_af3eb9daab8edc642d576284e6fd1d91c}\label{class_component_af3eb9daab8edc642d576284e6fd1d91c}} 
 virtual GET \mbox{\hyperlink{struct_transform}{Transform}} {\bfseries get\+\_\+transform} () const noexcept
 \item 
-\mbox{\Hypertarget{class_component_ad36e612f3d9decca20d6ca7b03716205}\label{class_component_ad36e612f3d9decca20d6ca7b03716205}} 
-GET Type {\bfseries get\+\_\+type} () const noexcept
+\mbox{\Hypertarget{class_component_a31dc61413332a4740f7644f506007fab}\label{class_component_a31dc61413332a4740f7644f506007fab}} 
+GET \mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries get\+\_\+parent} () const noexcept
+\item 
+\mbox{\Hypertarget{class_component_a5716a6cd884e857e47014615ec73b2b8}\label{class_component_a5716a6cd884e857e47014615ec73b2b8}} 
+void {\bfseries set\+\_\+parent} (\mbox{\hyperlink{class_component}{Component}} $\ast$parent) noexcept
+\item 
+\mbox{\Hypertarget{class_component_a61b6c4e0c73859af0cb1e5d68c8580c9}\label{class_component_a61b6c4e0c73859af0cb1e5d68c8580c9}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries add\+\_\+component} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ \&\&component)
+\item 
+\mbox{\Hypertarget{class_component_a4ed195f21e0f9e344488f4dce38cc4ee}\label{class_component_a4ed195f21e0f9e344488f4dce38cc4ee}} 
+void {\bfseries set\+\_\+scene} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene) noexcept
 \item 
 \mbox{\Hypertarget{class_component_ac7b201bfeeb3717279a540d99789b8d8}\label{class_component_ac7b201bfeeb3717279a540d99789b8d8}} 
 virtual bool {\bfseries operator==} (const \mbox{\hyperlink{class_component}{Component}} \&component) const noexcept
 \item 
 \mbox{\Hypertarget{class_component_a7ab44a3611d3a59682a4b97d22e76a1c}\label{class_component_a7ab44a3611d3a59682a4b97d22e76a1c}} 
 virtual void {\bfseries operator=} (const \mbox{\hyperlink{class_component}{Component}} \&component) noexcept
+\item 
+void \mbox{\hyperlink{class_component_a7d06d01f7bd6cf0733f96fe08580c0ea}{base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section}} () override
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_controllable}{Controllable}}}
 \begin{DoxyCompactItemize}
@@ -103,6 +115,9 @@ virtual void {\bfseries base\+\_\+compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a61e410a136d98711221d0745674724cc}\label{class_controllable_a61e410a136d98711221d0745674724cc}} 
 virtual void {\bfseries base\+\_\+tick} (float dt)
+\item 
+\mbox{\Hypertarget{class_controllable_a2cc38b82da2a30240327078b78184356}\label{class_controllable_a2cc38b82da2a30240327078b78184356}} 
+virtual void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}\label{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}} 
 virtual void {\bfseries pre\+\_\+scene\+\_\+compile} ()
@@ -118,6 +133,23 @@ virtual void {\bfseries compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a869af510ef0d4280b091cd4b634bfb56}\label{class_controllable_a869af510ef0d4280b091cd4b634bfb56}} 
 virtual void {\bfseries tick} (float dt)
+\item 
+\mbox{\Hypertarget{class_controllable_aa89bc78e5af3372c159e86072d589cb7}\label{class_controllable_aa89bc78e5af3372c159e86072d589cb7}} 
+virtual void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component_holder}{Component\+Holder}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}\label{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET T $\ast$ {\bfseries get\+\_\+component} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}\label{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET std\+::set$<$ T $\ast$ $>$ {\bfseries get\+\_\+components} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}\label{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}} 
+GET std\+::set$<$ \mbox{\hyperlink{class_component}{Component}} $\ast$ $>$ {\bfseries get\+\_\+all\+\_\+components} () noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
 \begin{DoxyCompactItemize}
@@ -127,6 +159,12 @@ bool {\bfseries has\+\_\+changed} () const noexcept
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}\label{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}} 
 void {\bfseries has\+\_\+changed} (bool changed) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}\label{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}\label{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}} 
+void {\bfseries needs\+\_\+compile} (bool compile) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -134,72 +172,42 @@ void {\bfseries has\+\_\+changed} (bool changed) noexcept
 \mbox{\Hypertarget{class_sky_component_af46b75c331a3300185c184652091d7d5}\label{class_sky_component_af46b75c331a3300185c184652091d7d5}} 
 static \mbox{\hyperlink{class_mesh}{Mesh}} {\bfseries create\+\_\+sphere} (UINT lat\+\_\+lines, UINT long\+\_\+lines)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_graphics_component}{Graphics\+Component}}}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_graphics_component_a725b9eac4207761803c36bd28fe4513c}\label{class_graphics_component_a725b9eac4207761803c36bd28fe4513c}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_component}{Component}}) $>$ }\\static bool {\bfseries is\+\_\+graphics\+\_\+component} (const T \&component)
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_sky_component_a8ff13b382a6c641656d5449112daa26c}\label{class_sky_component_a8ff13b382a6c641656d5449112daa26c}} 
 \mbox{\hyperlink{class_graphics_pipeline}{Graphics\+Pipeline}} {\bfseries pipeline}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_component_add189dc18ca4dd121d7dede5a0dbeab8}\label{class_component_add189dc18ca4dd121d7dede5a0dbeab8}} 
-\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries parent} = nullptr
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_sky_component_ae41b7505e311a464c6ae60ef2e734f17}\label{class_sky_component_ae41b7505e311a464c6ae60ef2e734f17}} 
-static const Type {\bfseries component\+\_\+type} = Type\+::\+Sky\+Component
-\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
-\doxysubsubsection*{Public Types inherited from \mbox{\hyperlink{class_component}{Component}}}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_component_afd50861fbf83f7ff7777a5e6dd7b7ca4}\label{class_component_afd50861fbf83f7ff7777a5e6dd7b7ca4}} 
-enum class {\bfseries Type} \{ \newline
-{\bfseries None}
-, {\bfseries Static\+Mesh\+Component}
-, {\bfseries Camera\+Component}
-, {\bfseries Directional\+Light\+Component}
-, \newline
-{\bfseries Point\+Light\+Component}
-, {\bfseries Spotlight\+Component}
-, {\bfseries Box\+Component}
-, {\bfseries Sky\+Component}
-, \newline
-{\bfseries Material\+Component}
- \}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}\label{class_component_a2cf7b69b297665a1bbd4c81ed2299f7c}} 
-void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section} ()
-\item 
-\mbox{\Hypertarget{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}\label{class_component_a82946cd236dcf9b778b49b4b8fb6a3ca}} 
-virtual void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
-\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_component_ad997f65735dd8a4496bbe479446bfd98}\label{class_component_ad997f65735dd8a4496bbe479446bfd98}} 
 \mbox{\hyperlink{struct_transform}{Transform}} {\bfseries transform}
 \item 
-\mbox{\Hypertarget{class_component_a18de93d5a176aa3cd6dc6724788dfacb}\label{class_component_a18de93d5a176aa3cd6dc6724788dfacb}} 
-Type {\bfseries type} = Type\+::\+None
+\mbox{\Hypertarget{class_component_add189dc18ca4dd121d7dede5a0dbeab8}\label{class_component_add189dc18ca4dd121d7dede5a0dbeab8}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries parent} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_component_a2aa0e777f7b39ffc4e57b04fdf6293e7}\label{class_component_a2aa0e777f7b39ffc4e57b04fdf6293e7}} 
+\mbox{\hyperlink{class_object}{Object}} $\ast$ {\bfseries object} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_component_a681344c0ff97f7dd2162b59799ed4c0a}\label{class_component_a681344c0ff97f7dd2162b59799ed4c0a}} 
+\mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries scene} \{nullptr\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component_holder}{Component\+Holder}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}\label{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}} 
+std\+::set$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ $>$ {\bfseries components}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}\label{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}} 
 bool {\bfseries changed} \{false\}
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}\label{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}} 
+bool {\bfseries compile} \{false\}
 \end{DoxyCompactItemize}
 
 
@@ -207,6 +215,16 @@ bool {\bfseries changed} \{false\}
 \mbox{\hyperlink{class_component}{Component}} for a sky. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_sky_component_a9c5f54c1b0bf6a01ce17f33a9464405e}\label{class_sky_component_a9c5f54c1b0bf6a01ce17f33a9464405e}} 
+\index{SkyComponent@{SkyComponent}!clean\_up@{clean\_up}}
+\index{clean\_up@{clean\_up}!SkyComponent@{SkyComponent}}
+\doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
+{\footnotesize\ttfamily void Sky\+Component\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_controllable}{Controllable}}.
+
 \mbox{\Hypertarget{class_sky_component_a11e85814deddde1359c8f4970eae7124}\label{class_sky_component_a11e85814deddde1359c8f4970eae7124}} 
 \index{SkyComponent@{SkyComponent}!compile@{compile}}
 \index{compile@{compile}!SkyComponent@{SkyComponent}}

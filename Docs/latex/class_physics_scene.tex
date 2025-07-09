@@ -3,48 +3,21 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_physics_scene_a9d2ea34a5b18c9339c7a03ec42df5e57}\label{class_physics_scene_a9d2ea34a5b18c9339c7a03ec42df5e57}} 
-void {\bfseries tick} ()
+\mbox{\Hypertarget{class_physics_scene_ad90864c88e0f2abe6cb8d89abd1d5c35}\label{class_physics_scene_ad90864c88e0f2abe6cb8d89abd1d5c35}} 
+void {\bfseries tick} (float dt)
 \item 
 \mbox{\Hypertarget{class_physics_scene_a6b6d016a443e3cbbabca28f6deac71bb}\label{class_physics_scene_a6b6d016a443e3cbbabca28f6deac71bb}} 
 void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_physics_scene_ad1ec8da87b6ee98bbc78c02323bb5d5f}\label{class_physics_scene_ad1ec8da87b6ee98bbc78c02323bb5d5f}} 
-void {\bfseries handle\+\_\+collision} (\mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$obj1, \mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$obj2)
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_physics_scene_a40471d3198019c3db7752e8d894e752a}\label{class_physics_scene_a40471d3198019c3db7752e8d894e752a}} 
-static bool {\bfseries box\+\_\+box\+\_\+overlap} (const \mbox{\hyperlink{struct_simple_box}{Simple\+Box}} \&box1, const \mbox{\hyperlink{struct_simple_box}{Simple\+Box}} \&box2) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_aab780b9c5d04ea00decbd0c7bde51942}\label{class_physics_scene_aab780b9c5d04ea00decbd0c7bde51942}} 
-static bool {\bfseries tri\+\_\+tri\+\_\+overlap} (const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&tri1, const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&tri2) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_adb3d451cce79eabbd95a2872a65396db}\label{class_physics_scene_adb3d451cce79eabbd95a2872a65396db}} 
-static bool {\bfseries coplanar\+\_\+tri\+\_\+tri3d} (float p1\mbox{[}3\mbox{]}, float q1\mbox{[}3\mbox{]}, float r1\mbox{[}3\mbox{]}, float p2\mbox{[}3\mbox{]}, float q2\mbox{[}3\mbox{]}, float r2\mbox{[}3\mbox{]}, float normal\+\_\+1\mbox{[}3\mbox{]}) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_a21913875c42ac4bace86ca63d5385790}\label{class_physics_scene_a21913875c42ac4bace86ca63d5385790}} 
-static bool {\bfseries tri\+\_\+tri\+\_\+overlap\+\_\+test\+\_\+2d} (float p1\mbox{[}2\mbox{]}, float q1\mbox{[}2\mbox{]}, float r1\mbox{[}2\mbox{]}, float p2\mbox{[}2\mbox{]}, float q2\mbox{[}2\mbox{]}, float r2\mbox{[}2\mbox{]}) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_a3e4db921cd449b6754c5c86553d86acc}\label{class_physics_scene_a3e4db921cd449b6754c5c86553d86acc}} 
-static bool {\bfseries ccw\+\_\+tri\+\_\+tri\+\_\+intersection\+\_\+2d} (float p1\mbox{[}2\mbox{]}, float q1\mbox{[}2\mbox{]}, float r1\mbox{[}2\mbox{]}, float p2\mbox{[}2\mbox{]}, float q2\mbox{[}2\mbox{]}, float r2\mbox{[}2\mbox{]}) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_a50319cbf11a78e16b51a4159a5c1d666}\label{class_physics_scene_a50319cbf11a78e16b51a4159a5c1d666}} 
-static float {\bfseries signed\+\_\+tetrahedron\+\_\+volume} (\mbox{\hyperlink{class_f_vector3}{FVector3}} a, \mbox{\hyperlink{class_f_vector3}{FVector3}} b, \mbox{\hyperlink{class_f_vector3}{FVector3}} c, \mbox{\hyperlink{class_f_vector3}{FVector3}} d) noexcept
-\item 
-\mbox{\Hypertarget{class_physics_scene_a66c10ddd3e4946a9f6106938be631d3a}\label{class_physics_scene_a66c10ddd3e4946a9f6106938be631d3a}} 
-static bool {\bfseries triangle\+\_\+line\+\_\+collision} (const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&triangle, const \mbox{\hyperlink{struct_line}{Line}} \&line) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_physics_scene_a1bd5edc650dc33d4044740f99d8cbf58}\label{class_physics_scene_a1bd5edc650dc33d4044740f99d8cbf58}} 
-std\+::vector$<$ \mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$ $>$ {\bfseries objects}
+std\+::vector$<$ \mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$ $>$ {\bfseries objects} \{\}
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Physics\+Scene.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Physics\+Scene.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Physics\+Scene.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Physics\+Scene.\+cpp\end{DoxyCompactItemize}

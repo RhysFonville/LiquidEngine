@@ -1,49 +1,52 @@
-\hypertarget{class_t_vector2}{}\doxysection{TVector2\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>} Class Template Reference}
-\label{class_t_vector2}\index{TVector2$<$$>$@{TVector2$<$$>$}}
+\hypertarget{class_t_vector2}{}\doxysection{TVector2\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{class_t_vector2}\index{TVector2$<$ T $>$@{TVector2$<$ T $>$}}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_t_vector2_a5a7d793bcdae24714db21c0ee1cbec4a}\label{class_t_vector2_a5a7d793bcdae24714db21c0ee1cbec4a}} 
-{\bfseries TVector2} (T x, T y)
+\mbox{\Hypertarget{class_t_vector2_a899cb05c9226c5a7f83069f52e5a56be}\label{class_t_vector2_a899cb05c9226c5a7f83069f52e5a56be}} 
+{\bfseries TVector2} (T v)
 \item 
-\mbox{\Hypertarget{class_t_vector2_a6d3b2c659e4394deaeb9df8d765aa92d}\label{class_t_vector2_a6d3b2c659e4394deaeb9df8d765aa92d}} 
-{\bfseries TVector2} (XMVECTOR vector)
+\mbox{\Hypertarget{class_t_vector2_ad6cb4639086476f0a7a74bf370b92b23}\label{class_t_vector2_ad6cb4639086476f0a7a74bf370b92b23}} 
+{\bfseries TVector2} (T vec\mbox{[}2\mbox{]})
 \item 
-\mbox{\Hypertarget{class_t_vector2_ab4c1e671448be29dcad3ed92cd0d9476}\label{class_t_vector2_ab4c1e671448be29dcad3ed92cd0d9476}} 
+\mbox{\Hypertarget{class_t_vector2_a288ef9ef75f4812617c15983e1aab937}\label{class_t_vector2_a288ef9ef75f4812617c15983e1aab937}} 
+constexpr {\bfseries TVector2} (T x, T y)
+\item 
+\mbox{\Hypertarget{class_t_vector2_afde0521e462baec8e4b180df383fdd27}\label{class_t_vector2_afde0521e462baec8e4b180df383fdd27}} 
 bool {\bfseries is\+\_\+zero} () const noexcept
 \item 
-\mbox{\Hypertarget{class_t_vector2_a6a18f477f489645dff5226a45275d368}\label{class_t_vector2_a6a18f477f489645dff5226a45275d368}} 
-\mbox{\hyperlink{class_t_vector2}{TVector2}} {\bfseries operator+} (\mbox{\hyperlink{class_t_vector2}{TVector2}} vector)
+\mbox{\Hypertarget{class_t_vector2_ab0963677245f8a490334d2bbc5560df5}\label{class_t_vector2_ab0963677245f8a490334d2bbc5560df5}} 
+\mbox{\hyperlink{class_t_vector2}{TVector2}} {\bfseries operator+} (const \mbox{\hyperlink{class_t_vector2}{TVector2}} \&vector) const noexcept
 \item 
-\mbox{\Hypertarget{class_t_vector2_ae26c1dc1c7864f5e3ab54824a3f4760e}\label{class_t_vector2_ae26c1dc1c7864f5e3ab54824a3f4760e}} 
-void {\bfseries operator+=} (\mbox{\hyperlink{class_t_vector2}{TVector2}} vector)
+\mbox{\Hypertarget{class_t_vector2_aa4e8adc09aaaafa4b7f6a5bdc98bbce1}\label{class_t_vector2_aa4e8adc09aaaafa4b7f6a5bdc98bbce1}} 
+void {\bfseries operator+=} (\mbox{\hyperlink{class_t_vector2}{TVector2}} vector) noexcept
 \item 
-\mbox{\Hypertarget{class_t_vector2_a8d0bfed5f7ff369f15c924cc1ed00f1b}\label{class_t_vector2_a8d0bfed5f7ff369f15c924cc1ed00f1b}} 
+\mbox{\Hypertarget{class_t_vector2_a9d7cc105ad278ea3eb6ba6323f9d9ed6}\label{class_t_vector2_a9d7cc105ad278ea3eb6ba6323f9d9ed6}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_t_vector2}{TVector2}} \&vector) const noexcept
 \item 
-\mbox{\Hypertarget{class_t_vector2_a869dcb3b1bf36717b7c43fd810a178d8}\label{class_t_vector2_a869dcb3b1bf36717b7c43fd810a178d8}} 
+\mbox{\Hypertarget{class_t_vector2_a332d1477cb35e2b9b457573608e1ac0b}\label{class_t_vector2_a332d1477cb35e2b9b457573608e1ac0b}} 
 bool {\bfseries operator!=} (const \mbox{\hyperlink{class_t_vector2}{TVector2}} \&vector) const noexcept
 \item 
-\mbox{\Hypertarget{class_t_vector2_addd2f987b7fe51d8548936ab7e802917}\label{class_t_vector2_addd2f987b7fe51d8548936ab7e802917}} 
-{\bfseries operator XMVECTOR} () const
-\item 
-\mbox{\Hypertarget{class_t_vector2_aa7a7266a0a7f43edf469bfdea8b0206e}\label{class_t_vector2_aa7a7266a0a7f43edf469bfdea8b0206e}} 
-{\bfseries operator XMFLOAT2} () const noexcept
-\item 
-\mbox{\Hypertarget{class_t_vector2_af1154340c138f9444b12cd96393a87e9}\label{class_t_vector2_af1154340c138f9444b12cd96393a87e9}} 
+\mbox{\Hypertarget{class_t_vector2_ac34c0599ca6c0f972b8b5267c3e62181}\label{class_t_vector2_ac34c0599ca6c0f972b8b5267c3e62181}} 
 void {\bfseries operator=} (const \mbox{\hyperlink{class_t_vector2}{TVector2}}$<$ T $>$ \&vector) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_t_vector2_a40e566373ac484bbd334c642d247a07e}\label{class_t_vector2_a40e566373ac484bbd334c642d247a07e}} 
+\mbox{\Hypertarget{class_t_vector2_ad1b80bb40c6966a70d784c91985388ab}\label{class_t_vector2_ad1b80bb40c6966a70d784c91985388ab}} 
 T {\bfseries x} = 0
 \item 
-\mbox{\Hypertarget{class_t_vector2_aa02f64cf01d029eb19a9ed04f7f81d7f}\label{class_t_vector2_aa02f64cf01d029eb19a9ed04f7f81d7f}} 
+\mbox{\Hypertarget{class_t_vector2_a9e26be8aa08665ad32e8538313d33180}\label{class_t_vector2_a9e26be8aa08665ad32e8538313d33180}} 
 T {\bfseries y} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_vector2_a25fe9c120af859132e3d0d6526b98df3}\label{class_t_vector2_a25fe9c120af859132e3d0d6526b98df3}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, const \mbox{\hyperlink{class_t_vector2}{TVector2}}$<$ T $>$ \&vec)
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/globalstructs.\+h\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Utility/Vectors.\+h\end{DoxyCompactItemize}

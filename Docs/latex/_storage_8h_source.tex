@@ -1,0 +1,26 @@
+\hypertarget{_storage_8h_source}{}\doxysection{Storage.\+h}
+\label{_storage_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/Storage.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/Storage.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ShaderCompiler.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}(\mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00013\ \ \ \ \ GET\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ get\_instance();}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ GET\ std::optional<std::weak\_ptr<Shader>>\ get\_shader(\textcolor{keyword}{const}\ std::string\ \&file)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ std::weak\_ptr<Shader>\ add\_and\_compile\_shader(\textcolor{keyword}{const}\ std::string\&\ target,\ \textcolor{keyword}{const}\ std::string\ \&file);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}()\ \{\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_storage}{ShaderStorage}}*\ shader\_storage;}
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<std::shared\_ptr<Shader>>\ shaders\{\};}
+\DoxyCodeLine{00024\ \};}
+
+\end{DoxyCode}

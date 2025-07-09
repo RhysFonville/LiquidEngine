@@ -1,8 +1,8 @@
-.TH "TVector2<>" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "TVector2< T >" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-TVector2<>
+TVector2< T >
 .SH SYNOPSIS
 .br
 .PP
@@ -10,31 +10,28 @@ TVector2<>
 
 .in +1c
 .ti -1c
-.RI "\fBTVector2\fP (T x, T y)"
+.RI "\fBTVector2\fP (T v)"
 .br
 .ti -1c
-.RI "\fBTVector2\fP (XMVECTOR vector)"
+.RI "\fBTVector2\fP (T vec[2])"
+.br
+.ti -1c
+.RI "constexpr \fBTVector2\fP (T x, T y)"
 .br
 .ti -1c
 .RI "bool \fBis_zero\fP () const noexcept"
 .br
 .ti -1c
-.RI "\fBTVector2\fP \fBoperator+\fP (\fBTVector2\fP vector)"
+.RI "\fBTVector2\fP \fBoperator+\fP (const \fBTVector2\fP &vector) const noexcept"
 .br
 .ti -1c
-.RI "void \fBoperator+=\fP (\fBTVector2\fP vector)"
+.RI "void \fBoperator+=\fP (\fBTVector2\fP vector) noexcept"
 .br
 .ti -1c
 .RI "bool \fBoperator==\fP (const \fBTVector2\fP &vector) const noexcept"
 .br
 .ti -1c
 .RI "bool \fBoperator!=\fP (const \fBTVector2\fP &vector) const noexcept"
-.br
-.ti -1c
-.RI "\fBoperator XMVECTOR\fP () const"
-.br
-.ti -1c
-.RI "\fBoperator XMFLOAT2\fP () const noexcept"
 .br
 .ti -1c
 .RI "void \fBoperator=\fP (const \fBTVector2\fP< T > &vector) noexcept"
@@ -48,6 +45,13 @@ TVector2<>
 .br
 .ti -1c
 .RI "T \fBy\fP = 0"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBTVector2\fP< T > &vec)"
 .br
 .in -1c
 

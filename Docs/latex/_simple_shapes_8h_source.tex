@@ -1,0 +1,167 @@
+\hypertarget{_simple_shapes_8h_source}{}\doxysection{Simple\+Shapes.\+h}
+\label{_simple_shapes_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/SimpleShapes.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/SimpleShapes.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Vectors.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ position\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}()\ \{\ \}}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\ :\ position(\mbox{\hyperlink{class_f_vector3}{FVector3}}(x,\ y,\ z))\ \{\ \}}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ position)}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ :\ position(position)\ \{\ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&vertex)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (position\ ==\ vertex.position);}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&vertex)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (position\ !=\ vertex.position);}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ first;}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ second;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ third;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&vertex)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (first\ ==\ vertex\ ||\ second\ ==\ vertex\ ||\ third\ ==\ vertex);}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_simple_box}{SimpleBox}}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ std::array<SimpleVertex,\ 8>\ vertices\ =\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(0.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(0.0f,\ 1.0f,\ 1.0f),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(1.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(1.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}(1.0f,\ 1.0f,\ 1.0f)}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{struct_simple_box}{SimpleBox}}()\ \{\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{struct_simple_box}{SimpleBox}}(\textcolor{keyword}{const}\ std::vector<SimpleVertex>\ \&verts)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\_extremes\ =\ std::minmax\_element(verts.begin(),\ verts.end(),}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&rhs)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ return\ lhs.position.x\ <\ rhs.position.x;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\_extremes\ =\ std::minmax\_element(verts.begin(),\ verts.end(),}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&rhs)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ return\ lhs.position.y\ <\ rhs.position.y;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ z\_extremes\ =\ std::minmax\_element(verts.begin(),\ verts.end(),}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ \&rhs)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ return\ lhs.position.z\ <\ rhs.position.z;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v1(x\_extremes.first-\/>position.x,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.first-\/>position.y,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.first-\/>position.z}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v2(x\_extremes.first-\/>position.x,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.second-\/>position.y,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.first-\/>position.z}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v3(x\_extremes.second-\/>position.x,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.second-\/>position.y,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.first-\/>position.z}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v4(x\_extremes.second-\/>position.x,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.first-\/>position.y,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.first-\/>position.z}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v5(x\_extremes.first-\/>position.x,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.first-\/>position.y,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.second-\/>position.z}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v6(x\_extremes.first-\/>position.x,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.second-\/>position.y,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.second-\/>position.z}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v7(x\_extremes.second-\/>position.x,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.second-\/>position.y,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.second-\/>position.z}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_vertex}{SimpleVertex}}\ v8(x\_extremes.second-\/>position.x,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ y\_extremes.first-\/>position.y,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ z\_extremes.second-\/>position.z}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ vertices\ =\ \{\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8\ \};}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ std::vector<SimpleTriangle>\ split\_into\_triangles()\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::vector<SimpleTriangle>(\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*FRONT*/}\ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[0],\ vertices[1],\ vertices[2]\ \}),}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[2],\ vertices[3],\ vertices[0]\ \}),}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*BOTTOM*/}\ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[7],\ vertices[4],\ vertices[0]\ \}),}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[0],\ vertices[3],\ vertices[7]\ \}),}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*BACK*/}\ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[6],\ vertices[5],\ vertices[4]\ \}),}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[4],\ vertices[7],\ vertices[6]\ \}),}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*LEFT*/}\ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[5],\ vertices[1],\ vertices[0]\ \}),}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[0],\ vertices[4],\ vertices[5]\ \}),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*RIGHT*/}\ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[2],\ vertices[6],\ vertices[7]\ \}),}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[7],\ vertices[3],\ vertices[2]\ \}),}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*TOP*/}\ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[5],\ vertices[6],\ vertices[2]\ \}),}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_simple_triangle}{SimpleTriangle}}(\{\ vertices[2],\ vertices[1],\ vertices[5]\ \})}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_simple_bounding_box}{SimpleBoundingBox}}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{float}\ length\{1.0f\};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{float}\ width\{1.0f\};}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{float}\ height\{1.0f\};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_min()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{-\/length\ /\ 2.0f,\ -\/width\ /\ 2.0f,\ -\/height\ /\ 2.0f\};}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_max()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{length\ /\ 2.0f,\ width\ /\ 2.0f,\ height\ /\ 2.0f\};}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_sphere}{Sphere}}\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\{1.0f\};}
+\DoxyCodeLine{00132\ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_line}{Line}}\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ p1,\ p2;}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_segment}{Segment}}\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ p1,\ p2;}
+\DoxyCodeLine{00140\ \};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_ray}{Ray}}\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ origin;}
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ direction;}
+\DoxyCodeLine{00145\ \};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{static}\ std::vector<SimpleTriangle>\ split\_into\_simple\_triangles(\textcolor{keyword}{const}\ std::vector<SimpleVertex>\ \&verts)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ std::vector<SimpleTriangle>\ ret;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ verts.size();\ i\ +=\ 3)\{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ +\ 2\ <\ verts.size())\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ ret.push\_back(\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+0],}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+1],}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verts[i+2]}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00161\ \}}
+
+\end{DoxyCode}

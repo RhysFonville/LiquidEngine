@@ -1,0 +1,46 @@
+.TH "ComponentHolder" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ComponentHolder \- Class shared between object and component classes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Component\&.h>\fP
+.PP
+Inherited by \fBComponent\fP, and \fBObject\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET T * \fBget_component\fP () noexcept"
+.br
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET std::set< T * > \fBget_components\fP () noexcept"
+.br
+.ti -1c
+.RI "GET std::set< \fBComponent\fP * > \fBget_all_components\fP () noexcept"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::set< std::unique_ptr< \fBComponent\fP > > \fBcomponents\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class shared between object and component classes\&. 
+
+Gives them a list of components and functions for them\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

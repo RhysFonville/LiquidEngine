@@ -82,9 +82,10 @@ Inheritance diagram for MyCamera:</div>
  <div class="center">
   <img src="class_my_camera.png" usemap="#MyCamera_map" alt=""/>
   <map id="MyCamera_map" name="MyCamera_map">
-<area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="0,112,80,136"/>
-<area href="class_object.html" title="Base class for all objects." alt="Object" shape="rect" coords="0,56,80,80"/>
-<area href="class_controllable.html" title="Base class for everything that needs compile, clean up, and tick functionality." alt="Controllable" shape="rect" coords="0,0,80,24"/>
+<area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="61,112,174,136"/>
+<area href="class_object.html" title="Base class for all objects." alt="Object" shape="rect" coords="61,56,174,80"/>
+<area href="class_controllable.html" title="Base class for everything that needs compile, clean up, and tick functionality." alt="Controllable" shape="rect" coords="0,0,113,24"/>
+<area href="class_component_holder.html" title="Class shared between object and component classes." alt="ComponentHolder" shape="rect" coords="123,0,236,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -127,7 +128,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>on_increase_fov</b> (
 <tr class="memitem:ad542ef2ba00375369987e8b42c61f584"><td class="memItemLeft" align="right" valign="top"><a id="ad542ef2ba00375369987e8b42c61f584" name="ad542ef2ba00375369987e8b42c61f584"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>on_decrease_fov</b> (float dt)</td></tr>
 <tr class="separator:ad542ef2ba00375369987e8b42c61f584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a1ff59a4cd441626504bb55666f166b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_camera.html#a4a1ff59a4cd441626504bb55666f166b">render_editor_gui_section</a> () override</td></tr>
+<tr class="separator:a4a1ff59a4cd441626504bb55666f166b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_object.html">Object</a></td></tr>
+<tr class="memitem:aa20df9b729a0fa3161fbaf981d7cac95 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="aa20df9b729a0fa3161fbaf981d7cac95" name="aa20df9b729a0fa3161fbaf981d7cac95"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Object</b> (const <a class="el" href="class_object.html">Object</a> &amp;)=delete</td></tr>
+<tr class="separator:aa20df9b729a0fa3161fbaf981d7cac95 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fc860de04ea5826b358d86378a8e306 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a9fc860de04ea5826b358d86378a8e306" name="a9fc860de04ea5826b358d86378a8e306"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_components</b> ()</td></tr>
+<tr class="separator:a9fc860de04ea5826b358d86378a8e306 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae608dbdb783926e5ed50ba6f60b13cd6 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#ae608dbdb783926e5ed50ba6f60b13cd6">base_clean_up</a> () override</td></tr>
+<tr class="separator:ae608dbdb783926e5ed50ba6f60b13cd6 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e480e68a67df71f3424a067c4d9fb7a inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a4e480e68a67df71f3424a067c4d9fb7a">base_compile</a> () override</td></tr>
+<tr class="separator:a4e480e68a67df71f3424a067c4d9fb7a inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac16ba142ba64b49bd7c95fa1338abb8b inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#ac16ba142ba64b49bd7c95fa1338abb8b">base_tick</a> (float dt) override</td></tr>
+<tr class="separator:ac16ba142ba64b49bd7c95fa1338abb8b inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6d0e22d640027d09fdbdd7a2dea497b inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ac6d0e22d640027d09fdbdd7a2dea497b" name="ac6d0e22d640027d09fdbdd7a2dea497b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_position</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;position) noexcept</td></tr>
 <tr class="separator:ac6d0e22d640027d09fdbdd7a2dea497b inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,52 +182,32 @@ GET <a class="el" href="class_object.html">Object</a> *&#160;</td><td class="mem
 <tr class="memitem:afb2b83015f52280d2f0267db3951e955 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="afb2b83015f52280d2f0267db3951e955" name="afb2b83015f52280d2f0267db3951e955"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_parent</b> (<a class="el" href="class_object.html">Object</a> *parent) noexcept</td></tr>
 <tr class="separator:afb2b83015f52280d2f0267db3951e955 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a536e28807d2b9b5cc92d09212a82b619 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a536e28807d2b9b5cc92d09212a82b619" name="a536e28807d2b9b5cc92d09212a82b619"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>remove_parent</b> () noexcept</td></tr>
-<tr class="separator:a536e28807d2b9b5cc92d09212a82b619 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aee64c2edbdec56a6876a1ea7a44739 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a8aee64c2edbdec56a6876a1ea7a44739" name="a8aee64c2edbdec56a6876a1ea7a44739"></a>
-GET std::vector&lt; <a class="el" href="class_object.html">Object</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_children</b> () noexcept</td></tr>
-<tr class="separator:a8aee64c2edbdec56a6876a1ea7a44739 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8600843a80158d46f7fcd9e90362866 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ab8600843a80158d46f7fcd9e90362866" name="ab8600843a80158d46f7fcd9e90362866"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_child</b> (<a class="el" href="class_object.html">Object</a> *child) noexcept</td></tr>
-<tr class="separator:ab8600843a80158d46f7fcd9e90362866 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18486446033ec7e8b07e1e50ca92541d inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a18486446033ec7e8b07e1e50ca92541d">base_clean_up</a> ()</td></tr>
-<tr class="separator:a18486446033ec7e8b07e1e50ca92541d inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3131970ec0bdc60c65d586b3b4039745 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a3131970ec0bdc60c65d586b3b4039745">base_compile</a> ()</td></tr>
-<tr class="separator:a3131970ec0bdc60c65d586b3b4039745 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69977c1b7144cc8719539bb9c293f4e3 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a69977c1b7144cc8719539bb9c293f4e3">base_tick</a> (float dt)</td></tr>
-<tr class="separator:a69977c1b7144cc8719539bb9c293f4e3 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cf8f6253cc935a617a8aef4a887b1e3 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a8cf8f6253cc935a617a8aef4a887b1e3" name="a8cf8f6253cc935a617a8aef4a887b1e3"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>add_object</b> (std::unique_ptr&lt; <a class="el" href="class_object.html">Object</a> &gt; &amp;&amp;obj)</td></tr>
+<tr class="separator:a8cf8f6253cc935a617a8aef4a887b1e3 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb4d159faa8022204ac4f7ba29cb882e inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="abb4d159faa8022204ac4f7ba29cb882e" name="abb4d159faa8022204ac4f7ba29cb882e"></a>
+<a class="el" href="class_component.html">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>add_component</b> (std::unique_ptr&lt; <a class="el" href="class_component.html">Component</a> &gt; &amp;&amp;component)</td></tr>
+<tr class="separator:abb4d159faa8022204ac4f7ba29cb882e inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8d116d71a033f436871d247992287bd inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ae8d116d71a033f436871d247992287bd" name="ae8d116d71a033f436871d247992287bd"></a>
+GET std::set&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_children</b> () const noexcept</td></tr>
+<tr class="separator:ae8d116d71a033f436871d247992287bd inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab45e2f917f8981268ebbe70bee92a6ac inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ab45e2f917f8981268ebbe70bee92a6ac" name="ab45e2f917f8981268ebbe70bee92a6ac"></a>
+GET size_t&#160;</td><td class="memItemRight" valign="bottom"><b>get_children_count</b> () const noexcept</td></tr>
+<tr class="separator:ab45e2f917f8981268ebbe70bee92a6ac inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2507eaea2a26a428bb8482bd2862711 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ad2507eaea2a26a428bb8482bd2862711" name="ad2507eaea2a26a428bb8482bd2862711"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_scene</b> (<a class="el" href="class_scene.html">Scene</a> *scene) noexcept</td></tr>
+<tr class="separator:ad2507eaea2a26a428bb8482bd2862711 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab02104ff139561fb440560c3c09eb367 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="ab02104ff139561fb440560c3c09eb367" name="ab02104ff139561fb440560c3c09eb367"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_object.html">Object</a> &amp;object) const noexcept</td></tr>
 <tr class="separator:ab02104ff139561fb440560c3c09eb367 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5fa46aa191dbea137e271b2f17dc166 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="aa5fa46aa191dbea137e271b2f17dc166" name="aa5fa46aa191dbea137e271b2f17dc166"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="class_object.html">Object</a> &amp;object) const noexcept</td></tr>
 <tr class="separator:aa5fa46aa191dbea137e271b2f17dc166 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a25218be0eddb544aa1ecfbf5f71cf1 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a8a25218be0eddb544aa1ecfbf5f71cf1" name="a8a25218be0eddb544aa1ecfbf5f71cf1"></a>
-GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_component</b> (Component::Type search) const noexcept</td></tr>
-<tr class="separator:a8a25218be0eddb544aa1ecfbf5f71cf1 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe8da27dfafa02477bb1b068a39274a8 inherit pub_methods_class_object"><td class="memTemplParams" colspan="2"><a id="afe8da27dfafa02477bb1b068a39274a8" name="afe8da27dfafa02477bb1b068a39274a8"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:afe8da27dfafa02477bb1b068a39274a8 inherit pub_methods_class_object"><td class="memTemplItemLeft" align="right" valign="top">GET bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>has_component</b> () const</td></tr>
-<tr class="separator:afe8da27dfafa02477bb1b068a39274a8 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac439cabfb486f32dd9e1499aeb7c56cf inherit pub_methods_class_object"><td class="memTemplParams" colspan="2"><a id="ac439cabfb486f32dd9e1499aeb7c56cf" name="ac439cabfb486f32dd9e1499aeb7c56cf"></a>
-template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_component.html">Component</a>) &gt; </td></tr>
-<tr class="memitem:ac439cabfb486f32dd9e1499aeb7c56cf inherit pub_methods_class_object"><td class="memTemplItemLeft" align="right" valign="top">GET T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get_component</b> () noexcept</td></tr>
-<tr class="separator:ac439cabfb486f32dd9e1499aeb7c56cf inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e789d70c7fddb12c61abe50af01a2f3 inherit pub_methods_class_object"><td class="memTemplParams" colspan="2"><a id="a1e789d70c7fddb12c61abe50af01a2f3" name="a1e789d70c7fddb12c61abe50af01a2f3"></a>
-template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_component.html">Component</a>) &gt; </td></tr>
-<tr class="memitem:a1e789d70c7fddb12c61abe50af01a2f3 inherit pub_methods_class_object"><td class="memTemplItemLeft" align="right" valign="top">GET std::vector&lt; T * &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get_components</b> () noexcept</td></tr>
-<tr class="separator:a1e789d70c7fddb12c61abe50af01a2f3 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40d359b4cf4db7dd52d6836db84be928 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a40d359b4cf4db7dd52d6836db84be928" name="a40d359b4cf4db7dd52d6836db84be928"></a>
-GET std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_component.html">Component</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_all_components</b> () noexcept</td></tr>
-<tr class="separator:a40d359b4cf4db7dd52d6836db84be928 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907815016a464425e2ab6e6380cf2968 inherit pub_methods_class_object"><td class="memTemplParams" colspan="2"><a id="a907815016a464425e2ab6e6380cf2968" name="a907815016a464425e2ab6e6380cf2968"></a>
-template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_component.html">Component</a>) &gt; </td></tr>
-<tr class="memitem:a907815016a464425e2ab6e6380cf2968 inherit pub_methods_class_object"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>add_component</b> (const std::shared_ptr&lt; T &gt; &amp;component)</td></tr>
-<tr class="separator:a907815016a464425e2ab6e6380cf2968 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af96ca8fd7ab8e0922f5078126d63e957 inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="af96ca8fd7ab8e0922f5078126d63e957" name="af96ca8fd7ab8e0922f5078126d63e957"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>remove_component</b> (size_t index)</td></tr>
-<tr class="separator:af96ca8fd7ab8e0922f5078126d63e957 inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2863ff385d599d3f4002e7e7a0ac01be inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a2863ff385d599d3f4002e7e7a0ac01be" name="a2863ff385d599d3f4002e7e7a0ac01be"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>base_render_editor_gui_section_tree</b> (<a class="el" href="class_object.html">Object</a> **selected_object)</td></tr>
+<tr class="separator:a2863ff385d599d3f4002e7e7a0ac01be inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5461e33b0aeecf62d8035ad1dc1e8ceb inherit pub_methods_class_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a5461e33b0aeecf62d8035ad1dc1e8ceb">base_render_editor_gui_section</a> () override</td></tr>
+<tr class="separator:a5461e33b0aeecf62d8035ad1dc1e8ceb inherit pub_methods_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_controllable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_controllable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_controllable.html">Controllable</a></td></tr>
 <tr class="memitem:af5f7b92d7d373648765015806c72dd45 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="af5f7b92d7d373648765015806c72dd45" name="af5f7b92d7d373648765015806c72dd45"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_clean_up</b> ()</td></tr>
@@ -223,6 +218,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_compile<
 <tr class="memitem:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a61e410a136d98711221d0745674724cc" name="a61e410a136d98711221d0745674724cc"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_tick</b> (float dt)</td></tr>
 <tr class="separator:a61e410a136d98711221d0745674724cc inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cc38b82da2a30240327078b78184356 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a2cc38b82da2a30240327078b78184356" name="a2cc38b82da2a30240327078b78184356"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:a2cc38b82da2a30240327078b78184356 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a95e3caee0d964a3512b36fad47bca0b3" name="a95e3caee0d964a3512b36fad47bca0b3"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pre_scene_compile</b> ()</td></tr>
 <tr class="separator:a95e3caee0d964a3512b36fad47bca0b3 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,6 +236,23 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (
 <tr class="memitem:a869af510ef0d4280b091cd4b634bfb56 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="a869af510ef0d4280b091cd4b634bfb56" name="a869af510ef0d4280b091cd4b634bfb56"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt)</td></tr>
 <tr class="separator:a869af510ef0d4280b091cd4b634bfb56 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa89bc78e5af3372c159e86072d589cb7 inherit pub_methods_class_controllable"><td class="memItemLeft" align="right" valign="top"><a id="aa89bc78e5af3372c159e86072d589cb7" name="aa89bc78e5af3372c159e86072d589cb7"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:aa89bc78e5af3372c159e86072d589cb7 inherit pub_methods_class_controllable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_component_holder"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_component_holder')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_component_holder.html">ComponentHolder</a></td></tr>
+<tr class="memitem:a3a592f7c5c44c4571a7402ff675cb888 inherit pub_methods_class_component_holder"><td class="memTemplParams" colspan="2"><a id="a3a592f7c5c44c4571a7402ff675cb888" name="a3a592f7c5c44c4571a7402ff675cb888"></a>
+template&lt;typename T &gt; <br />
+requires std::derived_from&lt;T, <a class="el" href="class_component.html">Component</a>&gt;</td></tr>
+<tr class="memitem:a3a592f7c5c44c4571a7402ff675cb888 inherit pub_methods_class_component_holder"><td class="memTemplItemLeft" align="right" valign="top">GET T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get_component</b> () noexcept</td></tr>
+<tr class="separator:a3a592f7c5c44c4571a7402ff675cb888 inherit pub_methods_class_component_holder"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dcea42246695db8881e31e201b7f9f0 inherit pub_methods_class_component_holder"><td class="memTemplParams" colspan="2"><a id="a6dcea42246695db8881e31e201b7f9f0" name="a6dcea42246695db8881e31e201b7f9f0"></a>
+template&lt;typename T &gt; <br />
+requires std::derived_from&lt;T, <a class="el" href="class_component.html">Component</a>&gt;</td></tr>
+<tr class="memitem:a6dcea42246695db8881e31e201b7f9f0 inherit pub_methods_class_component_holder"><td class="memTemplItemLeft" align="right" valign="top">GET std::set&lt; T * &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get_components</b> () noexcept</td></tr>
+<tr class="separator:a6dcea42246695db8881e31e201b7f9f0 inherit pub_methods_class_component_holder"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ecd4cb84098e12801e77b1a353445a inherit pub_methods_class_component_holder"><td class="memItemLeft" align="right" valign="top"><a id="a85ecd4cb84098e12801e77b1a353445a" name="a85ecd4cb84098e12801e77b1a353445a"></a>
+GET std::set&lt; <a class="el" href="class_component.html">Component</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_all_components</b> () noexcept</td></tr>
+<tr class="separator:a85ecd4cb84098e12801e77b1a353445a inherit pub_methods_class_component_holder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -247,14 +262,25 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a04a5fb5bd2117c2635f6bdeb64e7f627 inherit pub_attribs_class_character"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_object"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_object')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_object.html">Object</a></td></tr>
 <tr class="memitem:a24457e0a387492c80594aec7681a2277 inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a24457e0a387492c80594aec7681a2277" name="a24457e0a387492c80594aec7681a2277"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &quot;&quot;</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> {&quot;&quot;}</td></tr>
 <tr class="separator:a24457e0a387492c80594aec7681a2277 inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c6f2e8d3ef80c160a82a1f8591413e inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_component.html">Component</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#ae4c6f2e8d3ef80c160a82a1f8591413e">root_component</a></td></tr>
-<tr class="memdesc:ae4c6f2e8d3ef80c160a82a1f8591413e inherit pub_attribs_class_object"><td class="mdescLeft">&#160;</td><td class="mdescRight">All components all derive from the root component.  <br /></td></tr>
-<tr class="separator:ae4c6f2e8d3ef80c160a82a1f8591413e inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b64feef62020081f0c606648eb86124 inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a9b64feef62020081f0c606648eb86124" name="a9b64feef62020081f0c606648eb86124"></a>
-<a class="el" href="class_graphics_scene.html">GraphicsScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> = nullptr</td></tr>
-<tr class="separator:a9b64feef62020081f0c606648eb86124 inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b77ab69aec31b96182e3d027116793 inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="aa6b77ab69aec31b96182e3d027116793" name="aa6b77ab69aec31b96182e3d027116793"></a>
+<a class="el" href="class_component.html">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mimic_position_component</b> {nullptr}</td></tr>
+<tr class="separator:aa6b77ab69aec31b96182e3d027116793 inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae1a88a0d7a9df619f9804ceccd9f88 inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a9ae1a88a0d7a9df619f9804ceccd9f88" name="a9ae1a88a0d7a9df619f9804ceccd9f88"></a>
+<a class="el" href="class_component.html">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mimic_rotation_component</b> {nullptr}</td></tr>
+<tr class="separator:a9ae1a88a0d7a9df619f9804ceccd9f88 inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a733f8057785251d8ef21a1c3615d22ca inherit pub_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a733f8057785251d8ef21a1c3615d22ca" name="a733f8057785251d8ef21a1c3615d22ca"></a>
+<a class="el" href="class_component.html">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mimic_size_component</b> {nullptr}</td></tr>
+<tr class="separator:a733f8057785251d8ef21a1c3615d22ca inherit pub_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_object"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_object')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_object.html">Object</a></td></tr>
+<tr class="memitem:a744d401eccddf4b19de9b2f7580df87f inherit pro_attribs_class_object"><td class="memItemLeft" align="right" valign="top"><a id="a744d401eccddf4b19de9b2f7580df87f" name="a744d401eccddf4b19de9b2f7580df87f"></a>
+<a class="el" href="class_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>scene</b> {nullptr}</td></tr>
+<tr class="separator:a744d401eccddf4b19de9b2f7580df87f inherit pro_attribs_class_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_component_holder"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_component_holder')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_component_holder.html">ComponentHolder</a></td></tr>
+<tr class="memitem:adbf6d9ffb66c38da13c6724060a8be77 inherit pro_attribs_class_component_holder"><td class="memItemLeft" align="right" valign="top"><a id="adbf6d9ffb66c38da13c6724060a8be77" name="adbf6d9ffb66c38da13c6724060a8be77"></a>
+std::set&lt; std::unique_ptr&lt; <a class="el" href="class_component.html">Component</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>components</b></td></tr>
+<tr class="separator:adbf6d9ffb66c38da13c6724060a8be77 inherit pro_attribs_class_component_holder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa56e291c1d8bff12200eec4246b292a1" name="aa56e291c1d8bff12200eec4246b292a1"></a>
@@ -268,6 +294,33 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &qu
       <table class="memname">
         <tr>
           <td class="memname">void MyCamera::pre_scene_compile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="class_controllable.html">Controllable</a>.</p>
+
+</div>
+</div>
+<a id="a4a1ff59a4cd441626504bb55666f166b" name="a4a1ff59a4cd441626504bb55666f166b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a1ff59a4cd441626504bb55666f166b">&#9670;&#160;</a></span>render_editor_gui_section()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MyCamera::render_editor_gui_section </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -313,8 +366,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = &qu
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/<a class="el" href="_my_camera_8h_source.html">MyCamera.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Objects/MyCamera.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/TestObjects/<a class="el" href="_my_camera_8h_source.html">MyCamera.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/TestObjects/MyCamera.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

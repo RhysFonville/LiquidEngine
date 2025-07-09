@@ -21,41 +21,50 @@ Inheritance diagram for Rendering\+Camera\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_rendering_camera_acf35f67719afdbef9ccad7ae267813c8}\label{class_rendering_camera_acf35f67719afdbef9ccad7ae267813c8}} 
 {\bfseries Rendering\+Camera} (\mbox{\hyperlink{class_camera_component}{Camera\+Component}} $\ast$camera)
 \item 
-\mbox{\Hypertarget{class_rendering_camera_ae590d102f3fc4248192c96d33476a218}\label{class_rendering_camera_ae590d102f3fc4248192c96d33476a218}} 
-bool {\bfseries update} (\mbox{\hyperlink{class_t_vector2}{UVector2}} resolution)
+\mbox{\Hypertarget{class_rendering_camera_a9292bc5513d2418dba7fa48c4c7e9356}\label{class_rendering_camera_a9292bc5513d2418dba7fa48c4c7e9356}} 
+bool {\bfseries update} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&resolution)
 \item 
 \mbox{\Hypertarget{class_rendering_camera_a30a020e13ca41a073ad7882085626311}\label{class_rendering_camera_a30a020e13ca41a073ad7882085626311}} 
 void {\bfseries compile} ()
 \item 
 \mbox{\Hypertarget{class_rendering_camera_ae0dc45cd53b3e0f11638e00d05cbe168}\label{class_rendering_camera_ae0dc45cd53b3e0f11638e00d05cbe168}} 
 void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_rendering_camera_a833067ca3f90688a4d9418046122ea54}\label{class_rendering_camera_a833067ca3f90688a4d9418046122ea54}} 
-bool {\bfseries operator==} (\mbox{\hyperlink{class_camera_component}{Camera\+Component}} component)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Camera\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
-{\bfseries Rendering\+Component} (T $\ast$component)
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
+{\bfseries Rendering\+Component} (\mbox{\hyperlink{class_camera_component}{Camera\+Component}} $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_camera_a71d29a8ea6795151113bebd78c1e0f12}\label{class_rendering_camera_a71d29a8ea6795151113bebd78c1e0f12}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Constants\+Container}}$<$ VSWVPConstants $>$ {\bfseries wvp\+\_\+data} = VSWVPConstants\{\}
+\mbox{\Hypertarget{class_rendering_camera_ab39ce33080f89936b4f478e7ea9926ed}\label{class_rendering_camera_ab39ce33080f89936b4f478e7ea9926ed}} 
+std\+::shared\+\_\+ptr$<$ VSWVPConstants $>$ {\bfseries wvp\+\_\+data} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_camera_a86307d70bd44b4c16be58a5f14802835}\label{class_rendering_camera_a86307d70bd44b4c16be58a5f14802835}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Constants\+Container}}$<$ PSCamera\+Constants $>$ {\bfseries pos\+\_\+data} = PSCamera\+Constants\{\}
+\mbox{\Hypertarget{class_rendering_camera_ab1cc798b1edaa8538b12053ec8c68df0}\label{class_rendering_camera_ab1cc798b1edaa8538b12053ec8c68df0}} 
+std\+::shared\+\_\+ptr$<$ PSCamera\+Constants $>$ {\bfseries pos\+\_\+data} \{\}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Camera\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+\mbox{\hyperlink{class_camera_component}{Camera\+Component}} $\ast$ {\bfseries component}
 \end{DoxyCompactItemize}
 
 

@@ -72,7 +72,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_physics_scene-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PhysicsScene Class Reference</div></div>
@@ -81,49 +80,22 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9d2ea34a5b18c9339c7a03ec42df5e57"><td class="memItemLeft" align="right" valign="top"><a id="a9d2ea34a5b18c9339c7a03ec42df5e57" name="a9d2ea34a5b18c9339c7a03ec42df5e57"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> ()</td></tr>
-<tr class="separator:a9d2ea34a5b18c9339c7a03ec42df5e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad90864c88e0f2abe6cb8d89abd1d5c35"><td class="memItemLeft" align="right" valign="top"><a id="ad90864c88e0f2abe6cb8d89abd1d5c35" name="ad90864c88e0f2abe6cb8d89abd1d5c35"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt)</td></tr>
+<tr class="separator:ad90864c88e0f2abe6cb8d89abd1d5c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b6d016a443e3cbbabca28f6deac71bb"><td class="memItemLeft" align="right" valign="top"><a id="a6b6d016a443e3cbbabca28f6deac71bb" name="a6b6d016a443e3cbbabca28f6deac71bb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
 <tr class="separator:a6b6d016a443e3cbbabca28f6deac71bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1ec8da87b6ee98bbc78c02323bb5d5f"><td class="memItemLeft" align="right" valign="top"><a id="ad1ec8da87b6ee98bbc78c02323bb5d5f" name="ad1ec8da87b6ee98bbc78c02323bb5d5f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>handle_collision</b> (<a class="el" href="class_physical_component.html">PhysicalComponent</a> *obj1, <a class="el" href="class_physical_component.html">PhysicalComponent</a> *obj2)</td></tr>
-<tr class="separator:ad1ec8da87b6ee98bbc78c02323bb5d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a40471d3198019c3db7752e8d894e752a"><td class="memItemLeft" align="right" valign="top"><a id="a40471d3198019c3db7752e8d894e752a" name="a40471d3198019c3db7752e8d894e752a"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>box_box_overlap</b> (const <a class="el" href="struct_simple_box.html">SimpleBox</a> &amp;box1, const <a class="el" href="struct_simple_box.html">SimpleBox</a> &amp;box2) noexcept</td></tr>
-<tr class="separator:a40471d3198019c3db7752e8d894e752a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab780b9c5d04ea00decbd0c7bde51942"><td class="memItemLeft" align="right" valign="top"><a id="aab780b9c5d04ea00decbd0c7bde51942" name="aab780b9c5d04ea00decbd0c7bde51942"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>tri_tri_overlap</b> (const <a class="el" href="struct_simple_triangle.html">SimpleTriangle</a> &amp;tri1, const <a class="el" href="struct_simple_triangle.html">SimpleTriangle</a> &amp;tri2) noexcept</td></tr>
-<tr class="separator:aab780b9c5d04ea00decbd0c7bde51942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb3d451cce79eabbd95a2872a65396db"><td class="memItemLeft" align="right" valign="top"><a id="adb3d451cce79eabbd95a2872a65396db" name="adb3d451cce79eabbd95a2872a65396db"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>coplanar_tri_tri3d</b> (float p1[3], float q1[3], float r1[3], float p2[3], float q2[3], float r2[3], float normal_1[3]) noexcept</td></tr>
-<tr class="separator:adb3d451cce79eabbd95a2872a65396db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21913875c42ac4bace86ca63d5385790"><td class="memItemLeft" align="right" valign="top"><a id="a21913875c42ac4bace86ca63d5385790" name="a21913875c42ac4bace86ca63d5385790"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>tri_tri_overlap_test_2d</b> (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept</td></tr>
-<tr class="separator:a21913875c42ac4bace86ca63d5385790"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e4db921cd449b6754c5c86553d86acc"><td class="memItemLeft" align="right" valign="top"><a id="a3e4db921cd449b6754c5c86553d86acc" name="a3e4db921cd449b6754c5c86553d86acc"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>ccw_tri_tri_intersection_2d</b> (float p1[2], float q1[2], float r1[2], float p2[2], float q2[2], float r2[2]) noexcept</td></tr>
-<tr class="separator:a3e4db921cd449b6754c5c86553d86acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50319cbf11a78e16b51a4159a5c1d666"><td class="memItemLeft" align="right" valign="top"><a id="a50319cbf11a78e16b51a4159a5c1d666" name="a50319cbf11a78e16b51a4159a5c1d666"></a>
-static float&#160;</td><td class="memItemRight" valign="bottom"><b>signed_tetrahedron_volume</b> (<a class="el" href="class_f_vector3.html">FVector3</a> a, <a class="el" href="class_f_vector3.html">FVector3</a> b, <a class="el" href="class_f_vector3.html">FVector3</a> c, <a class="el" href="class_f_vector3.html">FVector3</a> d) noexcept</td></tr>
-<tr class="separator:a50319cbf11a78e16b51a4159a5c1d666"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66c10ddd3e4946a9f6106938be631d3a"><td class="memItemLeft" align="right" valign="top"><a id="a66c10ddd3e4946a9f6106938be631d3a" name="a66c10ddd3e4946a9f6106938be631d3a"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>triangle_line_collision</b> (const <a class="el" href="struct_simple_triangle.html">SimpleTriangle</a> &amp;triangle, const <a class="el" href="struct_line.html">Line</a> &amp;line) noexcept</td></tr>
-<tr class="separator:a66c10ddd3e4946a9f6106938be631d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a1bd5edc650dc33d4044740f99d8cbf58"><td class="memItemLeft" align="right" valign="top"><a id="a1bd5edc650dc33d4044740f99d8cbf58" name="a1bd5edc650dc33d4044740f99d8cbf58"></a>
-std::vector&lt; <a class="el" href="class_physical_component.html">PhysicalComponent</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objects</b></td></tr>
+std::vector&lt; <a class="el" href="class_physical_component.html">PhysicalComponent</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objects</b> {}</td></tr>
 <tr class="separator:a1bd5edc650dc33d4044740f99d8cbf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/<a class="el" href="_physics_scene_8h_source.html">PhysicsScene.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsScene.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/<a class="el" href="_physics_scene_8h_source.html">PhysicsScene.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/PhysicsScene.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

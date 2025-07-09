@@ -17,107 +17,117 @@
 \DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_renderer}{Renderer}}()\ \{\ \}}
 \DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_renderer}{Renderer}}(HWND\ window);\ \textcolor{comment}{//\ initializes\ direct3d\ 12}}
 \DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ init\_renderer(HWND\ window);}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_af050b7268b175853339f37afbaeb425b}{tick}}(\textcolor{keywordtype}{float}\ dt);}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}{clean\_up}}();}
-\DoxyCodeLine{00027\ \ \ \ \ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}{render}}(\textcolor{keywordtype}{float}\ dt);}
-\DoxyCodeLine{00034\ \ \ \ \ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}{present}}();}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ increment\_fence();\ \textcolor{comment}{//\ increment\ fences}}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ wait\_for\_fence\_cpu();\ \textcolor{comment}{//\ wait\ for\ fences\ incrementation\ on\ cpu\ side}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ wait\_for\_fence\_gpu();\ \textcolor{comment}{//\ wait\ for\ fences\ incrementation\ on\ gpu\ side}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ flush\_gpu();}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ wait\_for\_previous\_frame();\ \textcolor{comment}{//\ wait\ for\ command\ list\ completion}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ execute\_command\_list();}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a44689412aa18c89509e19296d9a51e71}{compile}}(\textcolor{keywordtype}{bool}\ compile\_components\ =\ \textcolor{keyword}{false});}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}{resize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size);}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_fullscreen(\textcolor{keywordtype}{bool}\ fullscreen);}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ toggle\_fullscreen();}
-\DoxyCodeLine{00061\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ is\_fullscreen()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ GET\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ get\_resolution()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_resolution(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution);}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}\ scene;}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ vsync\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ restrict\_present\_to\_adapter\_output\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a9dc81236b9e647269460ac850a016cf5}{init\_renderer}}(HWND\ window);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_af050b7268b175853339f37afbaeb425b}{tick}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a1c7c7f1eeaefb5fd5c1cd3da15eefc6c}{clean\_up}}(\textcolor{keywordtype}{bool}\ clean\_scene\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}{render}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}{present}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ wait\_for\_previous\_frame();\ \textcolor{comment}{//\ wait\ for\ fences\ incrementation\ on\ cpu\ side}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ wait\_for\_fence\_gpu();\ \textcolor{comment}{//\ wait\ for\ fences\ incrementation\ on\ gpu\ side}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ flush\_gpu();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ execute\_command\_list();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ signal();}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_frame\_index();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}{compile}}();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}{resize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_msaa\_sample\_count(UINT\ count);}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}};}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ ComPtr<ID3D12Device>\ device\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00075\ \ \ \ \ ComPtr<IDXGISwapChain3>\ swap\_chain\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ ComPtr<ID3D12CommandQueue>\ command\_queue\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00078\ \ \ \ \ ComPtr<ID3D12CommandAllocator>\ command\_allocators[NUMBER\_OF\_BUFFERS]\ =\ \{\ \};}
-\DoxyCodeLine{00079\ \ \ \ \ ComPtr<ID3D12GraphicsCommandList>\ command\_list\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ ComPtr<ID3D12Fence>\ fences[NUMBER\_OF\_BUFFERS]\ =\ \{\ \};}
-\DoxyCodeLine{00082\ \ \ \ \ HANDLE\ fence\_event\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00083\ \ \ \ \ ULONGLONG\ fence\_values[NUMBER\_OF\_BUFFERS]\ =\ \{\ \};}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ ComPtr<ID3D12DescriptorHeap>\ rtv\_descriptor\_heap\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00086\ \ \ \ \ UINT\ rtv\_descriptor\_size\ =\ 0u;\ \textcolor{comment}{//\ size\ of\ the\ rtv\ descriptor\ on\ the\ device\ (all\ front\ and\ back\ buffers\ will\ be\ the\ same\ size)}}
-\DoxyCodeLine{00087\ \ \ \ \ ComPtr<ID3D12Resource>\ render\_targets[NUMBER\_OF\_BUFFERS]\ =\ \{\ \};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_fullscreen(\textcolor{keywordtype}{bool}\ fullscreen);}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ toggle\_fullscreen();}
+\DoxyCodeLine{00073\ \ \ \ \ GET\ \textcolor{keywordtype}{bool}\ is\_fullscreen()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ GET\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ get\_resolution()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_resolution(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&resolution);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_graphics_scene}{GraphicsScene}}\ scene\{\};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ vsync\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ restrict\_present\_to\_adapter\_output\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_renderer_afadf2784530741fd4ea9a2df0494f551}{clear\_render\_target}}\{\textcolor{keyword}{true}\};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}};}
 \DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ ComPtr<IDXGIFactory2>\ factory\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}\ adapter\{\};}
-\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter_output}{GraphicsAdapterOutput}}\ adapter\_output\{\};}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ ComPtr<ID3D12Resource>\ depth\_stencil\_buffer\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ This\ is\ the\ memory\ for\ our\ depth\ buffer.\ it\ will\ also\ be\ used\ for\ a\ stencil\ buffer\ in\ a\ later\ tutorial}}
-\DoxyCodeLine{00095\ \ \ \ \ ComPtr<ID3D12DescriptorHeap>\ depth\_stencil\_descriptor\_heap\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ This\ is\ a\ heap\ for\ our\ depth/stencil\ buffer\ descriptor}}
-\DoxyCodeLine{00096\ \ \ \ \ D3D12\_DEPTH\_STENCIL\_DESC\ depth\_stencil\_desc\ =\ CD3DX12\_DEPTH\_STENCIL\_DESC(D3D12\_DEFAULT);}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ ComPtr<IDXGIDebug1>\ dxgi\_debug\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00099\ \ \ \ \ ComPtr<ID3D12Debug>\ debug\_interface\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00100\ \ \ \ \ ComPtr<ID3D12DebugDevice>\ debug\_device\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00101\ \ \ \ \ ComPtr<ID3D12DebugCommandList>\ debug\_command\_list\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00102\ \ \ \ \ ComPtr<ID3D12DebugCommandQueue>\ debug\_command\_queue\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00103\ \ \ \ \ ComPtr<ID3D12InfoQueue>\ info\_queue\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00089\ \ \ \ \ ComPtr<ID3D12Device>\ device\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00090\ \ \ \ \ ComPtr<IDXGISwapChain3>\ swap\_chain\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ ComPtr<ID3D12CommandQueue>\ command\_queue\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00093\ \ \ \ \ ComPtr<ID3D12CommandAllocator>\ command\_allocator\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00094\ \ \ \ \ ComPtr<ID3D12GraphicsCommandList>\ command\_list\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ ComPtr<ID3D12Fence>\ fence\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00097\ \ \ \ \ HANDLE\ fence\_event\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00098\ \ \ \ \ ULONGLONG\ fence\_value\{\};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ ComPtr<ID3D12DescriptorHeap>\ rtv\_descriptor\_heap\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00101\ \ \ \ \ UINT\ rtv\_descriptor\_size\ =\ 0u;\ \textcolor{comment}{//\ size\ of\ the\ rtv\ descriptor\ on\ the\ device\ (all\ front\ and\ back\ buffers\ will\ be\ the\ same\ size)}}
+\DoxyCodeLine{00102\ \ \ \ \ ComPtr<ID3D12Resource>\ render\_targets[NUMBER\_OF\_BUFFERS]\{\};}
+\DoxyCodeLine{00103\ \ \ \ \ ComPtr<ID3D12Resource>\ msaa\_render\_targets[NUMBER\_OF\_BUFFERS]\{\};}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{class_graphics_descriptor_heaps}{GraphicsDescriptorHeaps}}\ descriptor\_heaps;}
+\DoxyCodeLine{00105\ \ \ \ \ ComPtr<IDXGIFactory2>\ factory\{\textcolor{keyword}{nullptr}\};}
 \DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_device();}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_queue();}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_swap\_chain();}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_descriptor\_heap();}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_rtvs();}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_allocators();}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_list();}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_fences\_and\_fence\_event();}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_depth\_stencil(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size);}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_descriptor\_heaps();}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_blend\_state();}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_viewport\_and\_scissor\_rect(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&size);}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter}{GraphicsAdapter}}\ adapter\{\};}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_graphics_adapter_output}{GraphicsAdapterOutput}}\ adapter\_output\{\};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ ComPtr<ID3D12Resource>\ depth\_stencil\_buffer\{\textcolor{keyword}{nullptr}\};\ \textcolor{comment}{//\ This\ is\ the\ memory\ for\ our\ depth\ buffer.\ it\ will\ also\ be\ used\ for\ a\ stencil\ buffer\ in\ a\ later\ tutorial}}
+\DoxyCodeLine{00111\ \ \ \ \ ComPtr<ID3D12DescriptorHeap>\ depth\_stencil\_descriptor\_heap\{\textcolor{keyword}{nullptr}\};\ \textcolor{comment}{//\ This\ is\ a\ heap\ for\ our\ depth/stencil\ buffer\ descriptor}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ ComPtr<IDXGIDebug1>\ dxgi\_debug\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00114\ \ \ \ \ ComPtr<ID3D12Debug>\ debug\_interface\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00115\ \ \ \ \ ComPtr<ID3D12DebugDevice>\ debug\_device\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00116\ \ \ \ \ ComPtr<ID3D12DebugCommandList>\ debug\_command\_list\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00117\ \ \ \ \ ComPtr<ID3D12DebugCommandQueue>\ debug\_command\_queue\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00118\ \ \ \ \ ComPtr<ID3D12InfoQueue>\ info\_queue\{\textcolor{keyword}{nullptr}\};}
 \DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ setup\_imgui\_section();}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{GraphicsResourceDescriptorHeap}}\ descriptor\_heap\{\};}
 \DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ UINT\ frame\_index\ =\ 0u;}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ DXGI\_SAMPLE\_DESC\ sample\_desc\{\};}
-\DoxyCodeLine{00125\ \ \ \ \ D3D12\_BLEND\_DESC\ blend\_desc\{\};}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ D3D12\_VIEWPORT\ viewport\{\};}
-\DoxyCodeLine{00128\ \ \ \ \ D3D12\_RECT\ scissor\_rect\{\};}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ HWND\ window\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ fullscreen\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ resolution\ =\ \mbox{\hyperlink{class_t_vector2}{UVector2}}(1920u,\ 1080u);}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{FColor}}\ background\_color\ =\ \{\ 0.25f,\ 0.25f,\ 0.25f,\ 1.0f\ \};}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{bool}\ skip\_frame\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_factory();}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_device();}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_queue();}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_swap\_chain();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_rtv\_descriptor\_heap();}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_rtvs(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\&\ size);}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_rtvs();}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_allocators();}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_command\_list();}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_fences\_and\_fence\_event();}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_depth\_stencil(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\&\ size);}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_depth\_stencil();}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_descriptor\_heap();}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_blend\_state();}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_viewport\_and\_scissor\_rect(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\&\ size);}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_viewport\_and\_scissor\_rect();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ refill\_descriptor\_heap();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ setup\_imgui\_section();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ UINT\ frame\_index\{0u\};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ DXGI\_SAMPLE\_DESC\ msaa\_sample\_desc\{8u,\ 0u\};}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{const}\ DXGI\_SAMPLE\_DESC\ sample\_desc\{1u,\ 0u\};}
+\DoxyCodeLine{00147\ \ \ \ \ D3D12\_BLEND\_DESC\ blend\_desc\{\};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ D3D12\_VIEWPORT\ viewport\{\};}
+\DoxyCodeLine{00150\ \ \ \ \ D3D12\_RECT\ scissor\_rect\{\};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ HWND\ window\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{bool}\ fullscreen\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ resolution\{\};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{FColor}}\ background\_color\{0.25f,\ 0.25f,\ 0.25f,\ 1.0f\};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{bool}\ skip\_frame\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00161\ \};}
 
 \end{DoxyCode}

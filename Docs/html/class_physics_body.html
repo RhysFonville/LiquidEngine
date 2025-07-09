@@ -80,6 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac9d7a622b7015a915afa125a700b55b6"><td class="memItemLeft" align="right" valign="top"><a id="ac9d7a622b7015a915afa125a700b55b6" name="ac9d7a622b7015a915afa125a700b55b6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt) noexcept</td></tr>
+<tr class="separator:ac9d7a622b7015a915afa125a700b55b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fff0725516173b207a76cb4078fa239"><td class="memItemLeft" align="right" valign="top"><a id="a8fff0725516173b207a76cb4078fa239" name="a8fff0725516173b207a76cb4078fa239"></a>
 GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_net_force</b> () const noexcept</td></tr>
 <tr class="separator:a8fff0725516173b207a76cb4078fa239"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -89,31 +92,76 @@ GET float&#160;</td><td class="memItemRight" valign="bottom"><b>get_mass</b> () 
 <tr class="memitem:aea60d997488e8737b934ec6e2c6a4b50"><td class="memItemLeft" align="right" valign="top"><a id="aea60d997488e8737b934ec6e2c6a4b50" name="aea60d997488e8737b934ec6e2c6a4b50"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_mass</b> (float mass)</td></tr>
 <tr class="separator:aea60d997488e8737b934ec6e2c6a4b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c3833cb36f009f6f8bcfe6a6d012eec"><td class="memItemLeft" align="right" valign="top"><a id="a7c3833cb36f009f6f8bcfe6a6d012eec" name="a7c3833cb36f009f6f8bcfe6a6d012eec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> ()</td></tr>
-<tr class="separator:a7c3833cb36f009f6f8bcfe6a6d012eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc954fc2119ef48d0e97f26c2317f2b"><td class="memItemLeft" align="right" valign="top"><a id="a7bc954fc2119ef48d0e97f26c2317f2b" name="a7bc954fc2119ef48d0e97f26c2317f2b"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_velocity</b> () const noexcept</td></tr>
+<tr class="separator:a7bc954fc2119ef48d0e97f26c2317f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1472103c6177464ce32bfdc88cee0de7"><td class="memItemLeft" align="right" valign="top"><a id="a1472103c6177464ce32bfdc88cee0de7" name="a1472103c6177464ce32bfdc88cee0de7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_velocity</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;velocity)</td></tr>
+<tr class="separator:a1472103c6177464ce32bfdc88cee0de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba7bff553629c472364a82fedb5bc2b"><td class="memItemLeft" align="right" valign="top"><a id="a1ba7bff553629c472364a82fedb5bc2b" name="a1ba7bff553629c472364a82fedb5bc2b"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_acceleration</b> () const noexcept</td></tr>
+<tr class="separator:a1ba7bff553629c472364a82fedb5bc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11dfb527d4409a4b6f47061ca5b0a167"><td class="memItemLeft" align="right" valign="top"><a id="a11dfb527d4409a4b6f47061ca5b0a167" name="a11dfb527d4409a4b6f47061ca5b0a167"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_acceleration</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;acceleration)</td></tr>
+<tr class="separator:a11dfb527d4409a4b6f47061ca5b0a167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8d8039d2b2c24aeb2ff9a152f8f2dc0"><td class="memItemLeft" align="right" valign="top"><a id="af8d8039d2b2c24aeb2ff9a152f8f2dc0" name="af8d8039d2b2c24aeb2ff9a152f8f2dc0"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_momentum</b> () const noexcept</td></tr>
+<tr class="separator:af8d8039d2b2c24aeb2ff9a152f8f2dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32c4c901876da8ed95dd40f327c3272"><td class="memItemLeft" align="right" valign="top"><a id="aa32c4c901876da8ed95dd40f327c3272" name="aa32c4c901876da8ed95dd40f327c3272"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_momentum</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;momentum)</td></tr>
+<tr class="separator:aa32c4c901876da8ed95dd40f327c3272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b1aa86026be0c55624a6cf78adde1e"><td class="memItemLeft" align="right" valign="top"><a id="ab1b1aa86026be0c55624a6cf78adde1e" name="ab1b1aa86026be0c55624a6cf78adde1e"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_net_torque</b> () const noexcept</td></tr>
+<tr class="separator:ab1b1aa86026be0c55624a6cf78adde1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5639cf54655c348f5dbdb3046688b71"><td class="memItemLeft" align="right" valign="top"><a id="af5639cf54655c348f5dbdb3046688b71" name="af5639cf54655c348f5dbdb3046688b71"></a>
+GET float&#160;</td><td class="memItemRight" valign="bottom"><b>get_moment_of_inertia</b> () const noexcept</td></tr>
+<tr class="separator:af5639cf54655c348f5dbdb3046688b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e00d9a389b9f6bae270cb9fef6b347"><td class="memItemLeft" align="right" valign="top"><a id="a09e00d9a389b9f6bae270cb9fef6b347" name="a09e00d9a389b9f6bae270cb9fef6b347"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_moment_of_inertia</b> (float moment_of_inertia)</td></tr>
+<tr class="separator:a09e00d9a389b9f6bae270cb9fef6b347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0d326345e984f8265a1d2cc59a109f"><td class="memItemLeft" align="right" valign="top"><a id="a7a0d326345e984f8265a1d2cc59a109f" name="a7a0d326345e984f8265a1d2cc59a109f"></a>
+GET XMMATRIX&#160;</td><td class="memItemRight" valign="bottom"><b>get_moment_of_inertia_tensor</b> () const noexcept</td></tr>
+<tr class="separator:a7a0d326345e984f8265a1d2cc59a109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a904a6bfc5600a6472cba75305ffae"><td class="memItemLeft" align="right" valign="top"><a id="a01a904a6bfc5600a6472cba75305ffae" name="a01a904a6bfc5600a6472cba75305ffae"></a>
+GET XMMATRIX&#160;</td><td class="memItemRight" valign="bottom"><b>get_moment_of_inertia_tensor_inverse</b> () const noexcept</td></tr>
+<tr class="separator:a01a904a6bfc5600a6472cba75305ffae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c76bdff59a960d5ff695387835237fd"><td class="memItemLeft" align="right" valign="top"><a id="a1c76bdff59a960d5ff695387835237fd" name="a1c76bdff59a960d5ff695387835237fd"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_angular_velocity</b> () const noexcept</td></tr>
+<tr class="separator:a1c76bdff59a960d5ff695387835237fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d89e405257f0084c23b67577644665e"><td class="memItemLeft" align="right" valign="top"><a id="a2d89e405257f0084c23b67577644665e" name="a2d89e405257f0084c23b67577644665e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_angular_velocity</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;velocity)</td></tr>
+<tr class="separator:a2d89e405257f0084c23b67577644665e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01235ba408a80f3d4af6ccd8e6b0fcec"><td class="memItemLeft" align="right" valign="top"><a id="a01235ba408a80f3d4af6ccd8e6b0fcec" name="a01235ba408a80f3d4af6ccd8e6b0fcec"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_angular_acceleration</b> () const noexcept</td></tr>
+<tr class="separator:a01235ba408a80f3d4af6ccd8e6b0fcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac022d0a8af9bc6b69537b887412165eb"><td class="memItemLeft" align="right" valign="top"><a id="ac022d0a8af9bc6b69537b887412165eb" name="ac022d0a8af9bc6b69537b887412165eb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_angular_acceleration</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;acceleration)</td></tr>
+<tr class="separator:ac022d0a8af9bc6b69537b887412165eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d33875b850342ac78a19d7a0de94425"><td class="memItemLeft" align="right" valign="top"><a id="a4d33875b850342ac78a19d7a0de94425" name="a4d33875b850342ac78a19d7a0de94425"></a>
+GET <a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_angular_momentum</b> () const noexcept</td></tr>
+<tr class="separator:a4d33875b850342ac78a19d7a0de94425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d09fd3dc09cd31212877fc8190a47d3"><td class="memItemLeft" align="right" valign="top"><a id="a2d09fd3dc09cd31212877fc8190a47d3" name="a2d09fd3dc09cd31212877fc8190a47d3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_angular_momentum</b> (const <a class="el" href="class_f_vector3.html">FVector3</a> &amp;momentum)</td></tr>
+<tr class="separator:a2d09fd3dc09cd31212877fc8190a47d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a9802461dc0e49e0e621451c4f14069c2"><td class="memItemLeft" align="right" valign="top"><a id="a9802461dc0e49e0e621451c4f14069c2" name="a9802461dc0e49e0e621451c4f14069c2"></a>
-<a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>previous_position</b> = <a class="el" href="class_f_vector3.html">FVector3</a>()</td></tr>
+<a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>previous_position</b> {}</td></tr>
 <tr class="separator:a9802461dc0e49e0e621451c4f14069c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae309650417546a44d0368e93df64a2a0"><td class="memItemLeft" align="right" valign="top"><a id="ae309650417546a44d0368e93df64a2a0" name="ae309650417546a44d0368e93df64a2a0"></a>
-<a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>velocity</b> = <a class="el" href="class_f_vector3.html">FVector3</a>()</td></tr>
-<tr class="separator:ae309650417546a44d0368e93df64a2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac09f11126b4618f5765093f90a608f1"><td class="memItemLeft" align="right" valign="top"><a id="aac09f11126b4618f5765093f90a608f1" name="aac09f11126b4618f5765093f90a608f1"></a>
-<a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>acceleration</b> = <a class="el" href="class_f_vector3.html">FVector3</a>()</td></tr>
-<tr class="separator:aac09f11126b4618f5765093f90a608f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2e569e5345fcc97f0af34eaab87528"><td class="memItemLeft" align="right" valign="top"><a id="abd2e569e5345fcc97f0af34eaab87528" name="abd2e569e5345fcc97f0af34eaab87528"></a>
-<a class="el" href="class_f_vector3.html">FVector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>momentum</b> = <a class="el" href="class_f_vector3.html">FVector3</a>()</td></tr>
-<tr class="separator:abd2e569e5345fcc97f0af34eaab87528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d59558b262da69ebdc4cc5186267b32"><td class="memItemLeft" align="right" valign="top"><a id="a2d59558b262da69ebdc4cc5186267b32" name="a2d59558b262da69ebdc4cc5186267b32"></a>
-std::vector&lt; <a class="el" href="class_mechanics_1_1_force.html">Mechanics::Force</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>forces</b></td></tr>
-<tr class="separator:a2d59558b262da69ebdc4cc5186267b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7386cb298365848ff1e9d60c612c095"><td class="memItemLeft" align="right" valign="top"><a id="ac7386cb298365848ff1e9d60c612c095" name="ac7386cb298365848ff1e9d60c612c095"></a>
+std::vector&lt; <a class="el" href="class_force.html">Force</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>forces</b> {}</td></tr>
+<tr class="separator:ac7386cb298365848ff1e9d60c612c095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d1abe688e177eb62504232e5440bff"><td class="memItemLeft" align="right" valign="top"><a id="a75d1abe688e177eb62504232e5440bff" name="a75d1abe688e177eb62504232e5440bff"></a>
+std::vector&lt; <a class="el" href="class_force.html">Force</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>torques</b> {}</td></tr>
+<tr class="separator:a75d1abe688e177eb62504232e5440bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d8e4cce3bfa31849ee9f094c59aabe"><td class="memItemLeft" align="right" valign="top"><a id="ac0d8e4cce3bfa31849ee9f094c59aabe" name="ac0d8e4cce3bfa31849ee9f094c59aabe"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>frozen</b> {false}</td></tr>
+<tr class="separator:ac0d8e4cce3bfa31849ee9f094c59aabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/<a class="el" href="_physics_body_8h_source.html">PhysicsBody.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsBody.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/<a class="el" href="_physics_body_8h_source.html">PhysicsBody.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/PhysicsBody.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

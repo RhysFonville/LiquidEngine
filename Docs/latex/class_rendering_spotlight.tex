@@ -24,17 +24,29 @@ Inheritance diagram for Rendering\+Spotlight\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_rendering_spotlight_a78c4378c1dec5241483580b4e8d41aa4}\label{class_rendering_spotlight_a78c4378c1dec5241483580b4e8d41aa4}} 
 bool {\bfseries update} ()
 \item 
-\mbox{\Hypertarget{class_rendering_spotlight_aed2b64f7705c39475554b51cfb58f81e}\label{class_rendering_spotlight_aed2b64f7705c39475554b51cfb58f81e}} 
-bool {\bfseries operator==} (\mbox{\hyperlink{class_spotlight_component}{Spotlight\+Component}} component)
+\mbox{\Hypertarget{class_rendering_spotlight_ad5c836b60bf536562a398cd655e15e62}\label{class_rendering_spotlight_ad5c836b60bf536562a398cd655e15e62}} 
+void {\bfseries compile} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Spotlight\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
-{\bfseries Rendering\+Component} (T $\ast$component)
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
+{\bfseries Rendering\+Component} (\mbox{\hyperlink{class_spotlight_component}{Spotlight\+Component}} $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -45,8 +57,8 @@ Rendering\+Spotlight\+Data {\bfseries data} \{\}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Spotlight\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+\mbox{\hyperlink{class_spotlight_component}{Spotlight\+Component}} $\ast$ {\bfseries component}
 \end{DoxyCompactItemize}
 
 

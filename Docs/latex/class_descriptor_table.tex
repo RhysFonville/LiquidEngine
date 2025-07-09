@@ -1,0 +1,105 @@
+\hypertarget{class_descriptor_table}{}\doxysection{Descriptor\+Table Class Reference}
+\label{class_descriptor_table}\index{DescriptorTable@{DescriptorTable}}
+
+
+Descriptor table to describe data to be uploaded.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline\+Root\+Arguments.\+h$>$}
+
+Inheritance diagram for Descriptor\+Table\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_descriptor_table}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_descriptor_table_ae703de6513cb8d97abce69de0cff1282}\label{class_descriptor_table_ae703de6513cb8d97abce69de0cff1282}} 
+{\bfseries Descriptor\+Table} (const D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE1 \&range, UINT param\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a3b64fe8cb55cb4f987bfa28f1cf1f4b3}\label{class_descriptor_table_a3b64fe8cb55cb4f987bfa28f1cf1f4b3}} 
+{\bfseries Descriptor\+Table} (D3\+D12\+\_\+\+SHADER\+\_\+\+INPUT\+\_\+\+BIND\+\_\+\+DESC bind\+\_\+desc, D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE\+\_\+\+TYPE type, UINT param\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_descriptor_table_ac7d0874e8a2d685f4cbaa52e215c455a}\label{class_descriptor_table_ac7d0874e8a2d685f4cbaa52e215c455a}} 
+{\bfseries Descriptor\+Table} (const \mbox{\hyperlink{class_descriptor_table}{Descriptor\+Table}} \&dt)
+\item 
+virtual void \mbox{\hyperlink{class_descriptor_table_a8f26646939f01866f6ddf67863dd5d0e}{clean\+\_\+up}} ()
+\item 
+D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 \mbox{\hyperlink{class_descriptor_table_aa73a10f28e47ce358c0bef29eb741f26}{get\+\_\+root\+\_\+param}} () const noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a5cf157d4850b6a19d0230748c735a7b7}\label{class_descriptor_table_a5cf157d4850b6a19d0230748c735a7b7}} 
+void {\bfseries set\+\_\+descriptor\+\_\+table} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heap) const
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a9e4bd51b8176c82c548943065e0a743e}\label{class_descriptor_table_a9e4bd51b8176c82c548943065e0a743e}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_descriptor_table}{Descriptor\+Table}} \&descriptor\+\_\+table) const noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a27b1920aa10965946247fff07f1791f8}\label{class_descriptor_table_a27b1920aa10965946247fff07f1791f8}} 
+GET D3\+D12\+\_\+\+ROOT\+\_\+\+DESCRIPTOR\+\_\+\+TABLE1 {\bfseries get\+\_\+table} () const noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a9770cc3508c592facabe4232fde64e44}\label{class_descriptor_table_a9770cc3508c592facabe4232fde64e44}} 
+GET const D3\+D12\+\_\+\+DESCRIPTOR\+\_\+\+RANGE1 \& {\bfseries get\+\_\+range} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_root_argument}{Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_root_argument_a47475794702671e106a9e1dc49270e30}\label{class_root_argument_a47475794702671e106a9e1dc49270e30}} 
+{\bfseries Root\+Argument} (UINT index)
+\item 
+\mbox{\Hypertarget{class_root_argument_a205aa6b2be670c162841368b6ed1f47e}\label{class_root_argument_a205aa6b2be670c162841368b6ed1f47e}} 
+virtual void {\bfseries clean\+\_\+up} ()=0
+\item 
+\mbox{\Hypertarget{class_root_argument_afd05c35579b75d9d3510223a3e145b46}\label{class_root_argument_afd05c35579b75d9d3510223a3e145b46}} 
+virtual GET D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 {\bfseries get\+\_\+root\+\_\+param} () const noexcept=0
+\item 
+\mbox{\Hypertarget{class_root_argument_a80f2e87652107a9b6602d032cde2ae08}\label{class_root_argument_a80f2e87652107a9b6602d032cde2ae08}} 
+GET UINT {\bfseries get\+\_\+index} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_descriptor_table_a3c8d734046dc99a3b2754e1e31dd273c}\label{class_descriptor_table_a3c8d734046dc99a3b2754e1e31dd273c}} 
+UINT {\bfseries heap\+\_\+index} \{(UINT)-\/1\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_root_argument}{Root\+Argument}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_root_argument_a0221cdc6d59fe6f866174d28d25eeed2}\label{class_root_argument_a0221cdc6d59fe6f866174d28d25eeed2}} 
+UINT {\bfseries index} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Descriptor table to describe data to be uploaded. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_descriptor_table_a8f26646939f01866f6ddf67863dd5d0e}\label{class_descriptor_table_a8f26646939f01866f6ddf67863dd5d0e}} 
+\index{DescriptorTable@{DescriptorTable}!clean\_up@{clean\_up}}
+\index{clean\_up@{clean\_up}!DescriptorTable@{DescriptorTable}}
+\doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
+{\footnotesize\ttfamily virtual void Descriptor\+Table\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_root_argument}{Root\+Argument}}.
+
+\mbox{\Hypertarget{class_descriptor_table_aa73a10f28e47ce358c0bef29eb741f26}\label{class_descriptor_table_aa73a10f28e47ce358c0bef29eb741f26}} 
+\index{DescriptorTable@{DescriptorTable}!get\_root\_param@{get\_root\_param}}
+\index{get\_root\_param@{get\_root\_param}!DescriptorTable@{DescriptorTable}}
+\doxysubsubsection{\texorpdfstring{get\_root\_param()}{get\_root\_param()}}
+{\footnotesize\ttfamily D3\+D12\+\_\+\+ROOT\+\_\+\+PARAMETER1 Descriptor\+Table\+::get\+\_\+root\+\_\+param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_root_argument}{Root\+Argument}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+cpp\end{DoxyCompactItemize}

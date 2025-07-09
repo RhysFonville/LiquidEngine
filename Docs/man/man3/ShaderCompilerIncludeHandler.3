@@ -1,0 +1,37 @@
+.TH "ShaderCompilerIncludeHandler" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ShaderCompilerIncludeHandler
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits IDxcIncludeHandler\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "HRESULT STDMETHODCALLTYPE \fBLoadSource\fP (_In_ LPCWSTR pFilename, _COM_Outptr_result_maybenull_ IDxcBlob **ppIncludeSource) override"
+.br
+.ti -1c
+.RI "HRESULT STDMETHODCALLTYPE \fBQueryInterface\fP (REFIID riid, _COM_Outptr_ void __RPC_FAR *__RPC_FAR *ppvObject) override"
+.br
+.ti -1c
+.RI "ULONG STDMETHODCALLTYPE \fBAddRef\fP (void) override"
+.br
+.ti -1c
+.RI "ULONG STDMETHODCALLTYPE \fBRelease\fP (void) override"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< std::filesystem::path > \fBincluded_files\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

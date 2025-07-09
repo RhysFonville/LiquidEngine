@@ -1,0 +1,150 @@
+\hypertarget{class_constant_buffer}{}\doxysection{Constant\+Buffer Class Reference}
+\label{class_constant_buffer}\index{ConstantBuffer@{ConstantBuffer}}
+
+
+Constant buffer.  
+
+
+
+
+{\ttfamily \#include $<$Graphics\+Pipeline\+Root\+Arguments.\+h$>$}
+
+Inheritance diagram for Constant\+Buffer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_constant_buffer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_constant_buffer_a7101137789449c7f586f412c9cd0d516}\label{class_constant_buffer_a7101137789449c7f586f412c9cd0d516}} 
+{\bfseries Constant\+Buffer} (const \mbox{\hyperlink{class_descriptor_table}{Descriptor\+Table}} \&dt)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_af13cfaf2d01939e3cefdde386d65ff80}\label{class_constant_buffer_af13cfaf2d01939e3cefdde386d65ff80}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries set\+\_\+obj} (T $\ast$cb)
+\item 
+void \mbox{\hyperlink{class_constant_buffer_ac5806c800deabaccb63c68ecdacd64dc}{compile}} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps) override
+\item 
+\mbox{\Hypertarget{class_constant_buffer_a87ad26a69ed17243d7ff252e273f84a0}\label{class_constant_buffer_a87ad26a69ed17243d7ff252e273f84a0}} 
+void {\bfseries update} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list)
+\item 
+\mbox{\Hypertarget{class_constant_buffer_ad44bca178771ba6c5e02e3f2279896df}\label{class_constant_buffer_ad44bca178771ba6c5e02e3f2279896df}} 
+void {\bfseries update} () noexcept
+\item 
+\mbox{\Hypertarget{class_constant_buffer_aca01f8f0c23b6cfc0ab1f45117f837da}\label{class_constant_buffer_aca01f8f0c23b6cfc0ab1f45117f837da}} 
+bool {\bfseries will\+\_\+update} () const noexcept
+\item 
+void \mbox{\hyperlink{class_constant_buffer_a68be84fff5de0a923f3b05abf3d273a5}{clean\+\_\+up}} () override
+\item 
+bool \mbox{\hyperlink{class_constant_buffer_a3f028deb60d47cc8a0c5b8847132fdab}{is\+\_\+null}} () override
+\item 
+void \mbox{\hyperlink{class_constant_buffer_a1f8f3c19ce22fd22a60fc06342c68e6a}{create\+\_\+view}} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps) override
+\item 
+\mbox{\Hypertarget{class_constant_buffer_a84935a38d80519f489ad7e50b359a2f0}\label{class_constant_buffer_a84935a38d80519f489ad7e50b359a2f0}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_constant_buffer}{Constant\+Buffer}} \&cb) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_af08d18d1dd0c48a12d4d27eba255539e}\label{class_descriptor_root_object_af08d18d1dd0c48a12d4d27eba255539e}} 
+{\bfseries Descriptor\+Root\+Object} (const \mbox{\hyperlink{class_descriptor_table}{Descriptor\+Table}} \&dt)
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_af6770dac61ea68e3537d2eaaed451257}\label{class_descriptor_root_object_af6770dac61ea68e3537d2eaaed451257}} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}} \&dro) const noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_a427687866a3e349feec120dcd1b23451}\label{class_descriptor_root_object_a427687866a3e349feec120dcd1b23451}} 
+virtual void {\bfseries compile} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&command\+\_\+list, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps)=0
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_adc290859324afda297cf09bee13cfbaa}\label{class_descriptor_root_object_adc290859324afda297cf09bee13cfbaa}} 
+void {\bfseries compile} () noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_afbaa6ad312259d9c0a145d88e3642bfd}\label{class_descriptor_root_object_afbaa6ad312259d9c0a145d88e3642bfd}} 
+bool {\bfseries will\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_a21e69d0f9f35d8ee0e302df64094861b}\label{class_descriptor_root_object_a21e69d0f9f35d8ee0e302df64094861b}} 
+virtual void {\bfseries clean\+\_\+up} ()
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_a2b7e1eb4a3652213ca8bde70ecbdaa2c}\label{class_descriptor_root_object_a2b7e1eb4a3652213ca8bde70ecbdaa2c}} 
+virtual bool {\bfseries is\+\_\+null} ()=0
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_a2a38f1c79b5c8f9dfcbc26a445e28a72}\label{class_descriptor_root_object_a2a38f1c79b5c8f9dfcbc26a445e28a72}} 
+virtual void {\bfseries create\+\_\+view} (const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&device, \mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&descriptor\+\_\+heaps)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_constant_buffer_a78ecaff294249db412aa00ca7c88c033}\label{class_constant_buffer_a78ecaff294249db412aa00ca7c88c033}} 
+void $\ast$ {\bfseries obj} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_constant_buffer_a263472075bb170de57fbee86d7d73703}\label{class_constant_buffer_a263472075bb170de57fbee86d7d73703}} 
+size\+\_\+t {\bfseries obj\+\_\+size} \{0u\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_ad379dc8d6f384765ea8a2fa18087e32e}\label{class_descriptor_root_object_ad379dc8d6f384765ea8a2fa18087e32e}} 
+\mbox{\hyperlink{class_descriptor_table}{Descriptor\+Table}} {\bfseries descriptor\+\_\+table} \{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_a44496002ad9abc234f9a220fdfccc04a}\label{class_descriptor_root_object_a44496002ad9abc234f9a220fdfccc04a}} 
+bool {\bfseries compile\+\_\+signal} \{true\}
+\item 
+\mbox{\Hypertarget{class_descriptor_root_object_ae48ce3aa94278684ded3ac32855f7a57}\label{class_descriptor_root_object_ae48ce3aa94278684ded3ac32855f7a57}} 
+Com\+Ptr$<$ ID3\+D12\+Resource $>$ {\bfseries default\+\_\+heap} \{nullptr\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Constant buffer. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_constant_buffer_a68be84fff5de0a923f3b05abf3d273a5}\label{class_constant_buffer_a68be84fff5de0a923f3b05abf3d273a5}} 
+\index{ConstantBuffer@{ConstantBuffer}!clean\_up@{clean\_up}}
+\index{clean\_up@{clean\_up}!ConstantBuffer@{ConstantBuffer}}
+\doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
+{\footnotesize\ttfamily void Constant\+Buffer\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}.
+
+\mbox{\Hypertarget{class_constant_buffer_ac5806c800deabaccb63c68ecdacd64dc}\label{class_constant_buffer_ac5806c800deabaccb63c68ecdacd64dc}} 
+\index{ConstantBuffer@{ConstantBuffer}!compile@{compile}}
+\index{compile@{compile}!ConstantBuffer@{ConstantBuffer}}
+\doxysubsubsection{\texorpdfstring{compile()}{compile()}}
+{\footnotesize\ttfamily void Constant\+Buffer\+::compile (\begin{DoxyParamCaption}\item[{const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&}]{device,  }\item[{const Com\+Ptr$<$ ID3\+D12\+Graphics\+Command\+List $>$ \&}]{command\+\_\+list,  }\item[{\mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&}]{descriptor\+\_\+heaps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}.
+
+\mbox{\Hypertarget{class_constant_buffer_a1f8f3c19ce22fd22a60fc06342c68e6a}\label{class_constant_buffer_a1f8f3c19ce22fd22a60fc06342c68e6a}} 
+\index{ConstantBuffer@{ConstantBuffer}!create\_view@{create\_view}}
+\index{create\_view@{create\_view}!ConstantBuffer@{ConstantBuffer}}
+\doxysubsubsection{\texorpdfstring{create\_view()}{create\_view()}}
+{\footnotesize\ttfamily void Constant\+Buffer\+::create\+\_\+view (\begin{DoxyParamCaption}\item[{const Com\+Ptr$<$ ID3\+D12\+Device $>$ \&}]{device,  }\item[{\mbox{\hyperlink{class_graphics_resource_descriptor_heap}{Graphics\+Resource\+Descriptor\+Heap}} \&}]{descriptor\+\_\+heaps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}.
+
+\mbox{\Hypertarget{class_constant_buffer_a3f028deb60d47cc8a0c5b8847132fdab}\label{class_constant_buffer_a3f028deb60d47cc8a0c5b8847132fdab}} 
+\index{ConstantBuffer@{ConstantBuffer}!is\_null@{is\_null}}
+\index{is\_null@{is\_null}!ConstantBuffer@{ConstantBuffer}}
+\doxysubsubsection{\texorpdfstring{is\_null()}{is\_null()}}
+{\footnotesize\ttfamily bool Constant\+Buffer\+::is\+\_\+null (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_descriptor_root_object}{Descriptor\+Root\+Object}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Graphics/\+Pipeline/Graphics\+Pipeline\+Root\+Arguments.\+cpp\end{DoxyCompactItemize}

@@ -8,35 +8,34 @@
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <shobjidl.h>}}
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}imgui/imgui.h"{}}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}implot/implot.h"{}}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}imgui/imgui\_impl\_win32.h"{}}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}imgui/imgui\_impl\_dx12.h"{}}}
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}imgui/imgui\_stdlib.h"{}}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Object.h"{}}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ IMGUI\_IMPL\_API\ LRESULT\ ImGui\_ImplWin32\_WndProcHandler(HWND\ hWnd,\ UINT32\ msg,\ WPARAM\ wParam,\ LPARAM\ lParam);}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}(\mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ init\_with\_renderer(HWND\ hwnd,\ ID3D12Device*\ device,\ \textcolor{keywordtype}{int}\ num\_buffers,\ ID3D12DescriptorHeap*\ cbv\_srv\_heap);}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ check\_input(HWND\ hwnd,\ UINT32\ message,\ WPARAM\ wparam,\ LPARAM\ lparam);}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keywordtype}{float}\ dt,\ \textcolor{keyword}{const}\ std::vector<std::shared\_ptr<Object>>\ \&objects);}
-\DoxyCodeLine{00030\ \ \ \ \ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ clean\_up();}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}()\ \{\ \}}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ show\_demo\_window\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ IMGUI\_IMPL\_API\ LRESULT\ ImGui\_ImplWin32\_WndProcHandler(HWND\ hWnd,\ UINT32\ msg,\ WPARAM\ wParam,\ LPARAM\ lParam);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}(\mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ init\_with\_renderer(HWND\ hwnd,\ ID3D12Device*\ device,\ \textcolor{keywordtype}{int}\ num\_buffers,\ DXGI\_SAMPLE\_DESC\ sample\_desc,\ ID3D12DescriptorHeap*\ cbv\_srv\_heap);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ check\_input(HWND\ hwnd,\ UINT32\ message,\ WPARAM\ wparam,\ LPARAM\ lparam);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ clean\_up();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_editor_g_u_i}{EditorGUI}}()\ \{\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ show\_demo\_window\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00038\ \};}
 
 \end{DoxyCode}

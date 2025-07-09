@@ -15,23 +15,19 @@ Main class for rendering.
 \mbox{\Hypertarget{class_renderer_ac65f651c0a089838b90fd5d161bdf4f3}\label{class_renderer_ac65f651c0a089838b90fd5d161bdf4f3}} 
 {\bfseries Renderer} (HWND window)
 \item 
-\mbox{\Hypertarget{class_renderer_a9dc81236b9e647269460ac850a016cf5}\label{class_renderer_a9dc81236b9e647269460ac850a016cf5}} 
-void {\bfseries init\+\_\+renderer} (HWND window)
-\item 
+void \mbox{\hyperlink{class_renderer_a9dc81236b9e647269460ac850a016cf5}{init\+\_\+renderer}} (HWND window)
+\begin{DoxyCompactList}\small\item\em Initializes renderer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_renderer_af050b7268b175853339f37afbaeb425b}\label{class_renderer_af050b7268b175853339f37afbaeb425b}} 
 void {\bfseries tick} (float dt)
 \begin{DoxyCompactList}\small\item\em Calls render and present. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}{clean\+\_\+up}} ()
+void \mbox{\hyperlink{class_renderer_a1c7c7f1eeaefb5fd5c1cd3da15eefc6c}{clean\+\_\+up}} (bool clean\+\_\+scene=true)
 \begin{DoxyCompactList}\small\item\em Releases DirectX all interfaces. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_renderer_aaca3d4a8695c7358baf17414b1c0e639}{render}} (float dt)
 \begin{DoxyCompactList}\small\item\em Fills command list and calls pipelines. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}{present}} ()
 \begin{DoxyCompactList}\small\item\em Executes swap chain. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_renderer_a0a24e777a7f45dd989cacea5b05da242}\label{class_renderer_a0a24e777a7f45dd989cacea5b05da242}} 
-void {\bfseries increment\+\_\+fence} ()
-\item 
-\mbox{\Hypertarget{class_renderer_ae8f81582ba82585b49b97de7cf4660ef}\label{class_renderer_ae8f81582ba82585b49b97de7cf4660ef}} 
-void {\bfseries wait\+\_\+for\+\_\+fence\+\_\+cpu} ()
+\mbox{\Hypertarget{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}\label{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}} 
+void {\bfseries wait\+\_\+for\+\_\+previous\+\_\+frame} ()
 \item 
 \mbox{\Hypertarget{class_renderer_ac39e221e71a350ba4c2aae52338ba06c}\label{class_renderer_ac39e221e71a350ba4c2aae52338ba06c}} 
 void {\bfseries wait\+\_\+for\+\_\+fence\+\_\+gpu} ()
@@ -39,16 +35,22 @@ void {\bfseries wait\+\_\+for\+\_\+fence\+\_\+gpu} ()
 \mbox{\Hypertarget{class_renderer_aa1ef743671630f213866a20a7cc28d9f}\label{class_renderer_aa1ef743671630f213866a20a7cc28d9f}} 
 void {\bfseries flush\+\_\+gpu} ()
 \item 
-\mbox{\Hypertarget{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}\label{class_renderer_af8347f83cd1dac9349844b56af9c1cc6}} 
-void {\bfseries wait\+\_\+for\+\_\+previous\+\_\+frame} ()
-\item 
 \mbox{\Hypertarget{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}\label{class_renderer_a3390e472d7a4c780a1cdb26cb8e54cc9}} 
 void {\bfseries execute\+\_\+command\+\_\+list} ()
 \item 
-void \mbox{\hyperlink{class_renderer_a44689412aa18c89509e19296d9a51e71}{compile}} (bool compile\+\_\+components=false)
+\mbox{\Hypertarget{class_renderer_a1699ef9e859c29b7969838e716c4e521}\label{class_renderer_a1699ef9e859c29b7969838e716c4e521}} 
+void {\bfseries signal} ()
+\item 
+\mbox{\Hypertarget{class_renderer_a301d048fd217fb89417c9059f7169506}\label{class_renderer_a301d048fd217fb89417c9059f7169506}} 
+void {\bfseries set\+\_\+frame\+\_\+index} ()
+\item 
+void \mbox{\hyperlink{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}{compile}} ()
 \begin{DoxyCompactList}\small\item\em Compiles scene and pipelines. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_renderer_a1d742cfe8b277aeb6eaed3cb9154d9fa}{resize}} (const \mbox{\hyperlink{class_t_vector2}{UVector2}} \&size)
 \begin{DoxyCompactList}\small\item\em Resizes swap chain, viewport/scissor rect, and depth stencil. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_renderer_a3b756fbaa3611efd61fccf68a4adc7d0}\label{class_renderer_a3b756fbaa3611efd61fccf68a4adc7d0}} 
+void {\bfseries set\+\_\+msaa\+\_\+sample\+\_\+count} (UINT count)
+\item 
 \mbox{\Hypertarget{class_renderer_aa63ddf2738980a6dd5a5689441162738}\label{class_renderer_aa63ddf2738980a6dd5a5689441162738}} 
 void {\bfseries set\+\_\+fullscreen} (bool fullscreen)
 \item 
@@ -68,14 +70,16 @@ void {\bfseries set\+\_\+resolution} (const \mbox{\hyperlink{class_t_vector2}{UV
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_renderer_a744d49bd82055f784d0d4316542c1fef}\label{class_renderer_a744d49bd82055f784d0d4316542c1fef}} 
-\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} {\bfseries scene}
+\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} {\bfseries scene} \{\}
 \item 
 \mbox{\Hypertarget{class_renderer_a5b7898a87fec9e10f5e083323fa22735}\label{class_renderer_a5b7898a87fec9e10f5e083323fa22735}} 
 bool {\bfseries vsync} \{false\}
 \item 
 \mbox{\Hypertarget{class_renderer_ac19def4a5c88b6532a5f0f7ab1b31f7a}\label{class_renderer_ac19def4a5c88b6532a5f0f7ab1b31f7a}} 
 bool {\bfseries restrict\+\_\+present\+\_\+to\+\_\+adapter\+\_\+output} \{false\}
-\end{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_renderer_afadf2784530741fd4ea9a2df0494f551}{clear\+\_\+render\+\_\+target}} \{true\}
+\begin{DoxyCompactList}\small\item\em Clear the render target at the beginning each frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -93,21 +97,29 @@ Holds DirectX interfaces and executes graphics pipelines \begin{DoxySeeAlso}{See
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}\label{class_renderer_a5c4adb4c806707f4add0ed66ed59ca09}} 
+\mbox{\Hypertarget{class_renderer_a1c7c7f1eeaefb5fd5c1cd3da15eefc6c}\label{class_renderer_a1c7c7f1eeaefb5fd5c1cd3da15eefc6c}} 
 \index{Renderer@{Renderer}!clean\_up@{clean\_up}}
 \index{clean\_up@{clean\_up}!Renderer@{Renderer}}
 \doxysubsubsection{\texorpdfstring{clean\_up()}{clean\_up()}}
-{\footnotesize\ttfamily void Renderer\+::clean\+\_\+up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Renderer\+::clean\+\_\+up (\begin{DoxyParamCaption}\item[{bool}]{clean\+\_\+scene = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
 Releases DirectX all interfaces. 
 
-Cleans graphics scene. \mbox{\Hypertarget{class_renderer_a44689412aa18c89509e19296d9a51e71}\label{class_renderer_a44689412aa18c89509e19296d9a51e71}} 
+
+\begin{DoxyParams}{Parameters}
+{\em clean\+\_\+scene} & Whether or not to clean the \mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}\label{class_renderer_aa32be67b33c55f1771c7f20b275aab9f}} 
 \index{Renderer@{Renderer}!compile@{compile}}
 \index{compile@{compile}!Renderer@{Renderer}}
 \doxysubsubsection{\texorpdfstring{compile()}{compile()}}
-{\footnotesize\ttfamily void Renderer\+::compile (\begin{DoxyParamCaption}\item[{bool}]{compile\+\_\+components = {\ttfamily false} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Renderer\+::compile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -115,7 +127,24 @@ Compiles scene and pipelines.
 
 
 \begin{DoxyParams}{Parameters}
-{\em compile\+\_\+components} & If mesh components are already compiled, keep false. Setting to true if mesh components are already compiled, it is unneccesary. You may set to true if the renderer was just cleaned. \\
+{\em compile\+\_\+components} & If components are already compiled, keep false. You may set to true if the renderer was just cleaned. \\
+\hline
+{\em compile\+\_\+scene} & If graphics scene components are already compiled, keep false. You may set to true if the renderer was just cleaned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_renderer_a9dc81236b9e647269460ac850a016cf5}\label{class_renderer_a9dc81236b9e647269460ac850a016cf5}} 
+\index{Renderer@{Renderer}!init\_renderer@{init\_renderer}}
+\index{init\_renderer@{init\_renderer}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{init\_renderer()}{init\_renderer()}}
+{\footnotesize\ttfamily void Renderer\+::init\+\_\+renderer (\begin{DoxyParamCaption}\item[{HWND}]{window }\end{DoxyParamCaption})}
+
+
+
+Initializes renderer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & \mbox{\hyperlink{class_window}{Window}} to pair the render to. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}\label{class_renderer_a7d85cdc8646b62f8439d95309f2b8487}} 
@@ -161,6 +190,19 @@ Automatically called when window resizes.
 \hline
 \end{DoxyParams}
 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_renderer_afadf2784530741fd4ea9a2df0494f551}\label{class_renderer_afadf2784530741fd4ea9a2df0494f551}} 
+\index{Renderer@{Renderer}!clear\_render\_target@{clear\_render\_target}}
+\index{clear\_render\_target@{clear\_render\_target}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{clear\_render\_target}{clear\_render\_target}}
+{\footnotesize\ttfamily bool Renderer\+::clear\+\_\+render\+\_\+target \{true\}}
+
+
+
+Clear the render target at the beginning each frame. 
+
+If false, the frame will be cleared with the background color. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,8 +1,8 @@
-.TH "GraphicsPipeline::InputAssembler" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "GraphicsPipeline::InputAssembler" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-GraphicsPipeline::InputAssembler \- Uploads mesh data\&.  
+GraphicsPipeline::InputAssembler \- Input assembler stage\&.  
 
 .SH SYNOPSIS
 .br
@@ -12,6 +12,12 @@ GraphicsPipeline::InputAssembler \- Uploads mesh data\&.
 .SS "Public Member Functions"
 
 .in +1c
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBInputAssembler\fP &input_assembler) const noexcept"
+.br
+.ti -1c
+.RI "void \fBcompile\fP (const std::weak_ptr< \fBShader\fP > &vs)"
+.br
 .ti -1c
 .RI "void \fBadd_mesh\fP (const \fBMesh\fP &mesh, const ComPtr< ID3D12Device > &device, const ComPtr< ID3D12GraphicsCommandList > &command_list, size_t index=\-1)"
 .br
@@ -28,21 +34,36 @@ GraphicsPipeline::InputAssembler \- Uploads mesh data\&.
 .RI "void \fBrun\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
 .br
 .ti -1c
+.RI "void \fBdraw_meshes\fP (const ComPtr< ID3D12GraphicsCommandList > &command_list)"
+.br
+.ti -1c
 .RI "void \fBclean_up\fP ()"
 .br
 .ti -1c
-.RI "void \fBset_proxy\fP (const std::shared_ptr< \fBGraphicsPipelineMeshChange::Manager\fP > &change_manager)"
+.RI "GET const std::vector< D3D12_VERTEX_BUFFER_VIEW > & \fBget_vertex_buffer_views\fP () const noexcept"
 .br
 .ti -1c
-.RI "const std::vector< D3D12_VERTEX_BUFFER_VIEW > & \fBget_vertex_buffer_views\fP () const noexcept"
+.RI "void \fBset_vertex_buffer_view_to_draw\fP (size_t index) noexcept"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (const \fBInputAssembler\fP &input_assembler) const noexcept"
+.RI "void \fBclear_commands\fP () noexcept"
+.br
+.ti -1c
+.RI "void \fBadd_command\fP (const std::shared_ptr< \fBGraphicsPipelineIACommand\fP > &&command) noexcept"
+.br
+.ti -1c
+.RI "const std::vector< D3D12_INPUT_ELEMENT_DESC > & \fBget_input_layout\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_input_layout\fP (const std::vector< D3D12_INPUT_ELEMENT_DESC > &layout) noexcept"
+.br
+.ti -1c
+.RI "D3D12_INPUT_LAYOUT_DESC \fBget_input_layout_desc\fP () const noexcept"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
-Uploads mesh data\&. 
+Input assembler stage\&. 
 
 
 .PP
@@ -50,7 +71,7 @@ Uploads mesh data\&.
 .RS 4
 \fBMesh\fP 
 .PP
-\fBGraphicsPipelineMeshChange::Manager\fP 
+\fBGraphicsPipelineIACommand\fP 
 .RE
 .PP
 

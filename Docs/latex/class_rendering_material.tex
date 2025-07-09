@@ -27,38 +27,53 @@ bool {\bfseries update} ()
 \mbox{\Hypertarget{class_rendering_material_a0553d24a43dc8ee428203ad2ac2ed888}\label{class_rendering_material_a0553d24a43dc8ee428203ad2ac2ed888}} 
 void {\bfseries compile} ()
 \item 
+\mbox{\Hypertarget{class_rendering_material_a376deb69ec48dd43d9fbee3f82518c77}\label{class_rendering_material_a376deb69ec48dd43d9fbee3f82518c77}} 
+void {\bfseries set\+\_\+resources} ()
+\item 
 \mbox{\Hypertarget{class_rendering_material_a74de84564036585757351f84b48ac651}\label{class_rendering_material_a74de84564036585757351f84b48ac651}} 
 void {\bfseries clean\+\_\+up} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Material $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
-{\bfseries Rendering\+Component} (T $\ast$component)
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
+{\bfseries Rendering\+Component} (\mbox{\hyperlink{class_material}{Material}} $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_material_a13e817fdc8c12f2031da412a27ea7b5b}\label{class_rendering_material_a13e817fdc8c12f2031da412a27ea7b5b}} 
-\mbox{\hyperlink{class_rendering_texture}{Rendering\+Texture}} {\bfseries albedo\+\_\+texture} \{\}
+\mbox{\Hypertarget{class_rendering_material_ac182874cbc716b2c02f4a3dc157217d4}\label{class_rendering_material_ac182874cbc716b2c02f4a3dc157217d4}} 
+\mbox{\hyperlink{class_shader_resource_view_container}{Shader\+Resource\+View\+Container}} {\bfseries albedo\+\_\+texture} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_material_a06179df4c11b10ef2e04a9219d958a8f}\label{class_rendering_material_a06179df4c11b10ef2e04a9219d958a8f}} 
-\mbox{\hyperlink{class_rendering_texture}{Rendering\+Texture}} {\bfseries normal\+\_\+map} \{\}
+\mbox{\Hypertarget{class_rendering_material_a9c22ed024c5c367ef2a4e6ca6a23551d}\label{class_rendering_material_a9c22ed024c5c367ef2a4e6ca6a23551d}} 
+\mbox{\hyperlink{class_shader_resource_view_container}{Shader\+Resource\+View\+Container}} {\bfseries normal\+\_\+map} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_material_af3747b062e8d72f79d8d6b390f667cbe}\label{class_rendering_material_af3747b062e8d72f79d8d6b390f667cbe}} 
-\mbox{\hyperlink{class_rendering_texture}{Rendering\+Texture}} {\bfseries environment\+\_\+texture} \{\}
+\mbox{\Hypertarget{class_rendering_material_a9362f8a9ea4902a424330a8aeac30853}\label{class_rendering_material_a9362f8a9ea4902a424330a8aeac30853}} 
+\mbox{\hyperlink{class_shader_resource_view_container}{Shader\+Resource\+View\+Container}} {\bfseries specular\+\_\+map} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_material_ae186eb84da3f4fd4a992969a5dd85bcb}\label{class_rendering_material_ae186eb84da3f4fd4a992969a5dd85bcb}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Constant\+Buffer\+Container}}$<$ PSMaterial\+CB $>$ {\bfseries material\+\_\+data} = PSMaterial\+CB\{\}
+\mbox{\Hypertarget{class_rendering_material_a2cbc328d1139a0e87433bd45a49704cf}\label{class_rendering_material_a2cbc328d1139a0e87433bd45a49704cf}} 
+\mbox{\hyperlink{class_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ PSMaterial\+CB $>$ {\bfseries material\+\_\+data} \{\}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Material $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+\mbox{\hyperlink{class_material}{Material}} $\ast$ {\bfseries component}
 \end{DoxyCompactItemize}
 
 

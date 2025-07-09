@@ -1,0 +1,190 @@
+\hypertarget{_shader_compiler_8h_source}{}\doxysection{Shader\+Compiler.\+h}
+\label{_shader_compiler_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/ShaderCompiler.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/ShaderCompiler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <dxcapi.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <d3d12shader.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Debug/Throw.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }fs\ =\ std::filesystem;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{using\ namespace\ }Microsoft::WRL;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{inline}\ ComPtr<IDxcUtils>\ utils\{\};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}()\ \{\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}(\textcolor{keyword}{const}\ std::string\&\ target,\ \textcolor{keyword}{const}\ std::string\&\ file\_name,\ std::vector<DxcDefine>\ defines\ =\ \{\})}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ :\ target\{target\},\ file\_name\{file\_name\},\ defines\{defines\}\ \{\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ std::string\&\ file)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ file\_name\ ==\ file;}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ GET\ std::string\ get\_target()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ target;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ GET\ std::string\ get\_entrypoint()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ entrypoint;\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ GET\ std::string\ get\_file()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ file\_name;\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ GET\ std::vector<DxcDefine>\ get\_defines()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ defines;\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ GET\ ComPtr<IDxcResult>\&\ get\_compile\_result()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ compile\_result;\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ GET\ ComPtr<ID3D12ShaderReflection>\ \&\ get\_reflection()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ reflection;\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ GET\ ComPtr<IDxcBlob>\ get\_bytecode\_blob()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ ComPtr<IDxcBlob>\ blob\{\};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ HPEW(compile\_result-\/>GetResult(blob.GetAddressOf()));}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blob;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ GET\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\&\ shader)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (file\_name\ ==\ shader.file\_name);}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ file\_name\{\textcolor{stringliteral}{"{}"{}}\};}
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ entrypoint\{\textcolor{stringliteral}{"{}main"{}}\};}
+\DoxyCodeLine{00050\ \ \ \ \ std::string\ target\{\textcolor{stringliteral}{"{}vs\_6\_0"{}}\};}
+\DoxyCodeLine{00051\ \ \ \ \ std::vector<DxcDefine>\ defines\{\};}
+\DoxyCodeLine{00052\ \ \ \ \ ComPtr<IDxcResult>\ compile\_result\{\};}
+\DoxyCodeLine{00053\ \ \ \ \ ComPtr<ID3D12ShaderReflection>\ reflection\{\};}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ A\ custom\ include\ handler\ that\ compiles\ each\ file\ once\ within\ the\ folder\ specified\ by\ the\ -\/I\ flag\ in\ the\ DXC\ compiler.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ \(\backslash\)see\ Shader}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_compiler_include_handler}{ShaderCompilerIncludeHandler}}\ :\ \textcolor{keyword}{public}\ IDxcIncludeHandler\ \{}
+\DoxyCodeLine{00062\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00063\ \ \ \ \ HRESULT\ STDMETHODCALLTYPE\ LoadSource(\_In\_\ LPCWSTR\ pFilename,\ \_COM\_Outptr\_result\_maybenull\_\ IDxcBlob**\ ppIncludeSource)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ ComPtr<IDxcBlobEncoding>\ encoding\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ std::filesystem::path\ path\ =\ std::filesystem::path\{wstring\_to\_string(pFilename)\};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::ranges::find\_if(included\_files,\ [\&](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ x)\ \{\ \textcolor{keywordflow}{return}\ fs::equivalent(path,\ x);\ \})\ !=\ included\_files.end())\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Return\ empty\ string\ blob\ if\ this\ file\ has\ been\ included\ before}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ null\_str[]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ utils-\/>CreateBlobFromPinned(null\_str,\ ARRAYSIZE(null\_str),\ DXC\_CP\_ACP,\ encoding.GetAddressOf());}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ *ppIncludeSource\ =\ encoding.Detach();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ S\_OK;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ HRESULT\ hr\ =\ utils-\/>LoadFile(pFilename,\ \textcolor{keyword}{nullptr},\ encoding.GetAddressOf());}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (SUCCEEDED(hr))\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ included\_files.push\_back(path);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ *ppIncludeSource\ =\ encoding.Detach();}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hr;}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ HRESULT\ STDMETHODCALLTYPE\ QueryInterface(REFIID\ riid,\ \_COM\_Outptr\_\ \textcolor{keywordtype}{void}\ \_\_RPC\_FAR*\ \_\_RPC\_FAR*\ ppvObject)\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ E\_NOINTERFACE;\ \}}
+\DoxyCodeLine{00085\ \ \ \ \ ULONG\ STDMETHODCALLTYPE\ AddRef(\textcolor{keywordtype}{void})\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ ULONG\ STDMETHODCALLTYPE\ Release(\textcolor{keywordtype}{void})\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ std::vector<std::filesystem::path>\ included\_files;}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ Compiles\ shaders.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ \(\backslash\)see\ Shader}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00095\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}\ \{}
+\DoxyCodeLine{00096\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}(\mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00099\ \ \ \ \ GET\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}*\ get\_instance();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ ComPtr<IDxcResult>\ compile(\textcolor{keyword}{const}\ std::wstring\&\ file,\ \textcolor{keyword}{const}\ std::wstring\&\ entrypoint,\ \textcolor{keyword}{const}\ std::wstring\&\ target,\ \textcolor{keyword}{const}\ std::vector<DxcDefine>\&\ defines\ =\ \{\},\ \textcolor{keyword}{const}\ std::vector<LPCWSTR>\&\ additional\_params\ =\ \{\})\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ ComPtr<ShaderCompilerIncludeHandler>\ include\_handler\{\textcolor{keyword}{new}\ \mbox{\hyperlink{class_shader_compiler_include_handler}{ShaderCompilerIncludeHandler}}\{\}\};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ ComPtr<IDxcBlobEncoding>\ source\{\};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ HPEW(utils-\/>LoadFile(file.c\_str(),\ \textcolor{keyword}{nullptr},\ source.GetAddressOf()));}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ ComPtr<IDxcCompilerArgs>\ compiler\_args\{\};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::wstring\ include\{fs::current\_path().wstring()\};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::vector<LPCWSTR>\ arguments\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ L\textcolor{stringliteral}{"{}-\/WX"{}},}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ L\textcolor{stringliteral}{"{}-\/all\_resources\_bound"{}},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ L\textcolor{stringliteral}{"{}-\/I"{}},\ include.c\_str()}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ arguments.insert(arguments.cend(),\ additional\_params.begin(),\ additional\_params.end());}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifdef\ \_DEBUG}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ arguments.push\_back(L\textcolor{stringliteral}{"{}-\/Zi"{}});}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ arguments.push\_back(L\textcolor{stringliteral}{"{}-\/Od"{}});}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ arguments.push\_back(L\textcolor{stringliteral}{"{}-\/O3"{}});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ arguments.push\_back(L\textcolor{stringliteral}{"{}-\/Qstrip\_debug"{}});}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ HPEW(utils-\/>BuildArguments(}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ file.c\_str(),\ entrypoint.c\_str(),\ target.c\_str(),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ arguments.data(),\ (UINT)arguments.size(),}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ defines.data(),\ (UINT)defines.size(),}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ compiler\_args.GetAddressOf()}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ ));}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ DxcBuffer\ source\_buffer\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ .Ptr\ =\ source-\/>GetBufferPointer(),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ .Size\ =\ source-\/>GetBufferSize(),}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ .Encoding\ =\ 0u}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ ComPtr<IDxcResult>\ result\{\};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ HPEW(compiler-\/>Compile(\&source\_buffer,\ compiler\_args-\/>GetArguments(),\ (UINT32)arguments.size(),\ include\_handler.Get(),\ IID\_PPV\_ARGS(result.GetAddressOf())));}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Error\ Handling.\ Note\ that\ this\ will\ also\ include\ warnings\ unless\ disabled.}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ ComPtr<IDxcBlobUtf8>\ errors\{\};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ HPEW(result-\/>GetOutput(DXC\_OUT\_ERRORS,\ IID\_PPV\_ARGS(errors.GetAddressOf()),\ NULL));}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\&\ errors-\/>GetStringLength()\ >\ 0)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ (\textcolor{keywordtype}{char}*)errors-\/>GetBufferPointer()\ <<\ std::endl;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::exception\{(\textcolor{keywordtype}{char}*)errors-\/>GetBufferPointer()\};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ ComPtr<ID3D12ShaderReflection>\ get\_shader\_reflection(\textcolor{keyword}{const}\ ComPtr<IDxcResult>\&\ result)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ ComPtr<IDxcBlob>\ reflection\_blob\{\};}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ HPEW(result-\/>GetOutput(DXC\_OUT\_REFLECTION,\ IID\_PPV\_ARGS(\&reflection\_blob),\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ DxcBuffer\ reflection\_buffer\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ .Ptr\ =\ reflection\_blob-\/>GetBufferPointer(),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ .Size\ =\ reflection\_blob-\/>GetBufferSize(),}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ .Encoding\ =\ 0u,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ ComPtr<ID3D12ShaderReflection>\ shader\_reflection\{\};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ utils-\/>CreateReflection(\&reflection\_buffer,\ IID\_PPV\_ARGS(\&shader\_reflection));}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ D3D12\_SHADER\_DESC\ shader\_desc\{\};}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ HPEW(shader\_reflection-\/>GetDesc(\&shader\_desc));}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shader\_reflection;}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ compile(\mbox{\hyperlink{class_shader}{Shader}}\&\ shader)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ shader.get\_compile\_result()\ =\ compile(}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ string\_to\_wstring(shader.get\_file()),}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ string\_to\_wstring(shader.get\_entrypoint()),}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ string\_to\_wstring(shader.get\_target()),}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ shader.get\_defines()}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ shader.get\_reflection()\ =\ get\_shader\_reflection(shader.get\_compile\_result());}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00182\ \ \ \ \ \mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}();}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_shader_compiler}{ShaderCompiler}}*\ shader\_compiler;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ ComPtr<IDxcCompiler3>\ compiler\{\};}
+\DoxyCodeLine{00187\ \};}
+
+\end{DoxyCode}

@@ -224,7 +224,9 @@ var searchData=
   ['indexerconst_221',['IndexerConst',['../struct_im_plot_1_1_indexer_const.html',1,'ImPlot']]],
   ['indexeridx_222',['IndexerIdx',['../struct_im_plot_1_1_indexer_idx.html',1,'ImPlot']]],
   ['indexerlin_223',['IndexerLin',['../struct_im_plot_1_1_indexer_lin.html',1,'ImPlot']]],
-  ['inputassembler_224',['InputAssembler',['../class_graphics_pipeline_1_1_input_assembler.html',1,'GraphicsPipeline']]],
-  ['inputlistener_225',['InputListener',['../class_input_1_1_input_listener.html',1,'Input']]],
-  ['inputtextcallback_5fuserdata_226',['InputTextCallback_UserData',['../struct_input_text_callback___user_data.html',1,'']]]
+  ['init_5frenderer_224',['init_renderer',['../class_renderer.html#a9dc81236b9e647269460ac850a016cf5',1,'Renderer']]],
+  ['inputassembler_225',['InputAssembler',['../class_graphics_pipeline_1_1_input_assembler.html',1,'GraphicsPipeline']]],
+  ['inputlistener_226',['InputListener',['../class_input_1_1_input_listener.html',1,'Input']]],
+  ['inputtextcallback_5fuserdata_227',['InputTextCallback_UserData',['../struct_input_text_callback___user_data.html',1,'']]],
+  ['interactionhandler_228',['InteractionHandler',['../class_interaction_handler.html',1,'']]]
 ];

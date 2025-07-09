@@ -25,16 +25,32 @@ Inheritance diagram for Character\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_object_a24457e0a387492c80594aec7681a2277}\label{class_object_a24457e0a387492c80594aec7681a2277}} 
-std\+::string {\bfseries name} = \char`\"{}\char`\"{}
+std\+::string {\bfseries name} \{\char`\"{}\char`\"{}\}
 \item 
-\mbox{\hyperlink{class_component}{Component}} \mbox{\hyperlink{class_object_ae4c6f2e8d3ef80c160a82a1f8591413e}{root\+\_\+component}}
-\begin{DoxyCompactList}\small\item\em All components all derive from the root component. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_object_a9b64feef62020081f0c606648eb86124}\label{class_object_a9b64feef62020081f0c606648eb86124}} 
-\mbox{\hyperlink{class_graphics_scene}{Graphics\+Scene}} $\ast$ {\bfseries graphics\+\_\+scene} = nullptr
+\mbox{\Hypertarget{class_object_aa6b77ab69aec31b96182e3d027116793}\label{class_object_aa6b77ab69aec31b96182e3d027116793}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries mimic\+\_\+position\+\_\+component} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_object_a9ae1a88a0d7a9df619f9804ceccd9f88}\label{class_object_a9ae1a88a0d7a9df619f9804ceccd9f88}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries mimic\+\_\+rotation\+\_\+component} \{nullptr\}
+\item 
+\mbox{\Hypertarget{class_object_a733f8057785251d8ef21a1c3615d22ca}\label{class_object_a733f8057785251d8ef21a1c3615d22ca}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries mimic\+\_\+size\+\_\+component} \{nullptr\}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_object}{Object}}}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_object_aa20df9b729a0fa3161fbaf981d7cac95}\label{class_object_aa20df9b729a0fa3161fbaf981d7cac95}} 
+{\bfseries Object} (const \mbox{\hyperlink{class_object}{Object}} \&)=delete
+\item 
+\mbox{\Hypertarget{class_object_a9fc860de04ea5826b358d86378a8e306}\label{class_object_a9fc860de04ea5826b358d86378a8e306}} 
+void {\bfseries clean\+\_\+components} ()
+\item 
+void \mbox{\hyperlink{class_object_ae608dbdb783926e5ed50ba6f60b13cd6}{base\+\_\+clean\+\_\+up}} () override
+\item 
+void \mbox{\hyperlink{class_object_a4e480e68a67df71f3424a067c4d9fb7a}{base\+\_\+compile}} () override
+\item 
+void \mbox{\hyperlink{class_object_ac16ba142ba64b49bd7c95fa1338abb8b}{base\+\_\+tick}} (float dt) override
 \item 
 \mbox{\Hypertarget{class_object_ac6d0e22d640027d09fdbdd7a2dea497b}\label{class_object_ac6d0e22d640027d09fdbdd7a2dea497b}} 
 void {\bfseries set\+\_\+position} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&position) noexcept
@@ -75,20 +91,20 @@ GET \mbox{\hyperlink{class_object}{Object}} $\ast$ {\bfseries get\+\_\+parent} (
 \mbox{\Hypertarget{class_object_afb2b83015f52280d2f0267db3951e955}\label{class_object_afb2b83015f52280d2f0267db3951e955}} 
 void {\bfseries set\+\_\+parent} (\mbox{\hyperlink{class_object}{Object}} $\ast$parent) noexcept
 \item 
-\mbox{\Hypertarget{class_object_a536e28807d2b9b5cc92d09212a82b619}\label{class_object_a536e28807d2b9b5cc92d09212a82b619}} 
-void {\bfseries remove\+\_\+parent} () noexcept
+\mbox{\Hypertarget{class_object_a8cf8f6253cc935a617a8aef4a887b1e3}\label{class_object_a8cf8f6253cc935a617a8aef4a887b1e3}} 
+\mbox{\hyperlink{class_object}{Object}} $\ast$ {\bfseries add\+\_\+object} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_object}{Object}} $>$ \&\&obj)
 \item 
-\mbox{\Hypertarget{class_object_a8aee64c2edbdec56a6876a1ea7a44739}\label{class_object_a8aee64c2edbdec56a6876a1ea7a44739}} 
-GET std\+::vector$<$ \mbox{\hyperlink{class_object}{Object}} $\ast$ $>$ \& {\bfseries get\+\_\+children} () noexcept
+\mbox{\Hypertarget{class_object_abb4d159faa8022204ac4f7ba29cb882e}\label{class_object_abb4d159faa8022204ac4f7ba29cb882e}} 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ {\bfseries add\+\_\+component} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ \&\&component)
 \item 
-\mbox{\Hypertarget{class_object_ab8600843a80158d46f7fcd9e90362866}\label{class_object_ab8600843a80158d46f7fcd9e90362866}} 
-void {\bfseries add\+\_\+child} (\mbox{\hyperlink{class_object}{Object}} $\ast$child) noexcept
+\mbox{\Hypertarget{class_object_ae8d116d71a033f436871d247992287bd}\label{class_object_ae8d116d71a033f436871d247992287bd}} 
+GET std\+::set$<$ \mbox{\hyperlink{class_object}{Object}} $\ast$ $>$ {\bfseries get\+\_\+children} () const noexcept
 \item 
-void \mbox{\hyperlink{class_object_a18486446033ec7e8b07e1e50ca92541d}{base\+\_\+clean\+\_\+up}} ()
+\mbox{\Hypertarget{class_object_ab45e2f917f8981268ebbe70bee92a6ac}\label{class_object_ab45e2f917f8981268ebbe70bee92a6ac}} 
+GET size\+\_\+t {\bfseries get\+\_\+children\+\_\+count} () const noexcept
 \item 
-void \mbox{\hyperlink{class_object_a3131970ec0bdc60c65d586b3b4039745}{base\+\_\+compile}} ()
-\item 
-void \mbox{\hyperlink{class_object_a69977c1b7144cc8719539bb9c293f4e3}{base\+\_\+tick}} (float dt)
+\mbox{\Hypertarget{class_object_ad2507eaea2a26a428bb8482bd2862711}\label{class_object_ad2507eaea2a26a428bb8482bd2862711}} 
+void {\bfseries set\+\_\+scene} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene) noexcept
 \item 
 \mbox{\Hypertarget{class_object_ab02104ff139561fb440560c3c09eb367}\label{class_object_ab02104ff139561fb440560c3c09eb367}} 
 bool {\bfseries operator==} (const \mbox{\hyperlink{class_object}{Object}} \&object) const noexcept
@@ -96,26 +112,10 @@ bool {\bfseries operator==} (const \mbox{\hyperlink{class_object}{Object}} \&obj
 \mbox{\Hypertarget{class_object_aa5fa46aa191dbea137e271b2f17dc166}\label{class_object_aa5fa46aa191dbea137e271b2f17dc166}} 
 bool {\bfseries operator!=} (const \mbox{\hyperlink{class_object}{Object}} \&object) const noexcept
 \item 
-\mbox{\Hypertarget{class_object_a8a25218be0eddb544aa1ecfbf5f71cf1}\label{class_object_a8a25218be0eddb544aa1ecfbf5f71cf1}} 
-GET bool {\bfseries has\+\_\+component} (Component\+::\+Type search) const noexcept
+\mbox{\Hypertarget{class_object_a2863ff385d599d3f4002e7e7a0ac01be}\label{class_object_a2863ff385d599d3f4002e7e7a0ac01be}} 
+void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section\+\_\+tree} (\mbox{\hyperlink{class_object}{Object}} $\ast$$\ast$selected\+\_\+object)
 \item 
-\mbox{\Hypertarget{class_object_afe8da27dfafa02477bb1b068a39274a8}\label{class_object_afe8da27dfafa02477bb1b068a39274a8}} 
-{\footnotesize template$<$typename T $>$ }\\GET bool {\bfseries has\+\_\+component} () const
-\item 
-\mbox{\Hypertarget{class_object_ac439cabfb486f32dd9e1499aeb7c56cf}\label{class_object_ac439cabfb486f32dd9e1499aeb7c56cf}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_component}{Component}}) $>$ }\\GET T $\ast$ {\bfseries get\+\_\+component} () noexcept
-\item 
-\mbox{\Hypertarget{class_object_a1e789d70c7fddb12c61abe50af01a2f3}\label{class_object_a1e789d70c7fddb12c61abe50af01a2f3}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_component}{Component}}) $>$ }\\GET std\+::vector$<$ T $\ast$ $>$ {\bfseries get\+\_\+components} () noexcept
-\item 
-\mbox{\Hypertarget{class_object_a40d359b4cf4db7dd52d6836db84be928}\label{class_object_a40d359b4cf4db7dd52d6836db84be928}} 
-GET std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ $>$ \& {\bfseries get\+\_\+all\+\_\+components} () noexcept
-\item 
-\mbox{\Hypertarget{class_object_a907815016a464425e2ab6e6380cf2968}\label{class_object_a907815016a464425e2ab6e6380cf2968}} 
-{\footnotesize template$<$ACCEPT\+\_\+\+BASE\+\_\+\+AND\+\_\+\+HEIRS\+\_\+\+ONLY(typename T, \mbox{\hyperlink{class_component}{Component}}) $>$ }\\void {\bfseries add\+\_\+component} (const std\+::shared\+\_\+ptr$<$ T $>$ \&component)
-\item 
-\mbox{\Hypertarget{class_object_af96ca8fd7ab8e0922f5078126d63e957}\label{class_object_af96ca8fd7ab8e0922f5078126d63e957}} 
-void {\bfseries remove\+\_\+component} (size\+\_\+t index)
+void \mbox{\hyperlink{class_object_a5461e33b0aeecf62d8035ad1dc1e8ceb}{base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section}} () override
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_controllable}{Controllable}}}
 \begin{DoxyCompactItemize}
@@ -128,6 +128,9 @@ virtual void {\bfseries base\+\_\+compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a61e410a136d98711221d0745674724cc}\label{class_controllable_a61e410a136d98711221d0745674724cc}} 
 virtual void {\bfseries base\+\_\+tick} (float dt)
+\item 
+\mbox{\Hypertarget{class_controllable_a2cc38b82da2a30240327078b78184356}\label{class_controllable_a2cc38b82da2a30240327078b78184356}} 
+virtual void {\bfseries base\+\_\+render\+\_\+editor\+\_\+gui\+\_\+section} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}\label{class_controllable_a95e3caee0d964a3512b36fad47bca0b3}} 
 virtual void {\bfseries pre\+\_\+scene\+\_\+compile} ()
@@ -143,6 +146,35 @@ virtual void {\bfseries compile} ()
 \item 
 \mbox{\Hypertarget{class_controllable_a869af510ef0d4280b091cd4b634bfb56}\label{class_controllable_a869af510ef0d4280b091cd4b634bfb56}} 
 virtual void {\bfseries tick} (float dt)
+\item 
+\mbox{\Hypertarget{class_controllable_aa89bc78e5af3372c159e86072d589cb7}\label{class_controllable_aa89bc78e5af3372c159e86072d589cb7}} 
+virtual void {\bfseries render\+\_\+editor\+\_\+gui\+\_\+section} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component_holder}{Component\+Holder}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}\label{class_component_holder_a3a592f7c5c44c4571a7402ff675cb888}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET T $\ast$ {\bfseries get\+\_\+component} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}\label{class_component_holder_a6dcea42246695db8881e31e201b7f9f0}} 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::derived\+\_\+from$<$T, \mbox{\hyperlink{class_component}{Component}}$>$}\\GET std\+::set$<$ T $\ast$ $>$ {\bfseries get\+\_\+components} () noexcept
+\item 
+\mbox{\Hypertarget{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}\label{class_component_holder_a85ecd4cb84098e12801e77b1a353445a}} 
+GET std\+::set$<$ \mbox{\hyperlink{class_component}{Component}} $\ast$ $>$ {\bfseries get\+\_\+all\+\_\+components} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_object}{Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_object_a744d401eccddf4b19de9b2f7580df87f}\label{class_object_a744d401eccddf4b19de9b2f7580df87f}} 
+\mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries scene} \{nullptr\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component_holder}{Component\+Holder}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}\label{class_component_holder_adbf6d9ffb66c38da13c6724060a8be77}} 
+std\+::set$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_component}{Component}} $>$ $>$ {\bfseries components}
 \end{DoxyCompactItemize}
 
 
@@ -158,4 +190,4 @@ Keybind\+Set
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Character.\+h\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Core/Character.\+h\end{DoxyCompactItemize}

@@ -75,326 +75,77 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_graphics_pipeline_1_1_root_signature-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">GraphicsPipeline::RootSignature Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Uploads data and structures to shaders.  
+<p>Root signature of the pipeline.  
  <a href="class_graphics_pipeline_1_1_root_signature.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant buffer.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">ConstantBufferContainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores a structure and the constant buffer.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table.html">DescriptorTable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor table to describe data to be uploaded.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_argument.html">RootArgument</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root argument to be bound to pipeline.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_root_argument.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html">RootConstants</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root constants.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">RootConstantsContainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores a structure and the root constants.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html">ShaderResourceView</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> resource view.  <a href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8aa3316229c1907631ddf52c44f88efb"><td class="memItemLeft" align="right" valign="top"><a id="a8aa3316229c1907631ddf52c44f88efb" name="a8aa3316229c1907631ddf52c44f88efb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:a8aa3316229c1907631ddf52c44f88efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c4f7f06725b6203722d59032d1f646b"><td class="memItemLeft" align="right" valign="top"><a id="a9c4f7f06725b6203722d59032d1f646b" name="a9c4f7f06725b6203722d59032d1f646b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
-<tr class="separator:a9c4f7f06725b6203722d59032d1f646b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79233b2ed7274edd7a85b11429b062b4"><td class="memItemLeft" align="right" valign="top"><a id="a79233b2ed7274edd7a85b11429b062b4" name="a79233b2ed7274edd7a85b11429b062b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:a79233b2ed7274edd7a85b11429b062b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7571dbf836f34555f1fdc66b6076da70"><td class="memItemLeft" align="right" valign="top"><a id="a7571dbf836f34555f1fdc66b6076da70" name="a7571dbf836f34555f1fdc66b6076da70"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, int frame_index, <a class="el" href="class_graphics_descriptor_heaps.html">GraphicsDescriptorHeaps</a> &amp;descriptor_heaps)</td></tr>
-<tr class="separator:a7571dbf836f34555f1fdc66b6076da70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af02bb019af3ce38d04d0d6ea13ff3c4c"><td class="memItemLeft" align="right" valign="top"><a id="af02bb019af3ce38d04d0d6ea13ff3c4c" name="af02bb019af3ce38d04d0d6ea13ff3c4c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_graphics_pipeline_1_1_root_signature.html">RootSignature</a> &amp;root_signature) const noexcept</td></tr>
 <tr class="separator:af02bb019af3ce38d04d0d6ea13ff3c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00897bd2afb5e49ed5241809ab00dce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#a00897bd2afb5e49ed5241809ab00dce0">bind_shader_resource_view</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html">ShaderResourceView</a> &amp;srv, D3D12_SHADER_VISIBILITY shader)</td></tr>
-<tr class="memdesc:a00897bd2afb5e49ed5241809ab00dce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds root constants to root signature.  <br /></td></tr>
-<tr class="separator:a00897bd2afb5e49ed5241809ab00dce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a15f7dd3476e127adeab60769d4ff70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#a4a15f7dd3476e127adeab60769d4ff70">bind_root_constants</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html">RootConstants</a> &amp;rc, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=-1)</td></tr>
-<tr class="memdesc:a4a15f7dd3476e127adeab60769d4ff70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds root constants to root signature.  <br /></td></tr>
-<tr class="separator:a4a15f7dd3476e127adeab60769d4ff70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d0f3ce814bac12c4aeef6f1d1ace348"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4d0f3ce814bac12c4aeef6f1d1ace348"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#a4d0f3ce814bac12c4aeef6f1d1ace348">bind_root_constants</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">RootConstantsContainer</a>&lt; T &gt; &amp;obj, D3D12_SHADER_VISIBILITY shader, UINT number_of_values=-1)</td></tr>
-<tr class="memdesc:a4d0f3ce814bac12c4aeef6f1d1ace348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds root constants to root signature.  <br /></td></tr>
-<tr class="separator:a4d0f3ce814bac12c4aeef6f1d1ace348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add399b9310fa4c14ab03f678b0e0b0f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#add399b9310fa4c14ab03f678b0e0b0f0">bind_constant_buffer</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a> &amp;cb, D3D12_SHADER_VISIBILITY shader)</td></tr>
-<tr class="memdesc:add399b9310fa4c14ab03f678b0e0b0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds a constant buffer to root signature.  <br /></td></tr>
-<tr class="separator:add399b9310fa4c14ab03f678b0e0b0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8250f245bb5d7afca2da57bf359ea4a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a8250f245bb5d7afca2da57bf359ea4a5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_graphics_pipeline_1_1_root_signature.html#a8250f245bb5d7afca2da57bf359ea4a5">bind_constant_buffer</a> (<a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">ConstantBufferContainer</a>&lt; T &gt; &amp;cb, D3D12_SHADER_VISIBILITY shader)</td></tr>
-<tr class="memdesc:a8250f245bb5d7afca2da57bf359ea4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds a constant buffer to root signature.  <br /></td></tr>
-<tr class="separator:a8250f245bb5d7afca2da57bf359ea4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fa751fa2dcca63ddac9a41110bd20c1"><td class="memItemLeft" align="right" valign="top"><a id="a0fa751fa2dcca63ddac9a41110bd20c1" name="a0fa751fa2dcca63ddac9a41110bd20c1"></a>
-const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_constant_buffers</b> () const noexcept</td></tr>
-<tr class="separator:a0fa751fa2dcca63ddac9a41110bd20c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca774d030ad9032647319f3af50a8d74"><td class="memItemLeft" align="right" valign="top"><a id="aca774d030ad9032647319f3af50a8d74" name="aca774d030ad9032647319f3af50a8d74"></a>
-const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html">RootConstants</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_constants</b> () const noexcept</td></tr>
-<tr class="separator:aca774d030ad9032647319f3af50a8d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad512ff39b66e31254bec8328ae0f2186"><td class="memItemLeft" align="right" valign="top"><a id="ad512ff39b66e31254bec8328ae0f2186" name="ad512ff39b66e31254bec8328ae0f2186"></a>
-const std::vector&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html">ShaderResourceView</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader_resource_views</b> () const noexcept</td></tr>
-<tr class="separator:ad512ff39b66e31254bec8328ae0f2186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1200a0f9f088a5e2b2c3b60360e8abbd"><td class="memItemLeft" align="right" valign="top"><a id="a1200a0f9f088a5e2b2c3b60360e8abbd" name="a1200a0f9f088a5e2b2c3b60360e8abbd"></a>
-const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_descriptor_table.html">DescriptorTable</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_descriptor_tables</b> () const noexcept</td></tr>
-<tr class="separator:a1200a0f9f088a5e2b2c3b60360e8abbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a60166f448dafad9c67558d99e0300"><td class="memItemLeft" align="right" valign="top"><a id="ac4a60166f448dafad9c67558d99e0300" name="ac4a60166f448dafad9c67558d99e0300"></a>
-const std::vector&lt; D3D12_ROOT_PARAMETER &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_params</b> () const noexcept</td></tr>
-<tr class="separator:ac4a60166f448dafad9c67558d99e0300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1076cd53840ff3a17194f86b2eeaeeb4"><td class="memItemLeft" align="right" valign="top"><a id="a1076cd53840ff3a17194f86b2eeaeeb4" name="a1076cd53840ff3a17194f86b2eeaeeb4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps, const <a class="el" href="struct_graphics_pipeline_1_1_shaders.html">Shaders</a> &amp;shaders)</td></tr>
+<tr class="separator:a1076cd53840ff3a17194f86b2eeaeeb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fde572aa1786d8f60be8666a4828b82"><td class="memItemLeft" align="right" valign="top"><a id="a7fde572aa1786d8f60be8666a4828b82" name="a7fde572aa1786d8f60be8666a4828b82"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>compile_resources</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a7fde572aa1786d8f60be8666a4828b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983178cddd90d5af46ed82062dacc66e"><td class="memItemLeft" align="right" valign="top"><a id="a983178cddd90d5af46ed82062dacc66e" name="a983178cddd90d5af46ed82062dacc66e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bind_shader_resource_parameters</b> (const std::weak_ptr&lt; <a class="el" href="class_shader.html">Shader</a> &gt; &amp;s)</td></tr>
+<tr class="separator:a983178cddd90d5af46ed82062dacc66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4f7f06725b6203722d59032d1f646b"><td class="memItemLeft" align="right" valign="top"><a id="a9c4f7f06725b6203722d59032d1f646b" name="a9c4f7f06725b6203722d59032d1f646b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td></tr>
+<tr class="separator:a9c4f7f06725b6203722d59032d1f646b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c7541a85207cc498347ffc1fa354af2"><td class="memItemLeft" align="right" valign="top"><a id="a5c7541a85207cc498347ffc1fa354af2" name="a5c7541a85207cc498347ffc1fa354af2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>check_for_update</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a5c7541a85207cc498347ffc1fa354af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414bf7e5dd8d56231c9fd8640974a3f8"><td class="memItemLeft" align="right" valign="top"><a id="a414bf7e5dd8d56231c9fd8640974a3f8" name="a414bf7e5dd8d56231c9fd8640974a3f8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, const ComPtr&lt; ID3D12GraphicsCommandList &gt; &amp;command_list, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a414bf7e5dd8d56231c9fd8640974a3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770ea3d16f7b012788d8d7c5fcd055f7"><td class="memItemLeft" align="right" valign="top"><a id="a770ea3d16f7b012788d8d7c5fcd055f7" name="a770ea3d16f7b012788d8d7c5fcd055f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>create_views</b> (const ComPtr&lt; ID3D12Device &gt; &amp;device, <a class="el" href="class_graphics_resource_descriptor_heap.html">GraphicsResourceDescriptorHeap</a> &amp;descriptor_heaps)</td></tr>
+<tr class="separator:a770ea3d16f7b012788d8d7c5fcd055f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24e31e3f9dd8d71e2f7ce98781e9bb97"><td class="memItemLeft" align="right" valign="top"><a id="a24e31e3f9dd8d71e2f7ce98781e9bb97" name="a24e31e3f9dd8d71e2f7ce98781e9bb97"></a>
+GET const std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_constant_buffer.html">ConstantBuffer</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_constant_buffers</b> () const noexcept</td></tr>
+<tr class="separator:a24e31e3f9dd8d71e2f7ce98781e9bb97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78bfbe09a5c5fee9032acefec8613e04"><td class="memItemLeft" align="right" valign="top"><a id="a78bfbe09a5c5fee9032acefec8613e04" name="a78bfbe09a5c5fee9032acefec8613e04"></a>
+GET const std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_root_constants.html">RootConstants</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_constants</b> () const noexcept</td></tr>
+<tr class="separator:a78bfbe09a5c5fee9032acefec8613e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fda179fbefe31d42928708efa44c63"><td class="memItemLeft" align="right" valign="top"><a id="a80fda179fbefe31d42928708efa44c63" name="a80fda179fbefe31d42928708efa44c63"></a>
+GET const std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="class_shader_resource_view.html">ShaderResourceView</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader_resource_views</b> () const noexcept</td></tr>
+<tr class="separator:a80fda179fbefe31d42928708efa44c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04bcd7441cd141770a79c1fb625b9fe9"><td class="memItemLeft" align="right" valign="top"><a id="a04bcd7441cd141770a79c1fb625b9fe9" name="a04bcd7441cd141770a79c1fb625b9fe9"></a>
+GET std::weak_ptr&lt; <a class="el" href="class_descriptor_root_object.html">DescriptorRootObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_resource</b> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a04bcd7441cd141770a79c1fb625b9fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af618f54cde7ee4b9199525250ff54ab5"><td class="memItemLeft" align="right" valign="top"><a id="af618f54cde7ee4b9199525250ff54ab5" name="af618f54cde7ee4b9199525250ff54ab5"></a>
+GET std::weak_ptr&lt; <a class="el" href="class_constant_buffer.html">ConstantBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_constant_buffer</b> (const std::string &amp;name) const</td></tr>
+<tr class="separator:af618f54cde7ee4b9199525250ff54ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367821d24e662032cd467d125ad9fd46"><td class="memItemLeft" align="right" valign="top"><a id="a367821d24e662032cd467d125ad9fd46" name="a367821d24e662032cd467d125ad9fd46"></a>
+GET std::weak_ptr&lt; <a class="el" href="class_root_constants.html">RootConstants</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_constants</b> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a367821d24e662032cd467d125ad9fd46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ed2fc6a396a937ace6870f177d865d"><td class="memItemLeft" align="right" valign="top"><a id="af1ed2fc6a396a937ace6870f177d865d" name="af1ed2fc6a396a937ace6870f177d865d"></a>
+GET std::weak_ptr&lt; <a class="el" href="class_shader_resource_view.html">ShaderResourceView</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_shader_resource_view</b> (const std::string &amp;name) const</td></tr>
+<tr class="separator:af1ed2fc6a396a937ace6870f177d865d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22a517b122efd7ab2e032b25e229817"><td class="memItemLeft" align="right" valign="top"><a id="aa22a517b122efd7ab2e032b25e229817" name="aa22a517b122efd7ab2e032b25e229817"></a>
+GET std::vector&lt; D3D12_ROOT_PARAMETER1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_root_params</b> () const noexcept</td></tr>
+<tr class="separator:aa22a517b122efd7ab2e032b25e229817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0b1f85f3c55654eaddd86219557f28"><td class="memItemLeft" align="right" valign="top"><a id="a3a0b1f85f3c55654eaddd86219557f28" name="a3a0b1f85f3c55654eaddd86219557f28"></a>
+GET size_t&#160;</td><td class="memItemRight" valign="bottom"><b>get_number_of_params</b> () const noexcept</td></tr>
+<tr class="separator:a3a0b1f85f3c55654eaddd86219557f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Uploads data and structures to shaders. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="add399b9310fa4c14ab03f678b0e0b0f0" name="add399b9310fa4c14ab03f678b0e0b0f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add399b9310fa4c14ab03f678b0e0b0f0">&#9670;&#160;</a></span>bind_constant_buffer() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GraphicsPipeline::RootSignature::bind_constant_buffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html">ConstantBuffer</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">D3D12_SHADER_VISIBILITY&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Binds a constant buffer to root signature. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rc</td><td>Constant buffer to be bound. </td></tr>
-    <tr><td class="paramname">shader</td><td><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> the constant buffer will be used in. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8250f245bb5d7afca2da57bf359ea4a5" name="a8250f245bb5d7afca2da57bf359ea4a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8250f245bb5d7afca2da57bf359ea4a5">&#9670;&#160;</a></span>bind_constant_buffer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GraphicsPipeline::RootSignature::bind_constant_buffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container.html">ConstantBufferContainer</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">D3D12_SHADER_VISIBILITY&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Binds a constant buffer to root signature. </p>
-<p>Uses the <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer.html" title="Constant buffer.">ConstantBuffer</a> class from the container to bind. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obj</td><td>Constant buffer container to bind. </td></tr>
-    <tr><td class="paramname">shader</td><td><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> the root constants will be used in. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4a15f7dd3476e127adeab60769d4ff70" name="a4a15f7dd3476e127adeab60769d4ff70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a15f7dd3476e127adeab60769d4ff70">&#9670;&#160;</a></span>bind_root_constants() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GraphicsPipeline::RootSignature::bind_root_constants </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html">RootConstants</a> &amp;&#160;</td>
-          <td class="paramname"><em>rc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">D3D12_SHADER_VISIBILITY&#160;</td>
-          <td class="paramname"><em>shader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINT&#160;</td>
-          <td class="paramname"><em>number_of_values</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Binds root constants to root signature. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rc</td><td>Root constants to be bound. </td></tr>
-    <tr><td class="paramname">shader</td><td><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> the root constants will be used in. </td></tr>
-    <tr><td class="paramname">number</td><td>of root constants to bind. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4d0f3ce814bac12c4aeef6f1d1ace348" name="a4d0f3ce814bac12c4aeef6f1d1ace348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d0f3ce814bac12c4aeef6f1d1ace348">&#9670;&#160;</a></span>bind_root_constants() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GraphicsPipeline::RootSignature::bind_root_constants </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container.html">RootConstantsContainer</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>obj</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">D3D12_SHADER_VISIBILITY&#160;</td>
-          <td class="paramname"><em>shader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINT&#160;</td>
-          <td class="paramname"><em>number_of_values</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Binds root constants to root signature. </p>
-<p>Uses the <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html" title="Root constants.">RootConstants</a> class from the container to bind. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obj</td><td>Root constants container to bind. </td></tr>
-    <tr><td class="paramname">shader</td><td><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> the root constants will be used in. </td></tr>
-    <tr><td class="paramname">number</td><td>of root constants to bind. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a00897bd2afb5e49ed5241809ab00dce0" name="a00897bd2afb5e49ed5241809ab00dce0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00897bd2afb5e49ed5241809ab00dce0">&#9670;&#160;</a></span>bind_shader_resource_view()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GraphicsPipeline::RootSignature::bind_shader_resource_view </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view.html">ShaderResourceView</a> &amp;&#160;</td>
-          <td class="paramname"><em>srv</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">D3D12_SHADER_VISIBILITY&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Binds root constants to root signature. </p>
-<p>Uses the <a class="el" href="class_graphics_pipeline_1_1_root_signature_1_1_root_constants.html" title="Root constants.">RootConstants</a> class from the container to bind. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obj</td><td>Root constants container to bind. </td></tr>
-    <tr><td class="paramname">shader</td><td><a class="el" href="class_shader.html" title="Shader data for rendering.">Shader</a> the root constants will be used in. </td></tr>
-    <tr><td class="paramname">number</td><td>of root constants to bind. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/GraphicsPipeline.cpp</li>
+<div class="textblock"><p>Root signature of the pipeline. </p>
+<p>Uploads data and structures to shaders. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/<a class="el" href="_graphics_pipeline_8h_source.html">GraphicsPipeline.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/Pipeline/Stages/RootSignature.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

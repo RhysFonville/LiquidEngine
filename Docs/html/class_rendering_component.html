@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Liquid Engine: RenderingComponent&lt;&gt; Class Template Reference</title>
+<title>Liquid Engine: RenderingComponent&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,7 +74,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_rendering_component-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">RenderingComponent&lt;&gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">RenderingComponent&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,22 +85,35 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aae7514451de712ee498c59c7673795ec"><td class="memItemLeft" align="right" valign="top"><a id="aae7514451de712ee498c59c7673795ec" name="aae7514451de712ee498c59c7673795ec"></a>
+<tr class="memitem:a208d9bf95dd5d354c9a25dc362c879d9"><td class="memItemLeft" align="right" valign="top"><a id="a208d9bf95dd5d354c9a25dc362c879d9" name="a208d9bf95dd5d354c9a25dc362c879d9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RenderingComponent</b> (T *component)</td></tr>
-<tr class="separator:aae7514451de712ee498c59c7673795ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3a318359774968ef5d07d963eeeb33"><td class="memItemLeft" align="right" valign="top"><a id="ade3a318359774968ef5d07d963eeeb33" name="ade3a318359774968ef5d07d963eeeb33"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (T component)</td></tr>
-<tr class="separator:ade3a318359774968ef5d07d963eeeb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a208d9bf95dd5d354c9a25dc362c879d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4369bc9d4b673bfd07291df8b92081e6"><td class="memItemLeft" align="right" valign="top"><a id="a4369bc9d4b673bfd07291df8b92081e6" name="a4369bc9d4b673bfd07291df8b92081e6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> () const noexcept</td></tr>
+<tr class="separator:a4369bc9d4b673bfd07291df8b92081e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb91e32d2244569eff2eaa59e72747c2"><td class="memItemLeft" align="right" valign="top"><a id="adb91e32d2244569eff2eaa59e72747c2" name="adb91e32d2244569eff2eaa59e72747c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> (bool b) noexcept</td></tr>
+<tr class="separator:adb91e32d2244569eff2eaa59e72747c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f49f7d275e9062eca28147a8594d10d"><td class="memItemLeft" align="right" valign="top"><a id="a9f49f7d275e9062eca28147a8594d10d" name="a9f49f7d275e9062eca28147a8594d10d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () const noexcept</td></tr>
+<tr class="separator:a9f49f7d275e9062eca28147a8594d10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd8a7c19327f687d008e34e2fe17825"><td class="memItemLeft" align="right" valign="top"><a id="abdd8a7c19327f687d008e34e2fe17825" name="abdd8a7c19327f687d008e34e2fe17825"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> (bool b) noexcept</td></tr>
+<tr class="separator:abdd8a7c19327f687d008e34e2fe17825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa7b675c2488dab302d13725e7feeb8"><td class="memItemLeft" align="right" valign="top"><a id="afaa7b675c2488dab302d13725e7feeb8" name="afaa7b675c2488dab302d13725e7feeb8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>valid</b> () const noexcept</td></tr>
+<tr class="separator:afaa7b675c2488dab302d13725e7feeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4908d6da0d7736a9be78f92386a0bf4f"><td class="memItemLeft" align="right" valign="top"><a id="a4908d6da0d7736a9be78f92386a0bf4f" name="a4908d6da0d7736a9be78f92386a0bf4f"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>component</b> {nullptr}</td></tr>
-<tr class="separator:a4908d6da0d7736a9be78f92386a0bf4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9688d8a7e60a4af0344b3ab1685f903"><td class="memItemLeft" align="right" valign="top"><a id="ac9688d8a7e60a4af0344b3ab1685f903" name="ac9688d8a7e60a4af0344b3ab1685f903"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>component</b> {}</td></tr>
+<tr class="separator:ac9688d8a7e60a4af0344b3ab1685f903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;ACCEPT_BASE_AND_HEIRS_ONLY(typename T, <a class="el" href="class_graphics_tracker.html">GraphicsTracker</a>)&gt;<br />
-class RenderingComponent&lt;&gt;</div><p>Each graphics component has thir graphics-side counterpart. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+requires std::derived_from&lt;T, <a class="el" href="class_graphics_tracker.html">GraphicsTracker</a>&gt;<br />
+class RenderingComponent&lt; T &gt;</div><p>Each graphics component has thir graphics-side counterpart. </p>
 <p>Graphics-side component base class. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics.">GraphicsComponent</a> </dd></dl>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Graphics/<a class="el" href="_graphics_scene_8h_source.html">GraphicsScene.h</a></li>

@@ -3,6 +3,9 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_physics_body_ac9d7a622b7015a915afa125a700b55b6}\label{class_physics_body_ac9d7a622b7015a915afa125a700b55b6}} 
+void {\bfseries tick} (float dt) noexcept
+\item 
 \mbox{\Hypertarget{class_physics_body_a8fff0725516173b207a76cb4078fa239}\label{class_physics_body_a8fff0725516173b207a76cb4078fa239}} 
 GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+net\+\_\+force} () const noexcept
 \item 
@@ -12,30 +15,75 @@ GET float {\bfseries get\+\_\+mass} () const noexcept
 \mbox{\Hypertarget{class_physics_body_aea60d997488e8737b934ec6e2c6a4b50}\label{class_physics_body_aea60d997488e8737b934ec6e2c6a4b50}} 
 void {\bfseries set\+\_\+mass} (float mass)
 \item 
-\mbox{\Hypertarget{class_physics_body_a7c3833cb36f009f6f8bcfe6a6d012eec}\label{class_physics_body_a7c3833cb36f009f6f8bcfe6a6d012eec}} 
-void {\bfseries tick} ()
+\mbox{\Hypertarget{class_physics_body_a7bc954fc2119ef48d0e97f26c2317f2b}\label{class_physics_body_a7bc954fc2119ef48d0e97f26c2317f2b}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+velocity} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a1472103c6177464ce32bfdc88cee0de7}\label{class_physics_body_a1472103c6177464ce32bfdc88cee0de7}} 
+void {\bfseries set\+\_\+velocity} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&velocity)
+\item 
+\mbox{\Hypertarget{class_physics_body_a1ba7bff553629c472364a82fedb5bc2b}\label{class_physics_body_a1ba7bff553629c472364a82fedb5bc2b}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+acceleration} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a11dfb527d4409a4b6f47061ca5b0a167}\label{class_physics_body_a11dfb527d4409a4b6f47061ca5b0a167}} 
+void {\bfseries set\+\_\+acceleration} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&acceleration)
+\item 
+\mbox{\Hypertarget{class_physics_body_af8d8039d2b2c24aeb2ff9a152f8f2dc0}\label{class_physics_body_af8d8039d2b2c24aeb2ff9a152f8f2dc0}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+momentum} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_aa32c4c901876da8ed95dd40f327c3272}\label{class_physics_body_aa32c4c901876da8ed95dd40f327c3272}} 
+void {\bfseries set\+\_\+momentum} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&momentum)
+\item 
+\mbox{\Hypertarget{class_physics_body_ab1b1aa86026be0c55624a6cf78adde1e}\label{class_physics_body_ab1b1aa86026be0c55624a6cf78adde1e}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+net\+\_\+torque} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_af5639cf54655c348f5dbdb3046688b71}\label{class_physics_body_af5639cf54655c348f5dbdb3046688b71}} 
+GET float {\bfseries get\+\_\+moment\+\_\+of\+\_\+inertia} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a09e00d9a389b9f6bae270cb9fef6b347}\label{class_physics_body_a09e00d9a389b9f6bae270cb9fef6b347}} 
+void {\bfseries set\+\_\+moment\+\_\+of\+\_\+inertia} (float moment\+\_\+of\+\_\+inertia)
+\item 
+\mbox{\Hypertarget{class_physics_body_a7a0d326345e984f8265a1d2cc59a109f}\label{class_physics_body_a7a0d326345e984f8265a1d2cc59a109f}} 
+GET XMMATRIX {\bfseries get\+\_\+moment\+\_\+of\+\_\+inertia\+\_\+tensor} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a01a904a6bfc5600a6472cba75305ffae}\label{class_physics_body_a01a904a6bfc5600a6472cba75305ffae}} 
+GET XMMATRIX {\bfseries get\+\_\+moment\+\_\+of\+\_\+inertia\+\_\+tensor\+\_\+inverse} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a1c76bdff59a960d5ff695387835237fd}\label{class_physics_body_a1c76bdff59a960d5ff695387835237fd}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+angular\+\_\+velocity} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a2d89e405257f0084c23b67577644665e}\label{class_physics_body_a2d89e405257f0084c23b67577644665e}} 
+void {\bfseries set\+\_\+angular\+\_\+velocity} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&velocity)
+\item 
+\mbox{\Hypertarget{class_physics_body_a01235ba408a80f3d4af6ccd8e6b0fcec}\label{class_physics_body_a01235ba408a80f3d4af6ccd8e6b0fcec}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+angular\+\_\+acceleration} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_ac022d0a8af9bc6b69537b887412165eb}\label{class_physics_body_ac022d0a8af9bc6b69537b887412165eb}} 
+void {\bfseries set\+\_\+angular\+\_\+acceleration} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&acceleration)
+\item 
+\mbox{\Hypertarget{class_physics_body_a4d33875b850342ac78a19d7a0de94425}\label{class_physics_body_a4d33875b850342ac78a19d7a0de94425}} 
+GET \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries get\+\_\+angular\+\_\+momentum} () const noexcept
+\item 
+\mbox{\Hypertarget{class_physics_body_a2d09fd3dc09cd31212877fc8190a47d3}\label{class_physics_body_a2d09fd3dc09cd31212877fc8190a47d3}} 
+void {\bfseries set\+\_\+angular\+\_\+momentum} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&momentum)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_physics_body_a9802461dc0e49e0e621451c4f14069c2}\label{class_physics_body_a9802461dc0e49e0e621451c4f14069c2}} 
-\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries previous\+\_\+position} = \mbox{\hyperlink{class_f_vector3}{FVector3}}()
+\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries previous\+\_\+position} \{\}
 \item 
-\mbox{\Hypertarget{class_physics_body_ae309650417546a44d0368e93df64a2a0}\label{class_physics_body_ae309650417546a44d0368e93df64a2a0}} 
-\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries velocity} = \mbox{\hyperlink{class_f_vector3}{FVector3}}()
+\mbox{\Hypertarget{class_physics_body_ac7386cb298365848ff1e9d60c612c095}\label{class_physics_body_ac7386cb298365848ff1e9d60c612c095}} 
+std\+::vector$<$ \mbox{\hyperlink{class_force}{Force}} $>$ {\bfseries forces} \{\}
 \item 
-\mbox{\Hypertarget{class_physics_body_aac09f11126b4618f5765093f90a608f1}\label{class_physics_body_aac09f11126b4618f5765093f90a608f1}} 
-\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries acceleration} = \mbox{\hyperlink{class_f_vector3}{FVector3}}()
+\mbox{\Hypertarget{class_physics_body_a75d1abe688e177eb62504232e5440bff}\label{class_physics_body_a75d1abe688e177eb62504232e5440bff}} 
+std\+::vector$<$ \mbox{\hyperlink{class_force}{Force}} $>$ {\bfseries torques} \{\}
 \item 
-\mbox{\Hypertarget{class_physics_body_abd2e569e5345fcc97f0af34eaab87528}\label{class_physics_body_abd2e569e5345fcc97f0af34eaab87528}} 
-\mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries momentum} = \mbox{\hyperlink{class_f_vector3}{FVector3}}()
-\item 
-\mbox{\Hypertarget{class_physics_body_a2d59558b262da69ebdc4cc5186267b32}\label{class_physics_body_a2d59558b262da69ebdc4cc5186267b32}} 
-std\+::vector$<$ \mbox{\hyperlink{class_mechanics_1_1_force}{Mechanics\+::\+Force}} $>$ {\bfseries forces}
+\mbox{\Hypertarget{class_physics_body_ac0d8e4cce3bfa31849ee9f094c59aabe}\label{class_physics_body_ac0d8e4cce3bfa31849ee9f094c59aabe}} 
+bool {\bfseries frozen} \{false\}
 \end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Physics\+Body.\+h\item 
-C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/Physics\+Body.\+cpp\end{DoxyCompactItemize}
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Physics\+Body.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Physics\+Body.\+cpp\end{DoxyCompactItemize}

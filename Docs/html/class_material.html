@@ -100,6 +100,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adacbb110087d63ea4785e841d351e6ff"><td class="memItemLeft" align="right" valign="top"><a id="adacbb110087d63ea4785e841d351e6ff" name="adacbb110087d63ea4785e841d351e6ff"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Material</b> (const std::string &amp;file)</td></tr>
 <tr class="separator:adacbb110087d63ea4785e841d351e6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3f8b93eb544897865136e5fce529af"><td class="memItemLeft" align="right" valign="top"><a id="aee3f8b93eb544897865136e5fce529af" name="aee3f8b93eb544897865136e5fce529af"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Material</b> (const std::string &amp;vs, const std::string &amp;ps, const std::string &amp;data_file=&quot;&quot;)</td></tr>
+<tr class="separator:aee3f8b93eb544897865136e5fce529af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d992406113dd9a4ad5228aa91eaf43e"><td class="memItemLeft" align="right" valign="top"><a id="a2d992406113dd9a4ad5228aa91eaf43e" name="a2d992406113dd9a4ad5228aa91eaf43e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
 <tr class="separator:a2d992406113dd9a4ad5228aa91eaf43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,53 +116,53 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_data</b> (const s
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_data</b> (const <a class="el" href="class_material.html">Material</a> &amp;material)</td></tr>
 <tr class="separator:a33c54e8be3501fc29a5b6a92c0dd2274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab8e50cdfd73ef5ed8776dc40ef40bf0"><td class="memItemLeft" align="right" valign="top"><a id="aab8e50cdfd73ef5ed8776dc40ef40bf0" name="aab8e50cdfd73ef5ed8776dc40ef40bf0"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_texture</b> () const noexcept</td></tr>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_texture</b> () const noexcept</td></tr>
 <tr class="separator:aab8e50cdfd73ef5ed8776dc40ef40bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a897d893a5848e93c85cc36f1e7bcc272"><td class="memItemLeft" align="right" valign="top"><a id="a897d893a5848e93c85cc36f1e7bcc272" name="a897d893a5848e93c85cc36f1e7bcc272"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_normal_map</b> () const noexcept</td></tr>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_normal_map</b> () const noexcept</td></tr>
 <tr class="separator:a897d893a5848e93c85cc36f1e7bcc272"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9de54ac93ce515155a237a7f8fb9dfbe"><td class="memItemLeft" align="right" valign="top"><a id="a9de54ac93ce515155a237a7f8fb9dfbe" name="a9de54ac93ce515155a237a7f8fb9dfbe"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_environment_texture</b> () const noexcept</td></tr>
-<tr class="separator:a9de54ac93ce515155a237a7f8fb9dfbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84c053cf4e9e6eafb43827da22822148"><td class="memItemLeft" align="right" valign="top"><a id="a84c053cf4e9e6eafb43827da22822148" name="a84c053cf4e9e6eafb43827da22822148"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_material.html">Material</a> &amp;material) noexcept</td></tr>
-<tr class="separator:a84c053cf4e9e6eafb43827da22822148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1234064af6bbafa48ce7dc1fa2e75fa3"><td class="memItemLeft" align="right" valign="top"><a id="a1234064af6bbafa48ce7dc1fa2e75fa3" name="a1234064af6bbafa48ce7dc1fa2e75fa3"></a>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_specular_map</b> () const noexcept</td></tr>
+<tr class="separator:a1234064af6bbafa48ce7dc1fa2e75fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d466f7960ed779cabd713fe3ea2336"><td class="memItemLeft" align="right" valign="top"><a id="aa1d466f7960ed779cabd713fe3ea2336" name="aa1d466f7960ed779cabd713fe3ea2336"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_material.html">Material</a> &amp;material) const noexcept</td></tr>
 <tr class="separator:aa1d466f7960ed779cabd713fe3ea2336"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86eda360a6e0e0e54ba663fb31f17801"><td class="memItemLeft" align="right" valign="top"><a id="a86eda360a6e0e0e54ba663fb31f17801" name="a86eda360a6e0e0e54ba663fb31f17801"></a>
-<a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_albedo_texture</b> ()</td></tr>
-<tr class="separator:a86eda360a6e0e0e54ba663fb31f17801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bd7166bff344da17f13b4073cdb9f3e"><td class="memItemLeft" align="right" valign="top"><a id="a7bd7166bff344da17f13b4073cdb9f3e" name="a7bd7166bff344da17f13b4073cdb9f3e"></a>
-<a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_normal_map</b> ()</td></tr>
-<tr class="separator:a7bd7166bff344da17f13b4073cdb9f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a144573b5e425b1b3e38bcf2049e7d5cd"><td class="memItemLeft" align="right" valign="top"><a id="a144573b5e425b1b3e38bcf2049e7d5cd" name="a144573b5e425b1b3e38bcf2049e7d5cd"></a>
-<a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_environment_texture</b> ()</td></tr>
-<tr class="separator:a144573b5e425b1b3e38bcf2049e7d5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68e65b49692704d9163b72d928613e7c"><td class="memItemLeft" align="right" valign="top"><a id="a68e65b49692704d9163b72d928613e7c" name="a68e65b49692704d9163b72d928613e7c"></a>
-<a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_albedo</b> () const</td></tr>
-<tr class="separator:a68e65b49692704d9163b72d928613e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c5d6a265936fe1d4747c927a2a80179"><td class="memItemLeft" align="right" valign="top"><a id="a7c5d6a265936fe1d4747c927a2a80179" name="a7c5d6a265936fe1d4747c927a2a80179"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_albedo</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;albedo)</td></tr>
-<tr class="separator:a7c5d6a265936fe1d4747c927a2a80179"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45c6eb55c438d7a28cda49f3556bd2ac"><td class="memItemLeft" align="right" valign="top"><a id="a45c6eb55c438d7a28cda49f3556bd2ac" name="a45c6eb55c438d7a28cda49f3556bd2ac"></a>
-<a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_specular</b> () const</td></tr>
-<tr class="separator:a45c6eb55c438d7a28cda49f3556bd2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad115e45e773666e39252ce73f179d3a3"><td class="memItemLeft" align="right" valign="top"><a id="ad115e45e773666e39252ce73f179d3a3" name="ad115e45e773666e39252ce73f179d3a3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_specular</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;specular)</td></tr>
-<tr class="separator:ad115e45e773666e39252ce73f179d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d44967cbb45072335781bbbc8215ea5"><td class="memItemLeft" align="right" valign="top"><a id="a2d44967cbb45072335781bbbc8215ea5" name="a2d44967cbb45072335781bbbc8215ea5"></a>
-<a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_ambient</b> () const</td></tr>
-<tr class="separator:a2d44967cbb45072335781bbbc8215ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae251aefc25a63e2d8c23d50d19509039"><td class="memItemLeft" align="right" valign="top"><a id="ae251aefc25a63e2d8c23d50d19509039" name="ae251aefc25a63e2d8c23d50d19509039"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_ambient</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;ambient)</td></tr>
-<tr class="separator:ae251aefc25a63e2d8c23d50d19509039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9600689abca05c8aee99ae712032a586"><td class="memItemLeft" align="right" valign="top"><a id="a9600689abca05c8aee99ae712032a586" name="a9600689abca05c8aee99ae712032a586"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>get_shininess</b> () const</td></tr>
-<tr class="separator:a9600689abca05c8aee99ae712032a586"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a4e2df48624bd5531421a495131b36"><td class="memItemLeft" align="right" valign="top"><a id="a35a4e2df48624bd5531421a495131b36" name="a35a4e2df48624bd5531421a495131b36"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_shininess</b> (float shininess)</td></tr>
-<tr class="separator:a35a4e2df48624bd5531421a495131b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa887e0ce753865597964262e38df6c"><td class="memItemLeft" align="right" valign="top"><a id="adfa887e0ce753865597964262e38df6c" name="adfa887e0ce753865597964262e38df6c"></a>
+GET <a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_albedo_texture</b> () noexcept</td></tr>
+<tr class="separator:adfa887e0ce753865597964262e38df6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1fdcb6d0cfcb1f7f36e7cc25a71233"><td class="memItemLeft" align="right" valign="top"><a id="afe1fdcb6d0cfcb1f7f36e7cc25a71233" name="afe1fdcb6d0cfcb1f7f36e7cc25a71233"></a>
+GET <a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_normal_map</b> () noexcept</td></tr>
+<tr class="separator:afe1fdcb6d0cfcb1f7f36e7cc25a71233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcdbef3693dbdff616f79729553f2dcf"><td class="memItemLeft" align="right" valign="top"><a id="abcdbef3693dbdff616f79729553f2dcf" name="abcdbef3693dbdff616f79729553f2dcf"></a>
+GET <a class="el" href="class_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_specular_map</b> () noexcept</td></tr>
+<tr class="separator:abcdbef3693dbdff616f79729553f2dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eae19486d0b75b818d57029270fa3f8"><td class="memItemLeft" align="right" valign="top"><a id="a5eae19486d0b75b818d57029270fa3f8" name="a5eae19486d0b75b818d57029270fa3f8"></a>
+GET <a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_albedo</b> () const noexcept</td></tr>
+<tr class="separator:a5eae19486d0b75b818d57029270fa3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ad2dea21ef79ffd249fe1c4b730f9f"><td class="memItemLeft" align="right" valign="top"><a id="ab5ad2dea21ef79ffd249fe1c4b730f9f" name="ab5ad2dea21ef79ffd249fe1c4b730f9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_albedo</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;albedo) noexcept</td></tr>
+<tr class="separator:ab5ad2dea21ef79ffd249fe1c4b730f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa630071d18b3c5faaa0b51e94cf2316d"><td class="memItemLeft" align="right" valign="top"><a id="aa630071d18b3c5faaa0b51e94cf2316d" name="aa630071d18b3c5faaa0b51e94cf2316d"></a>
+GET <a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_specular</b> () const noexcept</td></tr>
+<tr class="separator:aa630071d18b3c5faaa0b51e94cf2316d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137a660096d0cd7f88fe3f19d7cdb158"><td class="memItemLeft" align="right" valign="top"><a id="a137a660096d0cd7f88fe3f19d7cdb158" name="a137a660096d0cd7f88fe3f19d7cdb158"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_specular</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;specular) noexcept</td></tr>
+<tr class="separator:a137a660096d0cd7f88fe3f19d7cdb158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404d90c7cfc062c7b070f9b3b92e3541"><td class="memItemLeft" align="right" valign="top"><a id="a404d90c7cfc062c7b070f9b3b92e3541" name="a404d90c7cfc062c7b070f9b3b92e3541"></a>
+GET <a class="el" href="struct_t_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_ambient</b> () const noexcept</td></tr>
+<tr class="separator:a404d90c7cfc062c7b070f9b3b92e3541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afffa059afdcc88fdab3ce4fecd29ba4a"><td class="memItemLeft" align="right" valign="top"><a id="afffa059afdcc88fdab3ce4fecd29ba4a" name="afffa059afdcc88fdab3ce4fecd29ba4a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_ambient</b> (const <a class="el" href="struct_t_color.html">Color</a> &amp;ambient) noexcept</td></tr>
+<tr class="separator:afffa059afdcc88fdab3ce4fecd29ba4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d28f1e3102c3a0a69d8260ef815d2cf"><td class="memItemLeft" align="right" valign="top"><a id="a2d28f1e3102c3a0a69d8260ef815d2cf" name="a2d28f1e3102c3a0a69d8260ef815d2cf"></a>
+GET float&#160;</td><td class="memItemRight" valign="bottom"><b>get_shininess</b> () const noexcept</td></tr>
+<tr class="separator:a2d28f1e3102c3a0a69d8260ef815d2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6bb19f0780ccdd2706cacffec0eb92"><td class="memItemLeft" align="right" valign="top"><a id="a8c6bb19f0780ccdd2706cacffec0eb92" name="a8c6bb19f0780ccdd2706cacffec0eb92"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_shininess</b> (float shininess) noexcept</td></tr>
+<tr class="separator:a8c6bb19f0780ccdd2706cacffec0eb92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9e3db86c6a56e10c5dca5ae42309b64"><td class="memItemLeft" align="right" valign="top"><a id="ac9e3db86c6a56e10c5dca5ae42309b64" name="ac9e3db86c6a56e10c5dca5ae42309b64"></a>
+GET bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_opaque</b> () const noexcept</td></tr>
+<tr class="separator:ac9e3db86c6a56e10c5dca5ae42309b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_graphics_tracker"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_graphics_tracker')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_graphics_tracker.html">GraphicsTracker</a></td></tr>
 <tr class="memitem:adf7967db53cd804b0d520e4a9da71ae5 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="adf7967db53cd804b0d520e4a9da71ae5" name="adf7967db53cd804b0d520e4a9da71ae5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () const noexcept</td></tr>
@@ -167,6 +170,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> () co
 <tr class="memitem:a8d37bc3480fb12434987cf3cc010dd23 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a8d37bc3480fb12434987cf3cc010dd23" name="a8d37bc3480fb12434987cf3cc010dd23"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>has_changed</b> (bool changed) noexcept</td></tr>
 <tr class="separator:a8d37bc3480fb12434987cf3cc010dd23 inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cd38c4490bdc019c1ce7c359e4eb975 inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a1cd38c4490bdc019c1ce7c359e4eb975" name="a1cd38c4490bdc019c1ce7c359e4eb975"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> () const noexcept</td></tr>
+<tr class="separator:a1cd38c4490bdc019c1ce7c359e4eb975 inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b9bc82a4ee3f24f4cee72c9338f90e inherit pub_methods_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="ae7b9bc82a4ee3f24f4cee72c9338f90e" name="ae7b9bc82a4ee3f24f4cee72c9338f90e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>needs_compile</b> (bool compile) noexcept</td></tr>
+<tr class="separator:ae7b9bc82a4ee3f24f4cee72c9338f90e inherit pub_methods_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -180,6 +189,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:acd0210b0cf17ca0bad6c987540bc7ff4 inherit pro_attribs_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="acd0210b0cf17ca0bad6c987540bc7ff4" name="acd0210b0cf17ca0bad6c987540bc7ff4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> {false}</td></tr>
 <tr class="separator:acd0210b0cf17ca0bad6c987540bc7ff4 inherit pro_attribs_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5232a1f1d7f41b78d86395fd10e5a099 inherit pro_attribs_class_graphics_tracker"><td class="memItemLeft" align="right" valign="top"><a id="a5232a1f1d7f41b78d86395fd10e5a099" name="a5232a1f1d7f41b78d86395fd10e5a099"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> {false}</td></tr>
+<tr class="separator:a5232a1f1d7f41b78d86395fd10e5a099 inherit pro_attribs_class_graphics_tracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_material.html" title="Material data for rendering.">Material</a> data for rendering. </p>

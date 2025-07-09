@@ -1,0 +1,191 @@
+.TH "SphereComponent" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SphereComponent \- \fBComponent\fP for a box used for physics\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SphereComponent\&.h>\fP
+.PP
+Inherits \fBPhysicalComponent\fP\&.
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSphere\fP \fBsphere\fP {}"
+.br
+.in -1c
+
+Public Attributes inherited from \fBPhysicalComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBPhysicsBody\fP \fBphysics_body\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+
+
+Public Member Functions inherited from \fBPhysicalComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBtick\fP (float dt) override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBbase_clean_up\fP () override"
+.br
+.ti -1c
+.RI "void \fBclean_components\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBset_position\fP (\fBFVector3\fP position) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_rotation\fP (\fBFVector3\fP rotation) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_size\fP (\fBFVector3\fP size) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBtranslate\fP (\fBFVector3\fP position) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBrotate\fP (\fBFVector3\fP rotation) noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBsize\fP (\fBFVector3\fP size) noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_position\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_rotation\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBFVector3\fP \fBget_size\fP () const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBset_transform\fP (\fBTransform\fP transform) noexcept"
+.br
+.ti -1c
+.RI "virtual GET \fBTransform\fP \fBget_transform\fP () const noexcept"
+.br
+.ti -1c
+.RI "GET \fBComponent\fP * \fBget_parent\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBset_parent\fP (\fBComponent\fP *parent) noexcept"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBadd_component\fP (std::unique_ptr< \fBComponent\fP > &&component)"
+.br
+.ti -1c
+.RI "void \fBset_scene\fP (\fBScene\fP *scene) noexcept"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (const \fBComponent\fP &component) const noexcept"
+.br
+.ti -1c
+.RI "virtual void \fBoperator=\fP (const \fBComponent\fP &component) noexcept"
+.br
+.ti -1c
+.RI "void \fBbase_render_editor_gui_section\fP () override"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBControllable\fP
+.in +1c
+.ti -1c
+.RI "virtual void \fBbase_clean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBbase_tick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBbase_render_editor_gui_section\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpre_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBpost_scene_compile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBclean_up\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcompile\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBtick\fP (float dt)"
+.br
+.ti -1c
+.RI "virtual void \fBrender_editor_gui_section\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET T * \fBget_component\fP () noexcept"
+.br
+.ti -1c
+.RI "template<typename T > 
+.br
+requires std::derived_from<T, \fBComponent\fP>GET std::set< T * > \fBget_components\fP () noexcept"
+.br
+.ti -1c
+.RI "GET std::set< \fBComponent\fP * > \fBget_all_components\fP () noexcept"
+.br
+.in -1c
+
+Protected Member Functions inherited from \fBPhysicalComponent\fP
+.in +1c
+.ti -1c
+.RI "void \fBrender_editor_gui_section\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBrender_physical_component_editor_gui_section\fP ()"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBComponent\fP
+.in +1c
+.ti -1c
+.RI "\fBTransform\fP \fBtransform\fP"
+.br
+.ti -1c
+.RI "\fBComponent\fP * \fBparent\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBobject\fP {nullptr}"
+.br
+.ti -1c
+.RI "\fBScene\fP * \fBscene\fP {nullptr}"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBComponentHolder\fP
+.in +1c
+.ti -1c
+.RI "std::set< std::unique_ptr< \fBComponent\fP > > \fBcomponents\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBComponent\fP for a box used for physics\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

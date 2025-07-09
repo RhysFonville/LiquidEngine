@@ -1,0 +1,53 @@
+.TH "GraphicsPipelineIACommand" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GraphicsPipelineIACommand \- Command for the input assembler\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <GraphicsPipelineIACommand\&.h>\fP
+.PP
+Inherited by \fBGraphicsPipelineIAAddMeshCommand\fP, \fBGraphicsPipelineIARemoveAllMeshesCommand\fP, \fBGraphicsPipelineIARemoveMeshCommand\fP, and \fBGraphicsPipelineIASetInstancesCommand\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBAddMesh\fP, \fBRemoveMesh\fP, \fBRemoveAll\fP, \fBSetInstances\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGraphicsPipelineIACommand\fP (Type type)"
+.br
+.ti -1c
+.RI "Type \fBget_type\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "Type \fBtype\fP {}"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Command for the input assembler\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBGraphicsPipeline\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Liquid Engine from the source code\&.

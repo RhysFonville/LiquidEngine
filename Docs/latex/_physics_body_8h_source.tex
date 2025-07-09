@@ -1,33 +1,72 @@
 \hypertarget{_physics_body_8h_source}{}\doxysection{Physics\+Body.\+h}
-\label{_physics_body_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsBody.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/PhysicsBody.h}}
+\label{_physics_body_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/PhysicsBody.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Physics/PhysicsBody.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}globalutil.h"{}}}
-\DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_physics_body}{PhysicsBody}}\ \{}
-\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_physics_body}{PhysicsBody}}();}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_net\_force()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
-\DoxyCodeLine{00010\ \ \ \ \ GET\ \textcolor{keywordtype}{float}\ get\_mass()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}physicsutil.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_physics_body}{PhysicsBody}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_physics_body}{PhysicsBody}}();}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ tick(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_mass(\textcolor{keywordtype}{float}\ mass);}
+\DoxyCodeLine{00012\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_net\_force()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ tick();}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ previous\_position\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ velocity\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ acceleration\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ momentum\ =\ \mbox{\hyperlink{class_f_vector3}{FVector3}}();}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ std::vector<Mechanics::Force>\ forces;}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ mass\ =\ 20.0f;}
-\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00014\ \ \ \ \ GET\ \textcolor{keywordtype}{float}\ get\_mass()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_mass(\textcolor{keywordtype}{float}\ mass);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_velocity()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ velocity;\ \}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_velocity(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&velocity);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_acceleration()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ acceleration;\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_acceleration(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&acceleration);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_momentum()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ momentum;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_momentum(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&momentum);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_net\_torque()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
 \DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ GET\ \textcolor{keywordtype}{float}\ get\_moment\_of\_inertia()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_moment\_of\_inertia(\textcolor{keywordtype}{float}\ moment\_of\_inertia);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ GET\ XMMATRIX\ get\_moment\_of\_inertia\_tensor()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ moment\_of\_inertia\_tensor;\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ GET\ XMMATRIX\ get\_moment\_of\_inertia\_tensor\_inverse()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ moment\_of\_inertia\_tensor\_inverse;\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_angular\_velocity()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ angular\_velocity;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_angular\_velocity(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&velocity);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_angular\_acceleration()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ angular\_acceleration;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_angular\_acceleration(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&acceleration);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ GET\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ get\_angular\_momentum()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ angular\_momentum;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_angular\_momentum(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&momentum);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ previous\_position\{\};}
+\DoxyCodeLine{00044\ \ \ \ \ std::vector<Force>\ forces\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ std::vector<Force>\ torques\{\};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ frozen\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{float}\ mass\{1.0f\};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{float}\ moment\_of\_inertia\{mass\};}
+\DoxyCodeLine{00052\ \ \ \ \ XMMATRIX\ moment\_of\_inertia\_tensor\{moment\_of\_inertia\ *\ XMMatrixIdentity()\};}
+\DoxyCodeLine{00053\ \ \ \ \ XMMATRIX\ moment\_of\_inertia\_tensor\_inverse\{XMMatrixInverse(\textcolor{keyword}{nullptr},\ moment\_of\_inertia\_tensor)\};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ velocity\{\};}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ acceleration\{\};}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ momentum\{\};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ angular\_velocity\{\};}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ angular\_acceleration\{\};}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ angular\_momentum\{\};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ recalculate\_momentum()\ \{\ momentum\ =\ mass\ *\ velocity;\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ recalculate\_angular\_momentum()\ \{\ angular\_momentum\ =\ moment\_of\_inertia\ *\ angular\_velocity;\ \}}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
 
 \end{DoxyCode}

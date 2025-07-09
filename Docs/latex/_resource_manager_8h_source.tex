@@ -4,21 +4,50 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../globalutil.h"{}}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }ResourceManager\ \{}
-\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{namespace\ }Release\ \{}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::vector<ComPtr<ID3D12Resource>>\ resources;}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ release\_all\_resources()\ \{}
-\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&resource\ :\ resources)\ \{}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resource.Reset();}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ resources.clear();}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00017\ \ \ \ \ \};}
-\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <d3d12.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{using\ }Microsoft::WRL::ComPtr;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}(\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}*\ get\_instance()\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (resource\_manager\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ resource\_manager\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\{\};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resource\_manager;}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{/*void\ add\_resource\_to\_release(ID3D12Resource*\ resource)\ \{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ resources.push\_back(resource);}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_resource\_to\_release(ComPtr<ID3D12Resource>\ resource)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ resources.push\_back(resource);}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ release\_all\_resources()\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&resource\ :\ resources)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ resource.Reset();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ resources.clear();}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}()\ \{\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}*\ resource\_manager;}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ std::vector<ComPtr<ID3D12Resource>>\ resources\{\};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}*\ resource\_manager\ =\ ResourceManager::get\_instance();}
 
 \end{DoxyCode}

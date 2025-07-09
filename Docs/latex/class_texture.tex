@@ -18,6 +18,9 @@ Inheritance diagram for Texture\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_texture_a21822d3a487c6a803f706869fe46faa2}\label{class_texture_a21822d3a487c6a803f706869fe46faa2}} 
+{\bfseries Texture} (const \mbox{\hyperlink{class_texture}{Texture}} \&texture)
+\item 
 \mbox{\Hypertarget{class_texture_a63f49a8bd410e28b35d7800d5cf15d7d}\label{class_texture_a63f49a8bd410e28b35d7800d5cf15d7d}} 
 {\bfseries Texture} (const std\+::string \&file)
 \item 
@@ -33,14 +36,17 @@ void {\bfseries set\+\_\+texture} (const std\+::string \&file, bool enable\+\_\+
 \mbox{\Hypertarget{class_texture_aa6e1bc04ea9b92fdaa868ec63ae107f5}\label{class_texture_aa6e1bc04ea9b92fdaa868ec63ae107f5}} 
 GET std\+::string {\bfseries get\+\_\+file} () const noexcept
 \item 
-\mbox{\Hypertarget{class_texture_a19c325fd37d929375b553a85c277cebd}\label{class_texture_a19c325fd37d929375b553a85c277cebd}} 
-bool {\bfseries exists} () const noexcept
+\mbox{\Hypertarget{class_texture_ab113e97fb3f51b2b0b148720cccb9c9f}\label{class_texture_ab113e97fb3f51b2b0b148720cccb9c9f}} 
+GET bool {\bfseries exists} () const noexcept
 \item 
-\mbox{\Hypertarget{class_texture_afc79a0a352e540eb1f4ac8194105c350}\label{class_texture_afc79a0a352e540eb1f4ac8194105c350}} 
-const Direct\+X\+::\+Scratch\+Image \& {\bfseries get\+\_\+image} () const noexcept
+\mbox{\Hypertarget{class_texture_abb9f9757738304bb21d3e90c2c3ed6f2}\label{class_texture_abb9f9757738304bb21d3e90c2c3ed6f2}} 
+GET bool {\bfseries is\+\_\+opaque} () const noexcept
 \item 
-\mbox{\Hypertarget{class_texture_a5e89b9464e000b9056f18caf76226f78}\label{class_texture_a5e89b9464e000b9056f18caf76226f78}} 
-const Direct\+X\+::\+Scratch\+Image \& {\bfseries get\+\_\+mip\+\_\+chain} () const noexcept
+\mbox{\Hypertarget{class_texture_acad81262d371d3ff405bdaab5e57c03a}\label{class_texture_acad81262d371d3ff405bdaab5e57c03a}} 
+GET const Direct\+X\+::\+Scratch\+Image \& {\bfseries get\+\_\+image} () const noexcept
+\item 
+\mbox{\Hypertarget{class_texture_ac57a87044aa869b6e96fee0ffcd0ce4b}\label{class_texture_ac57a87044aa869b6e96fee0ffcd0ce4b}} 
+GET const Direct\+X\+::\+Scratch\+Image \& {\bfseries get\+\_\+mip\+\_\+chain} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_tracker}{Graphics\+Tracker}}}
 \begin{DoxyCompactItemize}
@@ -50,6 +56,12 @@ bool {\bfseries has\+\_\+changed} () const noexcept
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}\label{class_graphics_tracker_a8d37bc3480fb12434987cf3cc010dd23}} 
 void {\bfseries has\+\_\+changed} (bool changed) noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}\label{class_graphics_tracker_a1cd38c4490bdc019c1ce7c359e4eb975}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}\label{class_graphics_tracker_ae7b9bc82a4ee3f24f4cee72c9338f90e}} 
+void {\bfseries needs\+\_\+compile} (bool compile) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -62,6 +74,9 @@ static void \mbox{\hyperlink{class_texture_a791e3ac555c03bcdc309de677f8d1f0c}{lo
 \item 
 \mbox{\Hypertarget{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}\label{class_graphics_tracker_acd0210b0cf17ca0bad6c987540bc7ff4}} 
 bool {\bfseries changed} \{false\}
+\item 
+\mbox{\Hypertarget{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}\label{class_graphics_tracker_a5232a1f1d7f41b78d86395fd10e5a099}} 
+bool {\bfseries compile} \{false\}
 \end{DoxyCompactItemize}
 
 
@@ -69,7 +84,7 @@ bool {\bfseries changed} \{false\}
 \mbox{\hyperlink{class_texture}{Texture}} for rendering onto objects. 
 
 \begin{DoxySeeAlso}{See also}
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_shader_resource_view}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Shader\+Resource\+View}} 
+\mbox{\hyperlink{class_shader_resource_view}{Shader\+Resource\+View}} 
 \end{DoxySeeAlso}
 
 

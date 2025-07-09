@@ -2,7 +2,7 @@
 \label{class_rendering_sky}\index{RenderingSky@{RenderingSky}}
 
 
-Graphics-\/side sky.  
+Graphics-\/side texture.  
 
 
 
@@ -24,51 +24,63 @@ Inheritance diagram for Rendering\+Sky\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_rendering_sky_ab8cafed61e6f32cb13f1c070b65cf82c}\label{class_rendering_sky_ab8cafed61e6f32cb13f1c070b65cf82c}} 
 bool {\bfseries update} (const \mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
 \item 
-\mbox{\Hypertarget{class_rendering_sky_a22906f77b9f8c7b622ac7ba172b8d227}\label{class_rendering_sky_a22906f77b9f8c7b622ac7ba172b8d227}} 
-void {\bfseries compile} ()
+\mbox{\Hypertarget{class_rendering_sky_a4fe260c4d6641eb7d3f1e00be47f6b56}\label{class_rendering_sky_a4fe260c4d6641eb7d3f1e00be47f6b56}} 
+void {\bfseries compile} (\mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
+\item 
+\mbox{\Hypertarget{class_rendering_sky_aa83b3f06f11b77100b69822de2023b19}\label{class_rendering_sky_aa83b3f06f11b77100b69822de2023b19}} 
+void {\bfseries set\+\_\+resources} (\mbox{\hyperlink{class_rendering_camera}{Rendering\+Camera}} \&camera)
 \item 
 \mbox{\Hypertarget{class_rendering_sky_a3dff8878509f9455a7ef14f7d5956557}\label{class_rendering_sky_a3dff8878509f9455a7ef14f7d5956557}} 
 void {\bfseries clean\+\_\+up} ()
-\item 
-\mbox{\Hypertarget{class_rendering_sky_a855a47e67125a5e1fb9f39578d152a21}\label{class_rendering_sky_a855a47e67125a5e1fb9f39578d152a21}} 
-bool {\bfseries operator==} (\mbox{\hyperlink{class_sky_component}{Sky\+Component}} component)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Sky\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_aae7514451de712ee498c59c7673795ec}\label{class_rendering_component_aae7514451de712ee498c59c7673795ec}} 
-{\bfseries Rendering\+Component} (T $\ast$component)
+\mbox{\Hypertarget{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}\label{class_rendering_component_a208d9bf95dd5d354c9a25dc362c879d9}} 
+{\bfseries Rendering\+Component} (\mbox{\hyperlink{class_sky_component}{Sky\+Component}} $\ast$component)
 \item 
-\mbox{\Hypertarget{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}\label{class_rendering_component_ade3a318359774968ef5d07d963eeeb33}} 
-bool {\bfseries operator==} (T component)
+\mbox{\Hypertarget{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}\label{class_rendering_component_a4369bc9d4b673bfd07291df8b92081e6}} 
+bool {\bfseries needs\+\_\+compile} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}\label{class_rendering_component_adb91e32d2244569eff2eaa59e72747c2}} 
+void {\bfseries needs\+\_\+compile} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}\label{class_rendering_component_a9f49f7d275e9062eca28147a8594d10d}} 
+bool {\bfseries has\+\_\+changed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}\label{class_rendering_component_abdd8a7c19327f687d008e34e2fe17825}} 
+void {\bfseries has\+\_\+changed} (bool b) noexcept
+\item 
+\mbox{\Hypertarget{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}\label{class_rendering_component_afaa7b675c2488dab302d13725e7feeb8}} 
+bool {\bfseries valid} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_sky_a413b669dd064d5c7da6afc325cc8a712}\label{class_rendering_sky_a413b669dd064d5c7da6afc325cc8a712}} 
-\mbox{\hyperlink{class_rendering_texture}{Rendering\+Texture}} {\bfseries texture} \{\}
+\mbox{\Hypertarget{class_rendering_sky_abd8495e257d2e238e0388bf3d147a2c9}\label{class_rendering_sky_abd8495e257d2e238e0388bf3d147a2c9}} 
+\mbox{\hyperlink{class_shader_resource_view_container}{Shader\+Resource\+View\+Container}} {\bfseries texture} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_sky_a9ac89a273e4e71cde424c7ad45eb2e97}\label{class_rendering_sky_a9ac89a273e4e71cde424c7ad45eb2e97}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Constants\+Container}}$<$ VSWVPConstants $>$ {\bfseries wvp\+\_\+data} = VSWVPConstants\{\}
+\mbox{\Hypertarget{class_rendering_sky_a6ed4baddeb2ac909d23a6d23f0293658}\label{class_rendering_sky_a6ed4baddeb2ac909d23a6d23f0293658}} 
+\mbox{\hyperlink{class_root_constants_container}{Root\+Constants\+Container}}$<$ VSTransform\+Constants $>$ {\bfseries transform\+\_\+data} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_sky_a57ce916eb3698f7a8376d07423363f94}\label{class_rendering_sky_a57ce916eb3698f7a8376d07423363f94}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_root_constants_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Root\+Constants\+Container}}$<$ VSTransform\+Constants $>$ {\bfseries transform\+\_\+data} = VSTransform\+Constants\{\}
+\mbox{\Hypertarget{class_rendering_sky_a446a49695fcee92917873e228c0cdc58}\label{class_rendering_sky_a446a49695fcee92917873e228c0cdc58}} 
+\mbox{\hyperlink{class_constant_buffer_container}{Constant\+Buffer\+Container}}$<$ PSSky\+CB $>$ {\bfseries data} \{\}
 \item 
-\mbox{\Hypertarget{class_rendering_sky_a1221e5bbd4e798bd482c8c9152c592e8}\label{class_rendering_sky_a1221e5bbd4e798bd482c8c9152c592e8}} 
-\mbox{\hyperlink{class_graphics_pipeline_1_1_root_signature_1_1_constant_buffer_container}{Graphics\+Pipeline\+::\+Root\+Signature\+::\+Constant\+Buffer\+Container}}$<$ PSSky\+CB $>$ {\bfseries data} = PSSky\+CB\{\}
+\mbox{\Hypertarget{class_rendering_sky_ac29a0f3dbcea27be031866bef43d0365}\label{class_rendering_sky_ac29a0f3dbcea27be031866bef43d0365}} 
+\mbox{\hyperlink{class_root_constants_container}{Root\+Constants\+Container}}$<$ VSWVPConstants $>$ {\bfseries wvp\+\_\+data} \{\}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes inherited from \mbox{\hyperlink{class_rendering_component}{Rendering\+Component$<$ Sky\+Component $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}\label{class_rendering_component_a4908d6da0d7736a9be78f92386a0bf4f}} 
-T $\ast$ {\bfseries component}
+\mbox{\Hypertarget{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}\label{class_rendering_component_ac9688d8a7e60a4af0344b3ab1685f903}} 
+\mbox{\hyperlink{class_sky_component}{Sky\+Component}} $\ast$ {\bfseries component}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Graphics-\/side sky. 
+Graphics-\/side texture. 
 
-\begin{DoxySeeAlso}{See also}
+Graphics-\/side sky. \begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{class_sky_component}{Sky\+Component}} 
 \end{DoxySeeAlso}
 

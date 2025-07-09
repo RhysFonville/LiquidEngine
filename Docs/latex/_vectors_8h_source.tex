@@ -1,0 +1,550 @@
+\hypertarget{_vectors_8h_source}{}\doxysection{Vectors.\+h}
+\label{_vectors_8h_source}\index{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/Vectors.h@{C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Utility/Vectors.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <dxgi1\_4.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}commonmacros.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_t_vector2}{TVector2}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ T\ x\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ T\ y\ =\ 0;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{TVector2}}()\ :\ x(T()),\ y(T())\ \{\}}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{TVector2}}(T\ v)\ :\ x\{v\},\ y\{v\}\ \{\}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{TVector2}}(T\ vec[2])\ :\ x(vec[0]),\ y(vec[1])\ \{\ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_t_vector2}{TVector2}}(T\ x,\ T\ y)\ :\ x(x),\ y(y)\ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_zero()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ 0\ \&\&\ y\ ==\ 0);}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{TVector2}}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_t_vector2}{TVector2}}\ ret\ =\ vector;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ ret.x\ +=\ x;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ ret.y\ +=\ y;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ operator+=(\mbox{\hyperlink{class_t_vector2}{TVector2}}\ vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ x\ +=\ vector.x;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ y\ +=\ vector.y;}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ vector.x\ \&\&}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ y\ ==\ vector.y);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ !=\ vector.x\ \&\&}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ y\ !=\ vector.y);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ x\ =\ vector.x;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ y\ =\ vector.y;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2<T>}}\ \&vec);}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00059\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2<T>}}\ \&vec)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ os\ <<\ std::to\_string(vec.x)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00061\ \ \ \ \ <<\ std::to\_string(vec.y);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00067\ \mbox{\hyperlink{class_t_vector2}{TVector2<T>}}\ operator*(T\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{TVector2<T>}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ rhs\ *\ lhs;}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00072\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_t_vector3}{TVector3}}\ \{}
+\DoxyCodeLine{00073\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ T\ x\ =\ 0;}
+\DoxyCodeLine{00075\ \ \ \ \ T\ y\ =\ 0;}
+\DoxyCodeLine{00076\ \ \ \ \ T\ z\ =\ 0;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3}}()\ \{\}}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3}}(T\ v)\ :\ x\{v\},\ y\{v\},\ z\{v\}\ \{\}}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3}}(T\ vec[3])\ :\ x(vec[0]),\ y(vec[1]),\ z(vec[2])\ \{\ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3}}\ \&vector)\ :\ x(vector.x),\ y(vector.y),\ z(vector.z)\ \{\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_t_vector3}{TVector3}}(T\ x,\ T\ y,\ T\ z)\ :\ x(x),\ y(y),\ z(z)\ \{\}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_zero()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ 0\ \&\&\ y\ ==\ 0\ \&\&\ z\ ==\ 0);}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\{x+vector.x,\ y+vector.y,\ z+vector.z\};}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(x-\/vector.x,\ y-\/vector.y,\ z-\/vector.z);}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator-\/()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(-\/x,\ -\/y,\ -\/z);}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(x*vector.x,\ y*vector.y,\ z*vector.z);}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator*(T\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(x*n,\ y*n,\ z*n);}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(x/vector.x,\ y/vector.y,\ z/vector.z);}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator/(T\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}(x/n,\ y/n,\ z/n);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ x\ +=\ vector.x;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ y\ +=\ vector.y;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ z\ +=\ vector.z;}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ operator-\/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ x\ -\/=\ vector.x;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ y\ -\/=\ vector.y;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ z\ -\/=\ vector.z;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ vector.x\ \&\&\ y\ ==\ vector.y\ \&\&\ z\ ==\ vector.z);}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ !=\ vector.x\ ||\ y\ !=\ vector.y\ ||\ z\ !=\ vector.z);}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ x\ =\ vector.x;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ y\ =\ vector.y;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ z\ =\ vector.z;}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ T\ \&\ operator[](UCHAR\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (index)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ z;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::exception(\textcolor{stringliteral}{"{}Index\ out\ of\ bounds\ when\ using\ []\ operator\ on\ TVector3."{}});}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ std::string\ to\_string()\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(x)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(y)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(z);}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vec);}
+\DoxyCodeLine{00160\ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00163\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&vec)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ os\ <<\ std::to\_string(vec.x)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.y)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.z);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00172\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ operator*(T\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ rhs\ *\ lhs;}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00177\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_t_vector4}{TVector4}}\ \{}
+\DoxyCodeLine{00178\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00179\ \ \ \ \ T\ x\ =\ 0;}
+\DoxyCodeLine{00180\ \ \ \ \ T\ y\ =\ 0;}
+\DoxyCodeLine{00181\ \ \ \ \ T\ z\ =\ 0;}
+\DoxyCodeLine{00182\ \ \ \ \ T\ w\ =\ 0;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4}}()\ \{\}}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4}}(T\ v)\ :\ x\{v\},\ y\{v\},\ z\{v\},\ w\{v\}\ \{\}}
+\DoxyCodeLine{00186\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4}}(T\ vec[4])\ :\ x(vec[0]),\ y(vec[1]),\ z(vec[2]),\ w(vec[3])\ \{\ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_t_vector4}{TVector4}}(T\ x,\ T\ y,\ T\ z,\ T\ w)\ :\ x(x),\ y(y),\ z(z),\ w(w)\ \{\ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4}}(\mbox{\hyperlink{class_t_vector3}{TVector3<T>}}\ vector,\ T\ w)\ :\ x(vector.x),\ y(vector.y),\ z(vector.z),\ w(w)\ \{\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_zero()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ 0\ \&\&\ y\ ==\ 0\ \&\&\ z\ ==\ 0\ \&\&\ w\ ==\ 0);}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator+(\mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\{x+vector.x,\ y+vector.y,\ z+vector.z,\ w+vector.w\};}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\{x-\/vector.x,\ y-\/vector.y,\ z-\/vector.z,\ w-\/vector.w\};}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}(x*vector.x,\ y*vector.y,\ z*vector.z,\ w*vector.w);}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator*(T\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}(x*n,\ y*n,\ z*n,\ w*n);}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}(x/vector.x,\ y/vector.y,\ z/vector.z,\ w/vector.w);}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator/(T\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}(x/n,\ y/n,\ z/n,\ w/n);}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{void}\ operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ x\ +=\ vector.x;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ y\ +=\ vector.y;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ z\ +=\ vector.z;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ w\ +=\ vector.w;}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{void}\ operator-\/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ x\ -\/=\ vector.x;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ y\ -\/=\ vector.y;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ z\ -\/=\ vector.z;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ w\ -\/=\ vector.w;}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ ==\ vector.x\ \&\&\ y\ ==\ vector.y\ \&\&\ z\ ==\ vector.z\ \&\&\ w\ ==\ vector.w);}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ !=\ vector.x\ ||\ y\ !=\ vector.y\ ||\ z\ !=\ vector.z\ ||\ w\ !=\ vector.w);}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ x\ =\ vector.x;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ y\ =\ vector.y;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ z\ =\ vector.z;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ w\ =\ vector.w;}
+\DoxyCodeLine{00245\ \ \ \ \ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ XMVECTOR\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ x\ =\ XMVectorGetX(vector);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ y\ =\ XMVectorGetY(vector);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ z\ =\ XMVectorGetZ(vector);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ w\ =\ XMVectorGetW(vector);}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ T\ \&\ operator[](UCHAR\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (index)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y;}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ z;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ w;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::exception(\textcolor{stringliteral}{"{}Index\ out\ of\ bounds\ when\ using\ []\ operator\ on\ TVector4."{}});}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ std::string\ to\_string()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(x)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(y)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(z)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(w);}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vec);}
+\DoxyCodeLine{00274\ \};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00277\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&vec)\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ os\ <<\ std::to\_string(vec.x)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.y)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.z)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.w);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00287\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ operator*(T\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector4}{TVector4<T>}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{return}\ rhs\ *\ lhs;}
+\DoxyCodeLine{00289\ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector4}{Vector4}}\ =\ \mbox{\hyperlink{class_t_vector4}{TVector4<int>}};}
+\DoxyCodeLine{00292\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector3}{Vector3}}\ =\ \mbox{\hyperlink{class_t_vector3}{TVector3<int>}};}
+\DoxyCodeLine{00293\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector2}{Vector2}}\ =\ \mbox{\hyperlink{class_t_vector2}{TVector2<int>}};}
+\DoxyCodeLine{00294\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector3}{Vector}}\ =\ \mbox{\hyperlink{class_t_vector3}{Vector3}};}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_vector3}{FVector3}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_t_vector3}{TVector3}}<float>\ \{}
+\DoxyCodeLine{00297\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00298\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}()\ :\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}()\ \{\}}
+\DoxyCodeLine{00299\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}(\mbox{\hyperlink{class_t_vector3}{TVector3<float>}}\ v)\ :\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}(v)\ \{\}}
+\DoxyCodeLine{00300\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vector)}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}(vector)\ \{\ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}(x,\ y,\ z)\ \{\ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}(\textcolor{keywordtype}{float}*\ vector)\ :\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{vector[0],\ vector[1],\ vector[2]\}\ \{\ \}}
+\DoxyCodeLine{00305\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}(\textcolor{keyword}{const}\ XMVECTOR\ \&vec)\ :\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}\{XMVectorGetY(vec),\ XMVectorGetY(vec),\ XMVectorGetX(vec)\}\ \{\ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{class_t_vector3}{TVector3<float>}}()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector3}{TVector3}}(x,\ y,\ z);}
+\DoxyCodeLine{00309\ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator+(\mbox{\hyperlink{class_f_vector3}{FVector3}}\ vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{x+vector.x,\ y+vector.y,\ z+vector.z\};}
+\DoxyCodeLine{00313\ \ \ \ \ \}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator-\/()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{-\/x,\ -\/y,\ -\/z\};}
+\DoxyCodeLine{00317\ \ \ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{x-\/vector.x,\ y-\/vector.y,\ z-\/vector.z\};}
+\DoxyCodeLine{00321\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(x*vector.x,\ y*vector.y,\ z*vector.z);}
+\DoxyCodeLine{00325\ \ \ \ \ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator*(\textcolor{keywordtype}{float}\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(x*n,\ y*n,\ z*n);}
+\DoxyCodeLine{00329\ \ \ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(x/vector.x,\ y/vector.y,\ z/vector.z);}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator/(\textcolor{keywordtype}{float}\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(x/n,\ y/n,\ z/n);}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ pow(\textcolor{keywordtype}{float}\ p)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}(powf(x,\ p),\ powf(y,\ p),\ powf(z,\ p));}
+\DoxyCodeLine{00341\ \ \ \ \ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ clamp(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&\_min,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&\_max)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ std::max(\_min.x,\ std::min(x,\ \_max.x)),}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ std::max(\_min.y,\ std::min(y,\ \_max.y)),}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ std::max(\_min.z,\ std::min(z,\ \_max.z))}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00349\ \ \ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordtype}{float}\ matrix\_multiplication(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x*vector.x\ +\ y*vector.y\ +\ z*vector.z;}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\textcolor{keyword}{const}\ XMVECTOR\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ x\ =\ XMVectorGetX(vector);}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ y\ =\ XMVectorGetY(vector);}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ z\ =\ XMVectorGetZ(vector);}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordtype}{float}\ length()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sqrtf(x*x\ +\ y*y\ +\ z*z);}
+\DoxyCodeLine{00363\ \ \ \ \ \}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ XMVECTOR\ to\_xmvec()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMVectorSet(x,\ y,\ z,\ 1.0f);}
+\DoxyCodeLine{00367\ \ \ \ \ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ normalize()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ len\{length()\};}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0.0f)\ \textcolor{keywordflow}{return}\ \{0.0f,\ 0.0f,\ 0.0f\};}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ x\ /\ len,\ y\ /\ len,\ z\ /\ len\};}
+\DoxyCodeLine{00373\ \ \ \ \ \}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vec);}
+\DoxyCodeLine{00376\ \};}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00379\ std::ostream\ \&\ operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ \&vec)\ \{}
+\DoxyCodeLine{00380\ \ \ \ \ os\ <<\ std::to\_string(vec.x)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.y)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ <<\ std::to\_string(vec.z);}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00385\ \}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_vector4}{FVector4}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_t_vector4}{TVector4}}<float>\ \{}
+\DoxyCodeLine{00388\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00389\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}()\ \{\}}
+\DoxyCodeLine{00390\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ \&vector)}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_t_vector4}{TVector4<float>}}(vector)\ \{\ \}}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,\ \textcolor{keywordtype}{float}\ w)}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_t_vector4}{TVector4<float>}}(x,\ y,\ z,\ w)\ \{\ \}}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{class_t_vector4}{TVector4<float>}}()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(x,\ y,\ z,\ w);}
+\DoxyCodeLine{00397\ \ \ \ \ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator+(\mbox{\hyperlink{class_f_vector4}{FVector4}}\ vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\{x+vector.x,\ y+vector.y,\ z+vector.z,\ w+vector.w\};}
+\DoxyCodeLine{00401\ \ \ \ \ \}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\{x-\/vector.x,\ y-\/vector.y,\ z-\/vector.z,\ w-\/vector.w\};}
+\DoxyCodeLine{00405\ \ \ \ \ \}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(x*vector.x,\ y*vector.y,\ z*vector.z,\ w*vector.w);}
+\DoxyCodeLine{00409\ \ \ \ \ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator*(\textcolor{keywordtype}{float}\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(x*n,\ y*n,\ z*n,\ w*n);}
+\DoxyCodeLine{00413\ \ \ \ \ \}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(x/vector.x,\ y/vector.y,\ z/vector.z,\ w/vector.w);}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ operator/(\textcolor{keywordtype}{float}\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(x/n,\ y/n,\ z/n,\ w/n);}
+\DoxyCodeLine{00421\ \ \ \ \ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ pow(\textcolor{keywordtype}{float}\ p)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(powf(x,\ p),\ powf(y,\ p),}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ powf(z,\ p),\ powf(w,\ p));}
+\DoxyCodeLine{00426\ \ \ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordtype}{float}\ matrix\_multiplication(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ \&vector)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x*vector.x\ +\ y*vector.y\ +\ z*vector.z\ +\ w*vector.w;}
+\DoxyCodeLine{00430\ \ \ \ \ \}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{float}\ length()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sqrtf(x*x\ +\ y*y\ +\ z*z\ +\ w*w);}
+\DoxyCodeLine{00434\ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \};}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{keyword}{template}\ <arithmetic\ T>}
+\DoxyCodeLine{00438\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_t_color}{TColor}}\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ T\ r\ =\ 255,\ g\ =\ 255,\ b\ =\ 255,\ a\ =\ 255;}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{TColor}}(T\ r,\ T\ g,\ T\ b,\ T\ a\ =\ 255)\ :\ r(r),\ g(g),\ b(b),\ a(a)\ \{\ \}}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keyword}{operator}\ XMFLOAT3()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMFLOAT3(r,\ g,\ b);}
+\DoxyCodeLine{00445\ \ \ \ \ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keyword}{operator}\ XMFLOAT4()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMFLOAT4(r,\ g,\ b,\ a);}
+\DoxyCodeLine{00449\ \ \ \ \ \}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keyword}{operator}\ DXGI\_RGBA()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DXGI\_RGBA(\{\ r,\ g,\ b,\ a\ \});}
+\DoxyCodeLine{00453\ \ \ \ \ \}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}(r,\ g,\ b,\ a);}
+\DoxyCodeLine{00457\ \ \ \ \ \}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \ \ \ \ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ to\_vec\_normalized()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{class_f_vector4}{FVector4}})*\textcolor{keyword}{this}\ /\ 255.0f;}
+\DoxyCodeLine{00461\ \ \ \ \ \}}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00463\ \ \ \ \ \mbox{\hyperlink{struct_t_color}{TColor}}\ operator/(T\ divisor)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_t_color}{TColor}}(}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ (T)(r\ /\ divisor),\ (T)(g\ /\ divisor),}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ (T)(b\ /\ divisor),\ (T)(a\ /\ divisor)}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00468\ \ \ \ \ \}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keywordtype}{void}\ operator/=(T\ divisor)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ *\textcolor{keyword}{this}\ /\ divisor;}
+\DoxyCodeLine{00472\ \ \ \ \ \}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{TColor<T>}}\ \&color)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (r\ ==\ color.r\ \&\&}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ g\ ==\ color.g\ \&\&}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ b\ ==\ color.b);}
+\DoxyCodeLine{00478\ \ \ \ \ \}}
+\DoxyCodeLine{00479\ \};}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{keyword}{using\ }\mbox{\hyperlink{struct_t_color}{Color}}\ =\ \mbox{\hyperlink{struct_t_color}{TColor<UCHAR>}};}
+\DoxyCodeLine{00482\ \textcolor{keyword}{using\ }\mbox{\hyperlink{struct_t_color}{FColor}}\ =\ \mbox{\hyperlink{struct_t_color}{TColor<float>}};}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector2}{FVector2}}\ =\ \mbox{\hyperlink{class_t_vector2}{TVector2<float>}};}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector4}{UVector4}}\ =\ \mbox{\hyperlink{class_t_vector4}{TVector4<UINT>}};}
+\DoxyCodeLine{00487\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector3}{UVector3}}\ =\ \mbox{\hyperlink{class_t_vector3}{TVector3<UINT>}};}
+\DoxyCodeLine{00488\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector2}{UVector2}}\ =\ \mbox{\hyperlink{class_t_vector2}{TVector2<UINT>}};}
+\DoxyCodeLine{00489\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_t_vector3}{UVector}}\ =\ \mbox{\hyperlink{class_t_vector3}{Vector3}};}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_forward\ \{\ 0.0f,\ \ 0.0f,\ \ 1.0f\ \};}
+\DoxyCodeLine{00492\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_backward\{\ 0.0f,\ \ 0.0f,\ -\/1.0f\ \};}
+\DoxyCodeLine{00493\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_left\ \ \ \ \{-\/1.0f,\ \ 0.0f,\ \ 0.0f\ \};}
+\DoxyCodeLine{00494\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_right\ \ \ \{\ 1.0f,\ \ 0.0f,\ \ 0.0f\ \};}
+\DoxyCodeLine{00495\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_up\ \ \ \ \ \ \{\ 0.0f,\ \ 1.0f,\ \ 0.0f\ \};}
+\DoxyCodeLine{00496\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ global\_down\ \ \ \ \{\ 0.0f,\ -\/1.0f,\ \ 0.0f\ \};}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{keyword}{static}\ XMFLOAT4\ color\_to\_xmfloat4(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&color,\ \textcolor{keywordtype}{bool}\ normalize\ =\ \textcolor{keyword}{true})\ noexcept\ \{}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordflow}{if}\ (normalize)}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMFLOAT4(color.r\ /\ 255.0f,\ color.g\ /\ 255.0f,\ color.b\ /\ 255.0f,\ color.a\ /\ 255.0f);}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMFLOAT4(color.r,\ color.g,\ color.b,\ color.a);}
+\DoxyCodeLine{00503\ \}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \textcolor{keyword}{static}\ XMFLOAT4\ ctoxmf4(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&color,\ \textcolor{keywordtype}{bool}\ normalize\ =\ \textcolor{keyword}{true})\ noexcept\ \{}
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{keywordflow}{return}\ color\_to\_xmfloat4(color,\ normalize);}
+\DoxyCodeLine{00507\ \}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ color\_to\_fvector(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&color,\ \textcolor{keywordtype}{bool}\ normalize\ =\ \textcolor{keyword}{true})\ noexcept\ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\{(float)color.r\ /\ 255.0f,\ (\textcolor{keywordtype}{float})color.g\ /\ 255.0f,}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ (float)color.b\ /\ 255.0f,\ (\textcolor{keywordtype}{float})color.a\ /\ 255.0f\};}
+\DoxyCodeLine{00512\ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector4}{FVector4}}\ ctofvec(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_t_color}{Color}}\ \&color)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordflow}{return}\ color\_to\_fvector(color);}
+\DoxyCodeLine{00516\ \}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_t_vector2}{FVector2}}\ UVector2\_to\_FVector2(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_t_vector2}{UVector2}}\ \&vector)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_t_vector2}{FVector2}}((\textcolor{keywordtype}{float})vector.x,\ (\textcolor{keywordtype}{float})vector.y);}
+\DoxyCodeLine{00520\ \}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ distance(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ p1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ p2)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{keywordflow}{return}\ (p2\ -\/\ p1).length();}
+\DoxyCodeLine{00524\ \}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ cross(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ b)\ \{}
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ a.y\ *\ b.z\ -\/\ a.z\ *\ b.y,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ -\/(a.x\ *\ b.z\ -\/\ a.z\ *\ b.x),}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ a.x\ *\ b.y\ -\/\ a.y\ *\ b.x}
+\DoxyCodeLine{00531\ \ \ \ \ \};}
+\DoxyCodeLine{00532\ \}}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ dot(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ v1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ v2)\ \{}
+\DoxyCodeLine{00535\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1.x\ *\ v2.x)\ +\ (v1.y\ *\ v2.y)\ +\ (v1.z\ *\ v2.z);}
+\DoxyCodeLine{00536\ \}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ dot(\textcolor{keyword}{const}\ XMMATRIX\&\ mat,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ v)\ \{}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keywordflow}{return}\ XMVector3TransformCoord(v.to\_xmvec(),\ mat);}
+\DoxyCodeLine{00540\ \}}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\ operator*(\textcolor{keyword}{const}\ XMMATRIX\&\ mat,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_vector3}{FVector3}}\&\ vec)\ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keywordflow}{return}\ dot(mat,\ vec);}
+\DoxyCodeLine{00544\ \}}
+
+\end{DoxyCode}

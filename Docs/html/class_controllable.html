@@ -87,22 +87,22 @@ Inheritance diagram for Controllable:</div>
  <div class="center">
   <img src="class_controllable.png" usemap="#Controllable_map" alt=""/>
   <map id="Controllable_map" name="Controllable_map">
-<area href="class_component.html" title="Base component class for all components." alt="Component" shape="rect" coords="475,56,638,80"/>
-<area href="class_object.html" title="Base class for all objects." alt="Object" shape="rect" coords="1038,56,1201,80"/>
-<area href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics." alt="GraphicsComponent" shape="rect" coords="259,112,422,136"/>
-<area href="class_physical_component.html" title="Base component for any component that has physics capabilities." alt="PhysicalComponent" shape="rect" coords="692,112,855,136"/>
-<area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="865,112,1028,136"/>
-<area href="class_default_shapes_1_1_cube.html" alt="DefaultShapes::Cube" shape="rect" coords="1038,112,1201,136"/>
-<area href="class_my_statue.html" alt="MyStatue" shape="rect" coords="1211,112,1374,136"/>
-<area href="class_camera_component.html" title="Component for a camera." alt="CameraComponent" shape="rect" coords="0,168,163,192"/>
-<area href="class_light_component.html" title="Main class for the light components." alt="LightComponent" shape="rect" coords="173,168,336,192"/>
-<area href="class_sky_component.html" title="Component for a sky." alt="SkyComponent" shape="rect" coords="346,168,509,192"/>
-<area href="class_static_mesh_component.html" title="Main component for any physical object with a mesh that will be rendered." alt="StaticMeshComponent" shape="rect" coords="519,168,682,192"/>
-<area href="class_box_component.html" title="Component for a box used for physics." alt="BoxComponent" shape="rect" coords="692,168,855,192"/>
-<area href="class_my_camera.html" alt="MyCamera" shape="rect" coords="865,168,1028,192"/>
-<area href="class_directional_light_component.html" title="Component for a directional light." alt="DirectionalLightComponent" shape="rect" coords="0,224,163,248"/>
-<area href="class_point_light_component.html" title="Component for a point light." alt="PointLightComponent" shape="rect" coords="173,224,336,248"/>
-<area href="class_spotlight_component.html" title="Component for a spotlight." alt="SpotlightComponent" shape="rect" coords="346,224,509,248"/>
+<area href="class_component.html" title="Base component class for all components." alt="Component" shape="rect" coords="159,56,308,80"/>
+<area href="class_object.html" title="Base class for all objects." alt="Object" shape="rect" coords="874,56,1023,80"/>
+<area href="class_graphics_component.html" title="Main component for any component that is used for rendering and graphics." alt="GraphicsComponent" shape="rect" coords="0,112,149,136"/>
+<area href="class_physical_component.html" title="Base component for any component that has physics capabilities." alt="PhysicalComponent" shape="rect" coords="318,112,467,136"/>
+<area href="class_character.html" title="An object that accepts user input." alt="Character" shape="rect" coords="636,112,785,136"/>
+<area href="class_default_shapes_1_1_cube.html" alt="DefaultShapes::Cube" shape="rect" coords="795,112,944,136"/>
+<area href="class_my_shader_cube.html" alt="MyShaderCube" shape="rect" coords="954,112,1103,136"/>
+<area href="class_my_statue.html" alt="MyStatue" shape="rect" coords="1113,112,1262,136"/>
+<area href="class_camera_component.html" title="Component for a camera." alt="CameraComponent" shape="rect" coords="159,168,308,192"/>
+<area href="class_light_component.html" title="Main class for the light components." alt="LightComponent" shape="rect" coords="159,224,308,248"/>
+<area href="class_sky_component.html" title="Component for a sky." alt="SkyComponent" shape="rect" coords="159,280,308,304"/>
+<area href="class_static_mesh_component.html" title="Main component for any physical object with a mesh that will be rendered." alt="StaticMeshComponent" shape="rect" coords="159,336,308,360"/>
+<area href="class_bounding_box_component.html" alt="BoundingBoxComponent" shape="rect" coords="477,168,626,192"/>
+<area href="class_box_component.html" title="Component for a box used for physics." alt="BoxComponent" shape="rect" coords="477,224,626,248"/>
+<area href="class_sphere_component.html" title="Component for a box used for physics." alt="SphereComponent" shape="rect" coords="477,280,626,304"/>
+<area href="class_my_camera.html" alt="MyCamera" shape="rect" coords="636,168,785,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -117,6 +117,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_compile<
 <tr class="memitem:a61e410a136d98711221d0745674724cc"><td class="memItemLeft" align="right" valign="top"><a id="a61e410a136d98711221d0745674724cc" name="a61e410a136d98711221d0745674724cc"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_tick</b> (float dt)</td></tr>
 <tr class="separator:a61e410a136d98711221d0745674724cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cc38b82da2a30240327078b78184356"><td class="memItemLeft" align="right" valign="top"><a id="a2cc38b82da2a30240327078b78184356" name="a2cc38b82da2a30240327078b78184356"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>base_render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:a2cc38b82da2a30240327078b78184356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e3caee0d964a3512b36fad47bca0b3"><td class="memItemLeft" align="right" valign="top"><a id="a95e3caee0d964a3512b36fad47bca0b3" name="a95e3caee0d964a3512b36fad47bca0b3"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pre_scene_compile</b> ()</td></tr>
 <tr class="separator:a95e3caee0d964a3512b36fad47bca0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +135,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> (
 <tr class="memitem:a869af510ef0d4280b091cd4b634bfb56"><td class="memItemLeft" align="right" valign="top"><a id="a869af510ef0d4280b091cd4b634bfb56" name="a869af510ef0d4280b091cd4b634bfb56"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>tick</b> (float dt)</td></tr>
 <tr class="separator:a869af510ef0d4280b091cd4b634bfb56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa89bc78e5af3372c159e86072d589cb7"><td class="memItemLeft" align="right" valign="top"><a id="aa89bc78e5af3372c159e86072d589cb7" name="aa89bc78e5af3372c159e86072d589cb7"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:aa89bc78e5af3372c159e86072d589cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for everything that needs compile, clean up, and tick functionality. </p>

@@ -1,8 +1,8 @@
-.TH "RenderingComponent<>" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "RenderingComponent< T >" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-RenderingComponent<> \- Each graphics component has thir graphics-side counterpart\&.  
+RenderingComponent< T > \- Each graphics component has thir graphics-side counterpart\&.  
 
 .SH SYNOPSIS
 .br
@@ -16,22 +16,36 @@ RenderingComponent<> \- Each graphics component has thir graphics-side counterpa
 .RI "\fBRenderingComponent\fP (T *component)"
 .br
 .ti -1c
-.RI "bool \fBoperator==\fP (T component)"
+.RI "bool \fBneeds_compile\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBneeds_compile\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBhas_changed\fP () const noexcept"
+.br
+.ti -1c
+.RI "void \fBhas_changed\fP (bool b) noexcept"
+.br
+.ti -1c
+.RI "bool \fBvalid\fP () const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
 
 .in +1c
 .ti -1c
-.RI "T * \fBcomponent\fP {nullptr}"
+.RI "T * \fBcomponent\fP {}"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
 
-.SS "template<ACCEPT_BASE_AND_HEIRS_ONLY(typename T, \fBGraphicsTracker\fP)>
+.SS "template<typename T>
 .br
-class RenderingComponent<>"Each graphics component has thir graphics-side counterpart\&. 
+requires std::derived_from<T, \fBGraphicsTracker\fP>
+.br
+class RenderingComponent< T >"Each graphics component has thir graphics-side counterpart\&. 
 
 Graphics-side component base class\&. 
 .PP

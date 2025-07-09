@@ -73,6 +73,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_scene-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Scene Class Reference</div></div>
 </div><!--header-->
@@ -97,34 +98,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clean_up</b> ()</td><
 <tr class="memitem:a614c3b2be3acf93f0014ffd68dd38aec"><td class="memItemLeft" align="right" valign="top"><a id="a614c3b2be3acf93f0014ffd68dd38aec" name="a614c3b2be3acf93f0014ffd68dd38aec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>compile</b> ()</td></tr>
 <tr class="separator:a614c3b2be3acf93f0014ffd68dd38aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a609eabf0d601cf78ac8c34756da4f6d1"><td class="memItemLeft" align="right" valign="top"><a id="a609eabf0d601cf78ac8c34756da4f6d1" name="a609eabf0d601cf78ac8c34756da4f6d1"></a>
-GET std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_object.html">Object</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_objects</b> () noexcept</td></tr>
-<tr class="separator:a609eabf0d601cf78ac8c34756da4f6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d40d7c51fb31ab0929abba323f2a37"><td class="memItemLeft" align="right" valign="top"><a id="a59d40d7c51fb31ab0929abba323f2a37" name="a59d40d7c51fb31ab0929abba323f2a37"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_object</b> (const std::shared_ptr&lt; <a class="el" href="class_object.html">Object</a> &gt; &amp;object) noexcept</td></tr>
-<tr class="separator:a59d40d7c51fb31ab0929abba323f2a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d2a7baeeb5216e288360d40c07dd31b"><td class="memItemLeft" align="right" valign="top"><a id="a5d2a7baeeb5216e288360d40c07dd31b" name="a5d2a7baeeb5216e288360d40c07dd31b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_character</b> (const std::shared_ptr&lt; <a class="el" href="class_character.html">Character</a> &gt; &amp;character) noexcept</td></tr>
-<tr class="separator:a5d2a7baeeb5216e288360d40c07dd31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76b8ecc1e732a08a8502cf5e2a9ed462"><td class="memItemLeft" align="right" valign="top"><a id="a76b8ecc1e732a08a8502cf5e2a9ed462" name="a76b8ecc1e732a08a8502cf5e2a9ed462"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>remove_object</b> (int index) noexcept</td></tr>
-<tr class="separator:a76b8ecc1e732a08a8502cf5e2a9ed462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affb8e923ea0393dd40c5ab0f7af29955"><td class="memItemLeft" align="right" valign="top"><a id="affb8e923ea0393dd40c5ab0f7af29955" name="affb8e923ea0393dd40c5ab0f7af29955"></a>
+GET std::set&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_objects</b> () const noexcept</td></tr>
+<tr class="separator:affb8e923ea0393dd40c5ab0f7af29955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc331f69b7a4c21df4302bc4f741343c"><td class="memItemLeft" align="right" valign="top"><a id="adc331f69b7a4c21df4302bc4f741343c" name="adc331f69b7a4c21df4302bc4f741343c"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>add_object</b> (std::unique_ptr&lt; <a class="el" href="class_object.html">Object</a> &gt; &amp;&amp;object)</td></tr>
+<tr class="separator:adc331f69b7a4c21df4302bc4f741343c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab084dbb2c335e15980edacc56cef1363"><td class="memItemLeft" align="right" valign="top"><a id="ab084dbb2c335e15980edacc56cef1363" name="ab084dbb2c335e15980edacc56cef1363"></a>
+<a class="el" href="class_character.html">Character</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>add_character</b> (std::unique_ptr&lt; <a class="el" href="class_character.html">Character</a> &gt; &amp;&amp;character)</td></tr>
+<tr class="separator:ab084dbb2c335e15980edacc56cef1363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d46c321994cd6db12df3677512453f2"><td class="memItemLeft" align="right" valign="top"><a id="a8d46c321994cd6db12df3677512453f2" name="a8d46c321994cd6db12df3677512453f2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>render_editor_gui_section</b> ()</td></tr>
+<tr class="separator:a8d46c321994cd6db12df3677512453f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a3ec8f91b0bbc7d8da9514792a80460c6"><td class="memItemLeft" align="right" valign="top"><a id="a3ec8f91b0bbc7d8da9514792a80460c6" name="a3ec8f91b0bbc7d8da9514792a80460c6"></a>
-<a class="el" href="class_graphics_scene.html">GraphicsScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> = nullptr</td></tr>
+<a class="el" href="class_graphics_scene.html">GraphicsScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>graphics_scene</b> {nullptr}</td></tr>
 <tr class="separator:a3ec8f91b0bbc7d8da9514792a80460c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a854fe943fb2777d1cd39772b91b76278"><td class="memItemLeft" align="right" valign="top"><a id="a854fe943fb2777d1cd39772b91b76278" name="a854fe943fb2777d1cd39772b91b76278"></a>
 <a class="el" href="class_input_1_1_input_listener.html">Input::InputListener</a>&#160;</td><td class="memItemRight" valign="bottom"><b>input_listener</b></td></tr>
 <tr class="separator:a854fe943fb2777d1cd39772b91b76278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a0720b5f434e636e22a3ed34f847eec57"><td class="memItemLeft" align="right" valign="top"><a id="a0720b5f434e636e22a3ed34f847eec57" name="a0720b5f434e636e22a3ed34f847eec57"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Object</b></td></tr>
+<tr class="separator:a0720b5f434e636e22a3ed34f847eec57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_scene.html" title="Scene to store objects in.">Scene</a> to store objects in. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_graphics_scene.html" title="Contains all needed scene object data for rendering.">GraphicsScene</a> </dd></dl>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/<a class="el" href="_scene_8h_source.html">Scene.h</a></li>
-<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Scene.cpp</li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/<a class="el" href="_scene_8h_source.html">Scene.h</a></li>
+<li>C:/Users/Family/source/repos/LiquidEngine/LiquidEngine/Core/Scene.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

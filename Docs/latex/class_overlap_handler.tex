@@ -1,0 +1,44 @@
+\hypertarget{class_overlap_handler}{}\doxysection{Overlap\+Handler Class Reference}
+\label{class_overlap_handler}\index{OverlapHandler@{OverlapHandler}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_overlap_handler_add271177ee2f4c1f0f519eb671029382}\label{class_overlap_handler_add271177ee2f4c1f0f519eb671029382}} 
+void {\bfseries handle\+\_\+overlap} (\mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$obj1, \mbox{\hyperlink{class_physical_component}{Physical\+Component}} $\ast$obj2, float dt) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_overlap_handler_acac24b8998c2db021946df0b08966377}\label{class_overlap_handler_acac24b8998c2db021946df0b08966377}} 
+static \mbox{\hyperlink{class_f_vector3}{FVector3}} {\bfseries closest\+\_\+point\+\_\+on\+\_\+\+AABB} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&point, const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&box\+\_\+pos, const \mbox{\hyperlink{struct_simple_bounding_box}{Simple\+Bounding\+Box}} \&aabb) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a04b396a5600059c28c6737cfcb98a0cb}\label{class_overlap_handler_a04b396a5600059c28c6737cfcb98a0cb}} 
+static \mbox{\hyperlink{struct_overlap_event_info}{Overlap\+Event\+Info}} {\bfseries bounding\+\_\+box\+\_\+box\+\_\+overlap} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&box1\+\_\+pos, const \mbox{\hyperlink{struct_simple_bounding_box}{Simple\+Bounding\+Box}} \&box1, const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&box2\+\_\+pos, const \mbox{\hyperlink{struct_simple_bounding_box}{Simple\+Bounding\+Box}} \&box2) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_aaeb0b841f07e69b84a6de36ed5b22082}\label{class_overlap_handler_aaeb0b841f07e69b84a6de36ed5b22082}} 
+static \mbox{\hyperlink{struct_overlap_event_info}{Overlap\+Event\+Info}} {\bfseries sphere\+\_\+sphere\+\_\+overlap} (const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&sphere1\+\_\+pos, const \mbox{\hyperlink{struct_sphere}{Sphere}} \&sphere1, const \mbox{\hyperlink{class_f_vector3}{FVector3}} \&sphere2\+\_\+pos, const \mbox{\hyperlink{struct_sphere}{Sphere}} \&sphere2) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a1bc734dfdebcb114f9ca57ab96e80b38}\label{class_overlap_handler_a1bc734dfdebcb114f9ca57ab96e80b38}} 
+static bool {\bfseries tri\+\_\+tri\+\_\+overlap} (const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&tri1, const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&tri2) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a24c8db7221c6438292a96bda2f2e3c66}\label{class_overlap_handler_a24c8db7221c6438292a96bda2f2e3c66}} 
+static bool {\bfseries coplanar\+\_\+tri\+\_\+tri3d} (float p1\mbox{[}3\mbox{]}, float q1\mbox{[}3\mbox{]}, float r1\mbox{[}3\mbox{]}, float p2\mbox{[}3\mbox{]}, float q2\mbox{[}3\mbox{]}, float r2\mbox{[}3\mbox{]}, float normal\+\_\+1\mbox{[}3\mbox{]}) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_aa0dccd4310ed2e8a9219f6012327f9fa}\label{class_overlap_handler_aa0dccd4310ed2e8a9219f6012327f9fa}} 
+static bool {\bfseries tri\+\_\+tri\+\_\+overlap\+\_\+test\+\_\+2d} (float p1\mbox{[}2\mbox{]}, float q1\mbox{[}2\mbox{]}, float r1\mbox{[}2\mbox{]}, float p2\mbox{[}2\mbox{]}, float q2\mbox{[}2\mbox{]}, float r2\mbox{[}2\mbox{]}) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a28242d731b147e36803ec1d3f0f3f534}\label{class_overlap_handler_a28242d731b147e36803ec1d3f0f3f534}} 
+static bool {\bfseries ccw\+\_\+tri\+\_\+tri\+\_\+intersection\+\_\+2d} (float p1\mbox{[}2\mbox{]}, float q1\mbox{[}2\mbox{]}, float r1\mbox{[}2\mbox{]}, float p2\mbox{[}2\mbox{]}, float q2\mbox{[}2\mbox{]}, float r2\mbox{[}2\mbox{]}) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a2d0503248dd8602fe596106829a92c3b}\label{class_overlap_handler_a2d0503248dd8602fe596106829a92c3b}} 
+static float {\bfseries signed\+\_\+tetrahedron\+\_\+volume} (\mbox{\hyperlink{class_f_vector3}{FVector3}} a, \mbox{\hyperlink{class_f_vector3}{FVector3}} b, \mbox{\hyperlink{class_f_vector3}{FVector3}} c, \mbox{\hyperlink{class_f_vector3}{FVector3}} d) noexcept
+\item 
+\mbox{\Hypertarget{class_overlap_handler_a60f5623a16eff700ac29bc43c9e52545}\label{class_overlap_handler_a60f5623a16eff700ac29bc43c9e52545}} 
+static bool {\bfseries triangle\+\_\+line\+\_\+collision} (const \mbox{\hyperlink{struct_simple_triangle}{Simple\+Triangle}} \&triangle, const \mbox{\hyperlink{struct_line}{Line}} \&line) noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Overlap\+Handler.\+h\item 
+C\+:/\+Users/\+Family/source/repos/\+Liquid\+Engine/\+Liquid\+Engine/\+Physics/Overlap\+Handler.\+cpp\end{DoxyCompactItemize}

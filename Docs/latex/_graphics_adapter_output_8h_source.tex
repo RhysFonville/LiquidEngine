@@ -24,27 +24,33 @@
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ clean\_up();}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ DXGI\_OUTPUT\_DESC\ get\_desc()\ \{\ \textcolor{keywordflow}{return}\ desc;\ \}}
-\DoxyCodeLine{00024\ \ \ \ \ DXGI\_GAMMA\_CONTROL\ get\_gamma\_control()\ \{\ \textcolor{keywordflow}{return}\ gamma\_control;\ \}}
-\DoxyCodeLine{00025\ \ \ \ \ DXGI\_GAMMA\_CONTROL\_CAPABILITIES\ get\_gamma\_control\_capabilities()\ \{\ \textcolor{keywordflow}{return}\ gamma\_control\_capabilities;\ \}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_gamma\_control(\textcolor{keyword}{const}\ DXGI\_GAMMA\_CONTROL\ \&gamma\_control)\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ adapter\_output-\/>SetGammaControl(\&gamma\_control);}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ this-\/>gamma\_control\ =\ gamma\_control;}
-\DoxyCodeLine{00030\ \ \ \ \ \}}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ find\_closest\_display\_mode\_to\_current(DXGI\_MODE\_DESC*\ out\_current\_display\_mode);}
-\DoxyCodeLine{00033\ \ \ \ \ }
-\DoxyCodeLine{00034\ \ \ \ \ ComPtr<IDXGIOutput>\ adapter\_output\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00037\ \ \ \ \ DXGI\_OUTPUT\_DESC\ desc\{\};}
-\DoxyCodeLine{00038\ \ \ \ \ DXGI\_GAMMA\_CONTROL\ gamma\_control\{\};}
-\DoxyCodeLine{00039\ \ \ \ \ DXGI\_GAMMA\_CONTROL\_CAPABILITIES\ gamma\_control\_capabilities\{\};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_info(\textcolor{keyword}{const}\ DXGI\_OUTPUT\_DESC\ \&desc);}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_info();}
-\DoxyCodeLine{00043\ \};}
-\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00023\ \ \ \ \ GET\ DXGI\_OUTPUT\_DESC\ get\_desc()\ \{\ \textcolor{keywordflow}{return}\ desc;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ GET\ DXGI\_MODE\_DESC\ get\_mode\_desc()\ \{\ \textcolor{keywordflow}{return}\ mode\_desc;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ GET\ MONITORINFOEXA\ get\_monitor\_info()\ \{\ \textcolor{keywordflow}{return}\ monitor\_info;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ GET\ DISPLAY\_DEVICEA\ get\_display\_device()\ \{\ \textcolor{keywordflow}{return}\ display\_device;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ GET\ DXGI\_GAMMA\_CONTROL\ get\_gamma\_control()\ \{\ \textcolor{keywordflow}{return}\ gamma\_control;\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ GET\ DXGI\_GAMMA\_CONTROL\_CAPABILITIES\ get\_gamma\_control\_capabilities()\ \{\ \textcolor{keywordflow}{return}\ gamma\_control\_capabilities;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_gamma\_control(\textcolor{keyword}{const}\ DXGI\_GAMMA\_CONTROL\ \&gamma\_control)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ adapter\_output-\/>SetGammaControl(\&gamma\_control);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ this-\/>gamma\_control\ =\ gamma\_control;}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ DXGI\_MODE\_DESC\ find\_closest\_display\_mode\_to\_current();}
+\DoxyCodeLine{00036\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ ComPtr<IDXGIOutput>\ adapter\_output\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ DXGI\_OUTPUT\_DESC\ desc\{\};}
+\DoxyCodeLine{00041\ \ \ \ \ DXGI\_GAMMA\_CONTROL\ gamma\_control\{\};}
+\DoxyCodeLine{00042\ \ \ \ \ DXGI\_GAMMA\_CONTROL\_CAPABILITIES\ gamma\_control\_capabilities\{\};}
+\DoxyCodeLine{00043\ \ \ \ \ DXGI\_MODE\_DESC\ mode\_desc\{\};}
+\DoxyCodeLine{00044\ \ \ \ \ MONITORINFOEXA\ monitor\_info\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ DISPLAY\_DEVICEA\ display\_device\{\};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_info(\textcolor{keyword}{const}\ DXGI\_OUTPUT\_DESC\ \&desc);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_info();}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
 
 \end{DoxyCode}

@@ -1,4 +1,4 @@
-.TH "EditorGUI" 3 "Wed Apr 3 2024" "Liquid Engine" \" -*- nroff -*-
+.TH "EditorGUI" 3 "Wed Jul 9 2025" "Liquid Engine" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -19,14 +19,14 @@ EditorGUI \- ImGUI Editor GUI\&.
 .RI "void \fBoperator=\fP (const \fBEditorGUI\fP &)=delete"
 .br
 .ti -1c
-.RI "void \fBupdate\fP (float dt, const std::vector< std::shared_ptr< \fBObject\fP > > &objects)"
+.RI "void \fBupdate\fP (float dt)"
 .br
 .in -1c
 .SS "Static Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "static void \fBinit_with_renderer\fP (HWND hwnd, ID3D12Device *device, int num_buffers, ID3D12DescriptorHeap *cbv_srv_heap)"
+.RI "static void \fBinit_with_renderer\fP (HWND hwnd, ID3D12Device *device, int num_buffers, DXGI_SAMPLE_DESC sample_desc, ID3D12DescriptorHeap *cbv_srv_heap)"
 .br
 .ti -1c
 .RI "static bool \fBcheck_input\fP (HWND hwnd, UINT32 message, WPARAM wparam, LPARAM lparam)"
