@@ -138,4 +138,8 @@ void Component::base_render_editor_gui_section() {
 		set_size(vec);
 
 	render_editor_gui_section();
+
+	for (auto& component : components) {
+		component->render_editor_gui_section();
+	}
 }

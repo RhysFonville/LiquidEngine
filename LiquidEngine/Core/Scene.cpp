@@ -40,26 +40,24 @@ Character* Scene::add_character(std::unique_ptr<Character>&& character) {
 }
 
 void Scene::render_editor_gui_section() {
+	static Object* selected_object{nullptr};
+
 	if (ImGui::BeginTable("1way", 1)) {
 		ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_NoHide);
 		ImGui::TableHeadersRow();
 
-		std::vector<ObjectsTreeNode> nodes{};
-		for (auto& object : objects) {
-			object->base_render_editor_gui_section(nodes);
-		}
 
-		if (!nodes.empty()) {
-			int depth{0};
-			for (int i{0}; i < nodes.size(); i++) {
-				if (depth == 0)
-					ObjectsTreeNode::display_node(&nodes[i], nodes);
-				else depth--;
-				depth += nodes[i].child_count;
-			}
-			object_name_index = 0;
+		size_t depth{0};
+		for (auto& obj : objects) {
+			if (depth == 0)
+				obj->base_render_editor_gui_section_tree(&selected_object);
+			else depth--;
+			depth += obj->get_children_count();
 		}
+		object_name_index = 0;
 
 		ImGui::EndTable();
 	}
+
+	if (selected_object != nullptr) selected_object->base_render_editor_gui_section();
 }

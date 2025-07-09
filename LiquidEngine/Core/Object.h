@@ -47,14 +47,15 @@ public:
 	Object* add_object(std::unique_ptr<Object>&& obj);
 	Component* add_component(std::unique_ptr<Component>&& component); //? AHHHHHHHHHHHHHHHHHHHHHHHH
 
-	GET std::set<Object*> get_children() noexcept;
+	GET std::set<Object*> get_children() const noexcept;
+	GET size_t get_children_count() const noexcept { return children.size(); }
 
 	void set_scene(Scene* scene) noexcept;
 
 	bool operator==(const Object &object) const noexcept;
 	bool operator!=(const Object &object) const noexcept;
 
-	void base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes);
+	void base_render_editor_gui_section_tree(Object** selected_object);
 	void base_render_editor_gui_section() override;
 
 	std::string name{""};
@@ -74,51 +75,4 @@ private:
 	std::set<std::unique_ptr<Object>> children{};
 };
 
-static int object_name_index = 0;
-
-// For ImGUI
-struct ObjectsTreeNode {
-	Object* object;
-	size_t child_index{};
-	size_t child_count{};
-
-	static void display_node(ObjectsTreeNode* node, std::vector<ObjectsTreeNode>& all_nodes) {
-		static std::string clicked_name{};
-		static std::string selected_name{};
-
-		std::string name{node->object->name};
-		if (node->object->name.empty()) {
-			name = "Unnamed object ";
-			name += std::to_string(object_name_index);
-		}
-
-		const bool is_folder = (node->child_count > 0);
-		if (is_folder) {
-			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns | ImGuiTreeNodeFlags_OpenOnArrow)) {
-				for (int child_n = 0; child_n < node->child_count; child_n++) {
-					object_name_index++;
-					display_node(&all_nodes[node->child_index + child_n], all_nodes);
-				}
-				ImGui::TreePop();
-				clicked_name = name;
-				selected_name = name;
-			}
-		} else {
-			object_name_index++;
-
-			if (clicked_name == name) {
-				ImGui::SetNextItemOpen(false);
-				clicked_name = "";
-			}
-			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns/* | ImGuiTreeNodeFlags_Leaf*//* | ImGuiTreeNodeFlags_Bullet*/ | ImGuiTreeNodeFlags_OpenOnArrow)) {
-				clicked_name = name;
-				selected_name = name;
-				ImGui::TreePop();
-			}
-		}
-
-		if (selected_name == name) {
-			node->object->base_render_editor_gui_section();
-		}
-	}
-};
+static Object* selected_object{nullptr};

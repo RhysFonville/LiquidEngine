@@ -177,7 +177,7 @@ Component* Object::add_component(std::unique_ptr<Component>&& component) {
 	return components.insert(std::move(component)).first->get();
 }
 
-std::set<Object*> Object::get_children() noexcept {
+std::set<Object*> Object::get_children() const noexcept {
 	return children | std::views::transform([&](const auto& obj){ return obj.get(); }) | std::ranges::to<std::set>();
 }
 
@@ -188,20 +188,29 @@ void Object::set_scene(Scene* scene) noexcept {
 	this->scene = scene;
 }
 
-void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes) {
-	nodes.reserve(nodes.capacity() + children.size());
+void Object::base_render_editor_gui_section_tree(Object** selected_object) {
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
-	ObjectsTreeNode last_node{};
-	if (!nodes.empty())	last_node = nodes.back();
-	else				last_node = ObjectsTreeNode{nullptr, 1u+nodes.size(), 0u};
-	
+	if (this == *selected_object)
+		flags |= ImGuiTreeNodeFlags_Selected;
+
+	// Leaf if no children
 	if (children.empty())
-		nodes.push_back(ObjectsTreeNode{this, 1u+nodes.size(), 0});
-	else
-		nodes.push_back(ObjectsTreeNode{this, children.size()+last_node.child_index, children.size()});
+		flags |= ImGuiTreeNodeFlags_Leaf;
 
-	for (auto& obj : children)
-		obj->base_render_editor_gui_section(nodes);
+	std::string name{this->name.empty() ? "Unnamed object" : this->name};
+	bool opened = ImGui::TreeNodeEx((void*)this, flags, "%s", name.c_str());
+
+	if (ImGui::IsItemClicked()) {
+		*selected_object = this;
+	}
+
+	if (opened) {
+		for (auto& child : children) {
+			child->base_render_editor_gui_section_tree(selected_object);
+		}
+		ImGui::TreePop();
+	}
 }
 
 void Object::base_render_editor_gui_section() {
