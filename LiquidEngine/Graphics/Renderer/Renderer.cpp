@@ -412,7 +412,7 @@ void Renderer::compile() {
 		//mesh->component->compile();
 		mesh.material.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	}
-	scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
+	if (scene.sky.valid()) scene.sky.component->pipeline.compile(device, command_list, msaa_sample_desc, blend_desc, descriptor_heap);
 	
 	scene.set_resources();
 	scene.update(resolution);

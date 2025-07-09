@@ -643,7 +643,7 @@ public:
 		if (camera.valid() && camera.needs_compile())
 			camera.compile();
 
-		if (camera.valid() && !sky.needs_compile()) {
+		if (sky.valid() && sky.needs_compile()) {
 			sky.compile(camera);
 		}
 
