@@ -94,10 +94,6 @@ struct ObjectsTreeNode {
 
 		const bool is_folder = (node->child_count > 0);
 		if (is_folder) {
-			if (clicked_name == name) {
-				ImGui::SetNextItemOpen(false);
-				clicked_name = "";
-			}
 			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns | ImGuiTreeNodeFlags_OpenOnArrow)) {
 				for (int child_n = 0; child_n < node->child_count; child_n++) {
 					object_name_index++;
@@ -114,9 +110,10 @@ struct ObjectsTreeNode {
 				ImGui::SetNextItemOpen(false);
 				clicked_name = "";
 			}
-			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns/* | ImGuiTreeNodeFlags_Leaf*/ | ImGuiTreeNodeFlags_Bullet | ImGuiTreeNodeFlags_NoTreePushOnOpen)) {
+			if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_SpanAllColumns/* | ImGuiTreeNodeFlags_Leaf*//* | ImGuiTreeNodeFlags_Bullet*/ | ImGuiTreeNodeFlags_OpenOnArrow)) {
 				clicked_name = name;
 				selected_name = name;
+				ImGui::TreePop();
 			}
 		}
 

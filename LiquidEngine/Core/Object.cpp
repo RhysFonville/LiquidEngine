@@ -199,6 +199,9 @@ void Object::base_render_editor_gui_section(std::vector<ObjectsTreeNode>& nodes)
 		nodes.push_back(ObjectsTreeNode{this, 1u+nodes.size(), 0});
 	else
 		nodes.push_back(ObjectsTreeNode{this, children.size()+last_node.child_index, children.size()});
+
+	for (auto& obj : children)
+		obj->base_render_editor_gui_section(nodes);
 }
 
 void Object::base_render_editor_gui_section() {
@@ -234,21 +237,6 @@ void Object::base_render_editor_gui_section() {
 		}
 		i++;
 	}
-
-	/*ImGui::Text("Children");
-	i = 0;
-	for (auto& child : children) {
-		std::string name{child->name};
-		if (child->name.empty()) {
-			i++;
-			name = "Unnamed object ";
-			name += std::to_string(i);
-		}
-		if (ImGui::TreeNode(name.c_str())) {
-			child->base_render_editor_gui_section();
-			ImGui::TreePop();
-		}
-	}*/
 
 	render_editor_gui_section();
 

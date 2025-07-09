@@ -54,7 +54,8 @@ void Scene::render_editor_gui_section() {
 			for (int i{0}; i < nodes.size(); i++) {
 				if (depth == 0)
 					ObjectsTreeNode::display_node(&nodes[i], nodes);
-				if (nodes[i].child_count > 0) depth++;
+				else depth--;
+				depth += nodes[i].child_count;
 			}
 			object_name_index = 0;
 		}

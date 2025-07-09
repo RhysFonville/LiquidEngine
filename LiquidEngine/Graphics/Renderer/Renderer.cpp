@@ -471,7 +471,7 @@ void Renderer::render(float dt) {
 	// OpenGL shadow mapping video
 	// https://www.youtube.com/watch?v=kCCsko29pv0
 
-	scene.sky.component->pipeline.run(device, command_list, descriptor_heap);
+	if (scene.sky.valid()) scene.sky.component->pipeline.run(device, command_list, descriptor_heap);
 	for (auto &mesh : scene.static_meshes) {
 		mesh.material.component->pipeline.run(device, command_list, descriptor_heap);
 	}
