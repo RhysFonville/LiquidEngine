@@ -19,8 +19,6 @@ public:
 	GET FVector3 get_attenuation() const noexcept { return attenuation; }
 	void set_attenuation(FVector3 attenuation) noexcept { this->attenuation = attenuation; changed = true; }
 
-	static const Type component_type = Type::PointLightComponent;
-
 private:
 	void render_light_component_editor_gui_section() override;
 

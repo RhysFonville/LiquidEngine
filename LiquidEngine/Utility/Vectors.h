@@ -1,10 +1,5 @@
 #pragma once
 
-#define NOMINMAX
-
-#undef min
-#undef max
-
 #include <algorithm>
 #include <DirectXMath.h>
 #include <dxgi1_4.h>
@@ -14,7 +9,8 @@
 
 using namespace DirectX;
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+
+template <arithmetic T>
 class TVector2 {
 public:
 	T x = 0;
@@ -59,7 +55,7 @@ public:
 	friend std::ostream & operator<<(std::ostream &os, const TVector2<T> &vec);
 };
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 std::ostream & operator<<(std::ostream &os, const TVector2<T> &vec) {
 	os << std::to_string(vec.x) << ", "
 	<< std::to_string(vec.y);
@@ -67,12 +63,12 @@ std::ostream & operator<<(std::ostream &os, const TVector2<T> &vec) {
 	return os;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 TVector2<T> operator*(T lhs, const TVector2<T> &rhs) noexcept {
 	return rhs * lhs;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 class TVector3 {
 public:
 	T x = 0;
@@ -163,7 +159,7 @@ public:
 	friend std::ostream & operator<<(std::ostream &os, const TVector3<T> &vec);
 };
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 std::ostream & operator<<(std::ostream &os, const TVector3<T> &vec) {
 	os << std::to_string(vec.x) << ", "
 		<< std::to_string(vec.y) << ", "
@@ -172,12 +168,12 @@ std::ostream & operator<<(std::ostream &os, const TVector3<T> &vec) {
 	return os;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 TVector3<T> operator*(T lhs, const TVector3<T> &rhs) noexcept {
 	return rhs * lhs;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 class TVector4 {
 public:
 	T x = 0;
@@ -277,7 +273,7 @@ public:
 	friend std::ostream & operator<<(std::ostream &os, const TVector4<T> &vec);
 };
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 std::ostream & operator<<(std::ostream &os, const TVector4<T> &vec) {
 	os << std::to_string(vec.x) << ", "
 		<< std::to_string(vec.y) << ", "
@@ -287,7 +283,7 @@ std::ostream & operator<<(std::ostream &os, const TVector4<T> &vec) {
 	return os;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 TVector4<T> operator*(T lhs, const TVector4<T> &rhs) noexcept {
 	return rhs * lhs;
 }
@@ -379,7 +375,7 @@ public:
 	friend std::ostream & operator<<(std::ostream &os, const FVector3 &vec);
 };
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 std::ostream & operator<<(std::ostream &os, const FVector3 &vec) {
 	os << std::to_string(vec.x) << ", "
 		<< std::to_string(vec.y) << ", "
@@ -438,7 +434,7 @@ public:
 	}
 };
 
-template<ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 struct TColor {
 	T r = 255, g = 255, b = 255, a = 255;
 

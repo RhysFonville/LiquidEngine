@@ -1,3 +1,3 @@
 #include "GraphicsComponent.h"
 
-GraphicsComponent::GraphicsComponent(Type type) : Component(type) { }
+GraphicsComponent::GraphicsComponent() : Component{} { }

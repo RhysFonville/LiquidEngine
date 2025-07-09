@@ -54,13 +54,7 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\PhysicsScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
@@ -108,7 +102,7 @@
     <ClInclude Include="Components\StaticMeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\MyCamera.h">
+    <ClInclude Include="TestObjects\MyCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shapes\Cube.h">
@@ -123,9 +117,6 @@
     <ClInclude Include="Components\LightComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StaticEngineProcessToggles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -133,9 +124,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controllable.h">
@@ -156,13 +144,10 @@
     <ClInclude Include="Debug\Throw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debug\DebugConsole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Pipeline\Storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\MyStatue.h">
+    <ClInclude Include="TestObjects\MyStatue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
@@ -240,7 +225,7 @@
     <ClInclude Include="Components\BoundingBoxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\MyShaderCube.h">
+    <ClInclude Include="TestObjects\MyShaderCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Pipeline\GraphicsPipelineRootArguments.h">
@@ -258,6 +243,18 @@
     <ClInclude Include="Graphics\Pipeline\ShaderCompiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -269,13 +266,7 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\PhysicsScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
@@ -317,7 +308,7 @@
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\MyCamera.cpp">
+    <ClCompile Include="TestObjects\MyCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shapes\Cube.cpp">
@@ -332,16 +323,7 @@
     <ClCompile Include="Components\LightComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Components\SkyComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Controllable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input\KeybindSet.cpp">
@@ -353,13 +335,10 @@
     <ClCompile Include="Components\BoxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\DebugConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Pipeline\Storage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\MyStatue.cpp">
+    <ClCompile Include="TestObjects\MyStatue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
@@ -425,7 +404,7 @@
     <ClCompile Include="Components\BoundingBoxComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\MyShaderCube.cpp">
+    <ClCompile Include="TestObjects\MyShaderCube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Pipeline\GraphicsPipelineRootArguments.cpp">
@@ -438,6 +417,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Pipeline\Stages\RootSignature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

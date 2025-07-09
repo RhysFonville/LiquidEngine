@@ -27,15 +27,13 @@ public:
 
 	std::map<float, Mesh>::const_iterator get_mesh_for_point(const FVector3& pos) noexcept;
 
-	GET Material & get_material() noexcept;
+	GET std::weak_ptr<Material> get_material() noexcept;
 	//void set_material(const Material &material) noexcept;
 
 	//void set_instances(const std::vector<Transform>& mesh) noexcept;
 
 	bool operator==(const StaticMeshComponent &mesh) const noexcept;
 	void operator=(const StaticMeshComponent &component) noexcept;
-
-	static const Type component_type = Type::StaticMeshComponent;
 
 private:
 	void render_editor_gui_section() override;
@@ -45,7 +43,7 @@ private:
 	std::map<float, Mesh> meshes{};
 	std::map<float, Mesh>::iterator current_mesh{};
 	
-	Material material{};
+	std::shared_ptr<Material> material{};
 
 	std::vector<Transform> instances{Transform{}};
 };

@@ -29,30 +29,46 @@ static constexpr UCHAR MAX_LIGHTS_PER_TYPE = 255u;
 * Each graphics component has thir graphics-side counterpart. Graphics-side component base class.
 * \see GraphicsComponent
 */
-template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsTracker)>
+template <typename T> requires std::derived_from<T, GraphicsTracker>
 class RenderingComponent {
 public:
 	RenderingComponent() { }
-	RenderingComponent(T* component) : component(component) { }
+	RenderingComponent(T* component) : component{component} { }
 
-	bool operator==(T component) { return (component == *(this->component)); }
+	bool needs_compile() const noexcept {
+		return component->needs_compile();
+	}
 
-	T* component{nullptr};
+	void needs_compile(bool b) noexcept {
+		component->needs_compile(b);
+	}
+
+	bool has_changed() const noexcept {
+		return component->has_changed();
+	}
+
+	void has_changed(bool b) noexcept {
+		component->has_changed(b);
+	}
+
+	bool valid() const noexcept { return component != nullptr; }
+
+	T* component{};
 };
 
 _declspec(align(16))
 class RenderingDirectionalLightData/*: DXLight*/ {
 public:
 	RenderingDirectionalLightData() { }
-	RenderingDirectionalLightData(const DirectionalLightComponent &light)
-		: albedo(light.get_albedo().to_vec_normalized()),
-		specular(light.get_specular().to_vec_normalized()),
-		direction(light.get_rotation()), null(light.is_null()) { }
+	RenderingDirectionalLightData(const DirectionalLightComponent* light)
+		: albedo{light->get_albedo().to_vec_normalized()},
+		specular{light->get_specular().to_vec_normalized()},
+		direction{light->get_rotation()}, null{light->is_null()} { }
 
-	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	FVector3 direction = FVector3(0.25f, 0.5f, -1.0f);
-	int null = true;
+	FVector4 albedo{1.0f, 1.0f, 1.0f, 1.0f};
+	FVector4 specular{0.0f, 0.0f, 0.0f, 1.0f};
+	FVector3 direction{0.25f, 0.5f, -1.0f};
+	int null{true};
 };
 
 /**
@@ -61,10 +77,11 @@ public:
 */
 class RenderingDirectionalLight : public RenderingComponent<DirectionalLightComponent> {
 public:
-	RenderingDirectionalLight(DirectionalLightComponent* light) : RenderingComponent{light}, data{*light} { }
+	RenderingDirectionalLight(DirectionalLightComponent* light)
+		: RenderingComponent{light}, data{light} { }
 	
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			
@@ -75,18 +92,16 @@ public:
 
 			data.null = component->is_null();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
-
-	bool operator==(DirectionalLightComponent component) { return (component == *(this->component)); }
 
 	RenderingDirectionalLightData data{};
 };
@@ -95,17 +110,18 @@ _declspec(align(16))
 class RenderingPointLightData/*: DXLight*/ {
 public:
 	RenderingPointLightData() { }
-	RenderingPointLightData(const PointLightComponent &light)
-		: albedo(light.get_albedo().to_vec_normalized()),
-		specular(light.get_specular().to_vec_normalized()), range(light.get_range()),
-		attenuation(light.get_attenuation()), position(light.get_position()), null(light.is_null()) { }
+	RenderingPointLightData(const PointLightComponent* light)
+		: albedo{light->get_albedo().to_vec_normalized()},
+		specular{light->get_specular().to_vec_normalized()},
+		range{light->get_range()}, attenuation{light->get_attenuation()},
+		null{light->is_null()}, position{light->get_position()} { }
 
-	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	float range = 100.0f;
-	FVector3 attenuation = FVector3(0.2f, 0.2f, 0.2f);
-	int null = false;
-	FVector3 position = FVector3(0.0f, 0.0f, 0.0f);
+	FVector4 albedo{1.0f, 1.0f, 1.0f, 1.0f};
+	FVector4 specular{0.0f, 0.0f, 0.0f, 1.0f};
+	float range{100.0f};
+	FVector3 attenuation{0.2f, 0.2f, 0.2f};
+	int null{false};
+	FVector3 position{0.0f, 0.0f, 0.0f};
 };
 
 /**
@@ -114,10 +130,11 @@ public:
 */
 class RenderingPointLight : public RenderingComponent<PointLightComponent> {
 public:
-	RenderingPointLight(PointLightComponent* light) : RenderingComponent{light}, data{*light} { }
+	RenderingPointLight(PointLightComponent* light)
+		: RenderingComponent{light}, data{light} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			data.range = component->get_range();
@@ -125,18 +142,16 @@ public:
 			data.null = component->is_null();
 			data.position = component->get_position();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
-
-	bool operator==(PointLightComponent component) { return (component == *(this->component)); }
 
 	RenderingPointLightData data{};
 };
@@ -145,15 +160,16 @@ _declspec(align(16))
 class RenderingSpotlightData/*: DXLight*/ {
 public:
 	RenderingSpotlightData() { }
-	RenderingSpotlightData(const SpotlightComponent &light)
-		: albedo(light.get_albedo().to_vec_normalized()),
-		specular(light.get_specular().to_vec_normalized()),
-		direction(light.get_rotation()), null(light.is_null()) { }
+	RenderingSpotlightData(const SpotlightComponent* light)
+		: albedo{light->get_albedo().to_vec_normalized()},
+		specular{light->get_specular().to_vec_normalized()},
+		direction{light->get_rotation()},
+		null{light->is_null()} { }
 
-	FVector4 albedo = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	FVector4 specular = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	FVector3 direction = FVector3(0.0f, 0.0f, 0.0f);
-	int null = 0;
+	FVector4 albedo{1.0f, 1.0f, 1.0f, 1.0f};
+	FVector4 specular{0.0f, 0.0f, 0.0f, 1.0f};
+	FVector3 direction{0.0f, 0.0f, 0.0f};
+	int null{false};
 };
 
 /**
@@ -162,26 +178,25 @@ public:
 */
 class RenderingSpotlight : public RenderingComponent<SpotlightComponent> {
 public:
-	RenderingSpotlight(SpotlightComponent* light) : RenderingComponent{light}, data{*light} { }
+	RenderingSpotlight(SpotlightComponent* light)
+		: RenderingComponent{light}, data{light} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			data.albedo = component->get_albedo().to_vec_normalized();
 			data.specular = component->get_specular().to_vec_normalized();
 			data.direction = component->get_rotation();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
-
-	bool operator==(SpotlightComponent component) { return (component == *(this->component)); }
 
 	RenderingSpotlightData data{};
 };
@@ -190,21 +205,21 @@ _declspec(align(16))
 class RenderingMaterialData {
 public:
 	RenderingMaterialData() { }
-	RenderingMaterialData(const Material &material)
+	RenderingMaterialData(const Material& material)
 		: has_texture{material.has_texture()}, has_normal_map{material.has_normal_map()},
 		has_specular_map{material.has_specular_map()}, a(material.get_shininess()),
 		ks(material.get_specular().to_vec_normalized()),
 		kd(material.get_albedo().to_vec_normalized()),
 		ka(material.get_ambient().to_vec_normalized()) { }
 
-	int has_texture = 1;
-	int has_normal_map = 1;
-	int has_specular_map = 1;
-	float pad = 0.0f;
-	FVector4 ks = FVector4(0.3f, 0.3f, 0.3f, 0.3f); // Specular
-	FVector4 kd = FVector4(1.0f, 1.0f, 1.0f, 1.0f); // Diffuse
-	FVector4 ka = FVector4(0.0f, 0.0f, 0.0f, 1.0f); // Ambient
-	float a = 0.5f; // Shininess
+	int has_texture{true};
+	int has_normal_map{true};
+	int has_specular_map{true};
+	float pad{0.0f};
+	FVector4 ks{0.3f, 0.3f, 0.3f, 0.3f}; // Specular
+	FVector4 kd{1.0f, 1.0f, 1.0f, 1.0f}; // Diffuse
+	FVector4 ka{0.0f, 0.0f, 0.0f, 1.0f}; // Ambient
+	float a{0.5f}; // Shininess
 };
 
 _declspec(align(16))
@@ -219,9 +234,9 @@ struct VSTransformConstants { // b1
 
 _declspec(align(16))
 struct PSLightsCB { // b2
-	UINT directional_light_count = 0;
-	UINT point_light_count = 0;
-	UINT spotlight_count = 0;
+	UINT directional_light_count{0};
+	UINT point_light_count{0};
+	UINT spotlight_count{0};
 
 	std::array<RenderingDirectionalLightData, MAX_LIGHTS_PER_TYPE> directional_lights{};
 	std::array<RenderingPointLightData, MAX_LIGHTS_PER_TYPE> point_lights{};
@@ -230,8 +245,8 @@ struct PSLightsCB { // b2
 
 __declspec(align(16))
 struct PSCameraConstants { // b3
-	FVector3 camera_position = FVector3(0.0f, 0.0f, 0.0f);
-	float pad = 0.0f;
+	FVector3 camera_position{0.0f, 0.0f, 0.0f};
+	float pad{0.0f};
 };
 
 __declspec(align(16))
@@ -242,12 +257,13 @@ struct PSMaterialCB { // b4
 __declspec(align(16))
 struct PSSkyCB { // b2
 	PSSkyCB() { }
-	PSSkyCB(const SkyComponent &sky) : has_texture(sky.has_texture()),
-		albedo(sky.get_albedo().to_vec_normalized()) { }
+	PSSkyCB(const SkyComponent* sky)
+		: has_texture{(int)sky->has_texture()},
+		albedo{sky->get_albedo()} { }
 
-	int has_texture = false;
-	FVector3 pad = FVector3(0.0f, 0.0f, 0.0f);
-	FVector4 albedo = FVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	int has_texture{false};
+	FVector3 pad{0.0f, 0.0f, 0.0f};
+	FVector4 albedo{0.0f, 0.0f, 0.0f, 1.0f};
 };
 
 /**
@@ -262,8 +278,8 @@ public:
 		wvp_data{std::make_shared<VSWVPConstants>()},
 		pos_data{std::make_shared<PSCameraConstants>()} { }
 
-	bool update(UVector2 resolution) {
-		if (component->has_changed()) {
+	bool update(const UVector2& resolution) {
+		if (has_changed()) {
 			component->update(UVector2_to_FVector2(resolution));
 			wvp_data->WVP = XMMatrixTranspose(component->get_wvp());
 			pos_data->camera_position = component->get_position();
@@ -274,13 +290,11 @@ public:
 	}
 
 	void compile() {
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void clean_up() { }
-
-	bool operator==(CameraComponent component) { return (component == *(this->component)); }
 
 	std::shared_ptr<VSWVPConstants> wvp_data{};
 	std::shared_ptr<PSCameraConstants> pos_data{};
@@ -295,10 +309,10 @@ public:
 	RenderingTexture(Texture* texture) : RenderingComponent{texture} { }
 
 	bool update() {
-		if (component->has_changed()) {
+		if (has_changed()) {
 			update_descs_and_compile_srv();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return false;
@@ -307,7 +321,7 @@ public:
 	void compile(const std::string& name) {
 		camera.wvp_data.rc = component->pipeline.root_signature.get_resource(name);
 
-		component->needs_compile(false);
+		needs_compile(false);
 	}
 
 	void update_descs_and_compile_srv() {
@@ -341,10 +355,10 @@ public:
 		}
 
 		bool change{false};
-		if (camera.component->has_changed()) change = true;
+		if (camera.has_changed()) change = true;
 
-		if (component->has_changed()) {
-			data.set_obj_ptr(PSSkyCB{*component});
+		if (has_changed()) {
+			data.set_obj_ptr(PSSkyCB{component});
 			data.update();
 
 			change = true;
@@ -357,7 +371,7 @@ public:
 				component->get_size()
 			};
 
-			component->has_changed(false);
+			has_changed(false);
 		}
 
 		return true;
@@ -365,17 +379,18 @@ public:
 
 	void compile(RenderingCamera& camera) {
 		texture.set_texture(&component->get_albedo_texture());
+
 		transform_data = VSTransformConstants{};
 		data = PSSkyCB{};
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources(RenderingCamera& camera) {
 		wvp_data.set_rc(component->pipeline.root_signature.get_root_constants("WVP_CONSTANTS"));
 		wvp_data.set_obj_ptr(camera.wvp_data);
-		
+			
 		transform_data.set_rc(component->pipeline.root_signature.get_root_constants("TRANSFORM_CONSTANTS"));
 		data.set_cb(component->pipeline.root_signature.get_constant_buffer("SKY_BUFFER"));
 		texture.set_srv(component->pipeline.root_signature.get_shader_resource_view("ALBEDO_TEXTURE"));
@@ -386,8 +401,6 @@ public:
 		transform_data.clean_up();
 		data.clean_up();
 	}
-
-	bool operator==(SkyComponent component) { return (component == *(this->component)); }
 
 	ShaderResourceViewContainer texture{};
 
@@ -426,11 +439,12 @@ public:
 			ret = true;
 		}
 
-		if (component->has_changed() || ret) {
+		if (has_changed() || ret) {
 			material_data.get_obj()->material = RenderingMaterialData{*component};
+
 			material_data.update();
 
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return ret;
@@ -442,8 +456,8 @@ public:
 		specular_map.set_texture(&component->get_specular_map());
 		material_data = PSMaterialCB{};
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources() {
@@ -480,11 +494,11 @@ public:
 		bool ret{false};
 		if (material.update()) ret = true;
 		
-		if (camera.component->has_changed() && component->get_lod_meshes().size() > 1) {
+		if (camera.has_changed() && component->get_lod_meshes().size() > 1) {
 			auto it{component->get_mesh_for_point(camera.component->get_position())};
 			component->get_current_mesh() = it;
 			
-			component->get_material().pipeline.input_assembler.set_vertex_buffer_view_to_draw(
+			component->get_material().lock()->pipeline.input_assembler.set_vertex_buffer_view_to_draw(
 				std::distance(
 					component->get_lod_meshes().begin(),
 					std::map<float, Mesh>::const_iterator{component->get_current_mesh()}
@@ -492,9 +506,9 @@ public:
 			);
 		}
 
-		if (component->has_changed()) {
+		if (has_changed()) {
 			transform_data.get_obj()->transform = component->get_transform();
-			component->has_changed(false);
+			has_changed(false);
 			return true;
 		}
 		return ret;
@@ -524,14 +538,15 @@ public:
 	}
 
 	void compile(RenderingCamera &camera) {
-		material = RenderingMaterial{&component->get_material()};
+		material = RenderingMaterial{component->get_material().lock().get()};
+
 		lights_data = PSLightsCB{};
 		transform_data = VSTransformConstants{};
 		
 		material.compile();
 
-		component->has_changed(true);
-		component->needs_compile(false);
+		has_changed(true);
+		needs_compile(false);
 	}
 
 	void set_resources(RenderingCamera& camera) {
@@ -552,8 +567,6 @@ public:
 		transform_data.clean_up();
 		material.clean_up();
 	}
-
-	bool operator==(StaticMeshComponent component) { return (component == *(this->component)); }
 
 	RenderingMaterial material{};
 
@@ -580,30 +593,30 @@ public:
 	 * \param component GraphicsComponent to add.
 	 * \see GraphicsComponent
 	 */
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
-	void add_component(const T *component) {
-		if (component->get_type() == Component::Type::CameraComponent) {
-			camera = RenderingCamera{(CameraComponent*)component};
-			camera.component->needs_compile(true);
-		} else if (component->get_type() == Component::Type::DirectionalLightComponent) {
-			directional_lights.push_back(RenderingDirectionalLight{(DirectionalLightComponent*)component});
-			directional_lights.back().component->needs_compile(true);
-		} else if (component->get_type() == Component::Type::PointLightComponent) {
-			point_lights.push_back(RenderingPointLight{(PointLightComponent*)component});
-			point_lights.back().component->needs_compile(true);
-		} else if (component->get_type() == Component::Type::SpotlightComponent) {
-			spotlights.push_back(RenderingSpotlight{(SpotlightComponent*)component});
-			spotlights.back().component->needs_compile(true);
-		} else if (component->get_type() == Component::Type::StaticMeshComponent) {
-			static_meshes.push_back(std::make_shared<RenderingStaticMesh>((StaticMeshComponent*)component));
-			static_meshes.back()->component->needs_compile(true);
-		} else if (component->get_type() == Component::Type::SkyComponent) {
-			sky = RenderingSky{(SkyComponent*)component};
-			sky.component->needs_compile(true);
+	template <typename T> requires std::derived_from<T, GraphicsComponent>
+	void add_component(T* component) {
+		if (dynamic_cast<CameraComponent*>(component) != nullptr) {
+			camera = RenderingCamera{static_cast<CameraComponent*>(component)};
+			camera.needs_compile(true);
+		} else if (dynamic_cast<DirectionalLightComponent*>(component) != nullptr) {
+			directional_lights.push_back(RenderingDirectionalLight{static_cast<DirectionalLightComponent*>(component)});
+			directional_lights.back().needs_compile(true);
+		} else if (dynamic_cast<PointLightComponent*>(component) != nullptr) {
+			point_lights.push_back(RenderingPointLight{static_cast<PointLightComponent*>(component)});
+			point_lights.back().needs_compile(true);
+		} else if (dynamic_cast<SpotlightComponent*>(component) != nullptr) {
+			spotlights.push_back(RenderingSpotlight{static_cast<SpotlightComponent*>(component)});
+			spotlights.back().needs_compile(true);
+		} else if (dynamic_cast<StaticMeshComponent*>(component) != nullptr) {
+			static_meshes.push_back(static_cast<StaticMeshComponent*>(component));
+			static_meshes.back().needs_compile(true);
+		} else if (dynamic_cast<SkyComponent*>(component) != nullptr) {
+			sky = RenderingSky{static_cast<SkyComponent*>(component)};
+			sky.needs_compile(true);
 		}
 	}
 
-	template <ACCEPT_BASE_AND_HEIRS_ONLY(typename T, GraphicsComponent)>
+	template <typename T> requires std::derived_from<T, GraphicsComponent>
 	void remove_component(const T *component) {
 		if (component->get_type() == Component::Type::StaticMeshComponent) {
 			//static_meshes.erase(std::find(static_meshes.begin(), static_meshes.end(), *(StaticMeshComponent*)component));
@@ -627,50 +640,49 @@ public:
 	}
 
 	void compile() {
-		if (camera.component->needs_compile())
+		if (camera.valid() && camera.needs_compile())
 			camera.compile();
 
-		if (sky.component != nullptr && sky.component->needs_compile()) {
+		if (sky.valid() && sky.needs_compile()) {
 			sky.compile(camera);
 		}
 
 		for (RenderingDirectionalLight &dl : directional_lights) {
-			if (dl.component->needs_compile())
+			if (dl.needs_compile())
 				dl.compile();
 		}
 		for (RenderingPointLight &pl : point_lights) {
-			if (pl.component->needs_compile())
+			if (pl.needs_compile())
 				pl.compile();
 		}
 		for (RenderingSpotlight &sl : spotlights) {
-			if (sl.component->needs_compile())
+			if (sl.needs_compile())
 				sl.compile();
 		}
 
 		for (auto &mesh : static_meshes) {
-			if (camera.component != nullptr && mesh->component->needs_compile()) {
-				mesh->compile(camera);
-				mesh->update_lights(directional_lights, point_lights, spotlights);
+			if (mesh.needs_compile()) {
+				mesh.compile(camera);
+				mesh.update_lights(directional_lights, point_lights, spotlights);
 			}
 		}
 	}
 
 	void set_resources() {
-		if (sky.component != nullptr) {
-			sky.set_resources(camera);
-		}
+		if (sky.valid()) sky.set_resources(camera);
 
 		for (auto& mesh : static_meshes) {
-			if (camera.component != nullptr) {
-				mesh->set_resources(camera);
-			}
+			mesh.set_resources(camera);
 		}
 	}
 
 	void refresh_pipelines(const ComPtr<ID3D12Device>& device, const DXGI_SAMPLE_DESC& msaa_sample_desc, const D3D12_BLEND_DESC& blend_desc) {
-		sky.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
-		for (auto& mesh : static_meshes)
-			mesh->material.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
+		if (sky.valid())
+			sky.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
+
+		for (auto& mesh : static_meshes) {
+			mesh.material.component->pipeline.refresh_pipeline(device, msaa_sample_desc, blend_desc);
+		}
 	}
 
 	/**
@@ -679,10 +691,10 @@ public:
 	 * \param resolution Render resolution. Needed for updating camera.
 	 */
 	void update(UVector2 resolution) {
-		bool cam_update{camera.update(resolution)};
+		bool cam_update{false};
+		if (camera.valid()) cam_update = camera.update(resolution);
 
-		if (sky.component != nullptr)
-			sky.update(camera);
+		if (sky.valid()) sky.update(camera);
 
 		bool light_update = false;
 		for (RenderingDirectionalLight &dl : directional_lights) {
@@ -700,11 +712,11 @@ public:
 
 		bool mesh_update{false};
 		for (auto &mesh : static_meshes) {
-			if (mesh->update(camera)) mesh_update = true;
-			if (light_update || mesh->update_lights_signal) mesh->update_lights(directional_lights, point_lights, spotlights);
+			if (mesh.update(camera)) mesh_update = true;
+			if (light_update || mesh.update_lights_signal) mesh.update_lights(directional_lights, point_lights, spotlights);
 		}
 
-		camera.component->has_changed(false);
+		if (camera.valid()) camera.has_changed(false);
 
 		/*if (cam_update || mesh_update) {
 			// Sort list for opaque, distant non-opaque, closeer non-opaque
@@ -723,12 +735,19 @@ public:
 		}*/
 	}
 
-	void clean_up();
+	void clean_up() {
+		for (auto& mesh : static_meshes) {
+			mesh.clean_up();
+		}
+
+		if (camera.valid()) camera.clean_up();
+		if (sky.valid()) sky.clean_up();
+	}
 
 private:
 	friend class Renderer;
 
-	std::vector<std::shared_ptr<RenderingStaticMesh>> static_meshes{};
+	std::vector<RenderingStaticMesh> static_meshes{};
 	std::vector<RenderingDirectionalLight> directional_lights{};
 	std::vector<RenderingPointLight> point_lights{};
 	std::vector<RenderingSpotlight> spotlights{};

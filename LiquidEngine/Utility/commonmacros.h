@@ -1,9 +1,13 @@
 #pragma once
 
-#define ACCEPT_BASE_AND_HEIRS_ONLY(T, base) T, typename = std::enable_if<std::is_base_of<base, T>::value>::type
+#include <concepts>
+
+template <typename T> concept arithmetic = std::is_arithmetic_v<T>;
 
 #define GET_WITH_REASON(x) [[nodiscard(x)]]
 #define GET [[nodiscard]]
+
+#define NOMINMAX
 
 #if defined(min)
 	#undef min
@@ -14,5 +18,3 @@
 #endif
 
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
-
-#define ACCEPT_DIGIT_ONLY(T) T, typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type

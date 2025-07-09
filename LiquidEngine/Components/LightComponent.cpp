@@ -1,6 +1,6 @@
 #include "LightComponent.h"
 
-LightComponent::LightComponent(Type type) : GraphicsComponent(type) { }
+LightComponent::LightComponent() : GraphicsComponent{} { }
 
 void LightComponent::render_editor_gui_section() {
 	FVector4 alb{color_to_fvector(albedo)};

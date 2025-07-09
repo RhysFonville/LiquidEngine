@@ -1,7 +1,7 @@
 #include "OverlapHandler.h"
 
 void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* obj2, float dt) noexcept {
-	auto type1 = obj1->get_type();
+	/*auto type1 = obj1->get_type();
 	auto type2 = obj2->get_type();
 
 	// Box-box
@@ -51,7 +51,7 @@ void OverlapHandler::handle_overlap(PhysicalComponent* obj1, PhysicalComponent* 
 		if (bounding_box_intersecting) {
 			
 		}*/
-	}
+	//}
 }
 
 OverlapEventInfo OverlapHandler::bounding_box_box_overlap(const FVector3 &box1_pos, const SimpleBoundingBox &box1, const FVector3 &box2_pos, const SimpleBoundingBox &box2) noexcept {

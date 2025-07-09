@@ -8,7 +8,7 @@
 */
 class PhysicalComponent : public Component {
 public:
-	PhysicalComponent(Type type) : Component(type) { }
+	PhysicalComponent() : Component{} { }
 
 	void tick(float dt) override;
 

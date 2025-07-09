@@ -8,6 +8,4 @@
 class DirectionalLightComponent : public LightComponent {
 public:
 	DirectionalLightComponent();
-
-	static const Type component_type = Type::DirectionalLightComponent;
 };

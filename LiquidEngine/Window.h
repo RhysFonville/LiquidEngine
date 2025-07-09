@@ -7,11 +7,6 @@
 #include "Graphics/Renderer/Renderer.h"
 #include "Utility/globalstructs.h"
 
-#ifndef NDEBUG // Not debug (so release, idek), so when this statement is true, we in release
-#include "Debug/DebugConsole.h"
-#include "EditorGUI.h"
-#endif
-
 /**
  * The main window for rendering.
  * \see GraphicsScene

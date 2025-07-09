@@ -140,7 +140,7 @@ static std::string get_parent_directory(const std::string &str, bool add_ending_
 	return ret;
 }
 
-template <ACCEPT_DIGIT_ONLY(typename T)>
+template <arithmetic T>
 static T make_multiple(T x, T multiple) {
 	if (multiple == 0)
 		return x;

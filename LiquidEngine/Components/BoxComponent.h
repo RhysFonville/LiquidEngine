@@ -7,9 +7,7 @@
 */
 class BoxComponent : public PhysicalComponent {
 public:
-	BoxComponent() : PhysicalComponent(Type::BoxComponent) { }
+	BoxComponent() : PhysicalComponent{} { }
 
-	SimpleBox box;
-
-	static const Type component_type = Type::BoxComponent;
+	SimpleBox box{};
 };

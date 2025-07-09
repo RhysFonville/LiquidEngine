@@ -2,11 +2,8 @@
 
 namespace DefaultShapes {
 
-Cube::Cube()
-	: mesh(std::make_shared<StaticMeshComponent>(Mesh("Shapes/cube.obj"))) { }
-
-void Cube::pre_scene_compile() {
-	add_component(mesh);
+Cube::Cube() {
+	mesh = static_cast<StaticMeshComponent*>(add_component(std::make_unique<StaticMeshComponent>(Mesh{"Shapes/cube.obj"})));
 }
 
 };

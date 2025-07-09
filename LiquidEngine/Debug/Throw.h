@@ -3,8 +3,10 @@
 #include <exception>
 #include <comdef.h>
 #include <stacktrace>
+#include <fstream>
+#include <iostream>
 #include "../Utility/windowsconversion.h"
-#include "DebugConsole.h"
+#include "../Utility/commonmacros.h"
 
 static HRESULT hpewr = S_OK; // Handle Possible Excpetion (Windows) Result
 static bool hpewquit = false;
@@ -52,7 +54,7 @@ static bool ERROR_MESSAGE(THROW_PARAMS params) {
 	append_to_file(file_message + "\n\n", "throw_details.log");
 
 	std::string print_message = params.message + " : " + params.extra_message + "\n\n" + params.function_that_threw;
-	*debug_console << DebugConsole::Color::RED << "ERROR: " << print_message << '\n';
+	std::cerr << "ERROR: " << print_message << '\n';
 
 	int out = MessageBoxExA(NULL, print_message.c_str(), "Error!", MB_ABORTRETRYIGNORE | MB_ICONERROR, 0);
 	if (out == IDABORT) {

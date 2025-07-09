@@ -1,4 +1,3 @@
 #include "SpotlightComponent.h"
 
-SpotlightComponent::SpotlightComponent()
-	: LightComponent(Type::SpotlightComponent) { }
+SpotlightComponent::SpotlightComponent() : LightComponent{} { }

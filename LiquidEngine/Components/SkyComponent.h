@@ -23,9 +23,7 @@ public:
 	GET Color get_albedo() const { return albedo; }
 	void set_albedo(const Color &new_albedo) { albedo = new_albedo; changed = true; }
 
-	static Mesh create_sphere(UINT lat_lines, UINT long_lines);
-
-	static const Type component_type = Type::SkyComponent;
+	static Mesh create_sphere(UINT lat_lines, UINT long_lines) { }
 
 	GraphicsPipeline pipeline;
 

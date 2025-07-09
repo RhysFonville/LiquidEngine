@@ -1,8 +1,8 @@
 #include "Engine.h"
-#include "Objects/MyCamera.h"
+#include "TestObjects/MyCamera.h"
 #include "Shapes/Cube.h"
-#include "Objects/MyStatue.h"
-#include "Objects/MyShaderCube.h"
+#include "TestObjects/MyStatue.h"
+#include "TestObjects/MyShaderCube.h"
 
 int main() {
 	try {
@@ -13,19 +13,16 @@ int main() {
 
 		Engine engine;
 
-		engine.world.active_scene->add_character(std::make_shared<MyCamera>());
+		engine.world.active_scene->add_character(std::make_unique<MyCamera>());
 
-		std::shared_ptr<Object> sun = std::make_shared<Object>();
-		engine.world.active_scene->add_object(sun);
-		sun->add_component(std::make_shared<DirectionalLightComponent>());
+		Object* sun = engine.world.active_scene->add_object(std::make_unique<Object>());
+		sun->add_component(std::make_unique<DirectionalLightComponent>());
 		
-		std::shared_ptr<Object> sky = std::make_shared<Object>();
-		engine.world.active_scene->add_object(sky);
-		sky->add_component(std::make_shared<SkyComponent>());
+		Object* sky = engine.world.active_scene->add_object(std::make_unique<Object>());
+		sky->add_component(std::make_unique<SkyComponent>());
 		sky->get_component<SkyComponent>()->get_albedo_texture().set_texture("Skybox.png");
 		
-		std::shared_ptr<Object> obj = std::make_shared<MyShaderCube>();
-		engine.world.active_scene->add_object(obj);
+		Object* obj = engine.world.active_scene->add_object(std::make_unique<MyShaderCube>());
 
 		engine.compile();
 		engine.loop();

@@ -16,7 +16,7 @@ Engine::Engine()
 	window.set_up_window();
 	renderer.init_renderer(window.get_window());
 
-	world.scenes.push_back(Scene(&renderer.scene));
+	world.scenes.emplace_back(&renderer.scene);
 	world.active_scene = world.scenes.begin();
 }
 
@@ -61,7 +61,7 @@ void Engine::loop() {
 	} catch (const std::exception &e) {
 		if (!std::string(e.what()).empty()) {
 			OutputDebugStringA((std::string{"ERROR:"} + e.what()).c_str());
-			*debug_console << DebugConsole::Color::RED << "ERROR: " << e.what() << '\n';
+			std::cerr << "ERROR: " << e.what() << '\n';
 		}
 		running = false;
 		SendMessageA(window.get_window(), WM_QUIT, 0, 0);

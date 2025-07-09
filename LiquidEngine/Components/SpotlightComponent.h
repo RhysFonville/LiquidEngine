@@ -8,7 +8,5 @@
 class SpotlightComponent : public LightComponent {
 public:
 	SpotlightComponent();
-
-	static const Type component_type = Type::SpotlightComponent;
 };
 
