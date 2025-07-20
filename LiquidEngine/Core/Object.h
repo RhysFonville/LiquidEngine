@@ -45,7 +45,9 @@ public:
 	void set_parent(Object* parent) noexcept;
 
 	Object* add_object(std::unique_ptr<Object>&& obj);
+	
 	Component* add_component(std::unique_ptr<Component>&& component); //? AHHHHHHHHHHHHHHHHHHHHHHHH
+	void remove_component(Component* component);
 
 	GET std::set<Object*> get_children() const noexcept;
 	GET size_t get_children_count() const noexcept { return children.size(); }

@@ -177,6 +177,16 @@ Component* Object::add_component(std::unique_ptr<Component>&& component) {
 	return components.insert(std::move(component)).first->get();
 }
 
+void Object::remove_component(Component* component) {
+	if (dynamic_cast<GraphicsComponent*>(component)) {
+		if (scene != nullptr)
+			scene->graphics_scene->remove_component<GraphicsComponent>(static_cast<GraphicsComponent*>(component));
+	}
+
+	components.erase(std::ranges::find_if(components, [&](const auto& c){ return c.get() == component; }));
+	component = nullptr;
+}
+
 std::set<Object*> Object::get_children() const noexcept {
 	return children | std::views::transform([&](const auto& obj){ return obj.get(); }) | std::ranges::to<std::set>();
 }

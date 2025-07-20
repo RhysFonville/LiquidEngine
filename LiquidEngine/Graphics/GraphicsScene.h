@@ -35,6 +35,8 @@ public:
 	RenderingComponent() { }
 	RenderingComponent(T* component) : component{component} { }
 
+	bool operator==(const T* component) const noexcept { return this->component == component; }
+
 	bool needs_compile() const noexcept {
 		return component->needs_compile();
 	}
@@ -617,25 +619,19 @@ public:
 	}
 
 	template <typename T> requires std::derived_from<T, GraphicsComponent>
-	void remove_component(const T *component) {
-		if (component->get_type() == Component::Type::StaticMeshComponent) {
-			//static_meshes.erase(std::find(static_meshes.begin(), static_meshes.end(), *(StaticMeshComponent*)component));
-		}
-		
-		if (component->get_type() == Component::Type::CameraComponent) {
-			if (camera == *(CameraComponent*)component) {
+	void remove_component(T* component) {
+		if (dynamic_cast<StaticMeshComponent*>(component) != nullptr) {
+			static_meshes.erase(std::ranges::find_if(static_meshes, [&](const auto& x){return x == (StaticMeshComponent*)component;}));
+		} else if (dynamic_cast<CameraComponent*>(component) != nullptr) {
+			if (camera == (CameraComponent*)component) {
 				camera = nullptr;
 			}
-		}
-
-		if (component->get_type() == Component::Type::DirectionalLightComponent) {
-			//directional_lights.erase(std::find(directional_lights.begin(), directional_lights.end(), *(DirectionalLightComponent*)component));
-		}
-		if (component->get_type() == Component::Type::PointLightComponent) {
-			//point_lights.erase(std::find(point_lights.begin(), point_lights.end(), *(PointLightComponent*)component));
-		}
-		if (component->get_type() == Component::Type::SpotlightComponent) {
-			//spotlights.erase(std::find(spotlights.begin(), spotlights.end(), *(SpotlightComponent*)component));
+		} else if (dynamic_cast<DirectionalLightComponent*>(component) != nullptr) {
+			directional_lights.erase(std::ranges::find_if(directional_lights, [&](const auto& x) {return x == (DirectionalLightComponent*)component; }));
+		} else if (dynamic_cast<PointLightComponent*>(component) != nullptr) {
+			point_lights.erase(std::ranges::find_if(point_lights, [&](const auto& x) {return x == (PointLightComponent*)component; }));
+		} else if (dynamic_cast<SpotlightComponent*>(component) != nullptr) {
+			spotlights.erase(std::ranges::find_if(spotlights, [&](const auto& x) {return x == (SpotlightComponent*)component; }));
 		}
 	}
 

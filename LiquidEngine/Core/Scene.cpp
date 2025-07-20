@@ -54,7 +54,6 @@ void Scene::render_editor_gui_section() {
 			else depth--;
 			depth += obj->get_children_count();
 		}
-		object_name_index = 0;
 
 		ImGui::EndTable();
 	}
